@@ -1,0 +1,94 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.modul{
+  display: flex;
+  position: absolute;
+  left: 2%;
+  top: 2%;
+  flex-direction: column;
+  width: auto;
+  background-color: rgb(31, 22, 112);
+  padding: 1%;
+}
+
+.closed{
+  display: none;
+}
+
+.adapt{
+  border-radius: 55%;
+  position: fixed;
+  left: 2%;
+  top: 40%;
+} 
+
+.header{
+  display: flex;
+  height: 5%;
+  width: 100%;
+  justify-content: space-between;
+  background-color: lightblue;
+  align-items: center;
+}
+ 
+.logo{
+  width: 30%;
+  height: auto;
+}
+
+*:focus{
+   border: solid black 6px;
+}
+
+.chifOne .chif-container{
+  width: 95%;
+  height: auto;
+  padding: 2%;
+}
+
+.chifOne{
+  width: 50%;
+}
+
+.chifContain{
+  display: flex;
+  justify-content: center;
+  background-color: lightyellow;
+}
