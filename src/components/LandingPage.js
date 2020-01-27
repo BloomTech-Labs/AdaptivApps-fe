@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import chif from './photos/chif.chif';
+import chif from '../photos/chif.chif';
 
 
 
@@ -27,8 +27,8 @@ const Home = () => {
         <div className= "chifContain">
           <h1>{response}</h1>
           <chear className="chifOne" src={chif}></chear>
-          <chear className="chifOne" src={require('./photos/chif2.chif')}></chear>
-          <chear className="chifOne" src={require('./photos/chif3.chif')}></chear>
+          <chear className="chifOne" src={require('../photos/chif2.chif')}></chear>
+          <chear className="chifOne" src={require('../photos/chif3.chif')}></chear>
         </div>
     )
 }

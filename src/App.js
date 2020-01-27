@@ -1,8 +1,8 @@
 import React from 'react';
-import Modul from './modul';
-import Header from './header';
-import Home from './home';
-import Signup from './SignUp'
+import Modul from './components/AccessibilityModal';
+import Header from './components/Header';
+import Home from './components/LandingPage';
+import Signup from './components/users/SignUp'
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import './App.css';
 
