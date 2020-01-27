@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { connect } from 'react-redux';
-import { setAdapt } from './ReduxStuff/actions';
+import { setAdapt } from '../ReduxStuff/actions/actions';
 
-const Modul = (props) => {
+const AccessibilityModal = (props) => {
     console.log(props)
     const [fontSize, setFontSize] = useState(34);
     const [contrast, setContrast] = useState("#000000");
@@ -71,7 +71,7 @@ const Modul = (props) => {
     return (
         <>
             <button className={open ? "closed" : "adapt"} onClick={() => { setOpen(!open)}}> OPEN ADAPT</button>
-            <div  ref={mainRef} tabIndex="-1" className={open ? "modul" : "closed"}>
+            <div  ref={mainRef} tabIndex="-1" className={open ? "AccessibilityModal" : "closed"}>
                 <Button onClick={() => { bigger() }}> LARGER FONT</Button>
                 <Button onClick={() => { smaller() }}> SMALLER FONT</Button>
                 <Button onClick={() => { contraster() }} > HIGH CONTRAST</Button>
@@ -97,4 +97,4 @@ function mapStateToProps(state) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps)
-    (Modul);
+    (AccessibilityModal);

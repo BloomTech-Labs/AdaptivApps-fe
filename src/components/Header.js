@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { connect } from 'react-redux';
-import { setAdapt } from './ReduxStuff/actions';
+import { setAdapt } from '../ReduxStuff/actions/actions';
 import { NavLink } from "react-router-dom";
 
 const Header = (props) => {
@@ -30,7 +30,7 @@ const Header = (props) => {
 
     return (
         <div className="header">
-            <img className="logo" src={require("./photos/ACS.png")} />
+            <img className="logo" src={require("../photos/ACS.png")} />
             <NavLink to={"/"}><Link> Home </Link></NavLink>
             <NavLink to={"/signup"}><Link> Sign Up</Link></NavLink>
             <NavLink to={"/signin"}><Link> Sign In</Link></NavLink>

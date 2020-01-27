@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { signUp } from "./ReduxStuff/actions";
+import { signUp } from "../../ReduxStuff/actions/actions";
 import styled from 'styled-components'
 
 const CreateAccount = props => {

@@ -1,6 +1,6 @@
 import {
     SET_ADAPT
-} from './actions';
+} from '../actions/actions';
 
 const initialState = {
     fontSize: 34,
