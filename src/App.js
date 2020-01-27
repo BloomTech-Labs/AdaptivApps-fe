@@ -1,5 +1,5 @@
 import React from 'react';
-import Modul from './components/AccessibilityModal';
+import AccessibilityModal from './components/AccessibilityModal';
 import Header from './components/Header';
 import Home from './components/LandingPage';
 import Signup from './components/users/SignUp'
@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <Header />
-      <Modul />
+      <AccessibilityModal />
       <Route exact path="/" component={Home} />
       <Route exact path="/Signup" component={Signup} />
     </div>
