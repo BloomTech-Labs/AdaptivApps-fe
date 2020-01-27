@@ -1,10 +1,13 @@
-import React from 'react';
-import AccessibilityModal from './components/AccessibilityModal';
-import Header from './components/Header';
-import Home from './components/LandingPage';
-import Signup from './components/users/SignUp'
+import React from "react";
+import AccessibilityModal from "./components/AccessibilityModal";
+import Header from "./components/Header";
+import Home from "./components/LandingPage";
+import Signup from "./components/users/SignUp";
+import UserDashboard from "./components/users/UserDashboard";
+import AdminDashboard from "./components/admin/AdminDashboard";
+import PrivateRoute from "./utils/PrivateRoute";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import './App.css';
+import "./App.css";
 
 function App() {
   return (
@@ -13,6 +16,8 @@ function App() {
       <AccessibilityModal />
       <Route exact path="/" component={Home} />
       <Route exact path="/Signup" component={Signup} />
+      <PrivateRoute exact path="/dashboard/admin" component={AdminDashboard} />
+      <PrivateRoute exact path="/dashboard" component={UserDashboard} />
     </div>
   );
 }
