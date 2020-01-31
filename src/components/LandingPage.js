@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import chif from '../photos/chif.chif';
-
-
+import axiosWithAuth from '../utils/AxiosWithAuth'
 
 const Home = () => {
   // Set message received from server.
@@ -21,7 +20,6 @@ const Home = () => {
         .catch(err => {
           console.log('Error retrieving data from API.', err);
         });
-        
     }, []);
     return (
         <div className= "chifContain">
