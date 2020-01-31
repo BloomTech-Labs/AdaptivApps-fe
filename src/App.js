@@ -6,25 +6,25 @@ import Signup from './components/users/SignUp';
 import UserDashboard from './components/users/UserDashboard';
 import AdminDashboard from './components/admin/AdminDashboard';
 import PrivateRoute from './utils/PrivateRoute';
-import Login from './components/auth/LoginLogin';
+import Login from './components/auth/Login';
 import Logout from './components/Logout';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import EditProfile from './components/ProfileForm';
 
 // Okta auth imports
-import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
+// import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
 
 import './App.css';
 
 function App() {
 	return (
     <div className='App'>
-      <Security 
+      {/* <Security 
         issuer=""
         clientId=""
         redirectUri={window.location.origin + "/implicit/callback"}
         onAuthRequired={onAuthRequired}
-      >
+      > */}
 				<Header />
 				<AccessibilityModal />
 				<Route exact path='/Edit' component={EditProfile} />
@@ -38,7 +38,7 @@ function App() {
 					component={AdminDashboard}
 				/>
 				<PrivateRoute exact path='/dashboard' component={UserDashboard} />
-		  </Security>
+		  {/* </Security> */}
     </div>
 	);
 }
