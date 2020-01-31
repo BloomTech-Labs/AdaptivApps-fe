@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 
+// Okta auth imports
+// import { Redirect } from 'react-router-dom';
+// import OktaSignInwidget from './SigninWidget';
+// import { withAuth } from '@okta/okta-react';
+
 const Login = props => {
     const [loginInfo, setloginInfo] = useState({
         username: "",
