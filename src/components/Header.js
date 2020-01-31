@@ -36,6 +36,7 @@ const Header = (props) => {
             {!signedIn && < NavLink to={"/signup"}><Link> Sign Up</Link></NavLink>}
             {!signedIn && <NavLink to={"/signin"}><Link> Sign In</Link></NavLink>}
             {signedIn && <NavLink to={"/events"}><Link> Events</Link></NavLink>}
+            {signedIn && <NavLink to={"/logout"}><Link> Logout</Link></NavLink>}
         </div>
     )
 };
