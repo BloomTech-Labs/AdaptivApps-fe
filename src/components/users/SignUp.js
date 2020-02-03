@@ -5,17 +5,6 @@ import { signUp } from "../../ReduxStuff/actions/actions";
 import styled from 'styled-components'
 
 const CreateAccount = props => {
-    const [background, setBackground] = useState(props.backGround)
-
-    useEffect(() => {
-        if (props.backGround == "lightblue") {
-            setBackground("white")
-        }
-        else {
-            setBackground(props.backGround)
-        }
-    }, [props]);
-
     console.log(props)
     const [form, setForm] = useState({
         full_name: "",
@@ -24,27 +13,6 @@ const CreateAccount = props => {
         username: "",
         password: ""
     });
-
-    const Label = styled.label`
-    font-size: ${props.fontSize - 10}px;
-    color: ${props.fontColor};
-    `
-    const Header = styled.h1`
-    font-size: ${props.fontSize}px;
-    color: ${props.fontColor};
-    `
-    const Form = styled.form`
-    background-color: ${background};
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 5%;
-    `
-
-    const Input = styled.input`
-    font-size: ${props.fontSize - 10}px;
-    `
-
 
     console.log("this is the form", form);
     const handleSubmit = e => {
@@ -57,32 +25,32 @@ const CreateAccount = props => {
     };
 
     return (
-        <Form onSubmit={handleSubmit}>
-            <Header>
+        <form onSubmit={handleSubmit}>
+            <header>
                 Join Our ACS Team!
-          </Header>
+          </header>
 
             <div className="register-title">
                 <h3>Your Information</h3>
             </div>
-            <Label> Full Name</Label>
-            <Input
+            <label> Full Name</label>
+            <input
                 type="text"
                 name="full_name"
                 placeholder="Full Name"
-                value={form.name}
+                value={form.full_name}
                 onChange={handleChanges}
             />
-            <Label> Location (State) </Label>
-            <Input
+            <label> Location (State) </label>
+            <input
                 type="location"
                 name="location"
                 placeholder="Location(state)"
                 value={form.location}
                 onChange={handleChanges}
             />
-            <Label>Email </Label>
-            <Input
+            <label>Email </label>
+            <input
                 type="email"
                 name="email"
                 placeholder="Email"
@@ -90,16 +58,16 @@ const CreateAccount = props => {
                 onChange={handleChanges}
             />
 
-            <Label> Username </Label>
-            <Input
+            <label> Username </label>
+            <input
                 type="text"
                 name="username"
                 placeholder="Username"
                 value={form.username}
                 onChange={handleChanges}
             />
-            <Label> Password </Label>
-            <Input
+            <label> Password </label>
+            <input
                 type="password"
                 name="password"
                 placeholder="Password"
@@ -121,7 +89,7 @@ const CreateAccount = props => {
                     Already have an Account?
             </Link>
             </div>
-        </Form>
+        </form>
     );
 };
 const mapStateToProps = state => {

@@ -4,9 +4,10 @@ import axios from 'axios';
 
 const Login = props => {
     const [loginInfo, setloginInfo] = useState({
-        username: "",
+        email: "",
         password: ""
     });
+    console.log(loginInfo)
 
     const handleChange = e => {
         let name = e.target.name;
@@ -15,15 +16,14 @@ const Login = props => {
 
     //needs to put in the backend URL in the Axios post request
     const login = e => {
-        e.preventDefault();
-        axios()
-            .post("", loginInfo)
+        e.preventDefault()
+        axios.post("http://localhost:5000/api/auth/login", loginInfo)
             .then(res => {
                 localStorage.setItem("token", res.data.token);
                 localStorage.setItem("userId", res.data.id);
                 console.log(res.data);
 
-                props.history.push("/home");
+                props.history.push(`/dashboard/${res.data.id}`);
             })
             .catch(err => console.log(err));
     };
@@ -34,9 +34,9 @@ const Login = props => {
             <form onSubmit={login}>
                 <input
                     type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={loginInfo.username}
+                    name="email"
+                    placeholder="email"
+                    value={loginInfo.email}
                     onChange={handleChange}
                 />
                 <input

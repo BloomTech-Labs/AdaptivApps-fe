@@ -21,7 +21,8 @@ function App() {
       <Route exact path="/Signup" component={Signup} />
       <Route exact path="/SignIn" component={Login} />
       <PrivateRoute exact path="/dashboard/admin" component={AdminDashboard} />
-      <PrivateRoute exact path="/dashboard" component={UserDashboard} />
+      {/* <PrivateRoute exact path="/dashboard" component={UserDashboard} /> */}
+      <Route exact path="/dashboard/:id" component={UserDashboard} />
 
     </div>
   );
