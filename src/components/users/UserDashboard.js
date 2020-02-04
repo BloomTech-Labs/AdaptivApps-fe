@@ -3,6 +3,7 @@ import axios from "axios";
 import { connect } from "react-redux";
 import UserInfo from "../ProfileForm";
 import styled from "styled-components";
+import RoleSelect from "../RoleSelect"
 
 const UserDash = props => {
     console.log(props.match.params.id)
@@ -11,10 +12,9 @@ const UserDash = props => {
     const [bio, setBio] = useState("");
     const [open, setOpen] = useState(false)
     useEffect(() => {
-        localStorage.setItem("dummyId", `${props.match.params.id}`);
         axios
             .get(
-                `http://localhost:5000/api/users/${localStorage.getItem("dummyId")}`
+                ``
             )
             .then(res => { setUserInfo(res.data); })
             .catch(err => {
@@ -44,6 +44,7 @@ const UserDash = props => {
         <div>
             <button onClick={() => {setOpen(!open)}}>Edit Info</button>
             <div className={open ? "x" : "none"}>
+                <RoleSelect />
                 <UserInfo />
             </div>
             <h1> {userInfo.firstname} {userInfo.lastname} </h1>

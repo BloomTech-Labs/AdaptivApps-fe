@@ -8,7 +8,7 @@ import AdminDashboard from "./components/admin/AdminDashboard";
 import PrivateRoute from "./utils/PrivateRoute";
 import Login from './components/Login';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import EditProfile from './components/ProfileForm'
+import EditProfile from './components/ProfileForm';
 import "./App.css";
 
 function App() {
@@ -23,7 +23,6 @@ function App() {
       <PrivateRoute exact path="/dashboard/admin" component={AdminDashboard} />
       {/* <PrivateRoute exact path="/dashboard" component={UserDashboard} /> */}
       <Route exact path="/dashboard/:id" component={UserDashboard} />
-
     </div>
   );
 }
