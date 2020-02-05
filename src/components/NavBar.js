@@ -15,9 +15,9 @@ const NavBar = () => {
       {/* If a user is logged in (authenticated), log out functionality will be enabled.) */}
       {isAuthenticated && <button aria-label="log out" onClick={() => logout()}>Log out</button>}
 
+      <Link to="/">Home</Link>
       {isAuthenticated && (
         <>
-          <Link to="/">Home</Link>
           <Link to="/dashboard">Profile</Link>
         </>
       )}
