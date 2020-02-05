@@ -11,7 +11,7 @@ const NavBar = () => {
         <button aria-label="Access log in modal" onClick={() => loginWithRedirect({})}>Log in</button>
       )}
 
-      {/* If a user is logged in (authenticated, log out functionality will be enabled.) */}
+      {/* If a user is logged in (authenticated), log out functionality will be enabled.) */}
       {isAuthenticated && <button aria-label="log out" onClick={() => logout()}>Log out</button>}
     </div>
   );
