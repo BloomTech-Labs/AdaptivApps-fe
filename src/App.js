@@ -1,7 +1,7 @@
 import React from 'react';
 import AccessibilityModal from './components/AccessibilityModal';
 // import Header from './components/Header';
-// import Home from './components/LandingPage';
+import Home from './components/LandingPage';
 // import Signup from './components/users/SignUp';
 import UserDashboard from './components/users/UserDashboard';
 import AdminDashboard from './components/admin/AdminDashboard';
@@ -46,7 +46,7 @@ function App() {
           <AccessibilityModal />
           <Switch>
             <Route exact path='/Edit' component={EditProfile} />
-            {/* <Route exact path='/' component={Home} /> */}
+            <Route exact path='/' component={Home} />
             {/* <Route exact path='/Signup' component={Signup} /> */}
             {/* <Route exact path='/SignIn' component={Login} />
             <Route exact path='/logout' component={Logout} /> */}
