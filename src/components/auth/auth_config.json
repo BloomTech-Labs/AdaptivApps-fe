@@ -1,4 +1,5 @@
 {
   "domain": "dev-sxhevmag.auth0.com",
-  "clientId": "asVyDNwKxm5ysKPmQ0cwhzLzT3WShqO0"
+  "clientId": "asVyDNwKxm5ysKPmQ0cwhzLzT3WShqO0",
+  "roleUrl": "http://adaptivapps.com/roles"
 }

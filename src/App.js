@@ -50,12 +50,13 @@ function App() {
             {/* <Route exact path='/Signup' component={Signup} /> */}
             {/* <Route exact path='/SignIn' component={Login} />
             <Route exact path='/logout' component={Logout} /> */}
-            <PrivateRoute
+            if (user[config.roleUrl]: "Admin") return {<PrivateRoute
               exact
               path='/dashboard/admin'
               component={AdminDashboard}
-            />
+            />} else {
             <PrivateRoute exact path='/dashboard' component={UserDashboard} />
+            }
           </Switch>
         </Router>
       </Auth0Provider>  
