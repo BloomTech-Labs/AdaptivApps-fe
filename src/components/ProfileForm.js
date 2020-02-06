@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import Checkbox from '@material-ui/core/Checkbox';
+import styled from 'styled-components';
 import "../App.css";
 
 const ProfileForm = props => {
@@ -407,7 +408,44 @@ const ProfileForm = props => {
 
   return (
     <form>
-      {/* <div>
+      <div>
+
+        <TextField
+          id="select-user-type"
+          label="Display Name"
+          name="displayName"
+          value={userInfo.displayName}
+          onChange={handleChange}
+          helperText="What other users will see"
+        />
+
+      </div>
+      <div>
+
+        <TextField
+          id="select-user-type"
+          label="First Name"
+          name="firstName"
+          value={userInfo.firstName}
+          onChange={handleChange}
+          helperText="Real first name"
+        />
+
+      </div>
+      <div>
+
+        <TextField
+          id="select-user-type"
+          label="Last Name"
+          name="lastName"
+          value={userInfo.lastName}
+          onChange={handleChange}
+          helperText="Real last name"
+        />
+
+      </div>
+
+      <div>
         <TextField
           id="select-user-type"
           select
@@ -422,7 +460,7 @@ const ProfileForm = props => {
             </MenuItem>
           ))}
         </TextField>
-      </div> */}
+      </div>
       {/* made it so certain things only display depending on the user type */}
       <div className={userInfo.type == "Athlete" ? "athlete" : "none"}>
         <div>
@@ -525,22 +563,6 @@ const ProfileForm = props => {
 
 
       <div className={userInfo.type == "Coach" ? "coach" : "none"}>
-        <div>
-          <TextField
-            id="select-state"
-            select
-            label="State"
-            value={userInfo.state}
-            onChange={handleStateSelect}
-            helperText="Please select what State you're from."
-          >
-            {states.map(option => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-        </div>
         <div>
           <TextField
             id="select-state"

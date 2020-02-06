@@ -13,9 +13,10 @@ import "./App.css";
 
 function App() {
   return (
+    <>
+    <Header />
     <div className="App">
-      <Header />
-      <AccessibilityModal />
+      {/* <AccessibilityModal /> */}
       <Route exact path="/Edit" component={EditProfile} />
       <Route exact path="/" component={Home} />
       <Route exact path="/Signup" component={Signup} />
@@ -24,6 +25,7 @@ function App() {
       {/* <PrivateRoute exact path="/dashboard" component={UserDashboard} /> */}
       <Route exact path="/dashboard/:id" component={UserDashboard} />
     </div>
+    </>
   );
 }
 

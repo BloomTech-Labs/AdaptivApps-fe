@@ -16,6 +16,7 @@ const Header = (props) => {
     border: none;
     font-size: ${props.state.fontSize - 10}px;
     border-radius: 15%;
+    margin: 15%;
     &:focus{
         color: red;
         font-weight: bold;
@@ -31,10 +32,10 @@ const Header = (props) => {
     return (
         <div className="header">
             <img className="logo" src={require("../photos/ACS.png")} />
-            <NavLink to={"/"}><Link> Home </Link></NavLink>
-            <NavLink to={"/signup"}><Link> Sign Up</Link></NavLink>
-            <NavLink to={"/signin"}><Link> Sign In</Link></NavLink>
-            <NavLink to={"/events"}><Link> Events</Link></NavLink>
+            <NavLink to={"/"} style={{width: "100%"}}><Link> Home </Link></NavLink>
+            <NavLink to={"/signup"} style={{width: "100%"}} ><Link> Sign Up</Link></NavLink>
+            <NavLink to={"/signin"} style={{width: "100%"}} ><Link> Sign In</Link></NavLink>
+            <NavLink to={"/events"} style={{width: "100%"}} ><Link> Events</Link></NavLink>
         </div>
     )
 
