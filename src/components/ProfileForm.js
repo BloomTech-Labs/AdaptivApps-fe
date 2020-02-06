@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
-import Select from "react-select";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
+import Checkbox from '@material-ui/core/Checkbox';
+import styled from 'styled-components';
 import "../App.css";
 
 const ProfileForm = props => {
@@ -21,37 +24,37 @@ const ProfileForm = props => {
     setUserInfo({ ...userInfo, [name]: e.target.value });
   };
   const handleSelect = selected => {
-    setUserInfo({ ...userInfo, disabilities: selected.value });
+    setUserInfo({ ...userInfo, disabilities: selected.target.value });
   };
   const handleStateSelect = selected => {
-    setUserInfo({ ...userInfo, state: selected.value });
+    setUserInfo({ ...userInfo, state: selected.target.value });
   };
   const handleTypeSelect = selected => {
-    setUserInfo({ ...userInfo, type: selected.value });
+    setUserInfo({ ...userInfo, type: selected.target.value });
   };
   const handleImpairmentSelect = selected => {
-    setUserInfo({ ...userInfo, impairment: selected.value });
+    setUserInfo({ ...userInfo, impairment: selected.target.value });
   };
   const handleVeteran = selected => {
     setUserInfo({ ...userInfo, veteran: !userInfo.veteran });
   };
   const handleVetSelect = selected => {
-    setUserInfo({ ...userInfo, vet: selected.value });
+    setUserInfo({ ...userInfo, vet: selected.target.value });
   };
   const handleMobilitySelect = selected => {
-    setUserInfo({ ...userInfo, mobility: selected.value });
+    setUserInfo({ ...userInfo, mobility: selected.target.value });
   };
 
   const handledisabilityTrueSelect = selected => {
-    setUserInfo({ ...userInfo, disabilityTrue: selected.value });
+    setUserInfo({ ...userInfo, disabilityTrue: selected.target.value });
   };
 
   const handleDate = date => {
-      setUserInfo({...userInfo, birthDate: date})
+    setUserInfo({ ...userInfo, birthDate: date.target.value })
   }
 
   const handleVolunteerTypeSelect = selected => {
-    setUserInfo({ ...userInfo, volunteerType: selected.value });
+    setUserInfo({ ...userInfo, volunteerType: selected.target.value });
   };
 
   console.log(userInfo);
@@ -381,159 +384,283 @@ const ProfileForm = props => {
   ];
 
   const mobility = [
-    {value:"Walk Independently" , label: "Walk Independently"},
-    {value:"Walk with assistive device" , label:"Walk with assistive device"},
-    {value:"Manual Wheelchair" , label:"Manual Wheelchair"},
-    {value:"Power Chair" , label:"Power Chair"}
+    { value: "Walk Independently", label: "Walk Independently" },
+    { value: "Walk with assistive device", label: "Walk with assistive device" },
+    { value: "Manual Wheelchair", label: "Manual Wheelchair" },
+    { value: "Power Chair", label: "Power Chair" }
   ]
 
   const VolunteerType = [
-    { value: "Volunteer at the annual Angel City Games" , label: "Volunteer at the annual Angel City Games"},
-    {  value: "Serve on the Angel City Sports Volunteer Committee" ,  label: "Serve on the Angel City Sports Volunteer Committee"},
-    {  value: "Serve on the ACG Leadership Committee" ,  label: "Serve on the ACG Leadership Committee"},
-    {  value: "Volunteer at our fundraisng events" ,  label: "Volunteer at our fundraisng events"},
-    {  value: "Volunteer at our sport clinics",  label: "Volunteer at our sport clinics"},
-    {  value: "Volunteer at our outreach events" ,  label: "Volunteer at our outreach events"},
+    { value: "Volunteer at the annual Angel City Games", label: "Volunteer at the annual Angel City Games" },
+    { value: "Serve on the Angel City Sports Volunteer Committee", label: "Serve on the Angel City Sports Volunteer Committee" },
+    { value: "Serve on the ACG Leadership Committee", label: "Serve on the ACG Leadership Committee" },
+    { value: "Volunteer at our fundraisng events", label: "Volunteer at our fundraisng events" },
+    { value: "Volunteer at our sport clinics", label: "Volunteer at our sport clinics" },
+    { value: "Volunteer at our outreach events", label: "Volunteer at our outreach events" },
   ]
 
   const disabilityTrue = [
-    {value: "Yes", label: "Yes"},
-    {value: "No", label: "No"},
-    {value: "Prefer not to say", label: "Prefer not to say"}
+    { value: "Yes", label: "Yes" },
+    { value: "No", label: "No" },
+    { value: "Prefer not to say", label: "Prefer not to say" }
   ]
+
 
   return (
     <form>
+      <div>
 
-      <label>State</label>
-      <Select
-        options={states}
-        name="disabilities"
-        value={userInfo.state}
-        onChange={handleStateSelect}
-        placeholder={userInfo.state}
-      />
+        <TextField
+          id="select-user-type"
+          label="Display Name"
+          name="displayName"
+          value={userInfo.displayName}
+          onChange={handleChange}
+          helperText="What other users will see"
+        />
 
-      <label>City</label>
-      <input
-        type="text"
-        name="city"
-        placeholder=""
-        value={userInfo.city}
-        onChange={handleChange}
-      />
+      </div>
+      <div>
 
-      <label>User Type</label>
-      <Select
-        options={userType}
-        name="type"
-        value={userInfo.type}
-        onChange={handleTypeSelect}
-        placeholder={userInfo.type}
-      />
+        <TextField
+          id="select-user-type"
+          label="First Name"
+          name="firstName"
+          value={userInfo.firstName}
+          onChange={handleChange}
+          helperText="Real first name"
+        />
 
-      {/* Can use is multi to give people multiple options not required though. */}
+      </div>
+      <div>
+
+        <TextField
+          id="select-user-type"
+          label="Last Name"
+          name="lastName"
+          value={userInfo.lastName}
+          onChange={handleChange}
+          helperText="Real last name"
+        />
+
+      </div>
+
+      <div>
+        <TextField
+          id="select-user-type"
+          select
+          label="User-Type"
+          value={userInfo.type}
+          onChange={handleTypeSelect}
+          helperText="Please select what State you're from."
+        >
+          {userType.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </div>
       {/* made it so certain things only display depending on the user type */}
       <div className={userInfo.type == "Athlete" ? "athlete" : "none"}>
-        <label>Disability Group</label>
-        <Select
-          options={disabilities}
-          name="disabilities"
-          value={userInfo.disabilities}
-          onChange={handleSelect}
-          placeholder={userInfo.disabilities}
-        />
+        <div>
+          <TextField
+            id="select-state"
+            select
+            label="State"
+            value={userInfo.state}
+            onChange={handleStateSelect}
+            helperText="Please select your State"
+          >
+            {states.map(option => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </div>
+        <div>
+          <TextField
+            id="Select Disability Group"
+            select
+            label="Disability Group"
+            value={userInfo.disabilities}
+            onChange={handleSelect}
+            helperText="Please select your Disability."
+          >
+            {disabilities.map(option => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </div>
+        <div>
+          <TextField
+            id="Select Specific Disability"
+            select
+            label="Specific Disability"
+            value={userInfo.impairment}
+            onChange={handleImpairmentSelect}
+            helperText="Please select your Disability."
+          >
+            {impairment.map(option => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </div>
+        <div>
+          <TextField
+            id="date"
+            label="Birthday"
+            type="date"
+            onChange={handleDate}
 
-        <label>Specific Disability</label>
-
-        <Select
-          options={impairment}
-          name="impairment"
-          value={userInfo.impairment}
-          onChange={handleImpairmentSelect}
-          placeholder={userInfo.impairment}
-        />
-
-        <label>Birthday</label>
-        <DatePicker
-        selected={userInfo.birthDate}
-        dateFormat="yyyy/MM/dd"
-        onChange={handleDate} 
-        value={userInfo.birthDate}/>
-
-        <label>Veteran</label>
-        <input
-          type="checkbox"
-          name="veteran"
-          value={userInfo.veteran}
-          checked={userInfo.veteran}
-          onChange={handleVeteran}
-        />
+            InputLabelProps={{
+              shrink: true,
+            }}
+          />
+          <div>
+            <label>Veteran</label>
+            <Checkbox
+              onChange={handleVeteran}
+            />
+          </div>
+        </div>
         <div className={userInfo.veteran == true ? "vet" : "none"}>
-          <label>Military Branch</label>
-          <Select
-            options={vet}
-            name="Vet"
+          <TextField
+            id="Select Military Branch"
+            select
+            label="Military Branch"
             value={userInfo.vet}
             onChange={handleVetSelect}
-            placeholder={userInfo.vet}
-          />
+            helperText="Please select your Disability."
+          >
+            {vet.map(option => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
         </div>
-        <label>Mobility</label>
-        <Select
-          options={mobility}
-          name="Mobility"
+        <TextField
+          id="Select Mobility"
+          select
+          label="Ammount of Mobility"
           value={userInfo.mobility}
           onChange={handleMobilitySelect}
-          placeholder={userInfo.mobility}
-        />
+          helperText="Please select your Disability."
+        >
+          {mobility.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
       </div>
-    <div className={userInfo.type == "Coach" ? "coach" : "none"}> 
-    <label>Do you have a disability?</label>
-    <Select
-          options={disabilityTrue}
-          name="disabilityTrue"
-          value={userInfo.disabilityTrue}
-          onChange={handledisabilityTrueSelect}
-          placeholder={userInfo.disabilityTrue}
-        />
-    <label>Mobility</label>
-    <Select
-          options={mobility}
-          name="Mobility"
+
+
+      <div className={userInfo.type == "Coach" ? "coach" : "none"}>
+        <div>
+          <TextField
+            id="select-state"
+            select
+            label="State"
+            value={userInfo.state}
+            onChange={handleStateSelect}
+            helperText="Please select what State you're from."
+          >
+            {states.map(option => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </div>
+        <div>
+          <TextField
+            id="Select Disability"
+            select
+            label="Disability"
+            value={userInfo.disabilityTrue}
+            onChange={handledisabilityTrueSelect}
+            helperText="Please select your Disability."
+          >
+            {disabilityTrue.map(option => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </div>
+        <TextField
+          id="Select Mobility"
+          select
+          label="Ammount of Mobility"
           value={userInfo.mobility}
           onChange={handleMobilitySelect}
-          placeholder={userInfo.mobility}
-        />
-    </div>
-    <div className={userInfo.type == "Volunteer" ? "volunteer" : "none"}>
-    <label>Type of Volunteer</label>
-    <Select
-          options={VolunteerType}
-          name="VolunteerType"
-          value={userInfo.volunteerType}
-          onChange={handleVolunteerTypeSelect}
-          placeholder={userInfo.volunteerType}
-        />
-    
-    <label>Disability</label>
-    <Select
-          options={disabilityTrue}
-          name="disabilityTrue"
-          value={userInfo.disabilityTrue}
-          onChange={handledisabilityTrueSelect}
-          placeholder={userInfo.disabilityTrue}
-        />
-        <label>Mobility</label>
-    <Select
-          options={mobility}
-          name="Mobility"
+          helperText="Please select your Disability."
+        >
+          {mobility.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </div>
+      <div className={userInfo.type == "Volunteer" ? "volunteer" : "none"}>
+        <div>
+          <TextField
+            id="Select Disability"
+            select
+            label="Volunteer Type"
+            value={userInfo.volunteerType}
+            onChange={handleVolunteerTypeSelect}
+            helperText="Please select your volunteer type"
+          >
+            {VolunteerType.map(option => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </div>
+
+        <div>
+          <TextField
+            id="Select Disability"
+            select
+            label="Disability"
+            value={userInfo.disabilityTrue}
+            onChange={handledisabilityTrueSelect}
+            helperText="Please select your Disability."
+          >
+            {disabilityTrue.map(option => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+        </div>
+
+        <TextField
+          id="Select Mobility"
+          select
+          label="Ammount of Mobility"
           value={userInfo.mobility}
           onChange={handleMobilitySelect}
-          placeholder={userInfo.mobility}
-        />
-    </div>
-    
+          helperText="Please select your Disability."
+        >
+          {mobility.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </div>
+
     </form>
   );
 };

@@ -9,9 +9,10 @@ import axios from 'axios';
 
 const Login = props => {
     const [loginInfo, setloginInfo] = useState({
-        username: "",
+        email: "",
         password: ""
     });
+    console.log(loginInfo)
 
     const handleChange = e => {
         let name = e.target.name;
@@ -28,7 +29,7 @@ const Login = props => {
                 localStorage.setItem("userId", res.data.id);
                 console.log(res.data);
 
-                props.history.push("/home");
+                props.history.push(`/dashboard/${res.data.id}`);
             })
             .catch(err => console.log(err));
     };
@@ -39,9 +40,9 @@ const Login = props => {
             <form onSubmit={login}>
                 <input
                     type="text"
-                    name="username"
-                    placeholder="Username"
-                    value={loginInfo.username}
+                    name="email"
+                    placeholder="email"
+                    value={loginInfo.email}
                     onChange={handleChange}
                 />
                 <input
