@@ -16,8 +16,9 @@ const Login = props => {
 
     //needs to put in the backend URL in the Axios post request
     const login = e => {
-        e.preventDefault()
-        axios.post("http://localhost:5000/api/auth/login", loginInfo)
+        e.preventDefault();
+        axios
+            .post("", loginInfo)
             .then(res => {
                 localStorage.setItem("token", res.data.token);
                 localStorage.setItem("userId", res.data.id);
