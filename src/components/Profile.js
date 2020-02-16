@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { useAuth0 } from "./auth/react-auth0-spa";
 import config from "./auth/auth_config.json";
 
