@@ -6,7 +6,7 @@ import LandingPage from './components/LandingPage';
 import UserDashboard from './components/users/UserDashboard';
 import AdminDashboard from './components/admin/AdminDashboard';
 import PrivateRoute from './utils/PrivateRoute';
-import ProfileForm from './components/ProfileForm';
+import ProfileForm from './archives/ProfileForm';
 import NavBar from './components/NavBar';
 
 // Auth0 imports
