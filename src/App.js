@@ -2,9 +2,9 @@ import React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 
 // Components
-import LandingPage from './components/LandingPage';
-import UserDashboard from './components/users/UserDashboard';
-import AdminDashboard from './components/admin/AdminDashboard';
+import LandingPage from './pages/LandingPage';
+import UserDashboard from './pages/users/UserDashboard';
+import AdminDashboard from './pages/admin/AdminDashboard';
 import PrivateRoute from './utils/PrivateRoute';
 import ProfileForm from './archives/ProfileForm';
 import NavBar from './components/NavBar';
