@@ -1,8 +1,8 @@
 import React from "react";
 import { useAuth0 } from "./auth/react-auth0-spa";
 import config from "./auth/auth_config.json";
-
-// example Profile page
+import AdminDashboard from '../pages/admin/AdminDashboard';
+import UserDashboard from '../pages/users/UserDashboard';
 
 const Profile = () => {
   const { loading, user } = useAuth0();
@@ -13,15 +13,13 @@ const Profile = () => {
   }
 
   return (
-    <>
-      <img src={user.picture} alt="Profile" />
-
-      <h2>{user.name}</h2>
-      <h3>{user[config.roleUrl]}</h3>
-      <p>{user.email}</p>
-      
-      <code>{JSON.stringify(user, null, 2)}</code>
-    </>
+    user[config.roleUrl].includes("Admin") ?
+    <div>
+        <AdminDashboard user={user} />
+    </div> :
+    <div>
+        <UserDashboard user={user} />
+    </div>
   );
 };
 
