@@ -42,13 +42,7 @@ function App() {
           <Switch>
             <Route exact path='/Edit' component={ProfileForm} />
             <Route exact path='/' component={LandingPage} />
-            if (user[config.roleUrl]: "Admin") return {<PrivateRoute
-              exact
-              path='/dashboard/admin'
-              component={AdminDashboard}
-            />} else {
             <PrivateRoute exact path='/dashboard' component={UserDashboard} />
-            }
           </Switch>
         </Router>
       </Auth0Provider>  
