@@ -1,6 +1,7 @@
 import React from "react";
 import { useAuth0 } from "./auth/react-auth0-spa";
 import config from "./auth/auth_config.json";
+import { Flex } from "adaptiv-ui"
 
 // example Profile page
 
@@ -13,7 +14,7 @@ const Profile = () => {
   }
 
   return (
-    <>
+    <Flex drape w='85vw'>
       <img src={user.picture} alt="Profile" />
 
       <h2>{user.name}</h2>
@@ -21,7 +22,7 @@ const Profile = () => {
       <p>{user.email}</p>
       
       <code>{JSON.stringify(user, null, 2)}</code>
-    </>
+    </Flex>
   );
 };
 

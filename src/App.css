@@ -1,11 +1,11 @@
-.App {
+/* .App {
   text-align: center;
   width: 80vw;
   position: absolute;
   right: 0;
 
-}
-
+} */
+/* 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -39,7 +39,7 @@
   to {
     transform: rotate(360deg);
   }
-}
+} */
 
 .AccessibilityModal{
   display: flex;

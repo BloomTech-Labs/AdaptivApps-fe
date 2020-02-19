@@ -1,11 +1,12 @@
 import React from 'react'
 import Profile from '../../components/Profile'
+import { Wrapper } from 'adaptiv-ui'
 
 function UserDashboard() {
   return (
-    <div>
+    <Wrapper>
       <Profile />
-    </div>
+    </Wrapper>  
   )
 }
 
