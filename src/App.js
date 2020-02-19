@@ -16,13 +16,14 @@ import history from "./utils/History";
 import './App.css';
 
 // Routes the user to dashboard upon login
-const onRedirectCallback = appState => {
-  history.push(
-    appState && appState.targetUrl
-      ? appState.targetUrl
-      : '/dashboard'
-  );
-};
+// const onRedirectCallback = appState => {
+//   history.push(
+//     appState && appState.targetUrl
+//       ? appState.targetUrl
+//       : '/dashboard'
+//     This is different : (window.location.pathname)
+//   );
+// };
 
 function App() {
 	return (
@@ -31,15 +32,15 @@ function App() {
         domain={config.domain}
         client_id={config.clientId}
         redirect_uri={window.location.origin}
-        onRedirectCallback={onRedirectCallback}
+        // onRedirectCallback={onRedirectCallback}
       >
         <Router history={history}>
           <header>
             <NavBar />
           </header>
           <Switch>
-            <Route exact path='/' component={LandingPage} />
-            <PrivateRoute exact path='/dashboard' component={Profile} />
+            <PrivateRoute exact path='/' component={Profile} />
+            {/* <PrivateRoute exact path='/dashboard' component={UserDashboard} /> */}
           </Switch>
         </Router>
       </Auth0Provider>  

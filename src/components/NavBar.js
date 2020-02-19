@@ -1,27 +1,29 @@
 import React from "react";
 import { useAuth0 } from "./auth/react-auth0-spa";
-import { Link } from "react-router-dom";
+import { Flex, Box, Button, Linkton } from "adaptiv-ui";
 
 const NavBar = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   return (
-    <div>
+
+    <Flex wrap stretch jc_end ai_center>
       {/* If a user is not logged in (authenticated), will redirect to Auth0 log in modal. */}
       {!isAuthenticated && (
-        <button aria-label="Access log in modal" onClick={() => loginWithRedirect({})}>Log in</button>
+        <Button primary aria-label="Access log in modal" onClick={() => loginWithRedirect({})}>Log in</Button>
       )}
 
       {/* If a user is logged in (authenticated), log out functionality will be enabled.) */}
-      {isAuthenticated && <button aria-label="log out" onClick={() => logout()}>Log out</button>}
+      {isAuthenticated && <Button primary aria-label="log out" onClick={() => logout()}>Log out</Button>}
 
-      <Link to="/">Home</Link>
+      <Box w='1rem' />
+        <Linkton primary to="/">Home</Linkton>
+
       {isAuthenticated && (
-        <>
-          <Link to="/dashboard">Profile</Link>
-        </>
+        <Linkton primary to="/dashboard">Profile</Linkton>
       )}
-    </div>
+      <Box w='3rem' />
+    </Flex>
   );
 };
 

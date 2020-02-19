@@ -3,9 +3,13 @@ import { useAuth0 } from "./auth/react-auth0-spa";
 import config from "./auth/auth_config.json";
 import AdminDashboard from '../pages/admin/AdminDashboard';
 import UserDashboard from '../pages/users/UserDashboard';
+import { Flex, Box } from "adaptiv-ui"
+
+// example Profile page
 
 const Profile = () => {
   const { loading, user } = useAuth0();
+  console.log(user)
 
   // loading and no user will show Loading div
   if (loading || !user) {
