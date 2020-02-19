@@ -1,7 +1,7 @@
 import React from "react";
 import { useAuth0 } from "./auth/react-auth0-spa";
 import config from "./auth/auth_config.json";
-import { Flex } from "adaptiv-ui"
+import { Flex, Box } from "adaptiv-ui"
 
 // example Profile page
 
@@ -15,11 +15,15 @@ const Profile = () => {
   } else
     return(
     user[config.roleUrl].includes("Admin") ?
-      <Flex drape w='85vw'>
-        <img src={user.picture} alt="Profile" />
-        <h1>THIS IS ADMIN PAGE</h1>
-        <h2>{user.name}</h2>
-        <h3>{user[config.roleUrl]}</h3>
+      <Flex ai_start col w='85vw'>
+        <h2>Account Information</h2>
+
+        <Flex ai_center>
+        <Box sqr='5rem' >
+          <img src={user.picture} alt="Profile" />
+        </Box>
+        <h2>{user.name} ({user[config.roleUrl]})</h2>
+        </Flex>
         <p>{user.email}</p>
       
         <code>{JSON.stringify(user, null, 2)}</code>
@@ -27,9 +31,7 @@ const Profile = () => {
       :
       <Flex drape w='85vw'>
         <img src={user.picture} alt="Profile" />
-        <h1>THIS IS NON-ADMIN PAGE</h1>
-        <h2>{user.name}</h2>
-        <h3>{user[config.roleUrl]}</h3>
+        <h2>{user.name} ({user[config.roleUrl]})</h2>
         <p>{user.email}</p>
         
         <code>{JSON.stringify(user, null, 2)}</code>
