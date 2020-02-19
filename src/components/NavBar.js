@@ -1,6 +1,5 @@
 import React from "react";
 import { useAuth0 } from "./auth/react-auth0-spa";
-import { Link } from "react-router-dom";
 import { Flex, Box, Button, Linkton } from "adaptiv-ui";
 
 const NavBar = () => {
