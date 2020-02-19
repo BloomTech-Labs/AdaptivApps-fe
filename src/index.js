@@ -25,10 +25,10 @@ ReactDOM.render(
         client_id={config.clientId}
         redirect_uri={window.location.origin}
         onRedirectCallback={onRedirectCallback}
-      >
-        <App />
-      </Auth0Provider>,
-      document.getElementById('root'));
+  >
+    <App />
+  </Auth0Provider>,
+    document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
