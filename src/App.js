@@ -3,10 +3,8 @@ import { Router, Route, Switch } from 'react-router-dom';
 
 // Components
 import LandingPage from './pages/LandingPage';
-import UserDashboard from './pages/users/UserDashboard';
-import AdminDashboard from './pages/admin/AdminDashboard';
+import Profile from './components/Profile';
 import PrivateRoute from './utils/PrivateRoute';
-import ProfileForm from './archives/ProfileForm';
 import NavBar from './components/NavBar';
 
 // Auth0 imports
@@ -22,7 +20,8 @@ import './App.css';
 //   history.push(
 //     appState && appState.targetUrl
 //       ? appState.targetUrl
-//       : window.location.pathname
+//       : '/dashboard'
+//     This is different : (window.location.pathname)
 //   );
 // };
 
@@ -40,7 +39,7 @@ function App() {
             <NavBar />
           </header>
           <Switch>
-            <PrivateRoute exact path='/' component={UserDashboard} />
+            <PrivateRoute exact path='/' component={Profile} />
             {/* <PrivateRoute exact path='/dashboard' component={UserDashboard} /> */}
           </Switch>
         </Router>

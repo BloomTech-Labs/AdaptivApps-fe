@@ -5,7 +5,6 @@ import { AppWrapper } from 'adaptiv-ui';
 import 'adaptiv-ui/css/main.css'
 
 import App from './App';
-
 import * as serviceWorker from './serviceWorker';
 
 
