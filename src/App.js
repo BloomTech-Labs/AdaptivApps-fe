@@ -4,8 +4,6 @@ import { Router, Route, Switch } from 'react-router-dom';
 // Components
 import LandingPage from './pages/LandingPage';
 import Profile from './components/Profile';
-import UserDashboard from './pages/users/UserDashboard';
-import AdminDashboard from './pages/admin/AdminDashboard';
 import PrivateRoute from './utils/PrivateRoute';
 import NavBar from './components/NavBar';
 
@@ -18,13 +16,13 @@ import history from "./utils/History";
 import './App.css';
 
 // Routes the user to dashboard upon login
-// const onRedirectCallback = appState => {
-//   history.push(
-//     appState && appState.targetUrl
-//       ? appState.targetUrl
-//       : '/'
-//   );
-// };
+const onRedirectCallback = appState => {
+  history.push(
+    appState && appState.targetUrl
+      ? appState.targetUrl
+      : '/dashboard'
+  );
+};
 
 function App() {
 	return (
@@ -33,26 +31,15 @@ function App() {
         domain={config.domain}
         client_id={config.clientId}
         redirect_uri={window.location.origin}
-        //onRedirectCallback={onRedirectCallback}
+        onRedirectCallback={onRedirectCallback}
       >
         <Router history={history}>
           <header>
             <NavBar />
           </header>
           <Switch>
-            {/*<Route exact path='/' component={LandingPage} />*/}
-            <PrivateRoute exact path='/' component={Profile} />
-
-          {/*
-            <PrivateRoute exact path="/dashboard" component={() => {
-              if(secret==="doggg") 
-                  return <AdminDashboard />
-              else
-                  console.log('hi there', Auth0Provider)
-                  return <UserDashboard />
-            }} />
-          */}
-
+            <Route exact path='/' component={LandingPage} />
+            <PrivateRoute exact path='/dashboard' component={Profile} />
           </Switch>
         </Router>
       </Auth0Provider>  
