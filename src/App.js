@@ -17,14 +17,14 @@ import history from "./utils/History";
 // Styling
 import './App.css';
 
-//Routes the user to dashboard upon login
-const onRedirectCallback = appState => {
-  history.push(
-    appState && appState.targetUrl
-      ? appState.targetUrl
-      : '/'
-  );
-};
+// Routes the user to dashboard upon login
+// const onRedirectCallback = appState => {
+//   history.push(
+//     appState && appState.targetUrl
+//       ? appState.targetUrl
+//       : '/'
+//   );
+// };
 
 function App() {
 	return (
@@ -33,7 +33,7 @@ function App() {
         domain={config.domain}
         client_id={config.clientId}
         redirect_uri={window.location.origin}
-        onRedirectCallback={onRedirectCallback}
+        //onRedirectCallback={onRedirectCallback}
       >
         <Router history={history}>
           <header>
