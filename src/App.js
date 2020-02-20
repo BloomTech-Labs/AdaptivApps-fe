@@ -24,6 +24,7 @@ function App() {
       >
         <Router history={history}>
           <header>
+            {/* Moving NavBar to LandingPage once we build sidebar nav */}
             <NavBar />
           </header>
           <Switch>
