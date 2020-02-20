@@ -1,3 +1,4 @@
+// React imports
 import React from 'react';
 
 // Reach Router imports
@@ -7,9 +8,6 @@ import { Router } from '@reach/router';
 import LandingPage from './pages/LandingPage'
 import DashRouter from './pages/DashRouter';
 import NavBar from './components/NavBar';
-
-// Styling
-import './App.css';
 
 // Auth0 imports
 import history from './utils/History';
