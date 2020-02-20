@@ -1,9 +1,9 @@
-import React from "react";
-import config from "../../components/auth/auth_config.json";
-import Profile from "./Profile";
+import React from 'react';
+import config from '../../components/auth/auth_config.json';
+import PropTypes from 'prop-types';
+import Profile from './Profile'
 
-function UserDashboard(props) {
-  const { user } = props;
+function UserDashboard({ user }) {
   return (
     <div>
       <img src={user.picture} alt="Profile" />
@@ -18,3 +18,7 @@ function UserDashboard(props) {
 }
 
 export default UserDashboard;
+
+UserDashboard.propTypes = {
+  user: PropTypes.object,
+};
