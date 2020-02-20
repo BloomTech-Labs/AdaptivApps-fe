@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './App';
+import { AppWrapper } from 'adaptiv-ui';
+import 'adaptiv-ui/css/main.css'
 
+import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 // Auth0 imports
-import { Auth0Provider } from "./components/auth/react-auth0-spa";
-import config from "./components/auth/auth_config.json";
+// import { Auth0Provider } from "./components/auth/react-auth0-spa";
+// import config from "./components/auth/auth_config.json";
 import history from "./utils/History";
 
 // Routes the user to dashboard upon login
@@ -19,16 +21,12 @@ const onRedirectCallback = appState => {
   );
 };
 
+
 ReactDOM.render(
-  <Auth0Provider
-        domain={config.domain}
-        client_id={config.clientId}
-        redirect_uri={window.location.origin}
-        onRedirectCallback={onRedirectCallback}
-  >
+  <AppWrapper bg='white' >
     <App />
-  </Auth0Provider>,
-    document.getElementById('root'));
+  </AppWrapper>
+, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
