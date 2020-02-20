@@ -101,3 +101,9 @@
 .none{
   display: none;
 }
+
+.hero-text{
+  color: white;
+  font-size: 8rem;
+
+}
