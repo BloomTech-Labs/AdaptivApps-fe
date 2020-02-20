@@ -1,10 +1,10 @@
-import React from 'react'
-import { useAuth0 } from './auth/react-auth0-spa'
-import { Flex, Box, Button, Linkton, theme } from 'adaptiv-ui'
-import acsLogo from '../images/acsLogo.png'
+import React from 'react';
+import { useAuth0 } from './auth/react-auth0-spa';
+import { Flex, Box, Button, Linkton, theme } from 'adaptiv-ui';
+import acsLogo from '../images/acsLogo.png';
 
 const NavBar = () => {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0()
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   return (
     <Flex h="10rem" stretch>
@@ -56,7 +56,7 @@ const NavBar = () => {
         <Box w="3rem" />
       </Flex>
     </Flex>
-  )
-}
+  );
+};
 
-export default NavBar
+export default NavBar;

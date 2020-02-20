@@ -1,6 +1,6 @@
-import React from 'react'
-import config from '../../components/auth/auth_config.json'
-import PropTypes from 'prop-types'
+import React from 'react';
+import config from '../../components/auth/auth_config.json';
+import PropTypes from 'prop-types';
 
 function AdminDashboard({ user }) {
   return (
@@ -12,11 +12,11 @@ function AdminDashboard({ user }) {
       <p>{user.email}</p>
       <code>{JSON.stringify(user, null, 2)}</code>
     </div>
-  )
+  );
 }
 
-export default AdminDashboard
+export default AdminDashboard;
 
 AdminDashboard.propTypes = {
   user: PropTypes.object,
-}
+};
