@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/react-hooks": "^3.1.3",
     "@auth0/auth0-spa-js": "^1.6.3",
     "@babel/plugin-syntax-jsx": "^7.8.3",
     "@reach/router": "^1.3.1",
@@ -10,7 +11,9 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
     "adaptiv-ui": "^0.1.8",
+    "apollo-boost": "^0.4.7",
     "axios": "^0.19.2",
+    "graphql": "^14.6.0",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-player": "^1.15.2",

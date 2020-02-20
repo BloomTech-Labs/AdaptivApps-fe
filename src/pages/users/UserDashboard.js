@@ -1,5 +1,6 @@
-import React from 'react'
+import React from "react";
 import config from "../../components/auth/auth_config.json";
+import Profile from "./Profile";
 
 function UserDashboard(props) {
   const { user } = props;
@@ -11,8 +12,9 @@ function UserDashboard(props) {
       <h3>{user[config.roleUrl]}</h3>
       <p>{user.email}</p>
       <code>{JSON.stringify(user, null, 2)}</code>
+      <Profile />
     </div>
-  )
+  );
 }
 
-export default UserDashboard
+export default UserDashboard;
