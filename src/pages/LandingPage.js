@@ -1,4 +1,5 @@
 import React from 'react';
+import NavBar from '../components/NavBar'
 import { Wrapper, Box, Flex, Container, Button } from 'adaptiv-ui';
 import { useAuth0 } from "../components/auth/react-auth0-spa";
 import landingImage from '../images/landingImage.jpeg';
@@ -12,7 +13,7 @@ const LandingPage = () => {
 
   return (
     <IconContext.Provider value={{ color: 'white', size: '3rem' }}>
-  {/* NavBar here, when sidebar nav is built */}
+    <NavBar />
     <Wrapper>
       <Container bg_src={landingImage} invert attach_fix >
         <Flex h='70vh' jc_center ai_center >

@@ -23,10 +23,6 @@ function App() {
         redirect_uri={window.location.origin}
       >
         <Router history={history}>
-          <header>
-            {/* Moving NavBar to LandingPage once we build sidebar nav */}
-            <NavBar />
-          </header>
           <Switch>
             <PrivateRoute exact path="/" component={DashRouter} />
           </Switch>
