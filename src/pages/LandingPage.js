@@ -29,13 +29,13 @@ const LandingPage = () => {
             <p>Sign Up Now with Facebook or Google, add your profile info, and keep track of Angel City Sports Games, Clinics, and other events! All the info you need is all in one place - The Angel City Sports App.</p>
           </Flex>
           <Flex drape w='30%' >
-            <Button bg='#3B5998' secondary w='25rem' >
+            <Button bg='#3B5998' secondary w='25rem' onClick={() => loginWithRedirect({})}>
               <Flex jc_between ai_center >
                 <FaFacebookSquare /> 
                 <p>Sign up with Facebook</p>
               </Flex>
             </Button>
-            <Button secondary w='25rem' >
+            <Button secondary w='25rem' onClick={() => loginWithRedirect({})}>
               <Flex jc_between ai_center >
                 <FaGoogle /> 
                 <p>Sign up with Google</p>
