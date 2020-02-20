@@ -1,5 +1,6 @@
 import React from 'react';
 import { Wrapper, Box, Flex, Container, Button } from 'adaptiv-ui';
+import { useAuth0 } from "../components/auth/react-auth0-spa";
 import landingImage from '../images/landingImage.jpeg';
 import { FaFacebookSquare, FaGoogle } from 'react-icons/fa'
 import { IconContext } from 'react-icons';
@@ -7,6 +8,7 @@ import { IconContext } from 'react-icons';
 
 
 const LandingPage = () => {
+  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
   return (
     <IconContext.Provider value={{ color: 'white', size: '3rem' }}>

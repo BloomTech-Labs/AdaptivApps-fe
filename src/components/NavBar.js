@@ -12,22 +12,26 @@ const NavBar = () => {
         <img src={acsLogo} />
       </Box>
       <Flex stretch jc_end ai_center>
+        <Box w='3rem' />
 
         {/* If a user is not logged in (authenticated), will redirect to Auth0 log in modal. */}
         {!isAuthenticated && (
           <Button border={`2px solid ${theme.primary}`} primary aria-label="Access log in modal" onClick={() => loginWithRedirect({})}>Log in</Button>
         )}
 
-        {/* If a user is logged in (authenticated), log out functionality will be enabled.) */}
-        {isAuthenticated && <Button border={`2px solid ${theme.primary}`} primary aria-label="log out" onClick={() => logout()}>Log out</Button>}
 
         <Box w='3rem' />
           <Linkton border={`2px solid ${theme.primary}`} primary to="/">Home</Linkton>
 
         {isAuthenticated && (
           <Linkton border={`2px solid ${theme.primary}`} primary to="/dashboard">Profile</Linkton>
-        )}
+          )}
+          
+          {/* If a user is logged in (authenticated), log out functionality will be enabled.) */}
+          {isAuthenticated && <Button border={`2px solid ${theme.primary}`} primary aria-label="log out" onClick={() => logout()}>Log out</Button>}
+
         <Box w='3rem' />
+
       </Flex>
     </Flex>
   );
