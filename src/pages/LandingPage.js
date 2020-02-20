@@ -9,7 +9,7 @@ import { useAuth0 } from '../components/auth/react-auth0-spa';
 
 // Styling imports
 import { Wrapper, Box, Flex, Container, Button } from 'adaptiv-ui';
-import landingImage from '../images/landingImage.jpeg';
+import landingImage from '../assets/images/landingImage.jpeg';
 import { FaFacebookSquare, FaGoogle } from 'react-icons/fa'
 import { IconContext } from 'react-icons';
 

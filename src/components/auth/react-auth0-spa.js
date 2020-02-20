@@ -1,4 +1,7 @@
+// React imports
 import React, { useState, useEffect, useContext } from "react";
+
+// Auth0 imports
 import createAuth0Client from "@auth0/auth0-spa-js";
 
 const DEFAULT_REDIRECT_CALLBACK = () =>

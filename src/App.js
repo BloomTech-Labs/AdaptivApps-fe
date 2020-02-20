@@ -19,7 +19,7 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className='App'>
       <Auth0Provider
         domain={config.domain}
         client_id={config.clientId}
@@ -27,8 +27,8 @@ function App() {
       >
         <NavBar />          
         <Router history={history}>
-          <LandingPage path="/" />
-          <DashRouter path="/dashboard" />
+          <LandingPage path='/' />
+          <DashRouter path='/dashboard' />
         </Router>
       </Auth0Provider>
     </div>
