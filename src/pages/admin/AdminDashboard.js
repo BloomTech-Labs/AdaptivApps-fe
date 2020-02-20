@@ -1,8 +1,8 @@
 import React from 'react'
-import config from "../../components/auth/auth_config.json";
+import config from '../../components/auth/auth_config.json'
+import PropTypes from 'prop-types'
 
-function AdminDashboard(props) {
-  const { user } = props;
+function AdminDashboard({ user }) {
   return (
     <div>
       <img src={user.picture} alt="Profile" />
@@ -16,3 +16,7 @@ function AdminDashboard(props) {
 }
 
 export default AdminDashboard
+
+AdminDashboard.propTypes = {
+  user: PropTypes.object,
+}
