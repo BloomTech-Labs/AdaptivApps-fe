@@ -78,9 +78,9 @@
   height: auto;
 }
 
-*:focus{
+/* *:focus{
    border: solid black 6px;
-}
+} */
 
 .API-message{
   width: 95%;
@@ -106,4 +106,8 @@
   text-align: center;
   /* color: white; */
   font-size: 7.2rem;
+}
+
+.side-nav{
+  position: fixed;
 }

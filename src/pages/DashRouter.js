@@ -18,17 +18,21 @@ const DashRouter = () => {
   }
   return user[config.roleUrl].includes("Admin") ? (
     <Flex jc_between>
-      <Box w='20%'>
-        <SideNav />
+      <Box>
+        <SideNav user={user} />
       </Box>
-      <Box w='78.5%'>
+      <Box w='85%'>
         <AdminDashboard user={user} />
       </Box>
     </Flex>
   ) : (
     <Flex jc_between>
-      <SideNav />
-      <UserDashboard user={user} />
+      <Box>
+        <SideNav user={user} />
+      </Box>
+      <Box w='85%'>
+        <UserDashboard user={user} />
+      </Box>
     </Flex>
   );
 };

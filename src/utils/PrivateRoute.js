@@ -1,24 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route } from "react-router-dom";
 import { useAuth0 } from '../components/auth/react-auth0-spa'
 import LandingPage from '../pages/LandingPage'
 import { Wrapper } from "adaptiv-ui";
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
-  const { loading, user } = useAuth0();
+  const { loading, user, isAuthenticated } = useAuth0();
 
   // secures private info by checking to see if user authenticated is true and then displays component and contents
-  // useEffect(() => {
-  //   if (loading || isAuthenticated) {
-  //     return;
-  //   }
-  //   const fn = async () => {
-  //     await loginWithRedirect({
-  //       appState: { targetUrl: path }
-  //     });
-  //   };
-  //   fn();
-  // }, [loading, isAuthenticated, loginWithRedirect, path]);
+  useEffect(() => {
+    console.log('isAuth: ', isAuthenticated)  
+  }, [loading, isAuthenticated]);
 
   const render = props =>
     user ? 

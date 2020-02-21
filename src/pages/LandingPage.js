@@ -5,18 +5,19 @@ import { useAuth0 } from "../components/auth/react-auth0-spa";
 import landingImage from '../images/landingImage.jpeg';
 import { FaFacebookSquare, FaGoogle } from 'react-icons/fa'
 import { IconContext } from 'react-icons';
+import DashRouter from  './DashRouter';
 
 
 
 const LandingPage = () => {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-
+  const { user, loginWithRedirect, logout } = useAuth0();
+  console.log('user:', user)
   return (
     <IconContext.Provider value={{ color: 'white', size: '3rem' }}>
     <NavBar />
     <Wrapper>
       <Container bg_src={landingImage} invert attach_fix >
-        <Flex h='70vh' jc_center ai_center >
+        <Flex h='50vh' jc_center ai_center >
           <Flex w='85%' jc_center ai_center >
             <h1 className='hero-text'>Your Home for Angel City Sports Events and More!</h1>
           </Flex>
@@ -46,7 +47,6 @@ const LandingPage = () => {
             </Button>
           </Flex>
         </Flex>
-        <Box h='8vh' />
       </Flex>
     </Wrapper>
     </IconContext.Provider>
