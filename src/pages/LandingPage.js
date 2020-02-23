@@ -3,7 +3,7 @@ import React from 'react';
 import NavBar from '../components/NavBar';
 import { Wrapper, Box, Flex, Container, Button, Text } from 'adaptiv-ui';
 import { useAuth0 } from '../components/auth/react-auth0-spa';
-import landingImage from '../images/landingImage.jpeg';
+import landingImage from '../assets/images/landingImage.jpeg';
 import { FaFacebookSquare, FaGoogle } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 
