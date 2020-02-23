@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useContext } from "react";
-import createAuth0Client from "@auth0/auth0-spa-js";
+import React, { useState, useEffect, useContext } from 'react';
+import createAuth0Client from '@auth0/auth0-spa-js';
+import PropTypes from 'prop-types';
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname);
@@ -22,8 +23,10 @@ export const Auth0Provider = ({
       const auth0FromHook = await createAuth0Client(initOptions);
       setAuth0(auth0FromHook);
 
-      if (window.location.search.includes("code=") &&
-          window.location.search.includes("state=")) {
+      if (
+        window.location.search.includes('code=') &&
+        window.location.search.includes('state=')
+      ) {
         const { appState } = await auth0FromHook.handleRedirectCallback();
         onRedirectCallback(appState);
       }
@@ -36,7 +39,7 @@ export const Auth0Provider = ({
         const user = await auth0FromHook.getUser();
         setUser(user);
         console.log('authenticated', user);
-      } 
+      }
 
       setLoading(false);
     };
@@ -81,10 +84,15 @@ export const Auth0Provider = ({
         loginWithRedirect: (...p) => auth0Client.loginWithRedirect(...p),
         getTokenSilently: (...p) => auth0Client.getTokenSilently(...p),
         getTokenWithPopup: (...p) => auth0Client.getTokenWithPopup(...p),
-        logout: (...p) => auth0Client.logout(...p)
+        logout: (...p) => auth0Client.logout(...p),
       }}
     >
       {children}
     </Auth0Context.Provider>
   );
+};
+
+Auth0Provider.propTypes = {
+  children: PropTypes.any,
+  onRedirectCallback: PropTypes.any,
 };
