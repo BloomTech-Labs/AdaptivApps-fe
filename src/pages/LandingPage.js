@@ -1,23 +1,24 @@
 import React from 'react';
-import { Wrapper, Box, Flex, Container, Button } from 'adaptiv-ui';
+import NavBar from '../components/NavBar';
+import { Wrapper, Box, Flex, Container, Button, Text } from 'adaptiv-ui';
 import { useAuth0 } from '../components/auth/react-auth0-spa';
 import landingImage from '../images/landingImage.jpeg';
 import { FaFacebookSquare, FaGoogle } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 
 const LandingPage = () => {
-  const { loginWithRedirect } = useAuth0();
-
+  const { user, loginWithRedirect } = useAuth0();
+  console.log('user:', user);
   return (
     <IconContext.Provider value={{ color: 'white', size: '3rem' }}>
-      {/* NavBar here, when sidebar nav is built */}
+      <NavBar />
       <Wrapper>
         <Container bg_src={landingImage} invert attach_fix>
-          <Flex h="70vh" jc_center ai_center>
+          <Flex h="50vh" jc_center ai_center>
             <Flex w="85%" jc_center ai_center>
-              <h1 className="hero-text">
+              <Text f_size="7.2rem" bold ta_center>
                 Your Home for Angel City Sports Events and More!
-              </h1>
+              </Text>
             </Flex>
           </Flex>
         </Container>
@@ -39,23 +40,25 @@ const LandingPage = () => {
               <Button
                 bg="#3B5998"
                 secondary
-                w="25rem"
+                w="26rem"
                 onClick={() => loginWithRedirect({})}
               >
                 <Flex jc_between ai_center>
                   <FaFacebookSquare />
-                  <p>Sign up with Facebook</p>
+                  <Box w="2rem" />
+                  <Text>Sign up with Facebook</Text>
                 </Flex>
               </Button>
-              <Button secondary w="25rem" onClick={() => loginWithRedirect({})}>
+              <Button secondary w="26rem" onClick={() => loginWithRedirect({})}>
                 <Flex jc_between ai_center>
                   <FaGoogle />
-                  <p>Sign up with Google</p>
+                  <Box w="2rem" />
+                  <Text>Sign up with Google</Text>
+                  <Box w="2rem" />
                 </Flex>
               </Button>
             </Flex>
           </Flex>
-          <Box h="8vh" />
         </Flex>
       </Wrapper>
     </IconContext.Provider>

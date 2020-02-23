@@ -27,9 +27,13 @@ const NavBar = () => {
         )}
 
         <Box w="3rem" />
-        <Linkton border={`2px solid ${theme.primary}`} primary to="/">
-          Home
-        </Linkton>
+        <Button
+          border={`2px solid ${theme.primary}`}
+          primary
+          onClick={() => loginWithRedirect({})}
+        >
+          Sign Up
+        </Button>
 
         {isAuthenticated && (
           <Linkton
