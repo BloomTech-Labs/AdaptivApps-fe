@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient from 'apollo-boost';
 import auth from './components/auth/Auth';
-// import * as auth0 from './components/auth/react-auth0-spa';
 import { ApolloProvider } from '@apollo/react-hooks';
+import { Auth0Provider } from './components/auth/react-auth0-spa';
+import config from './components/auth/auth_config.json';
 import { AppWrapper } from 'adaptiv-ui';
 import 'adaptiv-ui/css/main.css';
 
@@ -19,7 +20,7 @@ const client = new ApolloClient({
     operation.setContext(context => ({
       headers: {
         ...context.headers,
-        authorization: 'Bearer ' + auth.getIdToken(),
+        authorization: auth.getIdToken(),
       },
     }));
   },
@@ -28,11 +29,20 @@ const client = new ApolloClient({
 //!!pointing apollo client to the apollo api.
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
-    <AppWrapper bg="white">
-      <App />
-    </AppWrapper>
-  </ApolloProvider>,
+  <Auth0Provider
+    domain={config.domain}
+    client_id={config.clientId}
+    redirect_uri={window.location.origin}
+    audience={config.audience}
+    responseType={config.responseType}
+    scope={window.scope}
+  >
+    <ApolloProvider client={client}>
+      <AppWrapper bg="white">
+        <App />
+      </AppWrapper>
+    </ApolloProvider>
+  </Auth0Provider>,
   document.getElementById('root')
 );
 
