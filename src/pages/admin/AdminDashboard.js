@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react'
 import config from "../../components/auth/auth_config.json";
 import { useAuth0 } from "../../components/auth/react-auth0-spa";
@@ -27,6 +28,30 @@ function AdminDashboard(props) {
         <code>{JSON.stringify(user, null, 2)}</code>
       </Flex>
   )
+=======
+import React from 'react';
+import config from '../../components/auth/auth_config.json';
+import { Box } from 'adaptiv-ui';
+import PropTypes from 'prop-types';
+
+function AdminDashboard({ user }) {
+  return (
+    <div>
+      <Box w="10rem">
+        <img src={user.picture} alt="Profile" />
+      </Box>
+      <h1>This is ADMIN PAGE</h1>
+      <h2>{user.name}</h2>
+      <h3>{user[config.roleUrl]}</h3>
+      <p>{user.email}</p>
+      <code>{JSON.stringify(user, null, 2)}</code>
+    </div>
+  );
+>>>>>>> 21c690016f4a300dd1e8166c0bdf4c6f734def0b
 }
 
-export default AdminDashboard
+export default AdminDashboard;
+
+AdminDashboard.propTypes = {
+  user: PropTypes.object,
+};
