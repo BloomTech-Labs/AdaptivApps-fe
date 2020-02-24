@@ -2,7 +2,7 @@ import React from 'react'
 import { useAuth0 } from "../../components/auth/react-auth0-spa";
 import config from "../../components/auth/auth_config.json";
 import PropTypes from 'prop-types';
-import { Flex, Box } from "adaptiv-ui"
+import { Flex, Box, Text } from "adaptiv-ui"
 
 function UserDashboard(props) {
   const { user } = props;
@@ -21,10 +21,15 @@ function UserDashboard(props) {
           <Box sqr='5rem' >
             <img src={user.picture} alt="Profile" />
           </Box>
+          <Text mf>
+            Account Email
+          </Text>
+          <Text mf>
+            {user.email}
+          </Text>
           <h2>{user.name} ({user[config.roleUrl]})</h2>
         </Flex>
         <Flex col sm>
-          <p>{user.email}</p>
         
           <code>{JSON.stringify(user, null, 2)}</code>
         </Flex>
