@@ -9,7 +9,7 @@ const NavBar = () => {
   return (
     <Flex h="10rem" stretch>
       <Box w="30rem">
-        <img src={acsLogo} />
+        <img src={acsLogo} alt="angel city sports" />
       </Box>
       <Flex stretch jc_end ai_center>
         <Box w="3rem" />
