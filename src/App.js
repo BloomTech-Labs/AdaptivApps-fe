@@ -15,7 +15,7 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Auth0Provider
         domain={config.domain}
         client_id={config.clientId}
