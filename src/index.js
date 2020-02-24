@@ -19,7 +19,7 @@ const client = new ApolloClient({
     operation.setContext(context => ({
       headers: {
         ...context.headers,
-        authorization: auth.getIdToken(),
+        authorization: 'Bearer ' + auth.getIdToken(),
       },
     }));
   },
