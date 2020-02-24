@@ -5,12 +5,10 @@ import { Router, Switch } from 'react-router-dom';
 import DashRouter from './pages/DashRouter';
 import PrivateRoute from './utils/PrivateRoute';
 
-// Auth0 imports
 import { Auth0Provider } from './components/auth/react-auth0-spa';
 import config from './components/auth/auth_config.json';
 import history from './utils/History';
 
-// Styling
 import './App.css';
 
 function App() {
