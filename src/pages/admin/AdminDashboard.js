@@ -15,7 +15,7 @@ function AdminDashboard(props) {
     return(
       <Flex ai_start col>
         <h2>Account Information</h2>
-        <Box h='0.2rem' w='90%' bg='grey' />
+        <Box ms h='0.2rem' w='90%' bg='lightgrey' />
         <Flex ai_center>
         <Box sqr='5rem' >
           <img src={user.picture} alt="Profile" />
