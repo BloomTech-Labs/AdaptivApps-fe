@@ -14,60 +14,114 @@ function AdminDashboard(props) {
     return <div>Loading...</div>;
   } else
     return(
-      <Flex ai_start col>
-        <h2>Account Information</h2>
+      <Flex ai_start col stretch>
+
+        <Text xlf bold mm>Account Information</Text>
         
-        <Box ms h='0.2rem' w='90%' bg='lightgrey' />
+        <Box h='0.2rem' w='90%' bg='lightgrey' />
         
-        <Flex col ai_center mm>
-          
-          <Flex ai_center>
+        <Flex mm col ai_start>
+          {/* <Box h='5rem' /> */}
+          <Flex jc_between ai_center>
+
             <Box sqr='5rem' >
               <img src={user.picture} alt="Profile" />
             </Box>
-            <h2>{user.name} ({user[config.roleUrl]})</h2>
+            <Text lf sm>{user.name} ({user[config.roleUrl]})</Text>
+
           </Flex>
 
-          <Flex col ai_start sm>
-            <Text xlf bold>
+          <Box h='3rem' />
+
+          <Flex ai_start col>
+
+            <Text lf bold>
               Account Email Address
             </Text>
 
-            <Flex jc_between ai_center>
+            <Flex ai_center>
               <Text lf>
                 {user.email}
               </Text>
-              <Button primary mm>Change</Button>
+              <Button primary mm>Change</Button>     
             </Flex>
+     
           </Flex>
 
-          <Flex col ai_start sm>
+          <Flex ai_start col stretch>
+            
             <Text xlf bold>
               Personal Information
             </Text>
-          </Flex>
-          <Flex jc_between ai_start>
-            <Flex drape>
-              <Text lf lm>
-                First Name
-              </Text>
-              <Text mf>
-                {user.given_name}
-              </Text>
+     
+            <Box h='3rem' />
+     
+            <Flex jc_between stretch>
+     
+              <Flex ai_start col>
+                <Text lf>
+                  First Name
+                </Text>
+                <Flex ai_center>
+                  <Text lf border='1px solid grey' radius>
+                    {user.given_name}
+                  </Text>
+                </Flex>
+              </Flex>
+
+              <Flex ai_start col>
+                <Text lf>
+                  Last Name
+                </Text>
+                <Flex ai_center>
+                  <Text lf border='1px solid grey' radius>
+                    {user.family_name}
+                  </Text>
+                </Flex>
+              </Flex>
+
             </Flex>
 
-            <Flex drape>
-              <Text lf lm>
-                Last Name
+            <Box h='3rem' />
+
+            <Flex jc_between stretch>
+              <Flex ai_start col>
+                <Text lf>
+                  Display Name
+                </Text>
+                <Flex ai_center>
+                  <Text lf border='1px solid grey' radius>
+                    {user.nickname}
+                  </Text>
+                </Flex>
+              </Flex>
+
+              <Flex ai_start col>
+                <Text lf>
+                  Date of Birth
+                </Text>
+                <Flex ai_center>
+                  <Text lf border='1px solid grey' radius>
+                    01/01/2000
+                  </Text>
+                </Flex>
+              </Flex>
+            </Flex>
+
+            <Box h='3rem' />
+            
+            <Flex ai_start col>
+              <Text lf>
+                Bio
               </Text>
-              <Text mf>
-                {user.family_name}
-              </Text>
+              <Form>
+                Form
+              </Form>
             </Flex>
           </Flex>
 
         </Flex>
-        <Flex col sm>
+        <Flex drape mm mp>
         
           <code>{JSON.stringify(user, null, 2)}</code>
         </Flex>
