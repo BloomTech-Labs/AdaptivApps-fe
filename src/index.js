@@ -11,6 +11,7 @@ import * as serviceWorker from './serviceWorker';
 
 //pointing apollo client to the apollo api.
 
+console.log('all exports from react-auth0-rsa', auth0);
 const client = new ApolloClient({
   uri: 'http://localhost:8000',
   request: operation => {
