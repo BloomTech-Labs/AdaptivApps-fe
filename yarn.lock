@@ -1883,10 +1883,10 @@ acorn@^7.1.0:
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.1.0.tgz#949d36f2c292535da602283586c2477c57eb2d6c"
   integrity sha512-kL5CuoXA/dgxlBbVrflsflzQ3PAas7RYZB52NOm/6839iVYJgKMJ3cQJD+t2i5+qFa8h3MDpEOJiS64E8JLnSQ==
 
-adaptiv-ui@^0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/adaptiv-ui/-/adaptiv-ui-0.5.2.tgz#0273bf93478d4b9dd45fa55e419885e419f70e45"
-  integrity sha512-DNjXeiVvNghity+ilJ0XRYhOZZKur70rYwcCzKf6YbwrpLL0NmssmPkqPqFTCoeJFXhsvc1iy8wg26LcijBFYg==
+adaptiv-ui@^0.5.6:
+  version "0.5.6"
+  resolved "https://registry.yarnpkg.com/adaptiv-ui/-/adaptiv-ui-0.5.6.tgz#bf7e46149f9844416e2f276aa174a2e48f32cc8e"
+  integrity sha512-VlTNf8F0VdfSUerew+IjRCm0PO/wkFziMhC9NkY+vzasgHGZKkA1ol0BgkQm0cWsKJ7h8UV0TlIKYpkTp4lxyw==
   dependencies:
     "@babel/cli" "^7.8.4"
     "@callstack/react-theme-provider" "^2.1.0"
