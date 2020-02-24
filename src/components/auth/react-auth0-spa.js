@@ -30,12 +30,19 @@ export const Auth0Provider = ({
         const { appState } = await auth0FromHook.handleRedirectCallback();
         onRedirectCallback(appState);
       }
+      const tokenP = auth0FromHook.getIdTokenClaims();
 
       const isAuthenticated = await auth0FromHook.isAuthenticated();
+      console.log(
+        'Showing this auth0FrameHook',
+        auth0FromHook.getIdTokenClaims()
+      );
       // checks to make sure user is authenticated and sets user if true.
       setIsAuthenticated(isAuthenticated);
 
       if (isAuthenticated) {
+        const token = await tokenP;
+        console.log('Showing tokenP', token.__raw);
         const user = await auth0FromHook.getUser();
         setUser(user);
         console.log('authenticated', user);

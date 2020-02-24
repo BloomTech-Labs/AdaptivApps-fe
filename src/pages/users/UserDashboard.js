@@ -2,6 +2,7 @@ import React from 'react';
 import config from '../../components/auth/auth_config.json';
 import { Box } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
+import Profile from './Profile'
 
 function UserDashboard({ user }) {
   return (
@@ -14,6 +15,7 @@ function UserDashboard({ user }) {
       <h3>{user[config.roleUrl]}</h3>
       <p>{user.email}</p>
       <code>{JSON.stringify(user, null, 2)}</code>
+      <Profile />
     </div>
   );
 }
