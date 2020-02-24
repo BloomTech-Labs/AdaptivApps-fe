@@ -21,6 +21,9 @@ function App() {
         domain={config.domain}
         client_id={config.clientId}
         redirect_uri={window.location.origin}
+        audience={config.audience}
+        responseType={config.responseType}
+        scope={window.scope}
       >
         <Router history={history}>
           <header>

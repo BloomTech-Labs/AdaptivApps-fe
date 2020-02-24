@@ -5,7 +5,7 @@ import { gql } from 'apollo-boost';
 //Query used to obtain user profile information
 const PROFILE_INFO = gql`
   {
-    profile(where: { id: "ck6veiafj000l0858kc2mb547" }) {
+    profile(where: { id: "ck70mkw8m000o07581kkxj67x" }) {
       email
       firstName
       lastName
