@@ -1,5 +1,9 @@
 import React from "react";
+
+//imports from queries
 import ProfileInfo from "./queries/ProfileInfo.js";
+
+//Profile Info
 
 export default function Profile() {
   return (

@@ -1,11 +1,25 @@
 import React from 'react';
+
+//imports from auth0
 import { useAuth0 } from './auth/react-auth0-spa';
-import { Flex, NavBar, Box, Button } from 'adaptiv-ui';
-import acsLogo from '../assets/images/acsLogo.png';
+
+//imports from auth folder
 import config from '../components/auth/auth_config.json';
+
+//imports from adaptive-ui
+import { Flex, NavBar, Box, Button } from 'adaptiv-ui';
+
+//imports from images
+import acsLogo from '../assets/images/acsLogo.png';
+
+//imports from components
+import NavLink from './NavLink';
+
+//imports from react-icons
 import { FaRegCalendar, FaRegBookmark, FaRegUser, FaPen } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
-import NavLink from './NavLink';
+
+//import from node_modules
 import PropTypes from 'prop-types';
 
 const SideNav = props => {
@@ -17,6 +31,9 @@ const SideNav = props => {
         <Box stretch>
           <img src={acsLogo} alt="ACS Logo" />
         </Box>
+
+        {/* Events Calendar Link */}
+
         <NavLink
           primary="true"
           row="true"
@@ -29,6 +46,8 @@ const SideNav = props => {
           <Box w="2rem" />
           <p>Events Calendar</p>
         </NavLink>
+
+        {/* My Events Link*/}
 
         <NavLink
           primary="true"
@@ -43,7 +62,9 @@ const SideNav = props => {
           <p>My Events</p>
         </NavLink>
 
-        {props.user[config.roleUrl].includes('Admin') ? (
+        {/* Create Event Link Admin Only*/}
+
+        {props.user[config.roleUrl].includes('Admin') ? ( 
           <NavLink
             primary="true"
             row="true"
@@ -58,6 +79,8 @@ const SideNav = props => {
           </NavLink>
         ) : null}
 
+        {/* My Profile Link */}
+
         <NavLink primary="true" row="true" stretch="true" to="/" radius="0">
           <Box w="2rem" />
           <FaRegUser />
@@ -65,6 +88,8 @@ const SideNav = props => {
           <p>My Profile</p>
         </NavLink>
       </Flex>
+
+      {/* Logout Link */}
 
       <Flex col jc_end ai_end>
         <Button ai_start primary stretch radius="0" onClick={() => logout()}>

@@ -5,32 +5,41 @@ import { Router, Switch } from 'react-router-dom';
 import DashRouter from './pages/DashRouter';
 import PrivateRoute from './utils/PrivateRoute';
 
+//imports from Apollo
+import { ApolloProvider } from '@apollo/react-hooks';
+import ApolloClient from 'apollo-boost';
+
+
 // Auth0 imports
-import { Auth0Provider } from './components/auth/react-auth0-spa';
-import config from './components/auth/auth_config.json';
+import { useGetToken } from './components/auth/Auth';
 import history from './utils/History';
 
 // Styling
 import './App.css';
 
 function App() {
+  const [token] = useGetToken();
+  const client = new ApolloClient({
+    uri: 'http://localhost:8000',
+    request: operation => {
+      operation.setContext(context => ({
+        headers: {
+          ...context.headers,
+          authorization: token,
+        },
+      }));
+    },
+  });
   return (
-    <div className="App">
-      <Auth0Provider
-        domain={config.domain}
-        client_id={config.clientId}
-        redirect_uri={window.location.origin}
-        audience={config.audience}
-        responseType={config.responseType}
-        scope={window.scope}
-      >
+    <ApolloProvider client={client}>
+      <div className="App">
         <Router history={history}>
           <Switch>
             <PrivateRoute exact path="/" component={DashRouter} />
           </Switch>
         </Router>
-      </Auth0Provider>
-    </div>
+      </div>
+    </ApolloProvider>
   );
 }
 

@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
+
+//import from auth0
 import createAuth0Client from '@auth0/auth0-spa-js';
+
+//import from node_modules
 import PropTypes from 'prop-types';
 
 const DEFAULT_REDIRECT_CALLBACK = () =>
@@ -38,7 +42,6 @@ export const Auth0Provider = ({
       if (isAuthenticated) {
         const user = await auth0FromHook.getUser();
         setUser(user);
-        console.log('authenticated', user);
       }
 
       setLoading(false);
@@ -52,14 +55,12 @@ export const Auth0Provider = ({
     try {
       await auth0Client.loginWithPopup(params);
     } catch (error) {
-      console.error(error);
     } finally {
       setPopupOpen(false);
     }
     const user = await auth0Client.getUser();
     setUser(user);
     setIsAuthenticated(true);
-    console.log('user', user);
   };
 
   const handleRedirectCallback = async () => {

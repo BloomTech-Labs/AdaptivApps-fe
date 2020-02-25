@@ -1,7 +1,16 @@
 import React from 'react';
+
+//Imports from Auth0
 import { useAuth0 } from './auth/react-auth0-spa';
+
+//import from Adaptiv-ui
 import { Flex, Box, Button, Linkton, theme } from 'adaptiv-ui';
+
+//import from images
+
 import acsLogo from '../assets/images/acsLogo.png';
+
+//Navbar Component
 
 const NavBar = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();

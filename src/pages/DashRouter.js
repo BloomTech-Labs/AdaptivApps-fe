@@ -1,5 +1,7 @@
 import React from 'react';
 
+//Adaptive-ui imports
+
 import { Flex, Box } from 'adaptiv-ui';
 
 // Auth0 imports
@@ -13,9 +15,9 @@ import SideNav from '../components/SideNav';
 
 const DashRouter = () => {
   const { loading, user } = useAuth0();
-  console.log(user);
 
   // loading and no user will show Loading div
+
   if (loading || !user) {
     return <div>Loading...</div>;
   }

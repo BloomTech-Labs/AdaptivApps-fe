@@ -1,8 +1,16 @@
 import React, { useEffect } from 'react';
 import { Route } from 'react-router-dom';
+
+//imports from auth0
 import { useAuth0 } from '../components/auth/react-auth0-spa';
+
+//imports from components
 import LandingPage from '../pages/LandingPage';
+
+//imports from adaptiv-ui
 import { Wrapper } from 'adaptiv-ui';
+
+//imports from node_modules
 import PropTypes from 'prop-types';
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
@@ -10,7 +18,6 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
 
   // secures private info by checking to see if user authenticated is true and then displays component and contents
   useEffect(() => {
-    console.log('isAuth: ', isAuthenticated);
   }, [loading, isAuthenticated]);
 
   const render = props =>

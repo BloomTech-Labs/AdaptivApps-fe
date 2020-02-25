@@ -1,7 +1,15 @@
 import React from 'react';
+
+//imports from auth0
 import config from '../../components/auth/auth_config.json';
+
+//imports from adaptive-ui
 import { Box } from 'adaptiv-ui';
+
+//imports from node_modules
 import PropTypes from 'prop-types';
+
+//Admin Dashboard 
 
 function AdminDashboard({ user }) {
   return (

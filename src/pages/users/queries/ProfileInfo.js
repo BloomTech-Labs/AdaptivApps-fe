@@ -1,11 +1,16 @@
 import React from 'react';
+
+//imports from apollo
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
 //Query used to obtain user profile information
+
+//May need to create an account in playground and take that ID and paste below:
+
 const PROFILE_INFO = gql`
   {
-    profile(where: { id: "ck70mkw8m000o07581kkxj67x" }) {
+    profile(where: { id: "ck6vcu1cf000n0725ahi1fx4y" }) {
       email
       firstName
       lastName
@@ -19,6 +24,8 @@ const PROFILE_INFO = gql`
     }
   }
 `;
+
+
 //!!Query used to obtain user profile information
 
 function ProfileInfo() {
