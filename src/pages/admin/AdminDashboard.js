@@ -83,8 +83,6 @@ function AdminDashboard(props) {
 
             </Flex>
 
-            <Box h='3rem' />
-
             <Flex jc_between stretch>
               <Flex ai_start col>
                 <Text mf>
@@ -104,14 +102,12 @@ function AdminDashboard(props) {
                 </Flex>
               </Flex>
             </Flex>
-
-            <Box h='3rem' />
             
-            <Flex ai_start col>
+            <Flex ai_start col stretch>
               <Text mf>
                 Bio
               </Text>
-              <Input type='textarea' stretch h='10rem'/>
+              <Input type='textarea' w='50rem' h='10rem'/>
             </Flex>
 
             <Flex jc_between stretch>
@@ -130,7 +126,7 @@ function AdminDashboard(props) {
                   Are you over 18 years old?
                 </Text>
                 <Flex ai_center>
-                  <Input type='select' placeholder=''/>
+                  <Input type='select' placeholder='' />
                 </Flex>
               </Flex>
 
@@ -140,10 +136,10 @@ function AdminDashboard(props) {
           </Form>
 
         </Flex>
-        <Flex drape mm mp>
+        {/* <Flex drape mm mp>
         
           <code>{JSON.stringify(user, null, 2)}</code>
-        </Flex>
+        </Flex> */}
       </Flex>
   )
 }
