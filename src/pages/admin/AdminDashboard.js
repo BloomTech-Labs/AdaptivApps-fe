@@ -2,12 +2,17 @@ import React from 'react'
 import config from "../../components/auth/auth_config.json";
 import { useAuth0 } from "../../components/auth/react-auth0-spa";
 import PropTypes from 'prop-types';
-import { Flex, Box, Text, Button, Form } from "adaptiv-ui"
+import { Flex, Box, Text, Button, Form, Input } from "adaptiv-ui";
+import { useForm } from 'react-hook-form'
 
 function AdminDashboard(props) {
   const { user } = props;
   const { loading } = useAuth0();
   // console.log(user)
+  const { handleSubmit, register, errors } = useForm();
+  const onSubmit = values => {
+    console.log(values);
+  };
 
   // loading and no user will show Loading div
   if (loading || !user) {
@@ -48,7 +53,7 @@ function AdminDashboard(props) {
      
           </Flex>
 
-          <Flex ai_start col stretch>
+          <Form ai_start col stretch onSubmit={handleSubmit(onSubmit)}>
             
             <Text xlf bold>
               Personal Information
@@ -59,24 +64,20 @@ function AdminDashboard(props) {
             <Flex jc_between stretch>
      
               <Flex ai_start col>
-                <Text lf>
+                <Text mf>
                   First Name
                 </Text>
                 <Flex ai_center>
-                  <Text lf border='1px solid grey' radius>
-                    {user.given_name}
-                  </Text>
+                  <Input type='text' placeholder={user.given_name} />
                 </Flex>
               </Flex>
 
               <Flex ai_start col>
-                <Text lf>
+                <Text mf>
                   Last Name
                 </Text>
                 <Flex ai_center>
-                  <Text lf border='1px solid grey' radius>
-                    {user.family_name}
-                  </Text>
+                  <Input type='text' placeholder={user.family_name} />
                 </Flex>
               </Flex>
 
@@ -86,24 +87,20 @@ function AdminDashboard(props) {
 
             <Flex jc_between stretch>
               <Flex ai_start col>
-                <Text lf>
+                <Text mf>
                   Display Name
                 </Text>
                 <Flex ai_center>
-                  <Text lf border='1px solid grey' radius>
-                    {user.nickname}
-                  </Text>
+                  <Input type='text' placeholder={user.nickname} />
                 </Flex>
               </Flex>
 
               <Flex ai_start col>
-                <Text lf>
+                <Text mf>
                   Date of Birth
                 </Text>
                 <Flex ai_center>
-                  <Text lf border='1px solid grey' radius>
-                    01/01/2000
-                  </Text>
+                  <Input type='date' />
                 </Flex>
               </Flex>
             </Flex>
@@ -111,14 +108,36 @@ function AdminDashboard(props) {
             <Box h='3rem' />
             
             <Flex ai_start col>
-              <Text lf>
+              <Text mf>
                 Bio
               </Text>
-              <Form>
-                Form
-              </Form>
+              <Input type='textarea' stretch h='10rem'/>
             </Flex>
-          </Flex>
+
+            <Flex jc_between stretch>
+     
+              <Flex ai_start col>
+                <Text mf>
+                  Disability Status
+                </Text>
+                <Flex ai_center>
+                  <Input type='select' placeholder=''/>
+                </Flex>
+              </Flex>
+
+              <Flex ai_start col>
+                <Text mf>
+                  Are you over 18 years old?
+                </Text>
+                <Flex ai_center>
+                  <Input type='select' placeholder=''/>
+                </Flex>
+              </Flex>
+
+            </Flex>
+
+            <Button type='submit' secondary>Submit</Button>
+          </Form>
 
         </Flex>
         <Flex drape mm mp>
