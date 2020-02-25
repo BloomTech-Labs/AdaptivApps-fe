@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth0 } from './auth/react-auth0-spa';
 import { Flex, Box, Button, Linkton, theme } from 'adaptiv-ui';
-import acsLogo from '../images/acsLogo.png';
+import acsLogo from '../assets/images/acsLogo.png';
 
 const NavBar = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -9,7 +9,7 @@ const NavBar = () => {
   return (
     <Flex h="10rem" stretch>
       <Box w="30rem">
-        <img src={acsLogo} />
+        <img src={acsLogo} alt="angel city sports" />
       </Box>
       <Flex stretch jc_end ai_center>
         <Box w="3rem" />
@@ -27,9 +27,13 @@ const NavBar = () => {
         )}
 
         <Box w="3rem" />
-        <Linkton border={`2px solid ${theme.primary}`} primary to="/">
-          Home
-        </Linkton>
+        <Button
+          border={`2px solid ${theme.primary}`}
+          primary
+          onClick={() => loginWithRedirect({})}
+        >
+          Sign Up
+        </Button>
 
         {isAuthenticated && (
           <Linkton

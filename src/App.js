@@ -4,7 +4,6 @@ import { Router, Switch } from 'react-router-dom';
 // Components
 import DashRouter from './pages/DashRouter';
 import PrivateRoute from './utils/PrivateRoute';
-import NavBar from './components/NavBar';
 
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
@@ -36,10 +35,6 @@ function App() {
     <ApolloProvider client={client}>
       <div className="App">
         <Router history={history}>
-          <header>
-            {/* Moving NavBar to LandingPage once we build sidebar nav */}
-            <NavBar />
-          </header>
           <Switch>
             <PrivateRoute exact path="/" component={DashRouter} />
           </Switch>
