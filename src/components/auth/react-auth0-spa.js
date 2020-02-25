@@ -7,6 +7,7 @@ const DEFAULT_REDIRECT_CALLBACK = () =>
 
 export const Auth0Context = React.createContext();
 export const useAuth0 = () => useContext(Auth0Context);
+
 export const Auth0Provider = ({
   children,
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
@@ -43,6 +44,7 @@ export const Auth0Provider = ({
       if (isAuthenticated) {
         const token = await tokenP;
         console.log('Showing tokenP', token.__raw);
+        localStorage.setItem('golden', token.__raw);
         const user = await auth0FromHook.getUser();
         setUser(user);
         console.log('authenticated', user);
