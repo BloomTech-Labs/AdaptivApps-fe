@@ -4,13 +4,12 @@ import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
 
-//Query used to obtain user profile information
+import {useAuth0} from '../../../components/auth/react-auth0-spa'
 
-//May need to create an account in playground and take that ID and paste below:
-
+//!!Query used to obtain user profile information
 const PROFILE_INFO = gql`
-  {
-    profile(where: { id: "ck6vcu1cf000n0725ahi1fx4y" }) {
+  query getProfile($email: String!) {
+    profile(where: { email: $email }) {
       email
       firstName
       lastName
@@ -25,17 +24,19 @@ const PROFILE_INFO = gql`
   }
 `;
 
-
-//!!Query used to obtain user profile information
-
 function ProfileInfo() {
-  const { loading, error, data } = useQuery(PROFILE_INFO);
+  const { user } = useAuth0();
+  const { email } = user;
+  const { loading, error, data } = useQuery(PROFILE_INFO, {
+    variables: { email: email },
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   return (
     <main>
       <div>
+        {console.log(data)}
         <p>{data.profile.email}</p>
         <p>{data.profile.firstName}</p>
         <p>{data.profile.lastName}</p>
@@ -50,5 +51,4 @@ function ProfileInfo() {
     </main>
   );
 }
-
 export default ProfileInfo;
