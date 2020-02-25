@@ -1,8 +1,7 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import { useAuth0 } from '../../../components/auth/react-auth0-spa'
-
+import { useAuth0 } from '../../../../components/auth/react-auth0-spa';
 
 //!!Query used to obtain user profile information
 const PROFILE_INFO = gql`
