@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ApolloClient from 'apollo-boost';
-import * as auth0 from './components/auth/react-auth0-spa';
-import auth from './components/auth/Auth';
-import { ApolloProvider } from '@apollo/react-hooks';
+// import ApolloClient from 'apollo-boost';
+
+// import { ApolloProvider } from '@apollo/react-hooks';
+import { Auth0Provider } from './components/auth/react-auth0-spa';
+import config from './components/auth/auth_config.json';
 import { AppWrapper } from 'adaptiv-ui';
 import 'adaptiv-ui/css/main.css';
 
@@ -11,27 +12,22 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 //pointing apollo client to the apollo api.
-const client = new ApolloClient({
-  uri: 'http://localhost:8000',
-  request: operation => {
-    operation.setContext(context => ({
-      headers: {
-        ...context.headers,
-        //authorization: localStorage.getItem('golden'),
-        authorization: auth.getIdToken(),
-      },
-    }));
-  },
-});
 
 //!!pointing apollo client to the apollo api.
 
 ReactDOM.render(
-  <ApolloProvider client={client}>
+  <Auth0Provider
+    domain={config.domain}
+    client_id={config.clientId}
+    redirect_uri={window.location.origin}
+    audience={config.audience}
+    responseType={config.responseType}
+    scope={window.scope}
+  >
     <AppWrapper bg="white">
       <App />
     </AppWrapper>
-  </ApolloProvider>,
+  </Auth0Provider>,
   document.getElementById('root')
 );
 
