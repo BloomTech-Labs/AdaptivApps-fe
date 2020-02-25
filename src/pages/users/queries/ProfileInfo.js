@@ -1,11 +1,13 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+import { useAuth0 } from '../../../components/auth/react-auth0-spa'
 
-//Query used to obtain user profile information
+
+//!!Query used to obtain user profile information
 const PROFILE_INFO = gql`
-  {
-    profile(where: { id: "ck70mkw8m000o07581kkxj67x" }) {
+  query getProfile($email: String!) {
+    profile(where: { email: $email }) {
       email
       firstName
       lastName
@@ -19,18 +21,20 @@ const PROFILE_INFO = gql`
     }
   }
 `;
-//!!Query used to obtain user profile information
 
 function ProfileInfo() {
-  const { loading, error, data } = useQuery(PROFILE_INFO);
-
+  const { user } = useAuth0();
+  const { email } = user;
+  const { loading, error, data } = useQuery(PROFILE_INFO, {
+    variables: { email: email },
+  });
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   return (
     <main>
       <div>
-        <p>{data.profile.email}</p>
-        <p>{data.profile.firstName}</p>
+        <p>{data?.profile?.email}</p>
+        {/* <p>{data.profile.firstName}</p>
         <p>{data.profile.lastName}</p>
         <p>{data.profile.displayName}</p>
         <p>{data.profile.birthday}</p>
@@ -38,10 +42,9 @@ function ProfileInfo() {
         <p>{data.profile.disability}</p>
         <p>{data.profile.legal}</p>
         <p>{data.profile.createdAt}</p>
-        <p>{data.profile.updatedAt}</p>
+        <p>{data.profile.updatedAt}</p> */}
       </div>
     </main>
   );
 }
-
 export default ProfileInfo;
