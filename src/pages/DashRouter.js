@@ -13,7 +13,7 @@ import SideNav from '../components/SideNav';
 
 const DashRouter = () => {
   const { loading, user } = useAuth0();
-  console.log(user);
+  //console.log(user);
 
   // loading and no user will show Loading div
   if (loading || !user) {

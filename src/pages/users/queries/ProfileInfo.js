@@ -1,11 +1,12 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
+import { useAuth0 } from '../../../components/auth/react-auth0-spa';
 
-//Query used to obtain user profile information
+//!!Query used to obtain user profile information
 const PROFILE_INFO = gql`
-  {
-    profile(where: { id: "ck70si6a8000d0710vfm27uaz" }) {
+  query getProfile($email: String!) {
+    profile(where: { email: $email }) {
       email
       firstName
       lastName
@@ -19,10 +20,14 @@ const PROFILE_INFO = gql`
     }
   }
 `;
-//!!Query used to obtain user profile information
 
 function ProfileInfo() {
-  const { loading, error, data } = useQuery(PROFILE_INFO);
+  const { user } = useAuth0();
+  const { email } = user;
+
+  const { loading, error, data } = useQuery(PROFILE_INFO, {
+    variables: { email: email },
+  });
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;

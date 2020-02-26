@@ -7,7 +7,7 @@ const DEFAULT_REDIRECT_CALLBACK = () =>
 
 export const Auth0Context = React.createContext();
 export const useAuth0 = () => useContext(Auth0Context);
-console.log('console.log useAuth0', useAuth0.getTokenSilently);
+//console.log('console.log useAuth0', useAuth0.getTokenSilently);
 export const Auth0Provider = ({
   children,
   onRedirectCallback = DEFAULT_REDIRECT_CALLBACK,
@@ -34,20 +34,20 @@ export const Auth0Provider = ({
       const tokenP = auth0FromHook.getIdTokenClaims();
 
       const isAuthenticated = await auth0FromHook.isAuthenticated();
-      console.log(
-        'Showing this auth0FrameHook',
-        auth0FromHook.getIdTokenClaims()
-      );
+      //console.log(
+      //'Showing this auth0FrameHook',
+      //   auth0FromHook.getIdTokenClaims()
+      // );
       // checks to make sure user is authenticated and sets user if true.
       setIsAuthenticated(isAuthenticated);
 
       if (isAuthenticated) {
         const token = await tokenP;
-        console.log('Showing tokenP', token.__raw);
-        localStorage.setItem('golden', token.__raw);
+        //console.log('Showing tokenP', token.__raw);
+        //localStorage.setItem('golden', token.__raw);
         const user = await auth0FromHook.getUser();
         setUser(user);
-        console.log('authenticated', user);
+        //console.log('authenticated', user);
       }
 
       setLoading(false);
@@ -61,14 +61,14 @@ export const Auth0Provider = ({
     try {
       await auth0Client.loginWithPopup(params);
     } catch (error) {
-      console.error(error);
+      //console.error(error);
     } finally {
       setPopupOpen(false);
     }
     const user = await auth0Client.getUser();
     setUser(user);
     setIsAuthenticated(true);
-    console.log('user', user);
+    //console.log('user', user);
   };
 
   const handleRedirectCallback = async () => {
@@ -78,7 +78,7 @@ export const Auth0Provider = ({
     setLoading(false);
     setIsAuthenticated(true);
     setUser(user);
-    console.log('redirect', user);
+    //console.log('redirect', user);
   };
   return (
     <Auth0Context.Provider
