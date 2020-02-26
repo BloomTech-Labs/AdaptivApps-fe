@@ -1,19 +1,14 @@
-import React, { useEffect } from 'react';
-import { Route } from 'react-router-dom';
+import React from 'react';
 import { useAuth0 } from '../components/auth/react-auth0-spa';
 import LandingPage from '../pages/LandingPage';
 import { Wrapper } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
-  const { loading, user, isAuthenticated } = useAuth0();
+  const { loading, user } = useAuth0();
 
-  // secures private info by checking to see if user authenticated is true and then displays component and contents
-  useEffect(() => {
-    console.log('isAuth: ', isAuthenticated);
-  }, [loading, isAuthenticated]);
-
-  const render = props =>
+  // This Render function returns the appropriate component
+  const Render = props =>
     user ? (
       <Component {...props} />
     ) : !loading && !user ? (
@@ -24,7 +19,8 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
       </Wrapper>
     );
 
-  return <Route path={path} render={render} {...rest} />;
+  // We return the Render function that returns the right component
+  return <Render path={path} {...rest} />;
 };
 
 export default PrivateRoute;
