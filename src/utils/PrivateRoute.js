@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Route } from 'react-router-dom';
+// import { Route } from 'react-router-dom';
 import { useAuth0 } from '../components/auth/react-auth0-spa';
 import LandingPage from '../pages/LandingPage';
 import { Wrapper } from 'adaptiv-ui';
@@ -13,7 +13,7 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
     console.log('isAuth: ', isAuthenticated);
   }, [loading, isAuthenticated]);
 
-  const render = props =>
+  const Render = props =>
     user ? (
       <Component {...props} />
     ) : !loading && !user ? (
@@ -24,7 +24,7 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
       </Wrapper>
     );
 
-  return <Route path={path} render={render} {...rest} />;
+  return <Render path={path} {...rest} />;
 };
 
 export default PrivateRoute;

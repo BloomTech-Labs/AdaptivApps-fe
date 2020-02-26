@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Switch } from 'react-router-dom';
+import { Router } from '@reach/router';
 
 // Components
 import DashRouter from './pages/DashRouter';
@@ -22,9 +22,7 @@ function App() {
         redirect_uri={window.location.origin}
       >
         <Router history={history}>
-          <Switch>
-            <PrivateRoute exact path="/" component={DashRouter} />
-          </Switch>
+          <PrivateRoute exact path="/" component={DashRouter} />
         </Router>
       </Auth0Provider>
     </div>
