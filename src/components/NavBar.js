@@ -21,6 +21,9 @@ const NavBar = () => {
             primary
             aria-label="Access log in modal"
             onClick={() => loginWithRedirect({})}
+            jc_center
+            h='5rem'
+            w='10rem'
           >
             Log in
           </Button>
@@ -31,6 +34,9 @@ const NavBar = () => {
           border={`2px solid ${theme.primary}`}
           primary
           onClick={() => loginWithRedirect({})}
+          jc_center
+          h='5rem'
+          w='10rem'
         >
           Sign Up
         </Button>

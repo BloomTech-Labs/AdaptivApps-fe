@@ -2,7 +2,7 @@ import React from 'react'
 import config from "../../components/auth/auth_config.json";
 import { useAuth0 } from "../../components/auth/react-auth0-spa";
 import PropTypes from 'prop-types';
-import { Flex, Box, Text, Button, Form, Input } from "adaptiv-ui";
+import { Flex, Box, Text, Button, Form, Input, theme } from "adaptiv-ui";
 import { useForm } from 'react-hook-form'
 
 function AdminDashboard(props) {
@@ -36,7 +36,7 @@ function AdminDashboard(props) {
 
           </Flex>
 
-          <Box h='3rem' />
+          <Box h='2rem' />
 
           <Flex ai_start col>
 
@@ -48,7 +48,7 @@ function AdminDashboard(props) {
               <Text lf>
                 {user.email}
               </Text>
-              <Button primary mm>Change</Button>     
+              <Button primary jc_center mm border={`2px solid ${theme.primary}`} w='10rem' h='5rem' aria-label='Change email for this user'>Change</Button>     
             </Flex>
      
           </Flex>
@@ -59,7 +59,7 @@ function AdminDashboard(props) {
               Personal Information
             </Text>
      
-            <Box h='3rem' />
+            <Box h='2rem' />
      
             <Flex jc_between stretch>
      
@@ -132,7 +132,7 @@ function AdminDashboard(props) {
 
             </Flex>
 
-            <Button type='submit' secondary>Submit</Button>
+            <Button type='submit' jc_center primary border={`2px solid ${theme.primary}`} w='10rem' h='5rem'>Save</Button>
           </Form>
 
         </Flex>
