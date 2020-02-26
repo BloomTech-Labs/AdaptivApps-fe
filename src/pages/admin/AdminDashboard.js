@@ -48,7 +48,7 @@ function AdminDashboard(props) {
               <Text lf>
                 {user.email}
               </Text>
-              <Button primary jc_center mm border={`2px solid ${theme.primary}`} w='10rem' h='5rem' aria-label='Change email for this user'>Change</Button>     
+              <Button primary jc_center mm border={`2px solid ${theme.primary}`} w='7.75rem' h='3.75rem' aria-label='Change email for this user' onClick={() => alert('functionality coming next release canvas')}>Change</Button>     
             </Flex>
      
           </Flex>
@@ -107,7 +107,8 @@ function AdminDashboard(props) {
               <Text mf>
                 Bio
               </Text>
-              <Input type='textarea' w='52.5rem' h='10rem'/>
+              {/* <Input type='textarea' w='52.5rem' h='10rem'/> */}
+              <textarea rows='4' cols='62' style={{margin: 'auto'}}></textarea>
             </Flex>
 
             <Flex jc_between stretch>
@@ -117,7 +118,7 @@ function AdminDashboard(props) {
                   Disability Status {/* is there a better way to word this? */}
                 </Text>
                 <Flex ai_center>
-                  <Input type='select' placeholder='' w='25rem'/> {/* need to figure out options for select field */}
+                  <Input type='select' placeholder='' w='25rem'/>
                 </Flex>
               </Flex>
 
@@ -126,13 +127,17 @@ function AdminDashboard(props) {
                   Are you over 18 years old?
                 </Text>
                 <Flex ai_center>
-                  <Input type='select' placeholder='' w='25rem' /> {/* need to figure out options for select field */}
+                  {/* <Input type='select' placeholder='' w='25rem' /> */}
+                  <select id='minor' style={{width: "25rem"}}>
+                    <option value={true}>Yes</option>
+                    <option value={false}>No</option>
+                  </select>
                 </Flex>
               </Flex>
 
             </Flex>
 
-            <Button type='submit' jc_center primary border={`2px solid ${theme.primary}`} w='10rem' h='5rem'>Save</Button>
+            <Button type='submit' jc_center primary border={`2px solid ${theme.primary}`} w='10rem' h='5rem' aria-label='save changes to user profile' onClick={() => alert('functionality coming next release canvas')}>Save</Button>
           </Form>
 
         </Flex>
