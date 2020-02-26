@@ -26,7 +26,7 @@ function UserDashboard(props) {
         <Box h='0.2rem' w='90%' bg='lightgrey' />
         
         <Flex mm col ai_start>
-          {/* <Box h='5rem' /> */}
+          
           <Flex jc_between ai_center>
 
             <Box sqr='5rem' >
@@ -117,7 +117,7 @@ function UserDashboard(props) {
                   Disability Status
                 </Text>
                 <Flex ai_center>
-                  <Input type='select' placeholder=''/>
+                  <Input type='select' placeholder=''/> {/* need to figure out options for select field */}
                 </Flex>
               </Flex>
 
@@ -126,7 +126,7 @@ function UserDashboard(props) {
                   Are you over 18 years old?
                 </Text>
                 <Flex ai_center>
-                  <Input type='select' placeholder='' />
+                  <Input type='select' placeholder='' /> {/* need to figure out options for select field */}
                 </Flex>
               </Flex>
 

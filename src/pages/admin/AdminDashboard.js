@@ -68,7 +68,7 @@ function AdminDashboard(props) {
                   First Name
                 </Text>
                 <Flex ai_center>
-                  <Input type='text' placeholder={user.given_name} />
+                  <Input type='text' placeholder={user.given_name} w='25rem' />
                 </Flex>
               </Flex>
 
@@ -77,7 +77,7 @@ function AdminDashboard(props) {
                   Last Name
                 </Text>
                 <Flex ai_center>
-                  <Input type='text' placeholder={user.family_name} />
+                  <Input type='text' placeholder={user.family_name} w='25rem' />
                 </Flex>
               </Flex>
 
@@ -89,7 +89,7 @@ function AdminDashboard(props) {
                   Display Name
                 </Text>
                 <Flex ai_center>
-                  <Input type='text' placeholder={user.nickname} />
+                  <Input type='text' placeholder={user.nickname} w='25rem' />
                 </Flex>
               </Flex>
 
@@ -98,7 +98,7 @@ function AdminDashboard(props) {
                   Date of Birth
                 </Text>
                 <Flex ai_center>
-                  <Input type='date' />
+                  <Input type='date' w='25rem' />
                 </Flex>
               </Flex>
             </Flex>
@@ -107,17 +107,17 @@ function AdminDashboard(props) {
               <Text mf>
                 Bio
               </Text>
-              <Input type='textarea' w='50rem' h='10rem'/>
+              <Input type='textarea' w='52.5rem' h='10rem'/>
             </Flex>
 
             <Flex jc_between stretch>
      
               <Flex ai_start col>
                 <Text mf>
-                  Disability Status
+                  Disability Status {/* is there a better way to word this? */}
                 </Text>
                 <Flex ai_center>
-                  <Input type='select' placeholder=''/>
+                  <Input type='select' placeholder='' w='25rem'/> {/* need to figure out options for select field */}
                 </Flex>
               </Flex>
 
@@ -126,7 +126,7 @@ function AdminDashboard(props) {
                   Are you over 18 years old?
                 </Text>
                 <Flex ai_center>
-                  <Input type='select' placeholder='' />
+                  <Input type='select' placeholder='' w='25rem' /> {/* need to figure out options for select field */}
                 </Flex>
               </Flex>
 
