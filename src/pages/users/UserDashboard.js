@@ -7,14 +7,14 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 
 const ProfileSchema = yup.object().shape({
-  email: yup.string().required(),
-  given_name: yup.string(),
-  family_name: yup.string(),
-  nickname: yup.string(),
-  dob: yup.date(),
-  bio: yup.string(),
-  status: yup.string(), //string?
-  overEighteen: yup.bool()
+  // email: yup.string().required(),
+  firstName: yup.string(),
+  lastName: yup.string(),
+  displayName: yup.string(),
+  // birthday: yup.date(),
+  // bio: yup.string(),
+  // disability: yup.string(), //string?
+  // legal: yup.bool()
 })
 
 function UserDashboard(props) {
@@ -22,10 +22,23 @@ function UserDashboard(props) {
   const { loading } = useAuth0();
   // console.log(user)
   const { handleSubmit, register, errors } = useForm({
-    validationSchema: ProfileSchema
+    mode: 'onSubmit',
+    validationSchema: ProfileSchema,
+    defaultValues: {
+      email: user.email,
+      firstName: user.given_name,
+      lastName: user.family_name,
+      displayName: user.nickname,
+    }
   });
-  const onSubmit = values => {
-    console.log(values);
+  const userRegister = useRef(register({}))
+  // set editing state for email change button?
+  
+  const onSubmit = (data, e) => {
+    // console.log('hello world');
+    // console.log(data, e);
+    // alert(JSON.stringify(data));
+    alert('functionality coming next release canvas');
   };
 
   // loading and no user will show Loading div
@@ -82,7 +95,8 @@ function UserDashboard(props) {
                   First Name
                 </Text>
                 <Flex ai_center>
-                  <Input type='text' placeholder={user.given_name} w='25rem' />
+                  <Input type='text' placeholder={user.given_name} w='25rem' name='firstName' ref={register} />
+                  {/* <input type='text' placeholder={user.given_name} w='25rem' name='firstName' ref={register} /> */}
                 </Flex>
               </Flex>
 
@@ -91,7 +105,7 @@ function UserDashboard(props) {
                   Last Name
                 </Text>
                 <Flex ai_center>
-                  <Input type='text' placeholder={user.family_name} w='25rem' />
+                  <Input type='text' placeholder={user.family_name} w='25rem' name='lastName' ref={register} />
                 </Flex>
               </Flex>
 
@@ -103,7 +117,7 @@ function UserDashboard(props) {
                   Display Name
                 </Text>
                 <Flex ai_center>
-                  <Input type='text' placeholder={user.nickname} w='25rem' />
+                  <Input type='text' placeholder={user.nickname} w='25rem' name='displayName' ref={register} />
                 </Flex>
               </Flex>
 
@@ -112,7 +126,7 @@ function UserDashboard(props) {
                   Date of Birth
                 </Text>
                 <Flex ai_center>
-                  <Input type='date' w='25rem' />
+                  <Input type='date' w='25rem' name='birthday' ref={register} />
                 </Flex>
               </Flex>
             </Flex>
@@ -121,7 +135,7 @@ function UserDashboard(props) {
               <Text mf>
                 Bio
               </Text>
-              <TextArea rows='8' cols='60'/>
+              <TextArea rows='8' cols='60' name='bio' ref={register} />
             </Flex>
 
             <Flex jc_between stretch>
@@ -131,7 +145,7 @@ function UserDashboard(props) {
                   Disability Status {/* is there a better way to word this? */}
                 </Text>
                 <Flex ai_center>
-                  <Input type='select' placeholder='' w='25rem'/>
+                  <Input type='select' placeholder='' w='25rem' name='disability' ref={register} />
                 </Flex>
               </Flex>
 
@@ -140,7 +154,7 @@ function UserDashboard(props) {
                   Are you over 18 years old?
                 </Text>
                 <Flex ai_center>
-                  <Select w='20rem'>
+                  <Select w='20rem' name='legal' ref={register} >
                     <option value={true}>Yes</option>
                     <option value={false}>No</option>
                   </Select>
@@ -149,7 +163,7 @@ function UserDashboard(props) {
 
             </Flex>
 
-            <Button type='submit' jc_center primary border={`2px solid ${theme.primary}`} w='10rem' h='5rem' aria-label='save changes to user profile'>Save</Button>
+            <Button type='submit' jc_center primary border={`2px solid ${theme.primary}`} w='9rem' h='4rem' aria-label='save changes to user profile' >Save</Button>
           </Form>
 
         </Flex>
