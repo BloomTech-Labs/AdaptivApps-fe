@@ -1,13 +1,12 @@
 import React from 'react';
 import { useAuth0 } from './auth/react-auth0-spa';
-import { Flex, NavBar, Box, Button } from 'adaptiv-ui';
+import { Flex, NavBar, Box, Button, NavLink } from 'adaptiv-ui';
 import acsLogo from '../assets/images/acsLogo.png';
 import config from '../components/auth/auth_config.json';
 import { FaRegCalendar, FaRegBookmark, FaRegUser, FaPen } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
-import NavLink from './NavLink';
 import PropTypes from 'prop-types';
-import { IconContext } from 'react-icons'
+import { IconContext } from 'react-icons';
 
 const SideNav = props => {
   const { logout } = useAuth0();
@@ -70,7 +69,9 @@ const SideNav = props => {
       <Flex col jc_end ai_end>
         <Button ai_start primary stretch radius="0" onClick={() => logout()}>
           <Flex jc_start ai_center>
-            <IconContext.Provider value={{style: {transform: 'rotate(180deg)'}}}>
+            <IconContext.Provider
+              value={{ style: { transform: 'rotate(180deg)' } }}
+            >
               <Box w="2rem" />
               <FiLogOut />
               <Box w="2rem" />
