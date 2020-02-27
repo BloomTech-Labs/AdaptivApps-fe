@@ -7,12 +7,13 @@ import { FaRegCalendar, FaRegBookmark, FaRegUser, FaPen } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
 import NavLink from './NavLink';
 import PropTypes from 'prop-types';
+import { IconContext } from 'react-icons'
 
 const SideNav = props => {
   const { logout } = useAuth0();
 
   return (
-    <NavBar col jc_between h="100vh" w="29.5vw">
+    <NavBar col jc_between h="100vh">
       <Flex col>
         <Box stretch>
           <img src={acsLogo} alt="ACS Logo" />
@@ -69,10 +70,12 @@ const SideNav = props => {
       <Flex col jc_end ai_end>
         <Button ai_start primary stretch radius="0" onClick={() => logout()}>
           <Flex jc_start ai_center>
-            <Box w="2rem" />
-            <FiLogOut />
-            <Box w="2rem" />
-            <p>Log Out</p>
+            <IconContext.Provider value={{style: {transform: 'rotate(180deg)'}}}>
+              <Box w="2rem" />
+              <FiLogOut />
+              <Box w="2rem" />
+              <p>Log Out</p>
+            </IconContext.Provider>
           </Flex>
         </Button>
       </Flex>
