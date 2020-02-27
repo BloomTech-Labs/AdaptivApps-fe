@@ -17,4 +17,12 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {},
+  overrides: [
+    {
+      files: ['**/*.test.js'],
+      env: {
+        jest: true,
+      },
+    },
+  ],
 };
