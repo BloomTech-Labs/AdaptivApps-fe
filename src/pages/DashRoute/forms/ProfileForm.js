@@ -1,6 +1,8 @@
 import React from 'react';
 import config from '../../../components/auth/auth_config.json';
 import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-apollo';
+import { ADD_USER_PROFILE } from '../queries/createProfile';
 import {
   Flex,
   Box,
@@ -13,8 +15,17 @@ import {
 } from 'adaptiv-ui';
 
 const UserDashboard = props => {
-  const { user } = props;
+  const { user, data } = props;
+  const userEmail = data.email;
   const { handleSubmit, register, errors } = useForm();
+  const [createProfile] = useMutation(ADD_USER_PROFILE);
+
+  if (!user.email) {
+    console.log('You are not registered and here is your email', userEmail);
+    // const { loading, error, data } = createProfile({
+    //   variables: { email: userEmail },
+    // });
+  }
 
   const onSubmit = (data, e) => {
     alert('functionality coming next release canvas');
@@ -29,7 +40,7 @@ const UserDashboard = props => {
       <Flex mm col ai_start>
         <Flex jc_between ai_center>
           <Box sqr="5rem">
-            <img src={user.picture} alt="Profile" />
+            <img src={data.picture} alt="Profile" />
           </Box>
           <Text lf sm>
             {user.firstName} {user.lastName} ({user[config.roleUrl]})

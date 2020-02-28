@@ -11,7 +11,6 @@ import SideNav from '../../components/SideNav';
 
 const DashRouter = () => {
   const { loading, user } = useAuth0();
-
   if (loading || !user) {
     return <div>Loading...</div>;
   }
