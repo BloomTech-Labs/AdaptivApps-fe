@@ -1,7 +1,7 @@
 // React imports
 import React from 'react';
 import NavBar from '../components/NavBar';
-import { Wrapper, Box, Flex, Container, Button, Text } from 'adaptiv-ui';
+import { Wrapper, Box, Flex, Container, Button } from 'adaptiv-ui';
 import { useAuth0 } from '../components/auth/react-auth0-spa';
 import landingImage from '../assets/images/landingImage.jpeg';
 import { FaFacebookSquare, FaGoogle } from 'react-icons/fa';
@@ -17,9 +17,7 @@ const LandingPage = () => {
         <Container bg_src={landingImage} invert attach_fix>
           <Flex h="50vh" jc_center ai_center>
             <Flex w="85%" jc_center ai_center>
-              <Text f_size="7.2rem" bold ta_center>
-                Your Home for Angel City Sports Events and More!
-              </Text>
+              <p>Your Home for Angel City Sports Events and More!</p>
             </Flex>
           </Flex>
         </Container>
@@ -47,14 +45,14 @@ const LandingPage = () => {
                 <Flex jc_between ai_center>
                   <FaFacebookSquare />
                   <Box w="2rem" />
-                  <Text>Sign up with Facebook</Text>
+                  <p>Sign up with Facebook</p>
                 </Flex>
               </Button>
               <Button secondary w="26rem" onClick={() => loginWithRedirect({})}>
                 <Flex jc_between ai_center>
                   <FaGoogle />
                   <Box w="2rem" />
-                  <Text>Sign up with Google</Text>
+                  <p>Sign up with Google</p>
                   <Box w="2rem" />
                 </Flex>
               </Button>

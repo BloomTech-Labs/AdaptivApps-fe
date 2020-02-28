@@ -1,6 +1,6 @@
 import React from 'react';
-import { useAuth0 } from '../../components/auth/react-auth0-spa';
-import config from '../../components/auth/auth_config.json';
+import config from '../../../components/auth/auth_config.json';
+import { useAuth0 } from '../../../components/auth/react-auth0-spa';
 import PropTypes from 'prop-types';
 import {
   Flex,
@@ -27,7 +27,7 @@ const ProfileSchema = yup.object().shape({
   // legal: yup.bool()
 });
 
-function UserDashboard(props) {
+function AdminDashboard(props) {
   const { user } = props;
   const { loading } = useAuth0();
   // console.log(user)
@@ -211,8 +211,8 @@ function UserDashboard(props) {
     );
 }
 
-export default UserDashboard;
+export default AdminDashboard;
 
-UserDashboard.propTypes = {
+AdminDashboard.propTypes = {
   user: PropTypes.object,
 };

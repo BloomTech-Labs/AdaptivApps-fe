@@ -1,16 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// import ApolloClient from 'apollo-boost';
 
+// import { ApolloProvider } from '@apollo/react-hooks';
+import { Auth0Provider } from './components/auth/react-auth0-spa';
+import config from './components/auth/auth_config.json';
 import { AppWrapper } from 'adaptiv-ui';
 import 'adaptiv-ui/css/main.css';
 
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+//pointing apollo client to the apollo api.
+
+//!!pointing apollo client to the apollo api.
+
 ReactDOM.render(
-  <AppWrapper bg="white">
-    <App />
-  </AppWrapper>,
+  <Auth0Provider
+    domain={config.domain}
+    client_id={config.clientId}
+    redirect_uri={window.location.origin}
+    audience={config.audience}
+    responseType={config.responseType}
+    scope={window.scope}
+  >
+    <AppWrapper bg="white">
+      <App />
+    </AppWrapper>
+  </Auth0Provider>,
   document.getElementById('root')
 );
 
