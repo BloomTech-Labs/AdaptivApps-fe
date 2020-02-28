@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from 'react-apollo';
 import ProfileForm from '../forms/ProfileForm';
 import { PROFILE_INFO } from '../queries/getProfile';
 import { useMutation } from 'react-apollo';
 import { ADD_USER_PROFILE } from '../queries/createProfile';
+import { useHistory } from 'react-router-dom';
 
 /*
  * Currently the code runs just fine, fetching data from the backend and displaying them properly
@@ -12,20 +13,32 @@ import { ADD_USER_PROFILE } from '../queries/createProfile';
  */
 const UserDashboard = props => {
   const { user } = props;
-  const { data } = useQuery(PROFILE_INFO, {
+  const { loading, error, data } = useQuery(PROFILE_INFO, {
     variables: { email: user.email },
   });
 
   const profile = data?.profile;
 
-  if (!profile) {
-    return <p>Loading...</p>;
+  const [createProfile] = useMutation(ADD_USER_PROFILE);
+  const newProfile = async () => {
+    await createProfile({ variables: { email: user.email } });
+    window.location.reload();
+  };
+
+  console.log('Am I angry? Who knows', data);
+  if (!data?.profile) {
+    return (
+      <div>
+        <p>You don't have a profile yet. Would you like to create one?</p>
+        <button onClick={newProfile}>Yes, Create One</button>
+      </div>
+    );
   } else {
     return <ProfileForm profile={profile} user={user} />;
   }
 
-  //const [profile, setProfile] = useState(data?.profile);
-  //const [email, setEmail] = useState(user.email);
+  // //const [profile, setProfile] = useState(data?.profile);
+  // const [email, setEmail] = useState(user.email);
 
   // const [createProfile] = useMutation(ADD_USER_PROFILE);
   // const newProfile = async () => {
@@ -33,6 +46,12 @@ const UserDashboard = props => {
   // };
 
   // useEffect(() => {
+  //   if (loading) {
+  //     return <p>Loading</p>;
+  //   }
+  //   if (error) {
+  //     return <p>Error</p>;
+  //   }
   //   if (!profile) {
   //     newProfile();
   //   }
