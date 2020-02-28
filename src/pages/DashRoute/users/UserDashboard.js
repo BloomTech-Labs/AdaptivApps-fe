@@ -27,6 +27,7 @@ const UserDashboard = props => {
       console.log('Running some mutations and sweat a lot');
       newProfile();
     }
+    // eslint-disable-next-line
   }, [profile]);
 
   return <ProfileForm profile={profile ? profile : null} user={user} />;
