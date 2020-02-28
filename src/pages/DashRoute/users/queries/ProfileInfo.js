@@ -1,7 +1,7 @@
 import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import { useQuery, useMutation } from '@apollo/react-hooks';
 import { gql } from 'apollo-boost';
-import { useAuth0 } from '../../../components/auth/react-auth0-spa';
+import { useAuth0 } from '../../../../components/auth/react-auth0-spa';
 
 //!!Query used to obtain user profile information
 const PROFILE_INFO = gql`
@@ -24,11 +24,9 @@ const PROFILE_INFO = gql`
 function ProfileInfo() {
   const { user } = useAuth0();
   const { email } = user;
-
   const { loading, error, data } = useQuery(PROFILE_INFO, {
     variables: { email: email },
   });
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
   return (
@@ -48,5 +46,4 @@ function ProfileInfo() {
     </main>
   );
 }
-
 export default ProfileInfo;

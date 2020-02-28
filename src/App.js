@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Switch } from 'react-router-dom';
 
 // Components
-import DashRouter from './pages/DashRouter';
+import DashRoute from './pages/DashRoute';
 import PrivateRoute from './utils/PrivateRoute';
 
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -26,7 +26,7 @@ function App() {
       operation.setContext(context => ({
         headers: {
           ...context.headers,
-          authorization: token,
+          Authorization: token,
         },
       }));
     },
@@ -36,7 +36,7 @@ function App() {
       <div className="App">
         <Router history={history}>
           <Switch>
-            <PrivateRoute exact path="/" component={DashRouter} />
+            <PrivateRoute exact path="/" component={DashRoute} />
           </Switch>
         </Router>
       </div>

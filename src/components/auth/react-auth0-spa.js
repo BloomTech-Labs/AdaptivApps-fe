@@ -47,7 +47,7 @@ export const Auth0Provider = ({
         //localStorage.setItem('golden', token.__raw);
         const user = await auth0FromHook.getUser();
         setUser(user);
-        //console.log('authenticated', user);
+        // console.log('authenticated', user);
       }
 
       setLoading(false);
@@ -68,7 +68,7 @@ export const Auth0Provider = ({
     const user = await auth0Client.getUser();
     setUser(user);
     setIsAuthenticated(true);
-    //console.log('user', user);
+    // console.log('user', user);
   };
 
   const handleRedirectCallback = async () => {
@@ -78,7 +78,7 @@ export const Auth0Provider = ({
     setLoading(false);
     setIsAuthenticated(true);
     setUser(user);
-    //console.log('redirect', user);
+    // console.log('redirect', user);
   };
   return (
     <Auth0Context.Provider

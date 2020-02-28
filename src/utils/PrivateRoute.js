@@ -10,7 +10,7 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
 
   // secures private info by checking to see if user authenticated is true and then displays component and contents
   useEffect(() => {
-    //console.log('isAuth: ', isAuthenticated);
+    // console.log('isAuth: ', isAuthenticated);
   }, [loading, isAuthenticated]);
 
   const render = props =>
