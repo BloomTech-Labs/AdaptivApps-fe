@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Switch } from 'react-router-dom';
+import { Router } from '@reach/router';
 
 // Components
 import DashRoute from './pages/DashRoute';
@@ -35,9 +35,7 @@ function App() {
     <ApolloProvider client={client}>
       <div className="App">
         <Router history={history}>
-          <Switch>
-            <PrivateRoute exact path="/" component={DashRoute} />
-          </Switch>
+          <PrivateRoute exact path="/" component={DashRouter} />
         </Router>
       </div>
     </ApolloProvider>
