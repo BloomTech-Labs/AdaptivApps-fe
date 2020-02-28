@@ -1,8 +1,6 @@
 import React from 'react';
 import config from '../../../components/auth/auth_config.json';
 import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-apollo';
-import { ADD_USER_PROFILE } from '../queries/createProfile';
 import {
   Flex,
   Box,
@@ -15,17 +13,8 @@ import {
 } from 'adaptiv-ui';
 
 const UserDashboard = props => {
-  const { user, data } = props;
-  const userEmail = data.email;
-  const { handleSubmit, register, errors } = useForm();
-  const [createProfile] = useMutation(ADD_USER_PROFILE);
-
-  if (!user.email) {
-    console.log('You are not registered and here is your email', userEmail);
-    // const { loading, error, data } = createProfile({
-    //   variables: { email: userEmail },
-    // });
-  }
+  const { profile, user } = props;
+  const { handleSubmit, register } = useForm();
 
   const onSubmit = (data, e) => {
     alert('functionality coming next release canvas');
@@ -40,10 +29,10 @@ const UserDashboard = props => {
       <Flex mm col ai_start>
         <Flex jc_between ai_center>
           <Box sqr="5rem">
-            <img src={data.picture} alt="Profile" />
+            <img src={user.picture} alt="Profile" />
           </Box>
           <Text lf sm>
-            {user.firstName} {user.lastName} ({user[config.roleUrl]})
+            {profile.firstName} {profile.lastName} ({user[config.roleUrl]})
           </Text>
         </Flex>
 
@@ -55,7 +44,7 @@ const UserDashboard = props => {
           </Text>
 
           <Flex ai_center>
-            <Text lf>{user.email}</Text>
+            <Text lf>{profile.email}</Text>
             <Button
               primary
               jc_center
@@ -84,7 +73,7 @@ const UserDashboard = props => {
               <Flex ai_center>
                 <Input
                   type="text"
-                  placeholder={user.firstName}
+                  placeholder={profile.firstName}
                   w="25rem"
                   name="firstName"
                   ref={register}
@@ -97,7 +86,7 @@ const UserDashboard = props => {
               <Flex ai_center>
                 <Input
                   type="text"
-                  placeholder={user.lastName}
+                  placeholder={profile.lastName}
                   w="25rem"
                   name="lastName"
                   ref={register}
@@ -112,7 +101,7 @@ const UserDashboard = props => {
               <Flex ai_center>
                 <Input
                   type="text"
-                  placeholder={user.displayName}
+                  placeholder={profile.displayName}
                   w="25rem"
                   name="displayName"
                   ref={register}
