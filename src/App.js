@@ -2,7 +2,7 @@ import React from 'react';
 import { Router } from '@reach/router';
 
 // Components
-import DashRoute from './pages/DashRoute';
+import DashRouter from './pages/DashRoute';
 import PrivateRoute from './utils/PrivateRoute';
 
 import { ApolloProvider } from '@apollo/react-hooks';

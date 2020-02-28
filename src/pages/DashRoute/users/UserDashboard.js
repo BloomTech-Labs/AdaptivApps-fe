@@ -1,6 +1,6 @@
 import React from 'react';
-import { useAuth0 } from '../../components/auth/react-auth0-spa';
-import config from '../../components/auth/auth_config.json';
+import { useAuth0 } from '../../../components/auth/react-auth0-spa';
+import config from '../../../components/auth/auth_config.json';
 import PropTypes from 'prop-types';
 import {
   Flex,
