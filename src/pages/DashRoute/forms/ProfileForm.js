@@ -32,7 +32,8 @@ const UserDashboard = props => {
             <img src={user.picture} alt="Profile" />
           </Box>
           <Text lf sm>
-            {profile.firstName} {profile.lastName} ({user[config.roleUrl]})
+            {profile ? profile.firstName : null}{' '}
+            {profile ? profile.lastName : null} ({user[config.roleUrl]})
           </Text>
         </Flex>
 
@@ -44,7 +45,7 @@ const UserDashboard = props => {
           </Text>
 
           <Flex ai_center>
-            <Text lf>{profile.email}</Text>
+            <Text lf>{profile ? profile.email : user.email}</Text>
             <Button
               primary
               jc_center
@@ -73,7 +74,7 @@ const UserDashboard = props => {
               <Flex ai_center>
                 <Input
                   type="text"
-                  placeholder={profile.firstName}
+                  placeholder={profile ? profile.firstName : null}
                   w="25rem"
                   name="firstName"
                   ref={register}
@@ -86,7 +87,7 @@ const UserDashboard = props => {
               <Flex ai_center>
                 <Input
                   type="text"
-                  placeholder={profile.lastName}
+                  placeholder={profile ? profile.lastName : null}
                   w="25rem"
                   name="lastName"
                   ref={register}
@@ -101,7 +102,7 @@ const UserDashboard = props => {
               <Flex ai_center>
                 <Input
                   type="text"
-                  placeholder={profile.displayName}
+                  placeholder={profile ? profile.displayName : null}
                   w="25rem"
                   name="displayName"
                   ref={register}
