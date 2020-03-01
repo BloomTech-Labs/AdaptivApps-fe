@@ -10,13 +10,15 @@ import {
   Input,
   theme,
   Select,
+  TextArea,
 } from 'adaptiv-ui';
+import PropTypes from 'prop-types';
 
 const UserDashboard = props => {
   const { profile, user } = props;
   const { handleSubmit, register } = useForm();
 
-  const onSubmit = (data, e) => {
+  const onSubmit = () => {
     alert('functionality coming next release canvas');
   };
 
@@ -120,7 +122,7 @@ const UserDashboard = props => {
 
           <Flex ai_start col stretch>
             <Text mf>Bio</Text>
-            <textarea rows="8" cols="60" name="bio" ref={register} />
+            <TextArea rows="8" cols="60" name="bio" ref={register} />
           </Flex>
 
           <Flex jc_between stretch>
@@ -166,3 +168,8 @@ const UserDashboard = props => {
 };
 
 export default UserDashboard;
+
+UserDashboard.propTypes = {
+  profile: PropTypes.object,
+  user: PropTypes.object,
+};

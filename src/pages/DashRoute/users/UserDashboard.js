@@ -4,6 +4,7 @@ import ProfileForm from '../forms/ProfileForm';
 import { PROFILE_INFO } from '../queries/getProfile';
 import { useMutation } from 'react-apollo';
 import { ADD_USER_PROFILE } from '../queries/createProfile';
+import PropTypes from 'prop-types';
 
 const UserDashboard = props => {
   const { user } = props;
@@ -11,7 +12,7 @@ const UserDashboard = props => {
     variables: { email: user.email },
   });
 
-  const profile = data?.profile;
+  const profile = data && data.profile;
 
   const [createProfile] = useMutation(ADD_USER_PROFILE);
 
@@ -34,3 +35,7 @@ const UserDashboard = props => {
 };
 
 export default UserDashboard;
+
+UserDashboard.propTypes = {
+  user: PropTypes.object,
+};

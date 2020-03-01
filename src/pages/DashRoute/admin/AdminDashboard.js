@@ -203,10 +203,6 @@ function AdminDashboard(props) {
             </Button>
           </Form>
         </Flex>
-        {/* <Flex drape mm mp>
-        
-          <code>{JSON.stringify(user, null, 2)}</code>
-        </Flex> */}
       </Flex>
     );
 }
