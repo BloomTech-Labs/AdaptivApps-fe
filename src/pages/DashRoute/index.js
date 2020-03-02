@@ -1,34 +1,24 @@
-// eslint-disable-next-line
+// React imports
 import React from 'react';
-import { Flex, Box } from 'adaptiv-ui';
+
 // Auth0 imports
 import { useAuth0 } from '../../components/auth/react-auth0-spa';
-import config from '../../components/auth/auth_config.json';
+
 // Component imports
-import AdminDashboard from './admin/AdminDashboard';
-import UserDashboard from './users/UserDashboard';
+import UserDashboard from './components/UserDashboard';
 import SideNav from '../../components/SideNav';
 
+// Styling imports
+import { Flex, Box } from 'adaptiv-ui';
+
 const DashRouter = () => {
-  const { loading, user } = useAuth0();
-  if (loading || !user) {
-    return <div>Loading...</div>;
-  }
-  return user[config.roleUrl].includes('Admin') ? (
+  const { user } = useAuth0();
+  return (
     <Flex jc_between>
-      <Box w="15vw">
+      <Box w="15vw" min_w="25rem">
         <SideNav user={user} />
       </Box>
-      <Box w="85vw">
-        <AdminDashboard user={user} />
-      </Box>
-    </Flex>
-  ) : (
-    <Flex jc_between>
-      <Box w="15vw">
-        <SideNav user={user} />
-      </Box>
-      <Box w="85vw">
+      <Box stretch>
         <UserDashboard user={user} />
       </Box>
     </Flex>
