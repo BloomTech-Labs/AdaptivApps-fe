@@ -1,7 +1,7 @@
 // React imports
 import React from 'react';
 import NavBar from '../components/NavBar';
-import { Wrapper, Box, Flex, Container, Button } from 'adaptiv-ui';
+import { Wrapper, Box, Flex, Container, Button, Text } from 'adaptiv-ui';
 import { useAuth0 } from '../components/auth/react-auth0-spa';
 import landingImage from '../assets/images/landingImage.jpeg';
 import { FaFacebookSquare, FaGoogle } from 'react-icons/fa';
@@ -17,7 +17,9 @@ const LandingPage = () => {
         <Container bg_src={landingImage} invert attach_fix>
           <Flex h="50vh" jc_center ai_center>
             <Flex w="85%" jc_center ai_center>
-              <p>Your Home for Angel City Sports Events and More!</p>
+              <Text bold f_size="7.2rem">
+                Your Home for Angel City Sports Events and More!
+              </Text>
             </Flex>
           </Flex>
         </Container>
@@ -28,12 +30,12 @@ const LandingPage = () => {
           </Flex>
           <Flex jc_center ai_center>
             <Flex drape w="30%">
-              <p>
+              <Text>
                 Sign Up Now with Facebook or Google, add your profile info, and
                 keep track of Angel City Sports Games, Clinics, and other
                 events! All the info you need is all in one place - The Angel
                 City Sports App.
-              </p>
+              </Text>
             </Flex>
             <Flex drape w="30%">
               <Button
