@@ -16,6 +16,8 @@ import { useGetToken } from './components/auth/Auth';
 
 // Styling
 import './App.css';
+import UserDashboard from './pages/DashRoute/components/UserDashboard';
+import HelloWorld from './pages/HelloWorld';
 
 function App() {
   const [token] = useGetToken();
@@ -35,7 +37,10 @@ function App() {
     <ApolloProvider client={client}>
       <div className="App">
         <Router>
-          <PrivateRoute exact path="/" component={DashRouter} />
+          <PrivateRoute path="/" component={DashRouter}>
+            <UserDashboard path="/" />
+            <HelloWorld path="events" />
+          </PrivateRoute>
         </Router>
       </div>
     </ApolloProvider>

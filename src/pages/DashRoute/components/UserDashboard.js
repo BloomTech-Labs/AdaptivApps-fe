@@ -6,8 +6,11 @@ import { useMutation } from 'react-apollo';
 import { ADD_USER_PROFILE } from '../queries/createProfile';
 import PropTypes from 'prop-types';
 
-const UserDashboard = props => {
-  const { user } = props;
+// Auth0 imports
+import { useAuth0 } from '../../../components/auth/react-auth0-spa';
+
+const UserDashboard = () => {
+  const { user } = useAuth0();
   const { loading, error, data } = useQuery(PROFILE_INFO, {
     variables: { email: user.email },
   });
