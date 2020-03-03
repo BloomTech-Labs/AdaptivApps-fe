@@ -14,6 +14,7 @@ import {
 } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
 
+// Form for users to fill out their personal info and update profile
 const UserDashboard = props => {
   const { profile, user } = props;
   const { handleSubmit, register } = useForm();

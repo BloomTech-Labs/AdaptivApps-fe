@@ -8,18 +8,22 @@ import PropTypes from 'prop-types';
 
 const UserDashboard = props => {
   const { user } = props;
+  // Fetch profile for the user using the email associated with auth0 login
   const { loading, error, data } = useQuery(PROFILE_INFO, {
     variables: { email: user.email },
   });
 
+  // Extract the profile from returning data of useQuery
   const profile = data && data.profile;
 
   const [createProfile] = useMutation(ADD_USER_PROFILE);
 
+  // Function that creates a profile for given email
   const newProfile = async () => {
     await createProfile({ variables: { email: user.email } });
   };
 
+  // If user does not have a profile in backend, create one for them
   useEffect(() => {
     if (error) {
       return <p>Error</p>;

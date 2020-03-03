@@ -9,11 +9,13 @@ import AdminDashboard from './admin/AdminDashboard';
 import UserDashboard from './users/UserDashboard';
 import SideNav from '../../components/SideNav';
 
+// Render the dashroute based on user type
 const DashRouter = () => {
   const { loading, user } = useAuth0();
   if (loading || !user) {
     return <div>Loading...</div>;
   }
+  // For admin
   return user[config.roleUrl].includes('Admin') ? (
     <Flex jc_between>
       <Box w="15vw">
@@ -24,6 +26,7 @@ const DashRouter = () => {
       </Box>
     </Flex>
   ) : (
+    // For non-admin user
     <Flex jc_between>
       <Box w="15vw">
         <SideNav user={user} />
