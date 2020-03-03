@@ -42,11 +42,11 @@
 
 ## Project Overview
 
-1️⃣ [Trello Board](🚫add link to trello board here)
+1️⃣ [Trello Board](https://trello.com/b/DzMVabtu/ace)
 
-1️⃣ [Product Canvas](🚫add link to product canvas here)
+1️⃣ [Product Canvas](https://www.notion.so/AdaptivApps-b8ff290465be4c5d813425c774f6bd25)
 
-1️⃣ [UX Design files](🚫add link to design files here) - 🚫 delete if not applicable
+1️⃣ [UX Design files](https://www.figma.com/file/xuXwvLz0LDnQC3rS53129B/Adaptivapps%2C-Josh-Armantrout?node-id=218%3A1) - 🚫 delete if not applicable
 
 🚫 Replace lorem ipsum with a description of your project
 
@@ -56,70 +56,38 @@ Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu 
 
 ### 4️⃣ Key Features
 
-- feature one
-- feature two
-- feature three
+- User Onboarding
+- Create Events / Register for Events
+- Calendar / Map Features
 - feature four
 - feature five
 
 ## 1️⃣ Tech Stack
 
+#### [Front end](https://github.com/Lambda-School-Labs/AdaptivApps-fe)
+
 ### Front end built using:
 
-#### _Front end framework goes here_
+#### _React_
 
 🚫 Why did you choose this framework?
 
-- point one
-- point two
-- point three
-- point four
+- Easy to learn and use
+- Reusable components
+- Fast rendering with virtual DOM
+- Testability
 
 🚫List the rest of the front end features and libraries in the same format as the framework above.
 
-#### Front end deployed to `🚫insert service here`
+#### Front end deployed to `AWS`
 
-#### [Back end](🚫link to back end repo here) built using:
+#### [Back end](https://github.com/Lambda-School-Labs/AdaptivApps-be) built using:
 
-#### 🚫 back end framework goes here
+#### **Prismatopia(graphQL, Apollo, Prisma)**
 
-- point one
-- point two
-- point three
-
-🚫 List the rest of the back end end features and libraries in the same format as the framework above
-
-# APIs
-
-## 2️⃣ Authentication API here
-
-🚫Replace text below with a description of the API
-
-Water's like me. It's laaazy ... Boy, it always looks for the easiest way to do things A little happy sunlight shining through there. Let all these little things happen. Don't fight them. Learn to use them. Even the worst thing we can do here is good.
-
-## 2️⃣ Payment API here
-
-🚫Replace text below with a description of the API
-
-This is the way you take out your flustrations. Get away from those little Christmas tree things we used to make in school. Isn't it fantastic that you can change your mind and create all these happy things? Everything's not great in life, but we can still find beauty in it.
-
-## 3️⃣ Misc API here
-
-🚫Replace text below with a description of the API
-
-You can do anything your heart can imagine. In life you need colors. This is where you take out all your hostilities and frustrations. It's better than kicking the puppy dog around and all that so. I'm sort of a softy, I couldn't shoot Bambi except with a camera. Trees get lonely too, so we'll give him a little friend. We'll lay all these little funky little things in there.
-
-## 3️⃣ Misc API here
-
-🚫Replace text below with a description of the API
-
-When you do it your way you can go anywhere you choose. Let your heart take you to wherever you want to be. If I paint something, I don't want to have to explain what it is. A tree needs to be your friend if you're going to paint him. That's a son of a gun of a cloud. Even the worst thing we can do here is good.
-
-## 3️⃣ Misc API here
-
-🚫Replace text below with a description of the API
-
-Volunteering your time; it pays you and your whole community fantastic dividends. Maybe there's a happy little waterfall happening over here. You can spend all day playing with mountains. We don't have to be committed. We are just playing here. You have freedom here. The only guide is your heart. It's cold, but it's beautiful.
+- Generated Crud Schema
+- GraphQl is fastest query slinger this side of the mississippi!
+- Bernie Durfee is the man!
 
 # 3️⃣ Environment Variables
 
@@ -149,20 +117,22 @@ In order for the app to function correctly, the user must set up their own envir
 
 # 4️⃣ Testing
 
-🚫Document what you used for testing and why
+🚫We used Jest beacuse it has everything we need to unit test our application
 
 # 4️⃣ Installation Instructions
 
-🚫explain how to install the required dependencies to get this project up and running with yarn and NPM
+Yarn install
+npm run start
 
 ## Other Scripts
 
 🚫replace these examples with your own
 
-    * typecheck - runs the TypeScript compiler
-    * build - creates a build of the application
-    * start - starts the production server after a build is created
-    * test - runs tests in **tests** directory \* eject - copy the configuration files and dependencies into the project so you have full control over them
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint"
 
 # Contributing
 
@@ -203,4 +173,4 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [Backend Documentation](🚫*link to your backend readme here*) for details on the backend of our project.
+See [Backend Documentation](https://github.com/Lambda-School-Labs/AdaptivApps-be) for details on the backend of our project.
