@@ -1,162 +1,97 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/9030c05fde6af8c35028/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/AdaptivApps-fe/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/9030c05fde6af8c35028/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/AdaptivApps-fe/test_coverage)
 
-🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline, feel free to add your own flare to it.
+# AdaptivApps
 
-🚫 The numbers 1️⃣ through 5️⃣ next to each item represent the week that part of the docs needs to be comepleted by. Make sure to delete the numbers by the end of Labs.
+You can find the deployed project at [adaptivapps](https://adaptivdev.net/).
 
-🚫 Each student has a required minimum number of meaningful PRs each week per the rubric. Contributing to docs does NOT count as a PR to meet your weekly requirements.
+## Contributors
 
-# 1️⃣ Title of project goes here
+|                                                  [Student 1](https://github.com/MsMaddyMac)                                                   |                                         [Student 2](https://github.com/josharmantrout91)                                          |                                              [Student 3](https://github.com/taylorbcool)                                               |                                              [Student 4](https://github.com/JimmyMcBride)                                               |                                              [Student 5](https://github.com/jonathanthec)                                               |
+| :-------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
+|          [<img src="https://ca.slack-edge.com/T4JUEB3ME-UMNBA5VE0-3af79b1d47c2-512" width = "200" />](https://github.com/MsMaddyMac)          | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UDP7EGLGY-ca9ad8160058-512" width = "200" />](https://github.com/josharmantrout91) |      [<img src="https://ca.slack-edge.com/T4JUEB3ME-UNLQWDZEK-0037104c64c3-512" width = "200" />](https://github.com/taylorbcool)      |      [<img src="https://ca.slack-edge.com/T4JUEB3ME-UFTKAJ542-10bd26e82a74-512" width = "200" />](https://github.com/JimmyMcBride)      |      [<img src="https://ca.slack-edge.com/T4JUEB3ME-UNM5XND4N-4eb1bc163393-512" width = "200" />](https://github.com/jonathanthec)      |
+|                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/MsMaddyMac)                            |                   [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/josharmantrout91)                   |                        [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/taylorbcool)                        |                        [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/JimmyMcBride)                        |                        [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jonathanthec)                        |
+| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/madeline-i-mcintosh-787b3656/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/josh-armantrout/)  | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/taylor-cool-440090149/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jimmy-mcbride-183072b6/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jonathan-chen-86589686/) |
 
-1️⃣ You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste URL here).
-
-## 4️⃣ Contributors
-
-🚫Add contributor info below, make sure add images and edit the social links for each member. Add to or delete these place-holders as needed
-
-| [Student 1](https://github.com/josharmantrout91) | [Student 2](https://github.com/JimmyMcBride) | [Student 3](https://github.com/MsMaddyMac) | [Student 4](https://github.com/jonathanthec) | [Student 5](https://github.com/taylorbcool)  
-| [Student 6](https://github.com/Robert-D-Campbell) | [Student 7](https://github.com/forrest-bingham) |:-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://ca.slack-edge.com/T4JUEB3ME-UDP7EGLGY-ca9ad8160058-512" width = "200" />](https://github.com/josharmantrout91) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UFTKAJ542-10bd26e82a74-512" width = "200" />](https://github.com/JimmyMcBride) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UMNBA5VE0-3af79b1d47c2-512" width = "200" />](https://github.com/MsMaddyMac) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UNM5XND4N-4eb1bc163393-512" width = "200" />](https://github.com/jonathanthec) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UNLQWDZEK-0037104c64c3-512" width = "200" />](https://github.com/taylorbcool) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UMBBZ3WHH-ef1f8e97a322-512" width = "200" />](https://github.com/Robert-D-Campbell) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UMR11342J-9ed03f6ba22b-512" width = "200" />](https://github.com/forrest-bingham) |
-| [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/josharmantrout91) | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/JimmyMcBride) | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/MsMaddyMac) | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jonathanthec) | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/taylorbcool) | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Robert-D-Campbell) | [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/forrest-bingham) |
-| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jimmy-mcbride-183072b6/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/madeline-i-mcintosh-787b3656/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jonathan-chen-86589686/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/taylor-cool-440090149/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/rcampbell509/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/) |
+|                                         [Student 6](https://github.com/forrest-bingham)                                          |                                         [Student 7](https://github.com/Robert-D-Campbell)                                          |                                                      [Student 8](https://github.com/)                                                       |                                                       [Student 9](https://github.com/)                                                        |                                                      [Student 10](https://github.com/)                                                      |
+| :------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
+| [<img src="https://ca.slack-edge.com/T4JUEB3ME-UMR11342J-9ed03f6ba22b-512" width = "200" />](https://github.com/forrest-bingham) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UMBBZ3WHH-ef1f8e97a322-512" width = "200" />](https://github.com/Robert-D-Campbell) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) |
+|                   [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/forrest-bingham)                   |                   [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Robert-D-Campbell)                   |                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                |                                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                 |                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                |
+|          [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)           |   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/rcampbell509/)    |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |
 
 <br>
 <br>
-
-🚫 4️⃣ Optional examples of using images with links for your tech stack, make sure to change these to fit your project
 
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 ![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
-![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)](netlify link goes in these parenthesis)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
-🚫 more info on using badges [here](https://github.com/badges/shields)
 
 ## Project Overview
 
-1️⃣ [Trello Board](🚫add link to trello board here)
+[Trello Board](https://trello.com/b/DzMVabtu/ace)
 
-1️⃣ [Product Canvas](🚫add link to product canvas here)
+[Product Canvas](https://www.notion.so/AdaptivApps-b8ff290465be4c5d813425c774f6bd25)
 
-1️⃣ [UX Design files](🚫add link to design files here) - 🚫 delete if not applicable
+[UX Design files](https://www.figma.com/file/xuXwvLz0LDnQC3rS53129B/Adaptivapps%2C-Josh-Armantrout?node-id=218%3A1)
 
-🚫 Replace lorem ipsum with a description of your project
+A nonprofit organization and is looking for a better way to engage their staff, volunteers, athletes, parents, coaches and spectators. This app would need to be digitally accessible with the ability to meet various physical changes.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+### Key Features
 
-Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-### 4️⃣ Key Features
-
-- feature one
-- feature two
-- feature three
+- User Onboarding
+- Create Events / Register for Events
+- Calendar / Map Features
 - feature four
 - feature five
 
-## 1️⃣ Tech Stack
+## Tech Stack
+
+#### [Front end](https://github.com/Lambda-School-Labs/AdaptivApps-fe)
 
 ### Front end built using:
 
-#### _Front end framework goes here_
+#### _React_
 
-🚫 Why did you choose this framework?
+Why did you choose this framework?
 
-- point one
-- point two
-- point three
-- point four
+- Easy to learn and use
+- Reusable components
+- Fast rendering with virtual DOM
+- Testability
 
-🚫List the rest of the front end features and libraries in the same format as the framework above.
+#### Front end deployed to `AWS`
 
-#### Front end deployed to `🚫insert service here`
+#### [Back end](https://github.com/Lambda-School-Labs/AdaptivApps-be) built using:
 
-#### [Back end](🚫link to back end repo here) built using:
+#### **Prismatopia(graphQL, Apollo, Prisma)**
 
-#### 🚫 back end framework goes here
+- Generated Crud Schema
+- GraphQl is fastest query slinger this side of the mississippi!
+- Bernie Durfee is the man!
 
-- point one
-- point two
-- point three
-
-🚫 List the rest of the back end end features and libraries in the same format as the framework above
-
-# APIs
-
-## 2️⃣ Authentication API here
-
-🚫Replace text below with a description of the API
-
-Water's like me. It's laaazy ... Boy, it always looks for the easiest way to do things A little happy sunlight shining through there. Let all these little things happen. Don't fight them. Learn to use them. Even the worst thing we can do here is good.
-
-## 2️⃣ Payment API here
-
-🚫Replace text below with a description of the API
-
-This is the way you take out your flustrations. Get away from those little Christmas tree things we used to make in school. Isn't it fantastic that you can change your mind and create all these happy things? Everything's not great in life, but we can still find beauty in it.
-
-## 3️⃣ Misc API here
-
-🚫Replace text below with a description of the API
-
-You can do anything your heart can imagine. In life you need colors. This is where you take out all your hostilities and frustrations. It's better than kicking the puppy dog around and all that so. I'm sort of a softy, I couldn't shoot Bambi except with a camera. Trees get lonely too, so we'll give him a little friend. We'll lay all these little funky little things in there.
-
-## 3️⃣ Misc API here
-
-🚫Replace text below with a description of the API
-
-When you do it your way you can go anywhere you choose. Let your heart take you to wherever you want to be. If I paint something, I don't want to have to explain what it is. A tree needs to be your friend if you're going to paint him. That's a son of a gun of a cloud. Even the worst thing we can do here is good.
-
-## 3️⃣ Misc API here
-
-🚫Replace text below with a description of the API
-
-Volunteering your time; it pays you and your whole community fantastic dividends. Maybe there's a happy little waterfall happening over here. You can spend all day playing with mountains. We don't have to be committed. We are just playing here. You have freedom here. The only guide is your heart. It's cold, but it's beautiful.
-
-# 3️⃣ Environment Variables
+# Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
 
-🚫These are just examples, replace them with the specifics for your app
+    REACT_APP_CLIENT_ID=this is the client id found in our application that is being hosted on Auth0
+    REACT_APP_API_URL=can be found in the AWS Amplify application. This is the authentication API
 
-    *  REACT_APP_apiKey - this is your Google API key, which can be generated in the Google Cloud Console
-    *  REACT_APP_authDomain - when you set up your Firebase project, this information will be in the dashboard
-    *  REACT_APP_databaseURL - in the Firebase dashboard
-    *  REACT_APP_projectID - in the Firebase dashboard
-    *  REACT_APP_storageBucket - in the Firebase dashboard
-    *  REACT_APP_messagingSenderId - in the Firebase dashboard
-    *  REACT_APP_stripe_API - this is your public Stripe API key, generated in the Stripe dashboard
-    *  REACT_APP_backendURL - optional for your local development server
-    *  REACT_APP_clientid - this is the Stripe_connect clientID, generated in Stripe_connect settings
-    *  REACT_APP_stripe_plan - this is the ID for a second Stripe subscription plan, generated under Stripe products
+# Testing
 
-# 5️⃣ Content Licenses
+We used Jest beacuse it has everything we need to unit test our application
 
-🚫For all content - images, icons, etc, use this table to document permission of use. Remove the two placeholders and add you content to this table
+# Installation Instructions
 
-| Image Filename | Source / Creator | License                                                                      |
-| -------------- | ---------------- | ---------------------------------------------------------------------------- |
-| doodles.png    | Nicole Bennett   | [Creative Commons](https://www.toptal.com/designers/subtlepatterns/doodles/) |
-| rings.svg      | Sam Herbert      | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
-
-# 4️⃣ Testing
-
-🚫Document what you used for testing and why
-
-# 4️⃣ Installation Instructions
-
-🚫explain how to install the required dependencies to get this project up and running with yarn and NPM
+Yarn install
+npm run start
 
 ## Other Scripts
 
-🚫replace these examples with your own
-
-    * typecheck - runs the TypeScript compiler
-    * build - creates a build of the application
-    * start - starts the production server after a build is created
-    * test - runs tests in **tests** directory \* eject - copy the configuration files and dependencies into the project so you have full control over them
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint"
 
 # Contributing
 
@@ -197,4 +132,4 @@ These contribution guidelines have been adapted from [this good-Contributing.md-
 
 ## Documentation
 
-See [Backend Documentation](🚫*link to your backend readme here*) for details on the backend of our project.
+See [Backend Documentation](https://github.com/Lambda-School-Labs/AdaptivApps-be) for details on the backend of our project.

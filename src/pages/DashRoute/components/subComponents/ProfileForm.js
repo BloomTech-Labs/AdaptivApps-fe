@@ -13,30 +13,10 @@ import {
   Select,
 } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
-import * as yup from 'yup';
 
-const ProfileSchema = yup.object().shape({
-  // email: yup.string().required(),
-  firstName: yup.string(),
-  lastName: yup.string(),
-  displayName: yup.string(),
-  // birthday: yup.date(),
-  // bio: yup.string(),
-  // disability: yup.string(), //string?
-  // legal: yup.bool()
-});
-
-const UserDashboard = ({ profile, user }) => {
-  const { handleSubmit, register } = useForm({
-    mode: 'onSubmit',
-    validationSchema: ProfileSchema,
-    defaultValues: {
-      email: user.email,
-      firstName: user.given_name,
-      lastName: user.family_name,
-      displayName: user.nickname,
-    },
-  });
+// This is the form being used in UserDashboard
+const ProfileForm = ({ profile, user }) => {
+  const { handleSubmit, register } = useForm();
 
   const onSubmit = () => {
     alert('functionality coming next release canvas');
@@ -57,7 +37,6 @@ const UserDashboard = ({ profile, user }) => {
             {profile && profile.firstName !== null
               ? `${profile && profile.firstName} ${profile && profile.lastName}`
               : user.name}{' '}
-            {console.log(user.name)}
             {user[config.roleUrl].includes('Admin') ? (
               <Text>{user[config.roleUrl]}</Text>
             ) : null}
@@ -192,9 +171,9 @@ const UserDashboard = ({ profile, user }) => {
   );
 };
 
-export default UserDashboard;
+export default ProfileForm;
 
-UserDashboard.propTypes = {
+ProfileForm.propTypes = {
   profile: PropTypes.object,
   user: PropTypes.object,
 };

@@ -8,6 +8,7 @@ import { FiLogOut } from 'react-icons/fi';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 
+// This component is rendered for all users on login on the side
 const SideNav = props => {
   const { logout } = useAuth0();
 
@@ -43,6 +44,7 @@ const SideNav = props => {
           <p>My Events</p>
         </NavLink>
 
+        {/* If user is an admin, then this section will be rendered */}
         {props.user[config.roleUrl].includes('Admin') ? (
           <NavLink
             primary="true"

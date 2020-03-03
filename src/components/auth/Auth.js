@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth0 } from './react-auth0-spa';
 
+// Define a function to extract token from auth0 response
 export const useGetToken = () => {
   const [token, setToken] = useState(null);
   const { isAuthenticated, getIdTokenClaims } = useAuth0();
