@@ -1,5 +1,5 @@
 import React from 'react';
-import config from '../../../components/auth/auth_config';
+import config from '../../../../components/auth/auth_config';
 import { useForm } from 'react-hook-form';
 import {
   Flex,
@@ -9,14 +9,34 @@ import {
   Form,
   Input,
   theme,
-  Select,
   TextArea,
+  Select,
 } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
+import * as yup from 'yup';
 
-const UserDashboard = props => {
-  const { profile, user } = props;
-  const { handleSubmit, register } = useForm();
+const ProfileSchema = yup.object().shape({
+  // email: yup.string().required(),
+  firstName: yup.string(),
+  lastName: yup.string(),
+  displayName: yup.string(),
+  // birthday: yup.date(),
+  // bio: yup.string(),
+  // disability: yup.string(), //string?
+  // legal: yup.bool()
+});
+
+const UserDashboard = ({ profile, user }) => {
+  const { handleSubmit, register } = useForm({
+    mode: 'onSubmit',
+    validationSchema: ProfileSchema,
+    defaultValues: {
+      email: user.email,
+      firstName: user.given_name,
+      lastName: user.family_name,
+      displayName: user.nickname,
+    },
+  });
 
   const onSubmit = () => {
     alert('functionality coming next release canvas');
@@ -34,8 +54,13 @@ const UserDashboard = props => {
             <img src={user.picture} alt="Profile" />
           </Box>
           <Text lf sm>
-            {profile ? profile.firstName : null}{' '}
-            {profile ? profile.lastName : null} ({user[config.roleUrl]})
+            {profile && profile.firstName !== null
+              ? `${profile && profile.firstName} ${profile && profile.lastName}`
+              : user.name}{' '}
+            {console.log(user.name)}
+            {user[config.roleUrl].includes('Admin') ? (
+              <Text>{user[config.roleUrl]}</Text>
+            ) : null}
           </Text>
         </Flex>
 

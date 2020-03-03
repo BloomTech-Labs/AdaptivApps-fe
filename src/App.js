@@ -12,7 +12,7 @@ import { useGetToken } from './components/auth/Auth';
 // Auth0 imports
 // import { Auth0Provider } from './components/auth/react-auth0-spa';
 // import config from './components/auth/auth_config.json';
-import history from './utils/History';
+// import history from './utils/History';
 
 // Styling
 import './App.css';
@@ -34,7 +34,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <Router history={history}>
+        <Router>
           <PrivateRoute exact path="/" component={DashRouter} />
         </Router>
       </div>
