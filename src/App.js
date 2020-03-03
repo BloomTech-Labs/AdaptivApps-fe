@@ -21,7 +21,7 @@ function App() {
   const [token] = useGetToken();
   console.log('THE ONE TOKEN TO RULE THEM ALL!!!! ', token);
   const client = new ApolloClient({
-    uri: 'http://localhost:8000',
+    uri: process.env.REACT_APP_API_URL,
     request: operation => {
       operation.setContext(context => ({
         headers: {
