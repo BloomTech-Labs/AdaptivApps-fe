@@ -1,5 +1,5 @@
 import React from 'react';
-import config from '../../../components/auth/auth_config';
+import config from '../../../../components/auth/auth_config';
 import { useForm } from 'react-hook-form';
 import {
   Flex,
@@ -9,14 +9,13 @@ import {
   Form,
   Input,
   theme,
-  Select,
   TextArea,
+  Select,
 } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
 
-// Form for users to fill out their personal info and update profile
-const UserDashboard = props => {
-  const { profile, user } = props;
+// This is the form being used in UserDashboard
+const ProfileForm = ({ profile, user }) => {
   const { handleSubmit, register } = useForm();
 
   const onSubmit = () => {
@@ -35,8 +34,12 @@ const UserDashboard = props => {
             <img src={user.picture} alt="Profile" />
           </Box>
           <Text lf sm>
-            {profile ? profile.firstName : null}{' '}
-            {profile ? profile.lastName : null} ({user[config.roleUrl]})
+            {profile && profile.firstName !== null
+              ? `${profile && profile.firstName} ${profile && profile.lastName}`
+              : user.name}{' '}
+            {user[config.roleUrl].includes('Admin') ? (
+              <Text>{user[config.roleUrl]}</Text>
+            ) : null}
           </Text>
         </Flex>
 
@@ -168,9 +171,9 @@ const UserDashboard = props => {
   );
 };
 
-export default UserDashboard;
+export default ProfileForm;
 
-UserDashboard.propTypes = {
+ProfileForm.propTypes = {
   profile: PropTypes.object,
   user: PropTypes.object,
 };

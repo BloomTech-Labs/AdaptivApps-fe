@@ -4,15 +4,12 @@ import { Router } from '@reach/router';
 
 // Import components
 import DashRouter from './pages/DashRoute';
+import PrivateRoute from './utils/PrivateRoute';
+import { useGetToken } from './components/auth/Auth';
 
 // Import apollo server
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
-
-// Import helper function and component
-import { useGetToken } from './components/auth/Auth';
-import PrivateRoute from './utils/PrivateRoute';
-import history from './utils/History';
 
 // Import styling
 import './App.css';
@@ -39,7 +36,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <Router history={history}>
+        <Router>
           <PrivateRoute exact path="/" component={DashRouter} />
         </Router>
       </div>
