@@ -13,13 +13,39 @@ import {
   Select,
 } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
+import { useMutation } from '@apollo/react-hooks';
+import { UPDATE_USER_PROFILE } from '../../queries/updateProfile';
 
 // This is the form being used in UserDashboard
 const ProfileForm = ({ profile, user }) => {
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register } = useForm({
+    mode: 'onSubmit',
+    defaultValues: {
+      email: user?.email,
+      firstName: profile?.given_name,
+      lastName: profile?.family_name,
+      displayName: profile?.nickname,
+      birthday: profile?.birthday,
+      bio: profile?.bio,
+      disability: profile?.disability
+    },
+  });
+  const [updateProfile] = useMutation(UPDATE_USER_PROFILE);
 
-  const onSubmit = () => {
-    alert('functionality coming next release canvas');
+  const onSubmit = (data, e) => {
+    e.preventDefault()
+    updateProfile({
+      variables: {
+        email: user.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        displayName: data.lastName,
+        birthday: data.birthday,
+        bio: data.bio,
+        disability: data.disability,
+        // legal: data.legal
+      },
+    });
   };
 
   return (
@@ -80,7 +106,7 @@ const ProfileForm = ({ profile, user }) => {
               <Flex ai_center>
                 <Input
                   type="text"
-                  placeholder={profile ? profile.firstName : null}
+                  p
                   w="25rem"
                   name="firstName"
                   ref={register}
@@ -93,7 +119,7 @@ const ProfileForm = ({ profile, user }) => {
               <Flex ai_center>
                 <Input
                   type="text"
-                  placeholder={profile ? profile.lastName : null}
+                  p
                   w="25rem"
                   name="lastName"
                   ref={register}
@@ -108,7 +134,7 @@ const ProfileForm = ({ profile, user }) => {
               <Flex ai_center>
                 <Input
                   type="text"
-                  placeholder={profile ? profile.displayName : null}
+                  p
                   w="25rem"
                   name="displayName"
                   ref={register}
@@ -119,14 +145,14 @@ const ProfileForm = ({ profile, user }) => {
             <Flex ai_start col>
               <Text mf>Date of Birth</Text>
               <Flex ai_center>
-                <Input type="date" w="25rem" name="birthday" ref={register} />
+                <Input type="text" w="25rem" name="birthday" ref={register} />
               </Flex>
             </Flex>
           </Flex>
 
           <Flex ai_start col stretch>
             <Text mf>Bio</Text>
-            <TextArea rows="8" cols="60" name="bio" ref={register} />
+            <TextArea rows="8" cols="60" name="bio" ref={register}  />
           </Flex>
 
           <Flex jc_between stretch>
@@ -135,10 +161,10 @@ const ProfileForm = ({ profile, user }) => {
               <Flex ai_center>
                 <Input
                   type="select"
-                  placeholder=""
                   w="25rem"
                   name="disability"
                   ref={register}
+                  p
                 />
               </Flex>
             </Flex>
