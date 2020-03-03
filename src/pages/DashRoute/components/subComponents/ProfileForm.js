@@ -1,5 +1,5 @@
 import React from 'react';
-import config from '../../../../components/auth/auth_config.json';
+import config from '../../../../components/auth/auth_config';
 import { useForm } from 'react-hook-form';
 import {
   Flex,
@@ -54,7 +54,9 @@ const UserDashboard = ({ profile, user }) => {
             <img src={user.picture} alt="Profile" />
           </Box>
           <Text lf sm>
-            {profile ? `${profile.firstName} ${profile.lastName}` : user.name}{' '}
+            {profile && profile.firstName !== null
+              ? `${profile && profile.firstName} ${profile && profile.lastName}`
+              : user.name}{' '}
             {console.log(user.name)}
             {user[config.roleUrl].includes('Admin') ? (
               <Text>{user[config.roleUrl]}</Text>

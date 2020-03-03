@@ -2,7 +2,7 @@ import React from 'react';
 import { useAuth0 } from './auth/react-auth0-spa';
 import { Flex, NavBar, Box, Button, NavLink } from 'adaptiv-ui';
 import acsLogo from '../assets/images/acsLogo.png';
-import config from '../components/auth/auth_config.json';
+import config from './auth/auth_config';
 import { FaRegCalendar, FaRegBookmark, FaRegUser, FaPen } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
 import PropTypes from 'prop-types';
