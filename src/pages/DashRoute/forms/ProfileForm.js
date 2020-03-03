@@ -1,5 +1,5 @@
 import React from 'react';
-import config from '../../../components/auth/auth_config.json';
+import config from '../../../components/auth/auth_config';
 import { useForm } from 'react-hook-form';
 import {
   Flex,

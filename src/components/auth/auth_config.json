@@ -1,8 +1,0 @@
-{
-  "domain": "dev-sxhevmag.auth0.com",
-  "clientId": "gox0c4lyQyHbXec169D1mSBYGB5zxDlo",
-  "roleUrl": "http://adaptivapps.com/roles",
-  "audience": "https://dev-sxhevmag.auth0.com/userinfo",
-  "responseType": "token id_token",
-  "scope": "openid email"
-}

@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { useQuery } from 'react-apollo';
 import ProfileForm from '../forms/ProfileForm';
 import { PROFILE_INFO } from '../queries/getProfile';
-// import { useMutation } from 'react-apollo';
-// import { ADD_USER_PROFILE } from '../queries/createProfile';
+import { useMutation } from 'react-apollo';
+import { ADD_USER_PROFILE } from '../queries/createProfile';
 import PropTypes from 'prop-types';
 
 const UserDashboard = props => {
@@ -14,20 +14,20 @@ const UserDashboard = props => {
 
   const profile = data && data.profile;
 
-  // const [createProfile] = useMutation(ADD_USER_PROFILE);
+  const [createProfile] = useMutation(ADD_USER_PROFILE);
 
-  // const newProfile = async () => {
-  //   await createProfile({ variables: { email: user.email } });
-  // };
+  const newProfile = async () => {
+    await createProfile({ variables: { email: user.email } });
+  };
 
   useEffect(() => {
     if (error) {
       return <p>Error</p>;
     }
-    // if (!loading && !profile) {
-    //   console.log('Running some mutations and sweat a lot');
-    //   newProfile();
-    // }
+    if (!loading && !profile) {
+      console.log('Running some mutations and sweat a lot');
+      newProfile();
+    }
     // eslint-disable-next-line
   }, [profile]);
 

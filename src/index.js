@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 
 // import { ApolloProvider } from '@apollo/react-hooks';
 import { Auth0Provider } from './components/auth/react-auth0-spa';
-import config from './components/auth/auth_config.json';
+import config from './components/auth/auth_config';
 import { AppWrapper } from 'adaptiv-ui';
 import 'adaptiv-ui/css/main.css';
 

@@ -3,7 +3,7 @@ import React from 'react';
 import { Flex, Box } from 'adaptiv-ui';
 // Auth0 imports
 import { useAuth0 } from '../../components/auth/react-auth0-spa';
-import config from '../../components/auth/auth_config.json';
+import config from '../../components/auth/auth_config';
 // Component imports
 import AdminDashboard from './admin/AdminDashboard';
 import UserDashboard from './users/UserDashboard';

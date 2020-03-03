@@ -1,5 +1,5 @@
 import React from 'react';
-import config from '../../../components/auth/auth_config.json';
+import config from '../../../components/auth/auth_config';
 import { useAuth0 } from '../../../components/auth/react-auth0-spa';
 import PropTypes from 'prop-types';
 import {
