@@ -8,6 +8,7 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
   const { loading, user } = useAuth0();
 
   // This Render function returns the appropriate component
+  // If not logged in, land on landing page
   const Render = props =>
     user ? (
       <Component {...props} />
