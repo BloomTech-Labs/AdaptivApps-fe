@@ -1,21 +1,17 @@
+// Import dependencies
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import ApolloClient from 'apollo-boost';
+import { AppWrapper } from 'adaptiv-ui';
 
-// import { ApolloProvider } from '@apollo/react-hooks';
+// Import project configurations from local files
 import { Auth0Provider } from './components/auth/react-auth0-spa';
 import config from './components/auth/auth_config';
-import { AppWrapper } from 'adaptiv-ui';
 import 'adaptiv-ui/css/main.css';
-
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-//pointing apollo client to the apollo api.
-
-//!!pointing apollo client to the apollo api.
-
 ReactDOM.render(
+  // Wrap project in auth0 for authentication and authorization
   <Auth0Provider
     domain={config.domain}
     client_id={config.clientId}
@@ -31,7 +27,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();

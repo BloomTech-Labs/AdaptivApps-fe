@@ -7,6 +7,7 @@ import landingImage from '../assets/images/landingImage.jpeg';
 import { FaFacebookSquare, FaGoogle } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 
+// This is our landing page, aka the home page for the main app
 const LandingPage = () => {
   const { user, loginWithRedirect } = useAuth0();
   console.log('user:', user);
