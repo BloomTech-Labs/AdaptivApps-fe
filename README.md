@@ -1,19 +1,11 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/9030c05fde6af8c35028/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/AdaptivApps-fe/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/9030c05fde6af8c35028/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/AdaptivApps-fe/test_coverage)
 
-🚫 Note: All lines that start with 🚫 are instructions and should be deleted before this is posted to your portfolio. This is intended to be a guideline, feel free to add your own flare to it.
+# AdaptivApps
 
-🚫 The numbers 1️⃣ through 5️⃣ next to each item represent the week that part of the docs needs to be comepleted by. Make sure to delete the numbers by the end of Labs.
+You can find the deployed project at [adaptivapps](https://adaptivdev.net/).
 
-🚫 Each student has a required minimum number of meaningful PRs each week per the rubric. Contributing to docs does NOT count as a PR to meet your weekly requirements.
-
-# 1️⃣ AdaptivApps
-
-1️⃣ You can find the deployed project at [adaptivapps](https://adaptivdev.net/).
-
-## 4️⃣ Contributors
-
-🚫Add contributor info below, make sure add images and edit the social links for each member. Add to or delete these place-holders as needed
+## Contributors
 
 |                                                  [Student 1](https://github.com/MsMaddyMac)                                                   |                                         [Student 2](https://github.com/josharmantrout91)                                          |                                              [Student 3](https://github.com/taylorbcool)                                               |                                              [Student 4](https://github.com/JimmyMcBride)                                               |                                              [Student 5](https://github.com/jonathanthec)                                               |
 | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
@@ -30,27 +22,21 @@
 <br>
 <br>
 
-🚫 4️⃣ Optional examples of using images with links for your tech stack, make sure to change these to fit your project
-
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 ![React](https://img.shields.io/badge/react-v16.7.0--alpha.2-blue.svg)
-![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)](netlify link goes in these parenthesis)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
-
-🚫 more info on using badges [here](https://github.com/badges/shields)
 
 ## Project Overview
 
-1️⃣ [Trello Board](https://trello.com/b/DzMVabtu/ace)
+[Trello Board](https://trello.com/b/DzMVabtu/ace)
 
-1️⃣ [Product Canvas](https://www.notion.so/AdaptivApps-b8ff290465be4c5d813425c774f6bd25)
+[Product Canvas](https://www.notion.so/AdaptivApps-b8ff290465be4c5d813425c774f6bd25)
 
-1️⃣ [UX Design files](https://www.figma.com/file/xuXwvLz0LDnQC3rS53129B/Adaptivapps%2C-Josh-Armantrout?node-id=218%3A1) - 🚫 delete if not applicable
+[UX Design files](https://www.figma.com/file/xuXwvLz0LDnQC3rS53129B/Adaptivapps%2C-Josh-Armantrout?node-id=218%3A1)
 
 A nonprofit organization and is looking for a better way to engage their staff, volunteers, athletes, parents, coaches and spectators. This app would need to be digitally accessible with the ability to meet various physical changes.
 
-### 4️⃣ Key Features
+### Key Features
 
 - User Onboarding
 - Create Events / Register for Events
@@ -58,7 +44,7 @@ A nonprofit organization and is looking for a better way to engage their staff, 
 - feature four
 - feature five
 
-## 1️⃣ Tech Stack
+## Tech Stack
 
 #### [Front end](https://github.com/Lambda-School-Labs/AdaptivApps-fe)
 
@@ -66,14 +52,12 @@ A nonprofit organization and is looking for a better way to engage their staff, 
 
 #### _React_
 
-🚫 Why did you choose this framework?
+Why did you choose this framework?
 
 - Easy to learn and use
 - Reusable components
 - Fast rendering with virtual DOM
 - Testability
-
-🚫List the rest of the front end features and libraries in the same format as the framework above.
 
 #### Front end deployed to `AWS`
 
@@ -85,34 +69,23 @@ A nonprofit organization and is looking for a better way to engage their staff, 
 - GraphQl is fastest query slinger this side of the mississippi!
 - Bernie Durfee is the man!
 
-# 3️⃣ Environment Variables
+# Environment Variables
 
 In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
 
     REACT_APP_CLIENT_ID=this is the client id found in our application that is being hosted on Auth0
     REACT_APP_API_URL=can be found in the AWS Amplify application. This is the authentication API
 
-# 5️⃣ Content Licenses
+# Testing
 
-🚫For all content - images, icons, etc, use this table to document permission of use. Remove the two placeholders and add you content to this table
+We used Jest beacuse it has everything we need to unit test our application
 
-| Image Filename | Source / Creator | License                                                                      |
-| -------------- | ---------------- | ---------------------------------------------------------------------------- |
-| doodles.png    | Nicole Bennett   | [Creative Commons](https://www.toptal.com/designers/subtlepatterns/doodles/) |
-| rings.svg      | Sam Herbert      | [MIT](https://github.com/SamHerbert/SVG-Loaders)                             |
-
-# 4️⃣ Testing
-
-🚫We used Jest beacuse it has everything we need to unit test our application
-
-# 4️⃣ Installation Instructions
+# Installation Instructions
 
 Yarn install
 npm run start
 
 ## Other Scripts
-
-🚫replace these examples with your own
 
     "start": "react-scripts start",
     "build": "react-scripts build",
