@@ -1,6 +1,8 @@
 import React from 'react';
 import config from '../../../../components/auth/auth_config';
 import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-apollo';
+import { UPDATE_USER_PROFILE } from '../../queries/updateProfile';
 import {
   Flex,
   Box,
@@ -18,8 +20,29 @@ import PropTypes from 'prop-types';
 const ProfileForm = ({ profile, user }) => {
   const { handleSubmit, register } = useForm();
 
-  const onSubmit = () => {
-    alert('functionality coming next release canvas');
+  const [updateProfile] = useMutation(UPDATE_USER_PROFILE);
+
+  const changeProfile = async data => {
+    await updateProfile({
+      variables: {
+        email: user.email,
+        firstName: data.firstName === '' ? profile.firstName : data.firstName,
+        lastName: data.lastName === '' ? profile.lastName : data.lastName,
+        displayName:
+          data.displayName === '' ? profile.displayName : data.displayName,
+        birthday: data.birthday === '' ? profile.birthday : data.birthday,
+        bio: data.bio === '' ? profile.bio : data.bio,
+        disability:
+          data.disability === '' ? profile.disability : data.disability,
+      },
+    });
+  };
+
+  const onSubmit = async data => {
+    console.log(data.birthday);
+    await changeProfile(data);
+    await alert('Successfully edited.');
+    window.location.reload();
   };
 
   return (
@@ -119,14 +142,26 @@ const ProfileForm = ({ profile, user }) => {
             <Flex ai_start col>
               <Text mf>Date of Birth</Text>
               <Flex ai_center>
-                <Input type="date" w="25rem" name="birthday" ref={register} />
+                <Input
+                  type="date"
+                  w="25rem"
+                  name="birthday"
+                  placeholder={profile ? profile.birthday : null}
+                  ref={register}
+                />
               </Flex>
             </Flex>
           </Flex>
 
           <Flex ai_start col stretch>
             <Text mf>Bio</Text>
-            <TextArea rows="8" cols="60" name="bio" ref={register} />
+            <TextArea
+              rows="8"
+              cols="60"
+              name="bio"
+              placeholder={profile ? profile.bio : null}
+              ref={register}
+            />
           </Flex>
 
           <Flex jc_between stretch>
@@ -135,7 +170,7 @@ const ProfileForm = ({ profile, user }) => {
               <Flex ai_center>
                 <Input
                   type="select"
-                  placeholder=""
+                  placeholder={profile ? profile.disability : null}
                   w="25rem"
                   name="disability"
                   ref={register}
