@@ -1,7 +1,7 @@
 // Import dependencies
 import React from 'react';
 // Reach Router imports
-import { Router, createHistory } from '@reach/router';
+import { Router } from '@reach/router';
 
 // Import components
 import DashRouter from './pages/DashRoute';
@@ -14,6 +14,14 @@ import ApolloClient from 'apollo-boost';
 
 // Google Analytics Imports
 import ReactGA from 'react-ga';
+
+const trackingId = "UA-159556430-1";
+
+(function initializeReactGA() {
+  ReactGA.initialize(trackingId);
+  ReactGA.pageview('/');
+  console.log('trackingId', trackingId);
+})();
 
 function App() {
   // At app rendering, call useGetToken() to get token from auth0 login
@@ -34,19 +42,10 @@ function App() {
     },
   });
 
-const trackingId = "UA-159556430-1";
-const history = createHistory(window);
-
-ReactGA.initialize(trackingId);
-history.listen(location => {
-  ReactGA.set({ page: location.pathname });
-  ReactGA.pageview(location.pathname);
-});
-
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <Router history={history}>
+        <Router>
           <PrivateRoute exact path="/" component={DashRouter} />
         </Router>
       </div>
