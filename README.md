@@ -89,8 +89,8 @@ A nonprofit organization and is looking for a better way to engage their staff, 
 
 In order for the app to function correctly, the user must set up their own environment variables. There should be a .env file containing the following:
 
-    REACT_APP_CLIENT_ID=asVyDNwKxm5ysKPmQ0cwhzLzT3WShqO0
-    REACT_APP_API_URL=https://prisma.private.adaptivdev.net:8000
+    REACT_APP_CLIENT_ID=this is the client id found in our application that is being hosted on Auth0
+    REACT_APP_API_URL=can be found in the AWS Amplify application. This is the authentication API
 
 # 5️⃣ Content Licenses
 
