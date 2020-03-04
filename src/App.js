@@ -15,7 +15,7 @@ import ApolloClient from 'apollo-boost';
 // Google Analytics Imports
 import ReactGA from 'react-ga';
 
-const trackingId = "UA-159556430-1";
+const trackingId = 'UA-159556430-1';
 
 (function initializeReactGA() {
   ReactGA.initialize(trackingId);
@@ -47,6 +47,7 @@ function App() {
       <div className="App">
         <Router>
           <PrivateRoute exact path="/" component={DashRouter} />
+          <PrivateRoute exact path="/calendar" component={EventList} />
         </Router>
       </div>
     </ApolloProvider>
