@@ -15,7 +15,7 @@ import ApolloClient from 'apollo-boost';
 // Google Analytics Imports
 import ReactGA from 'react-ga';
 
-const trackingId = "UA-159556430-1";
+const trackingId = 'UA-159556430-1';
 
 (function initializeReactGA() {
   ReactGA.initialize(trackingId);
@@ -24,7 +24,7 @@ const trackingId = "UA-159556430-1";
 })();
 
 function App() {
-  // At app rendering, call useGetToken() to get token from auth0 login
+  // When app renders, call useGetToken() to get token from auth0 login
   const [token] = useGetToken();
   console.log('Token ---> ', token);
 
