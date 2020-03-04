@@ -7,6 +7,7 @@ import { FaRegCalendar, FaRegBookmark, FaRegUser, FaPen } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
+import EventList from '../pages/DashRoute/users/events/EventList';
 
 // This component is rendered for all users on login on the side
 const SideNav = props => {
@@ -24,13 +25,13 @@ const SideNav = props => {
           stretch="true"
           to="/calendar"
           radius="0"
+          component={EventList}
         >
           <Box w="2rem" />
           <FaRegCalendar />
           <Box w="2rem" />
           <p>Events Calendar</p>
         </NavLink>
-
         <NavLink
           primary="true"
           row="true"
@@ -43,8 +44,7 @@ const SideNav = props => {
           <Box w="2rem" />
           <p>My Events</p>
         </NavLink>
-
-        {/* If user is an admin, then this section will be rendered */}
+        r{/* If user is an admin, then this section will be rendered */}
         {props.user[config.roleUrl].includes('Admin') ? (
           <NavLink
             primary="true"
@@ -59,7 +59,6 @@ const SideNav = props => {
             <p>Create Event</p>
           </NavLink>
         ) : null}
-
         <NavLink primary="true" row="true" stretch="true" to="/" radius="0">
           <Box w="2rem" />
           <FaRegUser />

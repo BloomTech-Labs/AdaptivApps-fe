@@ -7,6 +7,7 @@ import { Router } from '@reach/router';
 import DashRouter from './pages/DashRoute';
 import PrivateRoute from './utils/PrivateRoute';
 import { useGetToken } from './components/auth/Auth';
+import EventList from './pages/DashRoute/users/events/EventList';
 
 // Import apollo server
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -24,7 +25,7 @@ const trackingId = 'UA-159556430-1';
 })();
 
 function App() {
-  // At app rendering, call useGetToken() to get token from auth0 login
+  // When app renders, call useGetToken() to get token from auth0 login
   const [token] = useGetToken();
   console.log('Token ---> ', token);
 
