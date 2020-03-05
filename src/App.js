@@ -17,7 +17,7 @@ import { useGetToken } from './components/auth/Auth';
 // Styling
 import './App.css';
 import UserDashboard from './pages/DashRoute/components/UserDashboard';
-import HelloWorld from './pages/HelloWorld';
+// import EventList from './pages/EventList';
 
 function App() {
   const [token] = useGetToken();
@@ -39,7 +39,7 @@ function App() {
         <Router>
           <PrivateRoute path="/" component={DashRouter}>
             <UserDashboard path="/" />
-            <HelloWorld path="events" />
+            {/* <EventList path="events" /> */}
           </PrivateRoute>
         </Router>
       </div>
