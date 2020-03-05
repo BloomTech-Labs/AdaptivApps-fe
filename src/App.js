@@ -20,13 +20,13 @@ const trackingId = 'UA-159556430-1';
 (function initializeReactGA() {
   ReactGA.initialize(trackingId);
   ReactGA.pageview('/');
-  console.log('trackingId', trackingId);
+  // console.log('trackingId', trackingId);
 })();
 
 function App() {
   // When app renders, call useGetToken() to get token from auth0 login
   const [token] = useGetToken();
-  console.log('Token ---> ', token);
+  // console.log('Token ---> ', token);
 
   // Generate new apollo client
   const client = new ApolloClient({
