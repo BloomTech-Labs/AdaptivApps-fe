@@ -44,7 +44,7 @@ const SideNav = props => {
           <Box w="2rem" />
           <p>My Events</p>
         </NavLink>
-        r{/* If user is an admin, then this section will be rendered */}
+        {/* If user is an admin, then this section will be rendered */}
         {props.user[config.roleUrl].includes('Admin') ? (
           <NavLink
             primary="true"
