@@ -18,7 +18,7 @@ const UserDashboard = props => {
     variables: { email: user.email },
   });
   const profile = data && data.profile
-
+  
   // Extract the profile from returning data of useQuery
   useEffect(() => {
     if (error) {
@@ -37,7 +37,7 @@ const UserDashboard = props => {
   };
 
   return (
-    <ProfileForm profile={profile ? profile : null} user={user} updateProfile={updateProfile} />
+    <ProfileForm loading={loading} profile={profile ? profile : null} user={user} updateProfile={updateProfile} />
   )
 };
 
