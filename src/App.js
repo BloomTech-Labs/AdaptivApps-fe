@@ -1,5 +1,6 @@
 // Import dependencies
 import React from 'react';
+// Reach Router imports
 import { Router } from '@reach/router';
 
 // Import components
@@ -11,13 +12,21 @@ import { useGetToken } from './components/auth/Auth';
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
 
-// Import styling
-import './App.css';
+// Google Analytics Imports
+import ReactGA from 'react-ga';
+
+const trackingId = 'UA-159556430-1';
+
+(function initializeReactGA() {
+  ReactGA.initialize(trackingId);
+  ReactGA.pageview('/');
+  console.log('trackingId', trackingId);
+})();
 
 function App() {
-  // At app rendering, call useGetToken() to get token from auth0 login
+  // When app renders, call useGetToken() to get token from auth0 login
   const [token] = useGetToken();
-  // console.log('THE ONE TOKEN TO RULE THEM ALL!!!! ', token);
+  console.log('Token ---> ', token);
 
   // Generate new apollo client
   const client = new ApolloClient({
