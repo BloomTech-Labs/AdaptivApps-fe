@@ -8,7 +8,6 @@ import DashRouter from './pages/DashRoute';
 import PrivateRoute from './utils/PrivateRoute';
 import { useGetToken } from './components/auth/Auth';
 import EventList from './pages/DashRoute/users/events/EventList';
-import EventCalendarPage from './pages/DashRoute/users/events/EventCalendarPage';
 import UserDashboard from './pages/DashRoute/components/UserDashboard';
 
 // Import apollo server
@@ -25,9 +24,6 @@ const trackingId = 'UA-159556430-1';
   ReactGA.pageview('/');
   console.log('trackingId', trackingId);
 })();
-// Styling
-
-// import EventList from './pages/EventList';
 
 function App() {
   // When app renders, call useGetToken() to get token from auth0 login
