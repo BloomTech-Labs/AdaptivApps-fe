@@ -54,7 +54,7 @@ function App() {
         <Router>
           <PrivateRoute path="/" component={DashRouter}>
             <UserDashboard path="/" />
-            {/* <EventList path="events" /> */}
+            <EventList path="calendar" />
           </PrivateRoute>
         </Router>
       </div>
