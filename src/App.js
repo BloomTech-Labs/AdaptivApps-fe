@@ -9,6 +9,7 @@ import PrivateRoute from './utils/PrivateRoute';
 import { useGetToken } from './components/auth/Auth';
 import EventList from './pages/DashRoute/users/events/EventList';
 import EventCalendarPage from './pages/DashRoute/users/events/EventCalendarPage';
+import UserDashboard from './pages/DashRoute/components/UserDashboard';
 
 // Import apollo server
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -24,6 +25,9 @@ const trackingId = 'UA-159556430-1';
   ReactGA.pageview('/');
   console.log('trackingId', trackingId);
 })();
+// Styling
+
+// import EventList from './pages/EventList';
 
 function App() {
   // When app renders, call useGetToken() to get token from auth0 login
@@ -48,8 +52,10 @@ function App() {
     <ApolloProvider client={client}>
       <div className="App">
         <Router>
-          <PrivateRoute exact path="/" component={DashRouter} />
-          <PrivateRoute exact path="/calendar" component={EventCalendarPage} />
+          <PrivateRoute path="/" component={DashRouter}>
+            <UserDashboard path="/" />
+            {/* <EventList path="events" /> */}
+          </PrivateRoute>
         </Router>
       </div>
     </ApolloProvider>
