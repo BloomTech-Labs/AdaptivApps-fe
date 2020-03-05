@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import config from '../../../../components/auth/auth_config';
 import { useForm } from 'react-hook-form';
 import {
@@ -16,6 +16,8 @@ import PropTypes from 'prop-types';
 
 // This is the form being used in UserDashboard
 const ProfileForm = ({ profile, user, updateProfile }) => {
+  const [updated, setUpdated] = useState(false)
+
   const { handleSubmit, register } = useForm({
     mode: 'onChange',
     defaultValues: {
@@ -29,23 +31,22 @@ const ProfileForm = ({ profile, user, updateProfile }) => {
     },
   });
 
-
-  const onSubmit = (data, e) => {
+  const onSubmit = (formValues, e) => {
     e.preventDefault()
     updateProfile({
       variables: {
         email: user.email,
-        firstName: data.firstName === '' ? profile.firstName : data.firstName,
-        lastName: data.lastName === '' ? profile.lastName : data.lastName,
-        displayName: data.displayName === '' ? profile.displayName : data.displayName,
-        birthday: data.birthday === '' ? profile.birthday : data.birthday,
-        bio: data.bio === '' ? profile.bio : data.bio,
-        disability: data.disability === '' ? profile.disability : data.disability,
-        legal: data.legal === '' ? profile.legal : data.legal
+        firstName: formValues.firstName === '' ? profile.firstName : formValues.firstName,
+        lastName: formValues.lastName === '' ? profile.lastName : formValues.lastName,
+        displayName: formValues.displayName === '' ? profile.displayName : formValues.displayName,
+        birthday: formValues.birthday === '' ? profile.birthday : formValues.birthday,
+        bio: formValues.bio === '' ? profile.bio : formValues.bio,
+        disability: formValues.disability === '' ? profile.disability : formValues.disability,
+        legal: formValues.legal === '' ? profile.legal : formValues.legal
       },
     });
   };
-
+  
   return (
     <Flex ai_start col stretch>
       <Text xlf bold mm>
@@ -67,7 +68,7 @@ const ProfileForm = ({ profile, user, updateProfile }) => {
           </Text>
         </Flex>
 
-        <Box h="2rem" />
+        <Box h="1rem" />
 
         <Flex ai_start col>
           <Text lf bold>
@@ -96,7 +97,7 @@ const ProfileForm = ({ profile, user, updateProfile }) => {
             Personal Information
           </Text>
 
-          <Box h="2rem" />
+          <Box h="1rem" />
 
           <Flex jc_between stretch>
             <Flex ai_start col>
@@ -178,17 +179,24 @@ const ProfileForm = ({ profile, user, updateProfile }) => {
             </Flex>
           </Flex>
 
-          <Button
-            type="submit"
-            jc_center
-            primary
-            border={`2px solid ${theme.primary}`}
-            w="9rem"
-            h="4rem"
-            aria-label="save changes to user profile"
-          >
-            Save
-          </Button>
+          <Flex w='50%' jc_between ai_center>
+            <Button
+              type="submit"
+              jc_center
+              primary
+              border={`2px solid ${theme.primary}`}
+              w="9rem"
+              h="4rem"
+              aria-label="save changes to user profile"
+              onClick={() => {
+                setUpdated(true);
+              }}
+            >
+              Save
+            </Button>
+            {updated === true ? <Text>Profile updated!</Text> : null}
+          </Flex>
+
         </Form>
       </Flex>
     </Flex>
