@@ -1,8 +1,8 @@
 module.exports = {
-  domain: 'dev-sxhevmag.auth0.com',
+  domain: process.env.REACT_APP_CLIENT_DOMAIN,
   clientId: process.env.REACT_APP_CLIENT_ID,
   roleUrl: 'http://adaptivapps.com/roles',
-  audience: 'https://dev-sxhevmag.auth0.com/userinfo',
+  audience: process.env.REACT_APP_AUDIENCE,
   responseType: 'token id_token',
   scope: 'openid email',
 };
