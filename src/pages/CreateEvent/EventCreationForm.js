@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-apollo';
 import { CREATE_EVENT } from './queries';
-import { Form, Text, Flex, Input } from 'adaptiv-ui';
+import { Box, Form, Text, Flex, Input } from 'adaptiv-ui';
 
 // This is the form being used in to create an event
 const EventCreationForm = () => {
@@ -41,6 +41,10 @@ const EventCreationForm = () => {
   if (showEvent) {
     return (
       <div>
+        <Text xlf bold mm>
+          Create an Event
+        </Text>
+        <Box h="0.2rem" w="90%" bg="lightgrey" />
         <Form ai_start col stretch onSubmit={handleSubmit(onSubmit)}>
           <Text mf>Event Title</Text>
           <Flex ai_center>
