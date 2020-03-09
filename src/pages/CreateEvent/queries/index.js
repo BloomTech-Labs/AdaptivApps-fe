@@ -54,13 +54,13 @@ export const UPDATE_EVENT = gql`
 // Creating an activity
 export const CREATE_ACTIVITY = gql`
   mutation CreateActivity(
-    $event_id: String!
     $name: String!
     $startDate: String!
     $startTime: String!
     $location: String!
-    $type: String
+    $type: String!
     $details: String
+    $event_id: ID
   ) {
     createActivity(
       data: {

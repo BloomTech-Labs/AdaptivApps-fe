@@ -1,15 +1,31 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Text, Flex, Input } from 'adaptiv-ui';
+import { useMutation } from 'react-apollo';
+import { CREATE_ACTIVITY } from './queries';
 
 // This is the form being used in to create an event
 const ActivityCreationForm = props => {
+  const [CreateActivity] = useMutation(CREATE_ACTIVITY);
+
   const { handleSubmit, register } = useForm();
 
   // creates an activity
   const onSubmit = async (values, e) => {
     e.preventDefault();
-    alert('Adding activity');
+    console.log(values, props.event.id);
+    const { data } = await CreateActivity({
+      variables: {
+        event_id: props.event.id,
+        name: values.name,
+        startDate: values.startDate,
+        startTime: values.startTime,
+        location: values.location,
+        type: values.type,
+        details: values.details,
+      },
+    });
+    console.log('Returning data is', data);
   };
 
   return (
