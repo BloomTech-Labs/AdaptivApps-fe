@@ -13,6 +13,17 @@ import {
   Select,
 } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
+import * as yup from 'yup'
+
+const ProfileSchema = yup.object().shape({
+  firstName: yup.string().min(2).max(15),
+  lastName: yup.string().min(3).max(15),
+  displayName: yup.string().max(10),
+  birthday: yup.string().max(10),
+  bio: yup.string().max(255),
+  disability: yup.string(), //string?
+  // legal: yup.bool()
+});
 
 // This is the form being used in UserDashboard
 const ProfileForm = ({ loading, profile, user, updateProfile }) => {
@@ -21,6 +32,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 
   const { handleSubmit, register, setValue } = useForm({
     mode: 'onSubmit',
+    validationSchema: ProfileSchema,
     defaultValues: {
       email: user?.email,
       firstName: userProfile?.firstName,
@@ -28,7 +40,8 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
       displayName: userProfile?.displayName,
       birthday: userProfile?.birthday,
       bio: userProfile?.bio,
-      disability: userProfile?.disability
+      disability: userProfile?.disability,
+      // legal: userProfile?.legal
     },
   });
 
@@ -45,7 +58,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
         birthday: formValues.birthday === '' ? userProfile.birthday : formValues.birthday,
         bio: formValues.bio === '' ? userProfile.bio : formValues.bio,
         disability: formValues.disability === '' ? userProfile.disability : formValues.disability,
-        legal: formValues.legal === '' ? userProfile.legal : formValues.legal
+        // legal: formValues.legal === '' ? userProfile.legal : formValues.legal
       },
     });
     // frontend update
@@ -57,7 +70,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
       birthday: formValues.birthday === '' ? userProfile.birthday : formValues.birthday,
       bio: formValues.bio === '' ? userProfile.bio : formValues.bio,
       disability: formValues.disability === '' ? userProfile.disability : formValues.disability,
-      legal: formValues.legal === '' ? userProfile.legal : formValues.legal
+      // legal: formValues.legal === '' ? userProfile.legal : formValues.legal
     })
   };
 
@@ -72,7 +85,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
         { birthday : userProfile && userProfile.birthday, },
         { bio : userProfile && userProfile.bio, },
         { disability : userProfile && userProfile.disability, },
-        { legal : userProfile && userProfile.legal, },
+        // { legal : userProfile && userProfile.legal, },
       ])
     }
   }, [loading, userProfile, setValue, profile])
@@ -205,7 +218,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               </Flex>
             </Flex>
 
-            <Flex ai_start col>
+            {/* <Flex ai_start col>
               <Text mf>Are you over 18 years old?</Text>
               <Flex ai_center>
                 <Select w="20rem" name="legal" ref={register}>
@@ -213,7 +226,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                   <option value={false}>No</option>
                 </Select>
               </Flex>
-            </Flex>
+            </Flex> */}
           </Flex>
 
           <Flex w='50%' jc_between ai_center>
