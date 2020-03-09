@@ -3,12 +3,15 @@ import React from 'react';
 // Reach Router imports
 import { Router } from '@reach/router';
 
-// Import components
-import DashRouter from './pages/DashRoute';
-import PrivateRoute from './utils/PrivateRoute';
-import { useGetToken } from './components/auth/Auth';
-import EventList from './pages/DashRoute/users/events/EventList';
-import UserDashboard from './pages/DashRoute/components/UserDashboard';
+// Import route components
+import DashRouter from './routes/DashRouter';
+import PrivateRoute from './routes/PrivateRoute';
+
+// Import page components
+import EventsCalendar from './pages/EventsCalendar';
+import UserProfile from './pages/UserProfile';
+import CreateEvent from './pages/CreateEvent';
+import UserEvents from './pages/UserEvents';
 
 // Import apollo server
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -17,18 +20,20 @@ import ApolloClient from 'apollo-boost';
 // Google Analytics Imports
 import ReactGA from 'react-ga';
 
+// import get token function
+import { useGetToken } from './config/Auth';
+
 const trackingId = 'UA-159556430-1';
 
 (function initializeReactGA() {
   ReactGA.initialize(trackingId);
   ReactGA.pageview('/');
-  console.log('trackingId', trackingId);
 })();
 
 function App() {
   // When app renders, call useGetToken() to get token from auth0 login
   const [token] = useGetToken();
-  console.log('Token ---> ', token);
+  // console.log('Token ---> ', token);
 
   // Generate new apollo client
   const client = new ApolloClient({
@@ -49,8 +54,10 @@ function App() {
       <div className="App">
         <Router>
           <PrivateRoute path="/" component={DashRouter}>
-            <UserDashboard path="/" />
-            <EventList path="calendar" />
+            <UserProfile path="/" />
+            <EventsCalendar path="calendar" />
+            <CreateEvent path="events/create" />
+            <UserEvents path="events" />
           </PrivateRoute>
         </Router>
       </div>

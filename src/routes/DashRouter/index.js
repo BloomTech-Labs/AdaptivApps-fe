@@ -2,11 +2,10 @@
 import React from 'react';
 
 // Auth0 imports
-import { useAuth0 } from '../../components/auth/react-auth0-spa';
+import { useAuth0 } from '../../config/react-auth0-spa';
 
 // Component imports
-// import UserDashboard from './components/UserDashboard';
-import SideNav from '../../components/SideNav';
+import SideNav from './SideNav';
 
 import PropTypes from 'prop-types';
 
@@ -20,10 +19,7 @@ const DashRouter = ({ children }) => {
       <Box w="15vw" min_w="25rem">
         <SideNav user={user} />
       </Box>
-      <Box stretch>
-        {/* <UserDashboard user={user} /> */}
-        {children}
-      </Box>
+      <Box stretch>{children}</Box>
     </Flex>
   );
 };

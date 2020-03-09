@@ -1,6 +1,7 @@
 import React from 'react';
-import golfimg from '../../../../assets/images/little-guy-golf.jpg';
-import { Flex, Box, Container } from 'adaptiv-ui';
+import golfimg from '../../assets/images/little-guy-golf.jpg';
+import { Flex, Container } from 'adaptiv-ui';
+import PropTypes from 'prop-types';
 
 export default function EventCard({ event }) {
   return (
@@ -16,3 +17,7 @@ export default function EventCard({ event }) {
     </Flex>
   );
 }
+
+EventCard.propTypes = {
+  event: PropTypes.object,
+};
