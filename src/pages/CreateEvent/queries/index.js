@@ -43,3 +43,8 @@ export const UPDATE_EVENT = gql`
     }
   }
 `;
+
+module.exports = {
+  CREATE_EVENT,
+  UPDATE_EVENT,
+};

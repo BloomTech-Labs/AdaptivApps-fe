@@ -1,9 +1,15 @@
 import React from 'react';
+import { Box, Text } from 'adaptiv-ui';
+import EventCreationForm from './EventCreationForm';
 
 export default function CreateEvent() {
   return (
     <div>
-      <h2>Create an event</h2>
+      <Text xlf bold mm>
+        Create an Event
+      </Text>
+      <Box h="0.2rem" w="90%" bg="lightgrey" />
+      <EventCreationForm />
     </div>
   );
 }
