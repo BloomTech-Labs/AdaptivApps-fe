@@ -5,13 +5,15 @@ import React from 'react';
 import { useAuth0 } from '../../components/auth/react-auth0-spa';
 
 // Component imports
-import UserDashboard from './components/UserDashboard';
+// import UserDashboard from './components/UserDashboard';
 import SideNav from '../../components/SideNav';
+
+import PropTypes from 'prop-types';
 
 // Styling imports
 import { Flex, Box } from 'adaptiv-ui';
 
-const DashRouter = () => {
+const DashRouter = ({ children }) => {
   const { user } = useAuth0();
   return (
     <Flex jc_between>
@@ -19,10 +21,15 @@ const DashRouter = () => {
         <SideNav user={user} />
       </Box>
       <Box stretch>
-        <UserDashboard user={user} />
+        {/* <UserDashboard user={user} /> */}
+        {children}
       </Box>
     </Flex>
   );
 };
 
 export default DashRouter;
+
+DashRouter.propTypes = {
+  children: PropTypes.any,
+};

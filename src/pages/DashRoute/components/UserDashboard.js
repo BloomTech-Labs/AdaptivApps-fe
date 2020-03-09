@@ -9,16 +9,16 @@ import { UPDATE_USER_PROFILE } from '../queries/updateProfile';
 
 const UserDashboard = props => {
   const { user } = props;
-  
+
   const [createProfile] = useMutation(ADD_USER_PROFILE);
   const [updateProfile] = useMutation(UPDATE_USER_PROFILE);
-  
+
   // Fetch profile for the user using the email associated with auth0 login
   const { loading, error, data } = useQuery(PROFILE_INFO, {
     variables: { email: user.email },
   });
-  const profile = data && data.profile
-  
+  const profile = data && data.profile;
+
   // Extract the profile from returning data of useQuery
   useEffect(() => {
     if (error) {
@@ -30,15 +30,20 @@ const UserDashboard = props => {
     }
     // eslint-disable-next-line
   }, [profile]);
-  
+
   // Function that creates a profile for given email
   const newProfile = async () => {
     await createProfile({ variables: { email: user.email } });
   };
 
   return (
-    <ProfileForm loading={loading} profile={profile ? profile : null} user={user} updateProfile={updateProfile} />
-  )
+    <ProfileForm
+      loading={loading}
+      profile={profile ? profile : null}
+      user={user}
+      updateProfile={updateProfile}
+    />
+  );
 };
 
 export default UserDashboard;

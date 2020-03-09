@@ -7,6 +7,8 @@ import { Router } from '@reach/router';
 import DashRouter from './pages/DashRoute';
 import PrivateRoute from './utils/PrivateRoute';
 import { useGetToken } from './components/auth/Auth';
+import EventList from './pages/DashRoute/users/events/EventList';
+import UserDashboard from './pages/DashRoute/components/UserDashboard';
 
 // Import apollo server
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -46,7 +48,10 @@ function App() {
     <ApolloProvider client={client}>
       <div className="App">
         <Router>
-          <PrivateRoute exact path="/" component={DashRouter} />
+          <PrivateRoute path="/" component={DashRouter}>
+            <UserDashboard path="/" />
+            <EventList path="calendar" />
+          </PrivateRoute>
         </Router>
       </div>
     </ApolloProvider>
