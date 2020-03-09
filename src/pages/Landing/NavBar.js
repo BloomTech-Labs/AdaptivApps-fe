@@ -1,7 +1,7 @@
 import React from 'react';
-import { useAuth0 } from './auth/react-auth0-spa';
+import { useAuth0 } from '../../config/react-auth0-spa';
 import { Flex, Box, Button, Linkton, theme } from 'adaptiv-ui';
-import acsLogo from '../assets/images/acsLogo.png';
+import acsLogo from '../../assets/images/acsLogo.png';
 
 const NavBar = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
@@ -22,8 +22,8 @@ const NavBar = () => {
             aria-label="Access log in modal"
             onClick={() => loginWithRedirect({})}
             jc_center
-            h='5rem'
-            w='10rem'
+            h="5rem"
+            w="10rem"
           >
             Log in
           </Button>
@@ -35,8 +35,8 @@ const NavBar = () => {
           primary
           onClick={() => loginWithRedirect({})}
           jc_center
-          h='5rem'
-          w='10rem'
+          h="5rem"
+          w="10rem"
         >
           Sign Up
         </Button>

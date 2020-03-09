@@ -1,16 +1,19 @@
 import React from 'react';
-import { useAuth0 } from './auth/react-auth0-spa';
-import { Flex, NavBar, Box, Button, NavLink } from 'adaptiv-ui';
-import acsLogo from '../assets/images/acsLogo.png';
-import config from './auth/auth_config';
+import { useAuth0 } from '../../../config/react-auth0-spa';
+import { Flex, NavBar, Box, Button } from 'adaptiv-ui';
+import acsLogo from '../../../assets/images/acsLogo.png';
+import config from '../../../config/auth_config';
 import { FaRegCalendar, FaRegBookmark, FaRegUser, FaPen } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
+// import EventsCalendar from '../../../pages/EventsCalendar';
+import NavLink from './NavLink';
+// import { Link } from '@reach/router';
 
 // This component is rendered for all users on login on the side
-const SideNav = props => {
-  const { logout } = useAuth0();
+const SideNav = () => {
+  const { logout, user } = useAuth0();
 
   return (
     <NavBar col jc_between h="100vh">
@@ -19,47 +22,49 @@ const SideNav = props => {
           <img src={acsLogo} alt="ACS Logo" />
         </Box>
         <NavLink
-          primary="true"
-          row="true"
-          stretch="true"
-          to="/calendar"
-          radius="0"
+          // primary="true"
+          // row="true"
+          // stretch="true"
+          to="calendar"
+          // radius="0"
+          // component={EventsCalendar}
         >
           <Box w="2rem" />
           <FaRegCalendar />
           <Box w="2rem" />
           <p>Events Calendar</p>
         </NavLink>
-
         <NavLink
-          primary="true"
-          row="true"
-          stretch="true"
-          to="/events"
-          radius="0"
+          to="events"
+          // primary="true"
+          // row="true"
+          // stretch="true"
+          // radius="0"
         >
+          {/* <Link to="events"> */}
           <Box w="2rem" />
           <FaRegBookmark />
           <Box w="2rem" />
           <p>My Events</p>
+          {/* </Link> */}
         </NavLink>
-
         {/* If user is an admin, then this section will be rendered */}
-        {props.user[config.roleUrl].includes('Admin') ? (
+        {user && user[config.roleUrl].includes('Admin') ? (
           <NavLink
-            primary="true"
-            row="true"
-            stretch="true"
-            to="/events/create"
-            radius="0"
+            to="events/create"
+            // primary="true"
+            // row="true"
+            // stretch="true"
+            // radius="0"
           >
+            {/* <Link to="events/create"> */}
             <Box w="2rem" />
             <FaPen />
             <Box w="2rem" />
             <p>Create Event</p>
+            {/* </Link> */}
           </NavLink>
         ) : null}
-
         <NavLink primary="true" row="true" stretch="true" to="/" radius="0">
           <Box w="2rem" />
           <FaRegUser />

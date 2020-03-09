@@ -2,27 +2,30 @@
 import React from 'react';
 
 // Auth0 imports
-import { useAuth0 } from '../../components/auth/react-auth0-spa';
+import { useAuth0 } from '../../config/react-auth0-spa';
 
 // Component imports
-import UserDashboard from './components/UserDashboard';
-import SideNav from '../../components/SideNav';
+import SideNav from './SideNav';
+
+import PropTypes from 'prop-types';
 
 // Styling imports
 import { Flex, Box } from 'adaptiv-ui';
 
-const DashRouter = () => {
+const DashRouter = ({ children }) => {
   const { user } = useAuth0();
   return (
     <Flex jc_between>
       <Box w="15vw" min_w="25rem">
         <SideNav user={user} />
       </Box>
-      <Box stretch>
-        <UserDashboard user={user} />
-      </Box>
+      <Box stretch>{children}</Box>
     </Flex>
   );
 };
 
 export default DashRouter;
+
+DashRouter.propTypes = {
+  children: PropTypes.any,
+};
