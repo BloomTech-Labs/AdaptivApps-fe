@@ -3,10 +3,10 @@ import gql from 'graphql-tag';
 // Creating an event
 export const CREATE_EVENT = gql`
   mutation CreateEvent(
-    $title: String
-    $startDate: String
-    $endDate: String
-    $location: String
+    $title: String!
+    $startDate: String!
+    $endDate: String!
+    $location: String!
   ) {
     createEvent(
       data: {
@@ -43,8 +43,3 @@ export const UPDATE_EVENT = gql`
     }
   }
 `;
-
-module.exports = {
-  CREATE_EVENT,
-  UPDATE_EVENT,
-};

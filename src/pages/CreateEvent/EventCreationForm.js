@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useMutation } from 'react-apollo';
+import { CREATE_EVENT } from './queries';
 import { Form, Text, Flex, Input } from 'adaptiv-ui';
 
 // This is the form being used in to create an event
@@ -10,12 +12,23 @@ const ProfileForm = () => {
     endDate: '',
     location: '',
   });
+
+  const [CreateEvent] = useMutation(CREATE_EVENT);
+
   const { handleSubmit, register } = useForm();
 
-  // updates profile in the backend and frontend
+  // creates an event
   const onSubmit = async (values, e) => {
+    e.preventDefault();
+    await CreateEvent({
+      variables: {
+        title: values.title,
+        startDate: values.startDate,
+        endDate: values.endDate,
+        location: values.location,
+      },
+    });
     await setCurrEvent(values);
-    alert('Submitted');
     console.log(currEvent);
   };
 
