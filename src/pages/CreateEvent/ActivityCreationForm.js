@@ -9,25 +9,13 @@ const ActivityCreationForm = props => {
   // creates an activity
   const onSubmit = async (values, e) => {
     e.preventDefault();
-    alert('Adding activity')
+    alert('Adding activity');
   };
 
   return (
     <div>
       <Form ai_start col stretch onSubmit={handleSubmit(onSubmit)}>
         <Text mf>Select a Day</Text>
-        <Flex ai_center>
-          <Input
-            type="text"
-            w="25rem"
-            name="title"
-            ref={register({
-              required: 'Required',
-            })}
-          />
-        </Flex>
-
-        <Text mf>Start Date</Text>
         <Flex ai_center>
           <Input
             type="text"
@@ -39,12 +27,12 @@ const ActivityCreationForm = props => {
           />
         </Flex>
 
-        <Text mf>End Date</Text>
+        <Text mf>Activity Name</Text>
         <Flex ai_center>
           <Input
             type="text"
             w="25rem"
-            name="endDate"
+            name="name"
             ref={register({
               required: 'Required',
             })}
@@ -63,11 +51,33 @@ const ActivityCreationForm = props => {
           />
         </Flex>
 
-        <button type="submit">Submit</button>
+        <Text mf>Activity Times</Text>
+        <Flex ai_center>
+          <Input
+            type="text"
+            w="25rem"
+            name="startTime"
+            ref={register({
+              required: 'Required',
+            })}
+          />
+        </Flex>
+
+        <Text mf>Activity Type</Text>
+        <Flex ai_center>
+          <Input type="text" w="25rem" name="type" ref={register()} />
+        </Flex>
+
+        <Text mf>Additional Details</Text>
+        <Flex ai_center>
+          <Input type="text" w="25rem" name="details" ref={register()} />
+        </Flex>
+
+        <button type="submit">Add Event</button>
+        <button>Finish Event Creation</button>
       </Form>
     </div>
   );
-}
 };
 
-export default EventCreationForm;
+export default ActivityCreationForm;

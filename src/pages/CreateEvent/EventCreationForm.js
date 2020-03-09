@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-apollo';
 import { CREATE_EVENT } from './queries';
 import { Box, Form, Text, Flex, Input } from 'adaptiv-ui';
+import ActivityCreationForm from './ActivityCreationForm';
 
 // This is the form being used in to create an event
 const EventCreationForm = () => {
@@ -99,7 +100,7 @@ const EventCreationForm = () => {
       </div>
     );
   } else {
-    return <p>{currEvent.id}</p>;
+    return <ActivityCreationForm event={currEvent} />;
   }
 };
 

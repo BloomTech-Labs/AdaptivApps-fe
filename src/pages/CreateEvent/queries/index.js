@@ -60,6 +60,7 @@ export const CREATE_ACTIVITY = gql`
     $startTime: String!
     $location: String!
     $type: String
+    $details: String
   ) {
     createActivity(
       data: {
@@ -68,11 +69,8 @@ export const CREATE_ACTIVITY = gql`
         startTime: $startTime
         location: $location
         type: $type
-        event: {
-          connect: {
-            id: $$event_id
-          }
-        }
+        details: $details
+        event: { connect: { id: $event_id } }
       }
     ) {
       id
