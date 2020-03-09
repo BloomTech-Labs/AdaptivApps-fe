@@ -1,11 +1,13 @@
 import React from 'react';
-import { useAuth0 } from '../components/auth/react-auth0-spa';
-import LandingPage from '../pages/LandingPage';
+import { useAuth0 } from '../../config/react-auth0-spa';
+import LandingPage from '../../pages/Landing';
 import { Wrapper } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
   const { loading, user } = useAuth0();
+  // const loading = false;
+  // const user = true;
 
   // This Render function returns the appropriate component
   // If not logged in, land on landing page

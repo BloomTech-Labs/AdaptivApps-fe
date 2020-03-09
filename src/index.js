@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom';
 import { AppWrapper } from 'adaptiv-ui';
 
 // Import project configurations from local files
-import { Auth0Provider } from './components/auth/react-auth0-spa';
-import config from './components/auth/auth_config';
+import { Auth0Provider } from './config/react-auth0-spa';
+import config from './config/auth_config';
 import 'adaptiv-ui/css/main.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
