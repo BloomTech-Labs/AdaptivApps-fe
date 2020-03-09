@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import config from '../../../../components/auth/auth_config';
+import config from '../../config/auth_config';
 import { useForm } from 'react-hook-form';
 import {
   Flex,
@@ -16,72 +16,100 @@ import PropTypes from 'prop-types';
 
 // This is the form being used in UserDashboard
 const ProfileForm = ({ loading, profile, user, updateProfile }) => {
-  const [updated, setUpdated] = useState(false)
-  const [userProfile, setUserProfile] = useState(null)
+  const [updated, setUpdated] = useState(false);
+  const [userProfile, setUserProfile] = useState(null);
 
   const { handleSubmit, register, setValue } = useForm({
     mode: 'onSubmit',
     defaultValues: {
-      email: user?.email,
-      firstName: userProfile?.firstName,
-      lastName: userProfile?.lastName,
-      displayName: userProfile?.displayName,
-      birthday: userProfile?.birthday,
-      bio: userProfile?.bio,
-      disability: userProfile?.disability
+      email: user && user.email,
+      firstName: userProfile && userProfile.firstName,
+      lastName: userProfile && userProfile.lastName,
+      displayName: userProfile && userProfile.displayName,
+      birthday: userProfile && userProfile.birthday,
+      bio: userProfile && userProfile.bio,
+      disability: userProfile && userProfile.disability,
     },
   });
 
   // updates profile in the backend and frontend
   const onSubmit = (formValues, e) => {
-    e.preventDefault()
+    e.preventDefault();
     // backend update
     updateProfile({
       variables: {
         email: user.email,
-        firstName: formValues.firstName === '' ? userProfile.firstName : formValues.firstName,
-        lastName: formValues.lastName === '' ? userProfile.lastName : formValues.lastName,
-        displayName: formValues.displayName === '' ? userProfile.displayName : formValues.displayName,
-        birthday: formValues.birthday === '' ? userProfile.birthday : formValues.birthday,
+        firstName:
+          formValues.firstName === ''
+            ? userProfile.firstName
+            : formValues.firstName,
+        lastName:
+          formValues.lastName === ''
+            ? userProfile.lastName
+            : formValues.lastName,
+        displayName:
+          formValues.displayName === ''
+            ? userProfile.displayName
+            : formValues.displayName,
+        birthday:
+          formValues.birthday === ''
+            ? userProfile.birthday
+            : formValues.birthday,
         bio: formValues.bio === '' ? userProfile.bio : formValues.bio,
-        disability: formValues.disability === '' ? userProfile.disability : formValues.disability,
-        legal: formValues.legal === '' ? userProfile.legal : formValues.legal
+        disability:
+          formValues.disability === ''
+            ? userProfile.disability
+            : formValues.disability,
+        legal: formValues.legal === '' ? userProfile.legal : formValues.legal,
       },
     });
     // frontend update
     setUserProfile({
       email: user.email,
-      firstName: formValues.firstName === '' ? userProfile.firstName : formValues.firstName,
-      lastName: formValues.lastName === '' ? userProfile.lastName : formValues.lastName,
-      displayName: formValues.displayName === '' ? userProfile.displayName : formValues.displayName,
-      birthday: formValues.birthday === '' ? userProfile.birthday : formValues.birthday,
+      firstName:
+        formValues.firstName === ''
+          ? userProfile.firstName
+          : formValues.firstName,
+      lastName:
+        formValues.lastName === '' ? userProfile.lastName : formValues.lastName,
+      displayName:
+        formValues.displayName === ''
+          ? userProfile.displayName
+          : formValues.displayName,
+      birthday:
+        formValues.birthday === '' ? userProfile.birthday : formValues.birthday,
       bio: formValues.bio === '' ? userProfile.bio : formValues.bio,
-      disability: formValues.disability === '' ? userProfile.disability : formValues.disability,
-      legal: formValues.legal === '' ? userProfile.legal : formValues.legal
-    })
+      disability:
+        formValues.disability === ''
+          ? userProfile.disability
+          : formValues.disability,
+      legal: formValues.legal === '' ? userProfile.legal : formValues.legal,
+    });
   };
 
   // updates form fields with new values
   useEffect(() => {
-    if (!loading && !userProfile) setUserProfile(profile)
+    if (!loading && !userProfile) setUserProfile(profile);
     if (!loading && userProfile) {
       setValue([
-        { firstName : userProfile && userProfile.firstName, },
-        { lastName : userProfile && userProfile.lastName, },
-        { displayName : userProfile && userProfile.displayName, },
-        { birthday : userProfile && userProfile.birthday, },
-        { bio : userProfile && userProfile.bio, },
-        { disability : userProfile && userProfile.disability, },
-        { legal : userProfile && userProfile.legal, },
-      ])
+        { firstName: userProfile && userProfile.firstName },
+        { lastName: userProfile && userProfile.lastName },
+        { displayName: userProfile && userProfile.displayName },
+        { birthday: userProfile && userProfile.birthday },
+        { bio: userProfile && userProfile.bio },
+        { disability: userProfile && userProfile.disability },
+        { legal: userProfile && userProfile.legal },
+      ]);
     }
-  }, [loading, userProfile, setValue, profile])
-  
+  }, [loading, userProfile, setValue, profile]);
+
   // alerts user to successful update, handy for screen readers
   const handleUpdated = () => {
-    alert('Profile updated successfully!')
+    alert('Profile updated successfully!');
     setUpdated(false);
-  }
+  };
+
+  const userPicture = user && user.picture;
 
   return (
     <Flex ai_start col stretch>
@@ -92,14 +120,15 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
       <Flex mm col ai_start>
         <Flex jc_between ai_center>
           <Box sqr="5rem">
-            <img src={user.picture} alt="Profile" />
+            <img src={userPicture} alt="Profile" />
           </Box>
           <Text lf sm>
             {userProfile && userProfile.firstName !== null
-              ? `${userProfile && userProfile.firstName} ${userProfile && userProfile.lastName}`
-              : user.name}{' '}
-            {user[config.roleUrl].includes('Admin') ? (
-              <Text>{user[config.roleUrl]}</Text>
+              ? `${userProfile && userProfile.firstName} ${userProfile &&
+                  userProfile.lastName}`
+              : user && user.name}{' '}
+            {user && user[config.roleUrl].includes('Admin') ? (
+              <Text>{user && user[config.roleUrl]}</Text>
             ) : null}
           </Text>
         </Flex>
@@ -112,19 +141,9 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
           </Text>
           <Box h="2rem" />
           <Flex ai_center>
-            <Text lf>{userProfile ? userProfile.email : user.email}</Text>
-            {/* <Button
-              primary
-              jc_center
-              mm
-              border={`2px solid ${theme.primary}`}
-              w="7.75rem"
-              h="3.75rem"
-              aria-label="Change email for this user"
-              onClick={() => setIsEditing(!isEditing)}
-            >
-              Change
-            </Button> */}
+            <Text lf>
+              {userProfile ? userProfile.email : user && user.email}
+            </Text>
           </Flex>
           <Box h="2rem" />
         </Flex>
@@ -181,14 +200,28 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
             <Flex ai_start col>
               <Text mf>Date of Birth</Text>
               <Flex ai_center>
-                <Input type="text" w="25rem" name="birthday" ref={register} placeholder={userProfile ? userProfile.birthday : 'mm/dd/yyyy'} />
+                <Input
+                  type="text"
+                  w="25rem"
+                  name="birthday"
+                  ref={register}
+                  placeholder={
+                    userProfile ? userProfile.birthday : 'mm/dd/yyyy'
+                  }
+                />
               </Flex>
             </Flex>
           </Flex>
 
           <Flex ai_start col stretch>
             <Text mf>Bio</Text>
-            <TextArea rows="8" cols="60" name="bio" ref={register} placeholder={userProfile ? userProfile.bio : null} />
+            <TextArea
+              rows="8"
+              cols="60"
+              name="bio"
+              ref={register}
+              placeholder={userProfile ? userProfile.bio : null}
+            />
           </Flex>
 
           <Flex jc_between stretch>
@@ -216,7 +249,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
             </Flex>
           </Flex>
 
-          <Flex w='50%' jc_between ai_center>
+          <Flex w="50%" jc_between ai_center>
             <Button
               type="submit"
               jc_center
@@ -233,7 +266,6 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
             </Button>
             {updated === true ? handleUpdated() : null}
           </Flex>
-
         </Form>
       </Flex>
     </Flex>
@@ -245,4 +277,6 @@ export default ProfileForm;
 ProfileForm.propTypes = {
   profile: PropTypes.object,
   user: PropTypes.object,
+  loading: PropTypes.bool,
+  updateProfile: PropTypes.any,
 };
