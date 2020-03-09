@@ -16,6 +16,7 @@ export const CREATE_EVENT = gql`
         location: $location
       }
     ) {
+      id
       title
       startDate
       endDate
