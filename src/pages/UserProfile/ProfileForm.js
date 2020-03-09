@@ -10,7 +10,6 @@ import {
   Input,
   theme,
   TextArea,
-  Select,
 } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
 import * as yup from 'yup'
