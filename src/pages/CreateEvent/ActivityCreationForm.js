@@ -1,33 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-apollo';
 import { Form, Text, Flex, Input, Box } from 'adaptiv-ui';
-import { CREATE_ACTIVITY } from './queries/ActivitiesQuery';
+import { CREATE_EVENT_WITH_ACTIVITIES } from './queries/EventsQuery';
 import NoActivityCard from './NoActivityCard';
 import EventCard from './EventCard';
 
 // This is the form being used in to create an event
 const ActivityCreationForm = props => {
   const [hasActivity, setHasActivity] = useState(false);
-  const [CreateActivity] = useMutation(CREATE_ACTIVITY);
+  const [activities, setActivities] = useState([]);
+  const [currActivity, setCurrActivity] = useState({
+    name: '',
+    startDate: '',
+    startTime: '',
+    location: '',
+    type: '',
+    details: '',
+  });
+  const [CreateEvent] = useMutation(CREATE_EVENT_WITH_ACTIVITIES);
   const { handleSubmit, register } = useForm();
 
-  // creates an activity
-  const onSubmit = async (values, e) => {
-    e.preventDefault();
-    console.log(values, props.event.id);
-    const { data } = await CreateActivity({
-      variables: {
-        event_id: props.event.id,
-        name: values.name,
-        startDate: values.startDate,
-        startTime: values.startTime,
-        location: values.location,
-        type: values.type,
-        details: values.details,
-      },
-    });
-    console.log('Returning data is', data);
+  const onSubmit = values => {
+    setCurrActivity(values);
+    setHasActivity(true);
+  };
+
+  useEffect(() => {
+    setActivities([...activities, currActivity]);
+    console.log('Right, so currActivity is', currActivity);
+    console.log('And activites are', activities);
+  }, [activities, currActivity, activities]);
+
+  const event = props.event;
+  const finishEventCreation = async () => {
+    // const { data } = await CreateEvent({
+    //   variables: {
+    //     title: event.title,
+    //     startDate: event.startDate,
+    //     endDate: event.endDate,
+    //     location: event.location,
+    //     activities: activities,
+    //   },
+    // });
+    // console.log('Returning data is', data);
+    console.log('The event is', event);
+    console.log('The activities are', activities);
   };
 
   return (
@@ -98,9 +116,10 @@ const ActivityCreationForm = props => {
             <Input type="text" w="25rem" name="details" ref={register()} />
           </Flex>
 
-          <button>Add Activity</button>
-          <button type="submit">All Finished</button>
+          <button type="submit">Add Activity</button>
+          <button onClick={() => finishEventCreation()}>All Finished</button>
         </Form>
+
         <Flex col ai_start>
           <EventCard event={props.event} />
           {!hasActivity ? <NoActivityCard /> : <p>Please wait</p>}

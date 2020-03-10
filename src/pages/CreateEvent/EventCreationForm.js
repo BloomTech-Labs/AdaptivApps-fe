@@ -33,7 +33,6 @@ const EventCreationForm = () => {
     await setShowEvent(false);
     //await setCurrEvent(data.createEvent);
     await setCurrEvent(values);
-    console.log('After all this is', values);
   };
 
   useEffect(() => {
