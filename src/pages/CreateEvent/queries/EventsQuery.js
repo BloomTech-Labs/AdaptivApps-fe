@@ -25,6 +25,39 @@ export const CREATE_EVENT = gql`
   }
 `;
 
+// Creating an event with activities
+export const CREATE_EVENT_WITH_ACTIVITIES = gql`
+  mutation CreateEvent(
+    $title: String!
+    $startDate: String!
+    $endDate: String!
+    $location: String!
+    $activities: [Activity!]
+  ) {
+    createEvent(
+      data: {
+        title: $title
+        startDate: $startDate
+        endDate: $endDate
+        location: $location
+        activities: { create: $activities }
+      }
+    ) {
+      id
+      title
+      startDate
+      endDate
+      location
+      activities {
+        name
+        startDate
+        startTime
+        location
+      }
+    }
+  }
+`;
+
 // Updating an event
 export const UPDATE_EVENT = gql`
   mutation UpdateEvent(
