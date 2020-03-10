@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-//import { useMutation } from 'react-apollo';
-//import { CREATE_EVENT } from './queries/EventsQuery';
+import { useMutation } from 'react-apollo';
+import { CREATE_EVENT } from './queries/EventsQuery';
 import { Box, Form, Text, Flex, Input } from 'adaptiv-ui';
 import ActivityCreationForm from './ActivityCreationForm';
 
@@ -15,24 +15,24 @@ const EventCreationForm = () => {
     location: '',
   });
 
-  //const [CreateEvent] = useMutation(CREATE_EVENT);
+  const [CreateEvent] = useMutation(CREATE_EVENT);
 
   const { handleSubmit, register } = useForm();
 
   // creates an event
   const onSubmit = async (values, e) => {
     e.preventDefault();
-    // const { data } = await CreateEvent({
-    //   variables: {
-    //     title: values.title,
-    //     startDate: values.startDate,
-    //     endDate: values.endDate,
-    //     location: values.location,
-    //   },
-    // });
+    const { data } = await CreateEvent({
+      variables: {
+        title: values.title,
+        startDate: values.startDate,
+        endDate: values.endDate,
+        location: values.location,
+      },
+    });
     await setShowEvent(false);
-    //await setCurrEvent(data.createEvent);
-    await setCurrEvent(values);
+    await setCurrEvent(data.createEvent);
+    //await setCurrEvent(values);
   };
 
   useEffect(() => {
