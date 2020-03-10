@@ -33,7 +33,7 @@ const trackingId = 'UA-159556430-1';
 function App() {
   // When app renders, call useGetToken() to get token from auth0 login
   const [token] = useGetToken();
-  // console.log('Token ---> ', token);
+  console.log('Token ---> ', token);
 
   // Generate new apollo client
   const client = new ApolloClient({
@@ -57,7 +57,7 @@ function App() {
             <UserProfile path="/" />
             <EventsCalendar path="calendar" />
             <CreateEvent path="events/create" />
-            <UserEvents path="events" />
+            <UserEvents path="myevents" />
           </PrivateRoute>
         </Router>
       </div>
