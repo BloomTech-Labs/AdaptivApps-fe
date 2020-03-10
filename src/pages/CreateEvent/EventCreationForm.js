@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-apollo';
-import { CREATE_EVENT } from './queries';
+import { CREATE_EVENT } from './queries/EventsQuery';
 import { Box, Form, Text, Flex, Input } from 'adaptiv-ui';
 import ActivityCreationForm from './ActivityCreationForm';
 

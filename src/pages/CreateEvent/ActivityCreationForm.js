@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, Text, Flex, Input } from 'adaptiv-ui';
 import { useMutation } from 'react-apollo';
-import { CREATE_ACTIVITY } from './queries';
+import { CREATE_ACTIVITY } from './queries/ActivitiesQuery';
 
 // This is the form being used in to create an event
 const ActivityCreationForm = props => {
