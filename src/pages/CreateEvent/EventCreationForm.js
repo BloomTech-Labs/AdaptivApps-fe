@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-apollo';
 import { CREATE_EVENT } from './queries/EventsQuery';
 import { Box, Form, Text, Flex, Input } from 'adaptiv-ui';
-import ActivityCreationForm from './ActivityCreationForm';
+import ActivityCreationForm from './ActivityCreationForm/index';
 
 // This is the form being used in to create an event
 const EventCreationForm = () => {
@@ -32,7 +32,6 @@ const EventCreationForm = () => {
     });
     await setShowEvent(false);
     await setCurrEvent(data.createEvent);
-    //await setCurrEvent(values);
   };
 
   useEffect(() => {
@@ -54,7 +53,6 @@ const EventCreationForm = () => {
               type="text"
               w="25rem"
               name="title"
-              placeholder={currEvent.title}
               ref={register({
                 required: 'Required',
               })}
@@ -67,7 +65,6 @@ const EventCreationForm = () => {
               type="text"
               w="25rem"
               name="startDate"
-              placeholder={currEvent.startDate}
               ref={register({
                 required: 'Required',
               })}
@@ -80,7 +77,6 @@ const EventCreationForm = () => {
               type="text"
               w="25rem"
               name="endDate"
-              placeholder={currEvent.endDate}
               ref={register({
                 required: 'Required',
               })}
@@ -93,7 +89,6 @@ const EventCreationForm = () => {
               type="text"
               w="25rem"
               name="location"
-              placeholder={currEvent.location}
               ref={register({
                 required: 'Required',
               })}

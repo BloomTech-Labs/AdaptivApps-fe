@@ -2,14 +2,13 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-apollo';
 import { Form, Text, Flex, Input, Box } from 'adaptiv-ui';
-import { CREATE_ACTIVITY } from './queries/ActivitiesQuery';
+import { CREATE_ACTIVITY } from '../queries/ActivitiesQuery';
 import NoActivityCard from './NoActivityCard';
 import EventCard from './EventCard';
 import ActivityList from './ActivityList';
 // This is the form being used in to create an event
 const ActivityCreationForm = props => {
   const [hasActivity, setHasActivity] = useState(false);
-  const [activity, setActivity] = useState([]);
 
   const [CreateActivity] = useMutation(CREATE_ACTIVITY);
   const { handleSubmit, register } = useForm();
@@ -103,11 +102,7 @@ const ActivityCreationForm = props => {
 
         <Flex col ai_start>
           <EventCard event={props.event} />
-          {!hasActivity ? (
-            <NoActivityCard />
-          ) : (
-            <ActivityList activity={activity} />
-          )}
+          {!hasActivity ? <NoActivityCard /> : <ActivityList />}
         </Flex>
       </Flex>
     </div>
