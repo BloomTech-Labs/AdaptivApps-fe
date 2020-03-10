@@ -53,6 +53,7 @@ const EventCreationForm = () => {
               type="text"
               w="25rem"
               name="title"
+              placeholder={currEvent.title}
               ref={register({
                 required: 'Required',
               })}
@@ -65,6 +66,7 @@ const EventCreationForm = () => {
               type="text"
               w="25rem"
               name="startDate"
+              placeholder={currEvent.startDate}
               ref={register({
                 required: 'Required',
               })}
@@ -77,6 +79,7 @@ const EventCreationForm = () => {
               type="text"
               w="25rem"
               name="endDate"
+              placeholder={currEvent.endDate}
               ref={register({
                 required: 'Required',
               })}
@@ -89,6 +92,7 @@ const EventCreationForm = () => {
               type="text"
               w="25rem"
               name="location"
+              placeholder={currEvent.location}
               ref={register({
                 required: 'Required',
               })}
@@ -100,7 +104,9 @@ const EventCreationForm = () => {
       </div>
     );
   } else {
-    return <ActivityCreationForm event={currEvent} />;
+    return (
+      <ActivityCreationForm event={currEvent} setShowEvent={setShowEvent} />
+    );
   }
 };
 

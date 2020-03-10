@@ -1,6 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Form, Text, Flex, Input } from 'adaptiv-ui';
+import { Form, Text, Flex, Input, Box } from 'adaptiv-ui';
 import { useMutation } from 'react-apollo';
 import { CREATE_ACTIVITY } from './queries/ActivitiesQuery';
 
@@ -30,6 +30,11 @@ const ActivityCreationForm = props => {
 
   return (
     <div>
+      <button onClick={() => props.setShowEvent(true)}>Go Back</button>
+      <Text xlf bold mm>
+        Create an Event
+      </Text>
+      <Box h="0.2rem" w="90%" bg="lightgrey" />
       <Form ai_start col stretch onSubmit={handleSubmit(onSubmit)}>
         <Text mf>Select a Day</Text>
         <Flex ai_center>
@@ -89,8 +94,8 @@ const ActivityCreationForm = props => {
           <Input type="text" w="25rem" name="details" ref={register()} />
         </Flex>
 
-        <button type="submit">Add Event</button>
-        <button>Finish Event Creation</button>
+        <button type="submit">Add Activity</button>
+        <button>All Finished</button>
       </Form>
     </div>
   );
