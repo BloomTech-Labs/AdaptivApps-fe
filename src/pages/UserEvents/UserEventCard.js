@@ -18,6 +18,6 @@ export default function UserEventCard({ event }) {
   );
 }
 
-EventCard.propTypes = {
+UserEventCard.propTypes = {
   event: PropTypes.object,
 };
