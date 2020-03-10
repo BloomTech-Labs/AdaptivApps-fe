@@ -6,7 +6,8 @@ import { CREATE_ACTIVITY } from '../queries/ActivitiesQuery';
 import NoActivityCard from './NoActivityCard';
 import EventCard from './EventCard';
 import ActivityList from './ActivityList';
-// This is the form being used in to create an event
+
+// This is the form being used in to create an activity
 const ActivityCreationForm = props => {
   const [hasActivity, setHasActivity] = useState(false);
 
@@ -38,7 +39,7 @@ const ActivityCreationForm = props => {
       <Box h="0.2rem" w="90%" bg="lightgrey" />
 
       <Flex jc_between stretch>
-        <Form ai_start col stretch onSubmit={handleSubmit(onSubmit)}>
+        <Form ai_start col onSubmit={handleSubmit(onSubmit)}>
           <Text mf>Select a Day</Text>
           <Flex ai_center>
             <Input
@@ -102,7 +103,11 @@ const ActivityCreationForm = props => {
 
         <Flex col ai_start>
           <EventCard event={props.event} />
-          {!hasActivity ? <NoActivityCard /> : <ActivityList />}
+          {!hasActivity ? (
+            <NoActivityCard />
+          ) : (
+            <ActivityList event_id={props.event.id} />
+          )}
         </Flex>
       </Flex>
     </div>

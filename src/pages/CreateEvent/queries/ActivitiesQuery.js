@@ -1,5 +1,18 @@
 import gql from 'graphql-tag';
 
+export const GET_ACTIVITIES = gql`
+  query GetActivities($event_id: ID) {
+    event(where: { id: $event_id }) {
+      activities {
+        name
+        startDate
+        location
+        startTime
+      }
+    }
+  }
+`;
+
 export const CREATE_ACTIVITY = gql`
   mutation CreateActivity(
     $name: String!
