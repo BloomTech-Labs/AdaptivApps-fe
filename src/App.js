@@ -12,7 +12,7 @@ import EventsCalendar from './pages/EventsCalendar';
 import UserProfile from './pages/UserProfile';
 import CreateEvent from './pages/CreateEvent';
 import UserEvents from './pages/UserEvents';
-import ActivityList from './pages/EventsCalendar/ActivityList';
+import ActivityList from './pages/ActivitiesList';
 // Import apollo server
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
@@ -57,9 +57,9 @@ function App() {
           <PrivateRoute path="/" component={DashRouter}>
             <UserProfile path="/" />
             <EventsCalendar path="calendar" />
-            <ActivityList path="activities" />
+            <ActivityList path="calendar/:eventId" />
             <CreateEvent path="events/create" />
-            <UserEvents path="events" />
+            <UserEvents path="myevents" />
           </PrivateRoute>
         </Router>
       </div>
