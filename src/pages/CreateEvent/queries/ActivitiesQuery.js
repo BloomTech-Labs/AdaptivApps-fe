@@ -1,8 +1,8 @@
 import gql from 'graphql-tag';
 
 export const GET_ACTIVITIES = gql`
-  query GetActivities($event_id: ID) {
-    event(where: { id: $event_id }) {
+  query GetActivities($id: ID) {
+    event(where: { id: $id }) {
       activities {
         name
         startDate

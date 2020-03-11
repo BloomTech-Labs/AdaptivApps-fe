@@ -1,16 +1,26 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-apollo';
+import { useMutation, useQuery } from 'react-apollo';
 import { Form, Text, Flex, Input, Box } from 'adaptiv-ui';
-import { CREATE_ACTIVITY } from '../queries/ActivitiesQuery';
+import { CREATE_ACTIVITY, GET_ACTIVITIES } from '../queries/ActivitiesQuery';
 import NoActivityCard from './NoActivityCard';
 import EventCard from './EventCard';
 import ActivityList from './ActivityList';
 
-// This is the form being used in to create an activity
-const ActivityCreationForm = props => {
-  const [hasActivity, setHasActivity] = useState(false);
+// Set up reducer and context
+// const initialState = { activities: [] };
+// function reducer(state, action) {
+//   switch (action.type) {
+//     case 'ADD_ACTIVITY':
+//       return { activities: [...state.activities, action.payload] };
+//     default:
+//       return { activities: [...state.activities]}
+//   }
+// }
 
+const ActivityCreationForm = props => {
+  // Manages activity creation using react hook form
+  const [hasActivity, setHasActivity] = useState(false);
   const [CreateActivity] = useMutation(CREATE_ACTIVITY);
   const { handleSubmit, register } = useForm();
 
@@ -29,6 +39,13 @@ const ActivityCreationForm = props => {
     console.log(data);
     setHasActivity(true);
   };
+
+  const { data: activitiesData } = useQuery(GET_ACTIVITIES, {
+    variables: {
+      id: props.event.id,
+    },
+  });
+  console.log('the associated activities are', activitiesData);
 
   return (
     <div>
@@ -103,11 +120,7 @@ const ActivityCreationForm = props => {
 
         <Flex col ai_start>
           <EventCard event={props.event} />
-          {!hasActivity ? (
-            <NoActivityCard />
-          ) : (
-            <ActivityList event_id={props.event.id} />
-          )}
+          {!hasActivity ? <NoActivityCard /> : <ActivityList />}
         </Flex>
       </Flex>
     </div>
