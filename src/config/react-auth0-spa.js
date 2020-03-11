@@ -8,6 +8,9 @@ import PropTypes from 'prop-types';
 const DEFAULT_REDIRECT_CALLBACK = () =>
   window.history.replaceState({}, document.title, window.location.pathname);
 
+export const asyncAuth = setTimeout(() => {
+  return true
+}, 1000)
 export const Auth0Context = React.createContext();
 export const useAuth0 = () => useContext(Auth0Context);
 export const Auth0Provider = ({

@@ -26,7 +26,7 @@ import { useGetToken } from './config/Auth';
 const trackingId = 'UA-159556430-1';
 
 (function initializeReactGA() {
-  ReactGA.initialize(trackingId);
+  ReactGA.initialize(trackingId, { testMode: true });
   ReactGA.pageview('/');
 })();
 
