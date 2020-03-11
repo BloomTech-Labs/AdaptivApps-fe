@@ -59,7 +59,7 @@ function App() {
             <EventsCalendar path="calendar" />
             <ActivityList path="activities" />
             <CreateEvent path="events/create" />
-            <UserEvents path="events" />
+            <UserEvents path="myevents" />
           </PrivateRoute>
         </Router>
       </div>
