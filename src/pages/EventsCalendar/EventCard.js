@@ -7,9 +7,9 @@ import {
   Modal,
   useModal,
   Text,
-  NavLink,
   Linkton,
 } from 'adaptiv-ui';
+import NavLink from '../../routes/DashRouter/SideNav/NavLink';
 import PropTypes from 'prop-types';
 
 export default function EventCard({ event }) {
