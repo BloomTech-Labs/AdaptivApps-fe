@@ -11,14 +11,13 @@ import { useAuth0 } from '../../config/react-auth0-spa';
 import { Flex, Box, Text } from 'adaptiv-ui';
 
 export default function UserEvents() {
+  // Retrieves logged in user info
   const { user } = useAuth0();
 
-  const { loading, error, data } = useQuery(GET_USER_EVENTS, {
+  const { data } = useQuery(GET_USER_EVENTS, {
     variables: { email: user.email }
   });
 
-
- 
   return (
     <Flex ai_start col stretch>
       <Text xlf bold mm>
