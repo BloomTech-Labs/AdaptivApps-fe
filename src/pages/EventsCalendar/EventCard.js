@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 
 export default function EventCard({ event }) {
   const [isActive, toggle] = useModal();
+  console.log(event);
   return (
     <Flex col>
       <Container bg_src={golfimg} h="10vh" w="20rem"></Container>
@@ -43,7 +44,7 @@ export default function EventCard({ event }) {
             and anticipate hosting our largest event ever - Don’t miss it!
           </Text>
           <Text> Add to "My Events?"</Text>
-          <NavLink primary="true" autoFocus to="activities">
+          <NavLink primary="true" autoFocus to={`${event?.id}`}>
             Click me!
           </NavLink>
           <Button secondary onClick={toggle}>
