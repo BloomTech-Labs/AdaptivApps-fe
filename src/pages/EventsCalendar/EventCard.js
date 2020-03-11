@@ -43,7 +43,7 @@ export default function EventCard({ event }) {
             and anticipate hosting our largest event ever - Don’t miss it!
           </Text>
           <Text> Add to "My Events?"</Text>
-          <NavLink primary autoFocus to="activities">
+          <NavLink primary="true" autoFocus to="activities">
             Click me!
           </NavLink>
           <Button secondary onClick={toggle}>

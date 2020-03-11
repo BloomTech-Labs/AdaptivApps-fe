@@ -8,7 +8,7 @@ import { Flex, Box, Text } from 'adaptiv-ui';
 export default function ActivityList() {
   // eslint-disable-next-line no-unused-vars
   const { loading, error, data } = useQuery(GET_EVENT_ACTIVITIES);
-  console.log(data);
+  console.log('ActivityList', data);
   return (
     <Flex ai_start col stretch>
       <Text xlf bold mm>
