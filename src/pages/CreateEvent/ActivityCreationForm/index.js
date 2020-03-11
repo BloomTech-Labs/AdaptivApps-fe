@@ -1,28 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation, useQuery } from 'react-apollo';
+import { useMutation } from 'react-apollo';
 import { Form, Text, Flex, Input, Box } from 'adaptiv-ui';
-import { CREATE_ACTIVITY, GET_ACTIVITIES } from '../queries/ActivitiesQuery';
+import { CREATE_ACTIVITY } from '../queries/ActivitiesQuery';
 import NoActivityCard from './NoActivityCard';
 import EventCard from './EventCard';
 import ActivityList from './ActivityList';
-
-// Set up reducer and context
-// const initialState = { activities: [] };
-// function reducer(state, action) {
-//   switch (action.type) {
-//     case 'ADD_ACTIVITY':
-//       return { activities: [...state.activities, action.payload] };
-//     default:
-//       return { activities: [...state.activities]}
-//   }
-// }
+import MyContext from '../index';
 
 const ActivityCreationForm = props => {
+  // const { dispatch } = useContext(MyContext);
+
   // Manages activity creation using react hook form
   const [hasActivity, setHasActivity] = useState(false);
   const [CreateActivity] = useMutation(CREATE_ACTIVITY);
   const { handleSubmit, register } = useForm();
+
+  //console.log('Oley', MyContext.Provider);
 
   const onSubmit = async values => {
     const { data } = await CreateActivity({
@@ -40,12 +34,14 @@ const ActivityCreationForm = props => {
     setHasActivity(true);
   };
 
-  const { data: activitiesData } = useQuery(GET_ACTIVITIES, {
-    variables: {
-      id: props.event.id,
-    },
-  });
-  console.log('the associated activities are', activitiesData);
+  // const { data: activitiesData } = useQuery(GET_ACTIVITIES, {
+  //   variables: {
+  //     id: props.event.id,
+  //   },
+  // });
+
+  // activitiesData &&
+  //   console.log('the associated activities are', activitiesData);
 
   return (
     <div>
@@ -115,6 +111,7 @@ const ActivityCreationForm = props => {
             <Input type="text" w="25rem" name="details" ref={register()} />
           </Flex>
 
+          <button>Test out reducer</button>
           <button type="submit">Add Activity</button>
         </Form>
 
