@@ -35,7 +35,7 @@ const SideNav = () => {
           <p>Events Calendar</p>
         </NavLink>
         <NavLink
-          to="events"
+          to="myevents"
           // primary="true"
           // row="true"
           // stretch="true"
