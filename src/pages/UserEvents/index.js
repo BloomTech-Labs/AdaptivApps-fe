@@ -14,14 +14,14 @@ export default function UserEvents() {
   // Retrieves logged in user info
   const { user } = useAuth0();
 
-  const { data } = useQuery(GET_USER_EVENTS, {
-    variables: { email: user.email }
+  const { data, refetch } = useQuery(GET_USER_EVENTS, {
+    variables: { email: user.email },
   });
-console.log("data", data);
 
-useEffect(() => {
-},[]);
-
+    useEffect(() => { 
+    refetch();
+    console.log("use effect")
+  },[]);
 
   return (
     <Flex ai_start col stretch>

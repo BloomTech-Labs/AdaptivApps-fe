@@ -3,7 +3,7 @@ import golfimg from '../../assets/images/little-guy-golf.jpg';
 import { useMutation } from 'react-apollo';
 import {REGISTER_EVENT} from './queries/joinEvent';
 import { useAuth0 } from '../../config/react-auth0-spa';
-//import { useParams }from "@reach/router";
+
 import {
   Flex,
   Container,
@@ -20,12 +20,11 @@ export default function EventCard({ event }) {
 
 const [updateEvent] = useMutation(REGISTER_EVENT)
 
-  //const { eventId } = useParams();
-  //console.log("This is eventID", eventId);
   const { user } = useAuth0();
 
   const registerEvent = async ()=> {await updateEvent({
     variables: {id: event.id, email: user.email}
+    
   })}
 
   const [isActive, toggle] = useModal();

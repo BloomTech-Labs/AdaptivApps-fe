@@ -12,7 +12,7 @@ import NavLink from './NavLink';
 // This component is rendered for all users on login on the side
 const SideNav = () => {
   const { logout, user } = useAuth0();
-
+  
   return (
     <NavBar className="nav-bar" col jc_between h="100vh">
       <Flex col>
@@ -25,7 +25,7 @@ const SideNav = () => {
           <Box w="2rem" />
           <p>Events Calendar</p>
         </NavLink>
-        <NavLink to="myevents">
+        <NavLink to="myevents" >
           <Box w="2rem" />
           <FaRegBookmark />
           <Box w="2rem" />

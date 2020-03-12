@@ -9,8 +9,10 @@ export const REGISTER_EVENT = gql`
         connect: {
             email: $email
         }}}) {
+      id
       title
       attendees{
+          id
           email
       }
     }
