@@ -44,7 +44,7 @@ export default function EventCard({ event }) {
             and anticipate hosting our largest event ever - Don’t miss it!
           </Text>
           <Text> Add to "My Events?"</Text>
-          <NavLink primary="true" autoFocus to={`${event?.id}`}>
+          <NavLink primary="true" autoFocus to={`${event?.id}`} onClick={console.log("Working!")}>
             Click me!
           </NavLink>
           <Button secondary onClick={toggle}>
