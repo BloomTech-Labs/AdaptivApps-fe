@@ -1,5 +1,7 @@
 import React from 'react';
 import golfimg from '../../assets/images/little-guy-golf.jpg';
+import { useMutation } from 'react-apollo';
+import { JOIN_EVENT } from './queries/joinEvent.js';
 import {
   Flex,
   Container,
@@ -12,7 +14,14 @@ import {
 import NavLink from '../../routes/DashRouter/SideNav/NavLink';
 import PropTypes from 'prop-types';
 
+
+
 export default function EventCard({ event }) {
+
+  const { data } = useMutation(JOIN_EVENT, {
+    variables: { id: event.id }
+  });
+
   const [isActive, toggle] = useModal();
   console.log(event);
   return (
@@ -44,7 +53,7 @@ export default function EventCard({ event }) {
             and anticipate hosting our largest event ever - Don’t miss it!
           </Text>
           <Text> Add to "My Events?"</Text>
-          <NavLink primary="true" autoFocus to={`${event?.id}`}>
+          <NavLink primary="true" autoFocus to={`${event?.id}`} onClick={data}>
             Click me!
           </NavLink>
           <Button secondary onClick={toggle}>
