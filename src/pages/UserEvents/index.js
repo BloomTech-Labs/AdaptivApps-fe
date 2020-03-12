@@ -20,7 +20,6 @@ export default function UserEvents() {
 
     useEffect(() => { 
     refetch();
-    console.log("use effect")
   },[]);
 
   return (
