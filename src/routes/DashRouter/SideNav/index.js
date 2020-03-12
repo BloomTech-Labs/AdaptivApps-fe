@@ -7,62 +7,37 @@ import { FaRegCalendar, FaRegBookmark, FaRegUser, FaPen } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
-// import EventsCalendar from '../../../pages/EventsCalendar';
 import NavLink from './NavLink';
-// import { Link } from '@reach/router';
 
 // This component is rendered for all users on login on the side
 const SideNav = () => {
   const { logout, user } = useAuth0();
 
   return (
-    <NavBar col jc_between h="100vh">
+    <NavBar className="nav-bar" col jc_between h="100vh">
       <Flex col>
         <Box stretch>
           <img src={acsLogo} alt="ACS Logo" />
         </Box>
-        <NavLink
-          // primary="true"
-          // row="true"
-          // stretch="true"
-          to="calendar"
-          // radius="0"
-          // component={EventsCalendar}
-        >
+        <NavLink to="calendar">
           <Box w="2rem" />
           <FaRegCalendar />
           <Box w="2rem" />
           <p>Events Calendar</p>
         </NavLink>
-        <NavLink
-          to="myevents"
-          // primary="true"
-          // row="true"
-          // stretch="true"
-          // radius="0"
-        >
-          {/* <Link to="events"> */}
+        <NavLink to="myevents">
           <Box w="2rem" />
           <FaRegBookmark />
           <Box w="2rem" />
           <p>My Events</p>
-          {/* </Link> */}
         </NavLink>
         {/* If user is an admin, then this section will be rendered */}
         {user && user[config.roleUrl].includes('Admin') ? (
-          <NavLink
-            to="events/create"
-            // primary="true"
-            // row="true"
-            // stretch="true"
-            // radius="0"
-          >
-            {/* <Link to="events/create"> */}
+          <NavLink to="events/create">
             <Box w="2rem" />
             <FaPen />
             <Box w="2rem" />
             <p>Create Event</p>
-            {/* </Link> */}
           </NavLink>
         ) : null}
         <NavLink primary="true" row="true" stretch="true" to="/" radius="0">

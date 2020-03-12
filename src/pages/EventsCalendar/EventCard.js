@@ -23,7 +23,6 @@ export default function EventCard({ event }) {
   });
 
   const [isActive, toggle] = useModal();
-  console.log(event);
   return (
     <Flex col>
       <Container bg_src={golfimg} h="10vh" w="20rem"></Container>

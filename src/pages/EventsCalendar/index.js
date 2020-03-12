@@ -11,7 +11,8 @@ import { Flex, Box, Text } from 'adaptiv-ui';
 export default function EventsCalendar() {
   // eslint-disable-next-line no-unused-vars
   const { loading, error, data } = useQuery(GET_EVENT_LIST);
-  console.log(data);
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
   return (
     <Flex ai_start col stretch>
       <Text xlf bold mm>

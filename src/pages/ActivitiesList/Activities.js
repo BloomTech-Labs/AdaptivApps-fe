@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function Activities({ activity }) {
-  console.log('in activity component', activity);
   return (
     <div>
       <table>

@@ -16,9 +16,8 @@ const DashRouter = ({ children }) => {
   const { user } = useAuth0();
   return (
     <Flex jc_between>
-      <Box w="15vw" min_w="25rem">
-        <SideNav user={user} />
-      </Box>
+      <SideNav user={user} />
+      <Box w="18vw" min_w="25rem" />
       <Box stretch>{children}</Box>
     </Flex>
   );
