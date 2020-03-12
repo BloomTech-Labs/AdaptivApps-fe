@@ -10,7 +10,6 @@ import { IconContext } from 'react-icons';
 // This is our landing page, aka the home page for the main app
 const LandingPage = () => {
   const { user, loginWithRedirect } = useAuth0();
-  console.log('user:', user);
   return (
     <IconContext.Provider value={{ color: 'white', size: '3rem' }}>
       <NavBar />
