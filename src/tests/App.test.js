@@ -7,7 +7,11 @@ import App from '../App';
 test('renders app', async () => {
   const auth0 = await asyncAuth;
   if (auth0 === true) {
-    const div = document.createElement('div');
-    ReactDom.render(<App />, div);
+    try {
+        const div = document.createElement('div');
+        ReactDom.render(<App />, div);
+      } catch (error) {
+        console.log('error')
+    }
   }
 });
