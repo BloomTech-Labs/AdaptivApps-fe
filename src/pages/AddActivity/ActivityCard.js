@@ -20,10 +20,11 @@ export default function ActivityCard(props) {
         details: values.details,
       },
     });
-    props.dispatch({
+    await props.dispatch({
       type: 'UPDATE_ACTIVITY',
       payload: data.updateActivity,
     });
+    setEditing(!editing);
   };
 
   if (!editing) {

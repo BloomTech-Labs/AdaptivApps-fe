@@ -78,6 +78,7 @@ export const UPDATE_ACTIVITY = gql`
       startTime
       location
       type
+      details
       event {
         title
       }

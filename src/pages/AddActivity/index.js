@@ -6,7 +6,7 @@ import { CREATE_ACTIVITY, GET_ACTIVITIES } from './queries/ActivitiesQuery';
 import ActivityList from './ActivityList';
 import { useParams } from '@reach/router';
 
-const initialState = { isLoading: false, activities: [] };
+const initialState = { activities: [] };
 
 function activitiesReducer(state, action) {
   switch (action.type) {
@@ -14,6 +14,12 @@ function activitiesReducer(state, action) {
       return { activities: action.payload };
     case 'POST_ACTIVITY':
       return { activities: [...state.activities, action.payload] };
+    case 'UPDATE_ACTIVITY':
+      return {
+        activities: state.activities.map(activity => {
+          return activity.id === action.payload.id ? action.payload : activity;
+        }),
+      };
     default:
       throw new Error();
   }
