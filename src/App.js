@@ -11,8 +11,10 @@ import PrivateRoute from './routes/PrivateRoute';
 import EventsCalendar from './pages/EventsCalendar';
 import UserProfile from './pages/UserProfile';
 import CreateEvent from './pages/CreateEvent';
+import AddActivity from './pages/AddActivity';
 import UserEvents from './pages/UserEvents';
 import ActivityList from './pages/ActivitiesList';
+
 // Import apollo server
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
@@ -33,7 +35,7 @@ const trackingId = 'UA-159556430-1';
 function App() {
   // When app renders, call useGetToken() to get token from auth0 login
   const [token] = useGetToken();
-  console.log('Token ---> ', token);
+  // console.log('Token ---> ', token);
 
   // Generate new apollo client
   const client = new ApolloClient({
@@ -59,6 +61,7 @@ function App() {
             <EventsCalendar path="calendar" />
             <ActivityList path="calendar/:eventId" />
             <CreateEvent path="events/create" />
+            <AddActivity path="events/create/:eventId" />
             <UserEvents path="myevents" />
           </PrivateRoute>
         </Router>
