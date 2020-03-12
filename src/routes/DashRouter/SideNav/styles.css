@@ -3,3 +3,9 @@
   padding: 1.4rem 0;
   align-items: center;
 }
+/* w="15vw" min_w="25rem" */
+.nav-bar {
+  position: fixed;
+  width: 15vw;
+  min-width: 25rem;
+}
