@@ -1,22 +1,33 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useReducer, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useMutation } from 'react-apollo';
+import { useMutation, useQuery } from 'react-apollo';
 import { Form, Text, Flex, Input, Box } from 'adaptiv-ui';
-import { CREATE_ACTIVITY } from '../queries/ActivitiesQuery';
-import NoActivityCard from './NoActivityCard';
-import EventCard from './EventCard';
+import { CREATE_ACTIVITY, GET_ACTIVITIES } from './queries/ActivitiesQuery';
 import ActivityList from './ActivityList';
-import MyContext from '../index';
+import { useParams } from '@reach/router';
 
-const ActivityCreationForm = props => {
-  // const { dispatch } = useContext(MyContext);
+const initialState = { activities: [] };
+
+function activitiesReducer(state, action) {
+  switch (action.type) {
+    case 'GET_ACTIVITIES':
+      return { activities: action.payload };
+    case 'POST_ACTIVITY':
+      return { activities: [...state.activities, action.payload] };
+    default:
+      throw new Error();
+  }
+}
+
+const ActivityCreationForm = () => {
+  const [state, dispatch] = useReducer(activitiesReducer, initialState);
+
+  const { eventId } = useParams();
 
   // Manages activity creation using react hook form
   const [hasActivity, setHasActivity] = useState(false);
   const [CreateActivity] = useMutation(CREATE_ACTIVITY);
   const { handleSubmit, register } = useForm();
-
-  //console.log('Oley', MyContext.Provider);
 
   const onSubmit = async values => {
     const { data } = await CreateActivity({
@@ -27,27 +38,37 @@ const ActivityCreationForm = props => {
         location: values.location,
         type: values.type,
         details: values.details,
-        event_id: props.event.id,
+        event_id: eventId,
       },
     });
-    console.log(data);
+    dispatch({
+      type: 'POST_ACTIVITY',
+      payload: data.createActivity,
+    });
     setHasActivity(true);
   };
 
-  // const { data: activitiesData } = useQuery(GET_ACTIVITIES, {
-  //   variables: {
-  //     id: props.event.id,
-  //   },
-  // });
+  const { data: activitiesData } = useQuery(GET_ACTIVITIES, {
+    variables: {
+      id: eventId,
+    },
+  });
 
-  // activitiesData &&
-  //   console.log('the associated activities are', activitiesData);
+  useEffect(() => {
+    dispatch({
+      type: 'GET_ACTIVITIES',
+      payload: activitiesData?.event.activities,
+    });
+  }, [activitiesData, dispatch]);
+
+  //console.log('the associated activities are', activitiesData);
+  //console.log('Checking out state', state.activities);
 
   return (
     <div>
       {/*<button onClick={() => props.setShowEvent(true)}>Go Back</button>*/}
       <Text xlf bold mm>
-        Create an Event
+        Create an Activity
       </Text>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
 
@@ -111,14 +132,10 @@ const ActivityCreationForm = props => {
             <Input type="text" w="25rem" name="details" ref={register()} />
           </Flex>
 
-          <button>Test out reducer</button>
           <button type="submit">Add Activity</button>
         </Form>
 
-        <Flex col ai_start>
-          <EventCard event={props.event} />
-          {!hasActivity ? <NoActivityCard /> : <ActivityList />}
-        </Flex>
+        <ActivityList activities={state.activities} />
       </Flex>
     </div>
   );

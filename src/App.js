@@ -11,6 +11,7 @@ import PrivateRoute from './routes/PrivateRoute';
 import EventsCalendar from './pages/EventsCalendar';
 import UserProfile from './pages/UserProfile';
 import CreateEvent from './pages/CreateEvent';
+import AddActivity from './pages/AddActivity';
 import UserEvents from './pages/UserEvents';
 
 // Import apollo server
@@ -57,6 +58,7 @@ function App() {
             <UserProfile path="/" />
             <EventsCalendar path="calendar" />
             <CreateEvent path="events/create" />
+            <AddActivity path="events/create/:eventId" />
             <UserEvents path="events" />
           </PrivateRoute>
         </Router>
