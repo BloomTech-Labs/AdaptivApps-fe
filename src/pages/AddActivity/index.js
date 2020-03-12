@@ -75,7 +75,7 @@ const ActivityCreationForm = () => {
           <Text mf>Select a Day</Text>
           <Flex ai_center>
             <Input
-              type="text"
+              type="date"
               w="25rem"
               name="startDate"
               ref={register({
@@ -111,7 +111,7 @@ const ActivityCreationForm = () => {
           <Text mf>Activity Times</Text>
           <Flex ai_center>
             <Input
-              type="text"
+              type="time"
               w="25rem"
               name="startTime"
               ref={register({
@@ -133,7 +133,7 @@ const ActivityCreationForm = () => {
           <button type="submit">Add Activity</button>
         </Form>
 
-        <ActivityList activities={state.activities} />
+        <ActivityList activities={state.activities} dispatch={dispatch} />
       </Flex>
     </div>
   );

@@ -12,7 +12,11 @@ export default function ActivityList(props) {
 
       {activities &&
         activities.map(activity => (
-          <ActivityCard activity={activity} key={activity.id} />
+          <ActivityCard
+            activity={activity}
+            key={activity.id}
+            dispatch={props.dispatch}
+          />
         ))}
     </div>
   );
