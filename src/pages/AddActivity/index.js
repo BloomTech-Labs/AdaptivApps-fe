@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from 'react-apollo';
 import { Form, Text, Flex, Input, Box } from 'adaptiv-ui';
@@ -6,7 +6,7 @@ import { CREATE_ACTIVITY, GET_ACTIVITIES } from './queries/ActivitiesQuery';
 import ActivityList from './ActivityList';
 import { useParams } from '@reach/router';
 
-const initialState = { activities: [] };
+const initialState = { isLoading: false, activities: [] };
 
 function activitiesReducer(state, action) {
   switch (action.type) {
@@ -25,7 +25,6 @@ const ActivityCreationForm = () => {
   const { eventId } = useParams();
 
   // Manages activity creation using react hook form
-  const [hasActivity, setHasActivity] = useState(false);
   const [CreateActivity] = useMutation(CREATE_ACTIVITY);
   const { handleSubmit, register } = useForm();
 
@@ -45,7 +44,6 @@ const ActivityCreationForm = () => {
       type: 'POST_ACTIVITY',
       payload: data.createActivity,
     });
-    setHasActivity(true);
   };
 
   const { data: activitiesData } = useQuery(GET_ACTIVITIES, {
