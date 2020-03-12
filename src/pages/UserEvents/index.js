@@ -1,5 +1,5 @@
 // React imports
-import React from 'react';
+import React, {useEffect} from 'react';
 // Component imports
 import UserEventCard from './UserEventCard';
 // GraphQL/Apollo imports
@@ -17,6 +17,11 @@ export default function UserEvents() {
   const { data } = useQuery(GET_USER_EVENTS, {
     variables: { email: user.email }
   });
+console.log("data", data);
+
+useEffect(() => {
+},[]);
+
 
   return (
     <Flex ai_start col stretch>
