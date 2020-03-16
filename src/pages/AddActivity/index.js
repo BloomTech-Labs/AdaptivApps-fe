@@ -19,8 +19,6 @@ const ActivityCreationForm = () => {
     },
   });
 
-  console.log('Getting data', activitiesData?.event?.activities);
-
   const onSubmit = async values => {
     await CreateActivity({
       variables: {
