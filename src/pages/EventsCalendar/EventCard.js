@@ -1,14 +1,6 @@
 import React from 'react';
 import golfimg from '../../assets/images/little-guy-golf.jpg';
-import {
-  Flex,
-  Container,
-  Button,
-  Modal,
-  useModal,
-  Text,
-  Linkton,
-} from 'adaptiv-ui';
+import { Flex, Container, Button, Modal, useModal, Text } from 'adaptiv-ui';
 import NavLink from '../../routes/DashRouter/SideNav/NavLink';
 import PropTypes from 'prop-types';
 
