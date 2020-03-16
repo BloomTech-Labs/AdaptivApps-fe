@@ -14,7 +14,7 @@ const SideNav = () => {
   const { logout, user } = useAuth0();
 
   return (
-    <NavBar col jc_between h="100vh">
+    <NavBar className="nav-bar" col jc_between h="100vh">
       <Flex col>
         <Box w="15vw" min_w="25rem">
           <img src={acsLogo} alt="ACS Logo" />
@@ -25,7 +25,7 @@ const SideNav = () => {
           <Box w="2rem" />
           <p>Events Calendar</p>
         </NavLink>
-        <NavLink to="events">
+        <NavLink to="myevents">
           <Box w="2rem" />
           <FaRegBookmark />
           <Box w="2rem" />

@@ -8,6 +8,7 @@ export const GET_EVENT_LIST = gql`
       title
       startDate
       endDate
+      location
     }
   }
 `;

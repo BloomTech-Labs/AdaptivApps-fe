@@ -11,7 +11,9 @@ import PrivateRoute from './routes/PrivateRoute';
 import EventsCalendar from './pages/EventsCalendar';
 import UserProfile from './pages/UserProfile';
 import CreateEvent from './pages/CreateEvent';
+import AddActivity from './pages/AddActivity';
 import UserEvents from './pages/UserEvents';
+import ActivityList from './pages/ActivitiesList';
 
 // Import apollo server
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -38,6 +40,7 @@ function App() {
   // Generate new apollo client
   const client = new ApolloClient({
     uri: process.env.REACT_APP_API_URL,
+    credentials: 'same-origin',
     request: operation => {
       // Attach token to header
       operation.setContext(context => ({
@@ -56,8 +59,10 @@ function App() {
           <PrivateRoute path="/" component={DashRouter}>
             <UserProfile path="/" />
             <EventsCalendar path="calendar" />
+            <ActivityList path="calendar/:eventId" />
             <CreateEvent path="events/create" />
-            <UserEvents path="events" />
+            <AddActivity path="events/create/:eventId" />
+            <UserEvents path="myevents" />
           </PrivateRoute>
         </Router>
       </div>
