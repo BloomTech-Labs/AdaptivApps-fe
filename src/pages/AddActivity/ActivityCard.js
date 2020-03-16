@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-apollo';
-import { UPDATE_ACTIVITY } from './queries/ActivitiesQuery';
+import { UPDATE_ACTIVITY, DELETE_ACTIVITY } from './queries/ActivitiesQuery';
 
 export default function ActivityCard(props) {
   const [editing, setEditing] = useState(false);
   const { handleSubmit, register } = useForm();
   const [UpdateActivity] = useMutation(UPDATE_ACTIVITY);
+  const [DeleteActivity] = useMutation(DELETE_ACTIVITY);
 
   const onSubmit = async values => {
     const { data } = await UpdateActivity({
@@ -27,6 +28,18 @@ export default function ActivityCard(props) {
     setEditing(!editing);
   };
 
+  const removeActivity = async () => {
+    const { data } = await DeleteActivity({
+      variables: {
+        id: props.activity.id,
+      },
+    });
+    await props.dispatch({
+      type: 'DELETE_ACTIVITY',
+      payload: data.deleteActivity,
+    });
+  };
+
   if (!editing) {
     return (
       <div>
@@ -43,7 +56,7 @@ export default function ActivityCard(props) {
         >
           Edit
         </button>
-        <button>Delete</button>
+        <button onClick={() => removeActivity()}>Delete</button>
       </div>
     );
   } else {

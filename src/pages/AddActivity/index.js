@@ -20,6 +20,13 @@ function activitiesReducer(state, action) {
           return activity.id === action.payload.id ? action.payload : activity;
         }),
       };
+    case 'DELETE_ACTIVITY':
+      return {
+        ...state,
+        activities: state.activities.filter(
+          activity => action.payload.id !== activity.id
+        ),
+      };
     default:
       throw new Error();
   }

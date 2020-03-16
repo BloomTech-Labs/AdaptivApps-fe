@@ -85,3 +85,11 @@ export const UPDATE_ACTIVITY = gql`
     }
   }
 `;
+
+export const DELETE_ACTIVITY = gql`
+  mutation DeleteActivity($id: ID!) {
+    deleteActivity(where: { id: $id }) {
+      id
+    }
+  }
+`;
