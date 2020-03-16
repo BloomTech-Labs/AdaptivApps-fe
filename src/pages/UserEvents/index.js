@@ -1,5 +1,5 @@
 // React imports
-import React from 'react';
+import React, {useEffect} from 'react';
 // Component imports
 import UserEventCard from './UserEventCard';
 // GraphQL/Apollo imports
@@ -14,9 +14,13 @@ export default function UserEvents() {
   // Retrieves logged in user info
   const { user } = useAuth0();
 
-  const { data } = useQuery(GET_USER_EVENTS, {
-    variables: { email: user.email }
+  const { data, refetch } = useQuery(GET_USER_EVENTS, {
+    variables: { email: user.email },
   });
+
+    useEffect(() => { 
+    refetch();
+  },[]);
 
   return (
     <Flex ai_start col stretch>
