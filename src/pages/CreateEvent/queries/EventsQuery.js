@@ -7,6 +7,8 @@ export const CREATE_EVENT = gql`
     $startDate: String!
     $endDate: String!
     $location: String!
+    $imgUrl: String
+    $details: String
   ) {
     createEvent(
       data: {
@@ -14,6 +16,8 @@ export const CREATE_EVENT = gql`
         startDate: $startDate
         endDate: $endDate
         location: $location
+        imgUrl: $imgUrl
+        details: $details
       }
     ) {
       id
@@ -21,6 +25,8 @@ export const CREATE_EVENT = gql`
       startDate
       endDate
       location
+      imgUrl
+      details
     }
   }
 `;
@@ -33,6 +39,8 @@ export const UPDATE_EVENT = gql`
     $startDate: String!
     $endDate: String!
     $location: String!
+    $imgUrl: String
+    $details: String
   ) {
     updateEvent(
       data: {
@@ -40,6 +48,8 @@ export const UPDATE_EVENT = gql`
         startDate: $startDate
         endDate: $endDate
         location: $location
+        imgUrl: $imgUrl
+        details: $details
       }
       where: { id: $id }
     ) {
@@ -47,6 +57,8 @@ export const UPDATE_EVENT = gql`
       startDate
       endDate
       location
+      imgUrl
+      details
     }
   }
 `;

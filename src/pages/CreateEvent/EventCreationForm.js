@@ -92,6 +92,16 @@ const EventCreationForm = () => {
           />
         </Flex>
 
+        <Text mf>Image Url</Text>
+        <Flex ai_center>
+          <Input type="text" w="25rem" name="imgUrl" ref={register()} />
+        </Flex>
+
+        <Text mf>Details</Text>
+        <Flex ai_center>
+          <Input type="text" w="25rem" name="details" ref={register()} />
+        </Flex>
+
         <button type="submit">Submit</button>
       </Form>
       <Modal isActive={isActive}>
