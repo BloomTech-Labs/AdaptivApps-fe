@@ -14,18 +14,26 @@ const SideNav = () => {
   const { logout, user } = useAuth0();
 
   return (
-    <NavBar className="nav-bar" col jc_between h="100vh">
+    <NavBar
+      // className="nav-bar"
+      // position="absolute"
+      col
+      jc_between
+      h="100vh"
+      w="15vw"
+      min_w="25rem"
+    >
       <Flex col>
-        <Box w="15vw" min_w="25rem">
+        <Box>
           <img src={acsLogo} alt="ACS Logo" />
         </Box>
-        <NavLink to="calendar" w="15vw" min_w="25rem">
+        <NavLink to="calendar">
           <Box w="2rem" />
           <FaRegCalendar />
           <Box w="2rem" />
           <p>Events Calendar</p>
         </NavLink>
-        <NavLink to="myevents" w="15vw" min_w="25rem">
+        <NavLink to="myevents">
           <Box w="2rem" />
           <FaRegBookmark />
           <Box w="2rem" />
@@ -33,14 +41,14 @@ const SideNav = () => {
         </NavLink>
         {/* If user is an admin, then this section will be rendered */}
         {user && user[config.roleUrl].includes('Admin') ? (
-          <NavLink to="events/create" w="15vw" min_w="25rem">
+          <NavLink to="events/create">
             <Box w="2rem" />
             <FaPen />
             <Box w="2rem" />
             <p>Create Event</p>
           </NavLink>
         ) : null}
-        <NavLink w="15vw" min_w="25rem" to="/">
+        <NavLink to="/">
           <Box w="2rem" />
           <FaRegUser />
           <Box w="2rem" />
