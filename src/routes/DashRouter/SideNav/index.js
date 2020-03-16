@@ -14,9 +14,17 @@ const SideNav = () => {
   const { logout, user } = useAuth0();
 
   return (
-    <NavBar className="nav-bar" col jc_between h="100vh">
+    <NavBar
+      // className="nav-bar"
+      // position="absolute"
+      col
+      jc_between
+      h="100vh"
+      w="15vw"
+      min_w="25rem"
+    >
       <Flex col>
-        <Box stretch>
+        <Box>
           <img src={acsLogo} alt="ACS Logo" />
         </Box>
         <NavLink to="calendar">
@@ -40,7 +48,7 @@ const SideNav = () => {
             <p>Create Event</p>
           </NavLink>
         ) : null}
-        <NavLink primary="true" row="true" stretch="true" to="/" radius="0">
+        <NavLink to="/">
           <Box w="2rem" />
           <FaRegUser />
           <Box w="2rem" />

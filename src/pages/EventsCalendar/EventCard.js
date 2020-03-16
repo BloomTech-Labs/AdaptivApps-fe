@@ -1,6 +1,7 @@
 import React from 'react';
 import golfimg from '../../assets/images/little-guy-golf.jpg';
 import { useMutation } from 'react-apollo';
+<<<<<<< HEAD
 import { JOIN_EVENT } from './queries/joinEvent.js';
 import {
   Flex,
@@ -11,16 +12,34 @@ import {
   Text,
   Linkton,
 } from 'adaptiv-ui';
+=======
+import { REGISTER_EVENT } from './queries/joinEvent';
+import { useAuth0 } from '../../config/react-auth0-spa';
+
+import { Flex, Container, Button, Modal, useModal, Text } from 'adaptiv-ui';
+>>>>>>> 92d1a574c672c0935eb6b70f05a37bcf5b29f3ea
 import NavLink from '../../routes/DashRouter/SideNav/NavLink';
 import PropTypes from 'prop-types';
 
 
 
 export default function EventCard({ event }) {
+<<<<<<< HEAD
 
   const { data } = useMutation(JOIN_EVENT, {
     variables: { id: event.id }
   });
+=======
+  const [updateEvent] = useMutation(REGISTER_EVENT);
+
+  const { user } = useAuth0();
+
+  const registerEvent = async () => {
+    await updateEvent({
+      variables: { id: event.id, email: user.email },
+    });
+  };
+>>>>>>> 92d1a574c672c0935eb6b70f05a37bcf5b29f3ea
 
   const [isActive, toggle] = useModal();
   return (
@@ -52,10 +71,30 @@ export default function EventCard({ event }) {
             and anticipate hosting our largest event ever - Don’t miss it!
           </Text>
           <Text> Add to "My Events?"</Text>
+<<<<<<< HEAD
           <NavLink primary="true" autoFocus to={`${event?.id}`} onClick={data}>
             Click me!
+=======
+          <NavLink
+            primary="true"
+            autoFocus
+            to={`${event?.id}`}
+            onClick={
+              (() =>
+                console.log('clicked', registerEvent, event.id, user.email),
+              registerEvent)
+            }
+          >
+            Join Event!
+>>>>>>> 92d1a574c672c0935eb6b70f05a37bcf5b29f3ea
           </NavLink>
-          <Button secondary onClick={toggle}>
+          <Button
+            secondary
+            onClick={toggle}
+            onClick={() => {
+              console.log('Button is Working!');
+            }}
+          >
             Close
           </Button>
         </Flex>

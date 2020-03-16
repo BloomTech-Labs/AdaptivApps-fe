@@ -17,7 +17,7 @@ const DashRouter = ({ children }) => {
   return (
     <Flex jc_between>
       <SideNav user={user} />
-      <Box w="18vw" min_w="25rem" />
+      <Box w="17vw" min_w="25rem" />
       <Box stretch>{children}</Box>
     </Flex>
   );

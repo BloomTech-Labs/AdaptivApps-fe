@@ -59,7 +59,7 @@ const EventCreationForm = () => {
         <Text mf>Start Date</Text>
         <Flex ai_center>
           <Input
-            type="text"
+            type="date"
             w="25rem"
             name="startDate"
             ref={register({
@@ -71,7 +71,7 @@ const EventCreationForm = () => {
         <Text mf>End Date</Text>
         <Flex ai_center>
           <Input
-            type="text"
+            type="date"
             w="25rem"
             name="endDate"
             ref={register({
