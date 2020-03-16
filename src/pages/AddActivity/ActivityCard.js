@@ -10,7 +10,7 @@ export default function ActivityCard(props) {
   const [DeleteActivity] = useMutation(DELETE_ACTIVITY);
 
   const onSubmit = async values => {
-    const { data } = await UpdateActivity({
+    await UpdateActivity({
       variables: {
         id: props.activity.id,
         name: values.name,
@@ -21,23 +21,17 @@ export default function ActivityCard(props) {
         details: values.details,
       },
     });
-    await props.dispatch({
-      type: 'UPDATE_ACTIVITY',
-      payload: data.updateActivity,
-    });
+    props.refetch();
     setEditing(!editing);
   };
 
   const removeActivity = async () => {
-    const { data } = await DeleteActivity({
+    await DeleteActivity({
       variables: {
         id: props.activity.id,
       },
     });
-    await props.dispatch({
-      type: 'DELETE_ACTIVITY',
-      payload: data.deleteActivity,
-    });
+    props.refetch();
   };
 
   if (!editing) {

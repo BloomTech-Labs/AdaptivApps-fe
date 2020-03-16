@@ -15,7 +15,7 @@ export default function ActivityList(props) {
           <ActivityCard
             activity={activity}
             key={activity.id}
-            dispatch={props.dispatch}
+            refetch={props.refetch}
           />
         ))}
     </div>
