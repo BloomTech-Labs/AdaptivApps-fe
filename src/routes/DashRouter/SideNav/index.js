@@ -16,16 +16,16 @@ const SideNav = () => {
   return (
     <NavBar className="nav-bar" col jc_between h="100vh">
       <Flex col>
-        <Box stretch>
+        <Box w="15vw" min_w="25rem">
           <img src={acsLogo} alt="ACS Logo" />
         </Box>
-        <NavLink to="calendar">
+        <NavLink to="calendar" w="15vw" min_w="25rem">
           <Box w="2rem" />
           <FaRegCalendar />
           <Box w="2rem" />
           <p>Events Calendar</p>
         </NavLink>
-        <NavLink to="myevents">
+        <NavLink to="myevents" w="15vw" min_w="25rem">
           <Box w="2rem" />
           <FaRegBookmark />
           <Box w="2rem" />
@@ -33,14 +33,14 @@ const SideNav = () => {
         </NavLink>
         {/* If user is an admin, then this section will be rendered */}
         {user && user[config.roleUrl].includes('Admin') ? (
-          <NavLink to="events/create">
+          <NavLink to="events/create" w="15vw" min_w="25rem">
             <Box w="2rem" />
             <FaPen />
             <Box w="2rem" />
             <p>Create Event</p>
           </NavLink>
         ) : null}
-        <NavLink primary="true" row="true" stretch="true" to="/" radius="0">
+        <NavLink w="15vw" min_w="25rem" to="/">
           <Box w="2rem" />
           <FaRegUser />
           <Box w="2rem" />
