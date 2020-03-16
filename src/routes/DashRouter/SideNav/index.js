@@ -16,7 +16,7 @@ const SideNav = () => {
   return (
     <NavBar className="nav-bar" col jc_between h="100vh">
       <Flex col>
-        <Box stretch>
+        <Box w="15vw" min_w="25rem">
           <img src={acsLogo} alt="ACS Logo" />
         </Box>
         <NavLink to="calendar">
