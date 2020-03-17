@@ -1,5 +1,4 @@
 import React from 'react';
-import golfimg from '../../assets/images/little-guy-golf.jpg';
 import { useMutation } from 'react-apollo';
 import { REGISTER_EVENT } from './queries/joinEvent';
 import { useAuth0 } from '../../config/react-auth0-spa';

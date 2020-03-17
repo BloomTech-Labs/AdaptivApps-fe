@@ -8,7 +8,7 @@ import { GET_USER_EVENTS } from './queries';
 // Auth0 imports
 import { useAuth0 } from '../../config/react-auth0-spa';
 // Styling imports
-import { Flex, Box, Text } from 'adaptiv-ui';
+import { Flex, Box } from 'adaptiv-ui';
 
 export default function UserEvents() {
   // Retrieves logged in user info
