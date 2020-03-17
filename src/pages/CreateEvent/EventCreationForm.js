@@ -49,9 +49,7 @@ const EventCreationForm = () => {
 
   return (
     <Flex ai_start col stretch m="0 0 0 2rem">
-      <Text xlf bold mm>
-        Create an Event
-      </Text>
+      <h1>Create an Event</h1>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
       <Box h="2rem" />
       <Form ai_start col stretch onSubmit={handleSubmit(onSubmit)}>

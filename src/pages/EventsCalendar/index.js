@@ -15,9 +15,7 @@ export default function EventsCalendar() {
   if (error) return `Error! ${error.message}`;
   return (
     <Flex ai_start col stretch>
-      <Text xlf bold mm>
-        Upcoming Events
-      </Text>
+      <h1>Upcoming Events</h1>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
 
       {data &&

@@ -24,9 +24,7 @@ export default function UserEvents() {
 
   return (
     <Flex ai_start col stretch>
-      <Text xlf bold mm>
-        My Events
-      </Text>
+      <h1>My Events</h1>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
       {data && data.events.map((event, id) => <UserEventCard key={id} event={event} />)}
     </Flex>
