@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-apollo';
-import { Flex, Text } from 'adaptiv-ui';
+import { Flex, Text, Form, Input, Button, theme } from 'adaptiv-ui';
 import { UPDATE_ACTIVITY, DELETE_ACTIVITY } from './queries/ActivitiesQuery';
+import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 
 export default function ActivityCard(props) {
   const [editing, setEditing] = useState(false);
@@ -37,109 +38,139 @@ export default function ActivityCard(props) {
 
   if (!editing) {
     return (
-      <Flex stretch>
+      <Flex stretch m="0 0 0.5rem 0">
         <Flex jc_between stretch>
-          <Text sf>Name: {props.activity.name}</Text>
-          <Text sf>Date: {props.activity.startDate}</Text>
-          <Text sf>Location: {props.activity.location}</Text>
-          <Text sf>Time: {props.activity.startTime}</Text>
-        </Flex>
-        <Flex>
-          <button
-            onClick={() => {
-              setEditing(!editing);
-            }}
-          >
-            Edit
-          </button>
-          <button onClick={() => removeActivity()}>Delete</button>
+          <Text mf m="0 2rem 0 0">
+            Activity: {props.activity.name}
+          </Text>
+          <Text mf m="0 2rem 0 0">
+            Date: {props.activity.startDate}
+          </Text>
+          <Text mf m="0 2rem 0 0">
+            Location: {props.activity.location}
+          </Text>
+          <Text mf m="0 2rem 0 0">
+            Starting Time: {props.activity.startTime}
+          </Text>
+          <Flex m="0 1rem 0 0">
+            <FaEdit
+              onClick={() => {
+                setEditing(!editing);
+              }}
+            />
+          </Flex>
+          <Flex>
+            <FaTrashAlt onClick={() => removeActivity()} />
+          </Flex>
         </Flex>
       </Flex>
     );
   } else {
     return (
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Select a Day</label>
-        <div>
-          <input
-            type="date"
-            w="25rem"
-            name="startDate"
-            ref={register({
-              required: 'Required',
-            })}
-          />
-        </div>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Flex>
+          <Flex col>
+            <Text mf>Select a Day</Text>
+            <Input
+              type="date"
+              w="25rem"
+              name="startDate"
+              ref={register({
+                required: 'Required',
+              })}
+            />
+          </Flex>
 
-        <label>Activity Name</label>
-        <div>
-          <input
-            type="text"
-            w="25rem"
-            name="name"
-            placeholder={props.activity.name}
-            ref={register({
-              required: 'Required',
-            })}
-          />
-        </div>
+          <Flex col>
+            <Text mf>Activity Name</Text>
+            <Input
+              type="text"
+              w="25rem"
+              name="name"
+              placeholder={props.activity.name}
+              ref={register({
+                required: 'Required',
+              })}
+            />
+          </Flex>
+        </Flex>
 
-        <label>Location</label>
-        <div>
-          <input
-            type="text"
-            w="25rem"
-            name="location"
-            placeholder={props.activity.location}
-            ref={register({
-              required: 'Required',
-            })}
-          />
-        </div>
+        <Flex>
+          <Flex col>
+            <Text mf>Location</Text>
+            <Input
+              type="text"
+              w="25rem"
+              name="location"
+              placeholder={props.activity.location}
+              ref={register({
+                required: 'Required',
+              })}
+            />
+          </Flex>
 
-        <label>Activity Times</label>
-        <div>
-          <input
-            type="time"
-            w="25rem"
-            name="startTime"
-            ref={register({
-              required: 'Required',
-            })}
-          />
-        </div>
+          <Flex col>
+            <Text mf>Activity Times</Text>
+            <Input
+              type="time"
+              w="25rem"
+              name="startTime"
+              ref={register({
+                required: 'Required',
+              })}
+            />
+          </Flex>
+        </Flex>
 
-        <label>Activity Type</label>
-        <div>
-          <input
-            type="text"
-            w="25rem"
-            name="type"
-            placeholder={props.activity.type}
-            ref={register()}
-          />
-        </div>
+        <Flex>
+          <Flex col>
+            <Text mf>Activity Type</Text>
+            <Input
+              type="text"
+              w="25rem"
+              name="type"
+              placeholder={props.activity.type}
+              ref={register()}
+            />
+          </Flex>
 
-        <label>Additional Details</label>
-        <div>
-          <input
-            type="text"
-            w="25rem"
-            name="details"
-            placeholder={props.activity.details}
-            ref={register()}
-          />
-        </div>
+          <Flex col>
+            <Text mf>Additional Details</Text>
+            <Input
+              type="text"
+              w="25rem"
+              name="details"
+              placeholder={props.activity.details}
+              ref={register()}
+            />
+          </Flex>
+        </Flex>
 
-        <button type="submit">Edit</button>
-        <button
-          onClick={() => {
-            setEditing(!editing);
-          }}
-        >
-          Go Back
-        </button>
-      </form>
+        <Flex>
+          <Button
+            jc_center
+            secondary
+            border={`2px solid ${theme.primary}`}
+            w="12rem"
+            h="4rem"
+            type="submit"
+          >
+            Submit
+          </Button>
+          <Button
+            jc_center
+            secondary
+            border={`2px solid ${theme.primary}`}
+            w="12rem"
+            h="4rem"
+            onClick={() => {
+              setEditing(!editing);
+            }}
+          >
+            Go Back
+          </Button>
+        </Flex>
+      </Form>
     );
   }
 }
