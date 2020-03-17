@@ -35,7 +35,7 @@ const trackingId = 'UA-159556430-1';
 function App() {
   // When app renders, call useGetToken() to get token from auth0 login
   const [token] = useGetToken();
-  // console.log('Token ---> ', token);
+   console.log('Token ---> ', token);
 
   // Generate new apollo client
   const client = new ApolloClient({
