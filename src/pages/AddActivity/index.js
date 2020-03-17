@@ -18,7 +18,7 @@ const ActivityCreationForm = () => {
       id: eventId,
     },
   });
-
+  console.log('HOla', activitiesData);
   const onSubmit = async values => {
     await CreateActivity({
       variables: {
@@ -41,7 +41,7 @@ const ActivityCreationForm = () => {
       </Text>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
       <Box h="2rem" />
-      <Flex jc_between stretch>
+      <Flex jc_start stretch>
         <Form ai_start col onSubmit={handleSubmit(onSubmit)}>
           <Text mf>Select a Day</Text>
           <Flex ai_center>
@@ -115,6 +115,7 @@ const ActivityCreationForm = () => {
 
         {activitiesData ? (
           <ActivityList
+            event={activitiesData?.event}
             activities={activitiesData?.event?.activities}
             refetch={refetch}
           />

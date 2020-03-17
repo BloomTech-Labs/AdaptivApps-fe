@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation } from 'react-apollo';
+import { Flex, Text } from 'adaptiv-ui';
 import { UPDATE_ACTIVITY, DELETE_ACTIVITY } from './queries/ActivitiesQuery';
 
 export default function ActivityCard(props) {
@@ -36,22 +37,24 @@ export default function ActivityCard(props) {
 
   if (!editing) {
     return (
-      <div>
-        <p>Name: {props.activity.name}</p>
-        <p>Date: {props.activity.startDate}</p>
-        <p>Location: {props.activity.location}</p>
-        <p>Time: {props.activity.startTime}</p>
-        <p>Type: {props.activity.type}</p>
-        <p>Details: {props.activity.details}</p>
-        <button
-          onClick={() => {
-            setEditing(!editing);
-          }}
-        >
-          Edit
-        </button>
-        <button onClick={() => removeActivity()}>Delete</button>
-      </div>
+      <Flex stretch>
+        <Flex jc_between stretch>
+          <Text sf>Name: {props.activity.name}</Text>
+          <Text sf>Date: {props.activity.startDate}</Text>
+          <Text sf>Location: {props.activity.location}</Text>
+          <Text sf>Time: {props.activity.startTime}</Text>
+        </Flex>
+        <Flex>
+          <button
+            onClick={() => {
+              setEditing(!editing);
+            }}
+          >
+            Edit
+          </button>
+          <button onClick={() => removeActivity()}>Delete</button>
+        </Flex>
+      </Flex>
     );
   } else {
     return (
