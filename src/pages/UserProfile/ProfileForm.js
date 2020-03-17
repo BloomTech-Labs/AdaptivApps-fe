@@ -160,6 +160,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               <Text mf>First Name</Text>
               <Flex ai_center>
                 <Input
+                  autoFocus
                   type="text"
                   placeholder={userProfile ? userProfile.firstName : null}
                   w="25rem"
