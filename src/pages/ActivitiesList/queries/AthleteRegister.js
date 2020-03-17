@@ -1,7 +1,7 @@
 import gql from 'graphql-tag';
 
 export const REGISTER_AS_ATHLETE = gql`
-  mutation UpdateActivity(
+  mutation updateActivity(
     $id: ID!,
     $email: String!
   ) {
@@ -11,10 +11,7 @@ export const REGISTER_AS_ATHLETE = gql`
         athletes:{
             connect: {
                 email: $email
-            }
-        }
-      }
-    ) {
+            }}}) {
       id
       name
      athletes{
