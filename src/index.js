@@ -18,7 +18,7 @@ ReactDOM.render(
     redirect_uri={window.location.origin}
     audience={config.audience}
     responseType={config.responseType}
-    scope={window.scope}
+    scope={config.scope}
   >
     <AppWrapper bg="white">
       <App />
