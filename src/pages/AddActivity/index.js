@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useMutation, useQuery } from 'react-apollo';
-import { Form, Text, Flex, Input, Box } from 'adaptiv-ui';
+import { Box, Form, Text, Flex, Input, Button, theme } from 'adaptiv-ui';
 import { CREATE_ACTIVITY, GET_ACTIVITIES } from './queries/ActivitiesQuery';
 import ActivityList from './ActivityList';
 import { useParams } from '@reach/router';
@@ -35,12 +35,12 @@ const ActivityCreationForm = () => {
   };
 
   return (
-    <div>
+    <Flex ai_start col stretch m="0 0 0 2rem">
       <Text xlf bold mm>
         Create an Activity
       </Text>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
-
+      <Box h="2rem" />
       <Flex jc_between stretch>
         <Form ai_start col onSubmit={handleSubmit(onSubmit)}>
           <Text mf>Select a Day</Text>
@@ -101,7 +101,16 @@ const ActivityCreationForm = () => {
             <Input type="text" w="25rem" name="details" ref={register()} />
           </Flex>
 
-          <button type="submit">Add Activity</button>
+          <Button
+            jc_center
+            secondary
+            border={`2px solid ${theme.primary}`}
+            w="12rem"
+            h="4rem"
+            type="submit"
+          >
+            Add Activity
+          </Button>
         </Form>
 
         {activitiesData ? (
@@ -113,7 +122,7 @@ const ActivityCreationForm = () => {
           <p>Loading</p>
         )}
       </Flex>
-    </div>
+    </Flex>
   );
 };
 
