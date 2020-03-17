@@ -25,6 +25,8 @@ const EventCreationForm = () => {
     startDate: '',
     endDate: '',
     location: '',
+    imgUrl: '',
+    details: ''
   });
 
   const [CreateEvent] = useMutation(CREATE_EVENT);
@@ -41,6 +43,8 @@ const EventCreationForm = () => {
         startDate: values.startDate,
         endDate: values.endDate,
         location: values.location,
+        imgUrl: values.imgUrl,
+        details: values.details
       },
     });
     await setCurrEvent(data.createEvent);

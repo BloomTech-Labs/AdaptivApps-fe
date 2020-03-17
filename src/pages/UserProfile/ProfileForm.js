@@ -113,7 +113,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 
   return (
     <Flex ai_start col stretch>
-        <h1>Account Information</h1>
+      <h1>Account Information</h1>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
       <Flex mm col ai_start>
         <Flex jc_between ai_center>
@@ -136,9 +136,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
         <Flex ai_start col>
           <Text f_size="2.6rem" bold>
             Account Email Address
-            {/* <h3>Account Email Address</h3> */}
           </Text>
-          
           <Box h="2rem" />
           <Flex ai_center>
             <Text lf>

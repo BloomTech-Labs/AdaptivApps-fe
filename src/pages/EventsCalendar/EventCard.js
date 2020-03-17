@@ -20,9 +20,11 @@ export default function EventCard({ event }) {
   };
 
   const [isActive, toggle] = useModal();
+  console.log('image url', event);
   return (
+    
     <Flex col>
-      <Container bg_src={golfimg} h="10vh" w="20rem"></Container>
+      <Container bg_src={event.imgUrl} h="10vh" w="20rem"></Container>
       <small>
         {event.startDate} - {event.endDate}
       </small>
