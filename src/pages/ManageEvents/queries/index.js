@@ -127,3 +127,20 @@ export const DELETE_EVENT = gql`
     }
   }
 `;
+
+export const GET_ACTIVITIES = gql`
+  query GetActivities {
+    activities {
+      id
+      name
+      startDate
+      location
+      startTime
+      type
+      details
+      event {
+        id
+      }
+    }
+  }
+`;
