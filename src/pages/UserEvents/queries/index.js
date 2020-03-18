@@ -8,6 +8,8 @@ export const GET_USER_EVENTS = gql`
       title
       startDate
       endDate
+      imgUrl
+      details
     }
   }
 `;
