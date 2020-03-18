@@ -46,6 +46,36 @@ export const GET_ONE_EVENT = gql`
   }
 `;
 
+export const CREATE_EVENT = gql`
+  mutation CreateEvent(
+    $title: String!
+    $startDate: String!
+    $endDate: String!
+    $location: String!
+    $imgUrl: String
+    $details: String
+  ) {
+    createEvent(
+      data: {
+        title: $title
+        startDate: $startDate
+        endDate: $endDate
+        location: $location
+        imgUrl: $imgUrl
+        details: $details
+      }
+    ) {
+      id
+      title
+      startDate
+      endDate
+      location
+      imgUrl
+      details
+    }
+  }
+`;
+
 export const UPDATE_EVENT = gql`
   mutation UpdateEvent(
     $id: ID!
