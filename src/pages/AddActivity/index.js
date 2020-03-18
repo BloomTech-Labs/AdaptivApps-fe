@@ -19,8 +19,8 @@ const ActivityCreationForm = () => {
     },
   });
 
-  const onSubmit = values => {
-    CreateActivity({
+  const onSubmit = async values => {
+    await CreateActivity({
       variables: {
         name: values.name,
         startDate: values.startDate,

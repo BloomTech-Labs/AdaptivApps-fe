@@ -34,9 +34,9 @@ const EventCreationForm = () => {
   const { handleSubmit, register } = useForm();
 
   // creates an event
-  const onSubmit = (values, e) => {
+  const onSubmit = async (values, e) => {
     e.preventDefault();
-    const { data } = CreateEvent({
+    const { data } = await CreateEvent({
       variables: {
         id: values.id,
         title: values.title,
@@ -47,7 +47,7 @@ const EventCreationForm = () => {
         details: values.details
       },
     });
-    setCurrEvent(data.createEvent);
+    await setCurrEvent(data?.createEvent);
     toggle();
   };
 
