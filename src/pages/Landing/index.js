@@ -40,7 +40,16 @@ const LandingPage = () => {
               </Text>
             </Flex>
             <Flex drape w="30%">
-              <Button
+              <div
+                className="fb-login-button"
+                data-width=""
+                data-size="large"
+                data-button-type="login_with"
+                data-layout="default"
+                data-auto-logout-link="false"
+                data-use-continue-as="false"
+              ></div>
+              {/* <Button
                 bg="#3B5998"
                 secondary
                 w="26rem"
@@ -51,7 +60,7 @@ const LandingPage = () => {
                   <Box w="2rem" />
                   <p>Sign up with Facebook</p>
                 </Flex>
-              </Button>
+              </Button> */}
               <Button secondary w="26rem" onClick={() => loginWithRedirect({})}>
                 <Flex jc_between ai_center>
                   <FaGoogle />
