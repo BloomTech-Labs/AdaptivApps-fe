@@ -48,7 +48,7 @@ const SideNav = () => {
             <p>Create Event</p>
           </NavLink>
         ) : null}
-        <NavLink to="/">
+        <NavLink to="profile">
           <Box w="2rem" />
           <FaRegUser />
           <Box w="2rem" />

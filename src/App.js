@@ -58,7 +58,7 @@ function App() {
         <Router>
           <Accessibility path="/accessibility" />
           <PrivateRoute path="/" component={DashRouter}>
-            <UserProfile path="/" />
+            <UserProfile path="profile" />
             <EventsCalendar path="calendar" />
             <ActivityList path="calendar/:eventId" />
             <CreateEvent path="events/create" />
