@@ -1,0 +1,27 @@
+table{
+   /* width: 60vw; */
+
+}
+td{
+
+    width:14rem;
+    padding: 5% 1%;
+}
+tr{
+    display:flex;
+    align-items: center;
+}
+.register{
+    font-size: 1.6rem;
+    font-weight: bolder;
+    max-height: 9vh;
+}
+.role{
+    display:flex;
+    align-items:left;
+    margin:.1rem;
+    padding:.1rem;
+    background: white;
+    z-index: 1000;
+    
+}

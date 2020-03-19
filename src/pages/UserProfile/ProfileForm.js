@@ -11,6 +11,7 @@ import {
   theme,
   TextArea,
   Select,
+  ToolTip
 } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
 
@@ -115,6 +116,10 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
     <Flex ai_start col stretch>
       <h1>Account Information</h1>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
+      <ToolTip tt_left="10rem" tt_color="black">
+        <Button>Click me</Button>
+        <div className="tooltip">This is my tooltip</div>
+      </ToolTip>
       <Flex mm col ai_start>
         <Flex jc_between ai_center>
           <Box sqr="5rem">

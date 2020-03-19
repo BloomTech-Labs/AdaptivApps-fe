@@ -16,13 +16,15 @@ export default function ActivityList() {
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
   return (
-    <Flex ai_start col stretch>
+    <Flex ai_start col stretch visible>
       <h1>Event Activities</h1>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
-      {data &&
-        data?.event?.activities.map((activity, id) => (
-          <Activities key={id} activity={activity} />
-        ))}
+      <Flex visible col h="30rem" stretch>
+        {data &&
+          data?.event?.activities.map((activity, id) => (
+            <Activities key={id} activity={activity} />
+          ))}
+      </Flex>
     </Flex>
   );
 }
