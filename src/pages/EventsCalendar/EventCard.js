@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "@reach/router"
 import { useMutation } from 'react-apollo';
 import { REGISTER_EVENT } from './queries/joinEvent';
 import { useAuth0 } from '../../config/react-auth0-spa';
@@ -37,7 +38,7 @@ export default function EventCard({ event }) {
       <Button primary onClick={toggle} w="20rem">
         Testing
       </Button>
-      <Modal isActive={isActive} toggle={toggle}>
+      <Modal isActive={isActive}>
         <Flex w="40rem" h="40rem" drape>
           <small>
             {event.startDate} - {event.endDate}
@@ -53,24 +54,21 @@ export default function EventCard({ event }) {
             and anticipate hosting our largest event ever - Don’t miss it!
           </Text>
           <Text> Add to "My Events?"</Text>
-          <NavLink
+          <Button
             primary="true"
             autoFocus
-            to={`${event?.id}`}
+            
             onClick={
               (() =>
                 console.log('clicked', registerEvent, event.id, user.email),
               registerEvent)
             }
           >
-            Join Event!
-          </NavLink>
+            <Link to={`${event?.id}`}>Join Event!</Link>
+          </Button>
           <Button
             secondary
             onClick={toggle}
-            onClick={() => {
-              console.log('Button is Working!');
-            }}
           >
             Close
           </Button>
