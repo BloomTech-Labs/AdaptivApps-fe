@@ -114,7 +114,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 
   return (
     <Flex ai_start col stretch>
-      <h3>Account Information</h3>
+      <h4>Account Information</h4>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
       <Flex mm col ai_start style={{ marginTop: 0 }}>
         <Flex jc_between ai_center style={{ marginTop: 0 }}>
@@ -163,7 +163,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               </Flex>
             </Flex>
           </Flex>
-          
+
           <Flex jc_between stretch>
             <Flex ai_start col>
               <Label htmlFor="displayName" style={{ marginBottom: '0.2rem' }}>
