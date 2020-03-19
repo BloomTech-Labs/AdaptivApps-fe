@@ -8,7 +8,7 @@ import { GET_USER_EVENTS } from './queries';
 // Auth0 imports
 import { useAuth0 } from '../../config/react-auth0-spa';
 // Styling imports
-import { Flex, Box, Text } from 'adaptiv-ui';
+import { Flex, Box } from 'adaptiv-ui';
 
 export default function UserEvents() {
   // Retrieves logged in user info
@@ -24,9 +24,7 @@ export default function UserEvents() {
 
   return (
     <Flex ai_start col stretch>
-      <Text xlf bold mm>
-        My Events
-      </Text>
+      <h1>My Events</h1>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
       {data && data.events.map((event, id) => <UserEventCard key={id} event={event} />)}
     </Flex>

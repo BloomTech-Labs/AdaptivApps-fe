@@ -1,5 +1,4 @@
 import React from 'react';
-import golfimg from '../../assets/images/little-guy-golf.jpg';
 import { useMutation } from 'react-apollo';
 import { REGISTER_EVENT } from './queries/joinEvent';
 import { useAuth0 } from '../../config/react-auth0-spa';
@@ -20,9 +19,11 @@ export default function EventCard({ event }) {
   };
 
   const [isActive, toggle] = useModal();
+  console.log('image url', event);
   return (
+    
     <Flex col>
-      <Container bg_src={golfimg} h="10vh" w="20rem"></Container>
+      <Container bg_src={event.imgUrl} h="10vh" w="20rem"></Container>
       <small>
         {event.startDate} - {event.endDate}
       </small>

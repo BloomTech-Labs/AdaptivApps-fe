@@ -24,8 +24,8 @@ import ApolloClient from 'apollo-boost';
 // Google Analytics Imports
 import ReactGA from 'react-ga';
 
-// import get token function
-import { useGetToken } from './config/Auth';
+// Auth0 imports
+import { useAuth0 } from './config/react-auth0-spa';
 
 const trackingId = 'UA-159556430-1';
 
@@ -35,20 +35,19 @@ const trackingId = 'UA-159556430-1';
 })();
 
 function App() {
-  // When app renders, call useGetToken() to get token from auth0 login
-  const [token] = useGetToken();
-  console.log('Token ---> ', token);
+  const { getIdTokenClaims } = useAuth0();
 
   // Generate new apollo client
   const client = new ApolloClient({
     uri: process.env.REACT_APP_API_URL,
     credentials: 'same-origin',
-    request: operation => {
+    request: async operation => {
+      const token = await getIdTokenClaims();
       // Attach token to header
       operation.setContext(context => ({
         headers: {
           ...context.headers,
-          Authorization: token,
+          Authorization: token.__raw,
         },
       }));
     },

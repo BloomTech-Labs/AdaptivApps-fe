@@ -17,9 +17,7 @@ export default function ActivityList() {
   if (error) return `Error! ${error.message}`;
   return (
     <Flex ai_start col stretch>
-      <Text xlf bold mm>
-        Event Activities
-      </Text>
+      <h1>Event Activities</h1>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
       {data &&
         data?.event?.activities.map((activity, id) => (
