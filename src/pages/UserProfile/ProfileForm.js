@@ -155,10 +155,10 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 
           <Flex jc_between stretch>
             <Flex ai_start col>
-              <Text mf>First Name</Text>
+              <label for="firstName" mf>First Name</label>
               <Flex ai_center>
                 <Input
-                  label="firstName"
+                  id="firstName"
                   type="text"
                   placeholder={userProfile ? userProfile.firstName : null}
                   w="25rem"
@@ -169,10 +169,10 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
             </Flex>
 
             <Flex ai_start col>
-              <Text mf>Last Name</Text>
+              <label for="lastName" mf>Last Name</label>
               <Flex ai_center>
                 <Input
-                  label="lastName"
+                  id="lastName"
                   type="text"
                   placeholder={userProfile ? userProfile.lastName : null}
                   w="25rem"
@@ -185,10 +185,10 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 
           <Flex jc_between stretch>
             <Flex ai_start col>
-              <Text mf>Display Name</Text>
+              <label for="displayName" mf>Display Name</label>
               <Flex ai_center>
                 <Input
-                  label="displayName"
+                  id="displayName"
                   type="text"
                   placeholder={userProfile ? userProfile.displayName : null}
                   w="25rem"
@@ -199,10 +199,10 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
             </Flex>
 
             <Flex ai_start col>
-              <Text mf>Date of Birth</Text>
+              <label for="birthday" mf>Date of Birth</label>
               <Flex ai_center>
                 <Input
-                  label="birthday"
+                  id="birthday"
                   type="text"
                   w="25rem"
                   name="birthday"
@@ -216,8 +216,9 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
           </Flex>
 
           <Flex ai_start col stretch>
-            <Text mf>Bio</Text>
+            <label for="bio" mf>Bio</label>
             <TextArea
+              id="bio"
               rows="8"
               cols="60"
               name="bio"
@@ -228,10 +229,10 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 
           <Flex jc_between stretch>
             <Flex ai_start col>
-              <Text mf>Disability Status</Text>
+              <label for="disability" mf>Disability Status</label>
               <Flex ai_center>
                 <Input
-                  label="disability"
+                  id="disability"
                   type="select"
                   w="25rem"
                   name="disability"
