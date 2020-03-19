@@ -11,6 +11,7 @@ import {
   theme,
   TextArea,
   Select,
+  Label,
 } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
 
@@ -113,10 +114,10 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 
   return (
     <Flex ai_start col stretch>
-      <h1>Account Information</h1>
+      <h3>Account Information</h3>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
-      <Flex mm col ai_start>
-        <Flex jc_between ai_center>
+      <Flex mm col ai_start style={{ marginTop: 0 }}>
+        <Flex jc_between ai_center style={{ marginTop: 0 }}>
           <Box sqr="5rem">
             <img src={userPicture} alt="Profile" />
           </Box>
@@ -130,16 +131,11 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
             ) : null}
           </Text>
         </Flex>
-
         <Box h="2rem" />
-
         <Flex ai_start col>
-          <Text f_size="2.6rem" bold>
-            Account Email Address
-          </Text>
-          <Box h="2rem" />
+          <h5 style={{ marginLeft: 0 }}>Account Email Address</h5>
           <Flex ai_center>
-            <Text lf>
+            <Text mlf>
               {userProfile ? userProfile.email : user && user.email}
             </Text>
           </Flex>
@@ -147,15 +143,13 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
         </Flex>
 
         <Form ai_start col stretch onSubmit={handleSubmit(onSubmit)}>
-          <Text xlf bold>
-            Personal Information
-          </Text>
-
-          <Box h="2rem" />
+          <h5 style={{ marginLeft: 0 }}>Personal Information</h5>
 
           <Flex jc_between stretch>
             <Flex ai_start col>
-              <label htmlFor="firstName" >First Name</label>
+              <Label htmlFor="firstName" style={{ marginBottom: '0.2rem' }}>
+                First Name
+              </Label>
               <Flex ai_center>
                 <Input
                   id="firstName"
@@ -164,13 +158,17 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                   w="25rem"
                   name="firstName"
                   ref={register}
+                  style={{ marginTop: 0, marginLeft: 0 }}
                 />
               </Flex>
             </Flex>
           </Flex>
+          
           <Flex jc_between stretch>
             <Flex ai_start col>
-              <label htmlFor="displayName">Display Name</label>
+              <Label htmlFor="displayName" style={{ marginBottom: '0.2rem' }}>
+                Display Name
+              </Label>
               <Flex ai_center>
                 <Input
                   id="displayName"
@@ -179,12 +177,15 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                   w="25rem"
                   name="displayName"
                   ref={register}
+                  style={{ marginLeft: 0, marginTop: 0 }}
                 />
               </Flex>
             </Flex>
 
             <Flex ai_start col>
-              <label htmlFor="birthday">Date of Birth</label>
+              <Label htmlFor="birthday" style={{ marginBottom: '0.2rem' }}>
+                Date of Birth
+              </Label>
               <Flex ai_center>
                 <Input
                   id="birthday"
@@ -195,13 +196,16 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                   placeholder={
                     userProfile ? userProfile.birthday : 'mm/dd/yyyy'
                   }
+                  style={{ marginTop: 0, marginLeft: 0 }}
                 />
               </Flex>
             </Flex>
           </Flex>
 
           <Flex ai_start col stretch>
-            <label htmlFor="bio">Bio</label>
+            <label htmlFor="bio" style={{ marginBottom: '0.2rem' }}>
+              Bio
+            </label>
             <TextArea
               id="bio"
               rows="8"
@@ -209,12 +213,15 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               name="bio"
               ref={register}
               placeholder={userProfile ? userProfile.bio : null}
+              style={{ marginTop: 0, marginLeft: 0 }}
             />
           </Flex>
 
           <Flex jc_between stretch>
             <Flex ai_start col>
-              <label htmlFor="disability">Disability Status</label>
+              <label htmlFor="disability" style={{ marginBottom: '0.2rem' }}>
+                Disability Status
+              </label>
               <Flex ai_center>
                 <Input
                   id="disability"
@@ -223,14 +230,23 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                   name="disability"
                   ref={register}
                   placeholder={userProfile ? userProfile.disability : null}
+                  style={{ marginTop: 0, marginLeft: 0 }}
                 />
               </Flex>
             </Flex>
 
             <Flex ai_start col>
-              <Text mf>Are you over 18 years old?</Text>
+              <label htmlFor="legal" style={{ marginBottom: '0.2rem' }}>
+                Are you over 18 years old?
+              </label>
               <Flex ai_center>
-                <Select w="20rem" name="legal" ref={register}>
+                <Select
+                  id="legal"
+                  w="20rem"
+                  name="legal"
+                  ref={register}
+                  style={{ marginTop: 0, marginLeft: 0 }}
+                >
                   <option value={true}>Yes</option>
                   <option value={false}>No</option>
                 </Select>
@@ -250,6 +266,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               onClick={() => {
                 setUpdated(true);
               }}
+              style={{ marginLeft: 0 }}
             >
               Save
             </Button>
