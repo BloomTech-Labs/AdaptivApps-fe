@@ -47,7 +47,7 @@ const EventCreationForm = () => {
         details: values.details
       },
     });
-    await setCurrEvent(data.createEvent);
+    await setCurrEvent(data?.createEvent);
     toggle();
   };
 
