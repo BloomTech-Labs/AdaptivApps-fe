@@ -155,7 +155,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 
           <Flex jc_between stretch>
             <Flex ai_start col>
-              <label for="firstName" mf>First Name</label>
+              <label htmlFor="firstName" >First Name</label>
               <Flex ai_center>
                 <Input
                   id="firstName"
@@ -167,25 +167,10 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 />
               </Flex>
             </Flex>
-
-            <Flex ai_start col>
-              <label for="lastName" mf>Last Name</label>
-              <Flex ai_center>
-                <Input
-                  id="lastName"
-                  type="text"
-                  placeholder={userProfile ? userProfile.lastName : null}
-                  w="25rem"
-                  name="lastName"
-                  ref={register}
-                />
-              </Flex>
-            </Flex>
           </Flex>
-
           <Flex jc_between stretch>
             <Flex ai_start col>
-              <label for="displayName" mf>Display Name</label>
+              <label htmlFor="displayName">Display Name</label>
               <Flex ai_center>
                 <Input
                   id="displayName"
@@ -199,7 +184,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
             </Flex>
 
             <Flex ai_start col>
-              <label for="birthday" mf>Date of Birth</label>
+              <label htmlFor="birthday">Date of Birth</label>
               <Flex ai_center>
                 <Input
                   id="birthday"
@@ -216,7 +201,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
           </Flex>
 
           <Flex ai_start col stretch>
-            <label for="bio" mf>Bio</label>
+            <label htmlFor="bio">Bio</label>
             <TextArea
               id="bio"
               rows="8"
@@ -229,7 +214,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 
           <Flex jc_between stretch>
             <Flex ai_start col>
-              <label for="disability" mf>Disability Status</label>
+              <label htmlFor="disability">Disability Status</label>
               <Flex ai_center>
                 <Input
                   id="disability"
