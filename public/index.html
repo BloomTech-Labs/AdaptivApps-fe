@@ -34,6 +34,10 @@
       rel="stylesheet"
       href="https://chifplayercdn.blob.core.windows.net/player2/chearPlayer_1.0.0.css"
     />
+    <meta
+      name="google-signin-client_id"
+      content="386890208755-2bbgb1373p3vfbkth11upnfevsmbq215.apps.googleusercontent.com"
+    />
   </head>
   <body>
     <script>
@@ -66,6 +70,32 @@
       defer
       crossorigin="anonymous"
       src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0&appId=2639058842889586&autoLogAppEvents=1"
+    ></script>
+
+    <script>
+      function onSuccess(googleUser) {
+        console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+      }
+      function onFailure(error) {
+        console.log(error);
+      }
+      function renderButton() {
+        gapi.signin2.render('my-signin2', {
+          scope: 'profile email',
+          width: 240,
+          height: 50,
+          longtitle: true,
+          theme: 'dark',
+          onsuccess: onSuccess,
+          onfailure: onFailure,
+        });
+      }
+    </script>
+
+    <script
+      src="https://apis.google.com/js/platform.js?onload=renderButton"
+      async
+      defer
     ></script>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>

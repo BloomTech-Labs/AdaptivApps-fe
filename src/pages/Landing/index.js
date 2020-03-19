@@ -42,21 +42,14 @@ const LandingPage = () => {
             <Flex drape w="30%">
               <div
                 className="fb-login-button"
-                data-width=""
+                data-width="200px"
                 data-size="large"
                 data-button-type="login_with"
                 data-layout="default"
                 data-auto-logout-link="false"
                 data-use-continue-as="false"
               ></div>
-              <Button secondary w="26rem" onClick={() => loginWithRedirect({})}>
-                <Flex jc_between ai_center>
-                  <FaGoogle />
-                  <Box w="2rem" />
-                  <p>Sign up with Google</p>
-                  <Box w="2rem" />
-                </Flex>
-              </Button>
+              <div id="my-signin2"></div>
               <NavLink
                 to="privacy-policy"
                 style={{ padding: '0' }}
