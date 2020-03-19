@@ -68,7 +68,7 @@ export default function Activities({ activity }) {
       <table border="1px solid black">
         <thead>
           <tr>
-            <th w="30%">Name</th>
+            <th>Name</th>
             <th>Date</th>
             <th>Location</th>
             <th>Time</th>

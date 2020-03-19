@@ -1,12 +1,11 @@
 import React from 'react';
-import golfimg from '../../assets/images/little-guy-golf.jpg';
 import { Flex, Container } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
 
 export default function UserEventCard({ event }) {
   return (
     <Flex col>
-      <Container bg_src={golfimg} h="10vh" w="20rem"></Container>
+      <Container bg_src={event.imgUrl} h="10vh" w="20rem"></Container>
       <small>
         {event.startDate} - {event.endDate}
       </small>
