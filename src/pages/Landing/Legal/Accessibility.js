@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function accessibility() {
+export default function Accessibility() {
   return (
     <>
       <div className="access-wrapper">

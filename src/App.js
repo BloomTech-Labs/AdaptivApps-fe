@@ -14,7 +14,8 @@ import CreateEvent from './pages/CreateEvent';
 import AddActivity from './pages/AddActivity';
 import UserEvents from './pages/UserEvents';
 import ActivityList from './pages/ActivitiesList';
-import Accessibility from './pages/Landing/accessibility';
+import Accessibility from './pages/Landing/Legal/Accessibility';
+import PrivacyPolicy from './pages/Landing/Legal/PrivacyPolicy';
 
 // Import apollo server
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -35,7 +36,7 @@ const trackingId = 'UA-159556430-1';
 
 function App() {
   const { getIdTokenClaims } = useAuth0();
-  
+
   // Generate new apollo client
   const client = new ApolloClient({
     uri: process.env.REACT_APP_API_URL,
@@ -57,6 +58,7 @@ function App() {
       <div className="App">
         <Router>
           <Accessibility path="/accessibility" />
+          <PrivacyPolicy path="/privacy-policy" />
           <PrivateRoute path="/" component={DashRouter}>
             <UserProfile path="/" />
             <EventsCalendar path="calendar" />
