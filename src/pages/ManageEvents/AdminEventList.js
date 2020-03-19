@@ -1,8 +1,8 @@
 import React from 'react';
-import { Flex } from 'adaptiv-ui';
+import { Flex, Input } from 'adaptiv-ui';
 import { useMutation } from 'react-apollo';
 import MaterialTable from 'material-table';
-import AdminEventCard from './AdminEventCard';
+import AdminActivityList from './AdminActivityList';
 import { CREATE_EVENT, UPDATE_EVENT, DELETE_EVENT } from './queries';
 
 const AdminEventList = props => {
@@ -19,11 +19,43 @@ const AdminEventList = props => {
         title=""
         columns={[
           { title: 'Title', field: 'title' },
-          { title: 'Start Date', field: 'startDate' },
-          { title: 'End Date', field: 'endDate' },
+          {
+            title: 'Start Date',
+            field: 'startDate',
+            editComponent: props => (
+              <Input
+                type="date"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+                m="0 0 0 -0.5rem"
+              />
+            ),
+          },
+          {
+            title: 'End Date',
+            field: 'endDate',
+            editComponent: props => (
+              <Input
+                type="date"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+                m="0 0 0 -0.5rem"
+              />
+            ),
+          },
           { title: 'Location', field: 'location' },
           { title: 'Image Url', field: 'imgUrl' },
-          { title: 'Details', field: 'details' },
+          {
+            title: 'Details',
+            field: 'details',
+            editComponent: props => (
+              <textarea
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+              />
+            ),
+          },
         ]}
         data={events}
         editable={{
@@ -64,7 +96,14 @@ const AdminEventList = props => {
           },
         }}
         detailPanel={rowData => {
-          return <AdminEventCard event={rowData} />;
+          const event_id = rowData.id;
+          return (
+            <AdminActivityList
+              activities={activities}
+              event_id={event_id}
+              activitiesRefetch={props.activitiesRefetch}
+            />
+          );
         }}
         options={{
           cellStyle: {
@@ -73,6 +112,7 @@ const AdminEventList = props => {
           headerStyle: {
             fontSize: '1.4rem',
           },
+          emptyRowsWhenPaging: false,
         }}
       />
     </Flex>
