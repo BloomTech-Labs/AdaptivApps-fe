@@ -49,18 +49,6 @@ const LandingPage = () => {
                 data-auto-logout-link="false"
                 data-use-continue-as="false"
               ></div>
-              {/* <Button
-                bg="#3B5998"
-                secondary
-                w="26rem"
-                onClick={() => loginWithRedirect({})}
-              >
-                <Flex jc_between ai_center>
-                  <FaFacebookSquare />
-                  <Box w="2rem" />
-                  <p>Sign up with Facebook</p>
-                </Flex>
-              </Button> */}
               <Button secondary w="26rem" onClick={() => loginWithRedirect({})}>
                 <Flex jc_between ai_center>
                   <FaGoogle />
@@ -69,6 +57,13 @@ const LandingPage = () => {
                   <Box w="2rem" />
                 </Flex>
               </Button>
+              <NavLink
+                to="privacy-policy"
+                style={{ padding: '0' }}
+                className="privacy-link"
+              >
+                <small>Privacy Policy</small>
+              </NavLink>
             </Flex>
           </Flex>
         </Flex>

@@ -15,3 +15,11 @@
   margin: 5% auto;
   text-align: center;
 }
+.privacy-policy-wrapper {
+  margin: 5%;
+}
+.privacy-policy-wrapper h1,
+h4 {
+  margin-bottom: 3%;
+  text-align: center;
+}
