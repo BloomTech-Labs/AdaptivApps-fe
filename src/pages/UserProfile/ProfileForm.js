@@ -158,7 +158,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               <Text mf>First Name</Text>
               <Flex ai_center>
                 <Input
-                  autoFocus
+                  label="firstName"
                   type="text"
                   placeholder={userProfile ? userProfile.firstName : null}
                   w="25rem"
@@ -172,6 +172,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               <Text mf>Last Name</Text>
               <Flex ai_center>
                 <Input
+                  label="lastName"
                   type="text"
                   placeholder={userProfile ? userProfile.lastName : null}
                   w="25rem"
@@ -187,6 +188,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               <Text mf>Display Name</Text>
               <Flex ai_center>
                 <Input
+                  label="displayName"
                   type="text"
                   placeholder={userProfile ? userProfile.displayName : null}
                   w="25rem"
@@ -200,6 +202,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               <Text mf>Date of Birth</Text>
               <Flex ai_center>
                 <Input
+                  label="birthday"
                   type="text"
                   w="25rem"
                   name="birthday"
@@ -228,6 +231,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               <Text mf>Disability Status</Text>
               <Flex ai_center>
                 <Input
+                  label="disability"
                   type="select"
                   w="25rem"
                   name="disability"

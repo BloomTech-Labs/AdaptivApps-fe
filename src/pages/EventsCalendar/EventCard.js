@@ -34,6 +34,9 @@ export default function EventCard({ event }) {
       <Button primary onClick={toggle} w="20rem">
         Add to my schedule
       </Button>
+      <Button primary onClick={toggle} w="20rem">
+        Testing
+      </Button>
       <Modal isActive={isActive} toggle={toggle}>
         <Flex w="40rem" h="40rem" drape>
           <small>
