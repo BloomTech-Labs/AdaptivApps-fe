@@ -111,6 +111,11 @@ const AdminEventList = props => {
           },
           headerStyle: {
             fontSize: '1.4rem',
+            backgroundColor: '#01579b',
+            color: '#FFF',
+          },
+          rowStyle: {
+            backgroundColor: '#EEE',
           },
           emptyRowsWhenPaging: false,
         }}

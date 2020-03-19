@@ -1,5 +1,6 @@
 import React from 'react';
 import MaterialTable from 'material-table';
+import { Flex, Input } from 'adaptiv-ui';
 
 const AdminActivityList = props => {
   const event_id = props.event_id;
@@ -8,7 +9,7 @@ const AdminActivityList = props => {
   );
 
   return (
-    <div>
+    <Flex col m="0 2% 0 2%">
       <MaterialTable
         title="List of Activities"
         columns={[
@@ -20,19 +21,31 @@ const AdminActivityList = props => {
           { title: 'Details', field: 'details' },
         ]}
         data={activitiesData}
+        editable={{
+          onRowAdd: async newData => {
+            props.activitiesRefetch();
+          },
+          onRowUpdate: async (newData, oldData) => {
+            props.activitiesRefetch();
+          },
+          onRowDelete: async oldData => {
+            props.activitiesRefetch();
+          },
+        }}
         options={{
           search: false,
           showTitle: true,
           paging: false,
           emptyRowsWhenPaging: false,
-        }}
-        editable={{
-          onRowAdd: async newData => {
-            props.activitiesRefetch();
+          cellStyle: {
+            fontSize: '1.2rem',
+          },
+          headerStyle: {
+            fontSize: '1.2rem',
           },
         }}
       />
-    </div>
+    </Flex>
   );
 };
 
