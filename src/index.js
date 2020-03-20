@@ -20,9 +20,7 @@ ReactDOM.render(
     responseType={config.responseType}
     scope={window.scope}
   >
-    <AppWrapper bg="white">
-      <App />
-    </AppWrapper>
+    <App />
   </Auth0Provider>,
   document.getElementById('root')
 );
