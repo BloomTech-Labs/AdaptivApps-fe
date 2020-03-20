@@ -21,16 +21,15 @@ export default function EventCard({ event }) {
   const [isActive, toggle] = useModal();
   console.log('image url', event);
   return (
-    
     <Flex col>
-      <Container bg_src={event.imgUrl} h="10vh" w="20rem"></Container>
-      <small>
+      <Container bg_src={event.imgUrl} h="20vh" w="30rem" m="3rem"></Container>
+      <small style={{ marginLeft: '3rem' }}>
         {event.startDate} - {event.endDate}
       </small>
-      <h6>
+      <h6 style={{ marginLeft: '3rem' }}>
         <b>{event.title}</b>
       </h6>
-      <p>{event.location}</p>
+      <p style={{ marginLeft: '3rem' }}>{event.location}</p>
       <Button primary onClick={toggle} w="20rem">
         Add to my schedule
       </Button>
