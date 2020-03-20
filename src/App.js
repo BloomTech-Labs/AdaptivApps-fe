@@ -35,14 +35,14 @@ const trackingId = 'UA-159556430-1';
 
 function App() {
   const { getIdTokenClaims } = useAuth0();
-  
+
   // Generate new apollo client
   const client = new ApolloClient({
     uri: process.env.REACT_APP_API_URL,
     credentials: 'same-origin',
     request: async operation => {
       const token = await getIdTokenClaims();
-      // Attach token to header
+      // Attach token to headers
       operation.setContext(context => ({
         headers: {
           ...context.headers,
