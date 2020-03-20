@@ -5,7 +5,6 @@
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
     "@auth0/auth0-spa-js": "^1.6.3",
-    "@babel/plugin-proposal-numeric-separator": "^7.8.3",
     "@babel/plugin-syntax-jsx": "^7.8.3",
     "@material-ui/core": "^4.9.7",
     "@material-ui/icons": "^4.9.1",
@@ -14,7 +13,7 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
     "@types/react": "^16.8.0",
-    "adaptiv-ui": "^1.5.3",
+    "adaptiv-ui": "^1.5.9",
     "apollo-boost": "^0.4.7",
     "apollo-client": "^2.6.4",
     "auth0-js": "^9.12.2",
