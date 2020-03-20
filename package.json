@@ -47,6 +47,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "request": "^2.88.2",
+    "serve": "^11.3.0",
     "yup": "^0.28.1"
   },
   "scripts": {
