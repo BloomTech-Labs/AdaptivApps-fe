@@ -40,24 +40,34 @@ const LandingPage = () => {
               </Text>
             </Flex>
             <Flex drape w="30%">
-              <div
-                className="fb-login-button"
-                data-width="200px"
-                data-size="large"
-                data-button-type="login_with"
-                data-layout="default"
-                data-auto-logout-link="false"
-                data-use-continue-as="false"
-              ></div>
-              <div id="my-signin2"></div>
-              <NavLink
-                to="privacy-policy"
-                style={{ padding: '0' }}
-                className="privacy-link"
+              <Button
+                bg="#3B5998"
+                secondary
+                w="26rem"
+                onClick={() => loginWithRedirect({})}
               >
-                <small>Privacy Policy</small>
-              </NavLink>
+                <Flex jc_between ai_center>
+                  <FaFacebookSquare />
+                  <Box w="2rem" />
+                  <p>Sign up with Facebook</p>
+                </Flex>
+              </Button>
+              <Button secondary w="26rem" onClick={() => loginWithRedirect({})}>
+                <Flex jc_between ai_center>
+                  <FaGoogle />
+                  <Box w="2rem" />
+                  <p>Sign up with Google</p>
+                  <Box w="2rem" />
+                </Flex>
+              </Button>
             </Flex>
+            <NavLink
+              to="privacy-policy"
+              style={{ padding: '0' }}
+              className="privacy-link"
+            >
+              <small>Privacy Policy</small>
+            </NavLink>
           </Flex>
         </Flex>
         <NavLink to="accessibility" className="accessibility">
