@@ -1,12 +1,25 @@
 import React from 'react';
-import MaterialTable from 'material-table';
 import { Flex, Input } from 'adaptiv-ui';
+import { useQuery, useMutation } from 'react-apollo';
+import {
+  CREATE_ACTIVITY,
+  UPDATE_ACTIVITY,
+  DELETE_ACTIVITY,
+  GET_ONE_EVENT,
+} from './queries';
+import MaterialTable from 'material-table';
 
 const AdminActivityList = props => {
   const event_id = props.event_id;
-  const activitiesData = props.activities.filter(
-    activity => activity.event.id === event_id
-  );
+  const { data, refetch } = useQuery(GET_ONE_EVENT, {
+    variables: {
+      id: event_id,
+    },
+  });
+
+  const [CreateActivity] = useMutation(CREATE_ACTIVITY);
+  const [UpdateActivity] = useMutation(UPDATE_ACTIVITY);
+  const [DeleteActivity] = useMutation(DELETE_ACTIVITY);
 
   return (
     <Flex col m="0 2% 0 2%">
@@ -14,22 +27,71 @@ const AdminActivityList = props => {
         title="List of Activities"
         columns={[
           { title: 'Name', field: 'name' },
-          { title: 'Date', field: 'startDate' },
-          { title: 'Time', field: 'startTime' },
+          {
+            title: 'Date',
+            field: 'startDate',
+            editComponent: props => (
+              <Input
+                type="date"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+                m="0 0 0 -0.5rem"
+              />
+            ),
+          },
+          {
+            title: 'Time',
+            field: 'startTime',
+            editComponent: props => (
+              <Input
+                type="time"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+                m="0 0 0 -0.5rem"
+              />
+            ),
+          },
           { title: 'Location', field: 'location' },
           { title: 'Type', field: 'type' },
           { title: 'Details', field: 'details' },
         ]}
-        data={activitiesData}
+        data={data?.event?.activities}
         editable={{
           onRowAdd: async newData => {
-            props.activitiesRefetch();
+            await CreateActivity({
+              variables: {
+                name: newData.name,
+                startDate: newData.startDate,
+                startTime: newData.startTime,
+                location: newData.location,
+                type: newData.type,
+                details: newData.details,
+                event_id: event_id,
+              },
+            });
+            refetch();
           },
           onRowUpdate: async (newData, oldData) => {
-            props.activitiesRefetch();
+            await UpdateActivity({
+              variables: {
+                id: oldData.id,
+                name: newData.name,
+                startDate: newData.startDate,
+                startTime: newData.startTime,
+                location: newData.location,
+                type: newData.type,
+                details: newData.details,
+              },
+            });
+            refetch();
           },
           onRowDelete: async oldData => {
-            props.activitiesRefetch();
+            await DeleteActivity({
+              variables: {
+                id: oldData.id,
+              },
+            });
+            refetch();
           },
         }}
         options={{

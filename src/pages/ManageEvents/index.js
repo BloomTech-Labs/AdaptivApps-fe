@@ -6,9 +6,6 @@ import AdminEventList from './AdminEventList';
 
 const ManageEvents = () => {
   const { data: eventsData, refetch: eventsRefetch } = useQuery(GET_EVENTS);
-  const { data: activitiesData, refetch: activitiesRefetch } = useQuery(
-    GET_ACTIVITIES
-  );
 
   return (
     <Flex ai_start col stretch m="0 0 0 2rem">
@@ -21,9 +18,7 @@ const ManageEvents = () => {
       {eventsData ? (
         <AdminEventList
           events={eventsData?.events}
-          activities={activitiesData?.activities}
           eventsRefetch={eventsRefetch}
-          activitiesRefetch={activitiesRefetch}
         />
       ) : (
         <p>Loading</p>

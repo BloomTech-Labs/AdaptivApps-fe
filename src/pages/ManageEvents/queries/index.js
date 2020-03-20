@@ -107,6 +107,66 @@ export const UPDATE_EVENT = gql`
   }
 `;
 
+export const DELETE_EVENT = gql`
+  mutation DeleteEvent($id: ID!) {
+    deleteEvent(where: { id: $id }) {
+      id
+    }
+  }
+`;
+
+export const GET_ACTIVITIES = gql`
+  query GetActivities {
+    activities {
+      id
+      name
+      startDate
+      location
+      startTime
+      type
+      details
+      event {
+        id
+      }
+    }
+  }
+`;
+
+export const CREATE_ACTIVITY = gql`
+  mutation CreateActivity(
+    $name: String!
+    $startDate: String!
+    $startTime: String!
+    $location: String!
+    $type: String!
+    $details: String
+    $event_id: ID
+  ) {
+    createActivity(
+      data: {
+        name: $name
+        startDate: $startDate
+        startTime: $startTime
+        location: $location
+        type: $type
+        details: $details
+        event: { connect: { id: $event_id } }
+      }
+    ) {
+      id
+      name
+      startDate
+      startTime
+      location
+      type
+      details
+      event {
+        title
+      }
+    }
+  }
+`;
+
 export const UPDATE_ACTIVITY = gql`
   mutation UpdateActivity(
     $id: ID!
@@ -146,31 +206,6 @@ export const DELETE_ACTIVITY = gql`
   mutation DeleteActivity($id: ID!) {
     deleteActivity(where: { id: $id }) {
       id
-    }
-  }
-`;
-
-export const DELETE_EVENT = gql`
-  mutation DeleteEvent($id: ID!) {
-    deleteEvent(where: { id: $id }) {
-      id
-    }
-  }
-`;
-
-export const GET_ACTIVITIES = gql`
-  query GetActivities {
-    activities {
-      id
-      name
-      startDate
-      location
-      startTime
-      type
-      details
-      event {
-        id
-      }
     }
   }
 `;

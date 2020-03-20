@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Flex, Input } from 'adaptiv-ui';
 import { useMutation } from 'react-apollo';
 import MaterialTable from 'material-table';
@@ -6,12 +6,11 @@ import AdminActivityList from './AdminActivityList';
 import { CREATE_EVENT, UPDATE_EVENT, DELETE_EVENT } from './queries';
 
 const AdminEventList = props => {
-  const events = props.events;
-  const activities = props.activities;
-
   const [CreateEvent] = useMutation(CREATE_EVENT);
   const [UpdateEvent] = useMutation(UPDATE_EVENT);
   const [DeleteEvent] = useMutation(DELETE_EVENT);
+
+  const events = props.events;
 
   return (
     <Flex col m="0 0 0 1.5rem" w="90%">
@@ -95,23 +94,23 @@ const AdminEventList = props => {
             props.eventsRefetch();
           },
         }}
-        detailPanel={rowData => {
-          const event_id = rowData.id;
-          return (
-            <AdminActivityList
-              activities={activities}
-              event_id={event_id}
-              activitiesRefetch={props.activitiesRefetch}
-            />
-          );
-        }}
+        detailPanel={[
+          {
+            tooltip: 'Show Activities',
+            isFreeAction: true,
+            render: rowData => {
+              const event_id = rowData.id;
+              return <AdminActivityList event_id={event_id} />;
+            },
+          },
+        ]}
         options={{
           cellStyle: {
             fontSize: '1.4rem',
           },
           headerStyle: {
             fontSize: '1.4rem',
-            backgroundColor: '#01579b',
+            backgroundColor: '#2962FF',
             color: '#FFF',
           },
           rowStyle: {
