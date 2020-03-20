@@ -60,14 +60,14 @@ const LandingPage = () => {
                   <Box w="2rem" />
                 </Flex>
               </Button>
+              <NavLink
+                to="privacy-policy"
+                style={{ padding: '0' }}
+                className="privacy-link"
+              >
+                <small>Privacy Policy</small>
+              </NavLink>
             </Flex>
-            <NavLink
-              to="privacy-policy"
-              style={{ padding: '0' }}
-              className="privacy-link"
-            >
-              <small>Privacy Policy</small>
-            </NavLink>
           </Flex>
         </Flex>
         <NavLink to="accessibility" className="accessibility">
