@@ -16,7 +16,7 @@
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",
     "@types/react": "^16.8.0",
-    "adaptiv-ui": "^1.5.3",
+    "adaptiv-ui": "^1.5.9",
     "apollo-boost": "^0.4.7",
     "apollo-cache": "^1.3.4",
     "apollo-client": "^2.6.4",
