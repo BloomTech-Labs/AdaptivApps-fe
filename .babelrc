@@ -1,3 +1,7 @@
 {
-  "plugins": ["@babel/preset-env", "@babel/plugin-proposal-numeric-separator"]
+  "plugins": [
+    "@babel/preset-env",
+    "@babel/preset-react",
+    "@babel/plugin-proposal-numeric-separator"
+  ]
 }
