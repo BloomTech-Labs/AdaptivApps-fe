@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from "@reach/router"
+import { Link } from '@reach/router';
 import { useMutation } from 'react-apollo';
 import { REGISTER_EVENT } from './queries/joinEvent';
 import { useAuth0 } from '../../config/react-auth0-spa';
 
 import { Flex, Container, Button, Modal, useModal, Text } from 'adaptiv-ui';
-import NavLink from '../../routes/DashRouter/SideNav/NavLink';
+// import NavLink from '../../routes/DashRouter/SideNav/NavLink';
 import PropTypes from 'prop-types';
 
 export default function EventCard({ event }) {
@@ -22,7 +22,6 @@ export default function EventCard({ event }) {
   const [isActive, toggle] = useModal();
   console.log('image url', event);
   return (
-    
     <Flex col>
       <Container bg_src={event.imgUrl} h="10vh" w="20rem"></Container>
       <small>
@@ -34,9 +33,6 @@ export default function EventCard({ event }) {
       <p>{event.location}</p>
       <Button primary onClick={toggle} w="20rem">
         Add to my schedule
-      </Button>
-      <Button primary onClick={toggle} w="20rem">
-        Testing
       </Button>
       <Modal isActive={isActive}>
         <Flex w="40rem" h="40rem" drape>
@@ -54,22 +50,16 @@ export default function EventCard({ event }) {
             and anticipate hosting our largest event ever - Don’t miss it!
           </Text>
           <Text> Add to "My Events?"</Text>
-          <Button
-            primary="true"
-            autoFocus
-            
-            onClick={
-              (() =>
-                console.log('clicked', registerEvent, event.id, user.email),
-              registerEvent)
-            }
-          >
-            <Link to={`${event?.id}`}>Join Event!</Link>
-          </Button>
-          <Button
-            secondary
-            onClick={toggle}
-          >
+          {/* <Button autoFocus primary="true" onClick={() => registerEvent}> */}
+            <Link
+              primary="true"
+              onClick={registerEvent}
+              to={`${event?.id}`}
+            >
+              Join Event!
+            </Link>
+          {/* </Button> */}
+          <Button secondary onClick={toggle}>
             Close
           </Button>
         </Flex>

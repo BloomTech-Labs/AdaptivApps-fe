@@ -1,4 +1,8 @@
+//React imports
 import React from 'react';
+//Component imports
+import { Link } from '@reach/router';
+//Styling imports
 import { Flex, Container } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
 
@@ -13,6 +17,7 @@ export default function UserEventCard({ event }) {
         <b>{event.title}</b>
       </h6>
       <p>location</p>
+      <Link to='calendar'>View Details</Link>
     </Flex>
   );
 }

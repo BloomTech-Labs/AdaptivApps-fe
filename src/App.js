@@ -15,6 +15,7 @@ import AddActivity from './pages/AddActivity';
 import UserEvents from './pages/UserEvents';
 import ActivityList from './pages/ActivitiesList';
 import Accessibility from './pages/Landing/accessibility';
+import UserEventDetails from './pages/UserEventDetails';
 
 // Import apollo server
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -64,6 +65,7 @@ function App() {
             <CreateEvent path="events/create" />
             <AddActivity path="events/create/:eventId" />
             <UserEvents path="myevents" />
+            <UserEventDetails path="myevents/:eventId" />
           </PrivateRoute>
         </Router>
       </div>
