@@ -68,6 +68,7 @@
     "prettier": "1.19.1"
   },
   "resolutions": {
-    "@babel/preset-env": "7.9.0"
+    "@babel/preset-env": "^7.9.0",
+    "@babel/plugin-proposal-numeric-separator": "^7.8.3"
   }
 }
