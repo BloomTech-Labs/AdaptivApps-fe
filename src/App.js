@@ -14,7 +14,9 @@ import CreateEvent from './pages/CreateEvent';
 import AddActivity from './pages/AddActivity';
 import UserEvents from './pages/UserEvents';
 import ActivityList from './pages/ActivitiesList';
-import Accessibility from './pages/Landing/accessibility';
+import ManageEvents from './pages/ManageEvents';
+import Accessibility from './pages/Landing/Legal/Accessibility';
+import PrivacyPolicy from './pages/Landing/Legal/PrivacyPolicy';
 
 // Import apollo server
 import { ApolloProvider } from '@apollo/react-hooks';
@@ -57,6 +59,7 @@ function App() {
       <div className="App">
         <Router>
           <Accessibility path="/accessibility" />
+          <PrivacyPolicy path="/privacy-policy" />
           <PrivateRoute path="/" component={DashRouter}>
             <UserProfile path="/" />
             <EventsCalendar path="calendar" />
@@ -64,6 +67,7 @@ function App() {
             <CreateEvent path="events/create" />
             <AddActivity path="events/create/:eventId" />
             <UserEvents path="myevents" />
+            <ManageEvents path="manage" />
           </PrivateRoute>
         </Router>
       </div>
