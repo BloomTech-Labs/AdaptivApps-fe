@@ -1,6 +1,6 @@
 import gql from 'graphql-tag';
 
-// Retrieves all events a user is registered to.
+// Retrieves the details of a specific event a user is registered to.
 export const GET_EVENT_DETAILS = gql`
   query getEventDetails($id: ID) {
     events(where: {id: $id}){

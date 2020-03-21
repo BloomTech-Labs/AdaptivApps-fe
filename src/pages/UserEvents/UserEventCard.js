@@ -17,7 +17,7 @@ export default function UserEventCard({ event }) {
         <b>{event.title}</b>
       </h6>
       <p>location</p>
-      <Link to='calendar'>View Details</Link>
+      <Link to={`${event?.id}`}>View Details</Link>
     </Flex>
   );
 }
