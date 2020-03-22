@@ -12,14 +12,16 @@ import { Flex, Container, Button } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
 
 
-export default function UserEventCard({ event }) {
+export default function UserEventCard({ event, refetch }) {
   const [updateProfile] = useMutation(UNREGISTER_FROM_EVENT);
+  // Retrieves current user info
   const { user } = useAuth0();
   // Unregisters user from specified event
   const unregisterFromEvent = () => {
     updateProfile({
       variables: { id: event.id, email: user.email }
     });
+    refetch();
   };
 
   return (

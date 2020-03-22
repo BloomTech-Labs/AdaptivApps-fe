@@ -20,13 +20,13 @@ export default function UserEvents() {
 
     useEffect(() => { 
     refetch();
-  },[]);
+  }, []);
 
   return (
     <Flex ai_start col stretch>
       <h1>My Events</h1>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
-      {data && data.events.map((event, id) => <UserEventCard key={id} event={event} />)}
+      {data && data.events.map((event, id) => <UserEventCard refetch={refetch} key={id} event={event} />)}
     </Flex>
   );
 }
