@@ -1,22 +1,27 @@
+// React imports
 import React from 'react';
-import { Link } from '@reach/router';
+// Reach Router imports
+import { Link, useNavigate } from '@reach/router';
+// GraphQL/Apollo imports
 import { useMutation } from 'react-apollo';
 import { REGISTER_EVENT } from './queries/joinEvent';
+// Auth0 imports
 import { useAuth0 } from '../../config/react-auth0-spa';
-
+// Styling imports
 import { Flex, Container, Button, Modal, useModal, Text } from 'adaptiv-ui';
-// import NavLink from '../../routes/DashRouter/SideNav/NavLink';
 import PropTypes from 'prop-types';
 
 export default function EventCard({ event }) {
   const [updateEvent] = useMutation(REGISTER_EVENT);
 
   const { user } = useAuth0();
+  const navigate = useNavigate();
 
   const registerEvent = async () => {
     await updateEvent({
       variables: { id: event.id, email: user.email },
-    });
+    })
+    await navigate(`/calendar/${event.id}`)
   };
 
   const [isActive, toggle] = useModal();
@@ -50,15 +55,9 @@ export default function EventCard({ event }) {
             and anticipate hosting our largest event ever - Don’t miss it!
           </Text>
           <Text> Add to "My Events?"</Text>
-          {/* <Button autoFocus primary="true" onClick={() => registerEvent}> */}
-            <Link
-              primary="true"
-              onClick={registerEvent}
-              to={`${event?.id}`}
-            >
-              Join Event!
-            </Link>
-          {/* </Button> */}
+          <Button autoFocus primary="true" onClick={registerEvent}>
+            Join Event!
+          </Button>
           <Button secondary onClick={toggle}>
             Close
           </Button>
