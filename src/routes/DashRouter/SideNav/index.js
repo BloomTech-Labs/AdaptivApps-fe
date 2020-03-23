@@ -62,6 +62,14 @@ const SideNav = () => {
             <p>Manage Events</p>
           </NavLink>
         ) : null}
+        {user && user[config.roleUrl].includes('Admin') ? (
+          <NavLink to="users">
+            <Box w="2rem" />
+            <FaHome />
+            <Box w="2rem" />
+            <p>Manage Users</p>
+          </NavLink>
+        ) : null}
         <NavLink to="/">
           <Box w="2rem" />
           <FaRegUser />
