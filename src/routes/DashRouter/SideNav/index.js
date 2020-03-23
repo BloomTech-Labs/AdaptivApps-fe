@@ -3,7 +3,13 @@ import { useAuth0 } from '../../../config/react-auth0-spa';
 import { Flex, NavBar, Box, Button } from 'adaptiv-ui';
 import acsLogo from '../../../assets/images/acsLogo.png';
 import config from '../../../config/auth_config';
-import { FaRegCalendar, FaRegBookmark, FaRegUser, FaPen } from 'react-icons/fa';
+import {
+  FaRegCalendar,
+  FaRegBookmark,
+  FaRegUser,
+  FaPen,
+  FaHome,
+} from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
@@ -48,7 +54,15 @@ const SideNav = () => {
             <p>Create Event</p>
           </NavLink>
         ) : null}
-        <NavLink to="profile">
+        {user && user[config.roleUrl].includes('Admin') ? (
+          <NavLink to="manage">
+            <Box w="2rem" />
+            <FaHome />
+            <Box w="2rem" />
+            <p>Manage Events</p>
+          </NavLink>
+        ) : null}
+        <NavLink to="/">
           <Box w="2rem" />
           <FaRegUser />
           <Box w="2rem" />

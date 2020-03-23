@@ -8,6 +8,7 @@ export default function ActivityList(props) {
 
   return (
     <Flex col m="0 0 0 1.5rem">
+      <Flex></Flex>
       <Flex col m="0 0 2rem 0">
         <Text lf>{event.title}</Text>
         <Text mf color="#696969">
