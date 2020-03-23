@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Text, Flex } from 'adaptiv-ui';
 import { useQuery } from 'react-apollo';
-import { GET_EVENTS, GET_ACTIVITIES } from './queries';
+import { GET_EVENTS } from './queries';
 import AdminEventList from './AdminEventList';
 
 const ManageEvents = () => {

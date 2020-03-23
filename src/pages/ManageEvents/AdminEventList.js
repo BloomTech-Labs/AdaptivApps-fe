@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Flex, Input } from 'adaptiv-ui';
 import { useMutation } from 'react-apollo';
 import MaterialTable from 'material-table';
