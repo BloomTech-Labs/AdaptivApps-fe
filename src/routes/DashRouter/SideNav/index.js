@@ -3,7 +3,13 @@ import { useAuth0 } from '../../../config/react-auth0-spa';
 import { Flex, NavBar, Box, Button } from 'adaptiv-ui';
 import acsLogo from '../../../assets/images/acsLogo.png';
 import config from '../../../config/auth_config';
-import { FaRegCalendar, FaRegBookmark, FaRegUser, FaPen } from 'react-icons/fa';
+import {
+  FaRegCalendar,
+  FaRegBookmark,
+  FaRegUser,
+  FaPen,
+  FaHome,
+} from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
 import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
@@ -14,18 +20,26 @@ const SideNav = () => {
   const { logout, user } = useAuth0();
 
   return (
-    <NavBar className="nav-bar" col jc_between h="100vh">
+    <NavBar
+      // className="nav-bar"
+      // position="absolute"
+      col
+      jc_between
+      h="100vh"
+      w="15vw"
+      min_w="25rem"
+    >
       <Flex col>
-        <Box w="15vw" min_w="25rem">
+        <Box>
           <img src={acsLogo} alt="ACS Logo" />
         </Box>
-        <NavLink to="calendar" w="15vw" min_w="25rem">
+        <NavLink to="calendar">
           <Box w="2rem" />
           <FaRegCalendar />
           <Box w="2rem" />
           <p>Events Calendar</p>
         </NavLink>
-        <NavLink to="myevents" w="15vw" min_w="25rem">
+        <NavLink to="myevents">
           <Box w="2rem" />
           <FaRegBookmark />
           <Box w="2rem" />
@@ -33,14 +47,22 @@ const SideNav = () => {
         </NavLink>
         {/* If user is an admin, then this section will be rendered */}
         {user && user[config.roleUrl].includes('Admin') ? (
-          <NavLink to="events/create" w="15vw" min_w="25rem">
+          <NavLink to="events/create">
             <Box w="2rem" />
             <FaPen />
             <Box w="2rem" />
             <p>Create Event</p>
           </NavLink>
         ) : null}
-        <NavLink w="15vw" min_w="25rem" to="/">
+        {user && user[config.roleUrl].includes('Admin') ? (
+          <NavLink to="manage">
+            <Box w="2rem" />
+            <FaHome />
+            <Box w="2rem" />
+            <p>Manage Events</p>
+          </NavLink>
+        ) : null}
+        <NavLink to="/">
           <Box w="2rem" />
           <FaRegUser />
           <Box w="2rem" />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import EventCard from './EventCard';
 
@@ -6,18 +6,21 @@ import { useQuery } from 'react-apollo';
 import { GET_EVENT_LIST } from './queries';
 
 // Styling imports
-import { Flex, Box, Text } from 'adaptiv-ui';
+import { Flex, Box } from 'adaptiv-ui';
 
 export default function EventsCalendar() {
   // eslint-disable-next-line no-unused-vars
-  const { loading, error, data } = useQuery(GET_EVENT_LIST);
+  const { loading, error, data, refetch } = useQuery(GET_EVENT_LIST);
+   // refetches EVENT_LIST without refreshing page
+   useEffect(() => {
+    refetch();
+  },[]);
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
+ 
   return (
     <Flex ai_start col stretch>
-      <Text xlf bold mm>
-        Upcoming Events
-      </Text>
+      <h1>Upcoming Events</h1>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
 
       {data &&

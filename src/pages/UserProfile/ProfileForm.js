@@ -10,6 +10,11 @@ import {
   Input,
   theme,
   TextArea,
+<<<<<<< HEAD
+=======
+  Select,
+  ToolTip,
+>>>>>>> d97a5161aeb7642df29ddb09de76eedd2fd61305
 } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
 import * as yup from 'yup'
@@ -124,9 +129,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 
   return (
     <Flex ai_start col stretch>
-      <Text xlf bold mm>
-        Account Information
-      </Text>
+      <h1>Account Information</h1>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
       <Flex mm col ai_start>
         <Flex jc_between ai_center>
@@ -171,6 +174,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               <Text mf>First Name</Text>
               <Flex ai_center>
                 <Input
+                  autoFocus
                   type="text"
                   placeholder={userProfile ? userProfile.firstName : null}
                   w="25rem"

@@ -3,6 +3,10 @@ import gql from 'graphql-tag';
 export const GET_ACTIVITIES = gql`
   query GetActivities($id: ID) {
     event(where: { id: $id }) {
+      title
+      startDate
+      endDate
+      location
       activities {
         id
         name
