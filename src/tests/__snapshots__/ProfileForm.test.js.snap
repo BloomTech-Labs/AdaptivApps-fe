@@ -1,0 +1,208 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders profile form correctly 1`] = `
+<div
+  className="sc-ifAKCX cmbMjk"
+>
+  <h1>
+    Account Information
+  </h1>
+  <div
+    className="sc-iwsKbI jOijdN"
+  />
+  <div
+    className="sc-ifAKCX gDJgfb"
+  >
+    <div
+      className="sc-ifAKCX gxpeBj"
+    >
+      <div
+        className="sc-iwsKbI dcswkN"
+      >
+        <img
+          alt="Profile"
+        />
+      </div>
+      <div
+        className="sc-gqjmRU bQOFXJ"
+      >
+         
+      </div>
+    </div>
+    <div
+      className="sc-iwsKbI bqkBdz"
+    />
+    <div
+      className="sc-ifAKCX gHfEQj"
+    >
+      <div
+        className="sc-gqjmRU fLXnGQ"
+      >
+        Account Email Address
+      </div>
+      <div
+        className="sc-iwsKbI bqkBdz"
+      />
+      <div
+        className="sc-ifAKCX jLfGdD"
+      >
+        <div
+          className="sc-gqjmRU kVlJyR"
+        />
+      </div>
+      <div
+        className="sc-iwsKbI bqkBdz"
+      />
+    </div>
+    <form
+      className="sc-EHOje gLPZAQ"
+      onSubmit={[Function]}
+    >
+      <div
+        className="sc-gqjmRU cuJHHa"
+      >
+        Personal Information
+      </div>
+      <div
+        className="sc-iwsKbI bqkBdz"
+      />
+      <div
+        className="sc-ifAKCX euqiKW"
+      >
+        <div
+          className="sc-ifAKCX gHfEQj"
+        >
+          <div
+            className="sc-gqjmRU hCVKYo"
+          >
+            First Name
+          </div>
+          <div
+            className="sc-ifAKCX jLfGdD"
+          >
+            <input
+              autoFocus={true}
+              className="sc-bZQynM dDlBhs"
+              name="firstName"
+              placeholder={null}
+              type="text"
+            />
+          </div>
+        </div>
+        <div
+          className="sc-ifAKCX gHfEQj"
+        >
+          <div
+            className="sc-gqjmRU hCVKYo"
+          >
+            Last Name
+          </div>
+          <div
+            className="sc-ifAKCX jLfGdD"
+          >
+            <input
+              className="sc-bZQynM dDlBhs"
+              name="lastName"
+              placeholder={null}
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="sc-ifAKCX euqiKW"
+      >
+        <div
+          className="sc-ifAKCX gHfEQj"
+        >
+          <div
+            className="sc-gqjmRU hCVKYo"
+          >
+            Display Name
+          </div>
+          <div
+            className="sc-ifAKCX jLfGdD"
+          >
+            <input
+              className="sc-bZQynM dDlBhs"
+              name="displayName"
+              placeholder={null}
+              type="text"
+            />
+          </div>
+        </div>
+        <div
+          className="sc-ifAKCX gHfEQj"
+        >
+          <div
+            className="sc-gqjmRU hCVKYo"
+          >
+            Date of Birth
+          </div>
+          <div
+            className="sc-ifAKCX jLfGdD"
+          >
+            <input
+              className="sc-bZQynM dDlBhs"
+              name="birthday"
+              placeholder="mm/dd/yyyy"
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="sc-ifAKCX cmbMjk"
+      >
+        <div
+          className="sc-gqjmRU hCVKYo"
+        >
+          Bio
+        </div>
+        <textarea
+          className="sc-fjdhpX cfOWcZ"
+          cols="60"
+          name="bio"
+          placeholder={null}
+          rows="8"
+        />
+      </div>
+      <div
+        className="sc-ifAKCX euqiKW"
+      >
+        <div
+          className="sc-ifAKCX gHfEQj"
+        >
+          <div
+            className="sc-gqjmRU hCVKYo"
+          >
+            Disability Status
+          </div>
+          <div
+            className="sc-ifAKCX jLfGdD"
+          >
+            <input
+              className="sc-bZQynM dDlBhs"
+              name="disability"
+              placeholder={null}
+              type="select"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="sc-ifAKCX jTYOJY"
+      >
+        <button
+          aria-label="save changes to user profile"
+          className="sc-gzVnrw zKOMm"
+          onClick={[Function]}
+          type="submit"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;

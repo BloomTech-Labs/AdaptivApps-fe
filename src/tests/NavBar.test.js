@@ -1,10 +1,10 @@
 import React from 'react';
-import ProfileForm from '../pages/UserProfile/ProfileForm';
+import NavBar from '../pages/Landing/NavBar';
 import renderer from 'react-test-renderer';
 
-it('renders profile form correctly', () => {
+it('renders side nav correctly', () => {
   const tree = renderer
-    .create(<ProfileForm />)
+    .create(<NavBar />)
     .toJSON();
   expect(tree).toMatchSnapshot();
 });

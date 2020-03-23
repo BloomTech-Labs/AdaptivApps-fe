@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders event creation form correctly 1`] = `
+<div
+  className="sc-ifAKCX fpFZyH"
+>
+  <h1>
+    Create an Event
+  </h1>
+  <div
+    className="sc-iwsKbI jOijdN"
+  />
+  <div
+    className="sc-iwsKbI bqkBdz"
+  />
+  <form
+    className="sc-EHOje gLPZAQ"
+    onSubmit={[Function]}
+  >
+    <div
+      className="sc-gqjmRU hCVKYo"
+    >
+      Event Title
+    </div>
+    <div
+      className="sc-ifAKCX jLfGdD"
+    >
+      <input
+        className="sc-bZQynM dDlBhs"
+        name="title"
+        type="text"
+      />
+    </div>
+    <div
+      className="sc-gqjmRU hCVKYo"
+    >
+      Start Date
+    </div>
+    <div
+      className="sc-ifAKCX jLfGdD"
+    >
+      <input
+        className="sc-bZQynM dDlBhs"
+        name="startDate"
+        type="date"
+      />
+    </div>
+    <div
+      className="sc-gqjmRU hCVKYo"
+    >
+      End Date
+    </div>
+    <div
+      className="sc-ifAKCX jLfGdD"
+    >
+      <input
+        className="sc-bZQynM dDlBhs"
+        name="endDate"
+        type="date"
+      />
+    </div>
+    <div
+      className="sc-gqjmRU hCVKYo"
+    >
+      Location
+    </div>
+    <div
+      className="sc-ifAKCX jLfGdD"
+    >
+      <input
+        className="sc-bZQynM dDlBhs"
+        name="location"
+        type="text"
+      />
+    </div>
+    <div
+      className="sc-gqjmRU hCVKYo"
+    >
+      Image Url
+    </div>
+    <div
+      className="sc-ifAKCX jLfGdD"
+    >
+      <input
+        className="sc-bZQynM dDlBhs"
+        name="imgUrl"
+        type="text"
+      />
+    </div>
+    <div
+      className="sc-gqjmRU hCVKYo"
+    >
+      Details
+    </div>
+    <div
+      className="sc-ifAKCX jLfGdD"
+    >
+      <input
+        className="sc-bZQynM dDlBhs"
+        name="details"
+        type="text"
+      />
+    </div>
+    <button
+      className="sc-gzVnrw klnqKh"
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+`;
