@@ -17,11 +17,11 @@ export default function UserEventCard({ event, refetch }) {
   // Retrieves current user info
   const { user } = useAuth0();
   // Unregisters user from specified event
-  const unregisterFromEvent = () => {
-    updateProfile({
+  const unregisterFromEvent = async () => {
+    await updateProfile({
       variables: { id: event.id, email: user.email }
     });
-    refetch();
+    await refetch();
   };
 
   return (
