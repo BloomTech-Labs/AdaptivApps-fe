@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Text, Flex } from 'adaptiv-ui';
+import { Box, Text, Flex, Button } from 'adaptiv-ui';
 import UsersList from './UsersList';
 import UsersFilter from './UsersFilter';
 
@@ -15,43 +15,45 @@ const ManageUsers = () => {
       <Box h="0.2rem" w="90%" bg="lightgrey" />
       <Box h="2rem" />
 
-      {!showList ? (
-        <button
-          onClick={() => {
-            setShowList(!showList);
-          }}
-        >
-          See List of Users
-        </button>
-      ) : (
-        <button
-          onClick={() => {
-            setShowList(!showList);
-          }}
-        >
-          Hide
-        </button>
-      )}
-      {showList ? <UsersList /> : null}
+      <Flex ai_start col m="0 0 0 1rem">
+        {!showList ? (
+          <Button
+            onClick={() => {
+              setShowList(!showList);
+            }}
+          >
+            Show all users
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              setShowList(!showList);
+            }}
+          >
+            Hide users
+          </Button>
+        )}
+        {showList ? <UsersList /> : null}
 
-      {!showPanel ? (
-        <button
-          onClick={() => {
-            setShowPanel(!showPanel);
-          }}
-        >
-          Start Searching
-        </button>
-      ) : (
-        <button
-          onClick={() => {
-            setShowPanel(!showPanel);
-          }}
-        >
-          Hide
-        </button>
-      )}
-      {showPanel ? <UsersFilter /> : null}
+        {!showPanel ? (
+          <Button
+            onClick={() => {
+              setShowPanel(!showPanel);
+            }}
+          >
+            Start a customized search
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              setShowPanel(!showPanel);
+            }}
+          >
+            Hide search
+          </Button>
+        )}
+        {showPanel ? <UsersFilter /> : null}
+      </Flex>
     </Flex>
   );
 };

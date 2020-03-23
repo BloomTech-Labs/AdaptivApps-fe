@@ -25,6 +25,7 @@ const UsersList = () => {
           showTitle: false,
           paging: true,
           emptyRowsWhenPaging: false,
+          filtering: true,
           cellStyle: {
             fontSize: '1.2rem',
           },
