@@ -15,11 +15,27 @@ export default function ActivityList() {
   });
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
+  console.log(data);
   return (
     <Flex ai_start col stretch visible>
       <h1>Event Activities</h1>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
+      <Flex m="3rem 0">
+        <img
+          style={{ height: '15rem', width: '40rem', objectFit: 'cover' }}
+          src={data && data?.event?.imgUrl}
+        />
+        <Box m="auto 0">
+          <small style={{ margin: '1rem' }}>
+            {data.event.startDate}-{data.event.endDate}
+          </small>
+          <br />
+          <p style={{ margin: '1rem' }}>{data.event.title}</p>
+          <small style={{ margin: '1rem' }}>{data.event.location}</small>
+        </Box>
+      </Flex>
       <Flex visible col h="30rem" stretch>
+        <h6 style={{ margin: '0' }}>Activities Schedule</h6>
         {data &&
           data?.event?.activities.map((activity, id) => (
             <Activities key={id} activity={activity} />
