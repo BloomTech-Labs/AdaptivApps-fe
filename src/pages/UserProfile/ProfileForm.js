@@ -10,11 +10,8 @@ import {
   Input,
   theme,
   TextArea,
-<<<<<<< HEAD
-=======
   Select,
   ToolTip,
->>>>>>> d97a5161aeb7642df29ddb09de76eedd2fd61305
 } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
 import * as yup from 'yup'
