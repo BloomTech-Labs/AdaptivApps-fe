@@ -35,7 +35,7 @@ export default function EventCard({ event }) {
       <h6 style={{ marginLeft: '3rem' }}>
         <b>{event.title}</b>
       </h6>
-      <p style={{ marginLeft: '3rem' }}>{event.location}</p>
+      <p style={{ marginLeft: '3rem', maxWidth: '40rem' }}>{event.location}</p>
       <Button primary onClick={toggle} w="20rem">
         Add to my schedule
       </Button>

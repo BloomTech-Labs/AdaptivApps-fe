@@ -53,6 +53,7 @@ export const UPDATE_EVENT = gql`
       }
       where: { id: $id }
     ) {
+      id
       title
       startDate
       endDate
