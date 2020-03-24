@@ -264,7 +264,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                   <option value={false}>No</option>
                 </Select>
               </Flex>
-            </Flex> */}
+            </Flex>
           </Flex>
 
           <Flex w="50%" jc_between ai_center>
