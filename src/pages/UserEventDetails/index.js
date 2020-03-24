@@ -10,6 +10,7 @@ import { useAuth0 } from '../../config/react-auth0-spa';
 import { useQuery } from 'react-apollo';
 import { GET_EVENT_DETAILS } from './queries';
 // Styling imports
+import { Flex, Box } from 'adaptiv-ui';
 
 
 export default function UserEventDetails() {
@@ -18,16 +19,20 @@ export default function UserEventDetails() {
   const { loading, error, data } = useQuery(GET_EVENT_DETAILS, {
     variables: { id: eventId, email: user.email },
   });
+  const activeEvent = data?.profile?.events?.filter(event => event.id === eventId)
+  
   if (loading) return 'Loading...';
   if (error) return   `Error! ${error.message}`;
-  console.log(data)
+  console.log(eventId)
+  console.log('data', data.profile.events[0].activities)
+  console.log('active', activeEvent)
   return (
-    <div>
-      <h4>Event Details</h4>
-      {data &&
-        data?.profile?.events?.map((event, id) => (
-          <EventDetails key={id} event={event}/> 
-        ))}
-    </div>
+    <Flex ai_start col stretch>
+      <h4 style={{marginBottom: '0.5rem', fontSize: "2.4rem"}}>Event Details</h4>
+      <Box h="0.2rem" w="90%" bg="lightgrey" />
+      {activeEvent &&
+        <EventDetails event={activeEvent} />
+      }
+    </Flex>
   )
 }

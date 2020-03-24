@@ -8,7 +8,7 @@ import { UNREGISTER_FROM_EVENT } from './queries';
 // Auth0 imports
 import { useAuth0 } from '../../config/react-auth0-spa';
 //Styling imports
-import { Flex, Container, Button } from 'adaptiv-ui';
+import { Flex, Container, Button, Box } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
 
 
@@ -24,18 +24,20 @@ export default function UserEventCard({ event, refetch }) {
     await refetch();
   };
 
+  console.log(event);
+
   return (
-    <Flex col>
-      <Container bg_src={event.imgUrl} h="10vh" w="20rem"></Container>
-      <small>
+    <Flex col style={{marginTop: "1.2rem"}}>
+      <Container bg_src={event.imgUrl} h="20vh" w="30rem" style={{marginLeft: "0.4rem"}} ></Container>
+      <p style={{fontSize: "1.4rem", marginTop: "2rem", color: "#808080", marginLeft: "0.4rem"}} >
         {event.startDate} - {event.endDate}
-      </small>
-      <h6>
-        <b>{event.title}</b>
-      </h6>
-      <p>location</p>
-      <Button secondary="true" onClick={unregisterFromEvent}>Unregister</Button>
-      <Link to={`${event?.id}`}>View Details</Link>
+      </p>
+      <h6 style={{margin: "1rem 0.4rem", fontSize: "2.1rem"}}>{event.title}</h6>
+      <p style={{color: "#808080", marginLeft: "0.4rem"}}>{event.location}</p>
+      <Flex jc_between row style={{marginTop: "1.3rem"}}>
+        <Link to={`${event?.id}`} style={{color: "#2962ff", fontSize: "1.4rem", margin: "0.4rem"}}>VIEW DETAILS</Link>
+        <button onClick={unregisterFromEvent} style={{padding: "0", color: "#2962ff", fontSize: "1.4rem", border: "none", margin: "0.4rem"}}>UNREGISTER</button>
+      </Flex>
     </Flex>
   );
 }

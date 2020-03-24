@@ -8,6 +8,7 @@ export const GET_USER_EVENTS = gql`
       title
       startDate
       endDate
+      location
       imgUrl
       details
     }
