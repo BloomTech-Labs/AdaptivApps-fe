@@ -21,13 +21,19 @@ export default function UserEvents() {
   useEffect(() => {
     refetch();
   }, []);
+
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
   return (
     <Flex ai_start col stretch>
-      <h1>My Events</h1>
-      <Box h="0.2rem" w="90%" bg="lightgrey" />
-      {data && data.events.map((event, id) => <UserEventCard refetch={refetch} key={id} event={event} />)}
+      <h4 style={{marginBottom: '0.5rem', fontSize: "2.4rem"}}>My Events</h4>
+      <Box h="0.2rem" w="90%" bg="lightgrey"/>
+      <Flex jc_between row w="90%">
+      {data &&
+        data.events.map((event, id) => (
+          <UserEventCard refetch={refetch} key={id} event={event} />
+        ))}
+      </Flex>
     </Flex>
   );
 }
