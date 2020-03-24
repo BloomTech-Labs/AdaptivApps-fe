@@ -5,7 +5,7 @@ import Activities from './Activities';
 import { useParams } from '@reach/router';
 import { GET_EVENT_ACTIVITIES } from './queries/getActivities';
 
-import { Flex, Box, Text } from 'adaptiv-ui';
+import { Flex, Box } from 'adaptiv-ui';
 
 export default function ActivityList() {
   const { eventId } = useParams();
@@ -18,7 +18,7 @@ export default function ActivityList() {
   console.log(data);
   return (
     <Flex ai_start col stretch visible>
-      <h1>Event Activities</h1>
+      <h4>Event Activities</h4>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
       <Flex m="3rem 0">
         <img

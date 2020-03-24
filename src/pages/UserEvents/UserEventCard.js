@@ -1,8 +1,29 @@
+//React imports
 import React from 'react';
-import { Flex, Container } from 'adaptiv-ui';
+//Component imports
+import { Link } from '@reach/router';
+// GraphQL/Apollo imports
+import { useMutation } from 'react-apollo';
+import { UNREGISTER_FROM_EVENT } from './queries';
+// Auth0 imports
+import { useAuth0 } from '../../config/react-auth0-spa';
+//Styling imports
+import { Flex, Container, Button } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
 
-export default function UserEventCard({ event }) {
+
+export default function UserEventCard({ event, refetch }) {
+  const [updateProfile] = useMutation(UNREGISTER_FROM_EVENT);
+  // Retrieves current user info
+  const { user } = useAuth0();
+  // Unregisters user from specified event
+  const unregisterFromEvent = async () => {
+    await updateProfile({
+      variables: { id: event.id, email: user.email }
+    });
+    await refetch();
+  };
+
   return (
     <Flex col>
       <Container bg_src={event.imgUrl} h="10vh" w="20rem"></Container>
@@ -13,6 +34,8 @@ export default function UserEventCard({ event }) {
         <b>{event.title}</b>
       </h6>
       <p>location</p>
+      <Button secondary="true" onClick={unregisterFromEvent}>Unregister</Button>
+      <Link to={`${event?.id}`}>View Details</Link>
     </Flex>
   );
 }

@@ -52,25 +52,27 @@ const EventCreationForm = () => {
 
   return (
     <Flex ai_start col stretch m="0 0 0 2rem">
-      <h1>Create an Event</h1>
+      <h4>Create an Event</h4>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
       <Box h="2rem" />
       <Form ai_start col stretch onSubmit={handleSubmit(onSubmit)}>
-        <Text mf>Event Title</Text>
+        <label htmlFor="title">Event Title</label>
         <Flex ai_center>
           <Input
+            id="title"
             type="text"
             w="25rem"
             name="title"
             ref={register({
               required: 'Required',
             })}
-          />
+         />
         </Flex>
 
-        <Text mf>Start Date</Text>
+        <label htmlFor="startDate">Start Date</label>
         <Flex ai_center>
           <Input
+            id="startDate"
             type="date"
             w="25rem"
             name="startDate"
@@ -80,9 +82,10 @@ const EventCreationForm = () => {
           />
         </Flex>
 
-        <Text mf>End Date</Text>
+        <label htmlFor="endDate">End Date</label>
         <Flex ai_center>
           <Input
+            id="endDate"
             type="date"
             w="25rem"
             name="endDate"
@@ -92,9 +95,10 @@ const EventCreationForm = () => {
           />
         </Flex>
 
-        <Text mf>Location</Text>
+        <label htmlFor="location">Location</label>
         <Flex ai_center>
           <Input
+            id="location"
             type="text"
             w="25rem"
             name="location"
@@ -104,14 +108,14 @@ const EventCreationForm = () => {
           />
         </Flex>
 
-        <Text mf>Image Url</Text>
+        <label htmlFor="imgUrl">Image Url</label>
         <Flex ai_center>
-          <Input type="text" w="25rem" name="imgUrl" ref={register()} />
+          <Input id="imgUrl" type="text" w="25rem" name="imgUrl" ref={register()} />
         </Flex>
 
-        <Text mf>Details</Text>
+        <label htmlFor="details">Details</label>
         <Flex ai_center>
-          <Input type="text" w="25rem" name="details" ref={register()} />
+          <Input id="details" type="text" w="25rem" name="details" ref={register()} />
         </Flex>
 
         <Button

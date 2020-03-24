@@ -20,7 +20,7 @@ export default function EventsCalendar() {
 
   return (
     <Flex ai_start col stretch>
-      <h1>Upcoming Events</h1>
+      <h4>Upcoming Events</h4>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
 
       {data &&
