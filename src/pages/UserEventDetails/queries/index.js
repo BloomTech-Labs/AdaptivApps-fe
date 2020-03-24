@@ -19,6 +19,19 @@ export const GET_EVENT_DETAILS = gql`
           startDate
           location
           startTime
+          endTime
+          athletes {
+            id
+          }
+          coaches {
+            id
+          }
+          volunteers {
+            id
+          }
+          other {
+            id
+          }
         }
       }
     }

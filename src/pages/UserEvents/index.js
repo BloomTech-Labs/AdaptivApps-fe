@@ -29,10 +29,12 @@ export default function UserEvents() {
     <Flex ai_start col stretch>
       <h4 style={{marginBottom: '0.5rem', fontSize: "2.4rem"}}>My Events</h4>
       <Box h="0.2rem" w="90%" bg="lightgrey"/>
+      <Flex jc_between row w="90%">
       {data &&
         data.events.map((event, id) => (
           <UserEventCard refetch={refetch} key={id} event={event} />
         ))}
+      </Flex>
     </Flex>
   );
 }
