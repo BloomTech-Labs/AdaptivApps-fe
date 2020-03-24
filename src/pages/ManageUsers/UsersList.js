@@ -21,6 +21,7 @@ const UsersList = () => {
           { title: 'Legal Status', field: 'legal' },
         ]}
         options={{
+          selection: true,
           search: true,
           showTitle: false,
           paging: true,
@@ -33,6 +34,14 @@ const UsersList = () => {
             fontSize: '1.2rem',
           },
         }}
+        actions={[
+          {
+            tooltip: 'Send a message to all selected users',
+            icon: 'message',
+            onClick: (evt, data) =>
+              alert('Send messages to ' + data.length + ' users?'),
+          },
+        ]}
       />
     </Flex>
   );

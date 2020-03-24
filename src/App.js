@@ -10,8 +10,6 @@ import PrivateRoute from './routes/PrivateRoute';
 // Import page components
 import EventsCalendar from './pages/EventsCalendar';
 import UserProfile from './pages/UserProfile';
-import CreateEvent from './pages/CreateEvent';
-import AddActivity from './pages/AddActivity';
 import UserEvents from './pages/UserEvents';
 import ActivityList from './pages/ActivitiesList';
 import ManageEvents from './pages/ManageEvents';
@@ -65,8 +63,6 @@ function App() {
             <UserProfile path="/" />
             <EventsCalendar path="calendar" />
             <ActivityList path="calendar/:eventId" />
-            <CreateEvent path="events/create" />
-            <AddActivity path="events/create/:eventId" />
             <UserEvents path="myevents" />
             <ManageEvents path="manage" />
             <ManageUsers path="users" />
