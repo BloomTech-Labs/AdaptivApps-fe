@@ -5,6 +5,12 @@ export const GET_EVENT_ACTIVITIES = gql`
   query getEventActivities($id: ID!) {
     event(where: { id: $id }) {
       id
+      title
+      startDate
+      endDate
+      location
+      imgUrl
+      details
       activities {
         id
         name
