@@ -45,7 +45,7 @@ function App() {
     credentials: 'same-origin',
     request: async operation => {
       const token = await getIdTokenClaims();
-      // Attach token to headers
+      // Attach token to header
       operation.setContext(context => ({
         headers: {
           ...context.headers,
