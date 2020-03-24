@@ -62,11 +62,8 @@
     ]
   },
   "devDependencies": {
-<<<<<<< HEAD
     "@babel/helper-create-regexp-features-plugin": "^7.8.8",
-=======
     "@babel/core": "^7.8",
->>>>>>> 472817ba7fb670c241dbad3a7e1f2aea7a8d4b6d
     "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.18.3",
