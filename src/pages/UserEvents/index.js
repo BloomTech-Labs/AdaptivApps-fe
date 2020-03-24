@@ -24,7 +24,6 @@ export default function UserEvents() {
 
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
-
   return (
     <Flex ai_start col stretch>
       <h4 style={{marginBottom: '0.5rem', fontSize: "2.4rem"}}>My Events</h4>
