@@ -12,6 +12,7 @@ import EventsCalendar from './pages/EventsCalendar';
 import UserProfile from './pages/UserProfile';
 import UserEvents from './pages/UserEvents';
 import ActivityList from './pages/ActivitiesList';
+import UserEventDetails from './pages/UserEventDetails';
 import ManageEvents from './pages/ManageEvents';
 import Accessibility from './pages/Landing/Legal/Accessibility';
 import PrivacyPolicy from './pages/Landing/Legal/PrivacyPolicy';
@@ -43,6 +44,7 @@ function App() {
     credentials: 'same-origin',
     request: async operation => {
       const token = await getIdTokenClaims();
+      console.log(token.__raw)
       // Attach token to header
       operation.setContext(context => ({
         headers: {
@@ -64,6 +66,7 @@ function App() {
             <EventsCalendar path="calendar" />
             <ActivityList path="calendar/:eventId" />
             <UserEvents path="myevents" />
+            <UserEventDetails path="myevents/:eventId" />
             <ManageEvents path="manage" />
             <ManageUsers path="users" />
           </PrivateRoute>
