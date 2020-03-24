@@ -4,9 +4,9 @@ exports[`renders event creation form correctly 1`] = `
 <div
   className="sc-ifAKCX fpFZyH"
 >
-  <h1>
+  <h4>
     Create an Event
-  </h1>
+  </h4>
   <div
     className="sc-iwsKbI jOijdN"
   />
@@ -17,86 +17,92 @@ exports[`renders event creation form correctly 1`] = `
     className="sc-EHOje gLPZAQ"
     onSubmit={[Function]}
   >
-    <div
-      className="sc-gqjmRU hCVKYo"
+    <label
+      htmlFor="title"
     >
       Event Title
-    </div>
+    </label>
     <div
       className="sc-ifAKCX jLfGdD"
     >
       <input
         className="sc-bZQynM dDlBhs"
+        id="title"
         name="title"
         type="text"
       />
     </div>
-    <div
-      className="sc-gqjmRU hCVKYo"
+    <label
+      htmlFor="startDate"
     >
       Start Date
-    </div>
+    </label>
     <div
       className="sc-ifAKCX jLfGdD"
     >
       <input
         className="sc-bZQynM dDlBhs"
+        id="startDate"
         name="startDate"
         type="date"
       />
     </div>
-    <div
-      className="sc-gqjmRU hCVKYo"
+    <label
+      htmlFor="endDate"
     >
       End Date
-    </div>
+    </label>
     <div
       className="sc-ifAKCX jLfGdD"
     >
       <input
         className="sc-bZQynM dDlBhs"
+        id="endDate"
         name="endDate"
         type="date"
       />
     </div>
-    <div
-      className="sc-gqjmRU hCVKYo"
+    <label
+      htmlFor="location"
     >
       Location
-    </div>
+    </label>
     <div
       className="sc-ifAKCX jLfGdD"
     >
       <input
         className="sc-bZQynM dDlBhs"
+        id="location"
         name="location"
         type="text"
       />
     </div>
-    <div
-      className="sc-gqjmRU hCVKYo"
+    <label
+      htmlFor="imgUrl"
     >
       Image Url
-    </div>
+    </label>
     <div
       className="sc-ifAKCX jLfGdD"
     >
       <input
         className="sc-bZQynM dDlBhs"
+        id="imgUrl"
         name="imgUrl"
         type="text"
       />
     </div>
-    <div
-      className="sc-gqjmRU hCVKYo"
+    <label
+      htmlFor="details"
     >
       Details
-    </div>
+    </label>
     <div
       className="sc-ifAKCX jLfGdD"
     >
       <input
         className="sc-bZQynM dDlBhs"
+        id="details"
         name="details"
         type="text"
       />
