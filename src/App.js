@@ -62,7 +62,7 @@ function App() {
           <Accessibility path="/accessibility" />
           <PrivacyPolicy path="/privacy-policy" />
           <PrivateRoute path="/" component={DashRouter}>
-            <UserProfile path="profile" />
+            <UserProfile path="/" />
             <EventsCalendar path="calendar" />
             <ActivityList path="calendar/:eventId" />
             <CreateEvent path="events/create" />
