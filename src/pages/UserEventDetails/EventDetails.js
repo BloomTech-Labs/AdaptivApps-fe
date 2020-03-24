@@ -11,7 +11,7 @@ export default function EventDetails(props) {
   const activeEvent = props.event[0];
   const currentActivities = activeEvent.activities;
   const checkRoles = (list) => {
-    
+
   }
   
   console.log('inside EventDetails', activeEvent);
@@ -36,12 +36,22 @@ export default function EventDetails(props) {
      </Flex>
       <Flex visible col h="30rem" stretch>
         <p style={{fontWeight: "bold", fontSize: '1.8rem', marginBottom: "2rem"}}>My Activities</p>
-        {activeEvent.activities &&
-          activeEvent.activities.map((activity, id) => (
-            <ActivityDetails key={id} activity={activity} />
-          ))}
-      </Flex>
-      
+        <table>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Location</th>
+              <th>Time</th>
+              <th>My Role</th>
+            </tr>
+            {activeEvent.activities &&
+              activeEvent.activities.map((activity, id) => (
+                <ActivityDetails key={id} activity={activity} />
+            ))}
+          </tbody>
+        </table>  
+      </Flex>    
     </Flex>
   )
 }
