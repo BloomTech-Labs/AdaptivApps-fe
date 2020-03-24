@@ -1,20 +1,37 @@
 // React imports
 import React from 'react'
-import Activities from '../ActivitiesList/Activities';
+// Component imports
+import ActivityDetails from './ActivityDetails';
+// Styling import 
+import { Flex, Box } from 'adaptiv-ui';
 
 
 export default function EventDetails({ event }) {
   console.log(event.activities);
   return (
-    <div>
-      <h5>{event.title}</h5>
-      <p style={{fontWeight: "bold", fontSize: '1.8rem'}}>My Activities</p>
-      <p>{event.startDate}</p>
-      {event.activities &&
-        event?.activities?.map((activity, id) => (
-          <Activities key={id} activity={activity} />
-        ))}
+    <Flex ai_start col stretch visible>
+     <Flex m="3rem 0">
+      <img
+          style={{ height: '15rem', width: '40rem', objectFit: 'cover' }}
+          src={event.imgUrl}
+        />
+        <Box m="auto 0">
+          <small style={{ margin: '1rem', color: "#808080", fontSize: "1.5rem" }}>
+            {event.startDate}-{event.endDate}
+          </small>
+          <br />
+          <p style={{ margin: '1rem', fontWeight: 'bold', fontSize: "2.1rem" }}>{event.title}</p>
+          <p style={{ margin: '1rem', color: "#808080", fontSize: "1.5rem"}}>{event.location}</p>
+        </Box>
+     </Flex>
+      <Flex visible col h="30rem" stretch>
+        <p style={{fontWeight: "bold", fontSize: '1.8rem', marginBottom: "2rem"}}>My Activities</p>
+        {event.activities &&
+          event?.activities?.map((activity, id) => (
+            <ActivityDetails key={id} activity={activity} />
+          ))}
+      </Flex>
       
-    </div>
+    </Flex>
   )
 }
