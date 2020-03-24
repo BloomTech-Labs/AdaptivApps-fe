@@ -20,15 +20,20 @@ export default function EventCard({ event }) {
   const registerEvent = async () => {
     await updateEvent({
       variables: { id: event.id, email: user.email },
-    })
-    await navigate(`/calendar/${event.id}`)
+    });
+    await navigate(`/calendar/${event.id}`);
   };
 
   const [isActive, toggle] = useModal();
   console.log('image url', event);
   return (
     <Flex col>
-      <Container bg_src={event.imgUrl} h="20vh" w="30rem" m="3rem"></Container>
+      <Container
+        bg_src={event.imgUrl}
+        h="20vh"
+        w="30rem"
+        m="3rem 0 1rem "
+      ></Container>
       <small style={{ marginLeft: '3rem' }}>
         {event.startDate} - {event.endDate}
       </small>
