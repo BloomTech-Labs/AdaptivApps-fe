@@ -12,7 +12,7 @@ export default function UserEventCard({ event }) {
       <h6>
         <b>{event.title}</b>
       </h6>
-      <p>location</p>
+      <p>{event.location}</p>
     </Flex>
   );
 }

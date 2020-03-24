@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders user event card correctly 1`] = `
+<div
+  className="sc-ifAKCX jKRaVs"
+>
+  <div
+    className="sc-gZMcBi iauavI"
+  />
+  <small>
+    3/25/20
+     - 
+    3/26/20
+  </small>
+  <h6>
+    <b>
+      Test Event
+    </b>
+  </h6>
+  <p>
+    Test Location
+  </p>
+</div>
+`;
