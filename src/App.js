@@ -2,11 +2,9 @@
 import React from 'react';
 // Reach Router imports
 import { Router } from '@reach/router';
-
 // Import route components
 import DashRouter from './routes/DashRouter';
 import PrivateRoute from './routes/PrivateRoute';
-
 // Import page components
 import EventsCalendar from './pages/EventsCalendar';
 import UserProfile from './pages/UserProfile';
@@ -18,14 +16,11 @@ import UserEventDetails from './pages/UserEventDetails';
 import ManageEvents from './pages/ManageEvents';
 import Accessibility from './pages/Landing/Legal/Accessibility';
 import PrivacyPolicy from './pages/Landing/Legal/PrivacyPolicy';
-
 // Import apollo server
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
-
 // Google Analytics Imports
 import ReactGA from 'react-ga';
-
 // Auth0 imports
 import { useAuth0 } from './config/react-auth0-spa';
 
@@ -45,7 +40,6 @@ function App() {
     credentials: 'same-origin',
     request: async operation => {
       const token = await getIdTokenClaims();
-      console.log(token.__raw)
       // Attach token to header
       operation.setContext(context => ({
         headers: {
