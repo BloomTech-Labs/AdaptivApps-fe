@@ -1,0 +1,118 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders event creation form correctly 1`] = `
+<div
+  className="sc-ifAKCX fpFZyH"
+>
+  <h4>
+    Create an Event
+  </h4>
+  <div
+    className="sc-iwsKbI jOijdN"
+  />
+  <div
+    className="sc-iwsKbI bqkBdz"
+  />
+  <form
+    className="sc-EHOje gLPZAQ"
+    onSubmit={[Function]}
+  >
+    <label
+      htmlFor="title"
+    >
+      Event Title
+    </label>
+    <div
+      className="sc-ifAKCX jLfGdD"
+    >
+      <input
+        className="sc-bZQynM dDlBhs"
+        id="title"
+        name="title"
+        type="text"
+      />
+    </div>
+    <label
+      htmlFor="startDate"
+    >
+      Start Date
+    </label>
+    <div
+      className="sc-ifAKCX jLfGdD"
+    >
+      <input
+        className="sc-bZQynM dDlBhs"
+        id="startDate"
+        name="startDate"
+        type="date"
+      />
+    </div>
+    <label
+      htmlFor="endDate"
+    >
+      End Date
+    </label>
+    <div
+      className="sc-ifAKCX jLfGdD"
+    >
+      <input
+        className="sc-bZQynM dDlBhs"
+        id="endDate"
+        name="endDate"
+        type="date"
+      />
+    </div>
+    <label
+      htmlFor="location"
+    >
+      Location
+    </label>
+    <div
+      className="sc-ifAKCX jLfGdD"
+    >
+      <input
+        className="sc-bZQynM dDlBhs"
+        id="location"
+        name="location"
+        type="text"
+      />
+    </div>
+    <label
+      htmlFor="imgUrl"
+    >
+      Image Url
+    </label>
+    <div
+      className="sc-ifAKCX jLfGdD"
+    >
+      <input
+        className="sc-bZQynM dDlBhs"
+        id="imgUrl"
+        name="imgUrl"
+        type="text"
+      />
+    </div>
+    <label
+      htmlFor="details"
+    >
+      Details
+    </label>
+    <div
+      className="sc-ifAKCX jLfGdD"
+    >
+      <input
+        className="sc-bZQynM dDlBhs"
+        id="details"
+        name="details"
+        type="text"
+      />
+    </div>
+    <button
+      className="sc-gzVnrw klnqKh"
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+`;

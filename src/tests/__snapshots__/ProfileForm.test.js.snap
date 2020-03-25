@@ -1,0 +1,319 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders profile form correctly 1`] = `
+<div
+  className="sc-ifAKCX cmbMjk"
+>
+  <h4
+    style={
+      Object {
+        "fontSize": "2.4rem",
+        "marginBottom": "0.5rem",
+      }
+    }
+  >
+    Account Information
+  </h4>
+  <div
+    className="sc-iwsKbI jOijdN"
+  />
+  <div
+    className="sc-ifAKCX gDJgfb"
+    style={
+      Object {
+        "marginTop": 0,
+      }
+    }
+  >
+    <div
+      className="sc-ifAKCX gxpeBj"
+      style={
+        Object {
+          "marginTop": 0,
+        }
+      }
+    >
+      <div
+        className="sc-iwsKbI dcswkN"
+      >
+        <img
+          alt="Profile"
+        />
+      </div>
+      <div
+        className="sc-gqjmRU bQOFXJ"
+      >
+         
+      </div>
+    </div>
+    <div
+      className="sc-iwsKbI bqkBdz"
+    />
+    <div
+      className="sc-ifAKCX gHfEQj"
+    >
+      <h5
+        style={
+          Object {
+            "fontSize": "2.1rem",
+            "marginLeft": 0,
+          }
+        }
+      >
+        Account Email Address
+      </h5>
+      <div
+        className="sc-ifAKCX jLfGdD"
+      >
+        <div
+          className="sc-gqjmRU criljC"
+        />
+      </div>
+      <div
+        className="sc-iwsKbI bqkBdz"
+      />
+    </div>
+    <form
+      className="sc-EHOje gLPZAQ"
+      onSubmit={[Function]}
+    >
+      <h5
+        style={
+          Object {
+            "fontSize": "2.1rem",
+            "marginLeft": 0,
+          }
+        }
+      >
+        Personal Information
+      </h5>
+      <div
+        className="sc-ifAKCX euqiKW"
+      >
+        <div
+          className="sc-ifAKCX gHfEQj"
+        >
+          <label
+            className="sc-cSHVUG joCGnZ"
+            htmlFor="firstName"
+            style={
+              Object {
+                "marginBottom": "0.2rem",
+              }
+            }
+          >
+            First Name
+          </label>
+          <div
+            className="sc-ifAKCX jLfGdD"
+          >
+            <input
+              autoFocus={true}
+              className="sc-bZQynM dDlBhs"
+              id="firstName"
+              name="firstName"
+              placeholder={null}
+              style={
+                Object {
+                  "marginLeft": 0,
+                  "marginTop": 0,
+                }
+              }
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="sc-ifAKCX euqiKW"
+      >
+        <div
+          className="sc-ifAKCX gHfEQj"
+        >
+          <label
+            className="sc-cSHVUG joCGnZ"
+            htmlFor="displayName"
+            style={
+              Object {
+                "marginBottom": "0.2rem",
+              }
+            }
+          >
+            Display Name
+          </label>
+          <div
+            className="sc-ifAKCX jLfGdD"
+          >
+            <input
+              className="sc-bZQynM dDlBhs"
+              id="displayName"
+              name="displayName"
+              placeholder={null}
+              style={
+                Object {
+                  "marginLeft": 0,
+                  "marginTop": 0,
+                }
+              }
+              type="text"
+            />
+          </div>
+        </div>
+        <div
+          className="sc-ifAKCX gHfEQj"
+        >
+          <label
+            className="sc-cSHVUG joCGnZ"
+            htmlFor="birthday"
+            style={
+              Object {
+                "marginBottom": "0.2rem",
+              }
+            }
+          >
+            Date of Birth
+          </label>
+          <div
+            className="sc-ifAKCX jLfGdD"
+          >
+            <input
+              className="sc-bZQynM dDlBhs"
+              id="birthday"
+              name="birthday"
+              placeholder="mm/dd/yyyy"
+              style={
+                Object {
+                  "marginLeft": 0,
+                  "marginTop": 0,
+                }
+              }
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        className="sc-ifAKCX cmbMjk"
+      >
+        <label
+          className="sc-cSHVUG joCGnZ"
+          htmlFor="bio"
+          style={
+            Object {
+              "marginBottom": "0.2rem",
+            }
+          }
+        >
+          Bio
+        </label>
+        <textarea
+          className="sc-fjdhpX cfOWcZ"
+          cols="60"
+          id="bio"
+          name="bio"
+          placeholder={null}
+          rows="8"
+          style={
+            Object {
+              "marginLeft": 0,
+              "marginTop": 0,
+            }
+          }
+        />
+      </div>
+      <div
+        className="sc-ifAKCX euqiKW"
+      >
+        <div
+          className="sc-ifAKCX gHfEQj"
+        >
+          <label
+            htmlFor="disability"
+            style={
+              Object {
+                "marginBottom": "0.2rem",
+              }
+            }
+          >
+            Disability Status
+          </label>
+          <div
+            className="sc-ifAKCX jLfGdD"
+          >
+            <input
+              className="sc-bZQynM dDlBhs"
+              id="disability"
+              name="disability"
+              placeholder={null}
+              style={
+                Object {
+                  "marginLeft": 0,
+                  "marginTop": 0,
+                }
+              }
+              type="select"
+            />
+          </div>
+        </div>
+        <div
+          className="sc-ifAKCX gHfEQj"
+        >
+          <label
+            htmlFor="legal"
+            style={
+              Object {
+                "marginBottom": "0.2rem",
+              }
+            }
+          >
+            Are you over 18 years old?
+          </label>
+          <div
+            className="sc-ifAKCX jLfGdD"
+          >
+            <select
+              className="sc-VigVT iDFudI"
+              id="legal"
+              name="legal"
+              style={
+                Object {
+                  "marginLeft": 0,
+                  "marginTop": 0,
+                }
+              }
+            >
+              <option
+                value={true}
+              >
+                Yes
+              </option>
+              <option
+                value={false}
+              >
+                No
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div
+        className="sc-ifAKCX jTYOJY"
+      >
+        <button
+          aria-label="save changes to user profile"
+          className="sc-gzVnrw zKOMm"
+          onClick={[Function]}
+          style={
+            Object {
+              "marginLeft": 0,
+            }
+          }
+          type="submit"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;
