@@ -3,6 +3,10 @@ import { Box, Text, Flex, Button } from 'adaptiv-ui';
 import UsersList from './UsersList';
 import UsersFilter from './UsersFilter';
 
+// This page is still a work in progress
+// It will display a list of users, using material table, and an admin
+// Can select users to perform actions. For now that's a dummy function,
+// But in future can be functions like group messaging.
 const ManageUsers = () => {
   const [showList, setShowList] = useState(false);
   const [showPanel, setShowPanel] = useState(false);

@@ -4,6 +4,8 @@ import { useQuery } from 'react-apollo';
 import { GET_PROFILES } from './queries';
 import MaterialTable from 'material-table';
 
+// A list of users. Can be customized using material table.
+// Docs here https://material-table.com/
 const UsersList = () => {
   const { data } = useQuery(GET_PROFILES);
   console.log(data);

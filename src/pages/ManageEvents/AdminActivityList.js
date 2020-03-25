@@ -9,6 +9,7 @@ import {
 } from './queries';
 import MaterialTable from 'material-table';
 
+// Material table docs here: https://material-table.com/
 const AdminActivityList = props => {
   // Grab the event id from props
   const event_id = props.event_id;
