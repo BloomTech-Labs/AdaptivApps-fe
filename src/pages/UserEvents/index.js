@@ -13,7 +13,7 @@ import { Flex, Box } from 'adaptiv-ui';
 export default function UserEvents() {
   // Retrieves logged in user info
   const { user } = useAuth0();
-
+  // Retrieves all events a user is registered to
   const { error, loading, data, refetch } = useQuery(GET_USER_EVENTS, {
     variables: { email: user.email },
   });
