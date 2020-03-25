@@ -2,7 +2,7 @@ version: 0.1
 frontend:
   phases:
     preBuild:
-      commands:
+      commands: rm -rf node_modules
         - yarn install --force
     build:
       commands:
