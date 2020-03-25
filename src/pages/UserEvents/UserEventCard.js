@@ -27,8 +27,8 @@ export default function UserEventCard({ event, refetch }) {
   console.log(event);
 
   return (
-    <Flex col style={{marginTop: "1.2rem"}}>
-      <Container bg_src={event.imgUrl} h="20vh" w="30rem" style={{marginLeft: "0.4rem"}} ></Container>
+    <Flex col style={{margin: "1.2rem", boxShadow: "0px 3px 15px rgba(0,0,0,0.2)"}}>
+      <Container bg_src={event.imgUrl} h="20vh" w="30rem" ></Container>
       <p style={{fontSize: "1.4rem", marginTop: "2rem", color: "#808080", marginLeft: "0.4rem"}} >
         {event.startDate} - {event.endDate}
       </p>
