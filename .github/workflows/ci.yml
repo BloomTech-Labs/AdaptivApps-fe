@@ -9,9 +9,9 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: '12'
-      - run: npm install
+      - run: yarn install
       - uses: paambaati/codeclimate-action@v2.4.0
         env:
           CC_TEST_REPORTER_ID: ${{ secrets.CodeClimateReporterId }}
         with:
-          coverageCommand: npm run coverage
+          coverageCommand: yarn run coverage
