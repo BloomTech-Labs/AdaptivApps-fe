@@ -196,6 +196,7 @@ exports[`renders profile form correctly 1`] = `
         className="sc-ifAKCX cmbMjk"
       >
         <label
+          className="sc-cSHVUG joCGnZ"
           htmlFor="bio"
           style={
             Object {
