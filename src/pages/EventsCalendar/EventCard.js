@@ -53,12 +53,7 @@ export default function EventCard({ event }) {
             <b>{event.title}</b>
           </h6>
           <p>{event.location}</p>
-          <Text>
-            Join us in June 2020 for the 6th annual Angel City Games, presented
-            by The Hartford, the largest Paralympic-style adaptive sports event
-            in the Western US! We’ve added more sports to the schedule this year
-            and anticipate hosting our largest event ever - Don’t miss it!
-          </Text>
+          <Text>{event.details}</Text>
           <Text> Add to "My Events?"</Text>
           <Button autoFocus primary="true" onClick={registerEvent}>
             Join Event!
