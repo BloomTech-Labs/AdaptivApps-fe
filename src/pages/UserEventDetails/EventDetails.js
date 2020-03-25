@@ -5,7 +5,6 @@ import ActivityDetails from './ActivityDetails';
 // Styling import 
 import { Flex, Box } from 'adaptiv-ui';
 
-
 export default function EventDetails({ event }) {
    
   return (

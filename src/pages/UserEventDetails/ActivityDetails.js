@@ -16,6 +16,7 @@ export default function ActivityDetails({ activity }) {
     </tr>
   );
 }
+
 ActivityDetails.propTypes = {
   activity: PropTypes.object,
 };
