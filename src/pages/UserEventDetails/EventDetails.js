@@ -10,9 +10,7 @@ export default function EventDetails(props) {
   
   const activeEvent = props.event[0];
   const currentActivities = activeEvent.activities;
-  const checkRoles = (list) => {
-
-  }
+  
   
   console.log('inside EventDetails', activeEvent);
   return (
