@@ -20,8 +20,8 @@ export default function EventsCalendar() {
 
   return (
     <Flex ai_start col stretch>
-      <h4>Upcoming Events</h4>
-      <Box h="0.2rem" w="90%" bg="lightgrey" />
+      <h4 style={{ margin: '2rem 0 2rem 3rem' }}>Upcoming Events</h4>
+      <Box m="0 0 0 3rem" h="0.2rem" w="90%" bg="lightgrey" />
 
       {data &&
         data?.events?.map((event, id) => <EventCard key={id} event={event} />)}

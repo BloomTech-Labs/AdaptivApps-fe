@@ -20,15 +20,20 @@ export default function EventCard({ event }) {
   const registerEvent = async () => {
     await updateEvent({
       variables: { id: event.id, email: user.email },
-    })
-    await navigate(`/calendar/${event.id}`)
+    });
+    await navigate(`/calendar/${event.id}`);
   };
 
   const [isActive, toggle] = useModal();
   console.log('image url', event);
   return (
     <Flex col>
-      <Container bg_src={event.imgUrl} h="20vh" w="30rem" m="3rem"></Container>
+      <Container
+        bg_src={event.imgUrl}
+        h="20vh"
+        w="30rem"
+        m="3rem 0 1rem "
+      ></Container>
       <small style={{ marginLeft: '3rem' }}>
         {event.startDate} - {event.endDate}
       </small>
@@ -48,12 +53,7 @@ export default function EventCard({ event }) {
             <b>{event.title}</b>
           </h6>
           <p>{event.location}</p>
-          <Text>
-            Join us in June 2020 for the 6th annual Angel City Games, presented
-            by The Hartford, the largest Paralympic-style adaptive sports event
-            in the Western US! We’ve added more sports to the schedule this year
-            and anticipate hosting our largest event ever - Don’t miss it!
-          </Text>
+          <Text>{event.details}</Text>
           <Text> Add to "My Events?"</Text>
           <Button autoFocus primary="true" onClick={registerEvent}>
             Join Event!
