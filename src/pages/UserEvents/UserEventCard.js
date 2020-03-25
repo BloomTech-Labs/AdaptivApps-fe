@@ -27,16 +27,18 @@ export default function UserEventCard({ event, refetch }) {
   console.log(event);
 
   return (
-    <Flex col style={{marginTop: "1.2rem"}}>
-      <Container bg_src={event.imgUrl} h="20vh" w="30rem" style={{marginLeft: "0.4rem"}} ></Container>
-      <p style={{fontSize: "1.4rem", marginTop: "2rem", color: "#808080", marginLeft: "0.4rem"}} >
-        {event.startDate} - {event.endDate}
-      </p>
-      <h6 style={{margin: "1rem 0.4rem", fontSize: "2.1rem"}}>{event.title}</h6>
-      <p style={{color: "#808080", marginLeft: "0.4rem"}}>{event.location}</p>
-      <Flex jc_between row style={{marginTop: "1.3rem"}}>
-        <Link to={`${event?.id}`} style={{color: "#2962ff", fontSize: "1.4rem", margin: "0.4rem"}}>VIEW DETAILS</Link>
-        <button onClick={unregisterFromEvent} style={{padding: "0", color: "#2962ff", fontSize: "1.4rem", border: "none", margin: "0.4rem"}}>UNREGISTER</button>
+    <Flex  col style={{margin: "1.2rem", boxShadow: "0px 3px 15px rgba(0,0,0,0.2)"}}>
+      <Container  bg_src={event.imgUrl} h="20vh" w="30rem" ></Container>
+      <Flex col xsm>
+        <p style={{fontSize: "1.4rem", marginTop: "2rem", color: "#808080", marginLeft: "0.4rem"}} >
+          {event.startDate} - {event.endDate}
+        </p>
+        <h6 style={{margin: "1rem 0.4rem", fontSize: "2.1rem"}}>{event.title}</h6>
+        <p style={{color: "#808080", marginLeft: "0.4rem"}}>{event.location}</p>
+        <Flex jc_between row style={{marginTop: "1.3rem"}}>
+          <Link to={`${event?.id}`} style={{color: "#2962ff", fontSize: "1.4rem", margin: "0.4rem"}}>VIEW DETAILS</Link>
+          <button onClick={unregisterFromEvent} style={{padding: "0", color: "#2962ff", fontSize: "1.4rem", border: "none", margin: "0.4rem"}}>UNREGISTER</button>
+        </Flex>
       </Flex>
     </Flex>
   );
