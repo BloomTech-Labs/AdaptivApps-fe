@@ -4,6 +4,7 @@ import { useMutation } from 'react-apollo';
 import MaterialTable from 'material-table';
 import AdminActivityList from './AdminActivityList';
 import { CREATE_EVENT, UPDATE_EVENT, DELETE_EVENT } from './queries';
+import { red } from '@material-ui/core/colors';
 
 const AdminEventList = props => {
   const [CreateEvent] = useMutation(CREATE_EVENT);
@@ -15,7 +16,7 @@ const AdminEventList = props => {
   return (
     <Flex col m="0 0 0 1.5rem" w="90%">
       <MaterialTable
-        title=""
+        title="Add An Event"
         columns={[
           { title: 'Title', field: 'title' },
           {
@@ -43,7 +44,17 @@ const AdminEventList = props => {
             ),
           },
           { title: 'Location', field: 'location' },
-          { title: 'Image Url', field: 'imgUrl' },
+          {
+            title: 'Image Url',
+            field: 'imgUrl',
+            render: rowData => (
+              <img
+                style={{ height: 50, width: 50, borderRadius: '50%' }}
+                src={rowData.imgUrl}
+              />
+            ),
+            cellStyle: rowData => ({}),
+          },
           {
             title: 'Details',
             field: 'details',

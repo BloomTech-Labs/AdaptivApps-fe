@@ -35,7 +35,10 @@ export default function EventDetails(props) {
     });
 
   checkRoles(currentActivities);
-  console.log('Watermelon Boba tea', filteredActivities);
+  console.log(
+    'Drinking butter beer and eating chocolate frogs',
+    filteredActivities
+  );
 
   return (
     <Flex ai_start col stretch visible>
