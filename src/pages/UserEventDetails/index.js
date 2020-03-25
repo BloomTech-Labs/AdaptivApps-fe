@@ -20,19 +20,22 @@ export default function UserEventDetails() {
     variables: { id: eventId, email: user.email },
   });
   
-  
   if (loading) return 'Loading...';
   if (error) return   `Error! ${error.message}`;
-  console.log(eventId)
-  console.log('data', data)
+  
+  console.log('data', data.events)
+  const activeEvent = data.events;
+  console.log('activeEvent', activeEvent);
   
   return (
     <Flex ai_start col stretch>
       <h4 style={{marginBottom: '0.5rem', fontSize: "2.4rem"}}>Event Details</h4>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
+      
       {activeEvent &&
-        <EventDetails event={activeEvent} />
-      }
+          activeEvent.map((event, id) => (
+            <EventDetails key={id} event={event} />
+      ))}
     </Flex>
   )
 }
