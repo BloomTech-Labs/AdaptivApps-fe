@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Input } from 'adaptiv-ui';
+import { Flex, Input, Button, theme } from 'adaptiv-ui';
 import { useMutation } from 'react-apollo';
 import MaterialTable from 'material-table';
 import AdminActivityList from './AdminActivityList';
@@ -105,7 +105,11 @@ const AdminEventList = props => {
           },
         }}
         icons={{
-          Add: () => 'Add Event',
+          Add: () => (
+            <Button primary border={`2px solid ${theme.primary}`}>
+              Add Event
+            </Button>
+          ),
         }}
         detailPanel={[
           {

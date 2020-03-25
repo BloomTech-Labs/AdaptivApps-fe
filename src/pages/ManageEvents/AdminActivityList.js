@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Input } from 'adaptiv-ui';
+import { Flex, Input, Button, theme } from 'adaptiv-ui';
 import { useQuery, useMutation } from 'react-apollo';
 import {
   CREATE_ACTIVITY,
@@ -94,7 +94,13 @@ const AdminActivityList = props => {
             refetch();
           },
         }}
-        icons={{ Add: () => 'Add Activity' }}
+        icons={{
+          Add: () => (
+            <Button primary border={`2px solid ${theme.primary}`}>
+              Add Activity
+            </Button>
+          ),
+        }}
         options={{
           search: false,
           showTitle: true,
