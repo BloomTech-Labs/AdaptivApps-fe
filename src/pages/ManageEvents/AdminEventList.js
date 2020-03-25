@@ -16,7 +16,7 @@ const AdminEventList = props => {
   return (
     <Flex col m="0 0 0 1.5rem" w="90%">
       <MaterialTable
-        title="Add An Event"
+        title=""
         columns={[
           { title: 'Title', field: 'title' },
           {
@@ -53,7 +53,6 @@ const AdminEventList = props => {
                 src={rowData.imgUrl}
               />
             ),
-            cellStyle: rowData => ({}),
           },
           {
             title: 'Details',
@@ -105,6 +104,9 @@ const AdminEventList = props => {
             props.eventsRefetch();
           },
         }}
+        icons={{
+          Add: () => 'Add Event',
+        }}
         detailPanel={[
           {
             tooltip: 'Show Activities',
@@ -128,6 +130,7 @@ const AdminEventList = props => {
             backgroundColor: '#EEE',
           },
           emptyRowsWhenPaging: false,
+          toolbarButtonAlignment: 'left',
         }}
       />
     </Flex>

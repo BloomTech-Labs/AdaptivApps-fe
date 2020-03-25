@@ -24,7 +24,7 @@ const AdminActivityList = props => {
   return (
     <Flex col m="0 2% 0 2%">
       <MaterialTable
-        title="List of Activities"
+        title=""
         columns={[
           { title: 'Name', field: 'name' },
           {
@@ -94,6 +94,7 @@ const AdminActivityList = props => {
             refetch();
           },
         }}
+        icons={{ Add: () => 'Add Activity' }}
         options={{
           search: false,
           showTitle: true,
@@ -105,6 +106,7 @@ const AdminActivityList = props => {
           headerStyle: {
             fontSize: '1.2rem',
           },
+          toolbarButtonAlignment: 'left',
         }}
       />
     </Flex>
