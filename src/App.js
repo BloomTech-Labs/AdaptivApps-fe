@@ -27,7 +27,7 @@ import { useAuth0 } from './config/react-auth0-spa';
 const trackingId = 'UA-159556430-1';
 
 (function initializeReactGA() {
-  ReactGA.initialize(trackingId);
+  ReactGA.initialize(trackingId, { testMode: true });
   ReactGA.pageview('/');
 })();
 
