@@ -27,7 +27,7 @@ export default function UserEventCard({ event, refetch }) {
   console.log(event);
 
   return (
-    <Flex  col style={{margin: "1.2rem"}}>
+    <Flex  col style={{margin: "2.2rem 1.2rem"}}>
       <Flex col style={{margin: "0rem 0.4rem 0rem 0.4rem"}}>
       <Container  bg_src={event.imgUrl} h="20vh" w="30rem" style={{ borderRadius: "0.3rem"}} ></Container>
       <p style={{fontSize: "1.4rem", margin: "1.6rem 0rem 0rem 0rem", color: "#808080"}} >
