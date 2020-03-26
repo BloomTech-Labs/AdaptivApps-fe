@@ -14,14 +14,13 @@ export default function EventDetails({ event }) {
           style={{ height: '16rem', width: '36rem', objectFit: 'cover' }}
           src={event.imgUrl}
         />
-        <Box m="2.4rem">
-          <small style={{ margin: '1rem', color: "#808080", fontSize: "1.4rem" }}>
-            {event.startDate}-{event.endDate}
-          </small>
-          <br />
-          <p style={{ margin: '1rem', fontWeight: 'bold', fontSize: "2.1rem" }}>{event.title}</p>
-          <p style={{ margin: '1rem', color: "#808080", fontSize: "1.5rem"}}>{event.location}</p>
-        </Box>
+        <Flex col jc_center m="2.4rem" >
+          <p style={{ margin: '0.4rem 0rem', color: "#808080", fontSize: "1.4rem" }}>
+            {event.startDate} - {event.endDate}
+          </p>
+          <p style={{ margin: '0rem', fontWeight: 'bold', fontSize: "2.1rem" }}>{event.title}</p>
+          <p style={{ margin: '0.4rem 0rem', color: "#808080", fontSize: "1.4rem"}}>{event.location}</p>
+        </Flex>
      </Flex>
      <Flex>
        <p style={{ marginBottom: '2rem'}}>{event.details}</p>
