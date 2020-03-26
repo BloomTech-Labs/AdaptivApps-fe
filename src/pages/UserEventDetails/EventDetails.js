@@ -14,8 +14,8 @@ export default function EventDetails({ event }) {
           style={{ height: '16rem', width: '36rem', objectFit: 'cover' }}
           src={event.imgUrl}
         />
-        <Box m="auto 0">
-          <small style={{ margin: '1rem', color: "#808080", fontSize: "1.5rem" }}>
+        <Box m="2.4rem">
+          <small style={{ margin: '1rem', color: "#808080", fontSize: "1.4rem" }}>
             {event.startDate}-{event.endDate}
           </small>
           <br />
