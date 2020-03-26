@@ -85,37 +85,44 @@ export default function EventDetails(props) {
     });
 
   checkRoles(currentActivities);
-  console.log(
-    'Drinking butter beer and eating chocolate frogs',
-    filteredActivities,
-    userID
-  );
 
   return (
-    <Flex ai_start col stretch visible>
-      <Flex m="3rem 0">
+    <Flex ai_start col stretch visible style={{ margin: '2.2rem 1.2rem' }}>
+      <Flex m="0rem 0.4rem 0rem 0.4rem">
         <img
-          style={{ height: '15rem', width: '40rem', objectFit: 'cover' }}
-          src={activeEvent?.imgUrl}
+          style={{ height: '16rem', width: '36rem', objectFit: 'cover' }}
+          src={activeEvent.imgUrl}
         />
-        <Box m="auto 0">
-          <small
-            style={{ margin: '1rem', color: '#808080', fontSize: '1.5rem' }}
+        <Flex col jc_center m="2.4rem">
+          <p
+            style={{
+              margin: '0.4rem 0rem',
+              color: '#808080',
+              fontSize: '1.4rem',
+            }}
           >
-            {activeEvent?.startDate}-{activeEvent?.endDate}
-          </small>
-          <br />
-          <p style={{ margin: '1rem', fontWeight: 'bold', fontSize: '2.1rem' }}>
+            {activeEvent.startDate} - {activeEvent.endDate}
+          </p>
+          <p style={{ margin: '0rem', fontWeight: 'bold', fontSize: '2.1rem' }}>
             {activeEvent.title}
           </p>
-          <p style={{ margin: '1rem', color: '#808080', fontSize: '1.5rem' }}>
+          <p
+            style={{
+              margin: '0.4rem 0rem',
+              color: '#808080',
+              fontSize: '1.4rem',
+            }}
+          >
             {activeEvent.location}
           </p>
-        </Box>
+        </Flex>
       </Flex>
       <Flex>
-        <p style={{ marginBottom: '2rem' }}>{activeEvent.details}</p>
+        <p style={{ marginBottom: '2rem', marginTop: '1.6rem' }}>
+          {activeEvent.details}
+        </p>
       </Flex>
+
       <Flex visible col h="30rem" stretch>
         <p
           style={{
@@ -126,10 +133,21 @@ export default function EventDetails(props) {
         >
           My Activities
         </p>
-        {filteredActivities &&
-          filteredActivities.map((activity, id) => (
-            <ActivityDetails key={id} activity={activity} />
-          ))}
+        <table>
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Location</th>
+              <th>Time</th>
+              <th>My Role</th>
+            </tr>
+            {filteredActivities &&
+              filteredActivities.map((activity, id) => (
+                <ActivityDetails key={id} activity={activity} />
+              ))}
+          </tbody>
+        </table>
       </Flex>
     </Flex>
   );
