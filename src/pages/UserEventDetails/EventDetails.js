@@ -23,7 +23,7 @@ export default function EventDetails({ event }) {
         </Flex>
      </Flex>
      <Flex>
-       <p style={{ marginBottom: '2rem'}}>{event.details}</p>
+       <p style={{ marginBottom: '2rem', marginTop: '1.6rem'}}>{event.details}</p>
      </Flex>
       <Flex visible col h="30rem" stretch>
         <p style={{fontWeight: "bold", fontSize: '1.8rem', marginBottom: "2rem"}}>My Activities</p>
@@ -34,7 +34,7 @@ export default function EventDetails({ event }) {
               <th>Date</th>
               <th>Location</th>
               <th>Time</th>
-              <th>My Role</th>
+              {/* <th>My Role</th> this feature coming soon */}
             </tr>
             {event.activities &&
               event.activities.map((activity, id) => (
