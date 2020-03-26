@@ -11,7 +11,7 @@ export default function EventDetails({ event }) {
     <Flex ai_start col stretch visible>
      <Flex m="3rem 0">
       <img
-          style={{ height: '15rem', width: '40rem', objectFit: 'cover' }}
+          style={{ height: '16rem', width: '36rem', objectFit: 'cover' }}
           src={event.imgUrl}
         />
         <Box m="auto 0">
