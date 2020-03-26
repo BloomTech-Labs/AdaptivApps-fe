@@ -8,8 +8,8 @@ import { Flex, Box } from 'adaptiv-ui';
 export default function EventDetails({ event }) {
    
   return (
-    <Flex ai_start col stretch visible>
-     <Flex m="3rem 0">
+    <Flex ai_start col stretch visible style={{margin: "2.2rem 1.2rem"}}>
+     <Flex m="0rem 0.4rem 0rem 0.4rem">
       <img
           style={{ height: '16rem', width: '36rem', objectFit: 'cover' }}
           src={event.imgUrl}
