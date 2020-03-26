@@ -8,14 +8,14 @@ import PrivateRoute from './routes/PrivateRoute';
 // Import page components
 import EventsCalendar from './pages/EventsCalendar';
 import UserProfile from './pages/UserProfile';
-import CreateEvent from './pages/CreateEvent';
-import AddActivity from './pages/AddActivity';
 import UserEvents from './pages/UserEvents';
 import ActivityList from './pages/ActivitiesList';
 import UserEventDetails from './pages/UserEventDetails';
 import ManageEvents from './pages/ManageEvents';
 import Accessibility from './pages/Landing/Legal/Accessibility';
 import PrivacyPolicy from './pages/Landing/Legal/PrivacyPolicy';
+import ManageUsers from './pages/ManageUsers';
+
 // Import apollo server
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
@@ -60,11 +60,10 @@ function App() {
             <UserProfile path="/" />
             <EventsCalendar path="calendar" />
             <ActivityList path="calendar/:eventId" />
-            <CreateEvent path="events/create" />
-            <AddActivity path="events/create/:eventId" />
             <UserEvents path="myevents" />
             <UserEventDetails path="myevents/:eventId" />
             <ManageEvents path="manage" />
+            <ManageUsers path="users" />
           </PrivateRoute>
         </Router>
       </div>

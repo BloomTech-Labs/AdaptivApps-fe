@@ -7,7 +7,6 @@ import {
   FaRegCalendar,
   FaRegBookmark,
   FaRegUser,
-  FaPen,
   FaHome,
 } from 'react-icons/fa';
 import { FiLogOut } from 'react-icons/fi';
@@ -47,19 +46,19 @@ const SideNav = () => {
         </NavLink>
         {/* If user is an admin, then this section will be rendered */}
         {user && user[config.roleUrl].includes('Admin') ? (
-          <NavLink to="events/create">
-            <Box w="2rem" />
-            <FaPen />
-            <Box w="2rem" />
-            <p>Create Event</p>
-          </NavLink>
-        ) : null}
-        {user && user[config.roleUrl].includes('Admin') ? (
           <NavLink to="manage">
             <Box w="2rem" />
             <FaHome />
             <Box w="2rem" />
             <p>Manage Events</p>
+          </NavLink>
+        ) : null}
+        {user && user[config.roleUrl].includes('Admin') ? (
+          <NavLink to="users">
+            <Box w="2rem" />
+            <FaHome />
+            <Box w="2rem" />
+            <p>Manage Users</p>
           </NavLink>
         ) : null}
         <NavLink to="/">

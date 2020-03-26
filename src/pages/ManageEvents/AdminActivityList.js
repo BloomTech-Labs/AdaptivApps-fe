@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Input } from 'adaptiv-ui';
+import { Flex, Input, Button, theme } from 'adaptiv-ui';
 import { useQuery, useMutation } from 'react-apollo';
 import {
   CREATE_ACTIVITY,
@@ -9,22 +9,28 @@ import {
 } from './queries';
 import MaterialTable from 'material-table';
 
+// Material table docs here: https://material-table.com/
 const AdminActivityList = props => {
+  // Grab the event id from props
   const event_id = props.event_id;
+  // Call backend to fetch the one event associated with event id
   const { data, refetch } = useQuery(GET_ONE_EVENT, {
     variables: {
       id: event_id,
     },
   });
 
+  // Declares C, U, and D for activities
   const [CreateActivity] = useMutation(CREATE_ACTIVITY);
   const [UpdateActivity] = useMutation(UPDATE_ACTIVITY);
   const [DeleteActivity] = useMutation(DELETE_ACTIVITY);
 
+  // Similar to its parent component, activities list will be displayed
+  // Using material table.
   return (
     <Flex col m="0 2% 0 2%">
       <MaterialTable
-        title="List of Activities"
+        title=""
         columns={[
           { title: 'Name', field: 'name' },
           {
@@ -94,6 +100,13 @@ const AdminActivityList = props => {
             refetch();
           },
         }}
+        icons={{
+          Add: () => (
+            <Button primary border={`2px solid ${theme.primary}`}>
+              Add Activity
+            </Button>
+          ),
+        }}
         options={{
           search: false,
           showTitle: true,
@@ -105,6 +118,7 @@ const AdminActivityList = props => {
           headerStyle: {
             fontSize: '1.2rem',
           },
+          toolbarButtonAlignment: 'left',
         }}
       />
     </Flex>
