@@ -31,7 +31,7 @@ export default function UserEventDetails() {
   return (
     <Flex ai_start col stretch style={{marginLeft: "1rem", marginTop: "4rem"}}>
       <h4 style={{marginBottom: '0.5rem', fontSize: "2.4rem"}}>Event Details</h4>
-      <Box h="0.2rem" w="90%" bg="lightgrey" />
+      <Box h="0.2rem" w="90%" bg="lightgrey" m="0 0 0 1.6rem" />
       
       {activeEvent &&
           activeEvent.map((event, id) => (
