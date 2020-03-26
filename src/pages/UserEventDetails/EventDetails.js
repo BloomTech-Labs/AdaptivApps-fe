@@ -12,39 +12,43 @@ export default function EventDetails(props) {
   const filteredActivities = [];
 
   const checkUserInAthletes = athletes => {
+    let mark = false;
     athletes.forEach(athlete => {
       if (athlete.id === userID) {
-        return true;
+        mark = true;
       }
     });
-    return false;
+    return mark;
   };
 
   const checkUserInCoaches = coaches => {
+    let mark = false;
     coaches.forEach(coach => {
       if (coach.id === userID) {
-        return true;
+        mark = true;
       }
     });
-    return false;
+    return mark;
   };
 
   const checkUserInVolunteers = volunteers => {
+    let mark = false;
     volunteers.forEach(volunteer => {
       if (volunteer.id === userID) {
-        return true;
+        mark = true;
       }
     });
-    return false;
+    return mark;
   };
 
   const checkUserInOthers = others => {
+    let mark = false;
     others.forEach(other => {
       if (other.id === userID) {
-        return true;
+        mark = true;
       }
     });
-    return false;
+    return mark;
   };
 
   const checkRoles = activities =>
@@ -72,7 +76,7 @@ export default function EventDetails(props) {
         }
       }
       if (activity.other.length > 0) {
-        if (checkUserInOthers(activity.others)) {
+        if (checkUserInOthers(activity.other)) {
           const updated = activity;
           updated.message = 'Other';
           filteredActivities.push(activity);
