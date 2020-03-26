@@ -8,23 +8,22 @@ import { Flex, Box } from 'adaptiv-ui';
 export default function EventDetails({ event }) {
    
   return (
-    <Flex ai_start col stretch visible>
-     <Flex m="3rem 0">
+    <Flex ai_start col stretch visible style={{margin: "2.2rem 1.2rem"}}>
+     <Flex m="0rem 0.4rem 0rem 0.4rem">
       <img
-          style={{ height: '15rem', width: '40rem', objectFit: 'cover' }}
+          style={{ height: '16rem', width: '36rem', objectFit: 'cover' }}
           src={event.imgUrl}
         />
-        <Box m="auto 0">
-          <small style={{ margin: '1rem', color: "#808080", fontSize: "1.5rem" }}>
-            {event.startDate}-{event.endDate}
-          </small>
-          <br />
-          <p style={{ margin: '1rem', fontWeight: 'bold', fontSize: "2.1rem" }}>{event.title}</p>
-          <p style={{ margin: '1rem', color: "#808080", fontSize: "1.5rem"}}>{event.location}</p>
-        </Box>
+        <Flex col jc_center m="2.4rem" >
+          <p style={{ margin: '0.4rem 0rem', color: "#808080", fontSize: "1.4rem" }}>
+            {event.startDate} - {event.endDate}
+          </p>
+          <p style={{ margin: '0rem', fontWeight: 'bold', fontSize: "2.1rem" }}>{event.title}</p>
+          <p style={{ margin: '0.4rem 0rem', color: "#808080", fontSize: "1.4rem"}}>{event.location}</p>
+        </Flex>
      </Flex>
      <Flex>
-       <p style={{ marginBottom: '2rem'}}>{event.details}</p>
+       <p style={{ marginBottom: '2rem', marginTop: '1.6rem'}}>{event.details}</p>
      </Flex>
       <Flex visible col h="30rem" stretch>
         <p style={{fontWeight: "bold", fontSize: '1.8rem', marginBottom: "2rem"}}>My Activities</p>
@@ -35,7 +34,7 @@ export default function EventDetails({ event }) {
               <th>Date</th>
               <th>Location</th>
               <th>Time</th>
-              <th>My Role</th>
+              {/* <th>My Role</th> this feature coming soon */}
             </tr>
             {event.activities &&
               event.activities.map((activity, id) => (
