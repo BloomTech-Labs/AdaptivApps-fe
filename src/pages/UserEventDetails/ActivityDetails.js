@@ -1,8 +1,8 @@
 // React imports
 import React from 'react';
 // Styling imports
-import { Flex } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
+import { Flex } from 'adaptiv-ui';
 import '../ActivitiesList/styles.css';
 
 export default function ActivityDetails({ activity }) {
@@ -29,6 +29,7 @@ export default function ActivityDetails({ activity }) {
     </Flex>
   );
 }
+
 ActivityDetails.propTypes = {
   activity: PropTypes.object,
 };

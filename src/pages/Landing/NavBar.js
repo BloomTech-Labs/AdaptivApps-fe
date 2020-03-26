@@ -1,10 +1,10 @@
 import React from 'react';
 import { useAuth0 } from '../../config/react-auth0-spa';
-import { Flex, Box, Button, Linkton, theme } from 'adaptiv-ui';
+import { Flex, Box, Button, theme } from 'adaptiv-ui';
 import acsLogo from '../../assets/images/acsLogo.png';
 
 const NavBar = () => {
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   return (
     <Flex h="10rem" stretch>
@@ -40,28 +40,6 @@ const NavBar = () => {
         >
           Sign Up
         </Button>
-
-        {isAuthenticated && (
-          <Linkton
-            border={`2px solid ${theme.primary}`}
-            primary
-            to="/dashboard"
-          >
-            Profile
-          </Linkton>
-        )}
-
-        {/* If a user is logged in (authenticated), log out functionality will be enabled.) */}
-        {isAuthenticated && (
-          <Button
-            border={`2px solid ${theme.primary}`}
-            primary
-            aria-label="log out"
-            onClick={() => logout()}
-          >
-            Log out
-          </Button>
-        )}
 
         <Box w="3rem" />
       </Flex>

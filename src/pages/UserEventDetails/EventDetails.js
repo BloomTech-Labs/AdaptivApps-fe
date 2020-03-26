@@ -7,7 +7,7 @@ import { Flex, Box } from 'adaptiv-ui';
 
 export default function EventDetails(props) {
   const userID = props.userID;
-  const activeEvent = props.event[0];
+  const activeEvent = props.event;
   const currentActivities = activeEvent.activities;
   const filteredActivities = [];
 
@@ -54,31 +54,31 @@ export default function EventDetails(props) {
   const checkRoles = activities =>
     activities &&
     activities.forEach(activity => {
-      if (activity.athletes.length > 0) {
+      if (activity?.athletes && activity?.athletes.length > 0) {
         if (checkUserInAthletes(activity.athletes)) {
           const updated = activity;
           updated.message = 'Participating';
           filteredActivities.push(updated);
         }
       }
-      if (activity.coaches.length > 0) {
+      if (activity?.coaches && activity?.coaches.length > 0) {
         if (checkUserInCoaches(activity.coaches)) {
           const updated = activity;
           updated.message = 'Coaching';
           filteredActivities.push(activity);
         }
       }
-      if (activity.volunteers.length > 0) {
+      if (activity?.volunteers && activity?.volunteers.length > 0) {
         if (checkUserInVolunteers(activity.volunteers)) {
           const updated = activity;
           updated.message = 'Volunteering';
           filteredActivities.push(activity);
         }
       }
-      if (activity.other.length > 0) {
+      if (activity?.other && activity?.other.length > 0) {
         if (checkUserInOthers(activity.other)) {
           const updated = activity;
-          updated.message = 'Other';
+          updated.message = 'Watching';
           filteredActivities.push(activity);
         }
       }

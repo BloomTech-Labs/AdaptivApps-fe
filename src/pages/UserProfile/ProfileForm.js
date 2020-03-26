@@ -14,6 +14,17 @@ import {
   Label,
 } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
+import * as yup from 'yup'
+
+const ProfileSchema = yup.object().shape({
+  firstName: yup.string().min(2).max(15),
+  lastName: yup.string().min(3).max(15),
+  displayName: yup.string().max(10),
+  birthday: yup.string().max(10),
+  bio: yup.string().max(255),
+  disability: yup.string(), //string?
+  // legal: yup.bool()
+});
 
 // This is the form being used in UserDashboard
 const ProfileForm = ({ loading, profile, user, updateProfile }) => {
@@ -22,6 +33,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 
   const { handleSubmit, register, setValue } = useForm({
     mode: 'onSubmit',
+    validationSchema: ProfileSchema,
     defaultValues: {
       email: user && user.email,
       firstName: userProfile && userProfile.firstName,
@@ -114,7 +126,9 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 
   return (
     <Flex ai_start col stretch>
-      <h4 style={{marginBottom: '0.5rem', fontSize: "2.4rem"}}>Account Information</h4>
+      <h4 style={{ marginBottom: '0.5rem', fontSize: '2.4rem' }}>
+        Account Information
+      </h4>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
       <Flex mm col ai_start style={{ marginTop: 0 }}>
         <Flex jc_between ai_center style={{ marginTop: 0 }}>
@@ -133,7 +147,9 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
         </Flex>
         <Box h="2rem" />
         <Flex ai_start col>
-          <h5 style={{ marginLeft: 0, fontSize: "2.1rem" }}>Account Email Address</h5>
+          <h5 style={{ marginLeft: 0, fontSize: '2.1rem' }}>
+            Account Email Address
+          </h5>
           <Flex ai_center>
             <Text mlf>
               {userProfile ? userProfile.email : user && user.email}
@@ -143,7 +159,9 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
         </Flex>
 
         <Form ai_start col stretch onSubmit={handleSubmit(onSubmit)}>
-          <h5 style={{ marginLeft: 0, fontSize: "2.1rem" }}>Personal Information</h5>
+          <h5 style={{ marginLeft: 0, fontSize: '2.1rem' }}>
+            Personal Information
+          </h5>
 
           <Flex jc_between stretch>
             <Flex ai_start col>
@@ -204,9 +222,9 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
           </Flex>
 
           <Flex ai_start col stretch>
-            <label htmlFor="bio" style={{ marginBottom: '0.2rem' }}>
+            <Label htmlFor="bio" style={{ marginBottom: '0.2rem' }}>
               Bio
-            </label>
+            </Label>
             <TextArea
               id="bio"
               rows="8"

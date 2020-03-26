@@ -2,11 +2,9 @@
 import React from 'react';
 // Reach Router imports
 import { Router } from '@reach/router';
-
 // Import route components
 import DashRouter from './routes/DashRouter';
 import PrivateRoute from './routes/PrivateRoute';
-
 // Import page components
 import EventsCalendar from './pages/EventsCalendar';
 import UserProfile from './pages/UserProfile';
@@ -21,17 +19,15 @@ import ManageUsers from './pages/ManageUsers';
 // Import apollo server
 import { ApolloProvider } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-boost';
-
 // Google Analytics Imports
 import ReactGA from 'react-ga';
-
 // Auth0 imports
 import { useAuth0 } from './config/react-auth0-spa';
 
 const trackingId = 'UA-159556430-1';
 
 (function initializeReactGA() {
-  ReactGA.initialize(trackingId);
+  ReactGA.initialize(trackingId, { testMode: true });
   ReactGA.pageview('/');
 })();
 
@@ -44,7 +40,6 @@ function App() {
     credentials: 'same-origin',
     request: async operation => {
       const token = await getIdTokenClaims();
-      // console.log(token.__raw)
       // Attach token to header
       operation.setContext(context => ({
         headers: {
