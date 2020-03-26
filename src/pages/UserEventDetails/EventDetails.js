@@ -6,38 +6,85 @@ import ActivityDetails from './ActivityDetails';
 import { Flex, Box } from 'adaptiv-ui';
 
 export default function EventDetails(props) {
+  const userID = props.userID;
   const activeEvent = props.event[0];
   const currentActivities = activeEvent.activities;
   const filteredActivities = [];
+
+  const checkUserInAthletes = athletes => {
+    athletes.forEach(athlete => {
+      if (athlete.id === userID) {
+        return true;
+      }
+    });
+    return false;
+  };
+
+  const checkUserInCoaches = coaches => {
+    coaches.forEach(coach => {
+      if (coach.id === userID) {
+        return true;
+      }
+    });
+    return false;
+  };
+
+  const checkUserInVolunteers = volunteers => {
+    volunteers.forEach(volunteer => {
+      if (volunteer.id === userID) {
+        return true;
+      }
+    });
+    return false;
+  };
+
+  const checkUserInOthers = others => {
+    others.forEach(other => {
+      if (other.id === userID) {
+        return true;
+      }
+    });
+    return false;
+  };
+
   const checkRoles = activities =>
     activities &&
     activities.forEach(activity => {
       if (activity.athletes.length > 0) {
-        const updated = activity;
-        updated.message = 'Participating';
-        filteredActivities.push(updated);
+        if (checkUserInAthletes(activity.athletes)) {
+          const updated = activity;
+          updated.message = 'Participating';
+          filteredActivities.push(updated);
+        }
       }
       if (activity.coaches.length > 0) {
-        const updated = activity;
-        updated.message = 'Coaching';
-        filteredActivities.push(activity);
+        if (checkUserInCoaches(activity.coaches)) {
+          const updated = activity;
+          updated.message = 'Coaching';
+          filteredActivities.push(activity);
+        }
       }
       if (activity.volunteers.length > 0) {
-        const updated = activity;
-        updated.message = 'Volunteering';
-        filteredActivities.push(activity);
+        if (checkUserInVolunteers(activity.volunteers)) {
+          const updated = activity;
+          updated.message = 'Volunteering';
+          filteredActivities.push(activity);
+        }
       }
       if (activity.other.length > 0) {
-        const updated = activity;
-        updated.message = 'Other';
-        filteredActivities.push(activity);
+        if (checkUserInOthers(activity.others)) {
+          const updated = activity;
+          updated.message = 'Other';
+          filteredActivities.push(activity);
+        }
       }
     });
 
   checkRoles(currentActivities);
   console.log(
     'Drinking butter beer and eating chocolate frogs',
-    filteredActivities
+    filteredActivities,
+    userID
   );
 
   return (

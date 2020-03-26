@@ -22,6 +22,8 @@ export default function UserEventDetails() {
     event => event.id === eventId
   );
 
+  const userID = data?.profile?.id;
+
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
   // console.log(eventId)
@@ -33,7 +35,7 @@ export default function UserEventDetails() {
         Event Details
       </h4>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
-      {activeEvent && <EventDetails event={activeEvent} />}
+      {activeEvent && <EventDetails event={activeEvent} userID={userID} />}
     </Flex>
   );
 }
