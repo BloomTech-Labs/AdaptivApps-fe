@@ -14,6 +14,17 @@ import {
   Label,
 } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
+import * as yup from 'yup'
+
+const ProfileSchema = yup.object().shape({
+  firstName: yup.string().min(2).max(15),
+  lastName: yup.string().min(3).max(15),
+  displayName: yup.string().max(10),
+  birthday: yup.string().max(10),
+  bio: yup.string().max(255),
+  disability: yup.string(), //string?
+  // legal: yup.bool()
+});
 
 // This is the form being used in UserDashboard
 const ProfileForm = ({ loading, profile, user, updateProfile }) => {
@@ -22,6 +33,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 
   const { handleSubmit, register, setValue } = useForm({
     mode: 'onSubmit',
+    validationSchema: ProfileSchema,
     defaultValues: {
       email: user && user.email,
       firstName: userProfile && userProfile.firstName,
