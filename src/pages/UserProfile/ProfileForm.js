@@ -125,11 +125,11 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   const userPicture = user && user.picture;
 
   return (
-    <Flex ai_start col stretch>
+    <Flex ai_start col stretch style={{marginLeft: "1rem", marginTop: "4rem"}}>
       <h4 style={{ marginBottom: '0.5rem', fontSize: '2.4rem' }}>
         Account Information
       </h4>
-      <Box h="0.2rem" w="90%" bg="lightgrey" />
+      <Box h="0.2rem" w="90%" bg="lightgrey" m="0 0 0 1.6rem" />
       <Flex mm col ai_start style={{ marginTop: 0 }}>
         <Flex jc_between ai_center style={{ marginTop: 0 }}>
           <Box sqr="5rem">
