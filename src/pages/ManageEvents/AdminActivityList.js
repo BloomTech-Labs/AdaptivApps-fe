@@ -7,7 +7,7 @@ import {
   DELETE_ACTIVITY,
   GET_ONE_EVENT,
 } from './queries';
-import MaterialTable from 'material-table';
+import MaterialTable, { MTableToolbar } from 'material-table';
 
 // Material table docs here: https://material-table.com/
 const AdminActivityList = props => {
@@ -113,10 +113,10 @@ const AdminActivityList = props => {
           paging: false,
           emptyRowsWhenPaging: false,
           cellStyle: {
-            fontSize: '1.2rem',
+            fontSize: '1.4rem',
           },
           headerStyle: {
-            fontSize: '1.2rem',
+            fontSize: '1.4rem',
           },
           toolbarButtonAlignment: 'left',
         }}

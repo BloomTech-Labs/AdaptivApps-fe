@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, Button, theme } from 'adaptiv-ui';
-import { Input, TablePagination } from '@material-ui/core';
+import { Input, TablePagination, Select, MenuItem } from '@material-ui/core';
 import { useMutation } from 'react-apollo';
 import MaterialTable from 'material-table';
 import AdminActivityList from './AdminActivityList';
@@ -20,7 +20,7 @@ const AdminEventList = props => {
   // For more info on material table, please visit their docs at
   // https://material-table.com/
   return (
-    <Flex col m="0 0 0 1.5rem" w="90%">
+    <Flex col w="90%">
       <MaterialTable
         components={{
           Pagination: props => (
@@ -28,7 +28,7 @@ const AdminEventList = props => {
               {...props}
               SelectProps={{
                 style: {
-                  fontSize: '1.6rem',
+                  fontSize: '1.4rem',
                 },
               }}
             />
@@ -41,7 +41,6 @@ const AdminEventList = props => {
             field: 'title',
             editComponent: props => (
               <Input
-                size="small"
                 type="text"
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
@@ -52,12 +51,13 @@ const AdminEventList = props => {
             title: 'Type',
             field: 'type',
             editComponent: props => (
-              <Input
-                type="text"
+              <Select
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
-                m="0 0 0 -0.5rem"
-              />
+              >
+                <MenuItem value="Physical Event">Physical Event</MenuItem>
+                <MenuItem value="Webinar">Webinar</MenuItem>
+              </Select>
             ),
           },
           {
@@ -89,7 +89,7 @@ const AdminEventList = props => {
             field: 'startTime',
             editComponent: props => (
               <Input
-                type="text"
+                type="time"
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
                 m="0 0 0 -0.5rem"
@@ -134,7 +134,7 @@ const AdminEventList = props => {
           },
           {
             title: 'Zoom Link',
-            field: 'zoomlink',
+            field: 'zoomLink',
             editComponent: props => (
               <Input
                 type="text"
@@ -266,6 +266,7 @@ const AdminEventList = props => {
         ]}
         options={{
           cellStyle: {
+            width: '200rem',
             fontSize: '1.6rem',
           },
           headerStyle: {
