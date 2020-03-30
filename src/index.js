@@ -1,7 +1,7 @@
 // Import dependencies
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { AppWrapper } from 'adaptiv-ui';
+// import { AppWrapper } from 'adaptiv-ui';
 
 // Import project configurations from local files
 import { Auth0Provider } from './config/react-auth0-spa';
@@ -20,9 +20,7 @@ ReactDOM.render(
     responseType={config.responseType}
     scope={config.scope}
   >
-    <AppWrapper bg="white">
-      <App />
-    </AppWrapper>
+    <App />
   </Auth0Provider>,
   document.getElementById('root')
 );

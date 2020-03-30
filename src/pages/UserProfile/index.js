@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useQuery } from 'react-apollo';
-import ProfileForm from './ProfileForm';
+import ProfileForm from './ProfileForm2';
 import { useMutation } from 'react-apollo';
 import PropTypes from 'prop-types';
 import { UPDATE_USER_PROFILE, ADD_USER_PROFILE, PROFILE_INFO } from './queries';

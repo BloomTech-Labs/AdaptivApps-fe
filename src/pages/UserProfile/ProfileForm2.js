@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import config from '../../config/auth_config';
 import { useForm } from 'react-hook-form';
-import PropTypes from 'prop-types';
-import * as yup from 'yup';
-//material ui
+import {
+  Flex,
+  Text,
+  Button,
+  Form,
+  Input,
+  theme,
+  TextArea,
+  Select,
+  Label,
+} from 'adaptiv-ui';
 import {
   makeStyles,
   Container,
@@ -11,37 +19,25 @@ import {
   Grid,
   Box,
 } from '@material-ui/core';
+import PropTypes from 'prop-types';
+import * as yup from 'yup';
 
 const useStyles = makeStyles({
   root: {
     maxwidth: '100%',
     width: '90%',
-    fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
   },
-  headingBox: {
-    margin: '4rem 0 2rem 3rem',
-    fontWeight: '400',
+  typography: {
+    padding: '3rem 0 0 3rem',
   },
-  profileContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginLeft: '0.6rem',
+  span: {
+    margin: '0 0 2rem 3rem',
+    width: '90%',
+    height: '0.2rem',
+    background: 'lightgrey',
   },
-  profileHeader: {
-    fontWeight: '400',
-    marginLeft: '0',
-  },
-  profileInfo: {
-    display: 'flex',
-  },
-  profileImg: {
-    maxWidth: '5rem',
-  },
-  profileText: {
-    margin: '0 0 0 1rem',
-    fontSize: '1.8rem',
-    alignSelf: 'flex-end',
-  },
+  profileImg: { maxWidth: '5rem' },
+  profileInfo: { display: 'flex' },
 });
 
 const ProfileSchema = yup.object().shape({
@@ -160,52 +156,82 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   const userPicture = user && user.picture;
 
   return (
-    <main className={classes.root}>
-      <Box className={classes.headingBox} borderBottom={1}>
-        <Typography className={classes.heading} variant="h3" gutterBottom>
+    <div className={classes.root}>
+      <Container className={classes.grid}>
+        <Typography className={classes.typography} variant="h3" gutterBottom>
           Account Information
         </Typography>
-      </Box>
-      <Container className={classes.profileContainer}>
-        <h5 className={classes.profileHeader}>Account Email Address</h5>
-        <Box className={classes.profileInfo}>
-          <img
-            className={classes.profileImg}
-            src={userPicture}
-            alt="Profile Image"
-          />
-          <Typography className={classes.profileText}>
-            {userProfile && userProfile.firstName !== null
-              ? `${userProfile && userProfile.firstName} ${userProfile &&
-                  userProfile.lastName}`
-              : user && user.name}{' '}
-            {user && user[config.roleUrl].includes('Admin') ? (
-              <Typography>{user && user[config.roleUrl]}</Typography>
-            ) : null}
-          </Typography>
-        </Box>
-        <FormControl onSubmit={handleSubmit(onSubmit)}>
-          <h5>Personal Information</h5>
-          <Container>
-            <InputLabel htmlFor="firstName">First Name</InputLabel>
-            <Input
-              id="firstName"
-              type="text"
-              placeholder={userProfile ? userProfile.firstName : null}
-              name="firstName"
-              ref={register}
-            />
-
-            <InputLabel htmlFor="displayName">Display Name</InputLabel>
+        <Box className={classes.span} borderBottom={1} />
+        <Container>
+          <Box className={classes.profileInfo}>
+            <Box className={classes.profileImg}>
+              <img src={userPicture} alt="Profile Image" />
+            </Box>
+            <Text lf sm>
+              {userProfile && userProfile.firstName !== null
+                ? `${userProfile && userProfile.firstName} ${userProfile &&
+                    userProfile.lastName}`
+                : user && user.name}{' '}
+              {user && user[config.roleUrl].includes('Admin') ? (
+                <Text>{user && user[config.roleUrl]}</Text>
+              ) : null}
+            </Text>
+          </Box>
+          <Box h="2rem" />
+          <Flex ai_start col>
+            <h5 style={{ marginLeft: 0, fontSize: '2.1rem' }}>
+              Account Email Address
+            </h5>
             <Flex ai_center>
-              <Input
-                id="displayName"
-                type="text"
-                placeholder={userProfile ? userProfile.displayName : null}
-                name="displayName"
-                ref={register}
-                style={{ marginLeft: 0, marginTop: 0 }}
-              />
+              <Text mlf>
+                {userProfile ? userProfile.email : user && user.email}
+              </Text>
+            </Flex>
+            <Box h="2rem" />
+          </Flex>
+
+          <Form ai_start col stretch onSubmit={handleSubmit(onSubmit)}>
+            <h5 style={{ marginLeft: 0, fontSize: '2.1rem' }}>
+              Personal Information
+            </h5>
+
+            <Flex jc_between stretch>
+              <Flex ai_start col>
+                <Label htmlFor="firstName" style={{ marginBottom: '0.2rem' }}>
+                  First Name
+                </Label>
+                <Flex ai_center>
+                  <Input
+                    autoFocus
+                    id="firstName"
+                    type="text"
+                    placeholder={userProfile ? userProfile.firstName : null}
+                    w="25rem"
+                    name="firstName"
+                    ref={register}
+                    style={{ marginTop: 0, marginLeft: 0 }}
+                  />
+                </Flex>
+              </Flex>
+            </Flex>
+
+            <Flex jc_between stretch>
+              <Flex ai_start col>
+                <Label htmlFor="displayName" style={{ marginBottom: '0.2rem' }}>
+                  Display Name
+                </Label>
+                <Flex ai_center>
+                  <Input
+                    id="displayName"
+                    type="text"
+                    placeholder={userProfile ? userProfile.displayName : null}
+                    w="25rem"
+                    name="displayName"
+                    ref={register}
+                    style={{ marginLeft: 0, marginTop: 0 }}
+                  />
+                </Flex>
+              </Flex>
 
               <Flex ai_start col>
                 <Label htmlFor="birthday" style={{ marginBottom: '0.2rem' }}>
@@ -297,10 +323,10 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               </Button>
               {updated === true ? handleUpdated() : null}
             </Flex>
-          </Container>
-        </FormControl>
+          </Form>
+        </Container>
       </Container>
-    </main>
+    </div>
   );
 };
 
