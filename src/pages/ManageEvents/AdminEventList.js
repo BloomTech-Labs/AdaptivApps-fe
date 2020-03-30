@@ -1,5 +1,6 @@
 import React from 'react';
-import { Flex, Input, Button, theme } from 'adaptiv-ui';
+import { Flex, Button, theme } from 'adaptiv-ui';
+import { Input, TablePagination } from '@material-ui/core';
 import { useMutation } from 'react-apollo';
 import MaterialTable from 'material-table';
 import AdminActivityList from './AdminActivityList';
@@ -21,9 +22,80 @@ const AdminEventList = props => {
   return (
     <Flex col m="0 0 0 1.5rem" w="90%">
       <MaterialTable
+        components={{
+          Pagination: props => (
+            <TablePagination
+              {...props}
+              SelectProps={{
+                style: {
+                  fontSize: '1.6rem',
+                },
+              }}
+            />
+          ),
+        }}
         title=""
         columns={[
-          { title: 'Title', field: 'title' },
+          {
+            title: 'Title',
+            field: 'title',
+            editComponent: props => (
+              <Input
+                size="small"
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+              />
+            ),
+          },
+          {
+            title: 'Type',
+            field: 'type',
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+                m="0 0 0 -0.5rem"
+              />
+            ),
+          },
+          {
+            title: 'Host',
+            field: 'host',
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+                m="0 0 0 -0.5rem"
+              />
+            ),
+          },
+          {
+            title: 'Speakers',
+            field: 'speakers',
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+              />
+            ),
+          },
+
+          {
+            title: 'Start Time',
+            field: 'startTime',
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+                m="0 0 0 -0.5rem"
+              />
+            ),
+          },
           {
             title: 'Start Date',
             field: 'startDate',
@@ -48,7 +120,29 @@ const AdminEventList = props => {
               />
             ),
           },
-          { title: 'Location', field: 'location' },
+          {
+            title: 'Location',
+            field: 'location',
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+                m="0 0 0 -0.5rem"
+              />
+            ),
+          },
+          {
+            title: 'Zoom Link',
+            field: 'zoomlink',
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+              />
+            ),
+          },
           {
             title: 'Image Url',
             field: 'imgUrl',
@@ -58,12 +152,44 @@ const AdminEventList = props => {
                 src={rowData.imgUrl}
               />
             ),
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+                m="0 0 0 -0.5rem"
+              />
+            ),
+          },
+          {
+            title: 'Sponsors',
+            field: 'sponsors',
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+              />
+            ),
           },
           {
             title: 'Details',
             field: 'details',
+            render: rowData => (
+              <div
+                style={{
+                  width: '30rem',
+                  maxHeight: '14rem',
+                  overflow: 'scroll',
+                }}
+              >
+                {rowData.details}
+              </div>
+            ),
             editComponent: props => (
               <textarea
+                rows="12"
+                cols="60"
                 type="text"
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
@@ -77,10 +203,15 @@ const AdminEventList = props => {
             await CreateEvent({
               variables: {
                 title: newData.title,
+                type: newData.type,
+                host: newData.host,
+                speakers: newData.speakers,
+                startTime: newData.startTime,
                 startDate: newData.startDate,
                 endDate: newData.endDate,
                 location: newData.location,
                 imgUrl: newData.imgUrl,
+                sponsors: newData.sponsors,
                 details: newData.details,
               },
             });
@@ -91,10 +222,15 @@ const AdminEventList = props => {
               variables: {
                 id: newData.id,
                 title: newData.title,
+                type: newData.type,
+                host: newData.host,
+                speakers: newData.speakers,
+                startTime: newData.startTime,
                 startDate: newData.startDate,
                 endDate: newData.endDate,
                 location: newData.location,
                 imgUrl: newData.imgUrl,
+                sponsors: newData.sponsors,
                 details: newData.details,
               },
             });
@@ -130,18 +266,22 @@ const AdminEventList = props => {
         ]}
         options={{
           cellStyle: {
-            fontSize: '1.4rem',
+            fontSize: '1.6rem',
           },
           headerStyle: {
-            fontSize: '1.4rem',
+            fontSize: '1.6rem',
             backgroundColor: '#2962FF',
             color: '#FFF',
           },
           rowStyle: {
-            backgroundColor: '#EEE',
+            backgroundColor: '#FFF',
           },
           emptyRowsWhenPaging: false,
           toolbarButtonAlignment: 'left',
+          searchFieldStyle: {
+            width: '20rem',
+            fontSize: '1.6rem',
+          },
         }}
       />
     </Flex>

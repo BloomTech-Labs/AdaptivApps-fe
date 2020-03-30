@@ -10,6 +10,7 @@ import { useAuth0 } from '../../config/react-auth0-spa';
 // Styling imports
 import { Flex, Container, Button, Modal, useModal, Text } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
+import { blue } from '@material-ui/core/colors';
 
 export default function EventCard({ event }) {
   const [updateEvent] = useMutation(REGISTER_EVENT);
@@ -27,42 +28,72 @@ export default function EventCard({ event }) {
   const [isActive, toggle] = useModal();
   console.log('image url', event);
   return (
-    <Flex col>
-      <Container
-        bg_src={event.imgUrl}
-        h="20vh"
-        w="30rem"
-        m="3rem 0 1rem "
-      ></Container>
-      <small style={{ marginLeft: '3rem' }}>
-        {event.startDate} - {event.endDate}
-      </small>
-      <h6 style={{ marginLeft: '3rem' }}>
-        <b>{event.title}</b>
-      </h6>
-      <p style={{ marginLeft: '3rem', maxWidth: '40rem' }}>{event.location}</p>
-      <Button primary onClick={toggle} w="20rem">
-        Add to my schedule
-      </Button>
-      <Modal isActive={isActive}>
-        <Flex w="40rem" h="40rem" drape>
-          <small>
-            {event.startDate} - {event.endDate}
-          </small>
-          <h6>
-            <b>{event.title}</b>
-          </h6>
-          <p>{event.location}</p>
-          <Text>{event.details}</Text>
-          <Text> Add to "My Events?"</Text>
-          <Button autoFocus primary="true" onClick={registerEvent}>
-            Join Event!
-          </Button>
-          <Button secondary onClick={toggle}>
-            Close
-          </Button>
-        </Flex>
-      </Modal>
+    <Flex col style={{ margin: '2.2rem 1.2rem' }}>
+      <Flex col style={{ margin: '0rem 0.4rem 0rem 0.4rem' }}>
+        <Container
+          bg_src={event.imgUrl}
+          h="20vh"
+          w="30rem"
+          style={{ borderRadius: '0.3rem' }}
+        ></Container>
+        <small
+          style={{
+            fontSize: '1.4rem',
+            margin: '1.6rem 0rem 0rem 0rem',
+            color: '#808080',
+          }}
+        >
+          {event.startDate} - {event.endDate}
+        </small>
+        <h6 style={{ margin: '0.4rem 0rem 0rem', fontSize: '2.1rem' }}>
+          <b>{event.title}</b>
+        </h6>
+        <p style={{ color: '#808080', margin: '0.4rem 0rem 0rem' }}>
+          {event.location}
+        </p>
+        <button
+          primary
+          onClick={toggle}
+          w="20rem"
+          style={{
+            marginLeft: '0rem',
+            padding: '1rem 0',
+            textAlign: 'left',
+            background: 'transparent',
+            border: 'none',
+            color: '#2763FF',
+          }}
+        >
+          Add to my schedule
+        </button>
+        <Modal isActive={isActive} align>
+          <Container bg_src={event.imgUrl} h="20vh" w="110%"></Container>
+          <Flex w="40rem" h="40rem" drape align="start">
+            <small>
+              {event.startDate} - {event.endDate}
+            </small>
+            <h6 style={{ textAlign: 'left', margin: '0' }}>
+              <b>{event.title}</b>
+            </h6>
+            <p style={{ margin: '0' }}>{event.location}</p>
+            <Text m="2rem 0 2rem 0">{event.details}</Text>
+            <Flex col style={{ alignSelf: 'flex-end' }} jc_end>
+              <Text style={{ fontSize: '2rem', color: '#2763FF' }}>
+                {' '}
+                Add to "My Events?"
+              </Text>
+              <Flex>
+                <Button autoFocus primary="true" onClick={registerEvent}>
+                  Join Event!
+                </Button>
+                <Button secondary onClick={toggle}>
+                  Close
+                </Button>
+              </Flex>
+            </Flex>
+          </Flex>
+        </Modal>
+      </Flex>
     </Flex>
   );
 }
