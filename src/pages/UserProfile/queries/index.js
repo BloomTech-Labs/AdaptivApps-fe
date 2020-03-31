@@ -8,7 +8,8 @@ export const UPDATE_USER_PROFILE = gql`
     $displayName: String
     $birthday: String
     $bio: String
-    $disability: String # $legal: Boolean,
+    $disability: String
+    $legal: String
   ) {
     updateProfile(
       where: { email: $email }
@@ -19,7 +20,7 @@ export const UPDATE_USER_PROFILE = gql`
         birthday: $birthday
         bio: $bio
         disability: $disability
-        # legal: $legal
+        legal: $legal
       }
     ) {
       email

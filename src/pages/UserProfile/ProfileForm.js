@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import config from '../../config/auth_config';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
 //material ui
@@ -10,8 +10,10 @@ import {
   Typography,
   Box,
   FormControl,
+  FormGroup,
   InputLabel,
   TextField,
+  Input,
   Select,
   MenuItem,
   Button,
@@ -47,6 +49,28 @@ const useStyles = makeStyles({
     fontSize: '1.8rem',
     alignSelf: 'flex-end',
   },
+  personalInfo: {
+    display: 'flex',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  formBox: {
+    display: 'flex',
+  },
+  input: {
+    width: '100%',
+    margin: '1rem 2.5% 2rem 0',
+  },
+  bio: {
+    width: '92.5%',
+  },
+  box: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+  },
 });
 
 const ProfileSchema = yup.object().shape({
@@ -61,8 +85,8 @@ const ProfileSchema = yup.object().shape({
   displayName: yup.string().max(10),
   birthday: yup.string().max(10),
   bio: yup.string().max(255),
-  disability: yup.string(), //string?
-  // legal: yup.bool()
+  disability: yup.string(),
+  legal: yup.string(),
 });
 
 // This is the form being used in UserDashboard
@@ -71,7 +95,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   const [userProfile, setUserProfile] = useState(null);
   const classes = useStyles();
 
-  const { handleSubmit, register, setValue } = useForm({
+  const { handleSubmit, register, setValue, control } = useForm({
     mode: 'onSubmit',
     validationSchema: ProfileSchema,
     defaultValues: {
@@ -189,93 +213,122 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
             ) : null}
           </Typography>
         </Box>
-        <Container>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <h5>Personal Information</h5>
-            <Box>
-              <TextField
+
+        <Typography className={classes.personalInfo} variant="h4" gutterBottom>
+          Personal Information
+        </Typography>
+        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+          <Box component="div" className={classes.formBox}>
+            <Box className={classes.box}>
+              <InputLabel htmlFor="firstName">First Name</InputLabel>
+              <Controller
+                as={<TextField />}
+                className={classes.input}
                 id="firstName"
-                label={userProfile ? userProfile.firstName : null}
-                type="text"
                 variant="outlined"
+                type="text"
+                placeholder={userProfile ? userProfile.firstName : null}
                 name="firstName"
-                ref={register}
-              />
-              <TextField
-                id="lastName"
-                type="text"
-                variant="outlined"
-                placeholder={userProfile ? userProfile.lastName : null}
-                name="lastName"
-                ref={register}
-                style={{ marginTop: 0, marginLeft: 0 }}
+                control={control}
               />
             </Box>
-            <Box>
-              <TextField
-                id="displayName"
-                type="text"
-                variant="outlined"
-                placeholder={userProfile ? userProfile.displayName : null}
-                name="displayName"
-                ref={register}
-              />
-              <TextField
-                id="birthday"
-                type="text"
-                variant="outlined"
-                name="birthday"
-                ref={register}
-                placeholder={userProfile ? userProfile.birthday : 'mm/dd/yyyy'}
-              />
-            </Box>
+            <InputLabel htmlFor="lastName">Last Name</InputLabel>
+            <Controller
+              as={<TextField />}
+              className={classes.input}
+              id="lastName"
+              type="text"
+              variant="outlined"
+              placeholder={userProfile ? userProfile.lastName : null}
+              name="lastName"
+              control={control}
+            />
+          </Box>
+          <Box className={classes.formBox}>
+            <InputLabel htmlFor="displayName">Display Name</InputLabel>
+            <Controller
+              as={<TextField />}
+              className={classes.input}
+              id="displayName"
+              type="text"
+              variant="outlined"
+              placeholder={userProfile ? userProfile.displayName : null}
+              name="displayName"
+              control={control}
+            />
+            <InputLabel htmlFor="birthday">Date of Birth</InputLabel>
+            <Controller
+              as={<TextField />}
+              className={classes.input}
+              id="birthday"
+              type="text"
+              variant="outlined"
+              name="birthday"
+              placeholder={userProfile ? userProfile.birthday : 'mm/dd/yyyy'}
+              control={control}
+            />
+          </Box>
 
-            <Box>
-              <TextField
-                id="bio"
-                name="bio"
-                variant="outlined"
-                ref={register}
-                multiline
-                rows="8"
-                cols="60"
-                defaultValue={userProfile ? userProfile.bio : null}
-                // placeholder={userProfile ? userProfile.bio : null}
-                variant="outlined"
-              />
-            </Box>
+          <Box className={classes.formBox}>
+            <InputLabel htmlFor="bio">Bio</InputLabel>
+            <Controller
+              as={<TextField />}
+              className={classes.bio}
+              id="bio"
+              name="bio"
+              variant="outlined"
+              multiline
+              rows="8"
+              placeholder={userProfile ? userProfile.bio : null}
+              control={control}
+            />
+          </Box>
 
-            <Box>
-              <TextField
-                id="disability"
-                type="select"
-                variant="outlined"
-                name="disability"
-                ref={register}
-                placeholder={userProfile ? userProfile.disability : null}
-              />
-              <Select id="legal" name="legal" ref={register}>
-                <MenuItem value={true}>Yes</MenuItem>
-                <MenuItem value={false}>No</MenuItem>
-              </Select>
-            </Box>
-
-            <Box>
-              <Button
-                variant="outlined"
-                color="#2962FF"
-                type="submit"
-                aria-label="save changes to user profile"
-                onClick={() => {
-                  setUpdated(true);
-                }}
-              >
-                Save
-              </Button>
-              {updated === true ? handleUpdated() : null}
-            </Box>
-          </form>
-        </Container>
+          <Box className={classes.formBox}>
+            <InputLabel htmlFor="disability">Disability Status</InputLabel>
+            <Controller
+              as={<TextField />}
+              className={classes.input}
+              id="disability"
+              type="select"
+              variant="outlined"
+              name="disability"
+              ref={register}
+              placeholder={userProfile ? userProfile.disability : null}
+              control={control}
+            />
+            <InputLabel htmlFor="legal">Are you over 18 years old?</InputLabel>
+            <Controller
+              as={
+                <Select>
+                  <MenuItem value={userProfile?.legal} disabled>
+                    {userProfile?.legal}
+                  </MenuItem>
+                  <MenuItem value={`Adult`}>Adult</MenuItem>
+                  <MenuItem value={`Minor`}>Minor</MenuItem>
+                </Select>
+              }
+              className={classes.input}
+              id="legal"
+              name="legal"
+              control={control}
+            />
+          </Box>
+          <Box className={classes.formBox}>
+            <Button
+              variant="outlined"
+              color="#2962FF"
+              type="submit"
+              aria-label="save changes to user profile"
+              onClick={() => {
+                setUpdated(true);
+              }}
+            >
+              Save
+            </Button>
+            {updated === true ? handleUpdated() : null}
+          </Box>
+        </form>
       </Container>
     </main>
   );
