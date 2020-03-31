@@ -63,9 +63,6 @@ const useStyles = makeStyles({
     width: '100%',
     margin: '1rem 2.5% 2rem 0',
   },
-  bio: {
-    width: '92.5%',
-  },
   box: {
     display: 'flex',
     flexDirection: 'column',
