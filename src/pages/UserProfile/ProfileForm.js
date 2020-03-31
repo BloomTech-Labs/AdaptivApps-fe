@@ -8,8 +8,13 @@ import {
   makeStyles,
   Container,
   Typography,
-  Grid,
   Box,
+  FormControl,
+  InputLabel,
+  TextField,
+  Select,
+  MenuItem,
+  Button,
 } from '@material-ui/core';
 
 const useStyles = makeStyles({
@@ -158,7 +163,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   };
 
   const userPicture = user && user.picture;
-
+  console.log(userProfile);
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={1}>
@@ -184,121 +189,93 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
             ) : null}
           </Typography>
         </Box>
-        <FormControl onSubmit={handleSubmit(onSubmit)}>
-          <h5>Personal Information</h5>
-          <Container>
-            <InputLabel htmlFor="firstName">First Name</InputLabel>
-            <Input
-              id="firstName"
-              type="text"
-              placeholder={userProfile ? userProfile.firstName : null}
-              name="firstName"
-              ref={register}
-            />
-
-            <InputLabel htmlFor="displayName">Display Name</InputLabel>
-            <Flex ai_center>
-              <Input
+        <Container>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <h5>Personal Information</h5>
+            <Box>
+              <TextField
+                id="firstName"
+                label={userProfile ? userProfile.firstName : null}
+                type="text"
+                variant="outlined"
+                name="firstName"
+                ref={register}
+              />
+              <TextField
+                id="lastName"
+                type="text"
+                variant="outlined"
+                placeholder={userProfile ? userProfile.lastName : null}
+                name="lastName"
+                ref={register}
+                style={{ marginTop: 0, marginLeft: 0 }}
+              />
+            </Box>
+            <Box>
+              <TextField
                 id="displayName"
                 type="text"
+                variant="outlined"
                 placeholder={userProfile ? userProfile.displayName : null}
                 name="displayName"
                 ref={register}
-                style={{ marginLeft: 0, marginTop: 0 }}
               />
+              <TextField
+                id="birthday"
+                type="text"
+                variant="outlined"
+                name="birthday"
+                ref={register}
+                placeholder={userProfile ? userProfile.birthday : 'mm/dd/yyyy'}
+              />
+            </Box>
 
-              <Flex ai_start col>
-                <Label htmlFor="birthday" style={{ marginBottom: '0.2rem' }}>
-                  Date of Birth
-                </Label>
-                <Flex ai_center>
-                  <Input
-                    id="birthday"
-                    type="text"
-                    w="25rem"
-                    name="birthday"
-                    ref={register}
-                    placeholder={
-                      userProfile ? userProfile.birthday : 'mm/dd/yyyy'
-                    }
-                    style={{ marginTop: 0, marginLeft: 0 }}
-                  />
-                </Flex>
-              </Flex>
-            </Flex>
-
-            <Flex ai_start col stretch>
-              <Label htmlFor="bio" style={{ marginBottom: '0.2rem' }}>
-                Bio
-              </Label>
-              <TextArea
+            <Box>
+              <TextField
                 id="bio"
+                name="bio"
+                variant="outlined"
+                ref={register}
+                multiline
                 rows="8"
                 cols="60"
-                name="bio"
-                ref={register}
-                placeholder={userProfile ? userProfile.bio : null}
-                style={{ marginTop: 0, marginLeft: 0 }}
+                defaultValue={userProfile ? userProfile.bio : null}
+                // placeholder={userProfile ? userProfile.bio : null}
+                variant="outlined"
               />
-            </Flex>
+            </Box>
 
-            <Flex jc_between stretch>
-              <Flex ai_start col>
-                <label htmlFor="disability" style={{ marginBottom: '0.2rem' }}>
-                  Disability Status
-                </label>
-                <Flex ai_center>
-                  <Input
-                    id="disability"
-                    type="select"
-                    w="25rem"
-                    name="disability"
-                    ref={register}
-                    placeholder={userProfile ? userProfile.disability : null}
-                    style={{ marginTop: 0, marginLeft: 0 }}
-                  />
-                </Flex>
-              </Flex>
+            <Box>
+              <TextField
+                id="disability"
+                type="select"
+                variant="outlined"
+                name="disability"
+                ref={register}
+                placeholder={userProfile ? userProfile.disability : null}
+              />
+              <Select id="legal" name="legal" ref={register}>
+                <MenuItem value={true}>Yes</MenuItem>
+                <MenuItem value={false}>No</MenuItem>
+              </Select>
+            </Box>
 
-              <Flex ai_start col>
-                <label htmlFor="legal" style={{ marginBottom: '0.2rem' }}>
-                  Are you over 18 years old?
-                </label>
-                <Flex ai_center>
-                  <Select
-                    id="legal"
-                    w="20rem"
-                    name="legal"
-                    ref={register}
-                    style={{ marginTop: 0, marginLeft: 0 }}
-                  >
-                    <option value={true}>Yes</option>
-                    <option value={false}>No</option>
-                  </Select>
-                </Flex>
-              </Flex>
-            </Flex>
-
-            <Flex w="50%" jc_between ai_center>
+            <Box>
               <Button
+                variant="outlined"
+                color="#2962FF"
                 type="submit"
-                jc_center
-                primary
-                border={`2px solid ${theme.primary}`}
-                w="9rem"
-                h="4rem"
                 aria-label="save changes to user profile"
                 onClick={() => {
                   setUpdated(true);
                 }}
-                style={{ marginLeft: 0 }}
               >
                 Save
               </Button>
               {updated === true ? handleUpdated() : null}
-            </Flex>
-          </Container>
-        </FormControl>
+            </Box>
+          </form>
+        </Container>
       </Container>
     </main>
   );

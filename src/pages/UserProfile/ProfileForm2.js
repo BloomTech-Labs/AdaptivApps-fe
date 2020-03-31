@@ -211,6 +211,16 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                     ref={register}
                     style={{ marginTop: 0, marginLeft: 0 }}
                   />
+                  <Input
+                    autoFocus
+                    id="lastName"
+                    type="text"
+                    placeholder={userProfile ? userProfile.lastName : null}
+                    w="25rem"
+                    name="lastName"
+                    ref={register}
+                    style={{ marginTop: 0, marginLeft: 0 }}
+                  />
                 </Flex>
               </Flex>
             </Flex>
