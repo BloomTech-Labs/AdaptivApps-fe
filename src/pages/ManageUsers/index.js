@@ -12,10 +12,10 @@ const ManageUsers = () => {
   const [showPanel, setShowPanel] = useState(false);
 
   return (
-    <Flex ai_start col stretch m="0 0 0 2rem">
-      <Text xlf bold mm>
+    <Flex ai_start col stretch style={{marginLeft: "3rem", marginTop: "4rem"}}>
+      <h4 style={{margin: '1rem 0rem 0.8rem 0rem', fontSize: "2.4rem"}}>
         Manage Registered Users
-      </Text>
+      </h4>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
       <Box h="2rem" />
 

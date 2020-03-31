@@ -21,6 +21,7 @@ const useStyles = makeStyles({
   headingBox: {
     margin: '4rem 0 2rem 3rem',
     fontWeight: '400',
+    fontSize: '2.4rem',
   },
   profileContainer: {
     display: 'flex',
@@ -162,7 +163,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={1}>
-        <Typography className={classes.heading} variant="h3" gutterBottom>
+        <Typography className={classes.heading} gutterBottom>
           Account Information
         </Typography>
       </Box>
