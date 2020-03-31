@@ -11,10 +11,8 @@ const ManageEvents = () => {
   const { data: eventsData, refetch: eventsRefetch } = useQuery(GET_EVENTS);
 
   return (
-    <Flex ai_start col stretch m="0 0 0 2rem">
-      <Text xlf bold mm>
-        Manage Events and Activities
-      </Text>
+    <Flex ai_start col stretch m="0 0 0 3rem">
+      <h4>Manage Events and Activities</h4>
       <Box h="0.2rem" w="90%" bg="lightgrey" />
       <Box h="2rem" />
 

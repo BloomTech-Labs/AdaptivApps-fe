@@ -4,6 +4,10 @@ export const GET_EVENTS = gql`
   query GetEvents {
     events {
       id
+      type
+      host
+      speakers
+      startTime
       title
       type
       host
@@ -12,6 +16,8 @@ export const GET_EVENTS = gql`
       startDate
       endDate
       location
+      zoomLink
+      sponsors
       imgUrl
       sponsors
       details
@@ -32,10 +38,16 @@ export const GET_ONE_EVENT = gql`
   query GetOneEvent($id: ID) {
     event(where: { id: $id }) {
       id
+      type
+      host
+      speakers
+      startTime
       title
       startDate
       endDate
       location
+      zoomLink
+      sponsors
       imgUrl
       details
       activities {
@@ -54,18 +66,30 @@ export const GET_ONE_EVENT = gql`
 export const CREATE_EVENT = gql`
   mutation CreateEvent(
     $title: String!
+    $type: String!
+    $host: String
+    $speakers: String
+    $startTime: String
     $startDate: String!
     $endDate: String!
     $location: String!
+    $zoomLink: String
+    $sponsors: String
     $imgUrl: String
     $details: String
   ) {
     createEvent(
       data: {
         title: $title
+        type: $type
+        host: $host
+        speakers: $speakers
+        startTime: $startTime
         startDate: $startDate
         endDate: $endDate
         location: $location
+        zoomLink: $zoomLink
+        sponsors: $sponsors
         imgUrl: $imgUrl
         details: $details
       }
@@ -85,18 +109,30 @@ export const UPDATE_EVENT = gql`
   mutation UpdateEvent(
     $id: ID!
     $title: String!
+    $type: String!
+    $host: String
+    $speakers: String
+    $startTime: String
     $startDate: String!
     $endDate: String!
     $location: String!
+    $zoomLink: String
+    $sponsors: String
     $imgUrl: String
     $details: String
   ) {
     updateEvent(
       data: {
         title: $title
+        type: $type
+        host: $host
+        speakers: $speakers
+        startTime: $startTime
         startDate: $startDate
         endDate: $endDate
         location: $location
+        zoomLink: $zoomLink
+        sponsors: $sponsors
         imgUrl: $imgUrl
         details: $details
       }
