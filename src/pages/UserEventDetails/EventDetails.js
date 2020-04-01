@@ -142,8 +142,6 @@ export default function EventDetails(props) {
           {activeEvent.location}
         </p>
         </Flex>}
-          
-        
       </Flex>
       <Flex>
         <p style={{ marginBottom: '2rem', marginTop: '1.6rem' }}>
@@ -151,32 +149,34 @@ export default function EventDetails(props) {
         </p>
       </Flex>
 
-      <Flex visible col h="30rem" stretch>
-        <p
-          style={{
-            fontWeight: 'bold',
-            fontSize: '1.8rem',
-            marginBottom: '2rem',
-          }}
-        >
-          My Activities
-        </p>
-        <table>
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <th>Date</th>
-              <th>Location</th>
-              <th>Time</th>
-              <th>My Role</th>
-            </tr>
-            {filteredActivities &&
-              filteredActivities.map((activity, id) => (
-                <ActivityDetails key={id} activity={activity} />
-              ))}
-          </tbody>
-        </table>
-      </Flex>
+      {activeEvent.type === 'Webinar' ? (
+        <a style={{ marginLeft: "0.5rem", color: "#2862ff"}} href={activeEvent.zoomLink}>Join Us on Zoom!</a>
+      ): <Flex visible col h="30rem" stretch>
+      <p
+        style={{
+          fontWeight: 'bold',
+          fontSize: '1.8rem',
+          marginBottom: '2rem',
+        }}
+      >
+        My Activities
+      </p>
+      <table>
+        <tbody>
+          <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Time</th>
+            <th>My Role</th>
+          </tr>
+          {filteredActivities &&
+            filteredActivities.map((activity, id) => (
+              <ActivityDetails key={id} activity={activity} />
+            ))}
+        </tbody>
+      </table>
+    </Flex>}
     </Flex>
   );
 }
