@@ -9,11 +9,8 @@ import {
   Container,
   Typography,
   Box,
-  FormControl,
-  FormGroup,
   InputLabel,
   TextField,
-  Input,
   Select,
   MenuItem,
   Button,
@@ -26,7 +23,7 @@ const useStyles = makeStyles({
     fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
   },
   headingBox: {
-    margin: '4rem 0 2rem 3rem',
+    margin: '6rem 0 2rem 3rem',
     fontWeight: '400',
   },
   profileContainer: {
@@ -51,6 +48,11 @@ const useStyles = makeStyles({
   },
   personalInfo: {
     display: 'flex',
+    marginTop: '3rem',
+    marginBlockEnd: '0',
+  },
+  role: {
+    fontSize: '1.4rem',
   },
   form: {
     display: 'flex',
@@ -61,12 +63,26 @@ const useStyles = makeStyles({
   },
   input: {
     width: '100%',
-    margin: '1rem 2.5% 2rem 0',
+    maxWidth: '600px',
   },
   box: {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
+    margin: '1rem 3% 0 0',
+  },
+  inputLabel: {
+    fontSize: '1.4rem',
+    margin: '1rem 0 0 0',
+  },
+  button: {
+    marginTop: '3rem',
+    border: '1px solid #2962FF',
+    color: '#2962FF',
+    height: '4rem',
+    width: '8rem',
+    fontSize: '1.2rem',
+    textTransform: 'none',
   },
 });
 
@@ -206,7 +222,9 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                   userProfile.lastName}`
               : user && user.name}{' '}
             {user && user[config.roleUrl].includes('Admin') ? (
-              <Typography>{user && user[config.roleUrl]}</Typography>
+              <Typography className={classes.role}>
+                {user && user[config.roleUrl]}
+              </Typography>
             ) : null}
           </Typography>
         </Box>
@@ -217,7 +235,9 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <Box component="div" className={classes.formBox}>
             <Box className={classes.box}>
-              <InputLabel htmlFor="firstName">First Name</InputLabel>
+              <InputLabel className={classes.inputLabel} htmlFor="firstName">
+                First Name
+              </InputLabel>
               <Controller
                 as={<TextField />}
                 className={classes.input}
@@ -229,90 +249,119 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 control={control}
               />
             </Box>
-            <InputLabel htmlFor="lastName">Last Name</InputLabel>
-            <Controller
-              as={<TextField />}
-              className={classes.input}
-              id="lastName"
-              type="text"
-              variant="outlined"
-              placeholder={userProfile ? userProfile.lastName : null}
-              name="lastName"
-              control={control}
-            />
+            <Box className={classes.box}>
+              <InputLabel className={classes.inputLabel} htmlFor="lastName">
+                Last Name
+              </InputLabel>
+              <Controller
+                as={<TextField />}
+                className={classes.input}
+                id="lastName"
+                type="text"
+                variant="outlined"
+                placeholder={userProfile ? userProfile.lastName : null}
+                name="lastName"
+                control={control}
+              />
+            </Box>
           </Box>
           <Box className={classes.formBox}>
-            <InputLabel htmlFor="displayName">Display Name</InputLabel>
-            <Controller
-              as={<TextField />}
-              className={classes.input}
-              id="displayName"
-              type="text"
-              variant="outlined"
-              placeholder={userProfile ? userProfile.displayName : null}
-              name="displayName"
-              control={control}
-            />
-            <InputLabel htmlFor="birthday">Date of Birth</InputLabel>
-            <Controller
-              as={<TextField />}
-              className={classes.input}
-              id="birthday"
-              type="text"
-              variant="outlined"
-              name="birthday"
-              placeholder={userProfile ? userProfile.birthday : 'mm/dd/yyyy'}
-              control={control}
-            />
-          </Box>
-
-          <Box className={classes.formBox}>
-            <InputLabel htmlFor="bio">Bio</InputLabel>
-            <Controller
-              as={<TextField />}
-              className={classes.bio}
-              id="bio"
-              name="bio"
-              variant="outlined"
-              multiline
-              rows="8"
-              placeholder={userProfile ? userProfile.bio : null}
-              control={control}
-            />
+            <Box className={classes.box}>
+              <InputLabel className={classes.inputLabel} htmlFor="displayName">
+                Display Name
+              </InputLabel>
+              <Controller
+                as={<TextField />}
+                className={classes.input}
+                id="displayName"
+                type="text"
+                variant="outlined"
+                placeholder={userProfile ? userProfile.displayName : null}
+                name="displayName"
+                control={control}
+              />
+            </Box>
+            <Box className={classes.box}>
+              <InputLabel className={classes.inputLabel} htmlFor="birthday">
+                Date of Birth
+              </InputLabel>
+              <Controller
+                as={<TextField />}
+                className={classes.input}
+                id="birthday"
+                type="text"
+                variant="outlined"
+                name="birthday"
+                placeholder={userProfile ? userProfile.birthday : 'mm/dd/yyyy'}
+                control={control}
+              />
+            </Box>
           </Box>
 
           <Box className={classes.formBox}>
-            <InputLabel htmlFor="disability">Disability Status</InputLabel>
-            <Controller
-              as={<TextField />}
-              className={classes.input}
-              id="disability"
-              type="select"
-              variant="outlined"
-              name="disability"
-              ref={register}
-              placeholder={userProfile ? userProfile.disability : null}
-              control={control}
-            />
-            <InputLabel htmlFor="legal">Are you over 18 years old?</InputLabel>
-            <Controller
-              as={
-                <Select>
-                  <MenuItem value={userProfile?.legal} disabled>
-                    {userProfile?.legal}
-                  </MenuItem>
-                  <MenuItem value={`Adult`}>Adult</MenuItem>
-                  <MenuItem value={`Minor`}>Minor</MenuItem>
-                </Select>
-              }
-              className={classes.input}
-              id="legal"
-              name="legal"
-              control={control}
-            />
+            <Box className={classes.box}>
+              <InputLabel className={classes.inputLabel} htmlFor="bio">
+                Bio
+              </InputLabel>
+              <Controller
+                as={<TextField />}
+                className={classes.bio}
+                id="bio"
+                name="bio"
+                variant="outlined"
+                multiline
+                rows="8"
+                placeholder={userProfile ? userProfile.bio : null}
+                control={control}
+              />
+            </Box>
+          </Box>
+
+          <Box className={classes.formBox}>
+            <Box className={classes.box}>
+              <InputLabel className={classes.inputLabel} htmlFor="disability">
+                Disability Status
+              </InputLabel>
+              <Controller
+                as={<TextField />}
+                className={classes.input}
+                id="disability"
+                type="select"
+                variant="outlined"
+                name="disability"
+                ref={register}
+                placeholder={userProfile ? userProfile.disability : null}
+                control={control}
+              />
+            </Box>
+            <Box className={classes.box}>
+              <InputLabel className={classes.inputLabel} htmlFor="legal">
+                Are you over 18 years old?
+              </InputLabel>
+              <Controller
+                as={
+                  <Select>
+                    <MenuItem value="" disabled selected>
+                      {userProfile ? userProfile.legal : null}
+                    </MenuItem>
+                    <MenuItem value={userProfile?.legal} disabled>
+                      {userProfile?.legal}
+                    </MenuItem>
+                    <MenuItem value={`Adult`}>Adult</MenuItem>
+                    <MenuItem value={`Minor`}>Minor</MenuItem>
+                  </Select>
+                }
+                className={classes.input}
+                id="legal"
+                name="legal"
+                variant="outlined"
+                control={control}
+              />
+            </Box>
           </Box>
           <Box className={classes.formBox}>
             <Button
+              className={classes.button}
               variant="outlined"
               color="#2962FF"
               type="submit"
