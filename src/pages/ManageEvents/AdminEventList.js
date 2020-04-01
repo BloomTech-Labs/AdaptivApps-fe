@@ -140,7 +140,7 @@ const AdminEventList = props => {
             field: 'zoomLink',
             editComponent: props => (
               <Input
-                type="text"
+                type="url"
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
               />
@@ -216,6 +216,7 @@ const AdminEventList = props => {
                 imgUrl: newData.imgUrl,
                 sponsors: newData.sponsors,
                 details: newData.details,
+                zoomLink: newData.zoomLink
               },
             });
             props.eventsRefetch();
@@ -235,6 +236,7 @@ const AdminEventList = props => {
                 imgUrl: newData.imgUrl,
                 sponsors: newData.sponsors,
                 details: newData.details,
+                zoomLink: newData.zoomLink
               },
             });
             props.eventsRefetch();

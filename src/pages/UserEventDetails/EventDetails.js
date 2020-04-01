@@ -10,6 +10,7 @@ export default function EventDetails(props) {
   const activeEvent = props.event;
   const currentActivities = activeEvent.activities;
   const filteredActivities = [];
+  console.log('event deets', props.event.type);
 
   const checkUserInAthletes = athletes => {
     let mark = false;
@@ -93,15 +94,17 @@ export default function EventDetails(props) {
           style={{ height: '16rem', width: '36rem', objectFit: 'cover' }}
           src={activeEvent.imgUrl}
         />
-        <Flex col jc_center m="2.4rem">
-          <p
+        
+          {activeEvent.type === 'Webinar' ? (
+            <Flex col jc_center m="2.4rem">
+            <p
             style={{
               margin: '0.4rem 0rem',
               color: '#808080',
               fontSize: '1.4rem',
             }}
           >
-            {activeEvent.startDate} - {activeEvent.endDate}
+            {activeEvent.startDate} 
           </p>
           <p style={{ margin: '0rem', fontWeight: 'bold', fontSize: '2.1rem' }}>
             {activeEvent.title}
@@ -115,7 +118,32 @@ export default function EventDetails(props) {
           >
             {activeEvent.location}
           </p>
-        </Flex>
+          </Flex>
+          ): <Flex col jc_center m="2.4rem">
+            <p
+          style={{
+            margin: '0.4rem 0rem',
+            color: '#808080',
+            fontSize: '1.4rem',
+          }}
+        >
+          {activeEvent.startDate} - {activeEvent.endDate}
+        </p>
+        <p style={{ margin: '0rem', fontWeight: 'bold', fontSize: '2.1rem' }}>
+          {activeEvent.title}
+        </p>
+        <p
+          style={{
+            margin: '0.4rem 0rem',
+            color: '#808080',
+            fontSize: '1.4rem',
+          }}
+        >
+          {activeEvent.location}
+        </p>
+        </Flex>}
+          
+        
       </Flex>
       <Flex>
         <p style={{ marginBottom: '2rem', marginTop: '1.6rem' }}>

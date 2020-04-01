@@ -9,10 +9,6 @@ export const GET_EVENTS = gql`
       speakers
       startTime
       title
-      type
-      host
-      speakers
-      startTime
       startDate
       endDate
       location
