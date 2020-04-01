@@ -30,7 +30,7 @@ export default function EventsCalendar() {
         Upcoming Events
       </h4>
       <Box h="0.2rem" w="90%" bg="lightgrey" m="0 0 0 1.6rem" />
-      <Flex jc_between row w="90%">
+      <Flex jc_between row w="90%" style={{ flexWrap: "wrap" }}>
         {data &&
           data?.events?.map((event, id) => (
             <EventCard key={id} event={event} />
