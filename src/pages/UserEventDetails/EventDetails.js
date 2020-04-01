@@ -94,54 +94,69 @@ export default function EventDetails(props) {
           style={{ height: '16rem', width: '36rem', objectFit: 'cover' }}
           src={activeEvent.imgUrl}
         />
-        
-          {activeEvent.type === 'Webinar' ? (
-            <Flex col jc_center m="2.4rem">
+
+        {activeEvent.type === 'Webinar' ? (
+          <Flex col jc_center m="2.4rem">
             <p
-            style={{
-              margin: '0.4rem 0rem',
-              color: '#808080',
-              fontSize: '1.4rem',
-            }}
-          >
-            {activeEvent.startDate} 
-          </p>
-          <p style={{ margin: '0rem', fontWeight: 'bold', fontSize: '2.1rem' }}>
-            {activeEvent.title}
-          </p>
-          <p
-            style={{
-              margin: '0.4rem 0rem',
-              color: '#808080',
-              fontSize: '1.4rem',
-            }}
-          >
-            {activeEvent.location}
-          </p>
+              style={{
+                margin: '0.4rem 0rem',
+                color: '#808080',
+                fontSize: '1.4rem',
+              }}
+            >
+              {activeEvent.startDate}
+            </p>
+            <p
+              style={{ margin: '0rem', fontWeight: 'bold', fontSize: '2.1rem' }}
+            >
+              {activeEvent.title}
+            </p>
+            <p
+              style={{
+                margin: '0.4rem 0rem',
+                color: '#808080',
+                fontSize: '1.4rem',
+              }}
+            >
+              {activeEvent.location}
+            </p>
+            <p
+              style={{
+                margin: '0.4rem 0rem',
+                color: '#808080',
+                fontSize: '1.4rem',
+              }}
+            >
+              Start time: {activeEvent.startTime}
+            </p>
           </Flex>
-          ): <Flex col jc_center m="2.4rem">
+        ) : (
+          <Flex col jc_center m="2.4rem">
             <p
-          style={{
-            margin: '0.4rem 0rem',
-            color: '#808080',
-            fontSize: '1.4rem',
-          }}
-        >
-          {activeEvent.startDate} - {activeEvent.endDate}
-        </p>
-        <p style={{ margin: '0rem', fontWeight: 'bold', fontSize: '2.1rem' }}>
-          {activeEvent.title}
-        </p>
-        <p
-          style={{
-            margin: '0.4rem 0rem',
-            color: '#808080',
-            fontSize: '1.4rem',
-          }}
-        >
-          {activeEvent.location}
-        </p>
-        </Flex>}
+              style={{
+                margin: '0.4rem 0rem',
+                color: '#808080',
+                fontSize: '1.4rem',
+              }}
+            >
+              {activeEvent.startDate} - {activeEvent.endDate}
+            </p>
+            <p
+              style={{ margin: '0rem', fontWeight: 'bold', fontSize: '2.1rem' }}
+            >
+              {activeEvent.title}
+            </p>
+            <p
+              style={{
+                margin: '0.4rem 0rem',
+                color: '#808080',
+                fontSize: '1.4rem',
+              }}
+            >
+              {activeEvent.location}
+            </p>
+          </Flex>
+        )}
       </Flex>
       <Flex>
         <p style={{ marginBottom: '2rem', marginTop: '1.6rem' }}>
@@ -150,33 +165,72 @@ export default function EventDetails(props) {
       </Flex>
 
       {activeEvent.type === 'Webinar' ? (
-        <a style={{ marginLeft: "0.5rem", color: "#2862ff"}} href={activeEvent.zoomLink}>Join Us on Zoom!</a>
-      ): <Flex visible col h="30rem" stretch>
-      <p
-        style={{
-          fontWeight: 'bold',
-          fontSize: '1.8rem',
-          marginBottom: '2rem',
-        }}
-      >
-        My Activities
-      </p>
-      <table>
-        <tbody>
-          <tr>
-            <th>Name</th>
-            <th>Date</th>
-            <th>Location</th>
-            <th>Time</th>
-            <th>My Role</th>
-          </tr>
-          {filteredActivities &&
-            filteredActivities.map((activity, id) => (
-              <ActivityDetails key={id} activity={activity} />
-            ))}
-        </tbody>
-      </table>
-    </Flex>}
+        <>
+          <Flex col>
+            <p>Hosted by: {activeEvent.host}</p>
+            <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
+            <a
+              style={{
+                marginTop: '2rem',
+                marginLeft: '0.5rem',
+                color: '#2862ff',
+              }}
+              href={activeEvent.zoomLink}
+            >
+              Click Here to Join Us on Zoom!
+            </a>
+          </Flex>
+          <Flex col w="90%" m="10rem 0rem 0rem 0rem">
+            <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>
+              Special thanks to our sponsors!
+            </p>
+            <ul>
+              {activeEvent.sponsors.split(', ').map(sponsor => (
+                <li>{sponsor}</li>
+              ))}
+            </ul>
+          </Flex>
+        </>
+      ) : (
+        <>
+          <Flex visible col h="30rem" stretch>
+            <p
+              style={{
+                fontWeight: 'bold',
+                fontSize: '1.8rem',
+                marginBottom: '2rem',
+              }}
+            >
+              My Activities
+            </p>
+            <table>
+              <tbody>
+                <tr>
+                  <th>Name</th>
+                  <th>Date</th>
+                  <th>Location</th>
+                  <th>Time</th>
+                  <th>My Role</th>
+                </tr>
+                {filteredActivities &&
+                  filteredActivities.map((activity, id) => (
+                    <ActivityDetails key={id} activity={activity} />
+                  ))}
+              </tbody>
+            </table>
+          </Flex>
+          <Flex col w="90%" m="1rem 0rem 0rem 0rem">
+            <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>
+              Special thanks to our sponsors!
+            </p>
+            <ul>
+              {activeEvent?.sponsors?.split(', ').map(sponsor => (
+                <li>{sponsor}</li>
+              ))}
+            </ul>
+          </Flex>
+        </>
+      )}
     </Flex>
   );
 }
