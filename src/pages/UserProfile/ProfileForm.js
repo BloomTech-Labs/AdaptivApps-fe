@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import config from '../../config/auth_config';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
 //material ui
@@ -8,8 +8,15 @@ import {
   makeStyles,
   Container,
   Typography,
-  Grid,
   Box,
+  FormControl,
+  FormGroup,
+  InputLabel,
+  TextField,
+  Input,
+  Select,
+  MenuItem,
+  Button,
 } from '@material-ui/core';
 
 const useStyles = makeStyles({
@@ -43,6 +50,25 @@ const useStyles = makeStyles({
     fontSize: '1.8rem',
     alignSelf: 'flex-end',
   },
+  personalInfo: {
+    display: 'flex',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  formBox: {
+    display: 'flex',
+  },
+  input: {
+    width: '100%',
+    margin: '1rem 2.5% 2rem 0',
+  },
+  box: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+  },
 });
 
 const ProfileSchema = yup.object().shape({
@@ -57,8 +83,8 @@ const ProfileSchema = yup.object().shape({
   displayName: yup.string().max(10),
   birthday: yup.string().max(10),
   bio: yup.string().max(255),
-  disability: yup.string(), //string?
-  // legal: yup.bool()
+  disability: yup.string(),
+  legal: yup.string(),
 });
 
 // This is the form being used in UserDashboard
@@ -67,7 +93,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   const [userProfile, setUserProfile] = useState(null);
   const classes = useStyles();
 
-  const { handleSubmit, register, setValue } = useForm({
+  const { handleSubmit, register, setValue, control } = useForm({
     mode: 'onSubmit',
     validationSchema: ProfileSchema,
     defaultValues: {
@@ -159,7 +185,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   };
 
   const userPicture = user && user.picture;
-
+  console.log(userProfile);
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={1}>
@@ -185,121 +211,122 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
             ) : null}
           </Typography>
         </Box>
-        <FormControl onSubmit={handleSubmit(onSubmit)}>
-          <h5>Personal Information</h5>
-          <Container>
-            <InputLabel htmlFor="firstName">First Name</InputLabel>
-            <Input
-              id="firstName"
-              type="text"
-              placeholder={userProfile ? userProfile.firstName : null}
-              name="firstName"
-              ref={register}
-            />
 
-            <InputLabel htmlFor="displayName">Display Name</InputLabel>
-            <Flex ai_center>
-              <Input
-                id="displayName"
+        <Typography className={classes.personalInfo} variant="h4" gutterBottom>
+          Personal Information
+        </Typography>
+        <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+          <Box component="div" className={classes.formBox}>
+            <Box className={classes.box}>
+              <InputLabel htmlFor="firstName">First Name</InputLabel>
+              <Controller
+                as={<TextField />}
+                className={classes.input}
+                id="firstName"
+                variant="outlined"
                 type="text"
-                placeholder={userProfile ? userProfile.displayName : null}
-                name="displayName"
-                ref={register}
-                style={{ marginLeft: 0, marginTop: 0 }}
+                placeholder={userProfile ? userProfile.firstName : null}
+                name="firstName"
+                control={control}
               />
+            </Box>
+            <InputLabel htmlFor="lastName">Last Name</InputLabel>
+            <Controller
+              as={<TextField />}
+              className={classes.input}
+              id="lastName"
+              type="text"
+              variant="outlined"
+              placeholder={userProfile ? userProfile.lastName : null}
+              name="lastName"
+              control={control}
+            />
+          </Box>
+          <Box className={classes.formBox}>
+            <InputLabel htmlFor="displayName">Display Name</InputLabel>
+            <Controller
+              as={<TextField />}
+              className={classes.input}
+              id="displayName"
+              type="text"
+              variant="outlined"
+              placeholder={userProfile ? userProfile.displayName : null}
+              name="displayName"
+              control={control}
+            />
+            <InputLabel htmlFor="birthday">Date of Birth</InputLabel>
+            <Controller
+              as={<TextField />}
+              className={classes.input}
+              id="birthday"
+              type="text"
+              variant="outlined"
+              name="birthday"
+              placeholder={userProfile ? userProfile.birthday : 'mm/dd/yyyy'}
+              control={control}
+            />
+          </Box>
 
-              <Flex ai_start col>
-                <Label htmlFor="birthday" style={{ marginBottom: '0.2rem' }}>
-                  Date of Birth
-                </Label>
-                <Flex ai_center>
-                  <Input
-                    id="birthday"
-                    type="text"
-                    w="25rem"
-                    name="birthday"
-                    ref={register}
-                    placeholder={
-                      userProfile ? userProfile.birthday : 'mm/dd/yyyy'
-                    }
-                    style={{ marginTop: 0, marginLeft: 0 }}
-                  />
-                </Flex>
-              </Flex>
-            </Flex>
+          <Box className={classes.formBox}>
+            <InputLabel htmlFor="bio">Bio</InputLabel>
+            <Controller
+              as={<TextField />}
+              className={classes.bio}
+              id="bio"
+              name="bio"
+              variant="outlined"
+              multiline
+              rows="8"
+              placeholder={userProfile ? userProfile.bio : null}
+              control={control}
+            />
+          </Box>
 
-            <Flex ai_start col stretch>
-              <Label htmlFor="bio" style={{ marginBottom: '0.2rem' }}>
-                Bio
-              </Label>
-              <TextArea
-                id="bio"
-                rows="8"
-                cols="60"
-                name="bio"
-                ref={register}
-                placeholder={userProfile ? userProfile.bio : null}
-                style={{ marginTop: 0, marginLeft: 0 }}
-              />
-            </Flex>
-
-            <Flex jc_between stretch>
-              <Flex ai_start col>
-                <label htmlFor="disability" style={{ marginBottom: '0.2rem' }}>
-                  Disability Status
-                </label>
-                <Flex ai_center>
-                  <Input
-                    id="disability"
-                    type="select"
-                    w="25rem"
-                    name="disability"
-                    ref={register}
-                    placeholder={userProfile ? userProfile.disability : null}
-                    style={{ marginTop: 0, marginLeft: 0 }}
-                  />
-                </Flex>
-              </Flex>
-
-              <Flex ai_start col>
-                <label htmlFor="legal" style={{ marginBottom: '0.2rem' }}>
-                  Are you over 18 years old?
-                </label>
-                <Flex ai_center>
-                  <Select
-                    id="legal"
-                    w="20rem"
-                    name="legal"
-                    ref={register}
-                    style={{ marginTop: 0, marginLeft: 0 }}
-                  >
-                    <option value={true}>Yes</option>
-                    <option value={false}>No</option>
-                  </Select>
-                </Flex>
-              </Flex>
-            </Flex>
-
-            <Flex w="50%" jc_between ai_center>
-              <Button
-                type="submit"
-                jc_center
-                primary
-                border={`2px solid ${theme.primary}`}
-                w="9rem"
-                h="4rem"
-                aria-label="save changes to user profile"
-                onClick={() => {
-                  setUpdated(true);
-                }}
-                style={{ marginLeft: 0 }}
-              >
-                Save
-              </Button>
-              {updated === true ? handleUpdated() : null}
-            </Flex>
-          </Container>
-        </FormControl>
+          <Box className={classes.formBox}>
+            <InputLabel htmlFor="disability">Disability Status</InputLabel>
+            <Controller
+              as={<TextField />}
+              className={classes.input}
+              id="disability"
+              type="select"
+              variant="outlined"
+              name="disability"
+              ref={register}
+              placeholder={userProfile ? userProfile.disability : null}
+              control={control}
+            />
+            <InputLabel htmlFor="legal">Are you over 18 years old?</InputLabel>
+            <Controller
+              as={
+                <Select>
+                  <MenuItem value={userProfile?.legal} disabled>
+                    {userProfile?.legal}
+                  </MenuItem>
+                  <MenuItem value={`Adult`}>Adult</MenuItem>
+                  <MenuItem value={`Minor`}>Minor</MenuItem>
+                </Select>
+              }
+              className={classes.input}
+              id="legal"
+              name="legal"
+              control={control}
+            />
+          </Box>
+          <Box className={classes.formBox}>
+            <Button
+              variant="outlined"
+              color="#2962FF"
+              type="submit"
+              aria-label="save changes to user profile"
+              onClick={() => {
+                setUpdated(true);
+              }}
+            >
+              Save
+            </Button>
+            {updated === true ? handleUpdated() : null}
+          </Box>
+        </form>
       </Container>
     </main>
   );
