@@ -5,11 +5,17 @@ export const GET_EVENT_DETAILS = gql`
   query getEventDetails($id: ID!, $email: String!) {
     events(where: { id: $id, AND: [{ attendees_some: { email: $email } }] }) {
       id
+      type
       title
+      host
+      speakers
+      sponsors
+      startTime
       startDate
       endDate
       details
       location
+      zoomLink
       imgUrl
       activities {
         id

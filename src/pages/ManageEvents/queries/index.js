@@ -15,6 +15,7 @@ export const GET_EVENTS = gql`
       zoomLink
       sponsors
       imgUrl
+      sponsors
       details
       activities {
         id

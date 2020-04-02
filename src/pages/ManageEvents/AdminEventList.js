@@ -1,6 +1,9 @@
 import React from 'react';
 import { Flex, Button, theme } from 'adaptiv-ui';
 import { Input, TablePagination, Select, MenuItem } from '@material-ui/core';
+import EditIcon  from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { useMutation } from 'react-apollo';
 import MaterialTable from 'material-table';
 import AdminActivityList from './AdminActivityList';
@@ -137,7 +140,7 @@ const AdminEventList = props => {
             field: 'zoomLink',
             editComponent: props => (
               <Input
-                type="text"
+                type="url"
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
               />
@@ -213,6 +216,7 @@ const AdminEventList = props => {
                 imgUrl: newData.imgUrl,
                 sponsors: newData.sponsors,
                 details: newData.details,
+                zoomLink: newData.zoomLink
               },
             });
             props.eventsRefetch();
@@ -232,6 +236,7 @@ const AdminEventList = props => {
                 imgUrl: newData.imgUrl,
                 sponsors: newData.sponsors,
                 details: newData.details,
+                zoomLink: newData.zoomLink
               },
             });
             props.eventsRefetch();
@@ -247,10 +252,20 @@ const AdminEventList = props => {
         }}
         icons={{
           Add: () => (
-            <Button primary border={`2px solid ${theme.primary}`}>
-              Add Event
-            </Button>
+            <>
+              <AddCircleOutlineIcon style={{ color:'#2962FF' }} fontSize='large'/>
+                <Button primary style={{ padding: '0'}}>
+                  Add Event
+                </Button>
+            </>
           ),
+          Edit: () => (
+            <EditIcon style={{ color:'#2962FF' }} fontSize='large' />
+             
+          ),
+          Delete: () => (
+            <DeleteIcon style={{ color:'#2962FF' }} fontSize='large' />
+          )
         }}
         detailPanel={[
           {

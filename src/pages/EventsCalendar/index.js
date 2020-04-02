@@ -13,7 +13,7 @@ import { GET_EVENT_LIST } from './queries';
 
 const useStyles = makeStyles({
   root: {
-    maxwidth: '100%',
+    maxWidth: '100%',
     width: '90%',
     fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
   },
@@ -23,6 +23,9 @@ const useStyles = makeStyles({
     borderColor: '#D3D3D3',
   },
   grid: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap',
     marginLeft: '3rem',
   },
 });
@@ -38,7 +41,7 @@ export default function EventsCalendar() {
   if (error) return `Error! ${error.message}`;
 
   return (
-    <main>
+    <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
         <Typography className={classes.heading} variant="h3" gutterBottom>
           Upcoming Events
