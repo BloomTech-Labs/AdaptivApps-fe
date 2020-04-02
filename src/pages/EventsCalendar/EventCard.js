@@ -29,13 +29,30 @@ export default function EventCard({ event }) {
   console.log('image url', event);
   return (
     <Flex col style={{ margin: '2.2rem 1.2rem' }}>
-      <Flex col style={{ margin: '0rem 0.4rem 0rem 0.4rem' }}>
-        <Container
-          bg_src={event.imgUrl}
-          h="20vh"
-          w="30rem"
-          style={{ borderRadius: '0.3rem' }}
-        ></Container>
+      <div style={{ margin: '0rem 0.4rem 0rem 0.4rem' }}>
+        <div style={{ borderRadius: '0.3rem' }}>
+          <div
+            style={{
+              width: '10rem',
+              position: 'relative',
+              transform: 'rotate(-45deg)',
+              top: '60px',
+              right: '120px',
+              color: '#eecc1a',
+              borderBottom: '10rem',
+              borderLeft: '12.75rem solid transparent',
+              borderRight: '12.75rem solid transparent',
+              backgroundColor: 'rgba(0, 0, 0, 0.4)',
+            }}
+          >
+            {event.type}
+          </div>
+          <img
+            style={{ height: '20vh', width: '30rem', objectFit: 'cover' }}
+            src={event.imgUrl}
+          />
+        </div>
+
         <small
           style={{
             fontSize: '1.4rem',
@@ -93,7 +110,7 @@ export default function EventCard({ event }) {
             </Flex>
           </Flex>
         </Modal>
-      </Flex>
+      </div>
     </Flex>
   );
 }
