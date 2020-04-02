@@ -21,7 +21,7 @@ import { REGISTER_EVENT } from './queries/joinEvent';
 const useStyles = makeStyles({
   root: {
     borderRadius: '.5rem',
-    margin: '1.5rem',
+    marginRight: '2.4rem',
     boxShadow: 'none',
   },
   cardDate: {
@@ -29,8 +29,9 @@ const useStyles = makeStyles({
   },
   cardTitle: {
     fontSize: '2.1rem',
-    margin: '.5rem 0',
-    fontWeight: 'bold',
+    margin: '.4rem 0',
+    fontWeight: '500',
+    color: '#3C3C3C',
   },
   cardLoc: {
     fontSize: '1.6rem',
@@ -40,7 +41,7 @@ const useStyles = makeStyles({
   },
   btnContainer: {
     padding: '0',
-    marginTop: '1rem',
+    margin: '1.6rem 0',
   },
   btn: {
     padding: '0',
