@@ -1,15 +1,34 @@
 import React, { useEffect } from 'react';
+import { useQuery } from 'react-apollo';
+import {
+  makeStyles,
+  Container,
+  Grid,
+  Box,
+  Typography,
+} from '@material-ui/core';
 
 import EventCard from './EventCard';
-
-import { useQuery } from 'react-apollo';
 import { GET_EVENT_LIST } from './queries';
 
-// Styling imports
-import { Flex, Box } from 'adaptiv-ui';
+const useStyles = makeStyles({
+  root: {
+    maxwidth: '100%',
+    width: '90%',
+    fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+  },
+  headingBox: {
+    margin: '6rem 0 2rem 3rem',
+    fontWeight: '400',
+    borderColor: '#D3D3D3',
+  },
+  grid: {
+    marginLeft: '3rem',
+  },
+});
 
 export default function EventsCalendar() {
-  // eslint-disable-next-line no-unused-vars
+  const classes = useStyles();
   const { loading, error, data, refetch } = useQuery(GET_EVENT_LIST);
   // refetches EVENT_LIST without refreshing page
   useEffect(() => {
@@ -19,23 +38,18 @@ export default function EventsCalendar() {
   if (error) return `Error! ${error.message}`;
 
   return (
-    <Flex
-      Flex
-      ai_start
-      col
-      stretch
-      style={{ marginLeft: '1rem', marginTop: '4rem' }}
-    >
-      <h4 style={{ margin: '1rem 0rem 0.8rem 1.5rem', fontSize: '2.4rem' }}>
-        Upcoming Events
-      </h4>
-      <Box h="0.2rem" w="90%" bg="lightgrey" m="0 0 0 1.6rem" />
-      <Flex jc_between row w="90%">
+    <main>
+      <Box className={classes.headingBox} borderBottom={2}>
+        <Typography className={classes.heading} variant="h3" gutterBottom>
+          Upcoming Events
+        </Typography>
+      </Box>
+      <Grid className={classes.grid}>
         {data &&
           data?.events?.map((event, id) => (
             <EventCard key={id} event={event} />
           ))}
-      </Flex>
-    </Flex>
+      </Grid>
+    </main>
   );
 }

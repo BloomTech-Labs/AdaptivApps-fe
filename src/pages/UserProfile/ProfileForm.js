@@ -25,6 +25,7 @@ const useStyles = makeStyles({
   headingBox: {
     margin: '6rem 0 2rem 3rem',
     fontWeight: '400',
+    borderColor: '#D3D3D3',
   },
   profileContainer: {
     display: 'flex',
@@ -73,7 +74,7 @@ const useStyles = makeStyles({
   },
   inputLabel: {
     fontSize: '1.4rem',
-    margin: '1rem 0 0 0',
+    margin: '1rem 0 .4rem 0',
   },
   button: {
     marginTop: '3rem',
@@ -203,7 +204,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   console.log(userProfile);
   return (
     <main className={classes.root}>
-      <Box className={classes.headingBox} borderBottom={1}>
+      <Box className={classes.headingBox} borderBottom={2}>
         <Typography className={classes.heading} variant="h3" gutterBottom>
           Account Information
         </Typography>
@@ -211,11 +212,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
       <Container className={classes.profileContainer}>
         <h5 className={classes.profileHeader}>Account Email Address</h5>
         <Box className={classes.profileInfo}>
-          <img
-            className={classes.profileImg}
-            src={userPicture}
-            alt="Profile Image"
-          />
+          <img className={classes.profileImg} src={userPicture} alt="Profile" />
           <Typography className={classes.profileText}>
             {userProfile && userProfile.firstName !== null
               ? `${userProfile && userProfile.firstName} ${userProfile &&
