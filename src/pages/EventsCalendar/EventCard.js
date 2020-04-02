@@ -13,6 +13,7 @@ import {
   CardActions,
   Typography,
   Button,
+  Box,
 } from '@material-ui/core';
 
 import { useMutation } from 'react-apollo';
@@ -53,6 +54,15 @@ const useStyles = makeStyles({
     maxWidth: '36rem',
     maxHeight: '16rem',
   },
+  banner: {
+    clipPath: 'polygon(20% 0%, 80% 0%, 50% 100%, 0% 100%)',
+    position: 'relative',
+    transform: 'rotate(-45deg)',
+    top: '60px',
+    right: '120px',
+    color: '#eecc1a',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+  },
 });
 
 export default function EventCard({ event }) {
@@ -72,14 +82,17 @@ export default function EventCard({ event }) {
   return (
     <Card className={classes.root}>
       <CardActionArea className={classes.card}>
-        <CardMedia
-          className={classes.cardImg}
-          component="img"
-          alt="Event"
-          width="15rem"
-          image={event?.imgUrl}
-          title="Angel City Event"
-        />
+        <Box>
+          <div className={classes.banner}>{event.type}</div>
+          <CardMedia
+            className={classes.cardImg}
+            component="img"
+            alt="Event"
+            width="15rem"
+            image={event?.imgUrl}
+            title="Angel City Event"
+          />
+        </Box>
         <CardContent className={classes.content}>
           <Typography
             className={classes.cardDate}
