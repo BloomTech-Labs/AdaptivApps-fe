@@ -84,9 +84,13 @@ const useStyles = makeStyles(theme => ({
     borderRadius: '5px',
     textTransform: 'none',
     boxSizing: 'border-box',
+    '&:hover': {
+      background: '#2962FF',
+      color: 'white',
+    },
   },
   modalBtn2: {
-    padding: '1rem 2.5rem',
+    padding: '1rem 2.4rem',
     margin: '0 0 0 1.5rem',
     fontSize: '1.4rem',
     background: '#2962FF',
@@ -95,6 +99,10 @@ const useStyles = makeStyles(theme => ({
     borderRadius: '5px',
     textTransform: 'none',
     boxSizing: 'border-box',
+    '&:hover': {
+      background: 'white',
+      color: '#2962FF',
+    },
   },
 }));
 
