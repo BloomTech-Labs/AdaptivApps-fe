@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex, Button, theme } from 'adaptiv-ui';
 import { Input, TablePagination, Select, MenuItem } from '@material-ui/core';
-import EditIcon  from '@material-ui/icons/Edit';
+import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { useMutation } from 'react-apollo';
@@ -58,7 +58,7 @@ const AdminEventList = props => {
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
               >
-                <MenuItem value="Physical Event">Physical Event</MenuItem>
+                <MenuItem value="In Person">In Person</MenuItem>
                 <MenuItem value="Webinar">Webinar</MenuItem>
               </Select>
             ),
@@ -216,7 +216,7 @@ const AdminEventList = props => {
                 imgUrl: newData.imgUrl,
                 sponsors: newData.sponsors,
                 details: newData.details,
-                zoomLink: newData.zoomLink
+                zoomLink: newData.zoomLink,
               },
             });
             props.eventsRefetch();
@@ -236,7 +236,7 @@ const AdminEventList = props => {
                 imgUrl: newData.imgUrl,
                 sponsors: newData.sponsors,
                 details: newData.details,
-                zoomLink: newData.zoomLink
+                zoomLink: newData.zoomLink,
               },
             });
             props.eventsRefetch();
@@ -253,19 +253,21 @@ const AdminEventList = props => {
         icons={{
           Add: () => (
             <>
-              <AddCircleOutlineIcon style={{ color:'#2962FF' }} fontSize='large'/>
-                <Button primary style={{ padding: '0'}}>
-                  Add Event
-                </Button>
+              <AddCircleOutlineIcon
+                style={{ color: '#2962FF' }}
+                fontSize="large"
+              />
+              <Button primary style={{ padding: '0' }}>
+                Add Event
+              </Button>
             </>
           ),
           Edit: () => (
-            <EditIcon style={{ color:'#2962FF' }} fontSize='large' />
-             
+            <EditIcon style={{ color: '#2962FF' }} fontSize="large" />
           ),
           Delete: () => (
-            <DeleteIcon style={{ color:'#2962FF' }} fontSize='large' />
-          )
+            <DeleteIcon style={{ color: '#2962FF' }} fontSize="large" />
+          ),
         }}
         detailPanel={[
           {

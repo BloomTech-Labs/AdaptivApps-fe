@@ -55,13 +55,17 @@ const useStyles = makeStyles({
     maxHeight: '16rem',
   },
   banner: {
-    clipPath: 'polygon(20% 0%, 80% 0%, 50% 100%, 0% 100%)',
     position: 'relative',
     transform: 'rotate(-45deg)',
-    top: '60px',
-    right: '120px',
-    color: '#eecc1a',
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    top: '4.9rem',
+    right: '3rem',
+    borderBottom: '2.5rem solid #555',
+    borderLeft: '2.5rem solid transparent',
+    borderRight: '2.5rem solid transparent',
+    height: '0',
+    color: '#EECC1B',
+    width: '12.75rem',
+    textAlign: 'center',
   },
 });
 
