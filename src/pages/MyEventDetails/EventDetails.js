@@ -62,6 +62,15 @@ const useStyles = makeStyles({
       fontSize: '1.6rem',
     },
    },
+   webinarBox: {
+    display: 'flex',
+    flexDirection: 'column',
+    '& a': {
+      marginTop: '2rem',
+      marginLeft: '0.5rem',
+      color: '#2862ff',
+    },
+   },
 });
 
 export default function EventDetails(props) {
@@ -175,17 +184,10 @@ export default function EventDetails(props) {
 
       {activeEvent.type === 'Webinar' ? (
         <>
-          <Box col>
+          <Box className={classes.webinarBox}>
             <p>Hosted by: {activeEvent.host}</p>
             <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
-            <a
-              style={{
-                marginTop: '2rem',
-                marginLeft: '0.5rem',
-                color: '#2862ff',
-              }}
-              href={activeEvent.zoomLink}
-            >
+            <a href={activeEvent.zoomLink}>
               Click Here to Join Us on Zoom!
             </a>
           </Box>
