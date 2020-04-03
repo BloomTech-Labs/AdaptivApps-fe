@@ -46,6 +46,9 @@ const useStyles = makeStyles({
       fontSize: '1.8rem',
       marginBottom: '2rem',
     },
+    '& td': {
+      padding: '1% 1% 2% 0'
+    }
    },
    sponsorBox: {
     fontSize: '2rem',
