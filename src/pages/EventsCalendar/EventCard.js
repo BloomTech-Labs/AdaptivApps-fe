@@ -125,7 +125,7 @@ export default function EventCard({ event }) {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.btnContainer}>
-        <SimpleModal event={event} />
+        <SimpleModal event={event} registerEvent={registerEvent} />
       </CardActions>
     </Card>
   );

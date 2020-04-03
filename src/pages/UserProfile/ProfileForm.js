@@ -66,6 +66,9 @@ const useStyles = makeStyles({
     width: '100%',
     maxWidth: '600px',
   },
+  resize: {
+    fontSize: '1.4rem',
+  },
   box: {
     display: 'flex',
     flexDirection: 'column',
@@ -244,6 +247,11 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 placeholder={userProfile ? userProfile.firstName : null}
                 name="firstName"
                 control={control}
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
               />
             </Box>
             <Box className={classes.box}>
@@ -259,6 +267,11 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 placeholder={userProfile ? userProfile.lastName : null}
                 name="lastName"
                 control={control}
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
               />
             </Box>
           </Box>
@@ -276,6 +289,11 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 placeholder={userProfile ? userProfile.displayName : null}
                 name="displayName"
                 control={control}
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
               />
             </Box>
             <Box className={classes.box}>
@@ -291,6 +309,11 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 name="birthday"
                 placeholder={userProfile ? userProfile.birthday : 'mm/dd/yyyy'}
                 control={control}
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
               />
             </Box>
           </Box>
@@ -310,6 +333,11 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 rows="8"
                 placeholder={userProfile ? userProfile.bio : null}
                 control={control}
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
               />
             </Box>
           </Box>
@@ -329,6 +357,11 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 ref={register}
                 placeholder={userProfile ? userProfile.disability : null}
                 control={control}
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
               />
             </Box>
             <Box className={classes.box}>
@@ -337,12 +370,9 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               </InputLabel>
               <Controller
                 as={
-                  <Select>
-                    <MenuItem value="" disabled selected>
+                  <Select value={userProfile?.legal}>
+                    <MenuItem value="">
                       {userProfile ? userProfile.legal : null}
-                    </MenuItem>
-                    <MenuItem value={userProfile?.legal} disabled>
-                      {userProfile?.legal}
                     </MenuItem>
                     <MenuItem value={`Adult`}>Adult</MenuItem>
                     <MenuItem value={`Minor`}>Minor</MenuItem>
