@@ -13,6 +13,7 @@ import {
   TextField,
   Select,
   MenuItem,
+  InputProps,
   Button,
 } from '@material-ui/core';
 
@@ -87,6 +88,9 @@ const useStyles = makeStyles({
     width: '8rem',
     fontSize: '1.2rem',
     textTransform: 'none',
+  },
+  resize: {
+    fontSize: '1.4rem',
   },
 });
 
@@ -383,6 +387,11 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 name="legal"
                 variant="outlined"
                 control={control}
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
               />
             </Box>
           </Box>

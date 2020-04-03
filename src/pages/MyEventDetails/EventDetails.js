@@ -3,14 +3,88 @@ import React from 'react';
 // Component imports
 import ActivityDetails from './ActivityDetails';
 // Styling import
-import { Flex, Box } from 'adaptiv-ui';
+import { Flex } from 'adaptiv-ui';
+import { Box, makeStyles } from '@material-ui/core';
+
+// Applies Material-UI styling
+const useStyles = makeStyles({
+   root: {
+     display: 'flex',
+     flexDirection: 'column',
+     '& img': {
+      height: '16rem',
+      width: '36rem',
+      objectFit: 'cover',
+     },
+   },
+   topContentContainer: {
+     display: 'flex',
+     flexDirection: 'row',
+   },
+   topContentText: {
+     display: 'flex',
+     flexDirection: 'column',
+     justifyContent: 'center',
+     '& p': {
+      margin: '0rem 0 0.5rem',
+      color: '#808080',
+      fontSize: '1.4rem',
+     },
+     '& h6': {
+      fontWeight: 'bold',
+      fontSize: '2.1rem',
+      margin: '0rem 0 0.5rem',
+     },
+   },
+   detailsContainer: {
+    marginBottom: '2rem',
+    marginTop: '1.6rem',
+   },
+   myActivitiesBox: {
+    '& p': {
+      fontWeight: 'bold',
+      fontSize: '1.8rem',
+      marginBottom: '2rem',
+    },
+    '& td': {
+      padding: '1% 1% 2% 0'
+    }
+   },
+   sponsorBox: {
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    width: '90%',
+    margin: '5rem 0rem 0rem 0rem',
+   },
+   sponsorBox2: {
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    width: '90%',
+    margin: '8rem 0rem 0rem 0rem',
+    '& li': {
+      fontSize: '1.6rem',
+    },
+   },
+   webinarBox: {
+    display: 'flex',
+    flexDirection: 'column',
+    '& p': {
+      margin: '0 0.5rem'
+    },
+    '& a': {
+      marginTop: '2rem',
+      marginLeft: '0.5rem',
+      color: '#2862ff',
+    },
+   },
+});
 
 export default function EventDetails(props) {
+  const classes = useStyles();
   const userID = props.userID;
   const activeEvent = props.event;
   const currentActivities = activeEvent.activities;
   const filteredActivities = [];
-  console.log('event deets', props.event.type);
 
   const checkUserInAthletes = athletes => {
     let mark = false;
@@ -87,122 +161,55 @@ export default function EventDetails(props) {
 
   checkRoles(currentActivities);
 
-  return (
-    <Flex ai_start col stretch visible style={{ margin: '2.2rem 1.2rem' }}>
-      <Flex m="0rem 0.4rem 0rem 0.4rem">
-        <img
-          style={{ height: '16rem', width: '36rem', objectFit: 'cover' }}
-          src={activeEvent.imgUrl}
-        />
+  
 
+  return (
+    <Box className={classes.root} m={4}>
+      <Box className={classes.topContentContainer}>
+        <Box>
+          <img src={activeEvent.imgUrl}/>
+        </Box>
         {activeEvent.type === 'Webinar' ? (
-          <Flex col jc_center m="2.4rem">
-            <p
-              style={{
-                margin: '0.4rem 0rem',
-                color: '#808080',
-                fontSize: '1.4rem',
-              }}
-            >
-              {activeEvent.startDate}
-            </p>
-            <p
-              style={{ margin: '0rem', fontWeight: 'bold', fontSize: '2.1rem' }}
-            >
-              {activeEvent.title}
-            </p>
-            <p
-              style={{
-                margin: '0.4rem 0rem',
-                color: '#808080',
-                fontSize: '1.4rem',
-              }}
-            >
-              {activeEvent.location}
-            </p>
-            <p
-              style={{
-                margin: '0.4rem 0rem',
-                color: '#808080',
-                fontSize: '1.4rem',
-              }}
-            >
-              Start time: {activeEvent.startTime}
-            </p>
-          </Flex>
+          <Box className={classes.topContentText} m="2.4rem">
+            <p>{activeEvent.startDate}</p>
+            <h6>{activeEvent.title}</h6>
+            <p>{activeEvent.location}</p>
+            <p>Start time: {activeEvent.startTime}</p>
+          </Box>
         ) : (
-          <Flex col jc_center m="2.4rem">
-            <p
-              style={{
-                margin: '0.4rem 0rem',
-                color: '#808080',
-                fontSize: '1.4rem',
-              }}
-            >
-              {activeEvent.startDate} - {activeEvent.endDate}
-            </p>
-            <p
-              style={{ margin: '0rem', fontWeight: 'bold', fontSize: '2.1rem' }}
-            >
-              {activeEvent.title}
-            </p>
-            <p
-              style={{
-                margin: '0.4rem 0rem',
-                color: '#808080',
-                fontSize: '1.4rem',
-              }}
-            >
-              {activeEvent.location}
-            </p>
-          </Flex>
+          <Box className={classes.topContentText} m="2.4rem">
+            <p>{activeEvent.startDate} - {activeEvent.endDate}</p>
+            <h6>{activeEvent.title}</h6>
+            <p >{activeEvent.location}</p>
+          </Box>
         )}
-      </Flex>
-      <Flex>
-        <p style={{ marginBottom: '2rem', marginTop: '1.6rem' }}>
-          {activeEvent.details}
-        </p>
-      </Flex>
+      </Box>
+      <Box className={classes.detailsContainer}>
+        <p>{activeEvent.details}</p>
+      </Box>
 
       {activeEvent.type === 'Webinar' ? (
         <>
-          <Flex col>
+          <Box className={classes.webinarBox}>
             <p>Hosted by: {activeEvent.host}</p>
             <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
-            <a
-              style={{
-                marginTop: '2rem',
-                marginLeft: '0.5rem',
-                color: '#2862ff',
-              }}
-              href={activeEvent.zoomLink}
-            >
+            <a href={activeEvent.zoomLink}>
               Click Here to Join Us on Zoom!
             </a>
-          </Flex>
-          <Flex col w="90%" m="10rem 0rem 0rem 0rem">
-            <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>
-              Special thanks to our sponsors!
-            </p>
+          </Box>
+          <Box className={classes.sponsorBox2}>
+            <p>Special thanks to our sponsors!</p>
             <ul>
               {activeEvent.sponsors.split(', ').map(sponsor => (
                 <li>{sponsor}</li>
               ))}
             </ul>
-          </Flex>
+          </Box>
         </>
       ) : (
         <>
-          <Flex visible col h="30rem" stretch>
-            <p
-              style={{
-                fontWeight: 'bold',
-                fontSize: '1.8rem',
-                marginBottom: '2rem',
-              }}
-            >
-              My Activities
-            </p>
+          <Box h="30rem" className={classes.myActivitiesBox}>
+            <p>My Activities</p>
             <table>
               <tbody>
                 <tr>
@@ -218,19 +225,17 @@ export default function EventDetails(props) {
                   ))}
               </tbody>
             </table>
-          </Flex>
-          <Flex col w="90%" m="1rem 0rem 0rem 0rem">
-            <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>
-              Special thanks to our sponsors!
-            </p>
+          </Box>
+          <Box className={classes.sponsorBox}>
+            <p>Special thanks to our sponsors!</p>
             <ul>
               {activeEvent?.sponsors?.split(', ').map(sponsor => (
                 <li>{sponsor}</li>
               ))}
             </ul>
-          </Flex>
+          </Box>
         </>
       )}
-    </Flex>
+    </Box>
   );
 }
