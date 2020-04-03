@@ -13,6 +13,7 @@ import {
   TextField,
   Select,
   MenuItem,
+  InputProps,
   Button,
 } from '@material-ui/core';
 
@@ -84,6 +85,9 @@ const useStyles = makeStyles({
     width: '8rem',
     fontSize: '1.2rem',
     textTransform: 'none',
+  },
+  resize: {
+    fontSize: '1.4rem',
   },
 });
 
@@ -244,6 +248,12 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 placeholder={userProfile ? userProfile.firstName : null}
                 name="firstName"
                 control={control}
+                autoFocus 
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
               />
             </Box>
             <Box className={classes.box}>
@@ -259,6 +269,11 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 placeholder={userProfile ? userProfile.lastName : null}
                 name="lastName"
                 control={control}
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
               />
             </Box>
           </Box>
@@ -276,6 +291,11 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 placeholder={userProfile ? userProfile.displayName : null}
                 name="displayName"
                 control={control}
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
               />
             </Box>
             <Box className={classes.box}>
@@ -291,6 +311,11 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 name="birthday"
                 placeholder={userProfile ? userProfile.birthday : 'mm/dd/yyyy'}
                 control={control}
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
               />
             </Box>
           </Box>
@@ -310,6 +335,11 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 rows="8"
                 placeholder={userProfile ? userProfile.bio : null}
                 control={control}
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
               />
             </Box>
           </Box>
@@ -329,6 +359,11 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 ref={register}
                 placeholder={userProfile ? userProfile.disability : null}
                 control={control}
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
               />
             </Box>
             <Box className={classes.box}>
@@ -353,6 +388,11 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 name="legal"
                 variant="outlined"
                 control={control}
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
               />
             </Box>
           </Box>
