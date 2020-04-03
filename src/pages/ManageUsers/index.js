@@ -23,7 +23,13 @@ const useStyles = makeStyles(theme => ({
     fontWeight: '600',
     textTransform: 'none',
     backgroundColor: '#2962FF',
+    border: '1px solid #2962FF',
+    borderRadius: '5px',
     color: 'white',
+    '&:hover': {
+      background: 'white',
+      color: '#2962FF',
+    },
   },
   headingBox: {
     margin: '6rem 0 2rem 3rem',
@@ -32,6 +38,7 @@ const useStyles = makeStyles(theme => ({
   buttonBox: {
     display: 'flex',
     justifyContent: 'center',
+    flexDirection: 'column'
   },
 }));
 
@@ -52,46 +59,50 @@ const ManageUsers = () => {
         </Typography>
       </Box>
       <Container className={classes.buttonBox}>
-        {!showList ? (
-          <Button
-            className={classes.btn}
-            onClick={() => {
-              setShowList(!showList);
-            }}
-          >
-            Show all users
-          </Button>
-        ) : (
-          <Button
-            className={classes.btn}
-            onClick={() => {
-              setShowList(!showList);
-            }}
-          >
-            Hide users
-          </Button>
-        )}
-        {showList ? <UsersList /> : null}
-
-        {!showPanel ? (
-          <Button
-            className={classes.btn}
-            onClick={() => {
-              setShowPanel(!showPanel);
-            }}
-          >
-            Start a customized search
-          </Button>
-        ) : (
-          <Button
-            className={classes.btn}
-            onClick={() => {
-              setShowPanel(!showPanel);
-            }}
-          >
-            Hide search
-          </Button>
-        )}
+        <Container>
+          {!showList ? (
+            <Button
+              className={classes.btn}
+              onClick={() => {
+                setShowList(!showList);
+              }}
+            >
+              Show all users
+            </Button>
+          ) : (
+            <Button
+              className={classes.btn}
+              onClick={() => {
+                setShowList(!showList);
+              }}
+            >
+              Hide users
+            </Button>
+          )}
+        </Container>
+          {showList ? <UsersList /> : null}
+        
+          <Container>
+            {!showPanel ? (
+              <Button
+                className={classes.btn}
+                onClick={() => {
+                  setShowPanel(!showPanel);
+                }}
+              >
+                Start a customized search
+              </Button>
+            ) : (
+              <Button
+                className={classes.btn}
+                onClick={() => {
+                  setShowPanel(!showPanel);
+                }}
+              >
+                Hide search
+              </Button>
+            )}
+          </Container>
         {showPanel ? <UsersFilter /> : null}
       </Container>
     </Box>
