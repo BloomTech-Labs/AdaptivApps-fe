@@ -1,27 +1,60 @@
 import React, { useState } from 'react';
-import { Box, Text, Flex, Button } from 'adaptiv-ui';
+import {
+  Box,
+  Typography,
+  Button,
+  Container,
+  makeStyles,
+} from '@material-ui/core';
 import UsersList from './UsersList';
 import UsersFilter from './UsersFilter';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    maxWidth: '100%',
+    width: '90%',
+    marginLeft: '1rem',
+    marginTop: '4rem',
+  },
+  btn: {
+    margin: theme.spacing(1),
+    padding: '5',
+    fontSize: '1.6rem',
+    fontWeight: '600',
+    textTransform: 'none',
+    backgroundColor: '#2962FF',
+    color: 'white',
+  },
+  headingBox: {
+    margin: '6rem 0 2rem 3rem',
+    borderColor: '#D3D3D3',
+  },
+  buttonBox: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
+}));
 
 // This page is still a work in progress
 // It will display a list of users, using material table, and an admin
 // Can select users to perform actions. For now that's a dummy function,
 // But in future can be functions like group messaging.
 const ManageUsers = () => {
+  const classes = useStyles();
   const [showList, setShowList] = useState(false);
   const [showPanel, setShowPanel] = useState(false);
 
   return (
-    <Flex ai_start col stretch style={{marginLeft: "3rem", marginTop: "4rem"}}>
-      <h4 style={{margin: '1rem 0rem 0.8rem 0rem', fontSize: "2.4rem"}}>
-        Manage Registered Users
-      </h4>
-      <Box h="0.2rem" w="90%" bg="lightgrey" />
-      <Box h="2rem" />
-
-      <Flex ai_start col m="0 0 0 1rem">
+    <Box component="main" className={classes.root}>
+      <Box className={classes.headingBox} borderBottom={2}>
+        <Typography variant="h3" gutterBottom>
+          Manage Registered Users
+        </Typography>
+      </Box>
+      <Container className={classes.buttonBox}>
         {!showList ? (
           <Button
+            className={classes.btn}
             onClick={() => {
               setShowList(!showList);
             }}
@@ -30,6 +63,7 @@ const ManageUsers = () => {
           </Button>
         ) : (
           <Button
+            className={classes.btn}
             onClick={() => {
               setShowList(!showList);
             }}
@@ -41,6 +75,7 @@ const ManageUsers = () => {
 
         {!showPanel ? (
           <Button
+            className={classes.btn}
             onClick={() => {
               setShowPanel(!showPanel);
             }}
@@ -49,6 +84,7 @@ const ManageUsers = () => {
           </Button>
         ) : (
           <Button
+            className={classes.btn}
             onClick={() => {
               setShowPanel(!showPanel);
             }}
@@ -57,8 +93,8 @@ const ManageUsers = () => {
           </Button>
         )}
         {showPanel ? <UsersFilter /> : null}
-      </Flex>
-    </Flex>
+      </Container>
+    </Box>
   );
 };
 
