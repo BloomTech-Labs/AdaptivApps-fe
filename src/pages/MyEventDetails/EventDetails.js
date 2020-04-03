@@ -36,6 +36,32 @@ const useStyles = makeStyles({
       margin: 0,
      }
    },
+   detailsContainer: {
+    marginBottom: '2rem',
+    marginTop: '1.6rem',
+   },
+   myActivitiesBox: {
+    '& p': {
+      fontWeight: 'bold',
+      fontSize: '1.8rem',
+      marginBottom: '2rem',
+    },
+   },
+   sponsorBox: {
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    width: '90%',
+    margin: '5rem 0rem 0rem 0rem',
+   },
+   sponsorBox2: {
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    width: '90%',
+    margin: '10rem 0rem 0rem 0rem',
+    '& li': {
+      fontSize: '1.6rem',
+    },
+   },
 });
 
 export default function EventDetails(props) {
@@ -126,49 +152,25 @@ export default function EventDetails(props) {
     <Box className={classes.root} m={4}>
       <Box className={classes.topContentContainer}>
         <Box>
-          <img
-            src={activeEvent.imgUrl}
-          />
+          <img src={activeEvent.imgUrl}/>
         </Box>
         {activeEvent.type === 'Webinar' ? (
           <Box className={classes.topContentText} m="2.4rem">
             <p>{activeEvent.startDate}</p>
-            <p>{activeEvent.title}</p>
+            <h6>{activeEvent.title}</h6>
             <p>{activeEvent.location}</p>
             <p>Start time: {activeEvent.startTime}</p>
           </Box>
         ) : (
           <Box className={classes.topContentText} m="2.4rem">
-            <p
-              style={{
-                margin: '0.4rem 0rem',
-                color: '#808080',
-                fontSize: '1.4rem',
-              }}
-            >
-              {activeEvent.startDate} - {activeEvent.endDate}
-            </p>
-            <h6
-              classname={classes.eventTitle}
-            >
-              {activeEvent.title}
-            </h6>
-            <p
-              style={{
-                margin: '0.4rem 0rem',
-                color: '#808080',
-                fontSize: '1.4rem',
-              }}
-            >
-              {activeEvent.location}
-            </p>
+            <p>{activeEvent.startDate} - {activeEvent.endDate}</p>
+            <h6>{activeEvent.title}</h6>
+            <p >{activeEvent.location}</p>
           </Box>
         )}
       </Box>
-      <Box>
-        <p style={{ marginBottom: '2rem', marginTop: '1.6rem' }}>
-          {activeEvent.details}
-        </p>
+      <Box className={classes.detailsContainer}>
+        <p>{activeEvent.details}</p>
       </Box>
 
       {activeEvent.type === 'Webinar' ? (
@@ -187,10 +189,8 @@ export default function EventDetails(props) {
               Click Here to Join Us on Zoom!
             </a>
           </Box>
-          <Box col w="90%" m="10rem 0rem 0rem 0rem">
-            <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>
-              Special thanks to our sponsors!
-            </p>
+          <Box className={classes.sponsorBox2}>
+            <p>Special thanks to our sponsors!</p>
             <ul>
               {activeEvent.sponsors.split(', ').map(sponsor => (
                 <li>{sponsor}</li>
@@ -200,16 +200,8 @@ export default function EventDetails(props) {
         </>
       ) : (
         <>
-          <Box visible col h="30rem" stretch>
-            <p
-              style={{
-                fontWeight: 'bold',
-                fontSize: '1.8rem',
-                marginBottom: '2rem',
-              }}
-            >
-              My Activities
-            </p>
+          <Box h="30rem" className={classes.myActivitiesBox}>
+            <p>My Activities</p>
             <table>
               <tbody>
                 <tr>
@@ -226,10 +218,8 @@ export default function EventDetails(props) {
               </tbody>
             </table>
           </Box>
-          <Box col w="90%" m="1rem 0rem 0rem 0rem">
-            <p style={{ fontSize: '2rem', fontWeight: 'bold' }}>
-              Special thanks to our sponsors!
-            </p>
+          <Box className={classes.sponsorBox}>
+            <p>Special thanks to our sponsors!</p>
             <ul>
               {activeEvent?.sponsors?.split(', ').map(sponsor => (
                 <li>{sponsor}</li>
