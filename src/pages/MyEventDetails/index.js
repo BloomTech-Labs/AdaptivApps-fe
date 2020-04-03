@@ -54,7 +54,6 @@ export default function MyEventDetails() {
           Event Details
         </Typography>
       </Box>
-      {/* TODO: why isn't event id setting the key? */}
       {activeEvent &&
         activeEvent.map((event, id) => (
           <EventDetails key={id} event={event} userID={userID} />
