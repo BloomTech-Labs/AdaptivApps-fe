@@ -1,7 +1,7 @@
 // React imports
 import React, { useEffect } from 'react';
 // Component imports
-import UserEventCard from './UserEventCard';
+import MyEventCard from './MyEventCard';
 // GraphQL/Apollo imports
 import { useQuery } from 'react-apollo';
 import { GET_USER_EVENTS } from './queries';
@@ -31,7 +31,7 @@ export default function UserEvents() {
       <Flex jc_between row w="90%" style={{ flexWrap: "wrap" }}>
       {data &&
         data.events.map((event, id) => (
-          <UserEventCard refetch={refetch} key={id} event={event} />
+          <MyEventCard refetch={refetch} key={id} event={event} />
         ))}
       </Flex>
     </Flex>
