@@ -30,7 +30,7 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'flex-start',
     flexWrap: 'wrap',
-    marginLeft: '3rem',
+    marginLeft: '2.6rem',
   },
 });
 

@@ -26,6 +26,7 @@ const useStyles = makeStyles({
     borderRadius: '.5rem',
     marginRight: '2.4rem',
     boxShadow: 'none',
+    padding: '0.4rem',
   },
   cardDate: {
     fontSize: '1.4rem',
@@ -50,7 +51,7 @@ const useStyles = makeStyles({
     position: 'relative',
     transform: 'rotate(-45deg)',
     top: '4.9rem',
-    right: '3rem',
+    right: '2.6rem',
     borderBottom: '2.5rem solid #555',
     borderLeft: '2.5rem solid transparent',
     borderRight: '2.5rem solid transparent',
@@ -67,14 +68,12 @@ const useStyles = makeStyles({
   link: {
     color: "#2962ff",
     fontSize: '1.4rem',
-    margin: '0.4rem',
   },
   button: {
     padding: '0',
     color: "#2962ff",
     fontSize: '1.4rem',
     border: 'none',
-    margin: '0.4rem',
   },
 });
 
