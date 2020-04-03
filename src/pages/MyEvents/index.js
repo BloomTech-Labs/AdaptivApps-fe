@@ -34,7 +34,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function UserEvents() {
+export default function MyEvents() {
   const classes = useStyles();
   // Retrieves logged in user info
   const { user } = useAuth0();
@@ -59,7 +59,7 @@ export default function UserEvents() {
       <Grid className={classes.grid}>
         {data &&
           data?.events?.map((event, id) => (
-            <MyEventCard key={id} event={event} />
+            <MyEventCard key={id} event={event} refetch={refetch} />
           ))}
       </Grid>
     </main>

@@ -78,7 +78,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function UserEventCard({ event, refetch }) {
+export default function MyEventCard({ event, refetch }) {
   const classes = useStyles();
   const [updateProfile] = useMutation(UNREGISTER_FROM_EVENT);
   // Retrieves current user info from Auth0
@@ -134,7 +134,7 @@ export default function UserEventCard({ event, refetch }) {
       </CardActionArea>
       <CardActions className={classes.btnContainer}>
         <Link to={`${event?.id}`} className={classes.link}>VIEW DETAILS</Link>
-        <Button className={classes.button} onClick={unregisterFromEvent}>BUTTON</Button>
+        <Button className={classes.button} onClick={unregisterFromEvent}>UNREGISTER</Button>
       </CardActions>
     </Card>
   );
