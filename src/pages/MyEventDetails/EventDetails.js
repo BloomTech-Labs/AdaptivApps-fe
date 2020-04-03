@@ -26,15 +26,15 @@ const useStyles = makeStyles({
      flexDirection: 'column',
      justifyContent: 'center',
      '& p': {
-      margin: '0.5rem 0rem',
+      margin: '0rem 0 0.5rem',
       color: '#808080',
       fontSize: '1.4rem',
      },
      '& h6': {
       fontWeight: 'bold',
       fontSize: '2.1rem',
-      margin: 0,
-     }
+      margin: '0rem 0 0.5rem',
+     },
    },
    detailsContainer: {
     marginBottom: '2rem',
@@ -57,7 +57,7 @@ const useStyles = makeStyles({
     fontSize: '2rem',
     fontWeight: 'bold',
     width: '90%',
-    margin: '10rem 0rem 0rem 0rem',
+    margin: '8rem 0rem 0rem 0rem',
     '& li': {
       fontSize: '1.6rem',
     },
@@ -65,6 +65,9 @@ const useStyles = makeStyles({
    webinarBox: {
     display: 'flex',
     flexDirection: 'column',
+    '& p': {
+      margin: '0 0.5rem'
+    },
     '& a': {
       marginTop: '2rem',
       marginLeft: '0.5rem',
