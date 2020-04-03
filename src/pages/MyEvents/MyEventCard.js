@@ -21,7 +21,7 @@ import {
 } from '@material-ui/core';
 // TODO: propTypes for refetch? import PropTypes from 'prop-types';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     borderRadius: '.5rem',
     marginRight: '2.4rem',
@@ -70,12 +70,13 @@ const useStyles = makeStyles({
     fontSize: '1.4rem',
   },
   button: {
-    padding: '0',
     color: "#2962ff",
     fontSize: '1.4rem',
-    border: 'none',
+    '& > *': {
+      margin: theme.spacing(1),
+    },
   },
-});
+}));
 
 export default function MyEventCard({ event, refetch }) {
   const classes = useStyles();

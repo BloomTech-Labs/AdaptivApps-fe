@@ -67,6 +67,9 @@ const useStyles = makeStyles({
     width: '100%',
     maxWidth: '600px',
   },
+  resize: {
+    fontSize: '1.4rem',
+  },
   box: {
     display: 'flex',
     flexDirection: 'column',
@@ -372,12 +375,9 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               </InputLabel>
               <Controller
                 as={
-                  <Select>
-                    <MenuItem value="" disabled selected>
+                  <Select value={userProfile?.legal}>
+                    <MenuItem value="">
                       {userProfile ? userProfile.legal : null}
-                    </MenuItem>
-                    <MenuItem value={userProfile?.legal} disabled>
-                      {userProfile?.legal}
                     </MenuItem>
                     <MenuItem value={`Adult`}>Adult</MenuItem>
                     <MenuItem value={`Minor`}>Minor</MenuItem>

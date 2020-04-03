@@ -60,6 +60,7 @@ const useStyles = makeStyles(theme => ({
   details: {
     marginTop: '2rem',
     overflowY: 'scroll',
+    overflowX: 'hidden',
     height: '14vh',
     fontSize: '1.4rem',
     paddingRight: '1rem',
@@ -106,7 +107,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SimpleModal({ event }) {
+export default function SimpleModal({ event, registerEvent }) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -140,7 +141,7 @@ export default function SimpleModal({ event }) {
       <Box className={classes.modalBottom}>
         <p className={classes.modalP}>Add to "My Events?"</p>
         <Box>
-          <Button className={classes.modalBtn1} onClick={handleOpen}>
+          <Button className={classes.modalBtn1} onClick={registerEvent}>
             Add
           </Button>
           <Button className={classes.modalBtn2} onClick={handleClose}>
