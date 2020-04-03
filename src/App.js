@@ -10,7 +10,7 @@ import EventsCalendar from './pages/EventsCalendar';
 import UserProfile from './pages/UserProfile';
 import MyEvents from './pages/MyEvents';
 import ActivityList from './pages/ActivitiesList';
-import UserEventDetails from './pages/UserEventDetails';
+import MyEventDetails from './pages/MyEventDetails';
 import ManageEvents from './pages/ManageEvents';
 import Accessibility from './pages/Landing/Legal/Accessibility';
 import PrivacyPolicy from './pages/Landing/Legal/PrivacyPolicy';
@@ -62,7 +62,7 @@ function App() {
             <EventsCalendar path="calendar" />
             <ActivityList path="calendar/:eventId" />
             <MyEvents path="myevents" />
-            <UserEventDetails path="myevents/:eventId" />
+            <MyEventDetails path="myevents/:eventId" />
             <ManageEvents path="manage" />
             <ManageUsers path="users" />
           </PrivateRoute>
