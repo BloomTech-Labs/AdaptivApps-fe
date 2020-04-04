@@ -16,7 +16,6 @@ const useStyles = makeStyles(theme => ({
     width: '30rem',
   },
   acsBrand: {
-    objectFit: 'cover',
     height: '100%',
     width: '30rem',
   },
@@ -31,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-evenly',
     alignSelf: 'flex-start',
   },
-  navBtn: {
+  loginBtn: {
     width: '9.6rem',
     height: '4.8rem',
     background: '#2962FF',
@@ -42,6 +41,19 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       background: '#FFFFFF',
       color: '#2962FF',
+    },
+  },
+  signUpBtn: {
+    width: '9.6rem',
+    height: '4.8rem',
+    background: '#FFFFFF',
+    color: '#2962FF',
+    fontSize: '1.6rem',
+    textTransform: 'none',
+    marginTop: '1.6rem',
+    '&:hover': {
+      color: '#FFFFFF',
+      background: '#2962FF',
     },
   },
 }));
@@ -64,14 +76,14 @@ const NavBar = () => {
           {/* If a user is not logged in (authenticated), will redirect to Auth0 log in modal. */}
           {!isAuthenticated && (
             <Button
-              className={classes.navBtn}
+              className={classes.signUpBtn}
               onClick={() => loginWithRedirect({})}
             >
               Sign Up
             </Button>
           )}
           <Button
-            className={classes.navBtn}
+            className={classes.loginBtn}
             aria-label="Access log in modal"
             onClick={() => loginWithRedirect({})}
           >
