@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: '2rem',
     overflowY: 'scroll',
     overflowX: 'hidden',
-    height: '10rem',
+    height: '13rem',
     fontSize: '1.4rem',
     paddingRight: '1rem',
   },
@@ -72,7 +72,7 @@ const useStyles = makeStyles(theme => ({
     alignContent: 'flex-end',
   },
   modalP: {
-    margin: '2.6rem 0',
+    margin: '1.2rem 0',
     fontSize: '2.1rem',
     color: '#2962FF',
   },

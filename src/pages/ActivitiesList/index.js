@@ -55,6 +55,7 @@ const useStyles = makeStyles({
   },
   activityH: {
     fontSize: '1.8rem',
+    marginBottom: '6.3rem',
   },
   tableH: {
     color: '#202020',
@@ -108,7 +109,7 @@ export default function ActivityList() {
         <Typography className={classes.activityH}>
           Activities Schedule
         </Typography>
-        <table>
+        <table className={classes.table}>
           <tbody>
             <tr className={classes.headerRow}>
               <th className={classes.tableH}>Name</th>

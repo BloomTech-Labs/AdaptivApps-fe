@@ -18,6 +18,14 @@ const useStyles = makeStyles({
     width: '14rem',
     padding: '1% 1% 3% 0%',
   },
+  tableData: {
+    width: '14rem',
+    padding: '1% 1% 3% 0%',
+  },
+  rolesDialog: {
+    margin: '0',
+    padding: '0',
+  },
 });
 
 export default function Activities({ activity }) {
@@ -28,14 +36,13 @@ export default function Activities({ activity }) {
         <tbody>
           <tr>
             <td className={classes.nameLink}>{activity.name}</td>
-            <td className={classes.date}>{activity.startDate}</td>
-            <td className={classes.loc}>{activity.location}</td>
-            <td className={classes.time}>{activity.startTime}</td>
+            <td className={classes.tableData}>{activity.startDate}</td>
+            <td className={classes.tableData}>{activity.location}</td>
+            <td className={classes.tableData}>{activity.startTime}</td>
           </tr>
         </tbody>
       </table>
-      {/* <RolesToolTip activity={activity} /> */}
-      <RolesDialog activity={activity} />
+      <RolesDialog className={classes.rolesDialog} activity={activity} />
     </Grid>
   );
 }
