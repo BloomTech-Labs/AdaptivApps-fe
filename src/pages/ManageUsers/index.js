@@ -13,8 +13,6 @@ const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: '100%',
     width: '90%',
-    marginLeft: '1rem',
-    marginTop: '4rem',
   },
   btn: {
     margin: theme.spacing(1),
@@ -33,12 +31,13 @@ const useStyles = makeStyles(theme => ({
   },
   headingBox: {
     margin: '6rem 0 2rem 3rem',
+    fontWeight: '400',
     borderColor: '#D3D3D3',
   },
   buttonBox: {
     display: 'flex',
     justifyContent: 'center',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
 }));
 
@@ -80,29 +79,29 @@ const ManageUsers = () => {
             </Button>
           )}
         </Container>
-          {showList ? <UsersList /> : null}
-        
-          <Container>
-            {!showPanel ? (
-              <Button
-                className={classes.btn}
-                onClick={() => {
-                  setShowPanel(!showPanel);
-                }}
-              >
-                Start a customized search
-              </Button>
-            ) : (
-              <Button
-                className={classes.btn}
-                onClick={() => {
-                  setShowPanel(!showPanel);
-                }}
-              >
-                Hide search
-              </Button>
-            )}
-          </Container>
+        {showList ? <UsersList /> : null}
+
+        <Container>
+          {!showPanel ? (
+            <Button
+              className={classes.btn}
+              onClick={() => {
+                setShowPanel(!showPanel);
+              }}
+            >
+              Start a customized search
+            </Button>
+          ) : (
+            <Button
+              className={classes.btn}
+              onClick={() => {
+                setShowPanel(!showPanel);
+              }}
+            >
+              Hide search
+            </Button>
+          )}
+        </Container>
         {showPanel ? <UsersFilter /> : null}
       </Container>
     </Box>
