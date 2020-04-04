@@ -21,8 +21,8 @@ function getModalStyle() {
 const useStyles = makeStyles(theme => ({
   paper: {
     position: 'absolute',
-    width: 400,
-    height: 568,
+    width: '40rem',
+    height: '56.8rem',
     backgroundColor: 'white',
     padding: '0',
   },
@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
   img: {
     width: '100%',
     padding: '0',
-    height: '20vh',
+    height: '16rem',
     objectFit: 'cover',
   },
   modalMiddle: {
@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: '2rem',
     overflowY: 'scroll',
     overflowX: 'hidden',
-    height: '14vh',
+    height: '10rem',
     fontSize: '1.4rem',
     paddingRight: '1rem',
   },
@@ -72,7 +72,7 @@ const useStyles = makeStyles(theme => ({
     alignContent: 'flex-end',
   },
   modalP: {
-    margin: '1rem 0',
+    margin: '2.6rem 0',
     fontSize: '2.1rem',
     color: '#2962FF',
   },

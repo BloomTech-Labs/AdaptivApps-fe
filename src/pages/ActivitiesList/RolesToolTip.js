@@ -21,8 +21,8 @@ function RolesToolTip({ activity }) {
   function toggle() {
     setClicked(!clicked);
   }
-  function focus(){
-      setOnFocused(!onFocus)
+  function focus() {
+    setOnFocused(!onFocus);
   }
   function hoverEnter(e) {
     // setColor("blue");
@@ -31,116 +31,88 @@ function RolesToolTip({ activity }) {
   function hoverLeave(e) {
     e.target.style.color = 'black';
   }
-  const { user } = useAuth0();
 
-  const athleteRegister = async () => {
-    await registerAsAthlete({
-      variables: { id: activity.id, email: user.email },
-    });
-    alert('Successfully registered to compete in this event!');
-  };
-
-  const coachRegister = async () => {
-    await registerAsCoach({
-      variables: { id: activity.id, email: user.email },
-    });
-    alert('Successfully registered as a Coach!');
-  };
-
-  const volunteerRegister = async () => {
-    await registerAsVolunteer({
-      variables: { id: activity.id, email: user.email },
-    });
-    alert('Successfully registered as a Volunteer');
-  };
-
-  const otherRegister = async () => {
-    await registerAsOther({
-      variables: { id: activity.id, email: user.email },
-    });
-    alert('Successfully registered as a Spectator');
-  };
   return (
-
-      <IconContext.Provider
+    <IconContext.Provider
       onBlur={toggle}
-        value={
-          clicked
-            ? {
-                style: {
-                  background: 'white',
-                  color: '#FFC629',
-                  fontSize: '3rem',
-                  
-                },
-              }
-            : {
-                style: {
-                  background: 'white',
-                  color: '#2962FF',
-                  fontSize: '3rem',
-                },
-              }
-        }
-      >
-        <Button bg={'white'} onClick={toggle} position="absolute" >
-          <IoIosAddCircle  />
-        </Button>
-      
+      value={
+        clicked
+          ? {
+              style: {
+                background: 'white',
+                color: '#FFC629',
+                fontSize: '3rem',
+              },
+            }
+          : {
+              style: {
+                background: 'white',
+                color: '#2962FF',
+                fontSize: '3rem',
+              },
+            }
+      }
+    >
+      <Button bg={'white'} onClick={toggle} position="absolute">
+        <IoIosAddCircle />
+      </Button>
 
       {/* <div className="tooltip"> */}
-      <div className="register" >
-          {clicked ? (
-        <Flex col f_size="1.2rem" visible w="20rem"  >
-          <Button className="role"
-            // onFocus={hoverEnter}
-            onBlur={hoverLeave}
-            color={color}
-            onMouseOver={hoverEnter}
-            onMouseLeave={hoverLeave}
-            onClick={(() => console.log('clicked'), athleteRegister)}
-          >
-            {/* eslint-disable-next-line */}
-        I'm Competing
-          </Button>
-          <Button className="role"
-            onFocus={hoverEnter}
-            onBlur={hoverLeave}
-            color={color}
-            onMouseOver={hoverEnter}
-            onMouseLeave={hoverLeave}
-            onClick={(() => console.log('clicked'), coachRegister)}
-          >
-            {/* eslint-disable-next-line */}
-            I'm Coaching
-          </Button>
-          <Button className="role"
-            onFocus={hoverEnter}
-            onBlur={hoverLeave}
-            color={color}
-            onMouseOver={hoverEnter}
-            onMouseLeave={hoverLeave}
-            onClick={(() => console.log('clicked'), volunteerRegister)}
-          >
-            {/* eslint-disable-next-line */}
-            I'm Volunteering
-          </Button>
-          <Button className="role"
-            onFocus={hoverEnter}
-            onBlur={hoverLeave, toggle}
-            color={color}
-            onMouseOver={hoverEnter}
-            onMouseLeave={hoverLeave}
-            
-            onClick={(() => console.log('clicked'), otherRegister)}
-          >
-            {/* eslint-disable-next-line */}
-            I'm Spectating
-          </Button>
-        </Flex>
-          ) : null }
+      <div className="register">
+        {clicked ? (
+          <Flex col f_size="1.2rem" visible w="20rem">
+            <Button
+              className="role"
+              // onFocus={hoverEnter}
+              onBlur={hoverLeave}
+              color={color}
+              onMouseOver={hoverEnter}
+              onMouseLeave={hoverLeave}
+              onClick={(() => console.log('clicked'), athleteRegister)}
+            >
+              {/* eslint-disable-next-line */}
+              I'm Competing
+            </Button>
+            <Button
+              className="role"
+              onFocus={hoverEnter}
+              onBlur={hoverLeave}
+              color={color}
+              onMouseOver={hoverEnter}
+              onMouseLeave={hoverLeave}
+              onClick={(() => console.log('clicked'), coachRegister)}
+            >
+              {/* eslint-disable-next-line */}
+              I'm Coaching
+            </Button>
+            <Button
+              className="role"
+              onFocus={hoverEnter}
+              onBlur={hoverLeave}
+              color={color}
+              onMouseOver={hoverEnter}
+              onMouseLeave={hoverLeave}
+              onClick={(() => console.log('clicked'), volunteerRegister)}
+            >
+              {/* eslint-disable-next-line */}
+              I'm Volunteering
+            </Button>
+            <Button
+              className="role"
+              onFocus={hoverEnter}
+              onBlur={(hoverLeave, toggle)}
+              color={color}
+              onMouseOver={hoverEnter}
+              onMouseLeave={hoverLeave}
+              onClick={(() => console.log('clicked'), otherRegister)}
+            >
+              {/* eslint-disable-next-line */}
+              I'm Spectating
+            </Button>
+          </Flex>
+        ) : null}
       </div>
-      </IconContext.Provider>
+    </IconContext.Provider>
   );
 }
 
