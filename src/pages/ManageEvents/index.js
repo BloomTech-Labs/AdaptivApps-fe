@@ -1,31 +1,49 @@
 import React from 'react';
-import { Box, Text, Flex } from 'adaptiv-ui';
+import { makeStyles, Box, Typography } from '@material-ui/core';
+
 import { useQuery } from 'react-apollo';
 import { GET_EVENTS } from './queries';
 import AdminEventList from './AdminEventList';
 
+const useStyles = makeStyles({
+  root: {
+    maxWidth: '100%',
+    width: '90%',
+    fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+  },
+  headingBox: {
+    margin: '6rem 0 2rem 3rem',
+    fontWeight: '400',
+    borderColor: '#D3D3D3',
+  },
+});
+
 // This is the component that is responsible for managing events
 // An admin can perform CRUD operations for events and activities
 const ManageEvents = () => {
+  const classes = useStyles();
   // Getting all events
   const { data: eventsData, refetch: eventsRefetch } = useQuery(GET_EVENTS);
 
   return (
-    <Flex ai_start col stretch style={{marginLeft: "3rem", marginTop: "4rem"}}>
-      <h4 style={{margin: '1rem 0rem 0.8rem 0rem', fontSize: "2.4rem"}}>Manage Events and Activities</h4>
-      <Box h="0.2rem" w="90%" bg="lightgrey" />
-      <Box h="2rem" />
-
-      {/* Call the AdminEventList, which will contain a list of events */}
-      {eventsData ? (
-        <AdminEventList
-          events={eventsData?.events}
-          eventsRefetch={eventsRefetch}
-        />
-      ) : (
-        <p>Loading</p>
-      )}
-    </Flex>
+    <main className={classes.root}>
+      <Box className={classes.headingBox} borderBottom={2}>
+        <Typography className={classes.heading} variant="h3" gutterBottom>
+          Upcoming Events
+        </Typography>
+      </Box>
+      <Box>
+        {/* Call the AdminEventList, which will contain a list of events */}
+        {eventsData ? (
+          <AdminEventList
+            events={eventsData?.events}
+            eventsRefetch={eventsRefetch}
+          />
+        ) : (
+          <p>Loading</p>
+        )}
+      </Box>
+    </main>
   );
 };
 

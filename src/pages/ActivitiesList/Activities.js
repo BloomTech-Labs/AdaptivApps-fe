@@ -1,6 +1,6 @@
 import React from 'react';
 // import RolesToolTip from './RolesToolTip';
-import RolesDialog from './RolesDialog';
+import RolesDialog from './SelectRole';
 import PropTypes from 'prop-types';
 import './styles.css';
 
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
   },
   tableData: {
     width: '14rem',
-    padding: '1% 1% 3% 0%',
+    padding: '0 1% 3% 0%',
   },
   rolesDialog: {
     margin: '0',

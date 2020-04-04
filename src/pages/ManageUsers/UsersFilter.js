@@ -1,8 +1,5 @@
 import React from 'react';
 import { Container, makeStyles } from '@material-ui/core';
-import { useQuery } from 'react-apollo';
-import { GET_PROFILES } from './queries';
-
 // Ask stake holder before implementing this page
 // From what I understand, this component can be a search console
 // That performs a search-filter mechanism on users based on
@@ -12,15 +9,13 @@ const useStyles = makeStyles({
   root: {
     display: 'flex',
     flexDirection: 'column',
-    margin: "0 2% 0 2%",
+    margin: '0 2% 0 2%',
   },
-})
+});
 
 const UsersFilter = () => {
   const classes = useStyles();
   // Grabs all user profile information
-  const { data } = useQuery(GET_PROFILES);
-  const profiles = data?.profiles;
 
   return (
     <Container className={classes.root}>

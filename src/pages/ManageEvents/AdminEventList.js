@@ -1,13 +1,21 @@
 import React from 'react';
-import { Flex, Button, theme } from 'adaptiv-ui';
-import { Input, TablePagination, Select, MenuItem } from '@material-ui/core';
+import { CREATE_EVENT, UPDATE_EVENT, DELETE_EVENT } from './queries';
+import { useMutation } from 'react-apollo';
+import MaterialTable from 'material-table';
+import {
+  makeStyles,
+  Input,
+  TablePagination,
+  Select,
+  MenuItem,
+  Grid,
+  Button,
+} from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import { useMutation } from 'react-apollo';
-import MaterialTable from 'material-table';
+
 import AdminActivityList from './AdminActivityList';
-import { CREATE_EVENT, UPDATE_EVENT, DELETE_EVENT } from './queries';
 
 // This component contains a list of events, passed in as props
 const AdminEventList = props => {
@@ -19,11 +27,23 @@ const AdminEventList = props => {
   // Grab the events data from props
   const events = props.events;
 
+  const useStyles = makeStyles({
+    grid: {
+      marginLeft: '3rem',
+    },
+    addBtn: {
+      fontSize: '1.6rem',
+      color: '#2763FF',
+      textTransform: 'none',
+    },
+  });
+  const classes = useStyles();
+
   // This code is returning a material table object
   // For more info on material table, please visit their docs at
   // https://material-table.com/
   return (
-    <Flex col w="90%">
+    <Grid className={classes.grid}>
       <MaterialTable
         components={{
           Pagination: props => (
@@ -71,7 +91,6 @@ const AdminEventList = props => {
                 type="text"
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
-                m="0 0 0 -0.5rem"
               />
             ),
           },
@@ -95,7 +114,6 @@ const AdminEventList = props => {
                 type="time"
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
-                m="0 0 0 -0.5rem"
               />
             ),
           },
@@ -107,7 +125,6 @@ const AdminEventList = props => {
                 type="date"
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
-                m="0 0 0 -0.5rem"
               />
             ),
           },
@@ -119,7 +136,6 @@ const AdminEventList = props => {
                 type="date"
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
-                m="0 0 0 -0.5rem"
               />
             ),
           },
@@ -131,7 +147,6 @@ const AdminEventList = props => {
                 type="text"
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
-                m="0 0 0 -0.5rem"
               />
             ),
           },
@@ -149,18 +164,12 @@ const AdminEventList = props => {
           {
             title: 'Image Url',
             field: 'imgUrl',
-            render: rowData => (
-              <img
-                style={{ height: 50, width: 50, borderRadius: '50%' }}
-                src={rowData.imgUrl}
-              />
-            ),
+            render: rowData => <img src={rowData.imgUrl} alt="Event" />,
             editComponent: props => (
               <Input
                 type="text"
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
-                m="0 0 0 -0.5rem"
               />
             ),
           },
@@ -257,9 +266,7 @@ const AdminEventList = props => {
                 style={{ color: '#2962FF' }}
                 fontSize="large"
               />
-              <Button primary style={{ padding: '0' }}>
-                Add Event
-              </Button>
+              <Button className={classes.addBtn}>Add Event</Button>
             </>
           ),
           Edit: () => (
@@ -283,7 +290,6 @@ const AdminEventList = props => {
         ]}
         options={{
           cellStyle: {
-            width: '200rem',
             fontSize: '1.6rem',
           },
           headerStyle: {
@@ -302,7 +308,7 @@ const AdminEventList = props => {
           },
         }}
       />
-    </Flex>
+    </Grid>
   );
 };
 

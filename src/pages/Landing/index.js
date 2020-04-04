@@ -11,7 +11,7 @@ import './styles.css';
 
 // This is our landing page, aka the home page for the main app
 const LandingPage = () => {
-  const { user, loginWithRedirect } = useAuth0();
+  const { loginWithRedirect } = useAuth0();
   return (
     <IconContext.Provider value={{ color: 'white', size: '3rem' }}>
       <NavBar />

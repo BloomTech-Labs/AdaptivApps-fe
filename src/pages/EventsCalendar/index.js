@@ -1,12 +1,6 @@
 import React, { useEffect } from 'react';
 import { useQuery } from 'react-apollo';
-import {
-  makeStyles,
-  Container,
-  Grid,
-  Box,
-  Typography,
-} from '@material-ui/core';
+import { makeStyles, Grid, Box, Typography } from '@material-ui/core';
 
 import EventCard from './EventCard';
 import { GET_EVENT_LIST } from './queries';
@@ -36,7 +30,7 @@ export default function EventsCalendar() {
   // refetches EVENT_LIST without refreshing page
   useEffect(() => {
     refetch();
-  }, []);
+  }, [refetch]);
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
 

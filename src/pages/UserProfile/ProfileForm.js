@@ -13,7 +13,6 @@ import {
   TextField,
   Select,
   MenuItem,
-  InputProps,
   Button,
 } from '@material-ui/core';
 
@@ -88,9 +87,6 @@ const useStyles = makeStyles({
     width: '8rem',
     fontSize: '1.2rem',
     textTransform: 'none',
-  },
-  resize: {
-    fontSize: '1.4rem',
   },
 });
 

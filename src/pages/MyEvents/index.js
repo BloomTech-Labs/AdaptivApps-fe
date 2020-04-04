@@ -8,12 +8,7 @@ import { GET_USER_EVENTS } from './queries';
 // Auth0 imports
 import { useAuth0 } from '../../config/react-auth0-spa';
 // Styling imports
-import {
-  makeStyles,
-  Grid,
-  Box,
-  Typography,
-} from '@material-ui/core';
+import { makeStyles, Grid, Box, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -45,7 +40,7 @@ export default function MyEvents() {
 
   useEffect(() => {
     refetch();
-  }, []);
+  }, [refetch]);
 
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;

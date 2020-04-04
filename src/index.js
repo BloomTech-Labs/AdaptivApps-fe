@@ -1,7 +1,6 @@
 // Import dependencies
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import { AppWrapper } from 'adaptiv-ui';
 
 // Import project configurations from local files
 import { Auth0Provider } from './config/react-auth0-spa';

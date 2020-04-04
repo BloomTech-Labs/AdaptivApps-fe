@@ -3,10 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Container, Box, Button, Typography } from '@material-ui/core';
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
-
 function getModalStyle() {
   const top = 50;
   const left = 50;
@@ -124,7 +120,7 @@ export default function SimpleModal({ event, registerEvent }) {
   const body = (
     <Container style={modalStyle} className={classes.paper}>
       <Box className={classes.imgBox}>
-        <img className={classes.img} src={event.imgUrl} />
+        <img className={classes.img} src={event.imgUrl} alt="Event" />
       </Box>
       <Box className={classes.modalMiddle}>
         <Typography className={classes.date}>

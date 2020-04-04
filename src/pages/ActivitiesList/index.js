@@ -5,7 +5,7 @@ import Activities from './Activities';
 import { useParams } from '@reach/router';
 import { GET_EVENT_ACTIVITIES } from './queries/getActivities';
 
-import { makeStyles, Box, Typography } from '@material-ui/core';
+import { makeStyles, Box, Typography, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -62,6 +62,9 @@ const useStyles = makeStyles({
     margin: '6.3rem 0 .8rem 0',
     width: '14rem',
   },
+  grid: {
+    width: '100%',
+  },
 });
 
 export default function ActivityList() {
@@ -83,7 +86,11 @@ export default function ActivityList() {
       </Box>
       <Box className={classes.eventContainer}>
         <Box className={classes.imgContainer}>
-          <img className={classes.eventImg} src={data && data?.event?.imgUrl} />
+          <img
+            className={classes.eventImg}
+            src={data && data?.event?.imgUrl}
+            alt="Event"
+          />
         </Box>
         <Box className={classes.infoContainer}>
           <Typography
@@ -109,20 +116,22 @@ export default function ActivityList() {
         <Typography className={classes.activityH}>
           Activities Schedule
         </Typography>
-        <table className={classes.table}>
-          <tbody>
-            <tr className={classes.headerRow}>
-              <th className={classes.tableH}>Name</th>
-              <th className={classes.tableH}>Date</th>
-              <th className={classes.tableH}>Location</th>
-              <th className={classes.tableH}>Time</th>
-            </tr>
-          </tbody>
-        </table>
-        {data &&
-          data?.event?.activities.map((activity, id) => (
-            <Activities key={id} activity={activity} />
-          ))}
+        <Grid className={classes.grid}>
+          <table className={classes.table}>
+            <tbody>
+              <tr className={classes.headerRow}>
+                <th className={classes.tableH}>Name</th>
+                <th className={classes.tableH}>Date</th>
+                <th className={classes.tableH}>Location</th>
+                <th className={classes.tableH}>Time</th>
+              </tr>
+            </tbody>
+          </table>
+          {data &&
+            data?.event?.activities.map((activity, id) => (
+              <Activities key={id} activity={activity} />
+            ))}
+        </Grid>
       </Box>
     </main>
   );

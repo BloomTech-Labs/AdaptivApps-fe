@@ -3,60 +3,59 @@ import React from 'react';
 // Component imports
 import ActivityDetails from './ActivityDetails';
 // Styling import
-import { Flex } from 'adaptiv-ui';
 import { Box, makeStyles } from '@material-ui/core';
 
 // Applies Material-UI styling
 const useStyles = makeStyles({
-   root: {
-     display: 'flex',
-     flexDirection: 'column',
-     '& img': {
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    '& img': {
       height: '16rem',
       width: '36rem',
       objectFit: 'cover',
-     },
-   },
-   topContentContainer: {
-     display: 'flex',
-     flexDirection: 'row',
-   },
-   topContentText: {
-     display: 'flex',
-     flexDirection: 'column',
-     justifyContent: 'center',
-     '& p': {
+    },
+  },
+  topContentContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  topContentText: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    '& p': {
       margin: '0rem 0 0.5rem',
       color: '#808080',
       fontSize: '1.4rem',
-     },
-     '& h6': {
+    },
+    '& h6': {
       fontWeight: 'bold',
       fontSize: '2.1rem',
       margin: '0rem 0 0.5rem',
-     },
-   },
-   detailsContainer: {
+    },
+  },
+  detailsContainer: {
     marginBottom: '2rem',
     marginTop: '1.6rem',
-   },
-   myActivitiesBox: {
+  },
+  myActivitiesBox: {
     '& p': {
       fontWeight: 'bold',
       fontSize: '1.8rem',
       marginBottom: '2rem',
     },
     '& td': {
-      padding: '1% 1% 2% 0'
-    }
-   },
-   sponsorBox: {
+      padding: '1% 1% 2% 0',
+    },
+  },
+  sponsorBox: {
     fontSize: '2rem',
     fontWeight: 'bold',
     width: '90%',
     margin: '5rem 0rem 0rem 0rem',
-   },
-   sponsorBox2: {
+  },
+  sponsorBox2: {
     fontSize: '2rem',
     fontWeight: 'bold',
     width: '90%',
@@ -64,19 +63,19 @@ const useStyles = makeStyles({
     '& li': {
       fontSize: '1.6rem',
     },
-   },
-   webinarBox: {
+  },
+  webinarBox: {
     display: 'flex',
     flexDirection: 'column',
     '& p': {
-      margin: '0 0.5rem'
+      margin: '0 0.5rem',
     },
     '& a': {
       marginTop: '2rem',
       marginLeft: '0.5rem',
       color: '#2862ff',
     },
-   },
+  },
 });
 
 export default function EventDetails(props) {
@@ -161,13 +160,11 @@ export default function EventDetails(props) {
 
   checkRoles(currentActivities);
 
-  
-
   return (
     <Box className={classes.root} m={4}>
       <Box className={classes.topContentContainer}>
         <Box>
-          <img src={activeEvent.imgUrl}/>
+          <img src={activeEvent.imgUrl} alt="Event" />
         </Box>
         {activeEvent.type === 'Webinar' ? (
           <Box className={classes.topContentText} m="2.4rem">
@@ -178,9 +175,11 @@ export default function EventDetails(props) {
           </Box>
         ) : (
           <Box className={classes.topContentText} m="2.4rem">
-            <p>{activeEvent.startDate} - {activeEvent.endDate}</p>
+            <p>
+              {activeEvent.startDate} - {activeEvent.endDate}
+            </p>
             <h6>{activeEvent.title}</h6>
-            <p >{activeEvent.location}</p>
+            <p>{activeEvent.location}</p>
           </Box>
         )}
       </Box>
@@ -193,9 +192,7 @@ export default function EventDetails(props) {
           <Box className={classes.webinarBox}>
             <p>Hosted by: {activeEvent.host}</p>
             <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
-            <a href={activeEvent.zoomLink}>
-              Click Here to Join Us on Zoom!
-            </a>
+            <a href={activeEvent.zoomLink}>Click Here to Join Us on Zoom!</a>
           </Box>
           <Box className={classes.sponsorBox2}>
             <p>Special thanks to our sponsors!</p>
