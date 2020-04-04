@@ -138,19 +138,15 @@ export default function SimplePopover({ activity }) {
       >
         <Box className={classes.box}>
           <Button className="role" onClick={athleteRegister}>
-            {/* eslint-disable-next-line */}
             I'm Competing
           </Button>
-          <Button className="role" onClick={() => coachRegister}>
-            {/* eslint-disable-next-line */}
+          <Button className="role" onClick={coachRegister}>
             I'm Coaching
           </Button>
-          <Button className="role" onClick={() => volunteerRegister}>
-            {/* eslint-disable-next-line */}
+          <Button className="role" onClick={volunteerRegister}>
             I'm Volunteering
           </Button>
-          <Button className="role" onClick={() => otherRegister}>
-            {/* eslint-disable-next-line */}
+          <Button className="role" onClick={otherRegister}>
             I'm Spectating
           </Button>
         </Box>
