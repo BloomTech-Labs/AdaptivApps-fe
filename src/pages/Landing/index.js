@@ -7,10 +7,20 @@ import { useAuth0 } from '../../config/react-auth0-spa';
 import landingImage from '../../assets/images/landingImage.jpeg';
 import { FaFacebookSquare, FaGoogle } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
-import './styles.css';
+// import './styles.css';
 
 const useStyles = makeStyles({
-
+  mainContainer: {
+    height: '100vh'
+  },
+  topContent: {
+    backgroundColor: 'rgba(7, 6, 6, 0.5)',
+    position: 'relative',
+    height: '60vh',
+    '& img': {
+      objectFit: 'cover',
+    },
+  },
 })
 
 // This is our landing page, aka the home page for the main app
@@ -20,13 +30,13 @@ const LandingPage = () => {
   return (
     <IconContext.Provider value={{ color: 'white', size: '3rem' }}>
       <NavBar />
-      <Grid>
+      <Grid className={classes.mainContainer}>
       
-          <Box>
-            <img src={landingImage} alt="Angel City Sports" />
-            <Typography>
+          <Box className={classes.topContent}>
+            <img  src={landingImage} alt="Angel City Sports" />
+            <p>
               Your Home for Angel City Sports Events and More!
-            </Typography>
+            </p>
           </Box>
      
         <Container>
