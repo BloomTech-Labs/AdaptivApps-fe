@@ -1,7 +1,7 @@
 // React imports
 import React from 'react';
 import NavBar from './NavBar';
-import { Grid, Container, Box, Button, Typography } from '@material-ui/core';
+import { Grid, Container, Box, Button, Typography, makeStyles } from '@material-ui/core';
 import { Link } from '@reach/router';
 import { useAuth0 } from '../../config/react-auth0-spa';
 import landingImage from '../../assets/images/landingImage.jpeg';
@@ -9,21 +9,26 @@ import { FaFacebookSquare, FaGoogle } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 import './styles.css';
 
+const useStyles = makeStyles({
+
+})
+
 // This is our landing page, aka the home page for the main app
 const LandingPage = () => {
+  const classes = useStyles();
   const { loginWithRedirect } = useAuth0();
   return (
     <IconContext.Provider value={{ color: 'white', size: '3rem' }}>
       <NavBar />
       <Grid>
-        <Container>
+      
           <Box>
             <img src={landingImage} alt="Angel City Sports" />
             <Typography>
               Your Home for Angel City Sports Events and More!
             </Typography>
           </Box>
-        </Container>
+     
         <Container>
           <Box>
             <h2>Sign Up Now!</h2>
