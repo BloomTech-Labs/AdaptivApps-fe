@@ -1,5 +1,6 @@
 import React from 'react';
 import { useAuth0 } from '../../../config/react-auth0-spa';
+import config from '../../../config/auth_config';
 import PropTypes from 'prop-types';
 import {
   makeStyles,
@@ -10,8 +11,6 @@ import {
   IconButton,
   Toolbar,
   Button,
-  Typography,
-  List,
 } from '@material-ui/core';
 import NavLink from './NavLink';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
@@ -136,14 +135,20 @@ function SideNav2(props) {
           <UserIcon className={classes.navIcon} />
           <p>My Profile</p>
         </NavLink>
-        <NavLink to="manage" className={classes.navLink}>
-          <HomeIcon className={classes.navIcon} />
-          <p>Manage Events</p>
-        </NavLink>
-        <NavLink to="users" className={classes.navLink}>
-          <GroupIcon className={classes.navIcon} />
-          <p>Manage Users</p>
-        </NavLink>
+        {user && user[config.roleUrl].includes('Admin') ? (
+          <>
+            <NavLink to="manage" className={classes.navLink}>
+              <HomeIcon className={classes.navIcon} />
+              <p>Manage Events</p>
+            </NavLink>
+            <NavLink to="users" className={classes.navLink}>
+              <GroupIcon className={classes.navIcon} />
+              <p>Manage Users</p>
+            </NavLink>
+          </>
+        ) : null}
+       
+        
       </Box>
       <Box className={classes.logoutContainer}>
         <Button className={classes.logoutBtn} onClick={() => logout()}>

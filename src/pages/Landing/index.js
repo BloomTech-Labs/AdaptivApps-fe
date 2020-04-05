@@ -3,7 +3,6 @@ import React from 'react';
 import NavBar from './NavBar';
 import {
   makeStyles,
-  Grid,
   Container,
   Box,
   Button,
@@ -14,21 +13,7 @@ import { useAuth0 } from '../../config/react-auth0-spa';
 import landingImage from '../../assets/images/landingImage.jpeg';
 import { FaFacebookSquare, FaGoogle } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
-// import './styles.css';
-
-const useStyles = makeStyles({
-  mainContainer: {
-    height: '100vh'
-  },
-  topContent: {
-    backgroundColor: 'rgba(7, 6, 6, 0.5)',
-    position: 'relative',
-    height: '60vh',
-    '& img': {
-      objectFit: 'cover',
-    },
-  },
-})
+import './styles.css';
 
 const useStyles = makeStyles({
   container: {
