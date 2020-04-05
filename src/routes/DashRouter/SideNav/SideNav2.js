@@ -93,6 +93,11 @@ const useStyles = makeStyles(theme => ({
     fontSize: '1.6rem',
     width: '100%',
   },
+  logoutIcon: {
+    color: '#2962FF',
+    margin: '0 1rem 0 3rem',
+    fontSize: '2.5rem',
+  },
   navIcon: {
     margin: '0 1rem 0 3rem',
     fontSize: '2.5rem',
@@ -153,7 +158,7 @@ function SideNav2(props) {
           <IconContext.Provider
             value={{ style: { transform: 'rotate(180deg)' } }}
           >
-            <FiLogOut className={classes.navIcon} />
+            <FiLogOut className={classes.logoutIcon} />
             <p className={classes.logoutP}>Log Out</p>
           </IconContext.Provider>
         </Button>
