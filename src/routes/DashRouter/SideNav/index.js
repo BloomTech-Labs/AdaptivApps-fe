@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     width: '100%',
   },
   logoutBtn: {
-    width: '60%',
+    width: '100%',
   },
   navText: {
     textAlign: 'left',
@@ -43,6 +43,7 @@ const useStyles = makeStyles({
     margin: '0 1rem 0 2rem',
   },
   logoutBox: {
+    marginBottom: '2rem',
     display: 'inline-flex',
     alignItems: 'center',
   },
