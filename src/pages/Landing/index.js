@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '5.2rem'
     },
     [theme.breakpoints.down('sm')]: {
-      fontSize: '2.2rem',
+      fontSize: '3.2rem',
     },
   },
   contentContainer: {
@@ -60,15 +60,25 @@ const useStyles = makeStyles((theme) => ({
     width: '100vw',
     margin: '0',
     padding: '0',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
   },
   contentIntro: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    alignContent: 'center',
     width: '35%',
     margin: '5rem 0 0 10em',
     '& h2': {
       margin: '1.5rem 0',
+    },
+    [theme.breakpoints.down('md')]: {
+      width: '55%',
+      '& h2': {
+        margin: '0.5rem 0',
+      },
     },
   },
   contentP: {
@@ -138,7 +148,6 @@ const LandingPage = () => {
         <div className={classes.box}>
           <Typography className={classes.typography}>
             Your home for Angel City Sports events and more!
-           
           </Typography>
           <img
             className={classes.bannerImg}
