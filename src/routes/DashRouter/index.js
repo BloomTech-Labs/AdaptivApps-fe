@@ -12,7 +12,6 @@ import PropTypes from 'prop-types';
 // Styling imports
 import { makeStyles, Box } from '@material-ui/core';
 
-// w="17vw" min_w="25rem"
 const useStyles = makeStyles({
   root: {
     display: 'flex',
@@ -45,7 +44,7 @@ const DashRouter = ({ children }) => {
     <div className={classes.root}>
       <SideNav user={user} className={classes.nav} />
       <Box className={classes.box} />
-      <Box className={classes.children}>{children}</Box>
+      <div className={classes.children}>{children}</div>
     </div>
   );
 };

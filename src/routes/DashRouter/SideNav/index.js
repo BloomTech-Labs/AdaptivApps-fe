@@ -57,6 +57,7 @@ const useStyles = makeStyles({
     color: '#2962FF',
     fontSize: '1.6rem',
     alignSelf: 'flex-start',
+    marginLeft: '1rem',
   },
 });
 
