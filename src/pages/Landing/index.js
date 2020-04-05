@@ -3,7 +3,6 @@ import React from 'react';
 import NavBar from './NavBar';
 import {
   makeStyles,
-  Grid,
   Container,
   Box,
   Button,
@@ -16,7 +15,7 @@ import { FaFacebookSquare, FaGoogle } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
 import './styles.css';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   container: {
     backgroundColor: '#000000',
     padding: '0',
@@ -38,12 +37,21 @@ const useStyles = makeStyles({
     objectFit: 'cover',
   },
   typography: {
-    top: '27rem',
+    top: '20rem',
     zIndex: '1',
-    maxWidth: '80%',
-    fontSize: '7.2rem',
+    maxWidth: '85%',
     color: '#FFFFFF',
     position: 'absolute',
+    padding: 0,
+    [theme.breakpoints.up('lg')]: {
+      fontSize: '7.2rem',
+    },
+    [theme.breakpoints.down('md')]: {
+      fontSize: '5.2rem'
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '3.2rem',
+    },
   },
   contentContainer: {
     display: 'flex',
@@ -52,15 +60,25 @@ const useStyles = makeStyles({
     width: '100vw',
     margin: '0',
     padding: '0',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
   },
   contentIntro: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
+    alignContent: 'center',
     width: '35%',
     margin: '5rem 0 0 10em',
     '& h2': {
       margin: '1.5rem 0',
+    },
+    [theme.breakpoints.down('md')]: {
+      width: '55%',
+      '& h2': {
+        margin: '0.5rem 0',
+      },
     },
   },
   contentP: {
@@ -117,7 +135,7 @@ const useStyles = makeStyles({
       },
     },
   },
-});
+}));
 
 // This is our landing page, aka the home page for the main app
 const LandingPage = () => {

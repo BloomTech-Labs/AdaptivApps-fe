@@ -16,7 +16,7 @@ const useStyles = makeStyles({
 const UsersList = () => {
   const classes = useStyles();
   const { data } = useQuery(GET_PROFILES);
-  console.log(data);
+  
 
   return (
     <Container className={classes.root} m="0 2% 0 2%">

@@ -81,7 +81,7 @@ export default function ActivityList() {
   });
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
-  console.log(data);
+  
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>

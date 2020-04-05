@@ -204,7 +204,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   };
 
   const userPicture = user && user.picture;
-  console.log(userProfile);
+ 
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>

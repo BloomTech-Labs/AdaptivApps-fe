@@ -14,17 +14,18 @@ const useStyles = makeStyles({
       height: '16rem',
       width: '36rem',
       objectFit: 'cover',
-    },
-  },
-  topContentContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-  },
-  topContentText: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    '& p': {
+     },
+   },
+   topContentContainer: {
+     display: 'flex',
+     flexDirection: 'row',
+     paddingLeft: '0.3rem'
+   },
+   topContentText: {
+     display: 'flex',
+     flexDirection: 'column',
+     justifyContent: 'center',
+     '& p': {
       margin: '0rem 0 0.5rem',
       color: '#808080',
       fontSize: '1.4rem',
@@ -44,18 +45,29 @@ const useStyles = makeStyles({
       fontWeight: 'bold',
       fontSize: '1.8rem',
       marginBottom: '2rem',
+     
     },
-    '& td': {
+    '& tr': {
+      display: 'flex',
+      alignItems: 'center',
+      marginLeft: '0.2rem'
+    },
+    '& th': {
+      width: '14rem',
       padding: '1% 1% 2% 0',
+      textAlign: 'left'
     },
-  },
-  sponsorBox: {
+   },
+   sponsorBox: {
     fontSize: '2rem',
     fontWeight: 'bold',
     width: '90%',
     margin: '5rem 0rem 0rem 0rem',
-  },
-  sponsorBox2: {
+    '& li': {
+      fontSize: '1.6rem',
+    },
+   },
+   sponsorBox2: {
     fontSize: '2rem',
     fontWeight: 'bold',
     width: '90%',

@@ -2,8 +2,7 @@ import React from 'react';
 import { useAuth0 } from '../../config/react-auth0-spa';
 import { makeStyles, Box, Button } from '@material-ui/core';
 import acsLogo from '../../assets/images/acsLogo.png';
-
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   container: {
     zIndex: '1',
     position: 'absolute',
@@ -17,9 +16,11 @@ const useStyles = makeStyles(theme => ({
     width: '30rem',
   },
   acsBrand: {
-    objectFit: 'cover',
-    height: '100%',
+    height: 'auto',
     width: '30rem',
+    [theme.breakpoints.down('md')]: {
+      width: '20rem',
+    },
   },
   box: {
     width: '100%',
@@ -46,11 +47,9 @@ const useStyles = makeStyles(theme => ({
     },
   },
 }));
-
 const NavBar = () => {
   const classes = useStyles();
   const { isAuthenticated, loginWithRedirect } = useAuth0();
-
   return (
     <nav className={classes.container}>
       <Box className={classes.acsBanner}>
@@ -83,5 +82,4 @@ const NavBar = () => {
     </nav>
   );
 };
-
 export default NavBar;
