@@ -4,6 +4,7 @@ import { makeStyles, Box, Button } from '@material-ui/core';
 import acsLogo from '../../assets/images/acsLogo.png';
 const useStyles = makeStyles(theme => ({
   container: {
+    zIndex: '1',
     position: 'absolute',
     display: 'flex',
     background: 'transparent',

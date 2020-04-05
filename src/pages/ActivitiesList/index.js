@@ -53,7 +53,8 @@ const useStyles = makeStyles({
   activityC: {
     margin: '2.4rem 0 1.6rem 3rem',
   },
-  activityH: {
+  headerRow: {
+    textAlign: 'left',
     fontSize: '1.8rem',
     marginBottom: '6.3rem',
   },
@@ -64,6 +65,10 @@ const useStyles = makeStyles({
   },
   grid: {
     width: '100%',
+  },
+  activityH: {
+    fontSize: '1.8rem',
+    marginBottom: '1rem',
   },
 });
 
