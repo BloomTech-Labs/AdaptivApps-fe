@@ -2,7 +2,6 @@ import React from 'react';
 import { useAuth0 } from '../../config/react-auth0-spa';
 import { makeStyles, Box, Button } from '@material-ui/core';
 import acsLogo from '../../assets/images/acsLogo.png';
-
 const useStyles = makeStyles(theme => ({
   container: {
     position: 'absolute',
@@ -16,6 +15,7 @@ const useStyles = makeStyles(theme => ({
     width: '30rem',
   },
   acsBrand: {
+    objectFit: 'cover',
     height: '100%',
     width: '30rem',
   },
@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-evenly',
     alignSelf: 'flex-start',
   },
-  loginBtn: {
+  navBtn: {
     width: '9.6rem',
     height: '4.8rem',
     background: '#2962FF',
@@ -43,25 +43,10 @@ const useStyles = makeStyles(theme => ({
       color: '#2962FF',
     },
   },
-  signUpBtn: {
-    width: '9.6rem',
-    height: '4.8rem',
-    background: '#FFFFFF',
-    color: '#2962FF',
-    fontSize: '1.6rem',
-    textTransform: 'none',
-    marginTop: '1.6rem',
-    '&:hover': {
-      color: '#FFFFFF',
-      background: '#2962FF',
-    },
-  },
 }));
-
 const NavBar = () => {
   const classes = useStyles();
   const { isAuthenticated, loginWithRedirect } = useAuth0();
-
   return (
     <nav className={classes.container}>
       <Box className={classes.acsBanner}>
@@ -76,14 +61,14 @@ const NavBar = () => {
           {/* If a user is not logged in (authenticated), will redirect to Auth0 log in modal. */}
           {!isAuthenticated && (
             <Button
-              className={classes.signUpBtn}
+              className={classes.navBtn}
               onClick={() => loginWithRedirect({})}
             >
               Sign Up
             </Button>
           )}
           <Button
-            className={classes.loginBtn}
+            className={classes.navBtn}
             aria-label="Access log in modal"
             onClick={() => loginWithRedirect({})}
           >
@@ -94,5 +79,4 @@ const NavBar = () => {
     </nav>
   );
 };
-
 export default NavBar;
