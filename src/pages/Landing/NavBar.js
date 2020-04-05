@@ -16,7 +16,6 @@ const useStyles = makeStyles(theme => ({
     width: '30rem',
   },
   acsBrand: {
-    objectFit: 'cover',
     height: '100%',
     width: '30rem',
   },
