@@ -1,7 +1,7 @@
 //React imports
 import React from 'react';
 //Component imports
-import { Link } from '@reach/router';
+import { Link, useNavigate } from '@reach/router';
 // GraphQL/Apollo imports
 import { useMutation } from 'react-apollo';
 import { UNREGISTER_FROM_EVENT } from './queries';
@@ -21,12 +21,11 @@ import {
 } from '@material-ui/core';
 // TODO: propTypes for refetch? import PropTypes from 'prop-types';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     borderRadius: '.5rem',
     marginRight: '2.4rem',
     boxShadow: 'none',
-    padding: '0.4rem',
   },
   cardDate: {
     fontSize: '1.4rem',
@@ -43,6 +42,19 @@ const useStyles = makeStyles((theme) => ({
   content: {
     padding: '1.5rem 0 0 0',
   },
+  btnContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '0',
+    margin: '1.6rem 0',
+  },
+  btn: {
+    padding: '0',
+    fontSize: '1.6rem',
+    fontWeight: '600',
+    textTransform: 'none',
+    color: '#2962FF',
+  },
   cardImg: {
     maxWidth: '36rem',
     maxHeight: '16rem',
@@ -51,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     position: 'relative',
     transform: 'rotate(-45deg)',
     top: '4.9rem',
-    right: '2.6rem',
+    right: '3rem',
     borderBottom: '2.5rem solid #555',
     borderLeft: '2.5rem solid transparent',
     borderRight: '2.5rem solid transparent',
@@ -60,35 +72,24 @@ const useStyles = makeStyles((theme) => ({
     width: '12.75rem',
     textAlign: 'center',
   },
-  btnContainer: {
-    justifyContent: 'space-between',
-    padding: '0',
-    marginTop: '1.6rem ',
-  },
-  link: {
-    color: "#2962ff",
-    fontSize: '1.4rem',
-  },
-  button: {
-    color: "#2962ff",
-    fontSize: '1.4rem',
-    '& > *': {
-      margin: theme.spacing(1),
-    },
-  },
 }));
 
 export default function MyEventCard({ event, refetch }) {
   const classes = useStyles();
-  const [updateProfile] = useMutation(UNREGISTER_FROM_EVENT);
+  const navigate = useNavigate();
   // Retrieves current user info from Auth0
   const { user } = useAuth0();
+  const [updateProfile] = useMutation(UNREGISTER_FROM_EVENT);
+
   // Unregisters user from specified event
   const unregisterFromEvent = async () => {
     await updateProfile({
-      variables: { id: event.id, email: user.email }
+      variables: { id: event.id, email: user.email },
     });
     await refetch();
+  };
+  const viewEventDetails = async () => {
+    await navigate(`/myevents/${event?.id}`);
   };
 
   return (
@@ -102,7 +103,7 @@ export default function MyEventCard({ event, refetch }) {
             alt="Event"
             width="15rem"
             image={event?.imgUrl}
-            title="Angel City Event" 
+            title="Angel City Event"
           />
         </Box>
         <CardContent className={classes.content}>
@@ -133,10 +134,13 @@ export default function MyEventCard({ event, refetch }) {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.btnContainer}>
-        <Link to={`${event?.id}`} className={classes.link}>VIEW DETAILS</Link>
-        <Button className={classes.button} onClick={unregisterFromEvent}>UNREGISTER</Button>
+        <Button onClick={viewEventDetails} className={classes.btn}>
+          ViewDetails
+        </Button>
+        <Button className={classes.btn} onClick={unregisterFromEvent}>
+          Unregister
+        </Button>
       </CardActions>
     </Card>
   );
-};
-
+}
