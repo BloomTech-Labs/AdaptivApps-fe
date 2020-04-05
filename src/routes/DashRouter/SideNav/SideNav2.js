@@ -75,9 +75,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignContent: 'flex-start',
     alignItems: 'center',
-    color: 'white',
     margin: '.5rem auto',
-    background: '#2962ff',
     textAlign: 'left',
   },
   logoutContainer: {
@@ -96,9 +94,11 @@ const useStyles = makeStyles(theme => ({
     width: '100%',
   },
   navIcon: {
-    color: '#2962FF',
     margin: '0 1rem 0 3rem',
     fontSize: '2.5rem',
+  },
+  iconActive: {
+    color: '#FFFFFF'
   },
   logoutP: {
     color: '#2962FF',
@@ -138,7 +138,7 @@ function SideNav2(props) {
         {user && user[config.roleUrl].includes('Admin') ? (
           <>
             <NavLink to="manage" className={classes.navLink}>
-              <HomeIcon className={classes.navIcon} />
+              <HomeIcon className={{ iconActive: classes.navIcon}} />
               <p>Manage Events</p>
             </NavLink>
             <NavLink to="users" className={classes.navLink}>
@@ -147,8 +147,6 @@ function SideNav2(props) {
             </NavLink>
           </>
         ) : null}
-       
-        
       </Box>
       <Box className={classes.logoutContainer}>
         <Button className={classes.logoutBtn} onClick={() => logout()}>
