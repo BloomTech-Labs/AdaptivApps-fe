@@ -29,13 +29,14 @@ const AdminEventList = props => {
 
   const useStyles = makeStyles({
     grid: {
-      marginLeft: '3rem',
+      marginLeft: '6rem',
     },
     addBtn: {
       fontSize: '1.6rem',
       color: '#2763FF',
       textTransform: 'none',
     },
+    img: { width: '15rem', objectFit: 'contain' },
   });
   const classes = useStyles();
 
@@ -164,7 +165,9 @@ const AdminEventList = props => {
           {
             title: 'Image Url',
             field: 'imgUrl',
-            render: rowData => <img src={rowData.imgUrl} alt="Event" />,
+            render: rowData => (
+              <img src={rowData.imgUrl} alt="Event" className={classes.img} />
+            ),
             editComponent: props => (
               <Input
                 type="text"
