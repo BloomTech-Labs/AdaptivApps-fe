@@ -5,10 +5,16 @@ export const GET_EVENT_LIST = gql`
   query getEvents {
     events {
       id
+      type
+      host
+      speakers
+      startTime
       title
       startDate
       endDate
       location
+      zoomLink
+      sponsors
       imgUrl
       details
     }

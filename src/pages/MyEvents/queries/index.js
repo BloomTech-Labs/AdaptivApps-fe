@@ -5,10 +5,16 @@ export const GET_USER_EVENTS = gql`
   query getUserEvents($email: String!) {
     events(where: { attendees_some: { email: $email } }) {
       id
+      type
+      host
+      speakers
+      startTime
       title
       startDate
       endDate
       location
+      zoomLink
+      sponsors
       imgUrl
       details
     }

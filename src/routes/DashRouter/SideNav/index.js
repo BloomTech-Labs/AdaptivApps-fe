@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAuth0 } from '../../../config/react-auth0-spa';
-import { Flex, NavBar, Box, Button } from 'adaptiv-ui';
+import { makeStyles, Box, Button } from '@material-ui/core';
 import acsLogo from '../../../assets/images/acsLogo.png';
 import config from '../../../config/auth_config';
 import {
@@ -14,76 +14,104 @@ import PropTypes from 'prop-types';
 import { IconContext } from 'react-icons';
 import NavLink from './NavLink';
 
+const useStyles = makeStyles({
+  root: {
+    height: '100vh',
+    position: 'absolute',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    boxShadow:
+      '0px 1px 3px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.12), 0px 0px 2px rgba(0, 0, 0, 0.14)',
+  },
+  imgContainer: {
+    margin: '5rem 0',
+    width: '25rem',
+  },
+  img: {
+    width: '100%',
+  },
+  logoutBtn: {
+    width: '100%',
+  },
+  navText: {
+    textAlign: 'left',
+    fontSize: '1.6rem',
+  },
+  logoutBox: {
+    marginBottom: '2rem',
+    display: 'inline-flex',
+    alignItems: 'center',
+  },
+  logoutIcon: {
+    color: '#2962FF',
+    display: 'flex',
+    textAlign: 'left',
+    fontSize: '2rem',
+  },
+  logoutText: {
+    textTransform: 'none',
+    color: '#2962FF',
+    fontSize: '1.6rem',
+    alignSelf: 'flex-start',
+    marginLeft: '1rem',
+  },
+});
+
 // This component is rendered for all users on login on the side
 const SideNav = () => {
+  const classes = useStyles();
   const { logout, user } = useAuth0();
 
   return (
-    <NavBar
-      // className="nav-bar"
-      // position="absolute"
-      col
-      jc_between
-      h="100vh"
-      w="15vw"
-      min_w="25rem"
-    >
-      <Flex col>
-        <Box>
-          <img src={acsLogo} alt="ACS Logo" />
+    <nav className={classes.root}>
+      <Box>
+        <Box className={classes.imgContainer}>
+          <img className={classes.img} src={acsLogo} alt="ACS Logo" />
         </Box>
         <NavLink to="calendar">
-          <Box w="2rem" />
-          <FaRegCalendar />
-          <Box w="2rem" />
-          <p>Events Calendar</p>
+          <FaRegCalendar fontSize="medium" />
+          <p className={classes.navText}> Events Calendar</p>
         </NavLink>
         <NavLink to="myevents">
-          <Box w="2rem" />
           <FaRegBookmark />
-          <Box w="2rem" />
-          <p>My Events</p>
+          <p className={classes.navText}> My Events</p>
         </NavLink>
         {/* If user is an admin, then this section will be rendered */}
         {user && user[config.roleUrl].includes('Admin') ? (
           <NavLink to="manage">
-            <Box w="2rem" />
             <FaHome />
-            <Box w="2rem" />
-            <p>Manage Events</p>
+
+            <p className={classes.navText}> Manage Events</p>
           </NavLink>
         ) : null}
         {user && user[config.roleUrl].includes('Admin') ? (
           <NavLink to="users">
-            <Box w="2rem" />
             <FaHome />
-            <Box w="2rem" />
-            <p>Manage Users</p>
+
+            <p className={classes.navText}> Manage Users</p>
           </NavLink>
         ) : null}
         <NavLink to="/">
-          <Box w="2rem" />
           <FaRegUser />
-          <Box w="2rem" />
-          <p>My Profile</p>
+          <p className={classes.navText}> My Profile</p>
         </NavLink>
-      </Flex>
+      </Box>
 
-      <Flex col jc_end ai_end>
-        <Button ai_start primary stretch radius="0" onClick={() => logout()}>
-          <Flex jc_start ai_center>
+      <Box>
+        <Button className={classes.logoutBtn} onClick={() => logout()}>
+          <Box className={classes.logoutBox}>
             <IconContext.Provider
               value={{ style: { transform: 'rotate(180deg)' } }}
             >
-              <Box w="2rem" />
-              <FiLogOut />
-              <Box w="2rem" />
-              <p>Log Out</p>
+              <FiLogOut className={classes.logoutIcon} />
+
+              <p className={classes.logoutText}> Log Out</p>
             </IconContext.Provider>
-          </Flex>
+          </Box>
         </Button>
-      </Flex>
-    </NavBar>
+      </Box>
+    </nav>
   );
 };
 

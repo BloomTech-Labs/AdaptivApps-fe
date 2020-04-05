@@ -1,9 +1,13 @@
+//React imports
 import React from 'react';
-import { useNavigate } from '@reach/router';
+//Component imports
+import { Link, useNavigate } from '@reach/router';
+// GraphQL/Apollo imports
+import { useMutation } from 'react-apollo';
+import { UNREGISTER_FROM_EVENT } from './queries';
+// Auth0 imports
 import { useAuth0 } from '../../config/react-auth0-spa';
-import PropTypes from 'prop-types';
-import SimpleModal from './SimpleModal';
-
+//Styling imports
 import {
   makeStyles,
   Card,
@@ -12,13 +16,12 @@ import {
   CardContent,
   CardActions,
   Typography,
+  Button,
   Box,
 } from '@material-ui/core';
+// TODO: propTypes for refetch? import PropTypes from 'prop-types';
 
-import { useMutation } from 'react-apollo';
-import { REGISTER_EVENT } from './queries/joinEvent';
-
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     borderRadius: '.5rem',
     marginRight: '2.4rem',
@@ -40,6 +43,8 @@ const useStyles = makeStyles({
     padding: '1.5rem 0 0 0',
   },
   btnContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
     padding: '0',
     margin: '1.6rem 0',
   },
@@ -48,6 +53,7 @@ const useStyles = makeStyles({
     fontSize: '1.6rem',
     fontWeight: '600',
     textTransform: 'none',
+    color: '#2962FF',
   },
   cardImg: {
     maxWidth: '36rem',
@@ -66,20 +72,24 @@ const useStyles = makeStyles({
     width: '12.75rem',
     textAlign: 'center',
   },
-});
+}));
 
-export default function EventCard({ event }) {
+export default function MyEventCard({ event, refetch }) {
   const classes = useStyles();
-  const [updateEvent] = useMutation(REGISTER_EVENT);
-
-  const { user } = useAuth0();
   const navigate = useNavigate();
+  // Retrieves current user info from Auth0
+  const { user } = useAuth0();
+  const [updateProfile] = useMutation(UNREGISTER_FROM_EVENT);
 
-  const registerEvent = async () => {
-    await updateEvent({
+  // Unregisters user from specified event
+  const unregisterFromEvent = async () => {
+    await updateProfile({
       variables: { id: event.id, email: user.email },
     });
-    await navigate(`/calendar/${event.id}`);
+    await refetch();
+  };
+  const viewEventDetails = async () => {
+    await navigate(`/myevents/${event?.id}`);
   };
 
   return (
@@ -124,12 +134,13 @@ export default function EventCard({ event }) {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.btnContainer}>
-        <SimpleModal event={event} registerEvent={registerEvent} />
+        <Button onClick={viewEventDetails} className={classes.btn}>
+          ViewDetails
+        </Button>
+        <Button className={classes.btn} onClick={unregisterFromEvent}>
+          Unregister
+        </Button>
       </CardActions>
     </Card>
   );
 }
-
-EventCard.propTypes = {
-  event: PropTypes.object,
-};

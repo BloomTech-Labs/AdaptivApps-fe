@@ -1,5 +1,8 @@
 import React from 'react';
-import { Flex, Input, Button, theme } from 'adaptiv-ui';
+import { makeStyles, Input, Button, Grid } from '@material-ui/core';
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import { useQuery, useMutation } from 'react-apollo';
 import {
   CREATE_ACTIVITY,
@@ -9,8 +12,16 @@ import {
 } from './queries';
 import MaterialTable from 'material-table';
 
+const useStyles = makeStyles({
+  addBtn: {
+    fontSize: '1.4rem',
+    color: '#2763FF',
+    textTransform: 'none',
+  },
+});
 // Material table docs here: https://material-table.com/
 const AdminActivityList = props => {
+  const classes = useStyles();
   // Grab the event id from props
   const event_id = props.event_id;
   // Call backend to fetch the one event associated with event id
@@ -28,7 +39,7 @@ const AdminActivityList = props => {
   // Similar to its parent component, activities list will be displayed
   // Using material table.
   return (
-    <Flex col m="0 2% 0 2%">
+    <Grid>
       <MaterialTable
         title=""
         columns={[
@@ -41,7 +52,6 @@ const AdminActivityList = props => {
                 type="date"
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
-                m="0 0 0 -0.5rem"
               />
             ),
           },
@@ -53,13 +63,35 @@ const AdminActivityList = props => {
                 type="time"
                 value={props.value}
                 onChange={e => props.onChange(e.target.value)}
-                m="0 0 0 -0.5rem"
               />
             ),
           },
           { title: 'Location', field: 'location' },
           { title: 'Type', field: 'type' },
-          { title: 'Details', field: 'details' },
+          {
+            title: 'Details',
+            field: 'details',
+            render: rowData => (
+              <div
+                style={{
+                  width: '30rem',
+                  maxHeight: '14rem',
+                  overflow: 'scroll',
+                }}
+              >
+                {rowData.details}
+              </div>
+            ),
+            editComponent: props => (
+              <textarea
+                rows="12"
+                cols="60"
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+              />
+            ),
+          },
         ]}
         data={data?.event?.activities}
         editable={{
@@ -102,26 +134,38 @@ const AdminActivityList = props => {
         }}
         icons={{
           Add: () => (
-            <Button primary border={`2px solid ${theme.primary}`}>
-              Add Activity
-            </Button>
+            <>
+              <AddCircleOutlineIcon
+                style={{ color: '#2962FF' }}
+                fontSize="large"
+              />
+              <Button className={classes.addBtn}>Add Activity</Button>
+            </>
+          ),
+          Edit: () => (
+            <EditIcon style={{ color: '#2962FF' }} fontSize="large" />
+          ),
+          Delete: () => (
+            <DeleteIcon style={{ color: '#2962FF' }} fontSize="large" />
           ),
         }}
         options={{
+          cellStyle: {
+            fontSize: '1.4rem',
+          },
+          headerStyle: {
+            fontSize: '1.4rem',
+            backgroundColor: '#2962FF',
+            color: '#FFF',
+          },
           search: false,
           showTitle: true,
           paging: false,
           emptyRowsWhenPaging: false,
-          cellStyle: {
-            fontSize: '1.2rem',
-          },
-          headerStyle: {
-            fontSize: '1.2rem',
-          },
           toolbarButtonAlignment: 'left',
         }}
       />
-    </Flex>
+    </Grid>
   );
 };
 

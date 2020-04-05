@@ -1,7 +1,6 @@
 import React from 'react';
 import { useAuth0 } from '../../config/react-auth0-spa';
 import LandingPage from '../../pages/Landing';
-import { Wrapper } from 'adaptiv-ui';
 import PropTypes from 'prop-types';
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
@@ -17,9 +16,9 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
     ) : !loading && !user ? (
       <LandingPage />
     ) : (
-      <Wrapper jc_center>
+      <div jc_center>
         <h1>Loading</h1>
-      </Wrapper>
+      </div>
     );
 
   // We return the Render function that returns the right component

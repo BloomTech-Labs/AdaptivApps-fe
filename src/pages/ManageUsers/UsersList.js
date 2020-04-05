@@ -1,17 +1,25 @@
 import React from 'react';
-import { Flex, Input } from 'adaptiv-ui';
+import { Container, makeStyles } from '@material-ui/core';
 import { useQuery } from 'react-apollo';
 import { GET_PROFILES } from './queries';
 import MaterialTable from 'material-table';
 
+const useStyles = makeStyles({
+  root: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
+});
+
 // A list of users. Can be customized using material table.
 // Docs here https://material-table.com/
 const UsersList = () => {
+  const classes = useStyles();
   const { data } = useQuery(GET_PROFILES);
   console.log(data);
 
   return (
-    <Flex col m="0 2% 0 2%">
+    <Container className={classes.root} m="0 2% 0 2%">
       <MaterialTable
         title="Registered Users"
         data={data?.profiles}
@@ -45,7 +53,7 @@ const UsersList = () => {
           },
         ]}
       />
-    </Flex>
+    </Container>
   );
 };
 

@@ -1,49 +1,85 @@
 import React from 'react';
 import { useAuth0 } from '../../config/react-auth0-spa';
-import { Flex, Box, Button, theme } from 'adaptiv-ui';
+import { makeStyles, Box, Button } from '@material-ui/core';
 import acsLogo from '../../assets/images/acsLogo.png';
 
+const useStyles = makeStyles(theme => ({
+  container: {
+    position: 'absolute',
+    display: 'flex',
+    background: 'transparent',
+    height: '10vh',
+    width: '100%',
+  },
+  acsBanner: {
+    height: '100%',
+    width: '30rem',
+  },
+  acsBrand: {
+    objectFit: 'cover',
+    height: '100%',
+    width: '30rem',
+  },
+  box: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  btnContainer: {
+    width: '24rem',
+    display: 'flex',
+    justifyContent: 'space-evenly',
+    alignSelf: 'flex-start',
+  },
+  navBtn: {
+    width: '9.6rem',
+    height: '4.8rem',
+    background: '#2962FF',
+    color: '#FFFFFF',
+    fontSize: '1.6rem',
+    textTransform: 'none',
+    marginTop: '1.6rem',
+    '&:hover': {
+      background: '#FFFFFF',
+      color: '#2962FF',
+    },
+  },
+}));
+
 const NavBar = () => {
+  const classes = useStyles();
   const { isAuthenticated, loginWithRedirect } = useAuth0();
 
   return (
-    <Flex h="10rem" stretch>
-      <Box w="30rem">
-        <img src={acsLogo} alt="angel city sports" />
+    <nav className={classes.container}>
+      <Box className={classes.acsBanner}>
+        <img
+          className={classes.acsBrand}
+          src={acsLogo}
+          alt="angel city sports brand"
+        />
       </Box>
-      <Flex stretch jc_end ai_center>
-        <Box w="3rem" />
-
-        {/* If a user is not logged in (authenticated), will redirect to Auth0 log in modal. */}
-        {!isAuthenticated && (
+      <Box className={classes.box}>
+        <Box className={classes.btnContainer}>
+          {/* If a user is not logged in (authenticated), will redirect to Auth0 log in modal. */}
+          {!isAuthenticated && (
+            <Button
+              className={classes.navBtn}
+              onClick={() => loginWithRedirect({})}
+            >
+              Sign Up
+            </Button>
+          )}
           <Button
-            border={`2px solid ${theme.primary}`}
-            primary
+            className={classes.navBtn}
             aria-label="Access log in modal"
             onClick={() => loginWithRedirect({})}
-            jc_center
-            h="5rem"
-            w="10rem"
           >
             Log in
           </Button>
-        )}
-
-        <Box w="3rem" />
-        <Button
-          border={`2px solid ${theme.primary}`}
-          primary
-          onClick={() => loginWithRedirect({})}
-          jc_center
-          h="5rem"
-          w="10rem"
-        >
-          Sign Up
-        </Button>
-
-        <Box w="3rem" />
-      </Flex>
-    </Flex>
+        </Box>
+      </Box>
+    </nav>
   );
 };
 
