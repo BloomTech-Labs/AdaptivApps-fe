@@ -29,7 +29,7 @@ const AdminEventList = props => {
 
   const useStyles = makeStyles({
     grid: {
-      marginLeft: '6rem',
+      marginLeft: '3rem',
     },
     addBtn: {
       fontSize: '1.6rem',

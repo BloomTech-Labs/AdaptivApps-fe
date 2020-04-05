@@ -5,34 +5,20 @@ import React from 'react';
 import { useAuth0 } from '../../config/react-auth0-spa';
 
 // Component imports
-import SideNav from './SideNav';
-
+import SideNav2 from './SideNav/SideNav2';
+// import SideNav from './SideNav'
 import PropTypes from 'prop-types';
 
 // Styling imports
-import { makeStyles, Box } from '@material-ui/core';
+import { Box, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
+    height: '100vh',
     display: 'flex',
-    justifyContent: 'space-between',
-  },
-  headingBox: {
-    margin: '6rem 0 2rem 3rem',
-    fontWeight: '400',
-    borderColor: '#D3D3D3',
-  },
-  grid: {
-    display: 'flex',
-    justifyContent: 'flex-start',
-    flexWrap: 'wrap',
-    marginLeft: '3rem',
   },
   box: {
-    width: '17vw',
-    minWidth: '25rem',
-  },
-  children: {
+    marginLeft: '2rem',
     width: '100%',
   },
 });
@@ -40,11 +26,12 @@ const useStyles = makeStyles({
 const DashRouter = ({ children }) => {
   const classes = useStyles();
   const { user } = useAuth0();
+
   return (
     <div className={classes.root}>
-      <SideNav user={user} className={classes.nav} />
-      <Box className={classes.box} />
-      <div className={classes.children}>{children}</div>
+      <SideNav2 user={user} />
+      {/* <SideNav user={user} /> */}
+      <Box className={classes.box}>{children}</Box>
     </div>
   );
 };

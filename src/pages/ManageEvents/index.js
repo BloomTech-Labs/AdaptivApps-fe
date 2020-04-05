@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
   },
   headingBox: {
-    margin: '6rem 0 2rem 6rem',
+    margin: '6rem 0 2rem 3rem',
     fontWeight: '400',
     borderColor: '#D3D3D3',
   },

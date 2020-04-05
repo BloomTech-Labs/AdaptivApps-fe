@@ -38,10 +38,6 @@ const useStyles = makeStyles({
     textAlign: 'left',
     fontSize: '1.6rem',
   },
-  navIcon: {
-    fontSize: '2rem',
-    margin: '0 1rem 0 2rem',
-  },
   logoutBox: {
     marginBottom: '2rem',
     display: 'inline-flex',
@@ -74,30 +70,30 @@ const SideNav = () => {
           <img className={classes.img} src={acsLogo} alt="ACS Logo" />
         </Box>
         <NavLink to="calendar">
-          <FaRegCalendar className={classes.navIcon} />
+          <FaRegCalendar fontSize="medium" />
           <p className={classes.navText}> Events Calendar</p>
         </NavLink>
         <NavLink to="myevents">
-          <FaRegBookmark className={classes.navIcon} />
+          <FaRegBookmark />
           <p className={classes.navText}> My Events</p>
         </NavLink>
         {/* If user is an admin, then this section will be rendered */}
         {user && user[config.roleUrl].includes('Admin') ? (
           <NavLink to="manage">
-            <FaHome className={classes.navIcon} />
+            <FaHome />
 
             <p className={classes.navText}> Manage Events</p>
           </NavLink>
         ) : null}
         {user && user[config.roleUrl].includes('Admin') ? (
           <NavLink to="users">
-            <FaHome className={classes.navIcon} />
+            <FaHome />
 
             <p className={classes.navText}> Manage Users</p>
           </NavLink>
         ) : null}
         <NavLink to="/">
-          <FaRegUser className={classes.navIcon} />
+          <FaRegUser />
           <p className={classes.navText}> My Profile</p>
         </NavLink>
       </Box>
