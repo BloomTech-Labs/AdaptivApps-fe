@@ -1,5 +1,4 @@
 import React from 'react';
-import { theme } from 'adaptiv-ui';
 import { Link } from '@reach/router';
 import './styles.css';
 
@@ -13,8 +12,10 @@ const NavLink = props => {
         // anchor element's props
         return {
           style: {
-            color: isCurrent ? 'white' : theme.primary,
-            background: isCurrent ? theme.primary : 'white',
+            width: '100%',
+            marginLeft: '0',
+            color: isCurrent ? 'white' : '#2962FF',
+            background: isCurrent ? '#2962FF' : 'white',
           },
         };
       }}

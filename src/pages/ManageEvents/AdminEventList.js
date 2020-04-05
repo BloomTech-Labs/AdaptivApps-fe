@@ -36,6 +36,7 @@ const AdminEventList = props => {
       color: '#2763FF',
       textTransform: 'none',
     },
+    img: { width: '15rem', objectFit: 'contain' },
   });
   const classes = useStyles();
 
@@ -164,7 +165,9 @@ const AdminEventList = props => {
           {
             title: 'Image Url',
             field: 'imgUrl',
-            render: rowData => <img src={rowData.imgUrl} alt="Event" />,
+            render: rowData => (
+              <img src={rowData.imgUrl} alt="Event" className={classes.img} />
+            ),
             editComponent: props => (
               <Input
                 type="text"
