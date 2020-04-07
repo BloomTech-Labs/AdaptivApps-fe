@@ -213,7 +213,6 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
         </Typography>
       </Box>
       <Container className={classes.profileContainer}>
-        <h5 className={classes.profileHeader}>Account Email Address</h5>
         <Box className={classes.profileInfo}>
           <img className={classes.profileImg} src={userPicture} alt="Profile" />
           <Typography className={classes.profileText}>
