@@ -75,13 +75,11 @@ const useStyles = makeStyles({
 export default function ActivityList() {
   const classes = useStyles();
   const { eventId } = useParams();
-  // eslint-disable-next-line no-unused-vars
   const { loading, error, data } = useQuery(GET_EVENT_ACTIVITIES, {
     variables: { id: eventId },
   });
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
-  console.log(data);
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>

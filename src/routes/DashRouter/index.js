@@ -30,7 +30,6 @@ const DashRouter = ({ children }) => {
   return (
     <div className={classes.root}>
       <SideNav2 user={user} />
-      {/* <SideNav user={user} /> */}
       <Box className={classes.box}>{children}</Box>
     </div>
   );

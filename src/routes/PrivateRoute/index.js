@@ -16,7 +16,7 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
     ) : !loading && !user ? (
       <LandingPage />
     ) : (
-      <div jc_center>
+      <div>
         <h1>Loading</h1>
       </div>
     );

@@ -15,7 +15,7 @@ export const GET_EVENT_DETAILS = gql`
       endDate
       details
       location
-      zoomLink
+      link
       imgUrl
       activities {
         id
