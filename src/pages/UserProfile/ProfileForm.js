@@ -16,7 +16,7 @@ import {
   Button,
 } from '@material-ui/core';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     maxwidth: '100%',
     width: '90%',
@@ -61,6 +61,9 @@ const useStyles = makeStyles({
   },
   formBox: {
     display: 'flex',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
   },
   input: {
     width: '100%',
@@ -87,8 +90,11 @@ const useStyles = makeStyles({
     width: '8rem',
     fontSize: '1.2rem',
     textTransform: 'none',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
-});
+}));
 
 const ProfileSchema = yup.object().shape({
   firstName: yup
