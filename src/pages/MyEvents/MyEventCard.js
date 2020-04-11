@@ -1,7 +1,7 @@
 //React imports
 import React from 'react';
 //Component imports
-import { Link, useNavigate } from '@reach/router';
+import { useNavigate } from '@reach/router';
 // GraphQL/Apollo imports
 import { useMutation } from 'react-apollo';
 import { UNREGISTER_FROM_EVENT } from './queries';

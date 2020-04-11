@@ -76,90 +76,24 @@ const useStyles = makeStyles({
       color: '#2862ff',
     },
   },
+  headerRow: {
+    textAlign: 'left',
+    fontSize: '1.8rem',
+    marginBottom: '6.3rem',
+  },
+  tableH: {
+    color: '#202020',
+    margin: '6.3rem 0 .8rem 0',
+    width: '14rem',
+  },
 });
 
 export default function EventDetails(props) {
   const classes = useStyles();
-  const userID = props.userID;
   const activeEvent = props.event;
   const currentActivities = activeEvent.activities;
-  const filteredActivities = [];
 
-  const checkUserInAthletes = athletes => {
-    let mark = false;
-    athletes.forEach(athlete => {
-      if (athlete.id === userID) {
-        mark = true;
-      }
-    });
-    return mark;
-  };
-
-  const checkUserInCoaches = coaches => {
-    let mark = false;
-    coaches.forEach(coach => {
-      if (coach.id === userID) {
-        mark = true;
-      }
-    });
-    return mark;
-  };
-
-  const checkUserInVolunteers = volunteers => {
-    let mark = false;
-    volunteers.forEach(volunteer => {
-      if (volunteer.id === userID) {
-        mark = true;
-      }
-    });
-    return mark;
-  };
-
-  const checkUserInOthers = others => {
-    let mark = false;
-    others.forEach(other => {
-      if (other.id === userID) {
-        mark = true;
-      }
-    });
-    return mark;
-  };
-
-  const checkRoles = activities =>
-    activities &&
-    activities.forEach(activity => {
-      if (activity?.athletes && activity?.athletes.length > 0) {
-        if (checkUserInAthletes(activity.athletes)) {
-          const updated = activity;
-          updated.message = 'Participating';
-          filteredActivities.push(updated);
-        }
-      }
-      if (activity?.coaches && activity?.coaches.length > 0) {
-        if (checkUserInCoaches(activity.coaches)) {
-          const updated = activity;
-          updated.message = 'Coaching';
-          filteredActivities.push(activity);
-        }
-      }
-      if (activity?.volunteers && activity?.volunteers.length > 0) {
-        if (checkUserInVolunteers(activity.volunteers)) {
-          const updated = activity;
-          updated.message = 'Volunteering';
-          filteredActivities.push(activity);
-        }
-      }
-      if (activity?.other && activity?.other.length > 0) {
-        if (checkUserInOthers(activity.other)) {
-          const updated = activity;
-          updated.message = 'Watching';
-          filteredActivities.push(activity);
-        }
-      }
-    });
-
-  checkRoles(currentActivities);
-
+  console.log('currentActivity in event details', currentActivities);
   return (
     <Box className={classes.root} m={4}>
       <Box className={classes.topContentContainer}>
@@ -206,18 +140,18 @@ export default function EventDetails(props) {
       ) : (
         <>
           <Box h="30rem" className={classes.myActivitiesBox}>
-            <p>My Activities</p>
-            <table>
+            <p>Activities</p>
+            <table className={classes.table}>
               <tbody>
-                <tr>
-                  <th>Name</th>
-                  <th>Date</th>
-                  <th>Location</th>
-                  <th>Time</th>
-                  <th>My Role</th>
+                <tr className={classes.headerRow}>
+                  <th className={classes.tableH}>Name</th>
+                  <th className={classes.tableH}>Date</th>
+                  <th className={classes.tableH}>Location</th>
+                  <th className={classes.tableH}>Time</th>
+                  <th className={classes.tableH}>My Role</th>
                 </tr>
-                {filteredActivities &&
-                  filteredActivities.map((activity, id) => (
+                {currentActivities &&
+                  currentActivities.map((activity, id) => (
                     <ActivityDetails key={id} activity={activity} />
                   ))}
               </tbody>

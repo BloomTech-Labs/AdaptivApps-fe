@@ -10,8 +10,6 @@ import {
   IconButton,
   Toolbar,
   Button,
-  Typography,
-  List,
 } from '@material-ui/core';
 import NavLink from './NavLink';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
@@ -107,7 +105,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function SideNav2(props) {
-  const { user } = props;
   const { logout } = useAuth0();
   const { container } = props;
   const classes = useStyles();

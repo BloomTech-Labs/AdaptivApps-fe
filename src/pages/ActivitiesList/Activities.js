@@ -33,11 +33,10 @@ const useStyles = makeStyles({
 
 export default function Activities({ activity }) {
   const { eventId } = useParams();
-  const { loading, error, data } = useQuery(GET_EVENT_ACTIVITIES, {
+  const { data } = useQuery(GET_EVENT_ACTIVITIES, {
     variables: { id: eventId },
   });
   const classes = useStyles();
-  console.log('data in activities.js', data);
   return (
     <Grid className={classes.grid}>
       <table>
