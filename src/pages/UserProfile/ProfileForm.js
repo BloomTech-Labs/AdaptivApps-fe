@@ -208,7 +208,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
-        <Typography className={classes.heading} variant="h1" gutterBottom>
+        <Typography variant="h1" gutterBottom>
           Account Information
         </Typography>
       </Box>
@@ -228,7 +228,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
           </Typography>
         </Box>
 
-        <Typography className={classes.personalInfo} variant="h4" gutterBottom>
+        <Typography className={classes.personalInfo} variant="h2" gutterBottom>
           Personal Information
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>

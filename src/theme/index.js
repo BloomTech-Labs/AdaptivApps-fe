@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 // colors
 const primary = '#2962FF';
@@ -12,15 +12,18 @@ const sm = 600;
 const xs = 0;
 
 const theme = createMuiTheme({
-  fontFamily: 'Open Sans',
+  
   htmlFontSize: '62.5%',
+  // htmlFontSize: 10,
+  
   palette: {
     primary: { main: primary },
     secondary: { main: secondary },
   },
   typography: {
-    h1: { fontSize: '1.875rem', fontWeight: 400 },
-    h2: { fontSize: '2.1rem' },
+    htmlFontSize: '10px',
+    h1: { fontSize: '3rem', fontWeight: 400 },
+    h2: { fontSize: '1.3125rem', fontWeight: 500 },
     h3: { fontSize: '2rem' },
     h4: { fontSize: '2rem' },
     h5: { fontSize: '2rem' },
