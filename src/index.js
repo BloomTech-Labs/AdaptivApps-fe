@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 // Import project configurations from local files
 import { Auth0Provider } from './config/react-auth0-spa';
 import config from './config/auth_config';
-import 'adaptiv-ui/css/main.css';
+import { CssBaseline } from '@material-ui/core';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
@@ -19,6 +19,7 @@ ReactDOM.render(
     responseType={config.responseType}
     scope={config.scope}
   >
+    <CssBaseline />
     <App />
   </Auth0Provider>,
   document.getElementById('root')
