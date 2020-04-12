@@ -21,6 +21,9 @@ const useStyles = makeStyles(theme => ({
     height: '56.8rem',
     backgroundColor: 'white',
     padding: '0',
+    '& .MuiButton-label': {
+      fontSize: theme.typography.button.fontSize,
+    }, 
   },
   imgBox: {
     width: '100%',
