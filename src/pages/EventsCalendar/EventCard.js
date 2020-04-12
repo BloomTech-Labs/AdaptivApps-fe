@@ -47,7 +47,7 @@ const useStyles = makeStyles({
   btn: {
     padding: '0',
     fontSize: '1.6rem',
-    fontWeight: '600',
+    fontWeight: '500',
     textTransform: 'none',
   },
   cardImg: {

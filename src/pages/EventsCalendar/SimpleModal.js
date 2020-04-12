@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     '& .MuiButton-label': {
       fontSize: theme.typography.button.fontSize,
     },    
-    fontWeight: '600',
+    fontWeight: '500',
     textTransform: 'none',
     color: '#2962FF',
   },
