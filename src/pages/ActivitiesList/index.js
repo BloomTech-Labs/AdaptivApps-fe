@@ -12,6 +12,9 @@ const useStyles = makeStyles({
     maxWidth: '100%',
     width: '90%',
     fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+    '& th': {
+      fontSize: '1.6rem'
+    }, 
   },
   headingBox: {
     margin: '6rem 0 2rem 3rem',
@@ -62,6 +65,7 @@ const useStyles = makeStyles({
     color: '#202020',
     margin: '6.3rem 0 .8rem 0',
     width: '14rem',
+    
   },
   grid: {
     width: '100%',
@@ -84,7 +88,7 @@ export default function ActivityList() {
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
         <Typography className={classes.heading} variant="h1" gutterBottom>
-          Upcoming Events
+          Event Activities
         </Typography>
       </Box>
       <Box className={classes.eventContainer}>

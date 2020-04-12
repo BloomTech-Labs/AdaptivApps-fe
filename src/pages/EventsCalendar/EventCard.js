@@ -20,6 +20,7 @@ import { REGISTER_EVENT } from './queries/joinEvent';
 
 const useStyles = makeStyles({
   root: {
+    backgroundColor: 'transparent',
     borderRadius: '.5rem',
     marginRight: '2.4rem',
     boxShadow: 'none',
