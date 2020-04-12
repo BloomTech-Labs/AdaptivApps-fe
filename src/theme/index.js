@@ -13,17 +13,14 @@ const xs = 0;
 
 const theme = createMuiTheme({
   
-  htmlFontSize: '62.5%',
-  // htmlFontSize: 10,
-  
   palette: {
     primary: { main: primary },
     secondary: { main: secondary },
   },
   typography: {
-    htmlFontSize: '10px',
+    fontSize: 10,
     h1: { fontSize: '3rem', fontWeight: 400 },
-    h2: { fontSize: '1.3125rem', fontWeight: 500 },
+    h2: { fontSize: '2.1rem', fontWeight: 500 },
     h3: { fontSize: '2rem' },
     h4: { fontSize: '2rem' },
     h5: { fontSize: '2rem' },
