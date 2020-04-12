@@ -50,7 +50,7 @@ export default function MyEventDetails() {
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
-        <Typography variant="h3" gutterBottom>
+        <Typography variant="h1" gutterBottom>
           Event Details
         </Typography>
       </Box>

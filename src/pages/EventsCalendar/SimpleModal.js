@@ -27,7 +27,9 @@ const useStyles = makeStyles(theme => ({
   },
   btn: {
     padding: '0',
-    fontSize: '1.6rem',
+    '& .MuiButton-label': {
+      fontSize: theme.typography.button.fontSize,
+    },    
     fontWeight: '600',
     textTransform: 'none',
     color: '#2962FF',

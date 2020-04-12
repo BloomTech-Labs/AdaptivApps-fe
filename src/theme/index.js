@@ -18,7 +18,7 @@ const theme = createMuiTheme({
     secondary: { main: secondary },
   },
   typography: {
-    fontSize: 10,
+    // fontSize: 10,
     h1: { fontSize: '3rem', fontWeight: 400 },
     h2: { fontSize: '2.1rem', fontWeight: 500 },
     h3: { fontSize: '2rem' },
@@ -41,7 +41,7 @@ const theme = createMuiTheme({
       sm,
       xs,
     },
-  }
+  },
 })
 
 export default theme;
