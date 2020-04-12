@@ -17,6 +17,17 @@ export const GET_USER_EVENTS = gql`
       sponsors
       imgUrl
       details
+      activities {
+        id
+        participants {
+          id
+          profile {
+            id
+            email
+          }
+          role
+        }
+      }
     }
   }
 `;
@@ -31,6 +42,41 @@ export const UNREGISTER_FROM_EVENT = gql`
       id
       events {
         id
+      }
+    }
+  }
+`;
+
+export const UNREGISTER_FROM_ACTIVITY = gql`
+  mutation unregisterFromActivity($id: ID!, $id: ID!) {
+    updateActivity(
+      where: { id: $id }
+      data: { participants: { disconnect: { id: $id } } }
+    ) {
+      id
+      participants {
+        id
+        profile {
+          id
+          email
+        }
+        role
+      }
+    }
+  }
+`;
+
+export const GET_USER_ACTIVITIES = gql`
+  query getUserActivities($email: String!) {
+    activities(where: { participants_some: { profile: { email: $email } } }) {
+      id
+      participants {
+        id
+        profile {
+          id
+          email
+        }
+        role
       }
     }
   }
