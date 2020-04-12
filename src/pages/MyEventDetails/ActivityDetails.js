@@ -8,11 +8,18 @@ import { useQuery } from 'react-apollo';
 import { useParams } from '@reach/router';
 import { GET_EVENT_ACTIVITIES } from '../ActivitiesList/queries/getActivities';
 // Styling imports
+import { makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
 
-import { makeStyles } from '@material-ui/core';
-
 const useStyles = makeStyles({
+  root: {
+    '& td': {
+      width: '14rem',
+      padding: '0 1% 2% 0',
+      display: 'flex',
+      textAlign: 'left',
+    },
+  },
   nameLink: {
     color: '#2962FF',
   },
@@ -25,7 +32,7 @@ export default function ActivityDetails({ activity }) {
     variables: { id: eventId },
   });
   return (
-    <tr>
+    <tr className={classes.root}>
       <td className={classes.nameLink}>
         <SimpleModal activity={activity} data={data} />
       </td>

@@ -5,8 +5,7 @@ import React from 'react';
 import { useAuth0 } from '../../config/react-auth0-spa';
 
 // Component imports
-import SideNav2 from './SideNav/SideNav2';
-// import SideNav from './SideNav'
+import SideNav from './SideNav';
 import PropTypes from 'prop-types';
 
 // Styling imports
@@ -29,7 +28,7 @@ const DashRouter = ({ children }) => {
 
   return (
     <div className={classes.root}>
-      <SideNav2 user={user} />
+      <SideNav user={user} />
       <Box className={classes.box}>{children}</Box>
     </div>
   );

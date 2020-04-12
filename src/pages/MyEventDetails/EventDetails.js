@@ -19,6 +19,7 @@ const useStyles = makeStyles({
   topContentContainer: {
     display: 'flex',
     flexDirection: 'row',
+    paddingLeft: '0.3rem',
   },
   topContentText: {
     display: 'flex',
@@ -43,10 +44,17 @@ const useStyles = makeStyles({
     '& p': {
       fontWeight: 'bold',
       fontSize: '1.8rem',
-      marginBottom: '2rem',
+      marginTop: '3rem',
     },
-    '& td': {
+    '& tr': {
+      display: 'flex',
+      alignItems: 'center',
+      marginLeft: '0.2rem',
+    },
+    '& th': {
+      width: '14rem',
       padding: '1% 1% 2% 0',
+      textAlign: 'left',
     },
   },
   sponsorBox: {
@@ -54,6 +62,9 @@ const useStyles = makeStyles({
     fontWeight: 'bold',
     width: '90%',
     margin: '5rem 0rem 0rem 0rem',
+    '& li': {
+      fontSize: '1.6rem',
+    },
   },
   sponsorBox2: {
     fontSize: '2rem',
@@ -79,15 +90,11 @@ const useStyles = makeStyles({
   headerRow: {
     textAlign: 'left',
     fontSize: '1.8rem',
-    marginBottom: '6.3rem',
   },
   tableH: {
     color: '#202020',
-    margin: '6.3rem 0 .8rem 0',
+    margin: '1rem 0 0 0',
     width: '14rem',
-  },
-  table: {
-    marginTop: '3rem',
   },
 });
 
