@@ -1,6 +1,9 @@
 import React from 'react';
-// import RolesToolTip from './RolesToolTip';
+import SimpleModal from './SimpleModal';
 import RolesDialog from './SelectRole';
+import { useQuery } from 'react-apollo';
+import { useParams } from '@reach/router';
+import { GET_EVENT_ACTIVITIES } from './queries/getActivities';
 import PropTypes from 'prop-types';
 import './styles.css';
 
@@ -29,20 +32,30 @@ const useStyles = makeStyles({
 });
 
 export default function Activities({ activity }) {
+  const { eventId } = useParams();
+  const { data } = useQuery(GET_EVENT_ACTIVITIES, {
+    variables: { id: eventId },
+  });
   const classes = useStyles();
   return (
     <Grid className={classes.grid}>
       <table>
         <tbody>
           <tr>
-            <td className={classes.nameLink}>{activity.name}</td>
+            <td className={classes.nameLink}>
+              <SimpleModal activity={activity} data={data} />
+            </td>
             <td className={classes.tableData}>{activity.startDate}</td>
             <td className={classes.tableData}>{activity.location}</td>
             <td className={classes.tableData}>{activity.startTime}</td>
           </tr>
         </tbody>
       </table>
-      <RolesDialog className={classes.rolesDialog} activity={activity} />
+      <RolesDialog
+        className={classes.rolesDialog}
+        activity={activity}
+        data={data}
+      />
     </Grid>
   );
 }

@@ -11,7 +11,7 @@ import { CssBaseline } from '@material-ui/core';
 // Component imports
 import theme from './theme'
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+// import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   // Wrap project in auth0 for authentication and authorization
@@ -31,4 +31,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-serviceWorker.unregister();
+// serviceWorker.unregister();

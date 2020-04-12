@@ -189,11 +189,7 @@ const LandingPage = () => {
             <small>Privacy Policy</small>
           </Link>
 
-          <Link
-            className={classes.privBtn}
-            to="accessibility"
-            className="accessibility"
-          >
+          <Link to="accessibility" className="accessibility">
             Accessibility Statement
           </Link>
         </Box>

@@ -12,7 +12,7 @@ export const GET_EVENTS = gql`
       startDate
       endDate
       location
-      zoomLink
+      link
       sponsors
       imgUrl
       sponsors
@@ -42,7 +42,7 @@ export const GET_ONE_EVENT = gql`
       startDate
       endDate
       location
-      zoomLink
+      link
       sponsors
       imgUrl
       details
@@ -69,7 +69,7 @@ export const CREATE_EVENT = gql`
     $startDate: String!
     $endDate: String!
     $location: String!
-    $zoomLink: String
+    $link: String
     $sponsors: String
     $imgUrl: String
     $details: String
@@ -84,7 +84,7 @@ export const CREATE_EVENT = gql`
         startDate: $startDate
         endDate: $endDate
         location: $location
-        zoomLink: $zoomLink
+        link: $link
         sponsors: $sponsors
         imgUrl: $imgUrl
         details: $details
@@ -112,7 +112,7 @@ export const UPDATE_EVENT = gql`
     $startDate: String!
     $endDate: String!
     $location: String!
-    $zoomLink: String
+    $link: String
     $sponsors: String
     $imgUrl: String
     $details: String
@@ -127,7 +127,7 @@ export const UPDATE_EVENT = gql`
         startDate: $startDate
         endDate: $endDate
         location: $location
-        zoomLink: $zoomLink
+        link: $link
         sponsors: $sponsors
         imgUrl: $imgUrl
         details: $details
