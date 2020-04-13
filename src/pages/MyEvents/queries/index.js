@@ -42,16 +42,27 @@ export const UNREGISTER_FROM_EVENT = gql`
       id
       events {
         id
+        activities {
+          id
+          participants {
+            id
+            profile {
+              id
+              email
+            }
+            role
+          }
+        }
       }
     }
   }
 `;
 
 export const UNREGISTER_FROM_ACTIVITY = gql`
-  mutation unregisterFromActivity($id: ID!, $id: ID!) {
+  mutation unregisterFromActivity($activityId: ID!, $participantId: ID!) {
     updateActivity(
-      where: { id: $id }
-      data: { participants: { delete: { id: $id } } }
+      where: { id: $activityId }
+      data: { participants: { delete: { id: $participantId } } }
     ) {
       id
       participants {
@@ -70,6 +81,9 @@ export const GET_USER_ACTIVITIES = gql`
   query getUserActivities($email: String!) {
     activities(where: { participants_some: { profile: { email: $email } } }) {
       id
+      event {
+        id
+      }
       participants {
         id
         profile {
@@ -81,3 +95,4 @@ export const GET_USER_ACTIVITIES = gql`
     }
   }
 `;
+// ck8y40vmv05770737g5uftumb
