@@ -29,18 +29,15 @@ const useStyles = makeStyles({
     },
   },
 });
-export default function ActivityDetails({ activeEvent, activity }) {
+export default function ActivityDetails({ activity }) {
   const classes = useStyles();
   const { user } = useAuth0();
-  const { eventId } = useParams();
-  const { data } = useQuery(GET_EVENT_ACTIVITIES, {
-    variables: { id: eventId },
-  });
-  console.log('event', data);
+  const activeEvent = activity.event;
+
   return (
     <tr className={classes.root}>
       <td className={classes.nameLink}>
-        <SimpleModal activity={activity} data={data} />
+        <SimpleModal activity={activity} />
       </td>
       <td>{activity.startDate}</td>
       {activeEvent.type === 'Webinar' ? (

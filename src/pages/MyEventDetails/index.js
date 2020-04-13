@@ -8,7 +8,7 @@ import EventDetails from './EventDetails';
 import { useAuth0 } from '../../config/react-auth0-spa';
 // GraphQL/Apollo imports
 import { useQuery } from 'react-apollo';
-import { GET_EVENT_DETAILS, GET_USER_PROFILE } from './queries';
+import { GET_EVENT_DETAILS } from './queries';
 // Styling imports
 import { Box, Typography, makeStyles } from '@material-ui/core';
 
@@ -36,16 +36,12 @@ export default function MyEventDetails() {
     variables: { id: eventId, email: user.email },
   });
 
-  const { data: userData } = useQuery(GET_USER_PROFILE, {
-    variables: { email: user.email },
-  });
 
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
 
   const activeEvent = data.events;
-  const userID = userData?.profile?.id;
-
+  
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
@@ -55,7 +51,7 @@ export default function MyEventDetails() {
       </Box>
       {activeEvent &&
         activeEvent.map((event, id) => (
-          <EventDetails key={id} event={event} userID={userID} />
+          <EventDetails key={id} event={event} />
         ))}
     </main>
   );

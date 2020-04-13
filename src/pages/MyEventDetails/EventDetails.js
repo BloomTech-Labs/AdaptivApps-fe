@@ -2,9 +2,14 @@
 import React from 'react';
 // Component imports
 import ActivityDetails from './ActivityDetails';
+// Auth0 imports
+import { useAuth0 } from '../../config/react-auth0-spa';
+// GraphQL/Apollo imports
+import { useQuery } from 'react-apollo';
+import { GET_USER_ACTIVITIES } from './queries';
 // Styling import
 import { Box, makeStyles, Typography } from '@material-ui/core';
-import theme from '../../theme';
+
 
 // Applies Material-UI styling
 const useStyles = makeStyles(theme => ({
@@ -96,9 +101,19 @@ const useStyles = makeStyles(theme => ({
 export default function EventDetails(props) {
   const classes = useStyles();
   const activeEvent = props.event;
-  const currentActivities = activeEvent.activities;
+  const eventId = activeEvent.id;
+  const { user } = useAuth0();
+  const { loading, error, data } = useQuery(GET_USER_ACTIVITIES, {
+    variables: { id: eventId, email: user.email },
+  });
 
-  console.log('currentActivity in event details', currentActivities);
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
+  console.log('activity data', data);
+
+  const currentActivities = data.activities;
+
+  // console.log('currentActivity in event details', currentActivities);
   return (
     <Box className={classes.root} m={4}>
       <Box className={classes.topContentContainer}>
@@ -148,7 +163,6 @@ export default function EventDetails(props) {
                   currentActivities.map((activity, id) => (
                     <ActivityDetails
                       key={id}
-                      activeEvent={activeEvent}
                       activity={activity}
                     />
                   ))}

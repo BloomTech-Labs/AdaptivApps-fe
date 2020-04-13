@@ -84,7 +84,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SimpleModal({ activity, data }) {
+export default function SimpleModal({ activity }) {
+  
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -103,7 +104,7 @@ export default function SimpleModal({ activity, data }) {
       <Box className={classes.imgBox}>
         <img
           className={classes.img}
-          src={data && data?.event?.imgUrl}
+          src={activity && activity?.event?.imgUrl}
           alt="Event"
         />
       </Box>
