@@ -3,10 +3,6 @@ import React from 'react';
 // Auth0 imports
 import { useAuth0 } from '../../config/react-auth0-spa';
 import SimpleModal from '../ActivitiesList/SimpleModal';
-
-import { useQuery } from 'react-apollo';
-import { useParams } from '@reach/router';
-import { GET_EVENT_ACTIVITIES } from '../ActivitiesList/queries/getActivities';
 // Styling imports
 import { makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';

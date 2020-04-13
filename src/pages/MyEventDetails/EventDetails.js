@@ -113,7 +113,6 @@ export default function EventDetails(props) {
 
   const currentActivities = data.activities;
 
-  // console.log('currentActivity in event details', currentActivities);
   return (
     <Box className={classes.root} m={4}>
       <Box className={classes.topContentContainer}>
