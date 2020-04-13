@@ -21,14 +21,16 @@ const useStyles = makeStyles(theme => ({
     height: '56.8rem',
     backgroundColor: 'white',
     padding: '0',
+    '& .MuiButton-label': {
+      fontSize: '1.6rem',
+      fontWeight: '500',
+    },
   },
   imgBox: {
     width: '100%',
   },
   btn: {
     padding: '0',
-    fontSize: '1.6rem',
-    fontWeight: '600',
     textTransform: 'none',
     color: '#2962FF',
   },

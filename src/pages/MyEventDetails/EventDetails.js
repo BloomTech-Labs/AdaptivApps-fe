@@ -3,10 +3,11 @@ import React from 'react';
 // Component imports
 import ActivityDetails from './ActivityDetails';
 // Styling import
-import { Box, makeStyles } from '@material-ui/core';
+import { Box, makeStyles, Typography } from '@material-ui/core';
+import theme from '../../theme';
 
 // Applies Material-UI styling
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -19,7 +20,6 @@ const useStyles = makeStyles({
   topContentContainer: {
     display: 'flex',
     flexDirection: 'row',
-    paddingLeft: '0.3rem',
   },
   topContentText: {
     display: 'flex',
@@ -30,8 +30,8 @@ const useStyles = makeStyles({
       color: '#808080',
       fontSize: '1.4rem',
     },
-    '& h6': {
-      fontWeight: 'bold',
+    '& h2': {
+      fontWeight: '500',
       fontSize: '2.1rem',
       margin: '0rem 0 0.5rem',
     },
@@ -45,6 +45,7 @@ const useStyles = makeStyles({
       fontWeight: 'bold',
       fontSize: '1.8rem',
       marginTop: '3rem',
+      marginBottom: '.7rem',
     },
     '& tr': {
       display: 'flex',
@@ -52,27 +53,33 @@ const useStyles = makeStyles({
       marginLeft: '0.2rem',
     },
     '& th': {
+      fontWeight: 550,
+      fontSize: '1.6rem',
       width: '20rem',
       padding: '1% 1% 2% 0',
       textAlign: 'left',
     },
   },
   sponsorBox: {
-    fontSize: '2rem',
-    fontWeight: 'bold',
     width: '90%',
     margin: '5rem 0rem 0rem 0rem',
+    '& ul': {
+      marginTop: '1rem',
+    },
     '& li': {
       fontSize: '1.6rem',
+      fontWeight: 500,
     },
   },
   sponsorBox2: {
-    fontSize: '2rem',
-    fontWeight: 'bold',
     width: '90%',
     margin: '8rem 0rem 0rem 0rem',
+    '& ul': {
+      marginTop: '1rem',
+    },
     '& li': {
       fontSize: '1.6rem',
+      fontWeight: 500,
     },
   },
   webinarBox: {
@@ -96,7 +103,7 @@ const useStyles = makeStyles({
     margin: '1rem 0 0 0',
     width: '20rem',
   },
-});
+}));
 
 export default function EventDetails(props) {
   const classes = useStyles();
@@ -113,8 +120,8 @@ export default function EventDetails(props) {
         {activeEvent.type === 'Webinar' ? (
           <Box className={classes.topContentText} m="2.4rem">
             <p>{activeEvent.startDate}</p>
-            <h6>{activeEvent.title}</h6>
-            <p>{activeEvent.location}</p>
+            <h2>{activeEvent.title}</h2>
+            <Typography variant="subtitle1">{activeEvent.location}</Typography>
             <p>Start time: {activeEvent.startTime}</p>
           </Box>
         ) : (
@@ -122,13 +129,13 @@ export default function EventDetails(props) {
             <p>
               {activeEvent.startDate} - {activeEvent.endDate}
             </p>
-            <h6>{activeEvent.title}</h6>
-            <p>{activeEvent.location}</p>
+            <h2>{activeEvent.title}</h2>
+            <Typography variant="subtitle1">{activeEvent.location}</Typography>
           </Box>
         )}
       </Box>
       <Box className={classes.detailsContainer}>
-        <p>{activeEvent.details}</p>
+        <Typography variant="body1">{activeEvent.details}</Typography>
       </Box>
 
       {activeEvent.type === 'Webinar' ? (
@@ -160,8 +167,10 @@ export default function EventDetails(props) {
               </tbody>
             </table>
           </Box>
-          <Box className={classes.sponsorBox2}>
-            <p>Special thanks to our sponsors!</p>
+          <Box className={classes.sponsorBox1}>
+            <Typography variant="h3">
+              Special thanks to our sponsors!
+            </Typography>
             <ul>
               {activeEvent.sponsors.split(', ').map(sponsor => (
                 <li>{sponsor}</li>
@@ -172,7 +181,7 @@ export default function EventDetails(props) {
       ) : (
         <>
           <Box className={classes.myActivitiesBox}>
-            <p>Activities</p>
+            <p>My Activities</p>
             <table className={classes.table}>
               <tbody>
                 <tr className={classes.headerRow}>

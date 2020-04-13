@@ -71,12 +71,16 @@ const useStyles = makeStyles(theme => ({
     width: '98%',
   },
   navLink: {
+    textDecoration: 'none',
     height: '5rem',
     display: 'flex',
     alignContent: 'flex-start',
     alignItems: 'center',
     margin: '.5rem auto',
     textAlign: 'left',
+    '& p': {
+      fontSize: '1.6rem'
+    },
   },
   logoutContainer: {
     display: 'flex',
@@ -84,13 +88,15 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'flex-end',
     width: '100%',
     height: '100%',
+    '& p': {
+      fontSize: '1.6rem',
+    },
   },
   logoutBtn: {
     display: 'flex',
     justifyContent: 'flex-start',
     margin: '0 0 2rem 0',
     textTransform: 'none',
-    fontSize: '1.6rem',
     width: '100%',
   },
   logoutIcon: {

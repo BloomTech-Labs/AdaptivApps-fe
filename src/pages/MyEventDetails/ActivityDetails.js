@@ -18,10 +18,15 @@ const useStyles = makeStyles({
       padding: '0 1% 2% 0',
       display: 'flex',
       textAlign: 'left',
+      fontSize: '1.6rem'
     },
   },
   nameLink: {
     color: '#2962FF',
+    '& .MuiButton-label': {
+      fontSize: '1.6rem',
+      fontWeight: 500
+    },
   },
 });
 export default function ActivityDetails({ activeEvent, activity }) {

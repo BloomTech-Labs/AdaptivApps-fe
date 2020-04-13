@@ -12,6 +12,9 @@ import { makeStyles, Grid } from '@material-ui/core';
 const useStyles = makeStyles({
   grid: {
     display: 'flex',
+    '& td': {
+      fontSize: '1.6rem'
+    },
   },
   header: {
     color: '#202020',
@@ -20,6 +23,9 @@ const useStyles = makeStyles({
     color: '#2962FF',
     width: '20rem',
     padding: '1% 1% 3% 0%',
+    '& .MuiButton-label': {
+      fontSize: '1.6rem'
+    },
   },
   tableData: {
     width: '20rem',

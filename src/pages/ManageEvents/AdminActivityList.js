@@ -14,7 +14,6 @@ import MaterialTable from 'material-table';
 
 const useStyles = makeStyles({
   addBtn: {
-    fontSize: '1.4rem',
     color: '#2763FF',
     textTransform: 'none',
   },
