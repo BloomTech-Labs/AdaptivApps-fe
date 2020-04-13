@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'space-evenly',
     alignSelf: 'flex-start',
+    '& .MuiButton-label': {
+      fontSize: '1.6rem'
+    },
   },
   navBtn: {
     width: '9.6rem',

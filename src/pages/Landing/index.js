@@ -166,7 +166,7 @@ const LandingPage = () => {
       </Container>
       <Container className={classes.contentContainer}>
         <Box className={classes.contentIntro}>
-          <h2>Sign Up Now!</h2>
+          <Typography variant='subtitle2'>Sign Up Now!</Typography>
           <Typography className={classes.contentP}>
             Sign Up Now with Facebook or Google, add your profile info, and keep
             track of Angel City Sports Games, Clinics, and other events! All the
