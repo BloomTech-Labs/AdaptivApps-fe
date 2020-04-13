@@ -116,7 +116,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function SideNav2(props) {
+function SideNav(props) {
   const { user } = props;
   const { logout } = useAuth0();
   const { container } = props;
@@ -220,7 +220,7 @@ function SideNav2(props) {
   );
 }
 
-SideNav2.propTypes = {
+SideNav.propTypes = {
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
@@ -228,4 +228,4 @@ SideNav2.propTypes = {
   container: PropTypes.any,
 };
 
-export default SideNav2;
+export default SideNav;
