@@ -61,7 +61,7 @@ const useStyles = makeStyles({
   tableH: {
     color: '#202020',
     margin: '6.3rem 0 .8rem 0',
-    width: '14rem',
+    width: '20rem',
   },
   grid: {
     width: '100%',

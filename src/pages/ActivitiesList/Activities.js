@@ -18,11 +18,11 @@ const useStyles = makeStyles({
   },
   nameLink: {
     color: '#2962FF',
-    width: '14rem',
+    width: '20rem',
     padding: '1% 1% 3% 0%',
   },
   tableData: {
-    width: '14rem',
+    width: '20rem',
     padding: '0 1% 3% 0%',
   },
   rolesDialog: {

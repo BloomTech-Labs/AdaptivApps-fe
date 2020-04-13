@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 const useStyles = makeStyles({
   root: {
     '& td': {
-      width: '14rem',
+      width: '20rem',
       padding: '0 1% 2% 0',
       display: 'flex',
       textAlign: 'left',
@@ -24,20 +24,29 @@ const useStyles = makeStyles({
     color: '#2962FF',
   },
 });
-export default function ActivityDetails({ activity }) {
+export default function ActivityDetails({ activeEvent, activity }) {
   const classes = useStyles();
   const { user } = useAuth0();
   const { eventId } = useParams();
   const { data } = useQuery(GET_EVENT_ACTIVITIES, {
     variables: { id: eventId },
   });
+  console.log('event', data);
   return (
     <tr className={classes.root}>
       <td className={classes.nameLink}>
         <SimpleModal activity={activity} data={data} />
       </td>
       <td>{activity.startDate}</td>
-      <td>{activity.location}</td>
+      {activeEvent.type === 'Webinar' ? (
+        <td>
+          <a className={classes.nameLink} href={activity.link}>
+            Join!
+          </a>
+        </td>
+      ) : (
+        <td>{activity.location}</td>
+      )}
       <td>{activity.startTime}</td>
       {activity.participants.map((participant, id) =>
         participant && participant.profile.email === user.email ? (

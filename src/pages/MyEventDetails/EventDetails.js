@@ -52,7 +52,7 @@ const useStyles = makeStyles({
       marginLeft: '0.2rem',
     },
     '& th': {
-      width: '14rem',
+      width: '20rem',
       padding: '1% 1% 2% 0',
       textAlign: 'left',
     },
@@ -94,7 +94,7 @@ const useStyles = makeStyles({
   tableH: {
     color: '#202020',
     margin: '1rem 0 0 0',
-    width: '14rem',
+    width: '20rem',
   },
 });
 
@@ -139,19 +139,23 @@ export default function EventDetails(props) {
             <a href={activeEvent.link}>Click Here to Join Us!</a>
           </Box>
           <Box className={classes.myActivitiesBox}>
-            <p>My Activities</p>
+            <p>Activities</p>
             <table className={classes.table}>
               <tbody>
                 <tr className={classes.headerRow}>
                   <th className={classes.tableH}>Name</th>
                   <th className={classes.tableH}>Date</th>
-                  <th className={classes.tableH}>Location</th>
+                  <th className={classes.tableH}>Link</th>
                   <th className={classes.tableH}>Time</th>
                   <th className={classes.tableH}>My Role</th>
                 </tr>
                 {currentActivities &&
                   currentActivities.map((activity, id) => (
-                    <ActivityDetails key={id} activity={activity} />
+                    <ActivityDetails
+                      key={id}
+                      activeEvent={activeEvent}
+                      activity={activity}
+                    />
                   ))}
               </tbody>
             </table>
@@ -180,13 +184,19 @@ export default function EventDetails(props) {
                 </tr>
                 {currentActivities &&
                   currentActivities.map((activity, id) => (
-                    <ActivityDetails key={id} activity={activity} />
+                    <ActivityDetails
+                      key={id}
+                      activeEvent={activeEvent}
+                      activity={activity}
+                    />
                   ))}
               </tbody>
             </table>
           </Box>
           <Box className={classes.sponsorBox}>
-            <p>Special thanks to our sponsors!</p>
+            {activeEvent?.sponsors?.length > 0 ? (
+              <p>Special thanks to our sponsors!</p>
+            ) : null}
             <ul>
               {activeEvent?.sponsors?.split(', ').map(sponsor => (
                 <li>{sponsor}</li>
