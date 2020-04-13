@@ -21,6 +21,14 @@ export const GET_EVENT_ACTIVITIES = gql`
         endTime
         type
         details
+        participants {
+          id
+          profile {
+            id
+            email
+          }
+          role
+        }
       }
     }
   }

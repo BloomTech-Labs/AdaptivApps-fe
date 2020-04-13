@@ -171,6 +171,7 @@ export default function EventDetails(props) {
             <Typography variant="h3">
               Special thanks to our sponsors!
             </Typography>
+
             <ul>
               {activeEvent.sponsors.split(', ').map(sponsor => (
                 <li>{sponsor}</li>
@@ -207,9 +208,11 @@ export default function EventDetails(props) {
               <p>Special thanks to our sponsors!</p>
             ) : null}
             <ul>
-              {activeEvent?.sponsors?.split(', ').map(sponsor => (
-                <li>{sponsor}</li>
-              ))}
+              {activeEvent.sponsors.length > 0
+                ? activeEvent?.sponsors
+                    ?.split(', ')
+                    .map(sponsor => <li>{sponsor}</li>)
+                : null}
             </ul>
           </Box>
         </>

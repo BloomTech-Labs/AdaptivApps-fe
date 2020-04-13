@@ -51,7 +51,7 @@ export const UNREGISTER_FROM_ACTIVITY = gql`
   mutation unregisterFromActivity($id: ID!, $id: ID!) {
     updateActivity(
       where: { id: $id }
-      data: { participants: { disconnect: { id: $id } } }
+      data: { participants: { delete: { id: $id } } }
     ) {
       id
       participants {
