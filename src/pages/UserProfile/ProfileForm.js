@@ -52,9 +52,6 @@ const useStyles = makeStyles(theme => ({
     marginTop: '3rem',
     marginBlockEnd: '0',
   },
-  role: {
-    fontSize: '1.4rem',
-  },
   form: {
     display: 'flex',
     flexDirection: 'column',
@@ -224,15 +221,17 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
       <Container className={classes.profileContainer}>
         <Box className={classes.profileInfo}>
           <img className={classes.profileImg} src={userPicture} alt="Profile" />
-          <Typography className={classes.profileText}>
-            {userProfile && userProfile.firstName !== null
-              ? `${userProfile && userProfile.firstName} ${userProfile &&
-                  userProfile.lastName}`
-              : user && user.name}{' '}
-              <Typography className={classes.role}>
-                {user && user.email}
-              </Typography>
-          </Typography>
+          <Box className={classes.profileText}>
+            <Typography>
+              {userProfile && userProfile.firstName !== null
+                ? `${userProfile && userProfile.firstName} ${userProfile &&
+                    userProfile.lastName}`
+                : user && user.name}{' '}
+            </Typography>
+            <Typography>
+              {user && user.email}
+            </Typography>
+          </Box>
         </Box>
 
         <Typography className={classes.personalInfo} variant="h2" gutterBottom>
@@ -401,7 +400,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
             <Button
               className={classes.button}
               variant="outlined"
-              color="#2962FF"
+              color="primary"
               type="submit"
               aria-label="save changes to user profile"
               onClick={() => {
