@@ -58,6 +58,9 @@ const useStyles = makeStyles({
   form: {
     display: 'flex',
     flexDirection: 'column',
+    '& .MuiButton-label': {
+      fontSize: '1.6rem'
+    },
   },
   formBox: {
     display: 'flex',
