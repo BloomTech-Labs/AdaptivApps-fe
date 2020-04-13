@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { useAuth0 } from '../../config/react-auth0-spa';
 
 import { useMutation } from 'react-apollo';
-import { REGISTER_AS_ATHLETE } from './queries/AthleteRegister';
-import { REGISTER_AS_COACH } from './queries/CoachRegister';
-import { REGISTER_AS_VOLUNTEER } from './queries/VolunteerRegister';
-import { REGISTER_AS_OTHER } from './queries/OtherRegister';
+import {
+  REGISTER_AS_ATHLETE,
+  REGISTER_AS_COACH,
+  REGISTER_AS_VOLUNTEER,
+  REGISTER_AS_SPECTATOR,
+} from './queries/ActivityRegister';
 
 import { makeStyles, Popover, Button, Box } from '@material-ui/core';
 import { IconContext } from 'react-icons';
@@ -39,14 +41,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SimplePopover({ activity }) {
+export default function SimplePopover({ activity, data }) {
   const { user } = useAuth0();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [registerAsAthlete] = useMutation(REGISTER_AS_ATHLETE);
   const [registerAsCoach] = useMutation(REGISTER_AS_COACH);
   const [registerAsVolunteer] = useMutation(REGISTER_AS_VOLUNTEER);
-  const [registerAsOther] = useMutation(REGISTER_AS_OTHER);
+  const [registerAsSpectator] = useMutation(REGISTER_AS_SPECTATOR);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -80,8 +82,8 @@ export default function SimplePopover({ activity }) {
     handleClose();
   };
 
-  const otherRegister = async () => {
-    await registerAsOther({
+  const spectatorRegister = async () => {
+    await registerAsSpectator({
       variables: { id: activity.id, email: user.email },
     });
     alert('Successfully registered as a Spectator');
@@ -90,7 +92,7 @@ export default function SimplePopover({ activity }) {
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
-
+  console.log('activity in selectRole.js', data);
   return (
     <IconContext.Provider
       onBlur={handleClick}
@@ -112,45 +114,58 @@ export default function SimplePopover({ activity }) {
             }
       }
     >
-      <Button
-        className={classes.btn}
-        aria-describedby={id}
-        variant="contained"
-        onClick={handleClick}
-      >
-        <IoIosAddCircle />
-      </Button>
-      <Popover
-        className={classes.popover}
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'center',
-          horizontal: 'right',
-        }}
-        transformOrigin={{
-          vertical: 'center',
-          horizontal: 'left',
-        }}
-        classes={{ paper: classes.dialogPaper }}
-      >
-        <Box className={classes.box}>
-          <Button className="role" onClick={athleteRegister}>
-            I'm Competing
+      {data && data?.event?.type === 'Webinar' ? (
+        <Button
+          className={classes.btn}
+          aria-describedby={id}
+          variant="contained"
+          onClick={spectatorRegister}
+        >
+          <IoIosAddCircle />
+        </Button>
+      ) : (
+        <>
+          <Button
+            className={classes.btn}
+            aria-describedby={id}
+            variant="contained"
+            onClick={handleClick}
+          >
+            <IoIosAddCircle />
           </Button>
-          <Button className="role" onClick={coachRegister}>
-            I'm Coaching
-          </Button>
-          <Button className="role" onClick={volunteerRegister}>
-            I'm Volunteering
-          </Button>
-          <Button className="role" onClick={otherRegister}>
-            I'm Spectating
-          </Button>
-        </Box>
-      </Popover>
+          <Popover
+            className={classes.popover}
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'center',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'center',
+              horizontal: 'left',
+            }}
+            classes={{ paper: classes.dialogPaper }}
+          >
+            <Box className={classes.box}>
+              <Button className="role" onClick={athleteRegister}>
+                I'm Competing
+              </Button>
+              <Button className="role" onClick={coachRegister}>
+                I'm Coaching
+              </Button>
+              <Button className="role" onClick={volunteerRegister}>
+                I'm Volunteering
+              </Button>
+              <Button className="role" onClick={spectatorRegister}>
+                I'm Spectating
+              </Button>
+            </Box>
+          </Popover>
+        </>
+      )}
     </IconContext.Provider>
   );
 }

@@ -12,6 +12,9 @@ const useStyles = makeStyles({
     maxWidth: '100%',
     width: '90%',
     fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+    '& th': {
+      fontSize: '1.6rem',
+    },
   },
   headingBox: {
     margin: '6rem 0 2rem 3rem',
@@ -61,7 +64,7 @@ const useStyles = makeStyles({
   tableH: {
     color: '#202020',
     margin: '6.3rem 0 .8rem 0',
-    width: '14rem',
+    width: '20rem',
   },
   grid: {
     width: '100%',
@@ -75,18 +78,16 @@ const useStyles = makeStyles({
 export default function ActivityList() {
   const classes = useStyles();
   const { eventId } = useParams();
-  // eslint-disable-next-line no-unused-vars
   const { loading, error, data } = useQuery(GET_EVENT_ACTIVITIES, {
     variables: { id: eventId },
   });
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
-  
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
-        <Typography className={classes.heading} variant="h3" gutterBottom>
-          Upcoming Events
+        <Typography className={classes.heading} variant="h1" gutterBottom>
+          Event Activities
         </Typography>
       </Box>
       <Box className={classes.eventContainer}>

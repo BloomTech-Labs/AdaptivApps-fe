@@ -2,11 +2,17 @@
 import React from 'react';
 // Component imports
 import ActivityDetails from './ActivityDetails';
+// Auth0 imports
+import { useAuth0 } from '../../config/react-auth0-spa';
+// GraphQL/Apollo imports
+import { useQuery } from 'react-apollo';
+import { GET_USER_ACTIVITIES } from './queries';
 // Styling import
-import { Box, makeStyles } from '@material-ui/core';
+import { Box, makeStyles, Typography } from '@material-ui/core';
+
 
 // Applies Material-UI styling
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
@@ -14,24 +20,23 @@ const useStyles = makeStyles({
       height: '16rem',
       width: '36rem',
       objectFit: 'cover',
-     },
-   },
-   topContentContainer: {
-     display: 'flex',
-     flexDirection: 'row',
-     paddingLeft: '0.3rem'
-   },
-   topContentText: {
-     display: 'flex',
-     flexDirection: 'column',
-     justifyContent: 'center',
-     '& p': {
+    },
+  },
+  topContentContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  topContentText: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    '& p': {
       margin: '0rem 0 0.5rem',
       color: '#808080',
       fontSize: '1.4rem',
     },
-    '& h6': {
-      fontWeight: 'bold',
+    '& h2': {
+      fontWeight: '500',
       fontSize: '2.1rem',
       margin: '0rem 0 0.5rem',
     },
@@ -44,133 +49,71 @@ const useStyles = makeStyles({
     '& p': {
       fontWeight: 'bold',
       fontSize: '1.8rem',
-      marginBottom: '2rem',
-     
+      marginTop: '3rem',
+      marginBottom: 0,
     },
     '& tr': {
       display: 'flex',
       alignItems: 'center',
-      marginLeft: '0.2rem'
     },
     '& th': {
-      width: '14rem',
+      marginTop: 0,
+      fontWeight: 550,
+      fontSize: '1.6rem',
+      width: '20rem',
       padding: '1% 1% 2% 0',
-      textAlign: 'left'
+      textAlign: 'left',
     },
-   },
-   sponsorBox: {
-    fontSize: '2rem',
-    fontWeight: 'bold',
+  },
+  sponsorBox: {
     width: '90%',
     margin: '5rem 0rem 0rem 0rem',
-    '& li': {
-      fontSize: '1.6rem',
+    '& ul': {
+      marginTop: '1rem',
     },
-   },
-   sponsorBox2: {
-    fontSize: '2rem',
-    fontWeight: 'bold',
-    width: '90%',
-    margin: '8rem 0rem 0rem 0rem',
     '& li': {
       fontSize: '1.6rem',
+      fontWeight: 500,
     },
   },
   webinarBox: {
     display: 'flex',
     flexDirection: 'column',
     '& p': {
-      margin: '0 0.5rem',
+      margin: 0,
+      fontSize: '1.6rem',
     },
     '& a': {
       marginTop: '2rem',
-      marginLeft: '0.5rem',
       color: '#2862ff',
+      fontSize: '1.6rem',
+      textDecoration: 'none',
     },
   },
-});
+  headerRow: {
+    textAlign: 'left',
+    fontSize: '1.8rem',
+  },
+  tableH: {
+    color: '#202020',
+    width: '20rem',
+  },
+}));
 
 export default function EventDetails(props) {
   const classes = useStyles();
-  const userID = props.userID;
   const activeEvent = props.event;
-  const currentActivities = activeEvent.activities;
-  const filteredActivities = [];
+  const eventId = activeEvent.id;
+  const { user } = useAuth0();
+  const { loading, error, data } = useQuery(GET_USER_ACTIVITIES, {
+    variables: { id: eventId, email: user.email },
+  });
 
-  const checkUserInAthletes = athletes => {
-    let mark = false;
-    athletes.forEach(athlete => {
-      if (athlete.id === userID) {
-        mark = true;
-      }
-    });
-    return mark;
-  };
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
+  console.log('activity data', data);
 
-  const checkUserInCoaches = coaches => {
-    let mark = false;
-    coaches.forEach(coach => {
-      if (coach.id === userID) {
-        mark = true;
-      }
-    });
-    return mark;
-  };
-
-  const checkUserInVolunteers = volunteers => {
-    let mark = false;
-    volunteers.forEach(volunteer => {
-      if (volunteer.id === userID) {
-        mark = true;
-      }
-    });
-    return mark;
-  };
-
-  const checkUserInOthers = others => {
-    let mark = false;
-    others.forEach(other => {
-      if (other.id === userID) {
-        mark = true;
-      }
-    });
-    return mark;
-  };
-
-  const checkRoles = activities =>
-    activities &&
-    activities.forEach(activity => {
-      if (activity?.athletes && activity?.athletes.length > 0) {
-        if (checkUserInAthletes(activity.athletes)) {
-          const updated = activity;
-          updated.message = 'Participating';
-          filteredActivities.push(updated);
-        }
-      }
-      if (activity?.coaches && activity?.coaches.length > 0) {
-        if (checkUserInCoaches(activity.coaches)) {
-          const updated = activity;
-          updated.message = 'Coaching';
-          filteredActivities.push(activity);
-        }
-      }
-      if (activity?.volunteers && activity?.volunteers.length > 0) {
-        if (checkUserInVolunteers(activity.volunteers)) {
-          const updated = activity;
-          updated.message = 'Volunteering';
-          filteredActivities.push(activity);
-        }
-      }
-      if (activity?.other && activity?.other.length > 0) {
-        if (checkUserInOthers(activity.other)) {
-          const updated = activity;
-          updated.message = 'Watching';
-          filteredActivities.push(activity);
-        }
-      }
-    });
-
-  checkRoles(currentActivities);
+  const currentActivities = data.activities;
 
   return (
     <Box className={classes.root} m={4}>
@@ -181,8 +124,8 @@ export default function EventDetails(props) {
         {activeEvent.type === 'Webinar' ? (
           <Box className={classes.topContentText} m="2.4rem">
             <p>{activeEvent.startDate}</p>
-            <h6>{activeEvent.title}</h6>
-            <p>{activeEvent.location}</p>
+            <h2>{activeEvent.title}</h2>
+            <Typography variant="subtitle1">{activeEvent.location}</Typography>
             <p>Start time: {activeEvent.startTime}</p>
           </Box>
         ) : (
@@ -190,13 +133,13 @@ export default function EventDetails(props) {
             <p>
               {activeEvent.startDate} - {activeEvent.endDate}
             </p>
-            <h6>{activeEvent.title}</h6>
-            <p>{activeEvent.location}</p>
+            <h2>{activeEvent.title}</h2>
+            <Typography variant="subtitle1">{activeEvent.location}</Typography>
           </Box>
         )}
       </Box>
       <Box className={classes.detailsContainer}>
-        <p>{activeEvent.details}</p>
+        <Typography variant="body1">{activeEvent.details}</Typography>
       </Box>
 
       {activeEvent.type === 'Webinar' ? (
@@ -204,47 +147,66 @@ export default function EventDetails(props) {
           <Box className={classes.webinarBox}>
             <p>Hosted by: {activeEvent.host}</p>
             <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
-            <a href={activeEvent.zoomLink}>Click Here to Join Us on Zoom!</a>
+            <a href={activeEvent.link}>Click Here to Join Us!</a>
           </Box>
-          <Box className={classes.sponsorBox2}>
-            <p>Special thanks to our sponsors!</p>
-            <ul>
-              {activeEvent.sponsors.split(', ').map(sponsor => (
-                <li>{sponsor}</li>
-              ))}
-            </ul>
-          </Box>
-        </>
-      ) : (
-        <>
-          <Box h="30rem" className={classes.myActivitiesBox}>
-            <p>My Activities</p>
-            <table>
+          <Box className={classes.myActivitiesBox}>
+            <p>Activities</p>
+            <table className={classes.table}>
               <tbody>
-                <tr>
-                  <th>Name</th>
-                  <th>Date</th>
-                  <th>Location</th>
-                  <th>Time</th>
-                  <th>My Role</th>
+                <tr className={classes.headerRow}>
+                  <th className={classes.tableH}>Name</th>
+                  <th className={classes.tableH}>Date</th>
+                  <th className={classes.tableH}>Link</th>
+                  <th className={classes.tableH}>Time</th>
+                  <th className={classes.tableH}>My Role</th>
                 </tr>
-                {filteredActivities &&
-                  filteredActivities.map((activity, id) => (
-                    <ActivityDetails key={id} activity={activity} />
+                {currentActivities &&
+                  currentActivities.map((activity, id) => (
+                    <ActivityDetails
+                      key={id}
+                      activity={activity}
+                    />
                   ))}
               </tbody>
             </table>
           </Box>
-          <Box className={classes.sponsorBox}>
-            <p>Special thanks to our sponsors!</p>
-            <ul>
-              {activeEvent?.sponsors?.split(', ').map(sponsor => (
-                <li>{sponsor}</li>
-              ))}
-            </ul>
-          </Box>
         </>
-      )}
+      ) : (
+      <>
+        <Box className={classes.myActivitiesBox}>
+          <p>My Activities</p>
+          <table className={classes.table}>
+            <tbody>
+              <tr className={classes.headerRow}>
+                <th className={classes.tableH}>Name</th>
+                <th className={classes.tableH}>Date</th>
+                <th className={classes.tableH}>Location</th>
+                <th className={classes.tableH}>Time</th>
+                <th className={classes.tableH}>My Role</th>
+              </tr>
+              {currentActivities &&
+                currentActivities.map((activity, id) => (
+                <ActivityDetails
+                  key={id}
+                  activeEvent={activeEvent}
+                  activity={activity}
+                />
+              ))}
+            </tbody>
+          </table>
+        </Box>
+      </>
+    )}
+      <Box className={classes.sponsorBox}>
+      {activeEvent?.sponsors?.length > 0 ? (
+          <Typography variant='h3'>Special thanks to our sponsors!</Typography>
+        ) : null}
+        <ul>
+          {activeEvent?.sponsors?.split(', ').map(sponsor => (
+            <li>{sponsor}</li>
+          ))}
+        </ul>
+      </Box>
     </Box>
   );
 }

@@ -22,18 +22,15 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'white',
     padding: '0',
     '& .MuiButton-label': {
-      fontSize: theme.typography.button.fontSize,
-    }, 
+      fontSize: '1.6rem',
+      fontWeight: '500',
+    },
   },
   imgBox: {
     width: '100%',
   },
   btn: {
     padding: '0',
-    '& .MuiButton-label': {
-      fontSize: theme.typography.button.fontSize,
-    },    
-    fontWeight: '500',
     textTransform: 'none',
     color: '#2962FF',
   },
@@ -45,7 +42,7 @@ const useStyles = makeStyles(theme => ({
   },
   modalMiddle: {
     padding: '2rem 0 2rem 2rem',
-    marginBottom: '2rem',
+    marginBottom: '6rem',
   },
   date: {
     color: '#808080',
@@ -67,33 +64,12 @@ const useStyles = makeStyles(theme => ({
     paddingRight: '1rem',
   },
   modalBottom: {
-    marginLeft: '2rem',
     display: 'flex',
     flexDirection: 'column',
-    alignContent: 'flex-end',
-  },
-  modalP: {
-    margin: '1.2rem 0',
-    fontSize: '2.1rem',
-    color: '#2962FF',
-  },
-  modalBtn1: {
-    padding: '1rem 2.5rem',
-    margin: '0 1.5rem 0 0',
-    fontSize: '1.4rem',
-    color: '#2962FF',
-    border: '1px solid #2962FF',
-    borderRadius: '5px',
-    textTransform: 'none',
-    boxSizing: 'border-box',
-    '&:hover': {
-      background: '#2962FF',
-      color: 'white',
-    },
+    alignItems: 'center',
   },
   modalBtn2: {
     padding: '1rem 2.4rem',
-    margin: '0 0 0 1.5rem',
     fontSize: '1.4rem',
     background: '#2962FF',
     color: 'white',
@@ -108,7 +84,8 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SimpleModal({ event, registerEvent }) {
+export default function SimpleModal({ activity }) {
+ 
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -125,26 +102,24 @@ export default function SimpleModal({ event, registerEvent }) {
   const body = (
     <Container style={modalStyle} className={classes.paper}>
       <Box className={classes.imgBox}>
-        <img className={classes.img} src={event.imgUrl} alt="Event" />
+        <img
+          className={classes.img}
+          src={activity && activity?.event?.imgUrl}
+          alt="Event"
+        />
       </Box>
       <Box className={classes.modalMiddle}>
-        <Typography className={classes.date}>
-          {event.startDate} - {event.endDate}
-        </Typography>
         <Typography className={classes.title} id="simple-modal-title">
-          {event.title}
+          {activity.name}
         </Typography>
-        <Typography className={classes.loc}>{event.location}</Typography>
+        <Typography className={classes.date}>{activity.startTime}</Typography>
+        <Typography className={classes.loc}>{activity.location}</Typography>
         <Typography className={classes.details} id="simple-modal-description">
-          {event.details}
+          {activity?.details}
         </Typography>
       </Box>
       <Box className={classes.modalBottom}>
-        <p className={classes.modalP}>Add to "My Events?"</p>
         <Box>
-          <Button className={classes.modalBtn1} onClick={registerEvent}>
-            Add
-          </Button>
           <Button className={classes.modalBtn2} onClick={handleClose}>
             Close
           </Button>
@@ -156,7 +131,7 @@ export default function SimpleModal({ event, registerEvent }) {
   return (
     <div>
       <Button className={classes.btn} onClick={handleOpen}>
-        Add to my schedule
+        {activity.name}
       </Button>
       <Modal
         open={open}

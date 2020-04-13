@@ -8,10 +8,9 @@ import EventDetails from './EventDetails';
 import { useAuth0 } from '../../config/react-auth0-spa';
 // GraphQL/Apollo imports
 import { useQuery } from 'react-apollo';
-import { GET_EVENT_DETAILS, GET_USER_PROFILE } from './queries';
+import { GET_EVENT_DETAILS } from './queries';
 // Styling imports
-import { Box, Typography, makeStyles } from '@material-ui/core'
-
+import { Box, Typography, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
@@ -37,26 +36,22 @@ export default function MyEventDetails() {
     variables: { id: eventId, email: user.email },
   });
 
-  const { data: userData } = useQuery(GET_USER_PROFILE, {
-    variables: { email: user.email },
-  });
 
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
 
   const activeEvent = data.events;
-  const userID = userData?.profile?.id;
-
+  
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
-        <Typography variant="h3" gutterBottom>
+        <Typography variant="h1" gutterBottom>
           Event Details
         </Typography>
       </Box>
       {activeEvent &&
         activeEvent.map((event, id) => (
-          <EventDetails key={id} event={event} userID={userID} />
+          <EventDetails key={id} event={event} />
         ))}
     </main>
   );

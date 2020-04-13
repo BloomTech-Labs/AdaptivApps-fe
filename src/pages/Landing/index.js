@@ -13,7 +13,7 @@ import { useAuth0 } from '../../config/react-auth0-spa';
 import landingImage from '../../assets/images/landingImage.jpeg';
 import { FaFacebookSquare, FaGoogle } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
-import './styles.css';
+// import './styles.css';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '0',
     maxWidth: '100%',
     height: '60vh',
+
   },
   box: {
     display: 'flex',
@@ -56,9 +57,10 @@ const useStyles = makeStyles((theme) => ({
   contentContainer: {
     display: 'flex',
     justifyContent: 'space-evenly',
+    alignContent: 'center',
+    alignItems: 'center',
     height: '100%',
     width: '100vw',
-    margin: '0',
     padding: '0',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
@@ -85,15 +87,21 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.8rem',
   },
   btnContainer: {
+    margin: 'auto 0',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    '& p': {
+      fontSize: '2.4rem',
+      fontWeight: 'bold',
+      margin: '0'
+    },
+    
   },
   btn1: {
     margin: '10rem 0 2rem 0',
     textTransform: 'none',
-    fontSize: '2.4rem',
     display: 'flex',
     borderRadius: '5px',
     width: '40rem',
@@ -112,6 +120,7 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 1.5rem',
       },
     },
+    
   },
   btn2: {
     textTransform: 'none',
@@ -134,6 +143,19 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 1.5rem',
       },
     },
+  },
+  privacyLink: {
+    marginTop: '.4rem',
+    '& p': {
+      fontSize: '1.3rem',
+      fontWeight: '500'
+    },    
+  },
+  a11yLink: {
+    position: 'fixed',
+    bottom: '.8rem',
+    right: '8rem',
+    fontSize: '1.3rem',
   },
 }));
 
@@ -158,7 +180,7 @@ const LandingPage = () => {
       </Container>
       <Container className={classes.contentContainer}>
         <Box className={classes.contentIntro}>
-          <h2>Sign Up Now!</h2>
+          <Typography variant='subtitle2'>Sign Up Now!</Typography>
           <Typography className={classes.contentP}>
             Sign Up Now with Facebook or Google, add your profile info, and keep
             track of Angel City Sports Games, Clinics, and other events! All the
@@ -180,23 +202,17 @@ const LandingPage = () => {
             <FaGoogle className={classes.icon} />
             <p>Sign up with Google</p>
           </Button>
-
           <Link
             to="privacy-policy"
             style={{ padding: '0' }}
-            className="privacy-link"
+            className={classes.privacyLink}
           >
-            <small>Privacy Policy</small>
-          </Link>
-
-          <Link
-            className={classes.privBtn}
-            to="accessibility"
-            className="accessibility"
-          >
-            Accessibility Statement
+            <p>Privacy Policy</p>
           </Link>
         </Box>
+        <Link to="accessibility" className={classes.a11yLink}>
+          Accessibility Statement
+        </Link>
       </Container>
     </IconContext.Provider>
   );

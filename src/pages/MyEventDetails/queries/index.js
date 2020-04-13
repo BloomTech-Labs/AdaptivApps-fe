@@ -15,30 +15,8 @@ export const GET_EVENT_DETAILS = gql`
       endDate
       details
       location
-      zoomLink
+      link
       imgUrl
-      activities {
-        id
-        name
-        startDate
-        location
-        startTime
-        endTime
-        type
-        details
-        athletes {
-          id
-        }
-        coaches {
-          id
-        }
-        volunteers {
-          id
-        }
-        other {
-          id
-        }
-      }
     }
   }
 `;
@@ -50,3 +28,29 @@ export const GET_USER_PROFILE = gql`
     }
   }
 `;
+
+export const GET_USER_ACTIVITIES = gql`
+query getUserActivities($id: ID!, $email: String!){
+  activities(where: {event: {id: $id} AND: {participants_some: {profile: {email: $email}}}}){
+    id
+    name
+    startDate
+    startTime
+    location
+    details
+    event{
+      id
+      title
+      imgUrl
+    }
+    participants{
+      id
+      role
+      profile{
+        id
+        email
+      }
+    }
+  }
+}
+`;  

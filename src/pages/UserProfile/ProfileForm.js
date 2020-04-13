@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   root: {
     maxwidth: '100%',
     width: '90%',
-    fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+    // fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
   },
   headingBox: {
     margin: '6rem 0 2rem 3rem',
@@ -58,6 +58,9 @@ const useStyles = makeStyles(theme => ({
   form: {
     display: 'flex',
     flexDirection: 'column',
+    '& .MuiButton-label': {
+      fontSize: '1.6rem'
+    },
   },
   formBox: {
     display: 'flex',
@@ -214,7 +217,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
-        <Typography className={classes.heading} variant="h3" gutterBottom>
+        <Typography variant="h1" gutterBottom>
           Account Information
         </Typography>
       </Box>
@@ -226,15 +229,13 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               ? `${userProfile && userProfile.firstName} ${userProfile &&
                   userProfile.lastName}`
               : user && user.name}{' '}
-            {user && user[config.roleUrl].includes('Admin') ? (
               <Typography className={classes.role}>
-                {user && user[config.roleUrl]}
+                {user && user.email}
               </Typography>
-            ) : null}
           </Typography>
         </Box>
 
-        <Typography className={classes.personalInfo} variant="h4" gutterBottom>
+        <Typography className={classes.personalInfo} variant="h2" gutterBottom>
           Personal Information
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>

@@ -13,7 +13,7 @@ export const GET_EVENT_LIST = gql`
       startDate
       endDate
       location
-      zoomLink
+      link
       sponsors
       imgUrl
       details
