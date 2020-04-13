@@ -74,6 +74,7 @@ const useStyles = makeStyles(theme => ({
     color: '#EECC1B',
     width: '12.75rem',
     textAlign: 'center',
+    fontSize: '1.4rem'
   },
 }));
 
