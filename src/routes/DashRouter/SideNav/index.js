@@ -88,13 +88,15 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'flex-end',
     width: '100%',
     height: '100%',
+    '& p': {
+      fontSize: '1.6rem',
+    },
   },
   logoutBtn: {
     display: 'flex',
     justifyContent: 'flex-start',
     margin: '0 0 2rem 0',
     textTransform: 'none',
-    fontSize: '1.6rem',
     width: '100%',
   },
   logoutIcon: {
