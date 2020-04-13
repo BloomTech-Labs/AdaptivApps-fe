@@ -30,9 +30,12 @@ const AdminEventList = props => {
   const useStyles = makeStyles({
     grid: {
       marginLeft: '3rem',
+      '& .MuiButton-label': {
+        fontSize: '1.6rem',
+        fontWeight: '500',
+      },
     },
     addBtn: {
-      fontSize: '1.6rem',
       color: '#2763FF',
       textTransform: 'none',
     },

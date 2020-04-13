@@ -13,12 +13,14 @@ const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: '100%',
     width: '90%',
+    '& .MuiButton-label': {
+      fontSize: '1.6rem',
+      fontWeight: '600',
+    },
   },
   btn: {
     margin: theme.spacing(1),
     padding: '5',
-    fontSize: '1.6rem',
-    fontWeight: '600',
     textTransform: 'none',
     backgroundColor: '#2962FF',
     border: '1px solid #2962FF',
@@ -53,7 +55,7 @@ const ManageUsers = () => {
   return (
     <Box component="main" className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
-        <Typography variant="h3" gutterBottom>
+        <Typography variant="h1" gutterBottom>
           Manage Registered Users
         </Typography>
       </Box>

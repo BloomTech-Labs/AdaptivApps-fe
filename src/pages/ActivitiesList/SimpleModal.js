@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     padding: '0',
     '& .MuiButton-label': {
       fontSize: '1.6rem',
-      fontWeight: '600',
+      fontWeight: '500',
     },
   },
   imgBox: {
