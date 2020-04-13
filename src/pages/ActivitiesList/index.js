@@ -13,8 +13,8 @@ const useStyles = makeStyles({
     width: '90%',
     fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
     '& th': {
-      fontSize: '1.6rem'
-    }, 
+      fontSize: '1.6rem',
+    },
   },
   headingBox: {
     margin: '6rem 0 2rem 3rem',
@@ -64,8 +64,7 @@ const useStyles = makeStyles({
   tableH: {
     color: '#202020',
     margin: '6.3rem 0 .8rem 0',
-    width: '14rem',
-    
+    width: '20rem',
   },
   grid: {
     width: '100%',

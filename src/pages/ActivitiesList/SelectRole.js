@@ -82,7 +82,7 @@ export default function SimplePopover({ activity, data }) {
     handleClose();
   };
 
-  const otherRegister = async () => {
+  const spectatorRegister = async () => {
     await registerAsSpectator({
       variables: { id: activity.id, email: user.email },
     });
@@ -119,6 +119,7 @@ export default function SimplePopover({ activity, data }) {
           className={classes.btn}
           aria-describedby={id}
           variant="contained"
+          onClick={spectatorRegister}
         >
           <IoIosAddCircle />
         </Button>
@@ -158,7 +159,7 @@ export default function SimplePopover({ activity, data }) {
               <Button className="role" onClick={volunteerRegister}>
                 I'm Volunteering
               </Button>
-              <Button className="role" onClick={otherRegister}>
+              <Button className="role" onClick={spectatorRegister}>
                 I'm Spectating
               </Button>
             </Box>

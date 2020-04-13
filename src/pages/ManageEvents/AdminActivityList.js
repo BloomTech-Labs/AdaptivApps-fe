@@ -42,7 +42,17 @@ const AdminActivityList = props => {
       <MaterialTable
         title=""
         columns={[
-          { title: 'Name', field: 'name' },
+          {
+            title: 'Name',
+            field: 'name',
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+              />
+            ),
+          },
           {
             title: 'Date',
             field: 'startDate',
@@ -65,8 +75,39 @@ const AdminActivityList = props => {
               />
             ),
           },
-          { title: 'Location', field: 'location' },
-          { title: 'Type', field: 'type' },
+          {
+            title: 'Location',
+            field: 'location',
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+              />
+            ),
+          },
+          {
+            title: 'Link',
+            field: 'link',
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+              />
+            ),
+          },
+          {
+            title: 'Type',
+            field: 'type',
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+              />
+            ),
+          },
           {
             title: 'Details',
             field: 'details',
@@ -101,6 +142,7 @@ const AdminActivityList = props => {
                 startDate: newData.startDate,
                 startTime: newData.startTime,
                 location: newData.location,
+                link: newData.link,
                 type: newData.type,
                 details: newData.details,
                 event_id: event_id,
@@ -116,6 +158,7 @@ const AdminActivityList = props => {
                 startDate: newData.startDate,
                 startTime: newData.startTime,
                 location: newData.location,
+                link: newData.link,
                 type: newData.type,
                 details: newData.details,
               },

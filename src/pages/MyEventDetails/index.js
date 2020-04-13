@@ -10,8 +10,7 @@ import { useAuth0 } from '../../config/react-auth0-spa';
 import { useQuery } from 'react-apollo';
 import { GET_EVENT_DETAILS, GET_USER_PROFILE } from './queries';
 // Styling imports
-import { Box, Typography, makeStyles } from '@material-ui/core'
-
+import { Box, Typography, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles({
   root: {
