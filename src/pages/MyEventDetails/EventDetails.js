@@ -80,12 +80,14 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     '& p': {
-      margin: '0 0.5rem',
+      margin: 0,
+      fontSize: '1.6rem',
     },
     '& a': {
       marginTop: '2rem',
-      marginLeft: '0.5rem',
       color: '#2862ff',
+      fontSize: '1.6rem',
+      textDecoration: 'none',
     },
   },
   headerRow: {
