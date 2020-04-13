@@ -45,6 +45,7 @@ const useStyles = makeStyles(theme => ({
       fontWeight: 'bold',
       fontSize: '1.8rem',
       marginTop: '3rem',
+      marginBottom: '.7rem'
     },
     '& tr': {
       display: 'flex',
@@ -52,7 +53,7 @@ const useStyles = makeStyles(theme => ({
       marginLeft: '0.2rem',
     },
     '& th': {
-      fontWeight: 600,
+      fontWeight: 550,
       fontSize: '1.6rem',
       width: '14rem',
       padding: '1% 1% 2% 0',
@@ -174,7 +175,7 @@ export default function EventDetails(props) {
       ) : (
         <>
           <Box className={classes.myActivitiesBox}>
-            <p>Activities</p>
+            <p>My Activities</p>
             <table className={classes.table}>
               <tbody>
                 <tr className={classes.headerRow}>
