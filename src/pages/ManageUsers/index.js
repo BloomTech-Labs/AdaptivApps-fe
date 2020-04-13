@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
     width: '90%',
     '& .MuiButton-label': {
       fontSize: '1.6rem',
-      fontWeight: '600',
+      fontWeight: '500',
     },
   },
   btn: {
