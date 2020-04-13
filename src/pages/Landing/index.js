@@ -61,7 +61,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     height: '100%',
     width: '100vw',
-    margin: 'auto 0',
     padding: '0',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
