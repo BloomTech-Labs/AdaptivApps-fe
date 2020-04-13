@@ -34,9 +34,14 @@ query getUserActivities($id: ID!, $email: String!){
   activities(where: {event: {id: $id} AND: {participants_some: {profile: {email: $email}}}}){
     id
     name
+    startDate
+    startTime
+    location
+    details
     event{
       id
       title
+      imgUrl
     }
     participants{
       id
