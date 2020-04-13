@@ -57,9 +57,11 @@ const useStyles = makeStyles((theme) => ({
   contentContainer: {
     display: 'flex',
     justifyContent: 'space-evenly',
+    alignContent: 'center',
+    alignItems: 'center',
     height: '100%',
     width: '100vw',
-    margin: '0',
+    margin: 'auto 0',
     padding: '0',
     [theme.breakpoints.down('sm')]: {
       flexDirection: 'column',
@@ -143,6 +145,19 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
+  privacyLink: {
+    marginTop: '.4rem',
+    '& p': {
+      fontSize: '1.3rem',
+      fontWeight: '500'
+    },    
+  },
+  a11yLink: {
+    position: 'fixed',
+    bottom: '.8rem',
+    right: '8rem',
+    fontSize: '1.3rem',
+  },
 }));
 
 // This is our landing page, aka the home page for the main app
@@ -188,19 +203,17 @@ const LandingPage = () => {
             <FaGoogle className={classes.icon} />
             <p>Sign up with Google</p>
           </Button>
-
           <Link
             to="privacy-policy"
             style={{ padding: '0' }}
-            className="privacy-link"
+            className={classes.privacyLink}
           >
-            <small>Privacy Policy</small>
-          </Link>
-
-          <Link to="accessibility" className="accessibility">
-            Accessibility Statement
+            <p>Privacy Policy</p>
           </Link>
         </Box>
+        <Link to="accessibility" className={classes.a11yLink}>
+          Accessibility Statement
+        </Link>
       </Container>
     </IconContext.Provider>
   );
