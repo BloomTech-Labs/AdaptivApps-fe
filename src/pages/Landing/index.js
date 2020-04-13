@@ -13,7 +13,7 @@ import { useAuth0 } from '../../config/react-auth0-spa';
 import landingImage from '../../assets/images/landingImage.jpeg';
 import { FaFacebookSquare, FaGoogle } from 'react-icons/fa';
 import { IconContext } from 'react-icons';
-import './styles.css';
+// import './styles.css';
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '0',
     maxWidth: '100%',
     height: '60vh',
+
   },
   box: {
     display: 'flex',
@@ -85,15 +86,21 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '1.8rem',
   },
   btnContainer: {
+    margin: 'auto 0',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    '& p': {
+      fontSize: '2.4rem',
+      fontWeight: 'bold',
+      margin: '0'
+    },
+    
   },
   btn1: {
     margin: '10rem 0 2rem 0',
     textTransform: 'none',
-    fontSize: '2.4rem',
     display: 'flex',
     borderRadius: '5px',
     width: '40rem',
@@ -112,6 +119,7 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 1.5rem',
       },
     },
+    
   },
   btn2: {
     textTransform: 'none',
