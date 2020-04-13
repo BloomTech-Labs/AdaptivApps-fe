@@ -71,12 +71,16 @@ const useStyles = makeStyles(theme => ({
     width: '98%',
   },
   navLink: {
+    textDecoration: 'none',
     height: '5rem',
     display: 'flex',
     alignContent: 'flex-start',
     alignItems: 'center',
     margin: '.5rem auto',
     textAlign: 'left',
+    '& p': {
+      fontSize: '1.6rem'
+    },
   },
   logoutContainer: {
     display: 'flex',
