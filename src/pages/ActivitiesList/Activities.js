@@ -22,14 +22,14 @@ const useStyles = makeStyles({
   nameLink: {
     color: '#2962FF',
     width: '20rem',
-    padding: '1% 1% 3% 0%',
+    padding: '1% 1% 1.5% 0%',
     '& .MuiButton-label': {
       fontSize: '1.6rem'
     },
   },
   tableData: {
     width: '20rem',
-    padding: '0 1% 3% 0%',
+    padding: '0 1% 1.5% 0%',
   },
   rolesDialog: {
     margin: '0',

@@ -2,9 +2,13 @@
 import React from 'react';
 // Component imports
 import ActivityDetails from './ActivityDetails';
+// Auth0 imports
+import { useAuth0 } from '../../config/react-auth0-spa';
+// GraphQL/Apollo imports
+import { useQuery } from 'react-apollo';
+import { GET_USER_ACTIVITIES } from './queries';
 // Styling import
 import { Box, makeStyles, Typography } from '@material-ui/core';
-import theme from '../../theme';
 
 // Applies Material-UI styling
 const useStyles = makeStyles(theme => ({
@@ -45,14 +49,14 @@ const useStyles = makeStyles(theme => ({
       fontWeight: 'bold',
       fontSize: '1.8rem',
       marginTop: '3rem',
-      marginBottom: '.7rem',
+      marginBottom: 0,
     },
     '& tr': {
       display: 'flex',
       alignItems: 'center',
-      marginLeft: '0.2rem',
     },
     '& th': {
+      marginTop: 0,
       fontWeight: 550,
       fontSize: '1.6rem',
       width: '20rem',
@@ -71,27 +75,18 @@ const useStyles = makeStyles(theme => ({
       fontWeight: 500,
     },
   },
-  sponsorBox2: {
-    width: '90%',
-    margin: '8rem 0rem 0rem 0rem',
-    '& ul': {
-      marginTop: '1rem',
-    },
-    '& li': {
-      fontSize: '1.6rem',
-      fontWeight: 500,
-    },
-  },
   webinarBox: {
     display: 'flex',
     flexDirection: 'column',
     '& p': {
-      margin: '0 0.5rem',
+      margin: 0,
+      fontSize: '1.6rem',
     },
     '& a': {
       marginTop: '2rem',
-      marginLeft: '0.5rem',
       color: '#2862ff',
+      fontSize: '1.6rem',
+      textDecoration: 'none',
     },
   },
   headerRow: {
@@ -100,7 +95,6 @@ const useStyles = makeStyles(theme => ({
   },
   tableH: {
     color: '#202020',
-    margin: '1rem 0 0 0',
     width: '20rem',
   },
 }));
@@ -108,9 +102,18 @@ const useStyles = makeStyles(theme => ({
 export default function EventDetails(props) {
   const classes = useStyles();
   const activeEvent = props.event;
-  const currentActivities = activeEvent.activities;
+  const eventId = activeEvent.id;
+  const { user } = useAuth0();
+  const { loading, error, data } = useQuery(GET_USER_ACTIVITIES, {
+    variables: { id: eventId, email: user.email },
+  });
 
-  console.log('currentActivity in event details', currentActivities);
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
+  console.log('activity data', data);
+
+  const currentActivities = data.activities;
+
   return (
     <Box className={classes.root} m={4}>
       <Box className={classes.topContentContainer}>
@@ -158,25 +161,10 @@ export default function EventDetails(props) {
                 </tr>
                 {currentActivities &&
                   currentActivities.map((activity, id) => (
-                    <ActivityDetails
-                      key={id}
-                      activeEvent={activeEvent}
-                      activity={activity}
-                    />
+                    <ActivityDetails key={id} activity={activity} />
                   ))}
               </tbody>
             </table>
-          </Box>
-          <Box className={classes.sponsorBox1}>
-            <Typography variant="h3">
-              Special thanks to our sponsors!
-            </Typography>
-
-            <ul>
-              {activeEvent.sponsors.split(', ').map(sponsor => (
-                <li>{sponsor}</li>
-              ))}
-            </ul>
           </Box>
         </>
       ) : (
@@ -203,20 +191,20 @@ export default function EventDetails(props) {
               </tbody>
             </table>
           </Box>
-          <Box className={classes.sponsorBox}>
-            {activeEvent?.sponsors?.length > 0 ? (
-              <p>Special thanks to our sponsors!</p>
-            ) : null}
-            <ul>
-              {activeEvent.sponsors.length > 0
-                ? activeEvent?.sponsors
-                    ?.split(', ')
-                    .map(sponsor => <li>{sponsor}</li>)
-                : null}
-            </ul>
-          </Box>
         </>
       )}
+      <Box className={classes.sponsorBox}>
+        {activeEvent?.sponsors?.length > 0 ? (
+          <Typography variant="h3">Special thanks to our sponsors!</Typography>
+        ) : null}
+        <ul>
+          {activeEvent.sponsors.length > 0
+            ? activeEvent?.sponsors
+                ?.split(', ')
+                .map(sponsor => <li>{sponsor}</li>)
+            : null}
+        </ul>
+      </Box>
     </Box>
   );
 }

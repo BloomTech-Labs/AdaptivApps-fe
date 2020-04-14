@@ -15,10 +15,12 @@ const useStyles = makeStyles({
   root: {
     height: '100vh',
     display: 'flex',
+    backgroundColor: '#FFFFFF'
   },
   box: {
     marginLeft: '2rem',
     width: '100%',
+    backgroundColor: '#FFFFFF'
   },
 });
 

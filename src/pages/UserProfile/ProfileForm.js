@@ -223,11 +223,9 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               ? `${userProfile && userProfile.firstName} ${userProfile &&
                   userProfile.lastName}`
               : user && user.name}{' '}
-            {user && user[config.roleUrl].includes('Admin') ? (
               <Typography className={classes.role}>
-                {user && user[config.roleUrl]}
+                {user && user.email}
               </Typography>
-            ) : null}
           </Typography>
         </Box>
 

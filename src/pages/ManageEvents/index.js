@@ -29,7 +29,7 @@ const ManageEvents = () => {
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
         <Typography className={classes.heading} variant="h1" gutterBottom>
-          Upcoming Events
+          Manage Events
         </Typography>
       </Box>
       <Box>

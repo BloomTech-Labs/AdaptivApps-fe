@@ -17,25 +17,6 @@ export const GET_EVENT_DETAILS = gql`
       location
       link
       imgUrl
-      activities {
-        id
-        name
-        startDate
-        location
-        link
-        startTime
-        endTime
-        type
-        details
-        participants {
-          id
-          profile {
-            id
-            email
-          }
-          role
-        }
-      }
     }
   }
 `;
@@ -44,6 +25,39 @@ export const GET_USER_PROFILE = gql`
   query getUserProfile($email: String!) {
     profile(where: { email: $email }) {
       id
+    }
+  }
+`;
+
+export const GET_USER_ACTIVITIES = gql`
+  query getUserActivities($id: ID!, $email: String!) {
+    activities(
+      where: {
+        event: { id: $id }
+        AND: { participants_some: { profile: { email: $email } } }
+      }
+    ) {
+      id
+      name
+      startDate
+      startTime
+      location
+      link
+      details
+      event {
+        id
+        title
+        type
+        imgUrl
+      }
+      participants {
+        id
+        role
+        profile {
+          id
+          email
+        }
+      }
     }
   }
 `;

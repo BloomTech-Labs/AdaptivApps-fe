@@ -23,7 +23,6 @@ import ApolloClient from 'apollo-boost';
 import ReactGA from 'react-ga';
 // Auth0 imports
 import { useAuth0 } from './config/react-auth0-spa';
-import './pages/ActivitiesList/styles.css';
 
 const trackingId = 'UA-159556430-1';
 

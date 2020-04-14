@@ -26,7 +26,7 @@ const theme = createMuiTheme({
     h5: { fontSize: '2rem' },
     h6: { fontSize: '2rem' },
     subtitle1: { fontSize: '1.6rem', color: '#808080' },
-    subtitle2: { fontSize: '1.6rem' },
+    subtitle2: { fontSize: '4.8rem', fontWeight: 'bold' },
     body1: { fontSize: '1.6rem' },
     body2: { fontSize: '1.6rem' },
     button: { fontSize: '1.6rem' },

@@ -3,10 +3,6 @@ import React from 'react';
 // Auth0 imports
 import { useAuth0 } from '../../config/react-auth0-spa';
 import SimpleModal from '../ActivitiesList/SimpleModal';
-
-import { useQuery } from 'react-apollo';
-import { useParams } from '@reach/router';
-import { GET_EVENT_ACTIVITIES } from '../ActivitiesList/queries/getActivities';
 // Styling imports
 import { makeStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
@@ -18,29 +14,26 @@ const useStyles = makeStyles({
       padding: '0 1% 2% 0',
       display: 'flex',
       textAlign: 'left',
-      fontSize: '1.6rem'
+      fontSize: '1.6rem',
     },
   },
   nameLink: {
     color: '#2962FF',
     '& .MuiButton-label': {
       fontSize: '1.6rem',
-      fontWeight: 500
+      fontWeight: 500,
     },
   },
 });
-export default function ActivityDetails({ activeEvent, activity }) {
+export default function ActivityDetails({ activity }) {
   const classes = useStyles();
   const { user } = useAuth0();
-  const { eventId } = useParams();
-  const { data } = useQuery(GET_EVENT_ACTIVITIES, {
-    variables: { id: eventId },
-  });
-  console.log('event', data);
+  const activeEvent = activity.event;
+  console.log('activity link', activity.link);
   return (
     <tr className={classes.root}>
       <td className={classes.nameLink}>
-        <SimpleModal activity={activity} data={data} />
+        <SimpleModal activity={activity} />
       </td>
       <td>{activity.startDate}</td>
       {activeEvent.type === 'Webinar' ? (
