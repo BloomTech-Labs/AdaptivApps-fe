@@ -9,7 +9,7 @@ const useStyles = makeStyles({
   root: {
     maxWidth: '100%',
     width: '90%',
-    fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+    fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],    
   },
   headingBox: {
     margin: '6rem 0 2rem 3rem',

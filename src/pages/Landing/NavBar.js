@@ -10,16 +10,20 @@ const useStyles = makeStyles((theme) => ({
     background: 'transparent',
     height: '10vh',
     width: '100%',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+      alignContent: 'center',
+      alignItems: 'center'
+    },
   },
   acsBanner: {
     height: '100%',
-    width: '30rem',
   },
   acsBrand: {
     height: 'auto',
     width: '30rem',
     [theme.breakpoints.down('md')]: {
-      width: '20rem',
+      width: '25rem',
     },
   },
   box: {
@@ -36,6 +40,10 @@ const useStyles = makeStyles((theme) => ({
       fontSize: '1.6rem',
       fontWeight: 500
     },
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      marginTop: '1.5rem',
+    }
   },
   navBtn: {
     width: '9.6rem',

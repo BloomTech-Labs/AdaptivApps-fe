@@ -16,6 +16,10 @@ const useStyles = makeStyles({
       textAlign: 'left',
       fontSize: '1.6rem',
     },
+    '& a': {
+      fontSize: '1.6rem',
+      textDecoration: 'none'
+    },
   },
   nameLink: {
     color: '#2962FF',

@@ -16,7 +16,7 @@ import {
   Button,
 } from '@material-ui/core';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     maxwidth: '100%',
     width: '90%',
@@ -52,9 +52,6 @@ const useStyles = makeStyles({
     marginTop: '3rem',
     marginBlockEnd: '0',
   },
-  role: {
-    fontSize: '1.4rem',
-  },
   form: {
     display: 'flex',
     flexDirection: 'column',
@@ -64,6 +61,9 @@ const useStyles = makeStyles({
   },
   formBox: {
     display: 'flex',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
   },
   input: {
     width: '100%',
@@ -90,8 +90,11 @@ const useStyles = makeStyles({
     width: '8rem',
     fontSize: '1.2rem',
     textTransform: 'none',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
-});
+}));
 
 const ProfileSchema = yup.object().shape({
   firstName: yup
@@ -218,15 +221,17 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
       <Container className={classes.profileContainer}>
         <Box className={classes.profileInfo}>
           <img className={classes.profileImg} src={userPicture} alt="Profile" />
-          <Typography className={classes.profileText}>
-            {userProfile && userProfile.firstName !== null
-              ? `${userProfile && userProfile.firstName} ${userProfile &&
-                  userProfile.lastName}`
-              : user && user.name}{' '}
-              <Typography className={classes.role}>
-                {user && user.email}
-              </Typography>
-          </Typography>
+          <Box className={classes.profileText}>
+            <Typography>
+              {userProfile && userProfile.firstName !== null
+                ? `${userProfile && userProfile.firstName} ${userProfile &&
+                    userProfile.lastName}`
+                : user && user.name}{' '}
+            </Typography>
+            <Typography>
+              {user && user.email}
+            </Typography>
+          </Box>
         </Box>
 
         <Typography className={classes.personalInfo} variant="h2" gutterBottom>
@@ -395,7 +400,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
             <Button
               className={classes.button}
               variant="outlined"
-              color="#2962FF"
+              color="primary"
               type="submit"
               aria-label="save changes to user profile"
               onClick={() => {
