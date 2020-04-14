@@ -35,6 +35,11 @@ const AdminEventList = props => {
         fontWeight: '500',
       },
     },
+    tableHead: {
+      '& th': {
+      fontSize: '1.6rem'
+      },
+    },
     addBtn: {
       color: '#2763FF',
       textTransform: 'none',
@@ -49,6 +54,7 @@ const AdminEventList = props => {
   return (
     <Grid className={classes.grid}>
       <MaterialTable
+        
         components={{
           Pagination: props => (
             <TablePagination

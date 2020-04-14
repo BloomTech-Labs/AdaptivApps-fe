@@ -38,9 +38,11 @@ query getUserActivities($id: ID!, $email: String!){
     startTime
     location
     details
+    link
     event{
       id
       title
+      type
       imgUrl
     }
     participants{
