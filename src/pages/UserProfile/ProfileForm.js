@@ -59,7 +59,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'column',
     '& .MuiButton-label': {
-      fontSize: '1.6rem'
+      fontSize: '1.6rem',
     },
   },
   formBox: {
@@ -207,7 +207,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   };
 
   const userPicture = user && user.picture;
- 
+
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
@@ -246,7 +246,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 id="firstName"
                 variant="outlined"
                 type="text"
-                placeholder={userProfile ? userProfile.firstName : null}
+                placeholder={userProfile ? userProfile.firstName : ''}
                 name="firstName"
                 control={control}
                 InputProps={{
