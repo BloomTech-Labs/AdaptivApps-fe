@@ -1,7 +1,7 @@
 //React imports
 import React from 'react';
 //Component imports
-import { Link, useNavigate } from '@reach/router';
+import { useNavigate } from '@reach/router';
 // GraphQL/Apollo imports
 import { useMutation } from 'react-apollo';
 import { UNREGISTER_FROM_EVENT } from './queries';
@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: '.5rem',
     marginRight: '2.4rem',
     boxShadow: 'none',
+    backgroundColor: 'transparent'
   },
   cardDate: {
     fontSize: '1.4rem',
@@ -50,10 +51,12 @@ const useStyles = makeStyles(theme => ({
   },
   btn: {
     padding: '0',
-    fontSize: '1.6rem',
-    fontWeight: '600',
+    fontWeight: '400',
     textTransform: 'none',
     color: '#2962FF',
+    '& .MuiButton-label': {
+      fontSize: '1.6rem'
+    }
   },
   cardImg: {
     maxWidth: '36rem',
@@ -71,6 +74,7 @@ const useStyles = makeStyles(theme => ({
     color: '#EECC1B',
     width: '12.75rem',
     textAlign: 'center',
+    fontSize: '1.4rem'
   },
 }));
 
@@ -135,7 +139,7 @@ export default function MyEventCard({ event, refetch }) {
       </CardActionArea>
       <CardActions className={classes.btnContainer}>
         <Button onClick={viewEventDetails} className={classes.btn}>
-          ViewDetails
+          View Details
         </Button>
         <Button className={classes.btn} onClick={unregisterFromEvent}>
           Unregister

@@ -20,6 +20,7 @@ import { REGISTER_EVENT } from './queries/joinEvent';
 
 const useStyles = makeStyles({
   root: {
+    backgroundColor: 'transparent',
     borderRadius: '.5rem',
     marginRight: '2.4rem',
     boxShadow: 'none',
@@ -46,7 +47,7 @@ const useStyles = makeStyles({
   btn: {
     padding: '0',
     fontSize: '1.6rem',
-    fontWeight: '600',
+    fontWeight: '500',
     textTransform: 'none',
   },
   cardImg: {
@@ -65,6 +66,7 @@ const useStyles = makeStyles({
     color: '#EECC1B',
     width: '12.75rem',
     textAlign: 'center',
+    fontSize: '1.4rem'
   },
 });
 

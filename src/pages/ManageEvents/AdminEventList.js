@@ -30,9 +30,17 @@ const AdminEventList = props => {
   const useStyles = makeStyles({
     grid: {
       marginLeft: '3rem',
+      '& .MuiButton-label': {
+        fontSize: '1.6rem',
+        fontWeight: '500',
+      },
+    },
+    tableHead: {
+      '& th': {
+      fontSize: '1.6rem'
+      },
     },
     addBtn: {
-      fontSize: '1.6rem',
       color: '#2763FF',
       textTransform: 'none',
     },
@@ -46,6 +54,7 @@ const AdminEventList = props => {
   return (
     <Grid className={classes.grid}>
       <MaterialTable
+        
         components={{
           Pagination: props => (
             <TablePagination
@@ -152,8 +161,8 @@ const AdminEventList = props => {
             ),
           },
           {
-            title: 'Zoom Link',
-            field: 'zoomLink',
+            title: 'Link',
+            field: 'link',
             editComponent: props => (
               <Input
                 type="url"
@@ -228,7 +237,7 @@ const AdminEventList = props => {
                 imgUrl: newData.imgUrl,
                 sponsors: newData.sponsors,
                 details: newData.details,
-                zoomLink: newData.zoomLink,
+                link: newData.link,
               },
             });
             props.eventsRefetch();
@@ -248,7 +257,7 @@ const AdminEventList = props => {
                 imgUrl: newData.imgUrl,
                 sponsors: newData.sponsors,
                 details: newData.details,
-                zoomLink: newData.zoomLink,
+                link: newData.link,
               },
             });
             props.eventsRefetch();

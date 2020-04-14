@@ -16,11 +16,11 @@ import {
   Button,
 } from '@material-ui/core';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     maxwidth: '100%',
     width: '90%',
-    fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+    // fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
   },
   headingBox: {
     margin: '6rem 0 2rem 3rem',
@@ -52,15 +52,18 @@ const useStyles = makeStyles({
     marginTop: '3rem',
     marginBlockEnd: '0',
   },
-  role: {
-    fontSize: '1.4rem',
-  },
   form: {
     display: 'flex',
     flexDirection: 'column',
+    '& .MuiButton-label': {
+      fontSize: '1.6rem',
+    },
   },
   formBox: {
     display: 'flex',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column',
+    },
   },
   input: {
     width: '100%',
@@ -87,8 +90,11 @@ const useStyles = makeStyles({
     width: '8rem',
     fontSize: '1.2rem',
     textTransform: 'none',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
-});
+}));
 
 const ProfileSchema = yup.object().shape({
   firstName: yup
@@ -204,31 +210,31 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   };
 
   const userPicture = user && user.picture;
- 
+
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
-        <Typography className={classes.heading} variant="h3" gutterBottom>
+        <Typography variant="h1" gutterBottom>
           Account Information
         </Typography>
       </Box>
       <Container className={classes.profileContainer}>
         <Box className={classes.profileInfo}>
           <img className={classes.profileImg} src={userPicture} alt="Profile" />
-          <Typography className={classes.profileText}>
-            {userProfile && userProfile.firstName !== null
-              ? `${userProfile && userProfile.firstName} ${userProfile &&
-                  userProfile.lastName}`
-              : user && user.name}{' '}
-            {user && user[config.roleUrl].includes('Admin') ? (
-              <Typography className={classes.role}>
-                {user && user[config.roleUrl]}
-              </Typography>
-            ) : null}
-          </Typography>
+          <Box className={classes.profileText}>
+            <Typography>
+              {userProfile && userProfile.firstName !== null
+                ? `${userProfile && userProfile.firstName} ${userProfile &&
+                    userProfile.lastName}`
+                : user && user.name}{' '}
+            </Typography>
+            <Typography>
+              {user && user.email}
+            </Typography>
+          </Box>
         </Box>
 
-        <Typography className={classes.personalInfo} variant="h4" gutterBottom>
+        <Typography className={classes.personalInfo} variant="h2" gutterBottom>
           Personal Information
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
@@ -243,7 +249,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 id="firstName"
                 variant="outlined"
                 type="text"
-                placeholder={userProfile ? userProfile.firstName : null}
+                placeholder={userProfile ? userProfile.firstName : ''}
                 name="firstName"
                 control={control}
                 InputProps={{
@@ -394,7 +400,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
             <Button
               className={classes.button}
               variant="outlined"
-              color="#2962FF"
+              color="primary"
               type="submit"
               aria-label="save changes to user profile"
               onClick={() => {
