@@ -228,9 +228,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                     userProfile.lastName}`
                 : user && user.name}{' '}
             </Typography>
-            <Typography>
-              {user && user.email}
-            </Typography>
+            <Typography>{user && user.email}</Typography>
           </Box>
         </Box>
 
@@ -269,7 +267,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 id="lastName"
                 type="text"
                 variant="outlined"
-                placeholder={userProfile ? userProfile.lastName : null}
+                placeholder={userProfile ? userProfile.lastName : ''}
                 name="lastName"
                 control={control}
                 InputProps={{
@@ -291,7 +289,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 id="displayName"
                 type="text"
                 variant="outlined"
-                placeholder={userProfile ? userProfile.displayName : null}
+                placeholder={userProfile ? userProfile.displayName : ''}
                 name="displayName"
                 control={control}
                 InputProps={{
@@ -377,7 +375,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 as={
                   <Select value={userProfile?.legal}>
                     <MenuItem value="">
-                      {userProfile ? userProfile.legal : null}
+                      {userProfile ? userProfile.legal : ''}
                     </MenuItem>
                     <MenuItem value={`Adult`}>Adult</MenuItem>
                     <MenuItem value={`Minor`}>Minor</MenuItem>

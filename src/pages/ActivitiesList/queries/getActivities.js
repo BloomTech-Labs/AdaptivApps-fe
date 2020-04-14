@@ -17,6 +17,7 @@ export const GET_EVENT_ACTIVITIES = gql`
         name
         startDate
         location
+        link
         startTime
         endTime
         type
