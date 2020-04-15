@@ -13,7 +13,7 @@ const useStyles = makeStyles({
   grid: {
     display: 'flex',
     '& td': {
-      fontSize: '1.6rem'
+      fontSize: '1.6rem',
     },
   },
   header: {
@@ -21,17 +21,20 @@ const useStyles = makeStyles({
   },
   nameLink: {
     color: '#2962FF',
-    width: '20rem',
-    padding: '1% 1% 1.5% 0%',
+    width: '24rem',
+    padding: '1% 1% 1% 0%',
     '& .MuiButton-label': {
-      fontSize: '1.6rem'
+      fontSize: '1.6rem',
     },
   },
   tableData: {
     width: '20rem',
-    padding: '0 1% 1.5% 0%',
+    padding: '0 1% 1% 0%',
   },
   rolesDialog: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     margin: '0',
     padding: '0',
   },
@@ -52,7 +55,9 @@ export default function Activities({ activity }) {
               <SimpleModal activity={activity} data={data} />
             </td>
             <td className={classes.tableData}>{activity.startDate}</td>
-            <td className={classes.tableData}>{activity.location}</td>
+            {data.event.type === 'In Person' ? (
+              <td className={classes.tableData}>{activity.location}</td>
+            ) : null}
             <td className={classes.tableData}>{activity.startTime}</td>
           </tr>
         </tbody>

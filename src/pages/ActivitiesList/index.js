@@ -64,7 +64,7 @@ const useStyles = makeStyles({
   tableH: {
     color: '#202020',
     margin: '6.3rem 0 .8rem 0',
-    width: '20rem',
+    width: '24rem',
   },
   grid: {
     width: '100%',
@@ -128,7 +128,9 @@ export default function ActivityList() {
               <tr className={classes.headerRow}>
                 <th className={classes.tableH}>Name</th>
                 <th className={classes.tableH}>Date</th>
-                <th className={classes.tableH}>Location</th>
+                {data.event.type === 'In Person' ? (
+                  <th className={classes.tableH}>Location</th>
+                ) : null}
                 <th className={classes.tableH}>Time</th>
               </tr>
             </tbody>
