@@ -32,6 +32,7 @@ const useStyles = makeStyles({
 export default function ActivityDetails({ activity }) {
   const classes = useStyles();
   const { user } = useAuth0();
+  
   const activeEvent = activity.event;
   console.log('activity link', activity.link);
   return (
