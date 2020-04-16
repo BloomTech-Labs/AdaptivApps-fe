@@ -1,9 +1,6 @@
 import React from 'react';
 import SimpleModal from './SimpleModal';
 import RolesDialog from './SelectRole';
-import { useQuery } from 'react-apollo';
-import { useParams } from '@reach/router';
-import { GET_EVENT_ACTIVITIES } from './queries/getActivities';
 import PropTypes from 'prop-types';
 import './styles.css';
 
@@ -40,11 +37,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Activities({ activity }) {
-  const { eventId } = useParams();
-  const { data } = useQuery(GET_EVENT_ACTIVITIES, {
-    variables: { id: eventId },
-  });
+export default function Activities({ activity, activityData }) {
   const classes = useStyles();
   return (
     <Grid className={classes.grid}>
@@ -52,10 +45,10 @@ export default function Activities({ activity }) {
         <tbody>
           <tr>
             <td className={classes.nameLink}>
-              <SimpleModal activity={activity} data={data} />
+              <SimpleModal activity={activity} activityData={activityData} />
             </td>
             <td className={classes.tableData}>{activity.startDate}</td>
-            {data.event.type === 'In Person' ? (
+            {activityData.event.type === 'In Person' ? (
               <td className={classes.tableData}>{activity.location}</td>
             ) : null}
             <td className={classes.tableData}>{activity.startTime}</td>
@@ -65,7 +58,7 @@ export default function Activities({ activity }) {
       <RolesDialog
         className={classes.rolesDialog}
         activity={activity}
-        data={data}
+        activityData={activityData}
       />
     </Grid>
   );
