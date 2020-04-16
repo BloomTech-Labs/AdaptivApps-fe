@@ -2,7 +2,6 @@ import React from "react";
 import SimpleModal from "./SimpleModal";
 import RolesDialog from "./SelectRole";
 import PropTypes from "prop-types";
-import "./styles.css";
 
 import { makeStyles, Grid } from "@material-ui/core";
 

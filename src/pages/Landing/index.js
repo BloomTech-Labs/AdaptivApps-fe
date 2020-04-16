@@ -13,7 +13,6 @@ import { useAuth0 } from "../../config/react-auth0-spa";
 import landingImage from "../../assets/images/landingImage.jpeg";
 import { FaFacebookSquare, FaGoogle } from "react-icons/fa";
 import { IconContext } from "react-icons";
-// import './styles.css';
 
 const useStyles = makeStyles(theme => ({
   container: {
