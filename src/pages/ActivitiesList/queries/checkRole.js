@@ -17,6 +17,9 @@ export const GET_REGISTERED_ACTIVITY = gql`
       }
       participants {
         id
+        activity {
+          id
+        }
         role
         profile {
           id
@@ -27,21 +30,19 @@ export const GET_REGISTERED_ACTIVITY = gql`
   }
 `;
 
-export const UNREGISTER_FROM_ACTIVITY = gql`
-  mutation unregisterFromActivity($id: ID!, $id: ID!) {
-    updateActivity(
-      where: { id: $id }
-      data: { participants: { delete: { id: $id } } }
+export const GET_PARTICIPANT = gql`
+  query getParticipant($id: ID!, $email: String!) {
+    participants(
+      where: { activity: { id: $id }, AND: { profile: { email: $email } } }
     ) {
       id
-      participants {
+      activity {
         id
-        profile {
-          id
-          email
-        }
-        role
       }
+      profile {
+        email
+      }
+      role
     }
   }
 `;

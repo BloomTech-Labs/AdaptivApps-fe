@@ -34,19 +34,3 @@ export const GET_EVENT_ACTIVITIES = gql`
     }
   }
 `;
-
-export const GET_PROFILE_ACTIVITIES = gql`
-  query getEventActivities($email: String!) {
-    profile(where: { email: $email }) {
-      id
-      activities {
-        id
-        profile {
-          id
-          email
-        }
-        role
-      }
-    }
-  }
-`;

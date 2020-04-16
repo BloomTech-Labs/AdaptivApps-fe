@@ -97,7 +97,6 @@ export default function SimpleModal({ activity, activityData }) {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log('activityData in simpleModal', activity);
   const body = (
     <Container style={modalStyle} className={classes.paper}>
       <Box className={classes.imgBox}>
