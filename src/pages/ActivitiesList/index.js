@@ -1,77 +1,77 @@
-import React from 'react';
-import { useQuery } from 'react-apollo';
-import Activities from './Activities';
+import React from "react";
+import { useQuery } from "react-apollo";
+import Activities from "./Activities";
 
-import { useParams } from '@reach/router';
-import { GET_EVENT_ACTIVITIES } from './queries/getActivities';
+import { useParams } from "@reach/router";
+import { GET_EVENT_ACTIVITIES } from "./queries/getActivities";
 
-import { makeStyles, Box, Typography, Grid } from '@material-ui/core';
+import { makeStyles, Box, Typography, Grid } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: '100%',
-    width: '90%',
-    fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
-    '& th': {
-      fontSize: '1.6rem',
+    maxWidth: "100%",
+    width: "90%",
+    fontFamily: ["Roboto", "Helvetica", "Arial", "sans-serif"],
+    "& th": {
+      fontSize: "1.6rem",
     },
   },
   headingBox: {
-    margin: '6rem 0 2rem 3rem',
-    fontWeight: '400',
-    borderColor: '#D3D3D3',
+    margin: "6rem 0 2rem 3rem",
+    fontWeight: "400",
+    borderColor: "#D3D3D3",
   },
   eventContainer: {
-    display: 'flex',
-    marginLeft: '3rem',
+    display: "flex",
+    marginLeft: "3rem",
   },
   imgContainer: {
-    display: 'flex',
-    width: '36rem',
-    height: '16rem',
+    display: "flex",
+    width: "36rem",
+    height: "16rem",
   },
   eventImg: {
-    width: '100%',
-    objectFit: 'cover',
+    width: "100%",
+    objectFit: "cover",
   },
   infoContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignContent: 'center',
-    marginLeft: '2.4rem',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignContent: "center",
+    marginLeft: "2.4rem",
   },
   date: {
-    fontSize: '1.4rem',
+    fontSize: "1.4rem",
   },
   title: {
-    fontSize: '2.1rem',
-    margin: '.4rem 0',
-    fontWeight: '500',
-    color: '#3C3C3C',
+    fontSize: "2.1rem",
+    margin: ".4rem 0",
+    fontWeight: "500",
+    color: "#3C3C3C",
   },
   loc: {
-    fontSize: '1.6rem',
+    fontSize: "1.6rem",
   },
   activityC: {
-    margin: '2.4rem 0 1.6rem 3rem',
+    margin: "2.4rem 0 1.6rem 3rem",
   },
   headerRow: {
-    textAlign: 'left',
-    fontSize: '1.8rem',
-    marginBottom: '6.3rem',
+    textAlign: "left",
+    fontSize: "1.8rem",
+    marginBottom: "6.3rem",
   },
   tableH: {
-    color: '#202020',
-    margin: '6.3rem 0 .8rem 0',
-    width: '24rem',
+    color: "#202020",
+    margin: "6.3rem 0 .8rem 0",
+    width: "24rem",
   },
   grid: {
-    width: '100%',
+    width: "100%",
   },
   activityH: {
-    fontSize: '1.8rem',
-    marginBottom: '1rem',
+    fontSize: "1.8rem",
+    marginBottom: "1rem",
   },
 });
 
@@ -84,7 +84,8 @@ export default function ActivityList() {
       variables: { id: eventId },
     }
   );
-  if (loading) return 'Loading...';
+  console.log("activityData", activityData);
+  if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
   return (
     <main className={classes.root}>
@@ -133,7 +134,7 @@ export default function ActivityList() {
               <tr className={classes.headerRow}>
                 <th className={classes.tableH}>Name</th>
                 <th className={classes.tableH}>Date</th>
-                {activityData.event.type === 'In Person' ? (
+                {activityData.event.type === "In Person" ? (
                   <th className={classes.tableH}>Location</th>
                 ) : null}
                 <th className={classes.tableH}>Time</th>

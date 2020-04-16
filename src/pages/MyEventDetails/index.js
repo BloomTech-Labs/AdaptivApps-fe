@@ -1,27 +1,27 @@
 // React imports
-import React from 'react';
+import React, { useEffect } from "react";
 // Reach Router imports
-import { useParams } from '@reach/router';
+import { useParams } from "@reach/router";
 // Component imports
-import EventDetails from './EventDetails';
+import EventDetails from "./EventDetails";
 // Auth0 imports
-import { useAuth0 } from '../../config/react-auth0-spa';
+import { useAuth0 } from "../../config/react-auth0-spa";
 // GraphQL/Apollo imports
-import { useQuery } from 'react-apollo';
-import { GET_EVENT_DETAILS } from './queries';
+import { useQuery } from "react-apollo";
+import { GET_EVENT_DETAILS } from "./queries";
 // Styling imports
-import { Box, Typography, makeStyles } from '@material-ui/core';
+import { Box, Typography, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: '100%',
-    width: '90%',
-    marginLeft: '1rem',
-    marginTop: '4rem',
+    maxWidth: "100%",
+    width: "90%",
+    marginLeft: "1rem",
+    marginTop: "4rem",
   },
   headingBox: {
-    margin: '6rem 0 2rem 3rem',
-    borderColor: '#D3D3D3',
+    margin: "6rem 0 2rem 3rem",
+    borderColor: "#D3D3D3",
   },
 });
 
@@ -32,16 +32,17 @@ export default function MyEventDetails() {
   // Retrieves logged in user info from Auth0
   const { user } = useAuth0();
   // Retrieves event details of specified event by ID which user is registered to
-  const { loading, error, data } = useQuery(GET_EVENT_DETAILS, {
+  const { loading, error, data, refetch } = useQuery(GET_EVENT_DETAILS, {
     variables: { id: eventId, email: user.email },
   });
-
-
-  if (loading) return 'Loading...';
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+  if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
 
   const activeEvent = data.events;
-  
+
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
@@ -50,9 +51,7 @@ export default function MyEventDetails() {
         </Typography>
       </Box>
       {activeEvent &&
-        activeEvent.map((event, id) => (
-          <EventDetails key={id} event={event} />
-        ))}
+        activeEvent.map((event, id) => <EventDetails key={id} event={event} />)}
     </main>
   );
 }

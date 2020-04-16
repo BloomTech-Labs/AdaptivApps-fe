@@ -1,7 +1,7 @@
-import React from 'react';
-import { useAuth0 } from '../../config/react-auth0-spa';
-import LandingPage from '../../pages/Landing';
-import PropTypes from 'prop-types';
+import React from "react";
+import { useAuth0 } from "../../config/react-auth0-spa";
+import LandingPage from "../../pages/Landing";
+import PropTypes from "prop-types";
 
 const PrivateRoute = ({ component: Component, path, ...rest }) => {
   const { loading, user } = useAuth0();

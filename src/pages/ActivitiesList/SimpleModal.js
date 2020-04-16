@@ -1,7 +1,7 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import { Container, Box, Button, Typography } from '@material-ui/core';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import { Container, Box, Button, Typography } from "@material-ui/core";
 
 function getModalStyle() {
   const top = 50;
@@ -16,70 +16,70 @@ function getModalStyle() {
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    position: 'absolute',
-    width: '40rem',
-    height: '56.8rem',
-    backgroundColor: 'white',
-    padding: '0',
-    '& .MuiButton-label': {
-      fontSize: '1.6rem',
-      fontWeight: '500',
+    position: "absolute",
+    width: "40rem",
+    height: "56.8rem",
+    backgroundColor: "white",
+    padding: "0",
+    "& .MuiButton-label": {
+      fontSize: "1.6rem",
+      fontWeight: "500",
     },
   },
   imgBox: {
-    width: '100%',
+    width: "100%",
   },
   btn: {
-    padding: '0',
-    textTransform: 'none',
-    color: '#2962FF',
+    padding: "0",
+    textTransform: "none",
+    color: "#2962FF",
   },
   img: {
-    width: '100%',
-    padding: '0',
-    height: '16rem',
-    objectFit: 'cover',
+    width: "100%",
+    padding: "0",
+    height: "16rem",
+    objectFit: "cover",
   },
   modalMiddle: {
-    padding: '2rem 0 2rem 2rem',
-    marginBottom: '6rem',
+    padding: "2rem 0 2rem 2rem",
+    marginBottom: "6rem",
   },
   date: {
-    color: '#808080',
-    fontSize: '1.4rem',
+    color: "#808080",
+    fontSize: "1.4rem",
   },
   title: {
-    fontSize: '2.1rem',
+    fontSize: "2.1rem",
   },
   loc: {
-    color: '#808080',
-    fontSize: '1.6rem',
+    color: "#808080",
+    fontSize: "1.6rem",
   },
   details: {
-    marginTop: '2rem',
-    overflowY: 'scroll',
-    overflowX: 'hidden',
-    height: '13rem',
-    fontSize: '1.4rem',
-    paddingRight: '1rem',
+    marginTop: "2rem",
+    overflowY: "scroll",
+    overflowX: "hidden",
+    height: "13rem",
+    fontSize: "1.4rem",
+    paddingRight: "1rem",
   },
   modalBottom: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   modalBtn2: {
-    padding: '1rem 2.4rem',
-    fontSize: '1.4rem',
-    background: '#2962FF',
-    color: 'white',
-    border: '1px solid #2962FF',
-    borderRadius: '5px',
-    textTransform: 'none',
-    boxSizing: 'border-box',
-    '&:hover': {
-      background: 'white',
-      color: '#2962FF',
+    padding: "1rem 2.4rem",
+    fontSize: "1.4rem",
+    background: "#2962FF",
+    color: "white",
+    border: "1px solid #2962FF",
+    borderRadius: "5px",
+    textTransform: "none",
+    boxSizing: "border-box",
+    "&:hover": {
+      background: "white",
+      color: "#2962FF",
     },
   },
 }));
@@ -97,7 +97,6 @@ export default function SimpleModal({ activity, activityData }) {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log('activityData in simpleModal', activity);
   const body = (
     <Container style={modalStyle} className={classes.paper}>
       <Box className={classes.imgBox}>
@@ -118,7 +117,7 @@ export default function SimpleModal({ activity, activityData }) {
         <Typography className={classes.details} id="simple-modal-description">
           {activity?.details}
         </Typography>
-        {activityData?.event?.type === 'Webinar' ? (
+        {activityData?.event?.type === "Webinar" ? (
           <a className={classes.nameLink} href={activity.link}>
             Join!
           </a>
