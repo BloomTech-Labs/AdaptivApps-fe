@@ -78,9 +78,12 @@ const useStyles = makeStyles({
 export default function ActivityList() {
   const classes = useStyles();
   const { eventId } = useParams();
-  const { loading, error, data } = useQuery(GET_EVENT_ACTIVITIES, {
-    variables: { id: eventId },
-  });
+  const { loading, error, data: activityData } = useQuery(
+    GET_EVENT_ACTIVITIES,
+    {
+      variables: { id: eventId },
+    }
+  );
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
   return (
@@ -94,7 +97,7 @@ export default function ActivityList() {
         <Box className={classes.imgContainer}>
           <img
             className={classes.eventImg}
-            src={data && data?.event?.imgUrl}
+            src={activityData && activityData?.event?.imgUrl}
             alt="Event"
           />
         </Box>
@@ -105,16 +108,18 @@ export default function ActivityList() {
             color="textSecondary"
             component="p"
           >
-            {data.event.startDate}-{data.event.endDate}
+            {activityData.event.startDate}-{activityData.event.endDate}
           </Typography>
-          <Typography className={classes.title}>{data.event.title}</Typography>
+          <Typography className={classes.title}>
+            {activityData.event.title}
+          </Typography>
           <Typography
             className={classes.loc}
             variant="body2"
             color="textSecondary"
             component="p"
           >
-            {data.event.location}
+            {activityData.event.location}
           </Typography>
         </Box>
       </Box>
@@ -128,16 +133,20 @@ export default function ActivityList() {
               <tr className={classes.headerRow}>
                 <th className={classes.tableH}>Name</th>
                 <th className={classes.tableH}>Date</th>
-                {data.event.type === 'In Person' ? (
+                {activityData.event.type === 'In Person' ? (
                   <th className={classes.tableH}>Location</th>
                 ) : null}
                 <th className={classes.tableH}>Time</th>
               </tr>
             </tbody>
           </table>
-          {data &&
-            data?.event?.activities.map((activity, id) => (
-              <Activities key={id} activity={activity} />
+          {activityData &&
+            activityData?.event?.activities.map((activity, id) => (
+              <Activities
+                key={id}
+                activity={activity}
+                activityData={activityData}
+              />
             ))}
         </Grid>
       </Box>
