@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
-import createAuth0Client from '@auth0/auth0-spa-js';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect, useContext } from "react";
+import createAuth0Client from "@auth0/auth0-spa-js";
+import PropTypes from "prop-types";
 
 // This file contains the necessary setup to use auth0 login
 // Read official documentation for a more thorough explanation
@@ -27,8 +27,8 @@ export const Auth0Provider = ({
       setAuth0(auth0FromHook);
 
       if (
-        window.location.search.includes('code=') &&
-        window.location.search.includes('state=')
+        window.location.search.includes("code=") &&
+        window.location.search.includes("state=")
       ) {
         const { appState } = await auth0FromHook.handleRedirectCallback();
         onRedirectCallback(appState);

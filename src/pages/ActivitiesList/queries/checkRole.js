@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const GET_REGISTERED_ACTIVITY = gql`
   query getRegisteredActivity($id: ID, $email: String!) {

@@ -1,7 +1,7 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import { Container, Box, Button, Typography } from '@material-ui/core';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import { Container, Box, Button, Typography } from "@material-ui/core";
 
 function getModalStyle() {
   const top = 50;
@@ -16,94 +16,94 @@ function getModalStyle() {
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    position: 'absolute',
-    width: '40rem',
-    height: '56.8rem',
-    backgroundColor: 'white',
-    padding: '0',
-    '& .MuiButton-label': {
+    position: "absolute",
+    width: "40rem",
+    height: "56.8rem",
+    backgroundColor: "white",
+    padding: "0",
+    "& .MuiButton-label": {
       fontSize: theme.typography.button.fontSize,
-    }, 
+    },
   },
   imgBox: {
-    width: '100%',
+    width: "100%",
   },
   btn: {
-    padding: '0',
-    '& .MuiButton-label': {
+    padding: "0",
+    "& .MuiButton-label": {
       fontSize: theme.typography.button.fontSize,
-    },    
-    fontWeight: '500',
-    textTransform: 'none',
-    color: '#2962FF',
+    },
+    fontWeight: "500",
+    textTransform: "none",
+    color: "#2962FF",
   },
   img: {
-    width: '100%',
-    padding: '0',
-    height: '16rem',
-    objectFit: 'cover',
+    width: "100%",
+    padding: "0",
+    height: "16rem",
+    objectFit: "cover",
   },
   modalMiddle: {
-    padding: '2rem 0 2rem 2rem',
-    marginBottom: '2rem',
+    padding: "2rem 0 2rem 2rem",
+    marginBottom: "2rem",
   },
   date: {
-    color: '#808080',
-    fontSize: '1.4rem',
+    color: "#808080",
+    fontSize: "1.4rem",
   },
   title: {
-    fontSize: '2.1rem',
+    fontSize: "2.1rem",
   },
   loc: {
-    color: '#808080',
-    fontSize: '1.6rem',
+    color: "#808080",
+    fontSize: "1.6rem",
   },
   details: {
-    marginTop: '2rem',
-    overflowY: 'scroll',
-    overflowX: 'hidden',
-    height: '13rem',
-    fontSize: '1.4rem',
-    paddingRight: '1rem',
+    marginTop: "2rem",
+    overflowY: "scroll",
+    overflowX: "hidden",
+    height: "13rem",
+    fontSize: "1.4rem",
+    paddingRight: "1rem",
   },
   modalBottom: {
-    marginLeft: '2rem',
-    display: 'flex',
-    flexDirection: 'column',
-    alignContent: 'flex-end',
+    marginLeft: "2rem",
+    display: "flex",
+    flexDirection: "column",
+    alignContent: "flex-end",
   },
   modalP: {
-    margin: '1.2rem 0',
-    fontSize: '2.1rem',
-    color: '#2962FF',
+    margin: "1.2rem 0",
+    fontSize: "2.1rem",
+    color: "#2962FF",
   },
   modalBtn1: {
-    padding: '1rem 2.5rem',
-    margin: '0 1.5rem 0 0',
-    fontSize: '1.4rem',
-    color: '#2962FF',
-    border: '1px solid #2962FF',
-    borderRadius: '5px',
-    textTransform: 'none',
-    boxSizing: 'border-box',
-    '&:hover': {
-      background: '#2962FF',
-      color: 'white',
+    padding: "1rem 2.5rem",
+    margin: "0 1.5rem 0 0",
+    fontSize: "1.4rem",
+    color: "#2962FF",
+    border: "1px solid #2962FF",
+    borderRadius: "5px",
+    textTransform: "none",
+    boxSizing: "border-box",
+    "&:hover": {
+      background: "#2962FF",
+      color: "white",
     },
   },
   modalBtn2: {
-    padding: '1rem 2.4rem',
-    margin: '0 0 0 1.5rem',
-    fontSize: '1.4rem',
-    background: '#2962FF',
-    color: 'white',
-    border: '1px solid #2962FF',
-    borderRadius: '5px',
-    textTransform: 'none',
-    boxSizing: 'border-box',
-    '&:hover': {
-      background: 'white',
-      color: '#2962FF',
+    padding: "1rem 2.4rem",
+    margin: "0 0 0 1.5rem",
+    fontSize: "1.4rem",
+    background: "#2962FF",
+    color: "white",
+    border: "1px solid #2962FF",
+    borderRadius: "5px",
+    textTransform: "none",
+    boxSizing: "border-box",
+    "&:hover": {
+      background: "white",
+      color: "#2962FF",
     },
   },
 }));

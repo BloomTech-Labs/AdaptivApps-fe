@@ -1,12 +1,12 @@
 //React imports
-import React from 'react';
+import React from "react";
 //Component imports
-import { useNavigate } from '@reach/router';
+import { useNavigate } from "@reach/router";
 // GraphQL/Apollo imports
-import { useMutation } from 'react-apollo';
-import { UNREGISTER_FROM_EVENT } from './queries';
+import { useMutation } from "react-apollo";
+import { UNREGISTER_FROM_EVENT } from "./queries";
 // Auth0 imports
-import { useAuth0 } from '../../config/react-auth0-spa';
+import { useAuth0 } from "../../config/react-auth0-spa";
 //Styling imports
 import {
   makeStyles,
@@ -18,63 +18,63 @@ import {
   Typography,
   Button,
   Box,
-} from '@material-ui/core';
+} from "@material-ui/core";
 // TODO: propTypes for refetch? import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
   root: {
-    borderRadius: '.5rem',
-    marginRight: '2.4rem',
-    boxShadow: 'none',
-    backgroundColor: 'transparent'
+    borderRadius: ".5rem",
+    marginRight: "2.4rem",
+    boxShadow: "none",
+    backgroundColor: "transparent",
   },
   cardDate: {
-    fontSize: '1.4rem',
+    fontSize: "1.4rem",
   },
   cardTitle: {
-    fontSize: '2.1rem',
-    margin: '.4rem 0',
-    fontWeight: '500',
-    color: '#3C3C3C',
+    fontSize: "2.1rem",
+    margin: ".4rem 0",
+    fontWeight: "500",
+    color: "#3C3C3C",
   },
   cardLoc: {
-    fontSize: '1.6rem',
+    fontSize: "1.6rem",
   },
   content: {
-    padding: '1.5rem 0 0 0',
+    padding: "1.5rem 0 0 0",
   },
   btnContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    padding: '0',
-    margin: '1.6rem 0',
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "0",
+    margin: "1.6rem 0",
   },
   btn: {
-    padding: '0',
-    fontWeight: '400',
-    textTransform: 'none',
-    color: '#2962FF',
-    '& .MuiButton-label': {
-      fontSize: '1.6rem'
-    }
+    padding: "0",
+    fontWeight: "400",
+    textTransform: "none",
+    color: "#2962FF",
+    "& .MuiButton-label": {
+      fontSize: "1.6rem",
+    },
   },
   cardImg: {
-    maxWidth: '36rem',
-    maxHeight: '16rem',
+    maxWidth: "36rem",
+    maxHeight: "16rem",
   },
   banner: {
-    position: 'relative',
-    transform: 'rotate(-45deg)',
-    top: '4.9rem',
-    right: '3rem',
-    borderBottom: '2.5rem solid #555',
-    borderLeft: '2.5rem solid transparent',
-    borderRight: '2.5rem solid transparent',
-    height: '0',
-    color: '#EECC1B',
-    width: '12.75rem',
-    textAlign: 'center',
-    fontSize: '1.4rem'
+    position: "relative",
+    transform: "rotate(-45deg)",
+    top: "4.9rem",
+    right: "3rem",
+    borderBottom: "2.5rem solid #555",
+    borderLeft: "2.5rem solid transparent",
+    borderRight: "2.5rem solid transparent",
+    height: "0",
+    color: "#EECC1B",
+    width: "12.75rem",
+    textAlign: "center",
+    fontSize: "1.4rem",
   },
 }));
 

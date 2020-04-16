@@ -1,61 +1,61 @@
-import React from 'react';
-import { useAuth0 } from '../../config/react-auth0-spa';
-import { makeStyles, Box, Button } from '@material-ui/core';
-import acsLogo from '../../assets/images/acsLogo.png';
-const useStyles = makeStyles((theme) => ({
+import React from "react";
+import { useAuth0 } from "../../config/react-auth0-spa";
+import { makeStyles, Box, Button } from "@material-ui/core";
+import acsLogo from "../../assets/images/acsLogo.png";
+const useStyles = makeStyles(theme => ({
   container: {
-    zIndex: '1',
-    position: 'absolute',
-    display: 'flex',
-    background: 'transparent',
-    height: '10vh',
-    width: '100%',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
-      alignContent: 'center',
-      alignItems: 'center'
+    zIndex: "1",
+    position: "absolute",
+    display: "flex",
+    background: "transparent",
+    height: "10vh",
+    width: "100%",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+      alignContent: "center",
+      alignItems: "center",
     },
   },
   acsBanner: {
-    height: '100%',
+    height: "100%",
   },
   acsBrand: {
-    height: 'auto',
-    width: '30rem',
-    [theme.breakpoints.down('md')]: {
-      width: '25rem',
+    height: "auto",
+    width: "30rem",
+    [theme.breakpoints.down("md")]: {
+      width: "25rem",
     },
   },
   box: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'flex-end',
+    width: "100%",
+    display: "flex",
+    justifyContent: "flex-end",
   },
   btnContainer: {
-    width: '24rem',
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    alignSelf: 'flex-start',
-    '& .MuiButton-label': {
-      fontSize: '1.6rem',
-      fontWeight: 500
+    width: "24rem",
+    display: "flex",
+    justifyContent: "space-evenly",
+    alignSelf: "flex-start",
+    "& .MuiButton-label": {
+      fontSize: "1.6rem",
+      fontWeight: 500,
     },
-    [theme.breakpoints.down('sm')]: {
-      width: '100%',
-      marginTop: '1.5rem',
-    }
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      marginTop: "1.5rem",
+    },
   },
   navBtn: {
-    width: '9.6rem',
-    height: '4.8rem',
-    background: '#2962FF',
-    color: '#FFFFFF',
-    fontSize: '1.6rem',
-    textTransform: 'none',
-    marginTop: '1.6rem',
-    '&:hover': {
-      background: '#FFFFFF',
-      color: '#2962FF',
+    width: "9.6rem",
+    height: "4.8rem",
+    background: "#2962FF",
+    color: "#FFFFFF",
+    fontSize: "1.6rem",
+    textTransform: "none",
+    marginTop: "1.6rem",
+    "&:hover": {
+      background: "#FFFFFF",
+      color: "#2962FF",
     },
   },
 }));

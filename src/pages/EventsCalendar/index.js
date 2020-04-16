@@ -1,25 +1,25 @@
-import React, { useEffect } from 'react';
-import { useQuery } from 'react-apollo';
-import { makeStyles, Grid, Box, Typography } from '@material-ui/core';
+import React, { useEffect } from "react";
+import { useQuery } from "react-apollo";
+import { makeStyles, Grid, Box, Typography } from "@material-ui/core";
 
-import EventCard from './EventCard';
-import { GET_EVENT_LIST } from './queries';
+import EventCard from "./EventCard";
+import { GET_EVENT_LIST } from "./queries";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: '100%',
-    width: '90%',
+    maxWidth: "100%",
+    width: "90%",
   },
   headingBox: {
-    margin: '6rem 0 2rem 3rem',
-    fontWeight: '400',
-    borderColor: '#D3D3D3',
+    margin: "6rem 0 2rem 3rem",
+    fontWeight: "400",
+    borderColor: "#D3D3D3",
   },
   grid: {
-    display: 'flex',
-    justifyContent: 'flex-start',
-    flexWrap: 'wrap',
-    marginLeft: '3rem',
+    display: "flex",
+    justifyContent: "flex-start",
+    flexWrap: "wrap",
+    marginLeft: "3rem",
   },
 });
 
@@ -30,7 +30,7 @@ export default function EventsCalendar() {
   useEffect(() => {
     refetch();
   }, [refetch]);
-  if (loading) return 'Loading...';
+  if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
 
   return (

@@ -1,7 +1,7 @@
-import React from 'react';
-import { CREATE_EVENT, UPDATE_EVENT, DELETE_EVENT } from './queries';
-import { useMutation } from 'react-apollo';
-import MaterialTable from 'material-table';
+import React from "react";
+import { CREATE_EVENT, UPDATE_EVENT, DELETE_EVENT } from "./queries";
+import { useMutation } from "react-apollo";
+import MaterialTable from "material-table";
 import {
   makeStyles,
   Input,
@@ -10,12 +10,12 @@ import {
   MenuItem,
   Grid,
   Button,
-} from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
+} from "@material-ui/core";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 
-import AdminActivityList from './AdminActivityList';
+import AdminActivityList from "./AdminActivityList";
 
 // This component contains a list of events, passed in as props
 const AdminEventList = props => {
@@ -29,22 +29,22 @@ const AdminEventList = props => {
 
   const useStyles = makeStyles({
     grid: {
-      marginLeft: '3rem',
-      '& .MuiButton-label': {
-        fontSize: '1.6rem',
-        fontWeight: '500',
+      marginLeft: "3rem",
+      "& .MuiButton-label": {
+        fontSize: "1.6rem",
+        fontWeight: "500",
       },
     },
     tableHead: {
-      '& th': {
-      fontSize: '1.6rem'
+      "& th": {
+        fontSize: "1.6rem",
       },
     },
     addBtn: {
-      color: '#2763FF',
-      textTransform: 'none',
+      color: "#2763FF",
+      textTransform: "none",
     },
-    img: { width: '15rem', objectFit: 'contain' },
+    img: { width: "15rem", objectFit: "contain" },
   });
   const classes = useStyles();
 
@@ -54,14 +54,13 @@ const AdminEventList = props => {
   return (
     <Grid className={classes.grid}>
       <MaterialTable
-        
         components={{
           Pagination: props => (
             <TablePagination
               {...props}
               SelectProps={{
                 style: {
-                  fontSize: '1.4rem',
+                  fontSize: "1.4rem",
                 },
               }}
             />
@@ -70,8 +69,8 @@ const AdminEventList = props => {
         title=""
         columns={[
           {
-            title: 'Title',
-            field: 'title',
+            title: "Title",
+            field: "title",
             editComponent: props => (
               <Input
                 type="text"
@@ -81,8 +80,8 @@ const AdminEventList = props => {
             ),
           },
           {
-            title: 'Type',
-            field: 'type',
+            title: "Type",
+            field: "type",
             editComponent: props => (
               <Select
                 value={props.value}
@@ -94,8 +93,8 @@ const AdminEventList = props => {
             ),
           },
           {
-            title: 'Host',
-            field: 'host',
+            title: "Host",
+            field: "host",
             editComponent: props => (
               <Input
                 type="text"
@@ -105,8 +104,8 @@ const AdminEventList = props => {
             ),
           },
           {
-            title: 'Speakers',
-            field: 'speakers',
+            title: "Speakers",
+            field: "speakers",
             editComponent: props => (
               <Input
                 type="text"
@@ -117,8 +116,8 @@ const AdminEventList = props => {
           },
 
           {
-            title: 'Start Time',
-            field: 'startTime',
+            title: "Start Time",
+            field: "startTime",
             editComponent: props => (
               <Input
                 type="time"
@@ -128,8 +127,8 @@ const AdminEventList = props => {
             ),
           },
           {
-            title: 'Start Date',
-            field: 'startDate',
+            title: "Start Date",
+            field: "startDate",
             editComponent: props => (
               <Input
                 type="date"
@@ -139,8 +138,8 @@ const AdminEventList = props => {
             ),
           },
           {
-            title: 'End Date',
-            field: 'endDate',
+            title: "End Date",
+            field: "endDate",
             editComponent: props => (
               <Input
                 type="date"
@@ -150,8 +149,8 @@ const AdminEventList = props => {
             ),
           },
           {
-            title: 'Location',
-            field: 'location',
+            title: "Location",
+            field: "location",
             editComponent: props => (
               <Input
                 type="text"
@@ -161,8 +160,8 @@ const AdminEventList = props => {
             ),
           },
           {
-            title: 'Link',
-            field: 'link',
+            title: "Link",
+            field: "link",
             editComponent: props => (
               <Input
                 type="url"
@@ -172,8 +171,8 @@ const AdminEventList = props => {
             ),
           },
           {
-            title: 'Image Url',
-            field: 'imgUrl',
+            title: "Image Url",
+            field: "imgUrl",
             render: rowData => (
               <img src={rowData.imgUrl} alt="Event" className={classes.img} />
             ),
@@ -186,8 +185,8 @@ const AdminEventList = props => {
             ),
           },
           {
-            title: 'Sponsors',
-            field: 'sponsors',
+            title: "Sponsors",
+            field: "sponsors",
             editComponent: props => (
               <Input
                 type="text"
@@ -197,14 +196,14 @@ const AdminEventList = props => {
             ),
           },
           {
-            title: 'Details',
-            field: 'details',
+            title: "Details",
+            field: "details",
             render: rowData => (
               <div
                 style={{
-                  width: '30rem',
-                  maxHeight: '14rem',
-                  overflow: 'scroll',
+                  width: "30rem",
+                  maxHeight: "14rem",
+                  overflow: "scroll",
                 }}
               >
                 {rowData.details}
@@ -275,22 +274,22 @@ const AdminEventList = props => {
           Add: () => (
             <>
               <AddCircleOutlineIcon
-                style={{ color: '#2962FF' }}
+                style={{ color: "#2962FF" }}
                 fontSize="large"
               />
               <Button className={classes.addBtn}>Add Event</Button>
             </>
           ),
           Edit: () => (
-            <EditIcon style={{ color: '#2962FF' }} fontSize="large" />
+            <EditIcon style={{ color: "#2962FF" }} fontSize="large" />
           ),
           Delete: () => (
-            <DeleteIcon style={{ color: '#2962FF' }} fontSize="large" />
+            <DeleteIcon style={{ color: "#2962FF" }} fontSize="large" />
           ),
         }}
         detailPanel={[
           {
-            tooltip: 'Show Activities',
+            tooltip: "Show Activities",
             isFreeAction: true,
             render: rowData => {
               // When clicking on a row, display a list of activities associated
@@ -302,21 +301,21 @@ const AdminEventList = props => {
         ]}
         options={{
           cellStyle: {
-            fontSize: '1.6rem',
+            fontSize: "1.6rem",
           },
           headerStyle: {
-            fontSize: '1.6rem',
-            backgroundColor: '#2962FF',
-            color: '#FFF',
+            fontSize: "1.6rem",
+            backgroundColor: "#2962FF",
+            color: "#FFF",
           },
           rowStyle: {
-            backgroundColor: '#FFF',
+            backgroundColor: "#FFF",
           },
           emptyRowsWhenPaging: false,
-          toolbarButtonAlignment: 'left',
+          toolbarButtonAlignment: "left",
           searchFieldStyle: {
-            width: '20rem',
-            fontSize: '1.6rem',
+            width: "20rem",
+            fontSize: "1.6rem",
           },
         }}
       />
