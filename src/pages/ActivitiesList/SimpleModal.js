@@ -90,7 +90,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SimpleModal({ activity }) {
+export default function SimpleModal({ activity, activityData }) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -103,13 +103,16 @@ export default function SimpleModal({ activity }) {
   const handleClose = () => {
     setOpen(false);
   };
-console.log(activity.event.type)
+
   const body = (
     <Container style={modalStyle} className={classes.paper}>
       <Box className={classes.imgBox}>
         <img
           className={classes.img}
-          src={activity && activity?.event?.imgUrl}
+          src={
+            (activity && activity?.event?.imgUrl) ||
+            (activityData && activityData?.event?.imgUrl)
+          }
           alt="Event"
         />
       </Box>
@@ -121,7 +124,7 @@ console.log(activity.event.type)
         <Typography className={classes.details} id="simple-modal-description">
           {activity?.details}
         </Typography>
-        {activity?.event?.type === 'Webinar' ? (
+        {activityData?.event?.type === 'Webinar' ? (
           <a className={classes.nameLink} href={activity.link}>
             Join This Activity!
           </a>

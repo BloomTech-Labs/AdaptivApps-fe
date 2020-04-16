@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SimplePopover({ activity, data }) {
+export default function SimplePopover({ activity, activityData }) {
   const { user } = useAuth0();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -92,7 +92,7 @@ export default function SimplePopover({ activity, data }) {
 
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
-  console.log('activity in selectRole.js', data);
+  console.log('activity in selectRole.js', activityData);
   return (
     <IconContext.Provider
       onBlur={handleClick}
@@ -114,7 +114,7 @@ export default function SimplePopover({ activity, data }) {
             }
       }
     >
-      {data && data?.event?.type === 'Webinar' ? (
+      {activityData && activityData?.event?.type === 'Webinar' ? (
         <Button
           className={classes.btn}
           aria-describedby={id}
