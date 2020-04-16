@@ -110,7 +110,6 @@ export default function EventDetails(props) {
 
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
-  console.log("activity data", data);
 
   const currentActivities = data.activities;
   return (

@@ -84,7 +84,6 @@ export default function ActivityList() {
       variables: { id: eventId },
     }
   );
-  console.log("activityData", activityData);
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
   return (
