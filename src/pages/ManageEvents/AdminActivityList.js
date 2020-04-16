@@ -1,22 +1,21 @@
-import React from 'react';
-import { makeStyles, Input, Button, Grid } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import { useQuery, useMutation } from 'react-apollo';
+import React from "react";
+import { makeStyles, Input, Button, Grid } from "@material-ui/core";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import { useQuery, useMutation } from "react-apollo";
 import {
   CREATE_ACTIVITY,
   UPDATE_ACTIVITY,
   DELETE_ACTIVITY,
   GET_ONE_EVENT,
-} from './queries';
-import MaterialTable from 'material-table';
+} from "./queries";
+import MaterialTable from "material-table";
 
 const useStyles = makeStyles({
   addBtn: {
-    fontSize: '1.4rem',
-    color: '#2763FF',
-    textTransform: 'none',
+    color: "#2763FF",
+    textTransform: "none",
   },
 });
 // Material table docs here: https://material-table.com/
@@ -43,10 +42,20 @@ const AdminActivityList = props => {
       <MaterialTable
         title=""
         columns={[
-          { title: 'Name', field: 'name' },
           {
-            title: 'Date',
-            field: 'startDate',
+            title: "Name",
+            field: "name",
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+              />
+            ),
+          },
+          {
+            title: "Date",
+            field: "startDate",
             editComponent: props => (
               <Input
                 type="date"
@@ -56,8 +65,8 @@ const AdminActivityList = props => {
             ),
           },
           {
-            title: 'Time',
-            field: 'startTime',
+            title: "Time",
+            field: "startTime",
             editComponent: props => (
               <Input
                 type="time"
@@ -66,17 +75,48 @@ const AdminActivityList = props => {
               />
             ),
           },
-          { title: 'Location', field: 'location' },
-          { title: 'Type', field: 'type' },
           {
-            title: 'Details',
-            field: 'details',
+            title: "Location",
+            field: "location",
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+              />
+            ),
+          },
+          {
+            title: "Link",
+            field: "link",
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+              />
+            ),
+          },
+          {
+            title: "Type",
+            field: "type",
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+              />
+            ),
+          },
+          {
+            title: "Details",
+            field: "details",
             render: rowData => (
               <div
                 style={{
-                  width: '30rem',
-                  maxHeight: '14rem',
-                  overflow: 'scroll',
+                  width: "30rem",
+                  maxHeight: "14rem",
+                  overflow: "scroll",
                 }}
               >
                 {rowData.details}
@@ -102,6 +142,7 @@ const AdminActivityList = props => {
                 startDate: newData.startDate,
                 startTime: newData.startTime,
                 location: newData.location,
+                link: newData.link,
                 type: newData.type,
                 details: newData.details,
                 event_id: event_id,
@@ -117,6 +158,7 @@ const AdminActivityList = props => {
                 startDate: newData.startDate,
                 startTime: newData.startTime,
                 location: newData.location,
+                link: newData.link,
                 type: newData.type,
                 details: newData.details,
               },
@@ -136,33 +178,33 @@ const AdminActivityList = props => {
           Add: () => (
             <>
               <AddCircleOutlineIcon
-                style={{ color: '#2962FF' }}
+                style={{ color: "#2962FF" }}
                 fontSize="large"
               />
               <Button className={classes.addBtn}>Add Activity</Button>
             </>
           ),
           Edit: () => (
-            <EditIcon style={{ color: '#2962FF' }} fontSize="large" />
+            <EditIcon style={{ color: "#2962FF" }} fontSize="large" />
           ),
           Delete: () => (
-            <DeleteIcon style={{ color: '#2962FF' }} fontSize="large" />
+            <DeleteIcon style={{ color: "#2962FF" }} fontSize="large" />
           ),
         }}
         options={{
           cellStyle: {
-            fontSize: '1.4rem',
+            fontSize: "1.4rem",
           },
           headerStyle: {
-            fontSize: '1.4rem',
-            backgroundColor: '#2962FF',
-            color: '#FFF',
+            fontSize: "1.4rem",
+            backgroundColor: "#2962FF",
+            color: "#FFF",
           },
           search: false,
           showTitle: true,
           paging: false,
           emptyRowsWhenPaging: false,
-          toolbarButtonAlignment: 'left',
+          toolbarButtonAlignment: "left",
         }}
       />
     </Grid>

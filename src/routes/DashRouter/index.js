@@ -1,24 +1,26 @@
 // React imports
-import React from 'react';
+import React from "react";
 
 // Auth0 imports
-import { useAuth0 } from '../../config/react-auth0-spa';
+import { useAuth0 } from "../../config/react-auth0-spa";
 
 // Component imports
-import SideNav from './SideNav';
-import PropTypes from 'prop-types';
+import SideNav from "./SideNav";
+import PropTypes from "prop-types";
 
 // Styling imports
-import { Box, makeStyles } from '@material-ui/core';
+import { Box, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
-    height: '100vh',
-    display: 'flex',
+    height: "100vh",
+    display: "flex",
+    backgroundColor: "#FFFFFF",
   },
   box: {
-    marginLeft: '2rem',
-    width: '100%',
+    marginLeft: "2rem",
+    width: "100%",
+    backgroundColor: "#FFFFFF",
   },
 });
 

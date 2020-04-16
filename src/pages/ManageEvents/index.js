@@ -1,20 +1,20 @@
-import React from 'react';
-import { makeStyles, Box, Typography } from '@material-ui/core';
+import React from "react";
+import { makeStyles, Box, Typography } from "@material-ui/core";
 
-import { useQuery } from 'react-apollo';
-import { GET_EVENTS } from './queries';
-import AdminEventList from './AdminEventList';
+import { useQuery } from "react-apollo";
+import { GET_EVENTS } from "./queries";
+import AdminEventList from "./AdminEventList";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: '100%',
-    width: '90%',
-    fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+    maxWidth: "100%",
+    width: "90%",
+    fontFamily: ["Roboto", "Helvetica", "Arial", "sans-serif"],
   },
   headingBox: {
-    margin: '6rem 0 2rem 3rem',
-    fontWeight: '400',
-    borderColor: '#D3D3D3',
+    margin: "6rem 0 2rem 3rem",
+    fontWeight: "400",
+    borderColor: "#D3D3D3",
   },
 });
 
@@ -28,8 +28,8 @@ const ManageEvents = () => {
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
-        <Typography className={classes.heading} variant="h3" gutterBottom>
-          Upcoming Events
+        <Typography className={classes.heading} variant="h1" gutterBottom>
+          Manage Events
         </Typography>
       </Box>
       <Box>

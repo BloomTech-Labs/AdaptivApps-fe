@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 // Getting a list of events, being used in UserDashboard
 export const GET_EVENT_ACTIVITIES = gql`
@@ -6,6 +6,7 @@ export const GET_EVENT_ACTIVITIES = gql`
     event(where: { id: $id }) {
       id
       title
+      type
       startDate
       endDate
       location
@@ -16,7 +17,19 @@ export const GET_EVENT_ACTIVITIES = gql`
         name
         startDate
         location
+        link
         startTime
+        endTime
+        type
+        details
+        participants {
+          id
+          profile {
+            id
+            email
+          }
+          role
+        }
       }
     }
   }

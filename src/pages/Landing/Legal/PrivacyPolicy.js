@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default function PrivacyPolicy() {
   return (
@@ -91,7 +91,7 @@ export default function PrivacyPolicy() {
         you, your colleagues or other users access the Service:
       </p>
       <ul>
-        <li>your contact information, such as full name and email address;</li>{' '}
+        <li>your contact information, such as full name and email address;</li>{" "}
         <li>your username and password;</li>
         <li>
           your work title, department information and other information related
@@ -103,26 +103,26 @@ export default function PrivacyPolicy() {
           share content, and message or communicate with others. This can
           include information in or about the content you provide (such as
           metadata), such as the location of a photo or the date a file was
-          created;{' '}
+          created;{" "}
         </li>
         <li>
           content, communications and information that other people provide when
           they use the Service. This can include information about you, such as
           when they share or comment on a photo of you, send a message to you,
           or upload, sync or import your contact information;
-        </li>{' '}
+        </li>{" "}
         <li>all communications with other users of the Service;</li>
         <li>
           user communications, feedback, suggestions and ideas sent to your
           Organisation;
-        </li>{' '}
-        <li></li>billing information; and{' '}
+        </li>{" "}
+        <li></li>billing information; and{" "}
         <li>
           information that you provide when you or your Organisation contact or
           engage platform support regarding the Service.
         </li>
-      </ul>{' '}
-      <h6>II. How does your Organisation use this information?</h6>{' '}
+      </ul>{" "}
+      <h6>II. How does your Organisation use this information?</h6>{" "}
       <p>
         Your Organisation will share the information that it collects with
         Facebook, as provider of the platform, in order to allow Facebook to
@@ -158,7 +158,7 @@ export default function PrivacyPolicy() {
           conducting data and system analytics, including research to improve
           the Service.
         </li>
-      </ul>{' '}
+      </ul>{" "}
       <h6>III. Disclosure of information</h6>
       <p>
         Your Organisation discloses the information collected in the following
@@ -178,12 +178,12 @@ export default function PrivacyPolicy() {
           transfer of the Service, a merger, consolidation, asset sale or in the
           unlikely event of bankruptcy or insolvency;
         </li>
-        <li>to protect the safety of any person;</li>{' '}
+        <li>to protect the safety of any person;</li>{" "}
         <li>
           to address fraud, security or technical issues; and in connection with
           a subpoena, warrant, discovery order or other request or order from a
           law enforcement agency.
-        </li>{' '}
+        </li>{" "}
         to address fraud, security or technical issues; and in connection with a
         subpoena, warrant, discovery order or other request or order from a law
         enforcement agency.

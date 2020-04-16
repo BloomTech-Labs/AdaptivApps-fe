@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export const GET_EVENTS = gql`
   query GetEvents {
@@ -12,7 +12,7 @@ export const GET_EVENTS = gql`
       startDate
       endDate
       location
-      zoomLink
+      link
       sponsors
       imgUrl
       sponsors
@@ -22,6 +22,7 @@ export const GET_EVENTS = gql`
         name
         startDate
         location
+        link
         startTime
         type
         details
@@ -42,7 +43,7 @@ export const GET_ONE_EVENT = gql`
       startDate
       endDate
       location
-      zoomLink
+      link
       sponsors
       imgUrl
       details
@@ -51,6 +52,7 @@ export const GET_ONE_EVENT = gql`
         name
         startDate
         location
+        link
         startTime
         type
         details
@@ -69,7 +71,7 @@ export const CREATE_EVENT = gql`
     $startDate: String!
     $endDate: String!
     $location: String!
-    $zoomLink: String
+    $link: String
     $sponsors: String
     $imgUrl: String
     $details: String
@@ -84,7 +86,7 @@ export const CREATE_EVENT = gql`
         startDate: $startDate
         endDate: $endDate
         location: $location
-        zoomLink: $zoomLink
+        link: $link
         sponsors: $sponsors
         imgUrl: $imgUrl
         details: $details
@@ -95,6 +97,7 @@ export const CREATE_EVENT = gql`
       startDate
       endDate
       location
+      link
       imgUrl
       details
     }
@@ -112,7 +115,7 @@ export const UPDATE_EVENT = gql`
     $startDate: String!
     $endDate: String!
     $location: String!
-    $zoomLink: String
+    $link: String
     $sponsors: String
     $imgUrl: String
     $details: String
@@ -127,7 +130,7 @@ export const UPDATE_EVENT = gql`
         startDate: $startDate
         endDate: $endDate
         location: $location
-        zoomLink: $zoomLink
+        link: $link
         sponsors: $sponsors
         imgUrl: $imgUrl
         details: $details
@@ -138,6 +141,7 @@ export const UPDATE_EVENT = gql`
       startDate
       endDate
       location
+      link
       imgUrl
       details
     }
@@ -159,6 +163,7 @@ export const GET_ACTIVITIES = gql`
       name
       startDate
       location
+      link
       startTime
       type
       details
@@ -174,8 +179,9 @@ export const CREATE_ACTIVITY = gql`
     $name: String!
     $startDate: String!
     $startTime: String!
-    $location: String!
-    $type: String!
+    $location: String
+    $link: String
+    $type: String
     $details: String
     $event_id: ID
   ) {
@@ -185,6 +191,7 @@ export const CREATE_ACTIVITY = gql`
         startDate: $startDate
         startTime: $startTime
         location: $location
+        link: $link
         type: $type
         details: $details
         event: { connect: { id: $event_id } }
@@ -195,6 +202,7 @@ export const CREATE_ACTIVITY = gql`
       startDate
       startTime
       location
+      link
       type
       details
       event {
@@ -210,8 +218,9 @@ export const UPDATE_ACTIVITY = gql`
     $name: String!
     $startDate: String!
     $startTime: String!
-    $location: String!
-    $type: String!
+    $location: String
+    $link: String
+    $type: String
     $details: String
   ) {
     updateActivity(
@@ -220,6 +229,7 @@ export const UPDATE_ACTIVITY = gql`
         startDate: $startDate
         startTime: $startTime
         location: $location
+        link: $link
         type: $type
         details: $details
       }
@@ -230,6 +240,7 @@ export const UPDATE_ACTIVITY = gql`
       startDate
       startTime
       location
+      link
       type
       details
       event {

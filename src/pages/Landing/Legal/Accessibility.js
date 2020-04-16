@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default function Accessibility() {
   return (
@@ -23,14 +23,14 @@ export default function Accessibility() {
 
         <h2>Accessibility on adaptivdev.net</h2>
         <p>
-          adaptivdev.net makes available the{' '}
+          adaptivdev.net makes available the{" "}
           <a
             href="https://UserWay.org"
             alt="Free Website Accessibility Widget"
             title="Free Website Accessibility Widget"
           >
             UserWay Website Accessibility Widget
-          </a>{' '}
+          </a>{" "}
           that is powered by a dedicated accessibility server. The software
           allows adaptivdev.net to improve its compliance with the Web Content
           Accessibility Guidelines (WCAG 2.1).
@@ -79,7 +79,7 @@ export default function Accessibility() {
         <br />
 
         <p>
-          Email:{' '}
+          Email:{" "}
           <a href="mailto:admin@adaptivapps.org">admin@adaptivapps.org</a>
         </p>
       </div>

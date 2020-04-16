@@ -1,8 +1,8 @@
-import React from 'react';
-import { useNavigate } from '@reach/router';
-import { useAuth0 } from '../../config/react-auth0-spa';
-import PropTypes from 'prop-types';
-import SimpleModal from './SimpleModal';
+import React from "react";
+import { useNavigate } from "@reach/router";
+import { useAuth0 } from "../../config/react-auth0-spa";
+import PropTypes from "prop-types";
+import SimpleModal from "./SimpleModal";
 
 import {
   makeStyles,
@@ -13,58 +13,60 @@ import {
   CardActions,
   Typography,
   Box,
-} from '@material-ui/core';
+} from "@material-ui/core";
 
-import { useMutation } from 'react-apollo';
-import { REGISTER_EVENT } from './queries/joinEvent';
+import { useMutation } from "react-apollo";
+import { REGISTER_EVENT } from "./queries/joinEvent";
 
 const useStyles = makeStyles({
   root: {
-    borderRadius: '.5rem',
-    marginRight: '2.4rem',
-    boxShadow: 'none',
+    backgroundColor: "transparent",
+    borderRadius: ".5rem",
+    marginRight: "2.4rem",
+    boxShadow: "none",
   },
   cardDate: {
-    fontSize: '1.4rem',
+    fontSize: "1.4rem",
   },
   cardTitle: {
-    fontSize: '2.1rem',
-    margin: '.4rem 0',
-    fontWeight: '500',
-    color: '#3C3C3C',
+    fontSize: "2.1rem",
+    margin: ".4rem 0",
+    fontWeight: "500",
+    color: "#3C3C3C",
   },
   cardLoc: {
-    fontSize: '1.6rem',
+    fontSize: "1.6rem",
   },
   content: {
-    padding: '1.5rem 0 0 0',
+    padding: "1.5rem 0 0 0",
   },
   btnContainer: {
-    padding: '0',
-    margin: '1.6rem 0',
+    padding: "0",
+    margin: "1.6rem 0",
   },
   btn: {
-    padding: '0',
-    fontSize: '1.6rem',
-    fontWeight: '600',
-    textTransform: 'none',
+    padding: "0",
+    fontSize: "1.6rem",
+    fontWeight: "500",
+    textTransform: "none",
   },
   cardImg: {
-    maxWidth: '36rem',
-    maxHeight: '16rem',
+    maxWidth: "36rem",
+    maxHeight: "16rem",
   },
   banner: {
-    position: 'relative',
-    transform: 'rotate(-45deg)',
-    top: '4.9rem',
-    right: '3rem',
-    borderBottom: '2.5rem solid #555',
-    borderLeft: '2.5rem solid transparent',
-    borderRight: '2.5rem solid transparent',
-    height: '0',
-    color: '#EECC1B',
-    width: '12.75rem',
-    textAlign: 'center',
+    position: "relative",
+    transform: "rotate(-45deg)",
+    top: "4.9rem",
+    right: "3rem",
+    borderBottom: "2.5rem solid #555",
+    borderLeft: "2.5rem solid transparent",
+    borderRight: "2.5rem solid transparent",
+    height: "0",
+    color: "#EECC1B",
+    width: "12.75rem",
+    textAlign: "center",
+    fontSize: "1.4rem",
   },
 });
 

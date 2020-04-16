@@ -1,139 +1,165 @@
 // React imports
-import React from 'react';
-import NavBar from './NavBar';
+import React from "react";
+import NavBar from "./NavBar";
 import {
   makeStyles,
   Container,
   Box,
   Button,
   Typography,
-} from '@material-ui/core';
-import { Link } from '@reach/router';
-import { useAuth0 } from '../../config/react-auth0-spa';
-import landingImage from '../../assets/images/landingImage.jpeg';
-import { FaFacebookSquare, FaGoogle } from 'react-icons/fa';
-import { IconContext } from 'react-icons';
-import './styles.css';
+} from "@material-ui/core";
+import { Link } from "@reach/router";
+import { useAuth0 } from "../../config/react-auth0-spa";
+import landingImage from "../../assets/images/landingImage.jpeg";
+import { FaFacebookSquare, FaGoogle } from "react-icons/fa";
+import { IconContext } from "react-icons";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   container: {
-    backgroundColor: '#000000',
-    padding: '0',
-    maxWidth: '100%',
-    height: '60vh',
+    backgroundColor: "#000000",
+    padding: "0",
+    maxWidth: "100%",
+    height: "60vh",
   },
   box: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    alignItems: 'center',
-    width: '100%',
-    height: '100%',
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
   },
   bannerImg: {
-    opacity: '0.5',
-    width: '100%',
-    height: '60vh',
-    objectFit: 'cover',
+    opacity: "0.5",
+    width: "100%",
+    height: "60vh",
+    objectFit: "cover",
   },
   typography: {
-    top: '20rem',
-    zIndex: '1',
-    maxWidth: '85%',
-    color: '#FFFFFF',
-    position: 'absolute',
+    top: "20rem",
+    zIndex: "1",
+    maxWidth: "85%",
+    color: "#FFFFFF",
+    position: "absolute",
     padding: 0,
-    [theme.breakpoints.up('lg')]: {
-      fontSize: '7.2rem',
+    [theme.breakpoints.up("lg")]: {
+      fontSize: "7.2rem",
     },
-    [theme.breakpoints.down('md')]: {
-      fontSize: '5.2rem'
+    [theme.breakpoints.down("md")]: {
+      fontSize: "5.2rem",
     },
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '3.2rem',
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "3.2rem",
     },
   },
   contentContainer: {
-    display: 'flex',
-    justifyContent: 'space-evenly',
-    height: '100%',
-    width: '100vw',
-    margin: '0',
-    padding: '0',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column',
+    display: "flex",
+    justifyContent: "space-evenly",
+    alignContent: "center",
+    alignItems: "center",
+    height: "100%",
+    width: "100vw",
+    padding: "0",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
     },
   },
   contentIntro: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignContent: 'center',
-    width: '35%',
-    margin: '5rem 0 0 10em',
-    '& h2': {
-      margin: '1.5rem 0',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignContent: "center",
+    width: "35%",
+    margin: "5rem 0 0 10em",
+    "& h6": {
+      margin: "1.5rem 0",
     },
-    [theme.breakpoints.down('md')]: {
-      width: '55%',
-      '& h2': {
-        margin: '0.5rem 0',
+    [theme.breakpoints.down("md")]: {
+      width: "55%",
+      "& h6": {
+        margin: "0.5rem 0",
+        fontSize: "4.0rem",
+      },
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "85%",
+      "& h6": {
+        margin: "0.5rem 0",
+        fontSize: "3.0rem",
       },
     },
   },
   contentP: {
-    fontSize: '1.8rem',
+    fontSize: "1.8rem",
   },
   btnContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    margin: "auto 0",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    "& p": {
+      fontSize: "2.4rem",
+      fontWeight: "bold",
+      margin: "0",
+    },
   },
   btn1: {
-    margin: '10rem 0 2rem 0',
-    textTransform: 'none',
-    fontSize: '2.4rem',
-    display: 'flex',
-    borderRadius: '5px',
-    width: '40rem',
-    height: '6rem',
-    backgroundColor: '#3B5998',
-    color: 'white',
-    '&:hover': {
-      border: '1px solid #3B5998',
-      backgroundColor: 'white',
-      color: '#3B5998',
+    margin: "10rem 0 2rem 0",
+    textTransform: "none",
+    display: "flex",
+    borderRadius: "5px",
+    width: "40rem",
+    height: "6rem",
+    backgroundColor: "#3B5998",
+    color: "white",
+    "&:hover": {
+      border: "1px solid #3B5998",
+      backgroundColor: "white",
+      color: "#3B5998",
     },
-    '& span': {
-      display: 'flex',
-      justifyContent: 'flex-start',
-      '& svg': {
-        margin: '0 1.5rem',
+    "& span": {
+      display: "flex",
+      justifyContent: "flex-start",
+      "& svg": {
+        margin: "0 1.5rem",
       },
     },
   },
   btn2: {
-    textTransform: 'none',
-    fontSize: '2.4rem',
-    display: 'flex',
-    borderRadius: '5px',
-    width: '40rem',
-    height: '6rem',
-    backgroundColor: '#4285F4',
-    color: 'white',
-    '&:hover': {
-      border: '1px solid #4285F4',
-      backgroundColor: 'white',
-      color: '#4285F4',
+    textTransform: "none",
+    fontSize: "2.4rem",
+    display: "flex",
+    borderRadius: "5px",
+    width: "40rem",
+    height: "6rem",
+    backgroundColor: "#4285F4",
+    color: "white",
+    "&:hover": {
+      border: "1px solid #4285F4",
+      backgroundColor: "white",
+      color: "#4285F4",
     },
-    '& span': {
-      display: 'flex',
-      justifyContent: 'flex-start',
-      '& svg': {
-        margin: '0 1.5rem',
+    "& span": {
+      display: "flex",
+      justifyContent: "flex-start",
+      "& svg": {
+        margin: "0 1.5rem",
       },
     },
+  },
+  privacyLink: {
+    marginTop: ".4rem",
+    "& p": {
+      fontSize: "1.3rem",
+      fontWeight: "500",
+    },
+  },
+  a11yLink: {
+    position: "fixed",
+    bottom: ".8rem",
+    right: "8rem",
+    fontSize: "1.3rem",
   },
 }));
 
@@ -142,7 +168,7 @@ const LandingPage = () => {
   const classes = useStyles();
   const { loginWithRedirect } = useAuth0();
   return (
-    <IconContext.Provider value={{ color: 'white', size: '3rem' }}>
+    <IconContext.Provider value={{ color: "white", size: "3rem" }}>
       <NavBar />
       <Container className={classes.container}>
         <div className={classes.box}>
@@ -158,7 +184,7 @@ const LandingPage = () => {
       </Container>
       <Container className={classes.contentContainer}>
         <Box className={classes.contentIntro}>
-          <h2>Sign Up Now!</h2>
+          <Typography variant="subtitle2">Sign Up Now!</Typography>
           <Typography className={classes.contentP}>
             Sign Up Now with Facebook or Google, add your profile info, and keep
             track of Angel City Sports Games, Clinics, and other events! All the
@@ -180,23 +206,17 @@ const LandingPage = () => {
             <FaGoogle className={classes.icon} />
             <p>Sign up with Google</p>
           </Button>
-
           <Link
             to="privacy-policy"
-            style={{ padding: '0' }}
-            className="privacy-link"
+            style={{ padding: "0" }}
+            className={classes.privacyLink}
           >
-            <small>Privacy Policy</small>
-          </Link>
-
-          <Link
-            className={classes.privBtn}
-            to="accessibility"
-            className="accessibility"
-          >
-            Accessibility Statement
+            <p>Privacy Policy</p>
           </Link>
         </Box>
+        <Link to="accessibility" className={classes.a11yLink}>
+          Accessibility Statement
+        </Link>
       </Container>
     </IconContext.Provider>
   );

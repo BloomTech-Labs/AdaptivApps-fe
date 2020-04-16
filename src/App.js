@@ -1,35 +1,35 @@
 // Import dependencies
-import React from 'react';
+import React from "react";
 // Reach Router imports
-import { Router } from '@reach/router';
+import { Router } from "@reach/router";
 // Import route components
-import DashRouter from './routes/DashRouter';
-import PrivateRoute from './routes/PrivateRoute';
+import DashRouter from "./routes/DashRouter";
+import PrivateRoute from "./routes/PrivateRoute";
 // Import page components
-import EventsCalendar from './pages/EventsCalendar';
-import UserProfile from './pages/UserProfile';
-import MyEvents from './pages/MyEvents';
-import ActivityList from './pages/ActivitiesList';
-import MyEventDetails from './pages/MyEventDetails';
-import ManageEvents from './pages/ManageEvents';
-import Accessibility from './pages/Landing/Legal/Accessibility';
-import PrivacyPolicy from './pages/Landing/Legal/PrivacyPolicy';
-import ManageUsers from './pages/ManageUsers';
+import EventsCalendar from "./pages/EventsCalendar";
+import UserProfile from "./pages/UserProfile";
+import MyEvents from "./pages/MyEvents";
+import ActivityList from "./pages/ActivitiesList";
+import MyEventDetails from "./pages/MyEventDetails";
+import ManageEvents from "./pages/ManageEvents";
+import Accessibility from "./pages/Landing/Legal/Accessibility";
+import PrivacyPolicy from "./pages/Landing/Legal/PrivacyPolicy";
+import ManageUsers from "./pages/ManageUsers";
 
 // Import apollo server
-import { ApolloProvider } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-boost';
+import { ApolloProvider } from "@apollo/react-hooks";
+import ApolloClient from "apollo-boost";
 // Google Analytics Imports
-import ReactGA from 'react-ga';
+import ReactGA from "react-ga";
 // Auth0 imports
-import { useAuth0 } from './config/react-auth0-spa';
-import './pages/ActivitiesList/styles.css'
+import { useAuth0 } from "./config/react-auth0-spa";
+import "./styles.css";
 
-const trackingId = 'UA-159556430-1';
+const trackingId = "UA-159556430-1";
 
 (function initializeReactGA() {
   ReactGA.initialize(trackingId, { testMode: true });
-  ReactGA.pageview('/');
+  ReactGA.pageview("/");
 })();
 
 function App() {
@@ -38,7 +38,7 @@ function App() {
   // Generate new apollo client
   const client = new ApolloClient({
     uri: process.env.REACT_APP_API_URL,
-    credentials: 'same-origin',
+    credentials: "same-origin",
     request: async operation => {
       const token = await getIdTokenClaims();
       // Attach token to header
@@ -50,7 +50,6 @@ function App() {
       }));
     },
   });
-
   return (
     <ApolloProvider client={client}>
       <div className="App">

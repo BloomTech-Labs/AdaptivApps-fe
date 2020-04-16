@@ -1,13 +1,13 @@
-import React from 'react';
-import AdminActivityList from '../pages/ManageEvents/AdminActivityList';
-import {create, act} from 'react-test-renderer';
-import { ApolloProvider } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-boost';
-import { getIdTokenClaims } from '../config/react-auth0-spa';
+import React from "react";
+import AdminActivityList from "../pages/ManageEvents/AdminActivityList";
+import { create, act } from "react-test-renderer";
+import { ApolloProvider } from "@apollo/react-hooks";
+import ApolloClient from "apollo-boost";
+import { getIdTokenClaims } from "../config/react-auth0-spa";
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_API_URL,
-  credentials: 'same-origin',
+  credentials: "same-origin",
   request: async operation => {
     const token = await getIdTokenClaims();
     // Attach token to headers
@@ -20,11 +20,9 @@ const client = new ApolloClient({
   },
 });
 
-beforeEach(() => {
-  
-})
+beforeEach(() => {});
 
-it('renders admin activity list (table) correctly', async () => {
+it("renders admin activity list (table) correctly", async () => {
   const event = {
     event_id: 123,
     title: "Test Event",
@@ -37,17 +35,17 @@ it('renders admin activity list (table) correctly', async () => {
         name: "Test Activity",
         startDate: "3/25/20",
         location: "Test Location",
-        startTime: "8:00AM"
-      }
-    ]
+        startTime: "8:00AM",
+      },
+    ],
   };
   let tree;
-    act(() => {
-      tree = create(
-        <ApolloProvider client={client} >
-          <AdminActivityList event={event} />
-        </ApolloProvider>
-      )
-    })
+  act(() => {
+    tree = create(
+      <ApolloProvider client={client}>
+        <AdminActivityList event={event} />
+      </ApolloProvider>
+    );
+  });
   expect(tree.toJSON()).toMatchSnapshot();
 });

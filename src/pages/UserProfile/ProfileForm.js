@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
-import config from '../../config/auth_config';
-import { useForm, Controller } from 'react-hook-form';
-import PropTypes from 'prop-types';
-import * as yup from 'yup';
+import React, { useState, useEffect } from "react";
+import config from "../../config/auth_config";
+import { useForm, Controller } from "react-hook-form";
+import PropTypes from "prop-types";
+import * as yup from "yup";
 //material ui
 import {
   makeStyles,
@@ -14,81 +14,87 @@ import {
   Select,
   MenuItem,
   Button,
-} from '@material-ui/core';
+} from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
-    maxwidth: '100%',
-    width: '90%',
-    fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
+    maxwidth: "100%",
+    width: "90%",
+    // fontFamily: ['Roboto', 'Helvetica', 'Arial', 'sans-serif'],
   },
   headingBox: {
-    margin: '6rem 0 2rem 3rem',
-    fontWeight: '400',
-    borderColor: '#D3D3D3',
+    margin: "6rem 0 2rem 3rem",
+    fontWeight: "400",
+    borderColor: "#D3D3D3",
   },
   profileContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    marginLeft: '0.6rem',
+    display: "flex",
+    flexDirection: "column",
+    marginLeft: "0.6rem",
   },
   profileHeader: {
-    fontWeight: '400',
-    marginLeft: '0',
+    fontWeight: "400",
+    marginLeft: "0",
   },
   profileInfo: {
-    display: 'flex',
+    display: "flex",
   },
   profileImg: {
-    maxWidth: '5rem',
+    maxWidth: "5rem",
   },
   profileText: {
-    margin: '0 0 0 1rem',
-    fontSize: '1.8rem',
-    alignSelf: 'flex-end',
+    margin: "0 0 0 1rem",
+    fontSize: "1.8rem",
+    alignSelf: "flex-end",
   },
   personalInfo: {
-    display: 'flex',
-    marginTop: '3rem',
-    marginBlockEnd: '0',
-  },
-  role: {
-    fontSize: '1.4rem',
+    display: "flex",
+    marginTop: "3rem",
+    marginBlockEnd: "0",
   },
   form: {
-    display: 'flex',
-    flexDirection: 'column',
+    display: "flex",
+    flexDirection: "column",
+    "& .MuiButton-label": {
+      fontSize: "1.6rem",
+    },
   },
   formBox: {
-    display: 'flex',
+    display: "flex",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+    },
   },
   input: {
-    width: '100%',
-    maxWidth: '600px',
+    width: "100%",
+    maxWidth: "600px",
   },
   resize: {
-    fontSize: '1.4rem',
+    fontSize: "1.4rem",
   },
   box: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    margin: '1rem 3% 0 0',
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+    margin: "1rem 3% 0 0",
   },
   inputLabel: {
-    fontSize: '1.4rem',
-    margin: '1rem 0 .4rem 0',
+    fontSize: "1.4rem",
+    margin: "1rem 0 .4rem 0",
   },
   button: {
-    marginTop: '3rem',
-    border: '1px solid #2962FF',
-    color: '#2962FF',
-    height: '4rem',
-    width: '8rem',
-    fontSize: '1.2rem',
-    textTransform: 'none',
+    marginTop: "3rem",
+    border: "1px solid #2962FF",
+    color: "#2962FF",
+    height: "4rem",
+    width: "8rem",
+    fontSize: "1.2rem",
+    textTransform: "none",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
-});
+}));
 
 const ProfileSchema = yup.object().shape({
   firstName: yup
@@ -113,7 +119,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   const classes = useStyles();
 
   const { handleSubmit, register, setValue, control } = useForm({
-    mode: 'onSubmit',
+    mode: "onSubmit",
     validationSchema: ProfileSchema,
     defaultValues: {
       email: user && user.email,
@@ -134,50 +140,50 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
       variables: {
         email: user.email,
         firstName:
-          formValues.firstName === ''
+          formValues.firstName === ""
             ? userProfile.firstName
             : formValues.firstName,
         lastName:
-          formValues.lastName === ''
+          formValues.lastName === ""
             ? userProfile.lastName
             : formValues.lastName,
         displayName:
-          formValues.displayName === ''
+          formValues.displayName === ""
             ? userProfile.displayName
             : formValues.displayName,
         birthday:
-          formValues.birthday === ''
+          formValues.birthday === ""
             ? userProfile.birthday
             : formValues.birthday,
-        bio: formValues.bio === '' ? userProfile.bio : formValues.bio,
+        bio: formValues.bio === "" ? userProfile.bio : formValues.bio,
         disability:
-          formValues.disability === ''
+          formValues.disability === ""
             ? userProfile.disability
             : formValues.disability,
-        legal: formValues.legal === '' ? userProfile.legal : formValues.legal,
+        legal: formValues.legal === "" ? userProfile.legal : formValues.legal,
       },
     });
     // frontend update
     setUserProfile({
       email: user.email,
       firstName:
-        formValues.firstName === ''
+        formValues.firstName === ""
           ? userProfile.firstName
           : formValues.firstName,
       lastName:
-        formValues.lastName === '' ? userProfile.lastName : formValues.lastName,
+        formValues.lastName === "" ? userProfile.lastName : formValues.lastName,
       displayName:
-        formValues.displayName === ''
+        formValues.displayName === ""
           ? userProfile.displayName
           : formValues.displayName,
       birthday:
-        formValues.birthday === '' ? userProfile.birthday : formValues.birthday,
-      bio: formValues.bio === '' ? userProfile.bio : formValues.bio,
+        formValues.birthday === "" ? userProfile.birthday : formValues.birthday,
+      bio: formValues.bio === "" ? userProfile.bio : formValues.bio,
       disability:
-        formValues.disability === ''
+        formValues.disability === ""
           ? userProfile.disability
           : formValues.disability,
-      legal: formValues.legal === '' ? userProfile.legal : formValues.legal,
+      legal: formValues.legal === "" ? userProfile.legal : formValues.legal,
     });
   };
 
@@ -199,36 +205,34 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 
   // alerts user to successful update, handy for screen readers
   const handleUpdated = () => {
-    alert('Profile updated successfully!');
+    alert("Profile updated successfully!");
     setUpdated(false);
   };
 
   const userPicture = user && user.picture;
- 
+
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
-        <Typography className={classes.heading} variant="h3" gutterBottom>
+        <Typography variant="h1" gutterBottom>
           Account Information
         </Typography>
       </Box>
       <Container className={classes.profileContainer}>
         <Box className={classes.profileInfo}>
           <img className={classes.profileImg} src={userPicture} alt="Profile" />
-          <Typography className={classes.profileText}>
-            {userProfile && userProfile.firstName !== null
-              ? `${userProfile && userProfile.firstName} ${userProfile &&
-                  userProfile.lastName}`
-              : user && user.name}{' '}
-            {user && user[config.roleUrl].includes('Admin') ? (
-              <Typography className={classes.role}>
-                {user && user[config.roleUrl]}
-              </Typography>
-            ) : null}
-          </Typography>
+          <Box className={classes.profileText}>
+            <Typography>
+              {userProfile && userProfile.firstName !== null
+                ? `${userProfile && userProfile.firstName} ${userProfile &&
+                    userProfile.lastName}`
+                : user && user.name}{" "}
+            </Typography>
+            <Typography>{user && user.email}</Typography>
+          </Box>
         </Box>
 
-        <Typography className={classes.personalInfo} variant="h4" gutterBottom>
+        <Typography className={classes.personalInfo} variant="h2" gutterBottom>
           Personal Information
         </Typography>
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
@@ -243,7 +247,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 id="firstName"
                 variant="outlined"
                 type="text"
-                placeholder={userProfile ? userProfile.firstName : null}
+                placeholder={userProfile ? userProfile.firstName : ""}
                 name="firstName"
                 control={control}
                 InputProps={{
@@ -263,7 +267,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 id="lastName"
                 type="text"
                 variant="outlined"
-                placeholder={userProfile ? userProfile.lastName : null}
+                placeholder={userProfile ? userProfile.lastName : ""}
                 name="lastName"
                 control={control}
                 InputProps={{
@@ -285,7 +289,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 id="displayName"
                 type="text"
                 variant="outlined"
-                placeholder={userProfile ? userProfile.displayName : null}
+                placeholder={userProfile ? userProfile.displayName : ""}
                 name="displayName"
                 control={control}
                 InputProps={{
@@ -306,7 +310,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 type="text"
                 variant="outlined"
                 name="birthday"
-                placeholder={userProfile ? userProfile.birthday : 'mm/dd/yyyy'}
+                placeholder={userProfile ? userProfile.birthday : "mm/dd/yyyy"}
                 control={control}
                 InputProps={{
                   classes: {
@@ -371,7 +375,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 as={
                   <Select value={userProfile?.legal}>
                     <MenuItem value="">
-                      {userProfile ? userProfile.legal : null}
+                      {userProfile ? userProfile.legal : ""}
                     </MenuItem>
                     <MenuItem value={`Adult`}>Adult</MenuItem>
                     <MenuItem value={`Minor`}>Minor</MenuItem>
@@ -394,7 +398,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
             <Button
               className={classes.button}
               variant="outlined"
-              color="#2962FF"
+              color="primary"
               type="submit"
               aria-label="save changes to user profile"
               onClick={() => {

@@ -1,7 +1,7 @@
-import React from 'react';
-import { useAuth0 } from '../../../config/react-auth0-spa';
-import config from '../../../config/auth_config';
-import PropTypes from 'prop-types';
+import React from "react";
+import { useAuth0 } from "../../../config/react-auth0-spa";
+import config from "../../../config/auth_config";
+import PropTypes from "prop-types";
 import {
   makeStyles,
   useTheme,
@@ -11,46 +11,46 @@ import {
   IconButton,
   Toolbar,
   Button,
-} from '@material-ui/core';
-import NavLink from './NavLink';
-import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import BookmarkIcon from '@material-ui/icons/BookmarkBorder';
-import HomeIcon from '@material-ui/icons/HomeOutlined';
-import UserIcon from '@material-ui/icons/PersonOutlineOutlined';
-import GroupIcon from '@material-ui/icons/GroupAddOutlined';
-import MenuIcon from '@material-ui/icons/Menu';
-import { IconContext } from 'react-icons';
-import { FiLogOut } from 'react-icons/fi';
-import acsLogo from '../../../assets/images/acsLogo.png';
+} from "@material-ui/core";
+import NavLink from "./NavLink";
+import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
+import BookmarkIcon from "@material-ui/icons/BookmarkBorder";
+import HomeIcon from "@material-ui/icons/HomeOutlined";
+import UserIcon from "@material-ui/icons/PersonOutlineOutlined";
+import GroupIcon from "@material-ui/icons/GroupAddOutlined";
+import MenuIcon from "@material-ui/icons/Menu";
+import { IconContext } from "react-icons";
+import { FiLogOut } from "react-icons/fi";
+import acsLogo from "../../../assets/images/acsLogo.png";
 
-const drawerWidth = '25rem';
+const drawerWidth = "25rem";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    border: 'none',
+    display: "flex",
+    flexDirection: "column",
+    border: "none",
   },
   navPaper: {
-    border: 'none',
+    border: "none",
   },
   drawer: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up("sm")]: {
       width: drawerWidth,
       flexShrink: 0,
     },
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
     },
   },
   drawerPaper: {
     width: drawerWidth,
-    border: 'none',
+    border: "none",
     boxShadow:
-      '0px 1px 3px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.12), 0px 0px 2px rgba(0, 0, 0, 0.14)',
+      "0px 1px 3px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.12), 0px 0px 2px rgba(0, 0, 0, 0.14)",
   },
   content: {
     flexGrow: 1,
@@ -58,59 +58,65 @@ const useStyles = makeStyles(theme => ({
   },
   imgBox: {
     width: drawerWidth,
-    marginTop: '5rem',
-    '& img': {
+    marginTop: "5rem",
+    "& img": {
       width: drawerWidth,
     },
   },
   navContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    margin: '0 auto',
-    width: '98%',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    margin: "0 auto",
+    width: "98%",
   },
   navLink: {
-    height: '5rem',
-    display: 'flex',
-    alignContent: 'flex-start',
-    alignItems: 'center',
-    margin: '.5rem auto',
-    textAlign: 'left',
+    textDecoration: "none",
+    height: "5rem",
+    display: "flex",
+    alignContent: "flex-start",
+    alignItems: "center",
+    margin: ".5rem auto",
+    textAlign: "left",
+    "& p": {
+      fontSize: "1.6rem",
+    },
   },
   logoutContainer: {
-    display: 'flex',
-    alignSelf: 'flex-start',
-    alignItems: 'flex-end',
-    width: '100%',
-    height: '100%',
+    display: "flex",
+    alignSelf: "flex-start",
+    alignItems: "flex-end",
+    width: "100%",
+    height: "100%",
+    "& p": {
+      fontSize: "1.6rem",
+    },
   },
   logoutBtn: {
-    display: 'flex',
-    justifyContent: 'flex-start',
-    margin: '0 0 2rem 0',
-    textTransform: 'none',
-    fontSize: '1.6rem',
-    width: '100%',
+    display: "flex",
+    justifyContent: "flex-start",
+    margin: "0 0 2rem 0",
+    textTransform: "none",
+    width: "100%",
   },
   logoutIcon: {
-    color: '#2962FF',
-    margin: '0 1rem 0 3rem',
-    fontSize: '2.5rem',
+    color: "#2962FF",
+    margin: "0 1rem 0 3rem",
+    fontSize: "2.5rem",
   },
   navIcon: {
-    margin: '0 1rem 0 3rem',
-    fontSize: '2.5rem',
+    margin: "0 1rem 0 3rem",
+    fontSize: "2.5rem",
   },
   iconActive: {
-    color: '#FFFFFF'
+    color: "#FFFFFF",
   },
   logoutP: {
-    color: '#2962FF',
+    color: "#2962FF",
   },
 }));
 
-function SideNav2(props) {
+function SideNav(props) {
   const { user } = props;
   const { logout } = useAuth0();
   const { container } = props;
@@ -140,7 +146,7 @@ function SideNav2(props) {
           <UserIcon className={classes.navIcon} />
           <p>My Profile</p>
         </NavLink>
-        {user && user[config.roleUrl].includes('Admin') ? (
+        {user && user[config.roleUrl].includes("Admin") ? (
           <>
             <NavLink to="manage" className={classes.navLink}>
               <HomeIcon className={classes.navIcon} />
@@ -156,7 +162,7 @@ function SideNav2(props) {
       <Box className={classes.logoutContainer}>
         <Button className={classes.logoutBtn} onClick={() => logout()}>
           <IconContext.Provider
-            value={{ style: { transform: 'rotate(180deg)' } }}
+            value={{ style: { transform: "rotate(180deg)" } }}
           >
             <FiLogOut className={classes.logoutIcon} />
             <p className={classes.logoutP}>Log Out</p>
@@ -185,7 +191,7 @@ function SideNav2(props) {
           <Drawer
             container={container}
             variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            anchor={theme.direction === "rtl" ? "right" : "left"}
             open={mobileOpen}
             onClose={handleDrawerToggle}
             classes={{
@@ -214,7 +220,7 @@ function SideNav2(props) {
   );
 }
 
-SideNav2.propTypes = {
+SideNav.propTypes = {
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
@@ -222,4 +228,4 @@ SideNav2.propTypes = {
   container: PropTypes.any,
 };
 
-export default SideNav2;
+export default SideNav;
