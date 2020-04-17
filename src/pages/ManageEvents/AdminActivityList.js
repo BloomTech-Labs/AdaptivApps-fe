@@ -1,21 +1,26 @@
-import React from 'react';
-import { makeStyles, Input, Button, Grid } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
-import { useQuery, useMutation } from 'react-apollo';
+import React from "react";
+import { makeStyles, Input, InputLabel, Button, Grid } from "@material-ui/core";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import { useQuery, useMutation } from "react-apollo";
 import {
   CREATE_ACTIVITY,
   UPDATE_ACTIVITY,
   DELETE_ACTIVITY,
   GET_ONE_EVENT,
-} from './queries';
-import MaterialTable from 'material-table';
+} from "./queries";
+import MaterialTable from "material-table";
 
 const useStyles = makeStyles({
   addBtn: {
-    color: '#2763FF',
-    textTransform: 'none',
+    color: "#2763FF",
+    textTransform: "none",
+  },
+  label: {
+    marginTop: ".8rem",
+    color: "red",
+    fontSize: "1rem",
   },
 });
 // Material table docs here: https://material-table.com/
@@ -43,8 +48,50 @@ const AdminActivityList = props => {
         title=""
         columns={[
           {
-            title: 'Name',
-            field: 'name',
+            title: "Name",
+            field: "name",
+            editComponent: props => (
+              <>
+                <Input
+                  type="text"
+                  value={props.value}
+                  onChange={e => props.onChange(e.target.value)}
+                />
+                <InputLabel className={classes.label}>*Required</InputLabel>
+              </>
+            ),
+          },
+          {
+            title: "Date",
+            field: "startDate",
+            editComponent: props => (
+              <>
+                <Input
+                  type="date"
+                  value={props.value}
+                  onChange={e => props.onChange(e.target.value)}
+                />
+                <InputLabel className={classes.label}>*Required</InputLabel>
+              </>
+            ),
+          },
+          {
+            title: "Time",
+            field: "startTime",
+            editComponent: props => (
+              <>
+                <Input
+                  type="time"
+                  value={props.value}
+                  onChange={e => props.onChange(e.target.value)}
+                />
+                <InputLabel className={classes.label}>*Required</InputLabel>
+              </>
+            ),
+          },
+          {
+            title: "Location",
+            field: "location",
             editComponent: props => (
               <Input
                 type="text"
@@ -54,69 +101,48 @@ const AdminActivityList = props => {
             ),
           },
           {
-            title: 'Date',
-            field: 'startDate',
-            editComponent: props => (
-              <Input
-                type="date"
-                value={props.value}
-                onChange={e => props.onChange(e.target.value)}
-              />
-            ),
-          },
-          {
-            title: 'Time',
-            field: 'startTime',
-            editComponent: props => (
-              <Input
-                type="time"
-                value={props.value}
-                onChange={e => props.onChange(e.target.value)}
-              />
-            ),
-          },
-          {
-            title: 'Location',
-            field: 'location',
-            editComponent: props => (
-              <Input
-                type="text"
-                value={props.value}
-                onChange={e => props.onChange(e.target.value)}
-              />
-            ),
-          },
-          {
-            title: 'Link',
-            field: 'link',
-            editComponent: props => (
-              <Input
-                type="text"
-                value={props.value}
-                onChange={e => props.onChange(e.target.value)}
-              />
-            ),
-          },
-          {
-            title: 'Type',
-            field: 'type',
-            editComponent: props => (
-              <Input
-                type="text"
-                value={props.value}
-                onChange={e => props.onChange(e.target.value)}
-              />
-            ),
-          },
-          {
-            title: 'Details',
-            field: 'details',
+            title: "Link",
+            field: "link",
             render: rowData => (
               <div
                 style={{
-                  width: '30rem',
-                  maxHeight: '14rem',
-                  overflow: 'scroll',
+                  fontSize: "1.4rem",
+                  width: "22rem",
+                  overflow: "scroll",
+                }}
+              >
+                {rowData.link}
+              </div>
+            ),
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+              />
+            ),
+          },
+          {
+            title: "Type",
+            field: "type",
+            editComponent: props => (
+              <Input
+                type="text"
+                value={props.value}
+                onChange={e => props.onChange(e.target.value)}
+              />
+            ),
+          },
+          {
+            title: "Details",
+            field: "details",
+            render: rowData => (
+              <div
+                style={{
+                  fontSize: "1.4rem",
+                  width: "30rem",
+                  maxHeight: "13rem",
+                  overflow: "scroll",
                 }}
               >
                 {rowData.details}
@@ -124,7 +150,10 @@ const AdminActivityList = props => {
             ),
             editComponent: props => (
               <textarea
-                rows="12"
+                style={{
+                  fontSize: "1.4rem",
+                }}
+                rows="7"
                 cols="60"
                 type="text"
                 value={props.value}
@@ -178,33 +207,33 @@ const AdminActivityList = props => {
           Add: () => (
             <>
               <AddCircleOutlineIcon
-                style={{ color: '#2962FF' }}
+                style={{ color: "#2962FF" }}
                 fontSize="large"
               />
               <Button className={classes.addBtn}>Add Activity</Button>
             </>
           ),
           Edit: () => (
-            <EditIcon style={{ color: '#2962FF' }} fontSize="large" />
+            <EditIcon style={{ color: "#2962FF" }} fontSize="large" />
           ),
           Delete: () => (
-            <DeleteIcon style={{ color: '#2962FF' }} fontSize="large" />
+            <DeleteIcon style={{ color: "#2962FF" }} fontSize="large" />
           ),
         }}
         options={{
           cellStyle: {
-            fontSize: '1.4rem',
+            fontSize: "1.4rem",
           },
           headerStyle: {
-            fontSize: '1.4rem',
-            backgroundColor: '#2962FF',
-            color: '#FFF',
+            fontSize: "3.4rem",
+            backgroundColor: "#2962FF",
+            color: "#FFF",
           },
           search: false,
           showTitle: true,
           paging: false,
           emptyRowsWhenPaging: false,
-          toolbarButtonAlignment: 'left',
+          toolbarButtonAlignment: "left",
         }}
       />
     </Grid>

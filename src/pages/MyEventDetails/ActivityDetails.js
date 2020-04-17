@@ -1,30 +1,30 @@
 // React imports
-import React from 'react';
+import React from "react";
 // Auth0 imports
-import { useAuth0 } from '../../config/react-auth0-spa';
-import SimpleModal from '../ActivitiesList/SimpleModal';
+import { useAuth0 } from "../../config/react-auth0-spa";
+import SimpleModal from "../ActivitiesList/SimpleModal";
 // Styling imports
-import { makeStyles } from '@material-ui/core';
-import PropTypes from 'prop-types';
+import { makeStyles } from "@material-ui/core";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
   root: {
-    '& td': {
-      width: '20rem',
-      padding: '0 1% 2% 0',
-      display: 'flex',
-      textAlign: 'left',
-      fontSize: '1.6rem',
+    "& td": {
+      width: "20rem",
+      padding: "0 1% 2% 0",
+      display: "flex",
+      textAlign: "left",
+      fontSize: "1.6rem",
     },
-    '& a': {
-      fontSize: '1.6rem',
-      textDecoration: 'none'
+    "& a": {
+      fontSize: "1.6rem",
+      textDecoration: "none",
     },
   },
   nameLink: {
-    color: '#2962FF',
-    '& .MuiButton-label': {
-      fontSize: '1.6rem',
+    color: "#2962FF",
+    "& .MuiButton-label": {
+      fontSize: "1.6rem",
       fontWeight: 500,
     },
   },
@@ -34,14 +34,13 @@ export default function ActivityDetails({ activity }) {
   const { user } = useAuth0();
   
   const activeEvent = activity.event;
-  console.log('activity link', activity.link);
   return (
     <tr className={classes.root}>
       <td className={classes.nameLink}>
         <SimpleModal activity={activity} />
       </td>
       <td>{activity.startDate}</td>
-      {activeEvent.type === 'Webinar' ? (
+      {activeEvent.type === "Webinar" ? (
         <td>
           <a className={classes.nameLink} href={activity.link}>
             Join!

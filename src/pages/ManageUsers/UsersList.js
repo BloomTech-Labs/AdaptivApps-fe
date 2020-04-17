@@ -1,13 +1,13 @@
-import React from 'react';
-import { Container, makeStyles } from '@material-ui/core';
-import { useQuery } from 'react-apollo';
-import { GET_PROFILES } from './queries';
-import MaterialTable from 'material-table';
+import React from "react";
+import { Container, makeStyles } from "@material-ui/core";
+import { useQuery } from "react-apollo";
+import { GET_PROFILES } from "./queries";
+import MaterialTable from "material-table";
 
 const useStyles = makeStyles({
   root: {
-    display: 'flex',
-    flexDirection: 'column'
+    display: "flex",
+    flexDirection: "column",
   },
 });
 
@@ -16,7 +16,6 @@ const useStyles = makeStyles({
 const UsersList = () => {
   const classes = useStyles();
   const { data } = useQuery(GET_PROFILES);
-  
 
   return (
     <Container className={classes.root} m="0 2% 0 2%">
@@ -24,11 +23,11 @@ const UsersList = () => {
         title="Registered Users"
         data={data?.profiles}
         columns={[
-          { title: 'Firstname', field: 'firstName' },
-          { title: 'Lastname', field: 'lastName' },
-          { title: 'Birthday', field: 'birthday' },
-          { title: 'Disability', field: 'disability' },
-          { title: 'Legal Status', field: 'legal' },
+          { title: "Firstname", field: "firstName" },
+          { title: "Lastname", field: "lastName" },
+          { title: "Birthday", field: "birthday" },
+          { title: "Disability", field: "disability" },
+          { title: "Legal Status", field: "legal" },
         ]}
         options={{
           selection: true,
@@ -38,18 +37,18 @@ const UsersList = () => {
           emptyRowsWhenPaging: false,
           filtering: true,
           cellStyle: {
-            fontSize: '1.2rem',
+            fontSize: "1.2rem",
           },
           headerStyle: {
-            fontSize: '1.2rem',
+            fontSize: "1.2rem",
           },
         }}
         actions={[
           {
-            tooltip: 'Send a message to all selected users',
-            icon: 'message',
+            tooltip: "Send a message to all selected users",
+            icon: "message",
             onClick: (evt, data) =>
-              alert('Send messages to ' + data.length + ' users?'),
+              alert("Send messages to " + data.length + " users?"),
           },
         ]}
       />

@@ -1,5 +1,5 @@
-import React from 'react';
-import { Container, makeStyles } from '@material-ui/core';
+import React from "react";
+import { Container, makeStyles } from "@material-ui/core";
 // Ask stake holder before implementing this page
 // From what I understand, this component can be a search console
 // That performs a search-filter mechanism on users based on
@@ -7,9 +7,9 @@ import { Container, makeStyles } from '@material-ui/core';
 // participating in a certain event and are under 18.  -- Jonathan C
 const useStyles = makeStyles({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    margin: '0 2% 0 2%',
+    display: "flex",
+    flexDirection: "column",
+    margin: "0 2% 0 2%",
   },
 });
 

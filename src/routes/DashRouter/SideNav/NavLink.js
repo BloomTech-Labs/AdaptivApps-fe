@@ -1,6 +1,5 @@
-import React from 'react';
-import { Link } from '@reach/router';
-import './styles.css';
+import React from "react";
+import { Link } from "@reach/router";
 
 const NavLink = props => {
   return (
@@ -12,10 +11,10 @@ const NavLink = props => {
         // anchor element's props
         return {
           style: {
-            width: '100%',
-            marginLeft: '0',
-            color: isCurrent ? 'white' : '#2962FF',
-            background: isCurrent ? '#2962FF' : 'white',
+            width: "100%",
+            marginLeft: "0",
+            color: isCurrent ? "white" : "#2962FF",
+            background: isCurrent ? "#2962FF" : "white",
           },
         };
       }}

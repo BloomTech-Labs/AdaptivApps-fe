@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 // Retrieves all events a user is registered to.
 export const GET_USER_EVENTS = gql`
