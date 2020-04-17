@@ -3,8 +3,9 @@ import React from "react";
 //Component imports
 import { useNavigate } from "@reach/router";
 // GraphQL/Apollo imports
-import { useMutation } from "react-apollo";
-import { UNREGISTER_FROM_EVENT } from "./queries";
+import { useMutation, useQuery } from "react-apollo";
+import { useLazyQuery } from "@apollo/react-hooks";
+import { UNREGISTER_FROM_ALL, GET_PARTICIPANT_IDS } from "./queries";
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
 //Styling imports
@@ -85,12 +86,28 @@ export default function MyEventCard({ event, refetch }) {
   const navigate = useNavigate();
   // Retrieves current user info from Auth0
   const { user } = useAuth0();
-  const [updateProfile] = useMutation(UNREGISTER_FROM_EVENT);
+  // const [getParticipantIds, { data }] = useLazyQuery(GET_PARTICIPANT_IDS);
+  const { data } = useQuery(GET_PARTICIPANT_IDS, {
+    variables: {email: user.email, id: event.id}
+  });
+
+
+  // console.log('Participant IDs', data)
+
+  const [updateProfile] = useMutation(UNREGISTER_FROM_ALL);
 
   // Unregisters user from specified event
   const unregisterFromEvent = async () => {
+    
+    const participantIds = data.participants.map(participant => {
+      return participant.id;
+    });  
+    const participantIdValue = JSON.stringify(participantIds).replace(
+      /[\[\]"]+/g,
+      ""
+    );
     await updateProfile({
-      variables: { id: event.id, email: user.email },
+      variables: { id: event.id, email: user.email, participantIds: participantIdValue },
     });
     await refetch();
   };
