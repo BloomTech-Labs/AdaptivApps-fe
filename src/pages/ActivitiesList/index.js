@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "react-apollo";
 import Activities from "./Activities";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { useParams } from "@reach/router";
 import { GET_EVENT_ACTIVITIES } from "./queries/getActivities";
@@ -92,6 +93,12 @@ const useStyles = makeStyles({
     maxWidth: "80rem",
     margin: "2rem 0 0 3rem",
   },
+  loadingSpinner: {
+    position: "absolute",
+    top: "50%",
+    right: "50%",
+    color: "#2763FF",
+  },
 });
 
 export default function ActivityList() {
@@ -103,7 +110,7 @@ export default function ActivityList() {
       variables: { id: eventId },
     }
   );
-  if (loading) return "Loading...";
+  if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
   return (
     <main className={classes.root}>

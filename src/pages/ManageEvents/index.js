@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles, Box, Typography } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { useQuery } from "react-apollo";
 import { GET_EVENTS } from "./queries";
@@ -15,6 +16,12 @@ const useStyles = makeStyles({
     margin: "6rem 0 2rem 3rem",
     fontWeight: "400",
     borderColor: "#D3D3D3",
+  },
+  loadingSpinner: {
+    position: "absolute",
+    top: "50%",
+    right: "50%",
+    color: "#2763FF",
   },
 });
 
@@ -40,7 +47,7 @@ const ManageEvents = () => {
             eventsRefetch={eventsRefetch}
           />
         ) : (
-          <p>Loading</p>
+          <CircularProgress className={classes.loadingSpinner} />
         )}
       </Box>
     </main>

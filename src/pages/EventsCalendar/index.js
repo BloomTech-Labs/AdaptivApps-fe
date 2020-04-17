@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useQuery } from "react-apollo";
 import { makeStyles, Grid, Box, Typography } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import EventCard from "./EventCard";
 import { GET_EVENT_LIST } from "./queries";
@@ -21,6 +22,12 @@ const useStyles = makeStyles({
     flexWrap: "wrap",
     marginLeft: "3rem",
   },
+  loadingSpinner: {
+    position: "absolute",
+    top: "50%",
+    right: "50%",
+    color: "#2763FF",
+  },
 });
 
 export default function EventsCalendar() {
@@ -30,7 +37,7 @@ export default function EventsCalendar() {
   useEffect(() => {
     refetch();
   }, [refetch]);
-  if (loading) return "Loading...";
+  if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
 
   return (

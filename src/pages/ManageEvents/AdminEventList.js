@@ -55,7 +55,6 @@ const AdminEventList = props => {
     },
   });
   const classes = useStyles();
-  console.log("events in material table", events);
   // This code is returning a material table object
   // For more info on material table, please visit their docs at
   // https://material-table.com/

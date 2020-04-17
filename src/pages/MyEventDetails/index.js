@@ -11,6 +11,7 @@ import { useQuery } from "react-apollo";
 import { GET_EVENT_DETAILS } from "./queries";
 // Styling imports
 import { Box, Typography, makeStyles } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles({
   root: {
@@ -22,6 +23,12 @@ const useStyles = makeStyles({
   headingBox: {
     margin: "6rem 0 2rem 3rem",
     borderColor: "#D3D3D3",
+  },
+  loadingSpinner: {
+    position: "absolute",
+    top: "50%",
+    right: "50%",
+    color: "#2763FF",
   },
 });
 
@@ -38,7 +45,7 @@ export default function MyEventDetails() {
   useEffect(() => {
     refetch();
   }, [refetch]);
-  if (loading) return "Loading...";
+  if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
 
   const activeEvent = data.events;
