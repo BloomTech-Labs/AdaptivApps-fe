@@ -49,7 +49,7 @@ const useStyles = makeStyles(theme => ({
       fontWeight: "bold",
       fontSize: "1.8rem",
       marginTop: "3rem",
-      marginBottom: 0,
+      marginBottom: "2rem",
     },
     "& tr": {
       display: "flex",
@@ -97,6 +97,11 @@ const useStyles = makeStyles(theme => ({
     color: "#202020",
     width: "20rem",
   },
+  details: {
+    fontSize: "1.4rem",
+    maxWidth: "80rem",
+    margin: "2rem 0 0 0",
+  },
 }));
 
 export default function EventDetails(props) {
@@ -110,7 +115,6 @@ export default function EventDetails(props) {
 
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
-  console.log("activity data", data);
 
   const currentActivities = data.activities;
   return (
@@ -137,7 +141,9 @@ export default function EventDetails(props) {
         )}
       </Box>
       <Box className={classes.detailsContainer}>
-        <Typography variant="body1">{activeEvent.details}</Typography>
+        <Typography className={classes.details} variant="body1">
+          {activeEvent.details}
+        </Typography>
       </Box>
 
       {activeEvent.type === "Webinar" ? (
@@ -148,7 +154,7 @@ export default function EventDetails(props) {
             <a href={activeEvent.link}>Click Here to Join Us!</a>
           </Box>
           <Box className={classes.myActivitiesBox}>
-            <p>Activities</p>
+            <p>My Activities</p>
             <table className={classes.table}>
               <tbody>
                 <tr className={classes.headerRow}>
