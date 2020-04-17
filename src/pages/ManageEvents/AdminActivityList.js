@@ -196,7 +196,7 @@ const AdminActivityList = props => {
             fontSize: "1.4rem",
           },
           headerStyle: {
-            fontSize: "1.4rem",
+            fontSize: "6rem",
             backgroundColor: "#2962FF",
             color: "#FFF",
           },

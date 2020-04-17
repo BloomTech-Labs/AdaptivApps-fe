@@ -117,11 +117,6 @@ export default function SimpleModal({ activity, activityData }) {
         <Typography className={classes.details} id="simple-modal-description">
           {activity?.details}
         </Typography>
-        {activityData?.event?.type === "Webinar" ? (
-          <a className={classes.nameLink} href={activity.link}>
-            Join!
-          </a>
-        ) : null}
       </Box>
       <Box className={classes.modalBottom}>
         <Box>

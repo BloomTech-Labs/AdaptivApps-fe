@@ -304,7 +304,7 @@ const AdminEventList = props => {
             fontSize: "1.6rem",
           },
           headerStyle: {
-            fontSize: "1.6rem",
+            fontSize: "3rem",
             backgroundColor: "#2962FF",
             color: "#FFF",
           },
