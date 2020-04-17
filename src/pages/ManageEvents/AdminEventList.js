@@ -5,6 +5,7 @@ import MaterialTable from "material-table";
 import {
   makeStyles,
   Input,
+  InputLabel,
   TablePagination,
   Select,
   MenuItem,
@@ -26,9 +27,11 @@ const AdminEventList = props => {
 
   // Grab the events data from props
   const events = props.events;
+  const eventType = props.events.type;
 
   const useStyles = makeStyles({
     grid: {
+      maxWidth: "120rem",
       marginLeft: "3rem",
       "& .MuiButton-label": {
         fontSize: "1.6rem",
@@ -45,9 +48,14 @@ const AdminEventList = props => {
       textTransform: "none",
     },
     img: { width: "15rem", objectFit: "contain" },
+    label: {
+      marginTop: ".8rem",
+      color: "red",
+      fontSize: "1rem",
+    },
   });
   const classes = useStyles();
-
+  console.log("events in material table", events);
   // This code is returning a material table object
   // For more info on material table, please visit their docs at
   // https://material-table.com/
@@ -71,30 +79,66 @@ const AdminEventList = props => {
           {
             title: "Title",
             field: "title",
+            render: rowData => (
+              <div
+                style={{
+                  fontSize: "1.6rem",
+                  width: "20rem",
+                }}
+              >
+                {rowData.title}
+              </div>
+            ),
             editComponent: props => (
-              <Input
-                type="text"
-                value={props.value}
-                onChange={e => props.onChange(e.target.value)}
-              />
+              <>
+                <Input
+                  type="text"
+                  value={props.value}
+                  onChange={e => props.onChange(e.target.value)}
+                />
+                <InputLabel className={classes.label}>*Required</InputLabel>
+              </>
             ),
           },
           {
             title: "Type",
             field: "type",
-            editComponent: props => (
-              <Select
-                value={props.value}
-                onChange={e => props.onChange(e.target.value)}
+            render: rowData => (
+              <div
+                style={{
+                  fontSize: "1.6rem",
+                  width: "10rem",
+                }}
               >
-                <MenuItem value="In Person">In Person</MenuItem>
-                <MenuItem value="Webinar">Webinar</MenuItem>
-              </Select>
+                {rowData.type}
+              </div>
+            ),
+            editComponent: props => (
+              <>
+                <Select
+                  value={props.value}
+                  onChange={e => props.onChange(e.target.value)}
+                >
+                  <MenuItem value="In Person">In Person</MenuItem>
+                  <MenuItem value="Webinar">Webinar</MenuItem>
+                </Select>
+                <InputLabel className={classes.label}>*Required</InputLabel>
+              </>
             ),
           },
           {
             title: "Host",
             field: "host",
+            render: rowData => (
+              <div
+                style={{
+                  fontSize: "1.6rem",
+                  width: "16rem",
+                }}
+              >
+                {rowData.host}
+              </div>
+            ),
             editComponent: props => (
               <Input
                 type="text"
@@ -106,6 +150,18 @@ const AdminEventList = props => {
           {
             title: "Speakers",
             field: "speakers",
+            render: rowData => (
+              <div
+                style={{
+                  overflow: "scroll",
+                  maxHeight: "10rem",
+                  fontSize: "1.6rem",
+                  width: "20rem",
+                }}
+              >
+                {rowData.speakers}
+              </div>
+            ),
             editComponent: props => (
               <Input
                 type="text"
@@ -129,39 +185,89 @@ const AdminEventList = props => {
           {
             title: "Start Date",
             field: "startDate",
+            render: rowData => (
+              <div
+                style={{
+                  fontSize: "1.6rem",
+                  width: "9rem",
+                }}
+              >
+                {rowData.startDate}
+              </div>
+            ),
             editComponent: props => (
-              <Input
-                type="date"
-                value={props.value}
-                onChange={e => props.onChange(e.target.value)}
-              />
+              <>
+                <Input
+                  type="date"
+                  value={props.value}
+                  onChange={e => props.onChange(e.target.value)}
+                />
+                <InputLabel className={classes.label}>*Required</InputLabel>
+              </>
             ),
           },
           {
             title: "End Date",
             field: "endDate",
+            render: rowData => (
+              <div
+                style={{
+                  fontSize: "1.6rem",
+                  width: "9rem",
+                }}
+              >
+                {rowData.endDate}
+              </div>
+            ),
             editComponent: props => (
-              <Input
-                type="date"
-                value={props.value}
-                onChange={e => props.onChange(e.target.value)}
-              />
+              <>
+                <Input
+                  type="date"
+                  value={props.value}
+                  onChange={e => props.onChange(e.target.value)}
+                />
+                <InputLabel className={classes.label}>*Required</InputLabel>
+              </>
             ),
           },
           {
             title: "Location",
             field: "location",
+            render: rowData => (
+              <div
+                style={{
+                  fontSize: "1.6rem",
+                  width: "14rem",
+                }}
+              >
+                {rowData.location}
+              </div>
+            ),
             editComponent: props => (
-              <Input
-                type="text"
-                value={props.value}
-                onChange={e => props.onChange(e.target.value)}
-              />
+              <>
+                <Input
+                  type="text"
+                  value={props.value}
+                  onChange={e => props.onChange(e.target.value)}
+                />
+                <InputLabel className={classes.label}>*Required</InputLabel>
+              </>
             ),
           },
           {
             title: "Link",
             field: "link",
+            render: rowData => (
+              <div
+                style={{
+                  overflow: "scroll",
+                  fontSize: "1.6rem",
+                  width: "22rem",
+                }}
+              >
+                {rowData.link}
+              </div>
+            ),
             editComponent: props => (
               <Input
                 type="url"
@@ -174,7 +280,14 @@ const AdminEventList = props => {
             title: "Image Url",
             field: "imgUrl",
             render: rowData => (
-              <img src={rowData.imgUrl} alt="Event" className={classes.img} />
+              <img
+                style={{
+                  maxHeight: "12rem",
+                }}
+                src={rowData.imgUrl}
+                alt="Event"
+                className={classes.img}
+              />
             ),
             editComponent: props => (
               <Input
@@ -187,6 +300,17 @@ const AdminEventList = props => {
           {
             title: "Sponsors",
             field: "sponsors",
+            render: rowData => (
+              <div
+                style={{
+                  overflow: "scroll",
+                  fontSize: "1.6rem",
+                  width: "20rem",
+                }}
+              >
+                {rowData.sponsors}
+              </div>
+            ),
             editComponent: props => (
               <Input
                 type="text"
@@ -201,6 +325,7 @@ const AdminEventList = props => {
             render: rowData => (
               <div
                 style={{
+                  fontSize: "1.6rem",
                   width: "30rem",
                   maxHeight: "14rem",
                   overflow: "scroll",
@@ -211,7 +336,10 @@ const AdminEventList = props => {
             ),
             editComponent: props => (
               <textarea
-                rows="12"
+                style={{
+                  fontSize: "1.6rem",
+                }}
+                rows="8"
                 cols="60"
                 type="text"
                 value={props.value}
@@ -304,7 +432,7 @@ const AdminEventList = props => {
             fontSize: "1.6rem",
           },
           headerStyle: {
-            fontSize: "3rem",
+            fontSize: "4rem",
             backgroundColor: "#2962FF",
             color: "#FFF",
           },
@@ -317,6 +445,8 @@ const AdminEventList = props => {
             width: "20rem",
             fontSize: "1.6rem",
           },
+          doubleHorizontalScrolldoubleHorizontalScroll: false,
+          columnsButton: true,
         }}
       />
     </Grid>
