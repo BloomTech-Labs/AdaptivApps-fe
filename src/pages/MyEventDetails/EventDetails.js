@@ -9,6 +9,7 @@ import { useQuery } from "react-apollo";
 import { GET_USER_ACTIVITIES } from "./queries";
 // Styling import
 import { Box, makeStyles, Typography } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 // Applies Material-UI styling
 const useStyles = makeStyles(theme => ({
@@ -102,6 +103,12 @@ const useStyles = makeStyles(theme => ({
     maxWidth: "80rem",
     margin: "2rem 0 0 0",
   },
+  loadingSpinner: {
+    position: "absolute",
+    top: "50%",
+    right: "50%",
+    color: "#2763FF",
+  },
 }));
 
 export default function EventDetails(props) {
@@ -113,7 +120,7 @@ export default function EventDetails(props) {
     variables: { id: eventId, email: user.email },
   });
 
-  if (loading) return "Loading...";
+  if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
 
   const currentActivities = data.activities;

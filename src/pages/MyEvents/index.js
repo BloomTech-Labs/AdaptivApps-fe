@@ -9,6 +9,7 @@ import { GET_USER_EVENTS } from "./queries";
 import { useAuth0 } from "../../config/react-auth0-spa";
 // Styling imports
 import { makeStyles, Grid, Box, Typography } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles({
   root: {
@@ -42,7 +43,7 @@ export default function MyEvents() {
     refetch();
   }, [refetch]);
 
-  if (loading) return "Loading...";
+  if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
   return (
     <main className={classes.root}>
