@@ -28,6 +28,12 @@ const useStyles = makeStyles({
     flexWrap: "wrap",
     marginLeft: "3rem",
   },
+  loadingSpinner: {
+    position: "absolute",
+    top: "50%",
+    right: "50%",
+    color: "#2763FF",
+  },
 });
 
 export default function MyEvents() {
