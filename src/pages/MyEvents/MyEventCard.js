@@ -63,6 +63,8 @@ const useStyles = makeStyles(theme => ({
     maxHeight: "16rem",
   },
   banner: {
+    display: "flex",
+    justifyContent: "center",
     position: "relative",
     transform: "rotate(-45deg)",
     top: "4.9rem",
@@ -74,7 +76,7 @@ const useStyles = makeStyles(theme => ({
     color: "#EECC1B",
     width: "12.75rem",
     textAlign: "center",
-    fontSize: "1.4rem",
+    fontSize: "1.6rem",
   },
 }));
 
