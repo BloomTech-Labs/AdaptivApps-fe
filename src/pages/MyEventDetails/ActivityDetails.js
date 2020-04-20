@@ -49,8 +49,8 @@ export default function ActivityDetails({ activity }) {
         <td>{activity.location}</td>
       )}
       <td>{activity.startTime}</td>
-      {activity.participants.map((participant, id) =>
-        participant && participant.profile.email === user.email ? (
+      {activity?.participants.map((participant, id) =>
+        participant && participant?.profile?.email === user.email ? (
           <td>{participant.role}</td>
         ) : null
       )}
