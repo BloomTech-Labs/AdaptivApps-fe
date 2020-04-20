@@ -32,31 +32,6 @@ export const GET_USER_EVENTS = gql`
   }
 `;
 
-// Unregister(delete) event user is registered for.
-export const UNREGISTER_FROM_EVENT = gql`
-  mutation unregisterFromEvent($id: ID!, $email: String!) {
-    updateProfile(
-      where: { email: $email }
-      data: { events: { disconnect: { id: $id } } }
-    ) {
-      id
-      events {
-        id
-        activities {
-          id
-          participants {
-            id
-            profile {
-              id
-              email
-            }
-            role
-          }
-        }
-      }
-    }
-  }
-`;
 
 export const GET_PARTICIPANT_IDS = gql`
   query getParticipantIds($email: String!, $id: ID!){
@@ -78,41 +53,4 @@ mutation unregisterFromEventActivities($email: String!, $id: ID!, $participantId
     }
   }
 `;
-// export const UNREGISTER_FROM_ACTIVITY = gql`
-//   mutation unregisterFromActivity($activityId: ID!, $participantId: ID!) {
-//     updateActivity(
-//       where: { id: $activityId }
-//       data: { participants: { delete: { id: $participantId } } }
-//     ) {
-//       id
-//       participants {
-//         id
-//         profile {
-//           id
-//           email
-//         }
-//         role
-//       }
-//     }
-//   }
-// `;
 
-// export const GET_USER_ACTIVITIES = gql`
-//   query getUserActivities($email: String!) {
-//     activities(where: { participants_some: { profile: { email: $email } } }) {
-//       id
-//       event {
-//         id
-//       }
-//       participants {
-//         id
-//         profile {
-//           id
-//           email
-//         }
-//         role
-//       }
-//     }
-//   }
-// `;
-// // ck8y40vmv05770737g5uftumb
