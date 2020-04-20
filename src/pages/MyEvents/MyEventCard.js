@@ -102,12 +102,9 @@ export default function MyEventCard({ event, refetch }) {
     const participantIds = data.participants.map(participant => {
       return participant.id;
     });  
-    const participantIdValue = JSON.stringify(participantIds).replace(
-      /[\[\]"]+/g,
-      ""
-    );
+
     await updateProfile({
-      variables: { id: event.id, email: user.email, participantIds: participantIdValue },
+      variables: { id: event.id, email: user.email, participantIds: participantIds },
     });
     await refetch();
   };

@@ -67,10 +67,10 @@ export const GET_PARTICIPANT_IDS = gql`
 `;
 
 export const UNREGISTER_FROM_ALL = gql`
-mutation unregisterFromEventActivities($email: String!, $id: ID!, $participantIds: ID!){
+mutation unregisterFromEventActivities($email: String!, $id: ID!, $participantIds: [ID!]){
     updateProfile(where: {email: $email}
    	data: {events: {disconnect: {id: $id}}
-      activities: {deleteMany: [{id: $participantIds }]}}){
+      activities: {deleteMany: [{id_in: $participantIds }]}}){
      id
      activities{
       id
