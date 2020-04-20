@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import createAuth0Client from "@auth0/auth0-spa-js";
-import PropTypes from "prop-types";
 
 // This file contains the necessary setup to use auth0 login
 // Read official documentation for a more thorough explanation
@@ -90,7 +89,4 @@ export const Auth0Provider = ({
   );
 };
 
-Auth0Provider.propTypes = {
-  children: PropTypes.any,
-  onRedirectCallback: PropTypes.any,
-};
+

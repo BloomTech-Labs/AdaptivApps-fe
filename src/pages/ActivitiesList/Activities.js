@@ -1,9 +1,7 @@
 import React from "react";
 import SimpleModal from "./SimpleModal";
 import RolesDialog from "./SelectRole";
-import PropTypes from "prop-types";
-
-import { makeStyles, Grid } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -62,6 +60,3 @@ export default function Activities({ activity, activityData }) {
     </tr>
   );
 }
-Activities.propTypes = {
-  activity: PropTypes.object,
-};

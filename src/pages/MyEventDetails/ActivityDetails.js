@@ -5,7 +5,6 @@ import { useAuth0 } from "../../config/react-auth0-spa";
 import SimpleModal from "../ActivitiesList/SimpleModal";
 // Styling imports
 import { makeStyles } from "@material-ui/core";
-import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
   root: {
@@ -59,6 +58,4 @@ export default function ActivityDetails({ activity }) {
   );
 }
 
-ActivityDetails.propTypes = {
-  activity: PropTypes.object,
-};
+

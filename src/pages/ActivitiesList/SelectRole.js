@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useAuth0 } from "../../config/react-auth0-spa";
-
 import { useMutation } from "react-apollo";
 import {
   REGISTER_AS_ATHLETE,
@@ -14,12 +13,10 @@ import {
   UPDATE_AS_VOLUNTEER,
   UPDATE_AS_SPECTATOR,
 } from "./queries/UpdateRole";
-
+// Styling imports
 import { makeStyles, Popover, Button, Box } from "@material-ui/core";
 import { IconContext } from "react-icons";
 import { IoIosAddCircle } from "react-icons/io";
-
-import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   typography: {
@@ -255,6 +252,3 @@ export default function SimplePopover({ activity, activityData }) {
   );
 }
 
-SimplePopover.propTypes = {
-  activity: PropTypes.object,
-};

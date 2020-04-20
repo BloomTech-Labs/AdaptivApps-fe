@@ -4,7 +4,6 @@ import React from "react";
 import { useNavigate } from "@reach/router";
 // GraphQL/Apollo imports
 import { useMutation, useQuery } from "react-apollo";
-import { useLazyQuery } from "@apollo/react-hooks";
 import { UNREGISTER_FROM_ALL, GET_PARTICIPANT_IDS } from "./queries";
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
@@ -20,7 +19,6 @@ import {
   Button,
   Box,
 } from "@material-ui/core";
-// TODO: propTypes for refetch? import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -86,23 +84,17 @@ export default function MyEventCard({ event, refetch }) {
   const navigate = useNavigate();
   // Retrieves current user info from Auth0
   const { user } = useAuth0();
-  // const [getParticipantIds, { data }] = useLazyQuery(GET_PARTICIPANT_IDS);
   const { data } = useQuery(GET_PARTICIPANT_IDS, {
     variables: {email: user.email, id: event.id}
   });
-
-
-  // console.log('Participant IDs', data)
-
   const [updateProfile] = useMutation(UNREGISTER_FROM_ALL);
 
-  // Unregisters user from specified event
+  // Unregisters user from specified event and all it's activities
   const unregisterFromEvent = async () => {
     
     const participantIds = data.participants.map(participant => {
       return participant.id;
     });  
-
     await updateProfile({
       variables: { id: event.id, email: user.email, participantIds: participantIds },
     });
