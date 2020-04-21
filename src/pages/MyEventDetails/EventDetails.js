@@ -158,34 +158,12 @@ export default function EventDetails(props) {
       </Box>
 
       {activeEvent.type === "Webinar" ? (
-        <>
-          <Box className={classes.webinarBox}>
-            <p>Hosted by: {activeEvent.host}</p>
-            <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
-            <a href={activeEvent.link}>Click Here to Join Us!</a>
-          </Box>
-          {currentActivities.length >= 1 ? (
-            <Box className={classes.myActivitiesBox}>
-              <p>My Activities</p>
-              <table className={classes.table}>
-                <tbody>
-                  <tr className={classes.headerRow}>
-                    <th className={classes.tableH}>Name</th>
-                    <th className={classes.tableH}>Date</th>
-                    <th className={classes.tableH}>Link</th>
-                    <th className={classes.tableH}>Time</th>
-                    <th className={classes.tableH}>My Role</th>
-                  </tr>
-                  {currentActivities &&
-                    currentActivities.map((activity, id) => (
-                      <ActivityDetails key={id} activity={activity} />
-                    ))}
-                </tbody>
-              </table>
-            </Box>
-          ) : null}
-        </>
-      ) : (
+        <Box className={classes.webinarBox}>
+          <p>Hosted by: {activeEvent.host}</p>
+          <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
+          <a href={activeEvent.link}>Click Here to Join Us!</a>
+        </Box>
+        ) : null} 
         <>
           {currentActivities.length >= 1 ? (
             <Box className={classes.myActivitiesBox}>
@@ -203,7 +181,6 @@ export default function EventDetails(props) {
                     currentActivities.map((activity, id) => (
                       <ActivityDetails
                         key={id}
-                        activeEvent={activeEvent}
                         activity={activity}
                       />
                     ))}
@@ -212,7 +189,6 @@ export default function EventDetails(props) {
             </Box>
           ) : null}
         </>
-      )}
       <Box className={classes.sponsorBox}>
         {activeEvent?.sponsors?.length > 0 ? (
           <Typography variant="h3">Special thanks to our sponsors!</Typography>
