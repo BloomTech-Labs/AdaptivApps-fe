@@ -158,7 +158,7 @@ export default function EventDetails(props) {
             <Typography variant="subtitle1">{activeEvent.location}</Typography>
           </Box>
         )}
-        <Link className={classes.donateBtn} color="primary" size="large">
+        <Link className={classes.donateBtn} color="primary" href="https://app.mobilecause.com/vf/ANGEL" target="_blank">
           Donate Here
         </Link>
       </Box>
