@@ -14,9 +14,10 @@ import {
   UPDATE_AS_SPECTATOR,
 } from "./queries/UpdateRole";
 // Styling imports
-import { makeStyles, Popover, Button, Box, Tooltip } from "@material-ui/core";
+import { makeStyles, Popover, Button, Box } from "@material-ui/core";
 import { IconContext } from "react-icons";
 import { IoIosAddCircle } from "react-icons/io";
+import LightTooltip from "../../theme/LightTooltip"
 
 const useStyles = makeStyles(theme => ({
   typography: {
@@ -197,7 +198,7 @@ export default function SimplePopover({ activity, activityData }) {
       }
     >
       {activityData && activityData?.event?.type === "Webinar" ? (
-        <Tooltip title='Register for Activity' placement='right'>
+        <LightTooltip title='Register for Activity' placement='right'>
           <Button
           className={classes.btn}
           aria-describedby={id}
@@ -206,10 +207,10 @@ export default function SimplePopover({ activity, activityData }) {
           >
             <IoIosAddCircle />
           </Button>
-        </Tooltip>
+        </LightTooltip>
       ) : (
         <>
-          <Tooltip title='Register for Activity' placement='right'>
+          <LightTooltip title='Register for Activity' placement='right'>
             <Button
               className={classes.btn}
               aria-describedby={id}
@@ -218,7 +219,7 @@ export default function SimplePopover({ activity, activityData }) {
             >
               <IoIosAddCircle />
             </Button>
-          </Tooltip>
+          </LightTooltip>
           <Popover
             className={classes.popover}
             id={id}
