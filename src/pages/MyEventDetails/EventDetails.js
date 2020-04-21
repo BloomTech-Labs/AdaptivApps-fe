@@ -42,6 +42,7 @@ const useStyles = makeStyles({
     },
   },
   donateBtn: {
+    boxShadow: '0px 3px 10px rgba(0,0,0,0.2)',
     backgroundColor: "#FFC629",
     padding: '.8rem 1.1rem',
     borderRadius: '.5rem',
@@ -159,7 +160,7 @@ export default function EventDetails(props) {
           </Box>
         )}
         <Link className={classes.donateBtn} color="primary" href="https://app.mobilecause.com/vf/ANGEL" target="_blank" rel="noopener">
-          Donate Here
+          DONATE NOW
         </Link>
       </Box>
       <Box className={classes.detailsContainer}>
