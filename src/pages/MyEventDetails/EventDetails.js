@@ -160,49 +160,53 @@ export default function EventDetails(props) {
             <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
             <a href={activeEvent.link}>Click Here to Join Us!</a>
           </Box>
-          <Box className={classes.myActivitiesBox}>
-            <p>My Activities</p>
-            <table className={classes.table}>
-              <tbody>
-                <tr className={classes.headerRow}>
-                  <th className={classes.tableH}>Name</th>
-                  <th className={classes.tableH}>Date</th>
-                  <th className={classes.tableH}>Link</th>
-                  <th className={classes.tableH}>Time</th>
-                  <th className={classes.tableH}>My Role</th>
-                </tr>
-                {currentActivities &&
-                  currentActivities.map((activity, id) => (
-                    <ActivityDetails key={id} activity={activity} />
-                  ))}
-              </tbody>
-            </table>
-          </Box>
+          {currentActivities.length >= 1 ? (
+            <Box className={classes.myActivitiesBox}>
+              <p>My Activities</p>
+              <table className={classes.table}>
+                <tbody>
+                  <tr className={classes.headerRow}>
+                    <th className={classes.tableH}>Name</th>
+                    <th className={classes.tableH}>Date</th>
+                    <th className={classes.tableH}>Link</th>
+                    <th className={classes.tableH}>Time</th>
+                    <th className={classes.tableH}>My Role</th>
+                  </tr>
+                  {currentActivities &&
+                    currentActivities.map((activity, id) => (
+                      <ActivityDetails key={id} activity={activity} />
+                    ))}
+                </tbody>
+              </table>
+            </Box>
+          ) : null}
         </>
       ) : (
         <>
-          <Box className={classes.myActivitiesBox}>
-            <p>My Activities</p>
-            <table className={classes.table}>
-              <tbody>
-                <tr className={classes.headerRow}>
-                  <th className={classes.tableH}>Name</th>
-                  <th className={classes.tableH}>Date</th>
-                  <th className={classes.tableH}>Location</th>
-                  <th className={classes.tableH}>Time</th>
-                  <th className={classes.tableH}>My Role</th>
-                </tr>
-                {currentActivities &&
-                  currentActivities.map((activity, id) => (
-                    <ActivityDetails
-                      key={id}
-                      activeEvent={activeEvent}
-                      activity={activity}
-                    />
-                  ))}
-              </tbody>
-            </table>
-          </Box>
+          {currentActivities.length >= 1 ? (
+            <Box className={classes.myActivitiesBox}>
+              <p>My Activities</p>
+              <table className={classes.table}>
+                <tbody>
+                  <tr className={classes.headerRow}>
+                    <th className={classes.tableH}>Name</th>
+                    <th className={classes.tableH}>Date</th>
+                    <th className={classes.tableH}>Location</th>
+                    <th className={classes.tableH}>Time</th>
+                    <th className={classes.tableH}>My Role</th>
+                  </tr>
+                  {currentActivities &&
+                    currentActivities.map((activity, id) => (
+                      <ActivityDetails
+                        key={id}
+                        activeEvent={activeEvent}
+                        activity={activity}
+                      />
+                    ))}
+                </tbody>
+              </table>
+            </Box>
+          ) : null}
         </>
       )}
       <Box className={classes.sponsorBox}>
