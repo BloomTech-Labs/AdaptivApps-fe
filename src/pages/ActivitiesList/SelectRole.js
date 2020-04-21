@@ -17,6 +17,7 @@ import {
 import { makeStyles, Popover, Button, Box } from "@material-ui/core";
 import { IconContext } from "react-icons";
 import { IoIosAddCircle } from "react-icons/io";
+import LightTooltip from "../../theme/LightTooltip"
 
 const useStyles = makeStyles(theme => ({
   typography: {
@@ -197,24 +198,28 @@ export default function SimplePopover({ activity, activityData }) {
       }
     >
       {activityData && activityData?.event?.type === "Webinar" ? (
-        <Button
+        <LightTooltip title='Register for Activity' placement='right'>
+          <Button
           className={classes.btn}
           aria-describedby={id}
           variant="contained"
           onClick={spectatorRegister}
-        >
-          <IoIosAddCircle />
-        </Button>
-      ) : (
-        <>
-          <Button
-            className={classes.btn}
-            aria-describedby={id}
-            variant="contained"
-            onClick={handleClick}
           >
             <IoIosAddCircle />
           </Button>
+        </LightTooltip>
+      ) : (
+        <>
+          <LightTooltip title='Register for Activity' placement='right'>
+            <Button
+              className={classes.btn}
+              aria-describedby={id}
+              variant="contained"
+              onClick={handleClick}
+            >
+              <IoIosAddCircle />
+            </Button>
+          </LightTooltip>
           <Popover
             className={classes.popover}
             id={id}

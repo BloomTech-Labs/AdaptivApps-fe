@@ -12,7 +12,7 @@ import { Box, makeStyles, Typography } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 // Applies Material-UI styling
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
@@ -109,7 +109,7 @@ const useStyles = makeStyles(theme => ({
     right: "50%",
     color: "#2763FF",
   },
-}));
+});
 
 export default function EventDetails(props) {
   const classes = useStyles();
