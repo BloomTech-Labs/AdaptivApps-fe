@@ -150,29 +150,31 @@ export default function ActivityList() {
         </Box>
       </Box>
       <Box className={classes.details}>{activityData.event.details}</Box>
-      <Box className={classes.activityC}>
-        <p>Activities Schedule</p>
-        <table className={classes.table}>
-          <tbody>
-            <tr className={classes.headerRow}>
-              <th className={classes.tableH}>Name</th>
-              <th className={classes.tableH}>Date</th>
-              {activityData.event.type === "In Person" ? (
-                <th className={classes.tableH}>Location</th>
-              ) : null}
-              <th className={classes.tableH}>Time</th>
-            </tr>
-            {activityData &&
-              activityData?.event?.activities.map((activity, id) => (
-                <Activities
-                  key={id}
-                  activity={activity}
-                  activityData={activityData}
-                />
-              ))}
-          </tbody>
-        </table>
-      </Box>
+      {activityData.event.activities.length >= 1 ? (
+        <Box className={classes.activityC}>
+          <p>Activities Schedule</p>
+          <table className={classes.table}>
+            <tbody>
+              <tr className={classes.headerRow}>
+                <th className={classes.tableH}>Name</th>
+                <th className={classes.tableH}>Date</th>
+                {activityData.event.type === "In Person" ? (
+                  <th className={classes.tableH}>Location</th>
+                ) : null}
+                <th className={classes.tableH}>Time</th>
+              </tr>
+              {activityData &&
+                activityData?.event?.activities.map((activity, id) => (
+                  <Activities
+                    key={id}
+                    activity={activity}
+                    activityData={activityData}
+                  />
+                ))}
+            </tbody>
+          </table>
+        </Box>
+      ) : null}
     </main>
   );
 }

@@ -51,6 +51,7 @@ export default function MyEvents() {
 
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
+  console.log("data in myEvent Index", data);
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
@@ -58,12 +59,16 @@ export default function MyEvents() {
           My Events
         </Typography>
       </Box>
-      <Grid className={classes.grid}>
-        {data &&
-          data?.events?.map((event, id) => (
-            <MyEventCard key={id} event={event} refetch={refetch} />
-          ))}
-      </Grid>
+      {data.events.length < 1 ? (
+        <Grid className={classes.grid}>
+          {data &&
+            data?.events?.map((event, id) => (
+              <MyEventCard key={id} event={event} refetch={refetch} />
+            ))}
+        </Grid>
+      ) : (
+        <p>You haven't registered for any events yet!</p>
+      )}
     </main>
   );
 }
