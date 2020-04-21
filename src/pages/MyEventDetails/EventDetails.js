@@ -44,7 +44,7 @@ const useStyles = makeStyles({
   donateBtn: {
     backgroundColor: "#FFC629",
     padding: '.8rem 1.1rem',
-    borderRadius: '.3rem',
+    borderRadius: '.5rem',
     fontSize: "1.4rem",
     fontWeight: 550,
     margin: "auto"
@@ -158,7 +158,7 @@ export default function EventDetails(props) {
             <Typography variant="subtitle1">{activeEvent.location}</Typography>
           </Box>
         )}
-        <Link className={classes.donateBtn} color="primary" href="https://app.mobilecause.com/vf/ANGEL" target="_blank">
+        <Link className={classes.donateBtn} color="primary" href="https://app.mobilecause.com/vf/ANGEL" target="_blank" rel="noopener">
           Donate Here
         </Link>
       </Box>
