@@ -3,12 +3,12 @@ import React, { useEffect } from "react";
 // Component imports
 import ActivityDetails from "./ActivityDetails";
 // Auth0 imports
-import { useAuth0 } from "../../config/react-auth0-spa";
+import { useAuth0, Auth0Context } from "../../config/react-auth0-spa";
 // GraphQL/Apollo imports
 import { useQuery } from "react-apollo";
 import { GET_USER_ACTIVITIES } from "./queries";
 // Styling import
-import { Box, makeStyles, Typography } from "@material-ui/core";
+import { Box, makeStyles, Typography, Button } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 // Applies Material-UI styling
@@ -40,6 +40,12 @@ const useStyles = makeStyles({
       fontSize: "2.1rem",
       margin: "0rem 0 0.5rem",
     },
+  },
+  donateBtn: {
+    backgroundColor: "#FFC629",
+    fontSize: "2rem",
+    fontWeight: 550,
+    margin: "auto"
   },
   detailsContainer: {
     marginBottom: "2rem",
@@ -150,6 +156,9 @@ export default function EventDetails(props) {
             <Typography variant="subtitle1">{activeEvent.location}</Typography>
           </Box>
         )}
+        <Button className={classes.donateBtn} color="primary" size="large">
+          Donate Here
+        </Button>
       </Box>
       <Box className={classes.detailsContainer}>
         <Typography className={classes.details} variant="body1">
