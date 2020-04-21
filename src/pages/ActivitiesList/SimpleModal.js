@@ -63,6 +63,12 @@ const useStyles = makeStyles(theme => ({
     fontSize: "1.4rem",
     paddingRight: "1rem",
   },
+  nameLink: {
+    fontSize: '1.8rem',
+    fontWeight: '500',
+    textDecoration: 'none',
+    color: '#2962FF'
+  },
   modalBottom: {
     display: "flex",
     flexDirection: "column",

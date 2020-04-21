@@ -1,7 +1,8 @@
 import React from "react";
+// Suth0 imports
 import { useAuth0 } from "../../../config/react-auth0-spa";
 import config from "../../../config/auth_config";
-import PropTypes from "prop-types";
+// Styling imports
 import {
   makeStyles,
   useTheme,
@@ -219,13 +220,5 @@ function SideNav(props) {
     </div>
   );
 }
-
-SideNav.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  container: PropTypes.any,
-};
 
 export default SideNav;

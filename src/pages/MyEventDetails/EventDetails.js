@@ -1,5 +1,5 @@
 // React imports
-import React from "react";
+import React, { useEffect } from "react";
 // Component imports
 import ActivityDetails from "./ActivityDetails";
 // Auth0 imports
@@ -119,6 +119,10 @@ export default function EventDetails(props) {
   const { loading, error, data, refetch } = useQuery(GET_USER_ACTIVITIES, {
     variables: { id: eventId, email: user.email },
   });
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
