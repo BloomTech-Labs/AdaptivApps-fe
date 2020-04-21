@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useAuth0 } from "../../config/react-auth0-spa";
-
 import { useMutation } from "react-apollo";
 import {
   REGISTER_AS_ATHLETE,
@@ -14,12 +13,10 @@ import {
   UPDATE_AS_VOLUNTEER,
   UPDATE_AS_SPECTATOR,
 } from "./queries/UpdateRole";
-
+// Styling imports
 import { makeStyles, Popover, Button, Box } from "@material-ui/core";
 import { IconContext } from "react-icons";
 import { IoIosAddCircle } from "react-icons/io";
-
-import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   typography: {
@@ -69,7 +66,7 @@ export default function SimplePopover({ activity, activityData }) {
 
   const athleteRegister = async () => {
     const participantEmail = activity.participants.map(participant => {
-      return participant.profile.email;
+      return participant?.profile?.email;
     });
     const participantEmailValue = JSON.stringify(participantEmail).replace(
       /[\[\]"]+/g,
@@ -84,7 +81,7 @@ export default function SimplePopover({ activity, activityData }) {
       ""
     );
     participantEmailValue === user.email
-      ? updateAsAthlete({
+      ? await updateAsAthlete({
           variables: { id: participantIdValue },
         })
       : await registerAsAthlete({
@@ -96,7 +93,7 @@ export default function SimplePopover({ activity, activityData }) {
 
   const coachRegister = async () => {
     const participantEmail = activity.participants.map(participant => {
-      return participant.profile.email;
+      return participant?.profile?.email;
     });
     const participantEmailValue = JSON.stringify(participantEmail).replace(
       /[\[\]"]+/g,
@@ -111,7 +108,7 @@ export default function SimplePopover({ activity, activityData }) {
       ""
     );
     participantEmailValue === user.email
-      ? updateAsCoach({
+      ? await updateAsCoach({
           variables: { id: participantIdValue },
         })
       : await registerAsCoach({
@@ -123,7 +120,7 @@ export default function SimplePopover({ activity, activityData }) {
 
   const volunteerRegister = async () => {
     const participantEmail = activity.participants.map(participant => {
-      return participant.profile.email;
+      return participant?.profile?.email;
     });
     const participantEmailValue = JSON.stringify(participantEmail).replace(
       /[\[\]"]+/g,
@@ -138,7 +135,7 @@ export default function SimplePopover({ activity, activityData }) {
       ""
     );
     participantEmailValue === user.email
-      ? updateAsVolunteer({
+      ? await updateAsVolunteer({
           variables: { id: participantIdValue },
         })
       : await registerAsVolunteer({
@@ -150,7 +147,7 @@ export default function SimplePopover({ activity, activityData }) {
 
   const spectatorRegister = async () => {
     const participantEmail = activity.participants.map(participant => {
-      return participant.profile.email;
+      return participant?.profile?.email;
     });
     const participantEmailValue = JSON.stringify(participantEmail).replace(
       /[\[\]"]+/g,
@@ -165,7 +162,7 @@ export default function SimplePopover({ activity, activityData }) {
       ""
     );
     participantEmailValue === user.email
-      ? updateAsSpectator({
+      ? await updateAsSpectator({
           variables: { id: participantIdValue },
         })
       : await registerAsSpectator({
@@ -255,6 +252,3 @@ export default function SimplePopover({ activity, activityData }) {
   );
 }
 
-SimplePopover.propTypes = {
-  activity: PropTypes.object,
-};

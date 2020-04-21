@@ -32,67 +32,57 @@ export const GET_USER_EVENTS = gql`
   }
 `;
 
-// Unregister(delete) event user is registered for.
-export const UNREGISTER_FROM_EVENT = gql`
-  mutation unregisterFromEvent($id: ID!, $email: String!) {
+export const GET_PARTICIPANT_IDS = gql`
+  query getParticipantIds($email: String!, $id: ID!) {
+    participants(
+      where: {
+        profile: { email: $email }
+        AND: { activity: { event: { id: $id } } }
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+export const UNREGISTER_FROM_ALL = gql`
+  mutation unregisterFromAll(
+    $email: String!
+    $id: ID!
+    $participantIds: [ID!]
+  ) {
     updateProfile(
       where: { email: $email }
-      data: { events: { disconnect: { id: $id } } }
+      data: {
+        activities: { deleteMany: [{ id_in: $participantIds }] }
+        events: { disconnect: { id: $id } }
+      }
     ) {
       id
-      events {
+      activities {
         id
-        activities {
-          id
-          participants {
-            id
-            profile {
-              id
-              email
-            }
-            role
-          }
-        }
       }
     }
   }
 `;
 
-export const UNREGISTER_FROM_ACTIVITY = gql`
-  mutation unregisterFromActivity($activityId: ID!, $participantId: ID!) {
-    updateActivity(
-      where: { id: $activityId }
-      data: { participants: { delete: { id: $participantId } } }
+export const UNREGISTER_FROM_EVENT_ACTIVITY = gql`
+  mutation unregisterFromEventActivity(
+    $email: String!
+    $id: ID!
+    $participantId: ID!
+  ) {
+    updateProfile(
+      where: { email: $email }
+      data: {
+        activities: { delete: { id: $participantId } }
+        events: { disconnect: { id: $id } }
+      }
     ) {
       id
-      participants {
+      activities {
         id
-        profile {
-          id
-          email
-        }
-        role
       }
     }
   }
 `;
-
-export const GET_USER_ACTIVITIES = gql`
-  query getUserActivities($email: String!) {
-    activities(where: { participants_some: { profile: { email: $email } } }) {
-      id
-      event {
-        id
-      }
-      participants {
-        id
-        profile {
-          id
-          email
-        }
-        role
-      }
-    }
-  }
-`;
-// ck8y40vmv05770737g5uftumb

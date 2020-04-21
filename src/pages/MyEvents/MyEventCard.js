@@ -3,8 +3,12 @@ import React from "react";
 //Component imports
 import { useNavigate } from "@reach/router";
 // GraphQL/Apollo imports
-import { useMutation } from "react-apollo";
-import { UNREGISTER_FROM_EVENT } from "./queries";
+import { useMutation, useQuery } from "react-apollo";
+import {
+  UNREGISTER_FROM_ALL,
+  GET_PARTICIPANT_IDS,
+  UNREGISTER_FROM_EVENT_ACTIVITY,
+} from "./queries";
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
 //Styling imports
@@ -19,7 +23,6 @@ import {
   Button,
   Box,
 } from "@material-ui/core";
-// TODO: propTypes for refetch? import PropTypes from 'prop-types';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -85,13 +88,43 @@ export default function MyEventCard({ event, refetch }) {
   const navigate = useNavigate();
   // Retrieves current user info from Auth0
   const { user } = useAuth0();
-  const [updateProfile] = useMutation(UNREGISTER_FROM_EVENT);
-
-  // Unregisters user from specified event
+  const { data } = useQuery(GET_PARTICIPANT_IDS, {
+    variables: { email: user.email, id: event.id },
+  });
+  const [unregisterFromAll] = useMutation(UNREGISTER_FROM_ALL);
+  const [unregisterFromEventActivity] = useMutation(
+    UNREGISTER_FROM_EVENT_ACTIVITY
+  );
+  // Unregisters user from specified event and all it's activities
   const unregisterFromEvent = async () => {
-    await updateProfile({
-      variables: { id: event.id, email: user.email },
+    const participantIds = data?.participants?.map(participant => {
+      return participant.id;
     });
+
+    const participantIdValue = data?.participants?.map(participant => {
+      return participant.id;
+    });
+
+    const participantId = JSON.stringify(participantIdValue).replace(
+      /[\[\]"]+/g,
+      ""
+    );
+
+    data && data?.participants?.length <= 1
+      ? await unregisterFromEventActivity({
+          variables: {
+            id: event.id,
+            email: user.email,
+            participantId: participantId,
+          },
+        })
+      : await unregisterFromAll({
+          variables: {
+            id: event.id,
+            email: user.email,
+            participantIds: participantIds,
+          },
+        });
     await refetch();
   };
   const viewEventDetails = async () => {
