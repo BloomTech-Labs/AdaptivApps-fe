@@ -8,12 +8,15 @@ const useStyles = makeStyles({
     fontSize: 14,
     fontWeight: "bold"
   },
+  arrow: {
+    color: "#FFC629"
+  }
 });
 
 export default function LightTooltip(props) {
   const classes = useStyles();
 
-  return <Tooltip classes={classes} {...props} />;
+  return <Tooltip arrow classes={classes} {...props} />;
 }
 
 
