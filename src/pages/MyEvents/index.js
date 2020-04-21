@@ -34,6 +34,9 @@ const useStyles = makeStyles({
     right: "50%",
     color: "#2763FF",
   },
+  noActiv: {
+    marginLeft: "3rem",
+  },
 });
 
 export default function MyEvents() {
@@ -58,12 +61,18 @@ export default function MyEvents() {
           My Events
         </Typography>
       </Box>
-      <Grid className={classes.grid}>
-        {data &&
-          data?.events?.map((event, id) => (
-            <MyEventCard key={id} event={event} refetch={refetch} />
-          ))}
-      </Grid>
+      {data.events.length >= 1 ? (
+        <Grid className={classes.grid}>
+          {data &&
+            data?.events?.map((event, id) => (
+              <MyEventCard key={id} event={event} refetch={refetch} />
+            ))}
+        </Grid>
+      ) : (
+        <Typography className={classes.noActiv}>
+          You haven't registered for any events yet!
+        </Typography>
+      )}
     </main>
   );
 }
