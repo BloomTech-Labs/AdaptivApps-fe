@@ -14,7 +14,7 @@ import {
   UPDATE_AS_SPECTATOR,
 } from "./queries/UpdateRole";
 // Styling imports
-import { makeStyles, Popover, Button, Box } from "@material-ui/core";
+import { makeStyles, Popover, Button, Box, Tooltip } from "@material-ui/core";
 import { IconContext } from "react-icons";
 import { IoIosAddCircle } from "react-icons/io";
 
@@ -197,24 +197,28 @@ export default function SimplePopover({ activity, activityData }) {
       }
     >
       {activityData && activityData?.event?.type === "Webinar" ? (
-        <Button
+        <Tooltip title='Register for Activity' placement='right'>
+          <Button
           className={classes.btn}
           aria-describedby={id}
           variant="contained"
           onClick={spectatorRegister}
-        >
-          <IoIosAddCircle />
-        </Button>
-      ) : (
-        <>
-          <Button
-            className={classes.btn}
-            aria-describedby={id}
-            variant="contained"
-            onClick={handleClick}
           >
             <IoIosAddCircle />
           </Button>
+        </Tooltip>
+      ) : (
+        <>
+          <Tooltip title='Register for Activity' placement='right'>
+            <Button
+              className={classes.btn}
+              aria-describedby={id}
+              variant="contained"
+              onClick={handleClick}
+            >
+              <IoIosAddCircle />
+            </Button>
+          </Tooltip>
           <Popover
             className={classes.popover}
             id={id}
