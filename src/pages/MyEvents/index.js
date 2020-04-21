@@ -34,6 +34,9 @@ const useStyles = makeStyles({
     right: "50%",
     color: "#2763FF",
   },
+  noActiv: {
+    marginLeft: "3rem",
+  },
 });
 
 export default function MyEvents() {
@@ -51,7 +54,6 @@ export default function MyEvents() {
 
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
-  console.log("data in myEvent Index", data);
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
@@ -59,7 +61,7 @@ export default function MyEvents() {
           My Events
         </Typography>
       </Box>
-      {data.events.length < 1 ? (
+      {data.events.length >= 1 ? (
         <Grid className={classes.grid}>
           {data &&
             data?.events?.map((event, id) => (
@@ -67,7 +69,9 @@ export default function MyEvents() {
             ))}
         </Grid>
       ) : (
-        <p>You haven't registered for any events yet!</p>
+        <Typography className={classes.noActiv}>
+          You haven't registered for any events yet!
+        </Typography>
       )}
     </main>
   );
