@@ -8,7 +8,7 @@ import { useAuth0, Auth0Context } from "../../config/react-auth0-spa";
 import { useQuery } from "react-apollo";
 import { GET_USER_ACTIVITIES } from "./queries";
 // Styling import
-import { Box, makeStyles, Typography, Button } from "@material-ui/core";
+import { Box, makeStyles, Typography, Link } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 // Applies Material-UI styling
@@ -43,7 +43,9 @@ const useStyles = makeStyles({
   },
   donateBtn: {
     backgroundColor: "#FFC629",
-    fontSize: "2rem",
+    padding: '.8rem 1.1rem',
+    borderRadius: '.3rem',
+    fontSize: "1.4rem",
     fontWeight: 550,
     margin: "auto"
   },
@@ -156,9 +158,9 @@ export default function EventDetails(props) {
             <Typography variant="subtitle1">{activeEvent.location}</Typography>
           </Box>
         )}
-        <Button className={classes.donateBtn} color="primary" size="large">
+        <Link className={classes.donateBtn} color="primary" size="large">
           Donate Here
-        </Button>
+        </Link>
       </Box>
       <Box className={classes.detailsContainer}>
         <Typography className={classes.details} variant="body1">
