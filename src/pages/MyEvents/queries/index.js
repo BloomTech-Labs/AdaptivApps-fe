@@ -86,3 +86,13 @@ export const UNREGISTER_FROM_EVENT_ACTIVITY = gql`
     }
   }
 `;
+export const UNREGISTER_FROM_EVENT = gql`
+  mutation unregisterFromEvent($id: ID!, $email: String!) {
+    updateEvent(
+      where: { id: $id }
+      data: { attendees: { disconnect: { email: $email } } }
+    ) {
+      id
+    }
+  }
+`;

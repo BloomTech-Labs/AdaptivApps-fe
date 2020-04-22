@@ -17,7 +17,7 @@ import {
 import { makeStyles, Popover, Button, Box } from "@material-ui/core";
 import { IconContext } from "react-icons";
 import { IoIosAddCircle } from "react-icons/io";
-import LightTooltip from "../../theme/LightTooltip"
+import LightTooltip from "../../theme/LightTooltip";
 
 const useStyles = makeStyles(theme => ({
   typography: {
@@ -42,6 +42,14 @@ const useStyles = makeStyles(theme => ({
   },
   dialogPaper: {
     boxShadow: "none",
+  },
+  role: {
+    "&:hover": {
+      color: "#2A62FF",
+    },
+    "&:focus": {
+      color: "#2A62FF",
+    },
   },
 }));
 
@@ -198,19 +206,19 @@ export default function SimplePopover({ activity, activityData }) {
       }
     >
       {activityData && activityData?.event?.type === "Webinar" ? (
-        <LightTooltip title='Register for Activity' placement='right'>
+        <LightTooltip title="Register for Activity" placement="right">
           <Button
-          className={classes.btn}
-          aria-describedby={id}
-          variant="contained"
-          onClick={spectatorRegister}
+            className={classes.btn}
+            aria-describedby={id}
+            variant="contained"
+            onClick={spectatorRegister}
           >
             <IoIosAddCircle />
           </Button>
         </LightTooltip>
       ) : (
         <>
-          <LightTooltip title='Register for Activity' placement='right'>
+          <LightTooltip title="Register for Activity" placement="right">
             <Button
               className={classes.btn}
               aria-describedby={id}
@@ -237,16 +245,16 @@ export default function SimplePopover({ activity, activityData }) {
             classes={{ paper: classes.dialogPaper }}
           >
             <Box className={classes.box}>
-              <Button className="role" onClick={athleteRegister}>
+              <Button className={classes.role} onClick={athleteRegister}>
                 I'm Competing
               </Button>
-              <Button className="role" onClick={coachRegister}>
+              <Button className={classes.role} onClick={coachRegister}>
                 I'm Coaching
               </Button>
-              <Button className="role" onClick={volunteerRegister}>
+              <Button className={classes.role} onClick={volunteerRegister}>
                 I'm Volunteering
               </Button>
-              <Button className="role" onClick={spectatorRegister}>
+              <Button className={classes.role} onClick={spectatorRegister}>
                 I'm Spectating
               </Button>
             </Box>
@@ -256,4 +264,3 @@ export default function SimplePopover({ activity, activityData }) {
     </IconContext.Provider>
   );
 }
-

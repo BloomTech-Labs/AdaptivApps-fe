@@ -42,16 +42,16 @@ const useStyles = makeStyles({
     },
   },
   donateBtn: {
-    boxShadow: '0px 3px 8px rgba(0,0,0,0.2)',
-    '&:active': {
-      boxShadow: 'inset 0px 3px 8px rgba(0,0,0,0.2)'
-    },   
+    boxShadow: "0px 3px 8px rgba(0,0,0,0.2)",
+    "&:active": {
+      boxShadow: "inset 0px 3px 8px rgba(0,0,0,0.2)",
+    },
     backgroundColor: "#FFC629",
-    padding: '.8rem 1.1rem',
-    borderRadius: '.5rem',
+    padding: ".8rem 1.1rem",
+    borderRadius: ".5rem",
     fontSize: "1.4rem",
     fontWeight: 550,
-    margin: "auto"
+    margin: "auto",
   },
   detailsContainer: {
     marginBottom: "2rem",
@@ -162,7 +162,13 @@ export default function EventDetails(props) {
             <Typography variant="subtitle1">{activeEvent.location}</Typography>
           </Box>
         )}
-        <Link className={classes.donateBtn} color="primary" href="https://app.mobilecause.com/vf/ANGEL" target="_blank" rel="noopener">
+        <Link
+          className={classes.donateBtn}
+          color="primary"
+          href="https://app.mobilecause.com/vf/ANGEL"
+          target="_blank"
+          rel="noopener"
+        >
           DONATE NOW
         </Link>
       </Box>
@@ -176,34 +182,33 @@ export default function EventDetails(props) {
         <Box className={classes.webinarBox}>
           <p>Hosted by: {activeEvent.host}</p>
           <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
-          <a href={activeEvent.link}>Click Here to Join Us!</a>
+          <a href={activeEvent.link} target="_blank">
+            Click Here to Join Us!
+          </a>
         </Box>
-        ) : null} 
-        <>
-          {currentActivities.length >= 1 ? (
-            <Box className={classes.myActivitiesBox}>
-              <p>My Activities</p>
-              <table className={classes.table}>
-                <tbody>
-                  <tr className={classes.headerRow}>
-                    <th className={classes.tableH}>Name</th>
-                    <th className={classes.tableH}>Date</th>
-                    <th className={classes.tableH}>Location</th>
-                    <th className={classes.tableH}>Time</th>
-                    <th className={classes.tableH}>My Role</th>
-                  </tr>
-                  {currentActivities &&
-                    currentActivities.map((activity, id) => (
-                      <ActivityDetails
-                        key={id}
-                        activity={activity}
-                      />
-                    ))}
-                </tbody>
-              </table>
-            </Box>
-          ) : null}
-        </>
+      ) : null}
+      <>
+        {currentActivities.length >= 1 ? (
+          <Box className={classes.myActivitiesBox}>
+            <p>My Activities</p>
+            <table className={classes.table}>
+              <tbody>
+                <tr className={classes.headerRow}>
+                  <th className={classes.tableH}>Name</th>
+                  <th className={classes.tableH}>Date</th>
+                  <th className={classes.tableH}>Location</th>
+                  <th className={classes.tableH}>Time</th>
+                  <th className={classes.tableH}>My Role</th>
+                </tr>
+                {currentActivities &&
+                  currentActivities.map((activity, id) => (
+                    <ActivityDetails key={id} activity={activity} />
+                  ))}
+              </tbody>
+            </table>
+          </Box>
+        ) : null}
+      </>
       <Box className={classes.sponsorBox}>
         {activeEvent?.sponsors?.length > 0 ? (
           <Typography variant="h3">Special thanks to our sponsors!</Typography>

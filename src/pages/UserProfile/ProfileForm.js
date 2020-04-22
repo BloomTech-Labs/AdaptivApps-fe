@@ -375,8 +375,8 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                     <MenuItem value="">
                       {userProfile ? userProfile.legal : ""}
                     </MenuItem>
-                    <MenuItem value={`Adult`}>Adult</MenuItem>
-                    <MenuItem value={`Minor`}>Minor</MenuItem>
+                    <MenuItem value={`Adult`}>Yes</MenuItem>
+                    <MenuItem value={`Minor`}>No</MenuItem>
                   </Select>
                 }
                 className={classes.input}
@@ -414,4 +414,3 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 };
 
 export default ProfileForm;
-
