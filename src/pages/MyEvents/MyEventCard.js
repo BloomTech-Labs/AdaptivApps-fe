@@ -111,12 +111,19 @@ export default function MyEventCard({ event, refetch }) {
       ""
     );
 
-    data && data?.participants?.length <= 1
+    data && data?.participants?.length === 1
       ? await unregisterFromEventActivity({
           variables: {
             id: event.id,
             email: user.email,
             participantId: participantId,
+          },
+        })
+      : data && data?.participants === null
+      ? await unregisterFromEvent({
+          variables: {
+            id: event.id,
+            email: user.email,
           },
         })
       : await unregisterFromAll({

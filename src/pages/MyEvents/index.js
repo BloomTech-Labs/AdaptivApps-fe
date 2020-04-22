@@ -32,10 +32,17 @@ const useStyles = makeStyles({
     position: "absolute",
     top: "50%",
     right: "50%",
-    color: "#2763FF",
+    color: "#2962FF",
   },
   noActiv: {
     marginLeft: "3rem",
+  },
+  noActivBlue: {
+    marginLeft: "3rem",
+    color: "#2962FF",
+  },
+  inlineNotice: {
+    display: "inline-flex",
   },
 });
 
@@ -69,9 +76,20 @@ export default function MyEvents() {
             ))}
         </Grid>
       ) : (
-        <Typography className={classes.noActiv}>
-          You haven't registered for any events yet!
-        </Typography>
+        <>
+          <Typography className={classes.noActiv}>
+            You haven't registered for any events yet!
+          </Typography>
+          <Box className={classes.inlineNotice}>
+            <Typography className={classes.noActivBlue}>
+              Check out the Events Calendar
+            </Typography>
+            <Typography>
+              , register for an event, then see all of your registered events
+              here!
+            </Typography>
+          </Box>
+        </>
       )}
     </main>
   );
