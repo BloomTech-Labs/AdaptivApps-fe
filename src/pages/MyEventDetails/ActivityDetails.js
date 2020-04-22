@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 export default function ActivityDetails({ activity }) {
   const classes = useStyles();
   const { user } = useAuth0();
-  
+
   const activeEvent = activity.event;
   return (
     <tr className={classes.root}>
@@ -41,7 +41,7 @@ export default function ActivityDetails({ activity }) {
       <td>{activity.startDate}</td>
       {activeEvent.type === "Webinar" ? (
         <td>
-          <a className={classes.nameLink} href={activity.link}>
+          <a className={classes.nameLink} href={activity.link} target="_blank">
             Join!
           </a>
         </td>
@@ -57,5 +57,3 @@ export default function ActivityDetails({ activity }) {
     </tr>
   );
 }
-
-
