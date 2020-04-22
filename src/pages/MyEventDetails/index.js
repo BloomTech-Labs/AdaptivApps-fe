@@ -19,10 +19,10 @@ const useStyles = makeStyles({
     maxWidth: "100%",
     width: "90%",
     marginLeft: "1rem",
-    marginTop: "4rem",
+    marginTop: "3.1rem",
   },
   headingBox: {
-    margin: "3rem 0 2rem 3rem",
+    margin: "0 0 2rem 3rem",
     borderColor: "#D3D3D3",
   },
   linkBack: {

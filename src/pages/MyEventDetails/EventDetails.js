@@ -42,7 +42,10 @@ const useStyles = makeStyles({
     },
   },
   donateBtn: {
-    boxShadow: '0px 3px 10px rgba(0,0,0,0.2)',
+    boxShadow: '0px 3px 8px rgba(0,0,0,0.2)',
+    '&:active': {
+      boxShadow: 'inset 0px 3px 8px rgba(0,0,0,0.2)'
+    },   
     backgroundColor: "#FFC629",
     padding: '.8rem 1.1rem',
     borderRadius: '.5rem',
