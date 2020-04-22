@@ -3,12 +3,12 @@ import React, { useEffect } from "react";
 // Component imports
 import ActivityDetails from "./ActivityDetails";
 // Auth0 imports
-import { useAuth0 } from "../../config/react-auth0-spa";
+import { useAuth0, Auth0Context } from "../../config/react-auth0-spa";
 // GraphQL/Apollo imports
 import { useQuery } from "react-apollo";
 import { GET_USER_ACTIVITIES } from "./queries";
 // Styling import
-import { Box, makeStyles, Typography } from "@material-ui/core";
+import { Box, makeStyles, Typography, Link } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 // Applies Material-UI styling
@@ -40,6 +40,18 @@ const useStyles = makeStyles({
       fontSize: "2.1rem",
       margin: "0rem 0 0.5rem",
     },
+  },
+  donateBtn: {
+    boxShadow: "0px 3px 8px rgba(0,0,0,0.2)",
+    "&:active": {
+      boxShadow: "inset 0px 3px 8px rgba(0,0,0,0.2)",
+    },
+    backgroundColor: "#FFC629",
+    padding: ".8rem 1.1rem",
+    borderRadius: ".5rem",
+    fontSize: "1.4rem",
+    fontWeight: 550,
+    margin: "auto",
   },
   detailsContainer: {
     marginBottom: "2rem",
@@ -150,6 +162,15 @@ export default function EventDetails(props) {
             <Typography variant="subtitle1">{activeEvent.location}</Typography>
           </Box>
         )}
+        <Link
+          className={classes.donateBtn}
+          color="primary"
+          href="https://app.mobilecause.com/vf/ANGEL"
+          target="_blank"
+          rel="noopener"
+        >
+          DONATE NOW
+        </Link>
       </Box>
       <Box className={classes.detailsContainer}>
         <Typography className={classes.details} variant="body1">
@@ -158,63 +179,36 @@ export default function EventDetails(props) {
       </Box>
 
       {activeEvent.type === "Webinar" ? (
-        <>
-          <Box className={classes.webinarBox}>
-            <p>Hosted by: {activeEvent.host}</p>
-            <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
-            <a href={activeEvent.link} target="_blank">
-              Click Here to Join Us!
-            </a>
+        <Box className={classes.webinarBox}>
+          <p>Hosted by: {activeEvent.host}</p>
+          <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
+          <a href={activeEvent.link} target="_blank">
+            Click Here to Join Us!
+          </a>
+        </Box>
+      ) : null}
+      <>
+        {currentActivities.length >= 1 ? (
+          <Box className={classes.myActivitiesBox}>
+            <p>My Activities</p>
+            <table className={classes.table}>
+              <tbody>
+                <tr className={classes.headerRow}>
+                  <th className={classes.tableH}>Name</th>
+                  <th className={classes.tableH}>Date</th>
+                  <th className={classes.tableH}>Location</th>
+                  <th className={classes.tableH}>Time</th>
+                  <th className={classes.tableH}>My Role</th>
+                </tr>
+                {currentActivities &&
+                  currentActivities.map((activity, id) => (
+                    <ActivityDetails key={id} activity={activity} />
+                  ))}
+              </tbody>
+            </table>
           </Box>
-          {currentActivities.length >= 1 ? (
-            <Box className={classes.myActivitiesBox}>
-              <p>My Activities</p>
-              <table className={classes.table}>
-                <tbody>
-                  <tr className={classes.headerRow}>
-                    <th className={classes.tableH}>Name</th>
-                    <th className={classes.tableH}>Date</th>
-                    <th className={classes.tableH}>Link</th>
-                    <th className={classes.tableH}>Time</th>
-                    <th className={classes.tableH}>My Role</th>
-                  </tr>
-                  {currentActivities &&
-                    currentActivities.map((activity, id) => (
-                      <ActivityDetails key={id} activity={activity} />
-                    ))}
-                </tbody>
-              </table>
-            </Box>
-          ) : null}
-        </>
-      ) : (
-        <>
-          {currentActivities.length >= 1 ? (
-            <Box className={classes.myActivitiesBox}>
-              <p>My Activities</p>
-              <table className={classes.table}>
-                <tbody>
-                  <tr className={classes.headerRow}>
-                    <th className={classes.tableH}>Name</th>
-                    <th className={classes.tableH}>Date</th>
-                    <th className={classes.tableH}>Location</th>
-                    <th className={classes.tableH}>Time</th>
-                    <th className={classes.tableH}>My Role</th>
-                  </tr>
-                  {currentActivities &&
-                    currentActivities.map((activity, id) => (
-                      <ActivityDetails
-                        key={id}
-                        activeEvent={activeEvent}
-                        activity={activity}
-                      />
-                    ))}
-                </tbody>
-              </table>
-            </Box>
-          ) : null}
-        </>
-      )}
+        ) : null}
+      </>
       <Box className={classes.sponsorBox}>
         {activeEvent?.sponsors?.length > 0 ? (
           <Typography variant="h3">Special thanks to our sponsors!</Typography>
