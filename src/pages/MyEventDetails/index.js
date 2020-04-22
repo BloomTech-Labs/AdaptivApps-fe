@@ -10,18 +10,35 @@ import { useAuth0 } from "../../config/react-auth0-spa";
 import { useQuery } from "react-apollo";
 import { GET_EVENT_DETAILS } from "./queries";
 // Styling imports
-import { Box, Typography, makeStyles } from "@material-ui/core";
+import { Box, Typography, makeStyles, Link } from "@material-ui/core";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos"
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles({
   root: {
     maxWidth: "100%",
     width: "90%",
     marginLeft: "1rem",
-    marginTop: "4rem",
+    marginTop: "3.1rem",
   },
   headingBox: {
-    margin: "6rem 0 2rem 3rem",
+    margin: "0 0 2rem 3rem",
     borderColor: "#D3D3D3",
+  },
+  linkBack: {
+    color: "#202020",
+    fontSize: '1.8rem',
+    fontWeight: 530,
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: '1.6rem',
+    marginLeft: '0.3rem'
+  },
+  loadingSpinner: {
+    position: "absolute",
+    top: "50%",
+    right: "50%",
+    color: "#2763FF",
   },
 });
 
@@ -38,7 +55,7 @@ export default function MyEventDetails() {
   useEffect(() => {
     refetch();
   }, [refetch]);
-  if (loading) return "Loading...";
+  if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
 
   const activeEvent = data.events;
@@ -46,6 +63,10 @@ export default function MyEventDetails() {
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
+        <Link href="/myevents" className={classes.linkBack}>
+          <ArrowBackIosIcon color="primary" fontSize="large" />
+          Back to my events
+        </Link>
         <Typography variant="h1" gutterBottom>
           Event Details
         </Typography>

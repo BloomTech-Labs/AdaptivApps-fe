@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "react-apollo";
 import Activities from "./Activities";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { useParams } from "@reach/router";
 import { GET_EVENT_ACTIVITIES } from "./queries/getActivities";
@@ -54,17 +55,31 @@ const useStyles = makeStyles({
     fontSize: "1.6rem",
   },
   activityC: {
-    margin: "2.4rem 0 1.6rem 3rem",
+    "& p": {
+      fontWeight: "bold",
+      fontSize: "1.8rem",
+      margin: "3rem 0 2rem 3rem",
+    },
+    "& tr": {
+      display: "flex",
+      alignItems: "center",
+    },
+    "& th": {
+      margin: "0 0 0 3rem",
+      fontWeight: 550,
+      fontSize: "1.6rem",
+      width: "20rem",
+      padding: "1% 1% 2% 0",
+      textAlign: "left",
+    },
   },
   headerRow: {
     textAlign: "left",
     fontSize: "1.8rem",
-    marginBottom: "6.3rem",
   },
   tableH: {
     color: "#202020",
-    margin: "6.3rem 0 .8rem 0",
-    width: "24rem",
+    width: "20rem",
   },
   grid: {
     width: "100%",
@@ -72,6 +87,17 @@ const useStyles = makeStyles({
   activityH: {
     fontSize: "1.8rem",
     marginBottom: "1rem",
+  },
+  details: {
+    fontSize: "1.4rem",
+    maxWidth: "80rem",
+    margin: "2rem 0 0 3rem",
+  },
+  loadingSpinner: {
+    position: "absolute",
+    top: "50%",
+    right: "50%",
+    color: "#2763FF",
   },
 });
 
@@ -84,7 +110,7 @@ export default function ActivityList() {
       variables: { id: eventId },
     }
   );
-  if (loading) return "Loading...";
+  if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
   return (
     <main className={classes.root}>
@@ -123,11 +149,10 @@ export default function ActivityList() {
           </Typography>
         </Box>
       </Box>
-      <Box className={classes.activityC}>
-        <Typography className={classes.activityH}>
-          Activities Schedule
-        </Typography>
-        <Grid className={classes.grid}>
+      <Box className={classes.details}>{activityData.event.details}</Box>
+      {activityData.event.activities.length >= 1 ? (
+        <Box className={classes.activityC}>
+          <p>Activities Schedule</p>
           <table className={classes.table}>
             <tbody>
               <tr className={classes.headerRow}>
@@ -138,18 +163,18 @@ export default function ActivityList() {
                 ) : null}
                 <th className={classes.tableH}>Time</th>
               </tr>
+              {activityData &&
+                activityData?.event?.activities.map((activity, id) => (
+                  <Activities
+                    key={id}
+                    activity={activity}
+                    activityData={activityData}
+                  />
+                ))}
             </tbody>
           </table>
-          {activityData &&
-            activityData?.event?.activities.map((activity, id) => (
-              <Activities
-                key={id}
-                activity={activity}
-                activityData={activityData}
-              />
-            ))}
-        </Grid>
-      </Box>
+        </Box>
+      ) : null}
     </main>
   );
 }

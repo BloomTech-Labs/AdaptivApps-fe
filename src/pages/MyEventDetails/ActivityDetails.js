@@ -5,7 +5,6 @@ import { useAuth0 } from "../../config/react-auth0-spa";
 import SimpleModal from "../ActivitiesList/SimpleModal";
 // Styling imports
 import { makeStyles } from "@material-ui/core";
-import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
   root: {
@@ -32,6 +31,7 @@ const useStyles = makeStyles({
 export default function ActivityDetails({ activity }) {
   const classes = useStyles();
   const { user } = useAuth0();
+
   const activeEvent = activity.event;
   return (
     <tr className={classes.root}>
@@ -41,7 +41,7 @@ export default function ActivityDetails({ activity }) {
       <td>{activity.startDate}</td>
       {activeEvent.type === "Webinar" ? (
         <td>
-          <a className={classes.nameLink} href={activity.link}>
+          <a className={classes.nameLink} href={activity.link} target="_blank">
             Join!
           </a>
         </td>
@@ -49,15 +49,11 @@ export default function ActivityDetails({ activity }) {
         <td>{activity.location}</td>
       )}
       <td>{activity.startTime}</td>
-      {activity.participants.map((participant, id) =>
-        participant && participant.profile.email === user.email ? (
+      {activity?.participants.map((participant, id) =>
+        participant && participant?.profile?.email === user.email ? (
           <td>{participant.role}</td>
         ) : null
       )}
     </tr>
   );
 }
-
-ActivityDetails.propTypes = {
-  activity: PropTypes.object,
-};

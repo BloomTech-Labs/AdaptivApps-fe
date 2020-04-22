@@ -1,7 +1,6 @@
 import React from "react";
 import { useNavigate } from "@reach/router";
 import { useAuth0 } from "../../config/react-auth0-spa";
-import PropTypes from "prop-types";
 import SimpleModal from "./SimpleModal";
 
 import {
@@ -55,6 +54,8 @@ const useStyles = makeStyles({
     maxHeight: "16rem",
   },
   banner: {
+    display: "flex",
+    justifyContent: "center",
     position: "relative",
     transform: "rotate(-45deg)",
     top: "4.9rem",
@@ -66,7 +67,7 @@ const useStyles = makeStyles({
     color: "#EECC1B",
     width: "12.75rem",
     textAlign: "center",
-    fontSize: "1.4rem",
+    fontSize: "1.6rem",
   },
 });
 
@@ -132,6 +133,4 @@ export default function EventCard({ event }) {
   );
 }
 
-EventCard.propTypes = {
-  event: PropTypes.object,
-};
+

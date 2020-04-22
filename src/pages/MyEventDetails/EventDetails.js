@@ -1,17 +1,18 @@
 // React imports
-import React from "react";
+import React, { useEffect } from "react";
 // Component imports
 import ActivityDetails from "./ActivityDetails";
 // Auth0 imports
-import { useAuth0 } from "../../config/react-auth0-spa";
+import { useAuth0, Auth0Context } from "../../config/react-auth0-spa";
 // GraphQL/Apollo imports
 import { useQuery } from "react-apollo";
 import { GET_USER_ACTIVITIES } from "./queries";
 // Styling import
-import { Box, makeStyles, Typography } from "@material-ui/core";
+import { Box, makeStyles, Typography, Link } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 // Applies Material-UI styling
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
@@ -40,6 +41,18 @@ const useStyles = makeStyles(theme => ({
       margin: "0rem 0 0.5rem",
     },
   },
+  donateBtn: {
+    boxShadow: "0px 3px 8px rgba(0,0,0,0.2)",
+    "&:active": {
+      boxShadow: "inset 0px 3px 8px rgba(0,0,0,0.2)",
+    },
+    backgroundColor: "#FFC629",
+    padding: ".8rem 1.1rem",
+    borderRadius: ".5rem",
+    fontSize: "1.4rem",
+    fontWeight: 550,
+    margin: "auto",
+  },
   detailsContainer: {
     marginBottom: "2rem",
     marginTop: "1.6rem",
@@ -49,7 +62,7 @@ const useStyles = makeStyles(theme => ({
       fontWeight: "bold",
       fontSize: "1.8rem",
       marginTop: "3rem",
-      marginBottom: 0,
+      marginBottom: "2rem",
     },
     "& tr": {
       display: "flex",
@@ -97,7 +110,18 @@ const useStyles = makeStyles(theme => ({
     color: "#202020",
     width: "20rem",
   },
-}));
+  details: {
+    fontSize: "1.4rem",
+    maxWidth: "80rem",
+    margin: "2rem 0 0 0",
+  },
+  loadingSpinner: {
+    position: "absolute",
+    top: "50%",
+    right: "50%",
+    color: "#2763FF",
+  },
+});
 
 export default function EventDetails(props) {
   const classes = useStyles();
@@ -108,7 +132,11 @@ export default function EventDetails(props) {
     variables: { id: eventId, email: user.email },
   });
 
-  if (loading) return "Loading...";
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
+  if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
 
   const currentActivities = data.activities;
@@ -134,39 +162,33 @@ export default function EventDetails(props) {
             <Typography variant="subtitle1">{activeEvent.location}</Typography>
           </Box>
         )}
+        <Link
+          className={classes.donateBtn}
+          color="primary"
+          href="https://app.mobilecause.com/vf/ANGEL"
+          target="_blank"
+          rel="noopener"
+        >
+          DONATE NOW
+        </Link>
       </Box>
       <Box className={classes.detailsContainer}>
-        <Typography variant="body1">{activeEvent.details}</Typography>
+        <Typography className={classes.details} variant="body1">
+          {activeEvent.details}
+        </Typography>
       </Box>
 
       {activeEvent.type === "Webinar" ? (
-        <>
-          <Box className={classes.webinarBox}>
-            <p>Hosted by: {activeEvent.host}</p>
-            <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
-            <a href={activeEvent.link}>Click Here to Join Us!</a>
-          </Box>
-          <Box className={classes.myActivitiesBox}>
-            <p>Activities</p>
-            <table className={classes.table}>
-              <tbody>
-                <tr className={classes.headerRow}>
-                  <th className={classes.tableH}>Name</th>
-                  <th className={classes.tableH}>Date</th>
-                  <th className={classes.tableH}>Link</th>
-                  <th className={classes.tableH}>Time</th>
-                  <th className={classes.tableH}>My Role</th>
-                </tr>
-                {currentActivities &&
-                  currentActivities.map((activity, id) => (
-                    <ActivityDetails key={id} activity={activity} />
-                  ))}
-              </tbody>
-            </table>
-          </Box>
-        </>
-      ) : (
-        <>
+        <Box className={classes.webinarBox}>
+          <p>Hosted by: {activeEvent.host}</p>
+          <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
+          <a href={activeEvent.link} target="_blank">
+            Click Here to Join Us!
+          </a>
+        </Box>
+      ) : null}
+      <>
+        {currentActivities.length >= 1 ? (
           <Box className={classes.myActivitiesBox}>
             <p>My Activities</p>
             <table className={classes.table}>
@@ -180,17 +202,13 @@ export default function EventDetails(props) {
                 </tr>
                 {currentActivities &&
                   currentActivities.map((activity, id) => (
-                    <ActivityDetails
-                      key={id}
-                      activeEvent={activeEvent}
-                      activity={activity}
-                    />
+                    <ActivityDetails key={id} activity={activity} />
                   ))}
               </tbody>
             </table>
           </Box>
-        </>
-      )}
+        ) : null}
+      </>
       <Box className={classes.sponsorBox}>
         {activeEvent?.sponsors?.length > 0 ? (
           <Typography variant="h3">Special thanks to our sponsors!</Typography>

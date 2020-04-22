@@ -9,6 +9,7 @@ import { GET_USER_EVENTS } from "./queries";
 import { useAuth0 } from "../../config/react-auth0-spa";
 // Styling imports
 import { makeStyles, Grid, Box, Typography } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles({
   root: {
@@ -27,6 +28,22 @@ const useStyles = makeStyles({
     flexWrap: "wrap",
     marginLeft: "3rem",
   },
+  loadingSpinner: {
+    position: "absolute",
+    top: "50%",
+    right: "50%",
+    color: "#2962FF",
+  },
+  noActiv: {
+    marginLeft: "3rem",
+  },
+  noActivBlue: {
+    marginLeft: "3rem",
+    color: "#2962FF",
+  },
+  inlineNotice: {
+    display: "inline-flex",
+  },
 });
 
 export default function MyEvents() {
@@ -42,7 +59,7 @@ export default function MyEvents() {
     refetch();
   }, [refetch]);
 
-  if (loading) return "Loading...";
+  if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
   return (
     <main className={classes.root}>
@@ -51,12 +68,29 @@ export default function MyEvents() {
           My Events
         </Typography>
       </Box>
-      <Grid className={classes.grid}>
-        {data &&
-          data?.events?.map((event, id) => (
-            <MyEventCard key={id} event={event} refetch={refetch} />
-          ))}
-      </Grid>
+      {data.events.length >= 1 ? (
+        <Grid className={classes.grid}>
+          {data &&
+            data?.events?.map((event, id) => (
+              <MyEventCard key={id} event={event} refetch={refetch} />
+            ))}
+        </Grid>
+      ) : (
+        <>
+          <Typography className={classes.noActiv}>
+            You haven't registered for any events yet!
+          </Typography>
+          <Box className={classes.inlineNotice}>
+            <Typography className={classes.noActivBlue}>
+              Check out the Events Calendar
+            </Typography>
+            <Typography>
+              , register for an event, then see all of your registered events
+              here!
+            </Typography>
+          </Box>
+        </>
+      )}
     </main>
   );
 }

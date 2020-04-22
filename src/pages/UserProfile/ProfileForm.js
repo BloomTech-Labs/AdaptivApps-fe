@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
-import config from "../../config/auth_config";
 import { useForm, Controller } from "react-hook-form";
-import PropTypes from "prop-types";
 import * as yup from "yup";
 //material ui
 import {
@@ -377,8 +375,8 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                     <MenuItem value="">
                       {userProfile ? userProfile.legal : ""}
                     </MenuItem>
-                    <MenuItem value={`Adult`}>Adult</MenuItem>
-                    <MenuItem value={`Minor`}>Minor</MenuItem>
+                    <MenuItem value={`Adult`}>Yes</MenuItem>
+                    <MenuItem value={`Minor`}>No</MenuItem>
                   </Select>
                 }
                 className={classes.input}
@@ -416,10 +414,3 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 };
 
 export default ProfileForm;
-
-ProfileForm.propTypes = {
-  profile: PropTypes.object,
-  user: PropTypes.object,
-  loading: PropTypes.bool,
-  updateProfile: PropTypes.any,
-};

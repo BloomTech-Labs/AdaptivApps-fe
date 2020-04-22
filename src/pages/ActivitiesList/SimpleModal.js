@@ -63,6 +63,12 @@ const useStyles = makeStyles(theme => ({
     fontSize: "1.4rem",
     paddingRight: "1rem",
   },
+  nameLink: {
+    fontSize: '1.8rem',
+    fontWeight: '500',
+    textDecoration: 'none',
+    color: '#2962FF'
+  },
   modalBottom: {
     display: "flex",
     flexDirection: "column",
@@ -117,11 +123,6 @@ export default function SimpleModal({ activity, activityData }) {
         <Typography className={classes.details} id="simple-modal-description">
           {activity?.details}
         </Typography>
-        {activityData?.event?.type === "Webinar" ? (
-          <a className={classes.nameLink} href={activity.link}>
-            Join!
-          </a>
-        ) : null}
       </Box>
       <Box className={classes.modalBottom}>
         <Box>

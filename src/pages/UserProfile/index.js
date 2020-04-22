@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { useAuth0 } from "../../config/react-auth0-spa";
 import { useQuery, useMutation } from "react-apollo";
-import PropTypes from "prop-types";
-
 import ProfileForm from "./ProfileForm";
 import { UPDATE_USER_PROFILE, ADD_USER_PROFILE, PROFILE_INFO } from "./queries";
 
@@ -47,6 +45,4 @@ const UserProfile = () => {
 
 export default UserProfile;
 
-UserProfile.propTypes = {
-  user: PropTypes.object,
-};
+

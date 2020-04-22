@@ -1,13 +1,9 @@
 // React imports
 import React from "react";
-
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
-
 // Component imports
 import SideNav from "./SideNav";
-import PropTypes from "prop-types";
-
 // Styling imports
 import { Box, makeStyles } from "@material-ui/core";
 
@@ -38,6 +34,3 @@ const DashRouter = ({ children }) => {
 
 export default DashRouter;
 
-DashRouter.propTypes = {
-  children: PropTypes.any,
-};

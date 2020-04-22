@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useAuth0 } from "../../config/react-auth0-spa";
-
 import { useMutation } from "react-apollo";
 import {
   REGISTER_AS_ATHLETE,
@@ -14,12 +13,11 @@ import {
   UPDATE_AS_VOLUNTEER,
   UPDATE_AS_SPECTATOR,
 } from "./queries/UpdateRole";
-
+// Styling imports
 import { makeStyles, Popover, Button, Box } from "@material-ui/core";
 import { IconContext } from "react-icons";
 import { IoIosAddCircle } from "react-icons/io";
-
-import PropTypes from "prop-types";
+import LightTooltip from "../../theme/LightTooltip";
 
 const useStyles = makeStyles(theme => ({
   typography: {
@@ -45,6 +43,14 @@ const useStyles = makeStyles(theme => ({
   dialogPaper: {
     boxShadow: "none",
   },
+  role: {
+    "&:hover": {
+      color: "#2A62FF",
+    },
+    "&:focus": {
+      color: "#2A62FF",
+    },
+  },
 }));
 
 export default function SimplePopover({ activity, activityData }) {
@@ -69,7 +75,7 @@ export default function SimplePopover({ activity, activityData }) {
 
   const athleteRegister = async () => {
     const participantEmail = activity.participants.map(participant => {
-      return participant.profile.email;
+      return participant?.profile?.email;
     });
     const participantEmailValue = JSON.stringify(participantEmail).replace(
       /[\[\]"]+/g,
@@ -84,7 +90,7 @@ export default function SimplePopover({ activity, activityData }) {
       ""
     );
     participantEmailValue === user.email
-      ? updateAsAthlete({
+      ? await updateAsAthlete({
           variables: { id: participantIdValue },
         })
       : await registerAsAthlete({
@@ -96,7 +102,7 @@ export default function SimplePopover({ activity, activityData }) {
 
   const coachRegister = async () => {
     const participantEmail = activity.participants.map(participant => {
-      return participant.profile.email;
+      return participant?.profile?.email;
     });
     const participantEmailValue = JSON.stringify(participantEmail).replace(
       /[\[\]"]+/g,
@@ -111,7 +117,7 @@ export default function SimplePopover({ activity, activityData }) {
       ""
     );
     participantEmailValue === user.email
-      ? updateAsCoach({
+      ? await updateAsCoach({
           variables: { id: participantIdValue },
         })
       : await registerAsCoach({
@@ -123,7 +129,7 @@ export default function SimplePopover({ activity, activityData }) {
 
   const volunteerRegister = async () => {
     const participantEmail = activity.participants.map(participant => {
-      return participant.profile.email;
+      return participant?.profile?.email;
     });
     const participantEmailValue = JSON.stringify(participantEmail).replace(
       /[\[\]"]+/g,
@@ -138,7 +144,7 @@ export default function SimplePopover({ activity, activityData }) {
       ""
     );
     participantEmailValue === user.email
-      ? updateAsVolunteer({
+      ? await updateAsVolunteer({
           variables: { id: participantIdValue },
         })
       : await registerAsVolunteer({
@@ -150,7 +156,7 @@ export default function SimplePopover({ activity, activityData }) {
 
   const spectatorRegister = async () => {
     const participantEmail = activity.participants.map(participant => {
-      return participant.profile.email;
+      return participant?.profile?.email;
     });
     const participantEmailValue = JSON.stringify(participantEmail).replace(
       /[\[\]"]+/g,
@@ -165,7 +171,7 @@ export default function SimplePopover({ activity, activityData }) {
       ""
     );
     participantEmailValue === user.email
-      ? updateAsSpectator({
+      ? await updateAsSpectator({
           variables: { id: participantIdValue },
         })
       : await registerAsSpectator({
@@ -200,24 +206,28 @@ export default function SimplePopover({ activity, activityData }) {
       }
     >
       {activityData && activityData?.event?.type === "Webinar" ? (
-        <Button
-          className={classes.btn}
-          aria-describedby={id}
-          variant="contained"
-          onClick={spectatorRegister}
-        >
-          <IoIosAddCircle />
-        </Button>
-      ) : (
-        <>
+        <LightTooltip title="Register for Activity" placement="right">
           <Button
             className={classes.btn}
             aria-describedby={id}
             variant="contained"
-            onClick={handleClick}
+            onClick={spectatorRegister}
           >
             <IoIosAddCircle />
           </Button>
+        </LightTooltip>
+      ) : (
+        <>
+          <LightTooltip title="Register for Activity" placement="right">
+            <Button
+              className={classes.btn}
+              aria-describedby={id}
+              variant="contained"
+              onClick={handleClick}
+            >
+              <IoIosAddCircle />
+            </Button>
+          </LightTooltip>
           <Popover
             className={classes.popover}
             id={id}
@@ -235,16 +245,16 @@ export default function SimplePopover({ activity, activityData }) {
             classes={{ paper: classes.dialogPaper }}
           >
             <Box className={classes.box}>
-              <Button className="role" onClick={athleteRegister}>
+              <Button className={classes.role} onClick={athleteRegister}>
                 I'm Competing
               </Button>
-              <Button className="role" onClick={coachRegister}>
+              <Button className={classes.role} onClick={coachRegister}>
                 I'm Coaching
               </Button>
-              <Button className="role" onClick={volunteerRegister}>
+              <Button className={classes.role} onClick={volunteerRegister}>
                 I'm Volunteering
               </Button>
-              <Button className="role" onClick={spectatorRegister}>
+              <Button className={classes.role} onClick={spectatorRegister}>
                 I'm Spectating
               </Button>
             </Box>
@@ -254,7 +264,3 @@ export default function SimplePopover({ activity, activityData }) {
     </IconContext.Provider>
   );
 }
-
-SimplePopover.propTypes = {
-  activity: PropTypes.object,
-};
