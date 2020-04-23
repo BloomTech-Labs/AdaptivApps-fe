@@ -1,7 +1,7 @@
 // Import dependencies
 import React from "react";
 // Reach Router imports
-import { Router } from "@reach/router";
+import { Router, Link } from "@reach/router";
 // Import route components
 import DashRouter from "./routes/DashRouter";
 import PrivateRoute from "./routes/PrivateRoute";
@@ -31,7 +31,7 @@ import { ApolloClient } from 'apollo-client';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
-import { withClientState } from 'apollo-link-state';
+// import { withClientState } from 'apollo-link-state';
 import { ApolloLink, Observable } from 'apollo-link';
 
 const trackingId = "UA-159556430-1";
@@ -62,17 +62,9 @@ function App() {
   // OLD Generate new apollo client end
 
   //  New Generate new apollog client start
-  const cache = new InMemoryCache();
-const link = new HttpLink({
-  uri: process.env.REACT_APP_API_URL
-});
-const client = new ApolloClient({
-  cache,
-  link
-});
-  
+  const cache = new InMemoryCache({}) 
   const request = async (operation) => {
-    const token = await getIdTokenClaims();
+  const token = await getIdTokenClaims();
     operation.setContext({
       headers: {
         authorization: token.__raw,
@@ -80,57 +72,12 @@ const client = new ApolloClient({
     });
   };
   
-  const requestLink = new ApolloLink((operation, forward) =>
-    new Observable(observer => {
-      let handle;
-      Promise.resolve(operation)
-        .then(oper => request(oper))
-        .then(() => {
-          handle = forward(operation).subscribe({
-            next: observer.next.bind(observer),
-            error: observer.error.bind(observer),
-            complete: observer.complete.bind(observer),
-          });
-        })
-        .catch(observer.error.bind(observer));
   
-      return () => {
-        if (handle) handle.unsubscribe();
-      };
-    })
-  );
-  
-  // const client = new ApolloClient({
-  //   link: ApolloLink.from([
-  //     onError(({ graphQLErrors, networkError }) => {
-  //       if (graphQLErrors) {
-  //         sendToLoggingService(graphQLErrors);
-  //       }
-  //       if (networkError) {
-  //         logoutUser();
-  //       }
-  //     }),
-  //     requestLink,
-  //     withClientState({
-  //       defaults: {
-  //         isConnected: true
-  //       },
-  //       resolvers: {
-  //         Mutation: {
-  //           updateNetworkStatus: (_, { isConnected }, { cache }) => {
-  //             cache.writeData({ data: { isConnected }});
-  //             return null;
-  //           }
-  //         }
-  //       },
-  //       cache
-  //     }),
-  //     new HttpLink({
-  //       uri: process.env.REACT_APP_API_URL,
-  //       credentials: "same-origin",
-  //     })
-  //   ]),
-  // });
+  const client = new ApolloClient({
+    link: new HttpLink({ uri: process.env.REACT_APP_API_URL }),
+    cache: new InMemoryCache()
+  });
+
 
 
   return (
