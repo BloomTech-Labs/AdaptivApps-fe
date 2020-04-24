@@ -65,7 +65,7 @@ function App() {
     const context = {
       headers: {
         ...headers,
-        Authorization: `bearer ${sessionStorage.getItem("token")}`
+        Authorization: `bearer ${getIdTokenClaims()}`
       }
     };
     return context;
