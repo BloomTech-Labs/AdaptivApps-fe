@@ -1,19 +1,21 @@
 import gql from "graphql-tag";
 
 export const REGISTER_AS_VOLUNTEER = gql`
-  mutation updateActivity($id: ID!, $email: String!) {
-    createParticipant(
-      data: {
-        activity: { connect: { id: $id } }
+  mutation registerAsVolunteer(
+    $participantId: ID!
+    $email: String!
+    $activityId: ID!
+  ) {
+    upsertParticipant(
+      where: { id: $participantId }
+      update: { role: VOLUNTEER }
+      create: {
         profile: { connect: { email: $email } }
         role: VOLUNTEER
+        activity: { connect: { id: $activityId } }
       }
     ) {
       id
-      activity {
-        id
-        name
-      }
       profile {
         id
         email
@@ -24,20 +26,21 @@ export const REGISTER_AS_VOLUNTEER = gql`
 `;
 
 export const REGISTER_AS_COACH = gql`
-  mutation updateActivity($id: ID!, $email: String!) {
-    createParticipant(
-      data: {
-        activity: { connect: { id: $id } }
+  mutation registerAsCoach(
+    $participantId: ID!
+    $email: String!
+    $activityId: ID!
+  ) {
+    upsertParticipant(
+      where: { id: $participantId }
+      create: {
         profile: { connect: { email: $email } }
         role: COACH
+        activity: { connect: { id: $activityId } }
       }
+      update: { role: COACH }
     ) {
       id
-      role
-      activity {
-        id
-        name
-      }
       profile {
         id
         email
@@ -48,20 +51,21 @@ export const REGISTER_AS_COACH = gql`
 `;
 
 export const REGISTER_AS_SPECTATOR = gql`
-  mutation updateActivity($id: ID!, $email: String!) {
-    createParticipant(
-      data: {
-        activity: { connect: { id: $id } }
+  mutation registerAsSpectator(
+    $participantId: ID!
+    $email: String!
+    $activityId: ID!
+  ) {
+    upsertParticipant(
+      where: { id: $participantId }
+      create: {
         profile: { connect: { email: $email } }
         role: SPECTATOR
+        activity: { connect: { id: $activityId } }
       }
+      update: { role: SPECTATOR }
     ) {
       id
-      role
-      activity {
-        id
-        name
-      }
       profile {
         id
         email
@@ -71,20 +75,21 @@ export const REGISTER_AS_SPECTATOR = gql`
   }
 `;
 export const REGISTER_AS_ATHLETE = gql`
-  mutation updateActivity($id: ID!, $email: String!) {
-    createParticipant(
-      data: {
-        activity: { connect: { id: $id } }
+  mutation registerAsAthlete(
+    $participantId: ID!
+    $email: String!
+    $activityId: ID!
+  ) {
+    upsertParticipant(
+      where: { id: $participantId }
+      create: {
         profile: { connect: { email: $email } }
         role: ATHLETE
+        activity: { connect: { id: $activityId } }
       }
+      update: { role: ATHLETE }
     ) {
       id
-      role
-      activity {
-        id
-        name
-      }
       profile {
         id
         email
