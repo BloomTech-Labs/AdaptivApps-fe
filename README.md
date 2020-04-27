@@ -75,6 +75,8 @@ In order for the app to function correctly, the user must set up their own envir
 
     REACT_APP_CLIENT_ID=this is the client id found in our application that is being hosted on Auth0
     REACT_APP_API_URL=can be found in the AWS Amplify application. This is the authentication API
+    REACT_APP_CLIENT_DOMAIN=auth0 domain for the AdaptivApps application
+    REACT_APP_AUDIENCE=auth0 endpoint for the AdaptivApps application
 
 # Testing
 
@@ -82,8 +84,16 @@ We used Jest beacuse it has everything we need to unit test our application
 
 # Installation Instructions
 
-Yarn install
+Yarn install -> NOT npm install (several packages install dependencies and yarn installs all those project dependencies while npm will not)
 npm run start
+
+If a terminal error occurs around `babel-jest`, delete the following folders:
+
+- node_modules
+- package-lock.json
+- yarn.lock
+
+Remove `babel-jest` from package.json and run `yarn install`
 
 ## Other Scripts
 
