@@ -71,9 +71,10 @@ export default function SimplePopover({ activity, activityData }) {
     /[\[\]"]+/g,
     ""
   );
-  // console.log("participantIdValue", participantIdValue);
-  // console.log("participant", participant);
+
   const athleteRegister = async () => {
+    console.log("participantIdValue", participantIdValue);
+    console.log("participant", participant);
     await registerAsAthlete({
       variables: {
         participantId: participantIdValue,
@@ -81,15 +82,13 @@ export default function SimplePopover({ activity, activityData }) {
         email: user.email,
       },
     });
-    console.log("participantIdValue", participantIdValue);
-    console.log("participant", participant);
-    console.log("activity id", activity.id);
-    console.log("user email", user.email);
     alert("Successfully registered to compete in this event!");
     handleClose();
   };
 
   const coachRegister = async () => {
+    console.log("participantIdValue", participantIdValue);
+    console.log("participant", participant);
     await registerAsCoach({
       variables: {
         participantId: participantIdValue,
@@ -97,13 +96,13 @@ export default function SimplePopover({ activity, activityData }) {
         email: user.email,
       },
     });
-    console.log("participantIdValue", participantIdValue);
-    console.log("participant", participant);
     alert("Successfully registered as a Coach!");
     handleClose();
   };
 
   const volunteerRegister = async () => {
+    console.log("participantIdValue", participantIdValue);
+    console.log("participant", participant);
     await registerAsVolunteer({
       variables: {
         participantId: participantIdValue,
@@ -111,13 +110,13 @@ export default function SimplePopover({ activity, activityData }) {
         email: user.email,
       },
     });
-    console.log("participantIdValue", participantIdValue);
-    console.log("participant", participant);
     alert("Successfully registered as a Volunteer");
     handleClose();
   };
 
   const spectatorRegister = async () => {
+    console.log("participantIdValue", participantIdValue);
+    console.log("participant", participant);
     await registerAsSpectator({
       variables: {
         participantId: participantIdValue,
@@ -125,8 +124,6 @@ export default function SimplePopover({ activity, activityData }) {
         email: user.email,
       },
     });
-    console.log("participantIdValue", participantIdValue);
-    console.log("participant", participant);
     alert("Successfully registered as a Spectator");
     handleClose();
   };
