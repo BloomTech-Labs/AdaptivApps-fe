@@ -1,10 +1,13 @@
 // Import dependencies
 import React from "react";
+
 // Reach Router imports
 import { Router, Link } from "@reach/router";
+
 // Import route components
 import DashRouter from "./routes/DashRouter";
 import PrivateRoute from "./routes/PrivateRoute";
+
 // Import page components
 import EventsCalendar from "./pages/EventsCalendar";
 import UserProfile from "./pages/UserProfile";
@@ -23,11 +26,14 @@ import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { setContext } from "apollo-link-context";
 import { ApolloLink } from 'apollo-link';
+
 // Google Analytics Imports
 import ReactGA from "react-ga";
+
 // Auth0 imports
 import { useAuth0 } from "./config/react-auth0-spa";
 import "./styles.css";
+
 const trackingId = "UA-159556430-1";
 (function initializeReactGA() {
   ReactGA.initialize(trackingId, { testMode: true });
@@ -35,7 +41,10 @@ const trackingId = "UA-159556430-1";
 })();
 function App() {
   const { getIdTokenClaims } = useAuth0();
+
   const cache = new InMemoryCache();
+
+
   const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
     if (graphQLErrors) {
       graphQLErrors.forEach(({ message, path }) =>
@@ -48,6 +57,7 @@ function App() {
       );
     }
   });
+
   const authLink = setContext((_, { headers }) => {
     const context = {
       headers: {
@@ -57,11 +67,14 @@ function App() {
     };
     return context;
   });
+  
   const httpLink = new HttpLink({ uri: process.env.REACT_APP_API_URL });
+  
   const client = new ApolloClient({
     link: ApolloLink.from([errorLink, authLink, httpLink]),
     cache
   });
+
   return (
     <ApolloProvider client={client}>
       <div className="App">
