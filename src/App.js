@@ -15,7 +15,11 @@ import ManageEvents from "./pages/ManageEvents";
 import Accessibility from "./pages/Landing/Legal/Accessibility";
 import PrivacyPolicy from "./pages/Landing/Legal/PrivacyPolicy";
 import ManageUsers from "./pages/ManageUsers";
+<<<<<<< Updated upstream
 
+=======
+import ChatFeature from './pages/Chat/index'
+>>>>>>> Stashed changes
 // Import apollo server
 import { ApolloProvider } from "@apollo/react-hooks";
 // import ApolloClient from "apollo-boost";
@@ -147,6 +151,7 @@ const client = new ApolloClient({
             <MyEventDetails path="myevents/:eventId" />
             <ManageEvents path="manage" />
             <ManageUsers path="users" />
+            <ChatFeature path="chats"/>
           </PrivateRoute>
         </Router>
       </div>
