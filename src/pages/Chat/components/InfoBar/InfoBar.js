@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import { styled } from '@material-ui/core/styles';
 import { useQuery } from "react-apollo";
-import { GET_CHAT_ROOMS } from '../../queries/ChatRooms'
+import { GET_CHAT_ROOMS } from '../../queries/ChatRooms';
 import {
     makeStyles,
     useTheme,
@@ -35,10 +35,10 @@ const useStyles = makeStyles(theme => ({
 
 
 
-function InfoBar() {
+function InfoBar({ chatRooms }) {
     const classes = useStyles();
     const { loading, error, data, refetch } = useQuery(GET_CHAT_ROOMS);
-    // refetches EVENT_LIST without refreshing page
+    // refetches CHAT_ROOMS without refreshing page
     useEffect(() => {
         refetch();
       }, [refetch]);
@@ -52,14 +52,14 @@ function InfoBar() {
             {/* {user && user[config.roleUrl].includes("Admin") ? (
                 <> */}
             <Button>New Annoucement</Button>
-            {/* </>
+            {/* {/* </>
             ): null} */}
             <div>
             {data &&
-            data?.chatRooms?.map((chatRooms, id) => (
-                <h1 key={id} chatRooms={chatRooms}/>
+            data?.profile.chatRooms?.map((chatRooms, id) => (
+            <h1 key={id} chatRooms={chatRooms}>Chats: {chatRooms.id}</h1>
             ))
-            }
+            } */}
             </div>
         </div>
     )
