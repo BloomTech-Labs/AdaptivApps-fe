@@ -1,9 +1,9 @@
 import gql from "graphql-tag";
 
-// List users Chat Rooms
+// List all chat rooms for a user and get list of all previous recipients
 export const GET_CHAT_ROOMS = gql`
-  query getChatRooms($email: String!) {
-    profile(where: {email: $email}) {
+  query getChatRooms( $email: String! ) {
+    profile( where: { email: $email } ) {
       chatRooms {
         id
         participants {
@@ -20,8 +20,8 @@ export const GET_CHAT_ROOMS = gql`
 
 // Retrieve messages for a user's chat room
 export const GET_CHAT_ROOM_MESSAGES = gql`
-  query getChatRoomMessages($email: String!) {
-    profile(where: {email: $email}){
+  query getChatRoomMessages( $email: String! ) {
+    profile( where: { email: $email } ){
       chatRooms {
         id
         chats {
@@ -37,3 +37,60 @@ export const GET_CHAT_ROOM_MESSAGES = gql`
     }
   }
 `
+
+// Delete a chat room
+export const DELETE_CHAT_ROOM = gql`
+  mutation deleteChatRoom( $id: ID! ) {
+    deleteChatRoom( where: { id: $id } ) {
+      id
+    }
+  }
+`;
+
+// Add users to a chat room
+export const ADD_CHAT_ROOM_PARTICIPANTS = gql`
+  mutation addChatRoomParticipants( $id: ID!, $email: String! ) {
+    updateChatRoom( 
+      where: { id: $id } 
+      data: { participants: { connect: { email: $email } } }
+      ) {
+      id
+      participants {
+        firstName
+        lastName
+      }
+      chats {
+        from {
+          firstName
+          lastName
+        }
+        message
+        createdAt
+      }
+    }
+  }
+`;
+
+// Delete users from a chat room
+export const DELETE_CHAT_ROOM_PARTICIPANTS = gql`
+  mutation deleteChatRoomParticipants( $id: ID!, $email: String! ) {
+    updateChatRoom(
+      where: { id: $id } 
+      data: { participants: { disconnect: { email: $email } } }
+    ) {
+      id
+      participants {
+        firstName
+        lastName
+      }
+      chats {
+        from {
+          firstName
+          lastName
+        }
+        message
+        createdAt
+      }
+    }
+  }
+`;

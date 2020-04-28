@@ -1,6 +1,6 @@
 // React imports
 import React from "react";
-
+import TextContainer from "./components/TextContainer/TextContainer";
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
 
@@ -21,6 +21,7 @@ function ChatFeature(){
   return (
     <div>
       <InfoBar user={user} />
+      <TextContainer />
     </div>
   )
 }
