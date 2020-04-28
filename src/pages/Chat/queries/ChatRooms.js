@@ -44,14 +44,29 @@ export const GET_CHAT_ROOM_MESSAGES = gql`
 //   }
 // `;
 
-// // Add users to a chat room
-// export const ADD_CHAT_ROOM_PARTICIPANTS = gql`
-//   mutation addChatRoomParticipants() {
-//     updateChatRoom() {
-
-//     }
-//   }
-// `;
+// Add users to a chat room
+export const ADD_CHAT_ROOM_PARTICIPANTS = gql`
+  mutation addChatRoomParticipants( $id: ID!, $email: String! ) {
+    updateChatRoom( 
+      where: { id: $id } 
+      data: { participants: { connect: { email: $email } } }
+      ) {
+      id
+      participants {
+        firstName
+        lastName
+      }
+      chats {
+        from {
+          firstName
+          lastName
+        }
+        message
+        createdAt
+      }
+    }
+  }
+`;
 
 // // Delete users from a chat room
 // export const DELETE_CHAT_ROOM_PARTICIPANTS = gql`
