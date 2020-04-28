@@ -1,13 +1,36 @@
 import gql from "graphql-tag";
 
-// // Send a chat
-// export const SEND_CHAT = gql`
-//   mutation sendChat() {
-//     createChat() {
-
-//     }
-//   }
-// `;
+// Send a chat
+export const SEND_CHAT = gql`
+  mutation sendChat( $id: ID!, $email: String!, $message: String! ) {
+    createChat(
+      data: {
+        from: {
+          connect: {
+            email: $email
+          }
+        }
+        message: $message
+        room: {
+          connect: {
+            id: $id
+          }
+        }
+      }
+    ) {
+      id
+      from {
+        firstName
+        lastName
+      }
+      message
+      createdAt
+      room {
+        id
+      }
+    }
+  }
+`;
 
 // Update a sent chat
 export const UPDATE_CHAT = gql`
