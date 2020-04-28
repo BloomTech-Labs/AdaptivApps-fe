@@ -21,7 +21,7 @@ function ChatFeature(){
 
 return (
   <div>
-  <InfoBar />
+  <InfoBar user={user} />
   </div>
 )
 }

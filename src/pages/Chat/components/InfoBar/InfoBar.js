@@ -35,9 +35,9 @@ const useStyles = makeStyles(theme => ({
 
 
 
-function InfoBar({ chatRooms }) {
+function InfoBar({ user }) {
     const classes = useStyles();
-    const { loading, error, data, refetch } = useQuery(GET_CHAT_ROOMS);
+    const { loading, error, data, refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
     // refetches CHAT_ROOMS without refreshing page
     useEffect(() => {
         refetch();
@@ -52,7 +52,7 @@ function InfoBar({ chatRooms }) {
             {/* {user && user[config.roleUrl].includes("Admin") ? (
                 <> */}
             <Button>New Annoucement</Button>
-            {/* {/* </>
+            {/* </>
             ): null} */}
             <div>
             {data &&
