@@ -18,14 +18,14 @@ import gql from "graphql-tag";
 //   }
 // `;
 
-// // Delete a chat
-// export const DELETE_CHAT = gql`
-//   mutation deleteChat() {
-//     deleteChat() {
-
-//     }
-//   }
-// `;
+// Delete a chat
+export const DELETE_CHAT = gql`
+  mutation deleteChat( $id: ID! ) {
+    deleteChat( where: { id: $id } ) {
+      id
+    }
+  }
+`;
 
 // Retrieve a list of recent recipients the user has sent a chat to
 export const GET_RECENT_RECIPIENTS = gql`
