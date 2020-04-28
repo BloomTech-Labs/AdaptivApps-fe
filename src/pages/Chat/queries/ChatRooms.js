@@ -68,11 +68,26 @@ export const ADD_CHAT_ROOM_PARTICIPANTS = gql`
   }
 `;
 
-// // Delete users from a chat room
-// export const DELETE_CHAT_ROOM_PARTICIPANTS = gql`
-//   mutation deleteChatRoomParticipants() {
-//     updatedChatRoom() {
-
-//     }
-//   }
-// `;
+// Delete users from a chat room
+export const DELETE_CHAT_ROOM_PARTICIPANTS = gql`
+  mutation deleteChatRoomParticipants( $id: ID!, $email: String! ) {
+    updateChatRoom(
+      where: { id: $id } 
+      data: { participants: { disconnect: { email: $email } } }
+    ) {
+      id
+      participants {
+        firstName
+        lastName
+      }
+      chats {
+        from {
+          firstName
+          lastName
+        }
+        message
+        createdAt
+      }
+    }
+  }
+`;
