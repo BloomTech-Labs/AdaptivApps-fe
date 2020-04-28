@@ -5,7 +5,7 @@ import React from "react";
 import { useAuth0 } from "../../config/react-auth0-spa";
 
 // import NavBar from "./NavBar";
-import InfoBar from './components/InfoBar/InfoBar'
+import InfoBar from './components/InfoBar/InfoBar';
 import {
   makeStyles,
   Container,
