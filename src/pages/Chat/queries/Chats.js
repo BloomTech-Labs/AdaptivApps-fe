@@ -9,14 +9,26 @@ import gql from "graphql-tag";
 //   }
 // `;
 
-// // Update a sent chat
-// export const UPDATE_CHAT = gql`
-//   mutation updateChat() {
-//     updateChat() {
-
-//     }
-//   }
-// `;
+// Update a sent chat
+export const UPDATE_CHAT = gql`
+  mutation updateChat( $id: ID!, $message: String! ) {
+    updateChat(
+      where: { id: $id }
+      data: { message: $message }
+    ) {
+      id
+      from {
+        firstName
+        lastName
+      }
+      message
+      createdAt
+      room {
+        id
+      }
+    }
+  }
+`;
 
 // Delete a chat
 export const DELETE_CHAT = gql`
