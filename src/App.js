@@ -19,6 +19,7 @@ import Accessibility from "./pages/Landing/Legal/Accessibility";
 import PrivacyPolicy from "./pages/Landing/Legal/PrivacyPolicy";
 import ManageUsers from "./pages/ManageUsers";
 import ChatFeature from './pages/Chat/index';
+
 // Import apollo server
 import { ApolloProvider } from "@apollo/react-hooks";
 import { ApolloClient } from 'apollo-client';
