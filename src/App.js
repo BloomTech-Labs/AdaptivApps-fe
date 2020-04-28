@@ -27,7 +27,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 import { onError } from 'apollo-link-error';
 import { setContext } from "apollo-link-context";
-import { ApolloLink, Observable } from 'apollo-link';
+import { ApolloLink } from 'apollo-link';
 
 // Google Analytics Imports
 import ReactGA from "react-ga";

@@ -15,17 +15,14 @@ import {
 } from "@material-ui/core";
 import ReactDOM from 'react-dom';
 
-
 function ChatFeature(){
   const { user } = useAuth0();
 
-return (
-  <div>
-    <InfoBar user={user} />
-  </div>
-)
+  return (
+    <div>
+      <InfoBar user={user} />
+    </div>
+  )
 }
 
 export default ChatFeature;
-
-
