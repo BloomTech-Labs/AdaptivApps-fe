@@ -18,16 +18,16 @@ import ManageEvents from "./pages/ManageEvents";
 import Accessibility from "./pages/Landing/Legal/Accessibility";
 import PrivacyPolicy from "./pages/Landing/Legal/PrivacyPolicy";
 import ManageUsers from "./pages/ManageUsers";
-import ChatFeature from './pages/Chat/index';
+import ChatFeature from "./pages/Chat/index";
 
 // Import apollo server
 import { ApolloProvider } from "@apollo/react-hooks";
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
-import { onError } from 'apollo-link-error';
+import { ApolloClient } from "apollo-client";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { HttpLink } from "apollo-link-http";
+import { onError } from "apollo-link-error";
 import { setContext } from "apollo-link-context";
-import { ApolloLink } from 'apollo-link';
+import { ApolloLink } from "apollo-link";
 
 // Google Analytics Imports
 import ReactGA from "react-ga";
@@ -46,7 +46,6 @@ function App() {
 
   const cache = new InMemoryCache();
 
-
   const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
     if (graphQLErrors) {
       graphQLErrors.forEach(({ message, path }) =>
@@ -64,17 +63,17 @@ function App() {
     const context = {
       headers: {
         ...headers,
-        Authorization: `bearer ${getIdTokenClaims()}`
-      }
+        Authorization: `Bearer ${getIdTokenClaims()}`,
+      },
     };
     return context;
   });
-  
+
   const httpLink = new HttpLink({ uri: process.env.REACT_APP_API_URL });
-  
+
   const client = new ApolloClient({
     link: ApolloLink.from([errorLink, authLink, httpLink]),
-    cache
+    cache,
   });
 
   return (
