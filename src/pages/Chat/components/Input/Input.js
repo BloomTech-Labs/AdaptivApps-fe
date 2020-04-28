@@ -1,5 +1,6 @@
 // React imports
-import React from "react";
+import React, {useState, useEffect} from "react";
+import { useForm, Controller } from "react-hook-form";
 
 //Styling Imports
 import {
@@ -25,9 +26,17 @@ import Icon from '@material-ui/core/Icon';
 // }));
 
 
-function Input() {
+const Input = ({ loading, chats, updateChats }) => {
+    const [updated, setUpdated] = useState(false);
+    // const classes = useStyles();
 
     //useForm hook to update state
+    const { handleSubmit, register, setValue, control } = useForm({
+        mode: "onSubmit",
+        defaultValues: {
+            // chat: participant.chats
+        },
+    });
 
     //need an onSubmit to update the chat messages in the backend and frontend
     const onSubmit = (values, e) => {
@@ -40,21 +49,36 @@ function Input() {
 
     //Update message area with new chats - useEffect()
    
+    // alerts user to successful update, handy for screen readers
+    const handleUpdated = () => {
+        alert("Chat sent successfully!");
+        setUpdated(false);
+    };
+
     return(
         <div>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <Box component="div">
-                    <InputLabel htmlFor="newMessage">
-                        Type a message...  
-                    </InputLabel>
+                    <Controller
+                as={<TextField />}
+                id="message"
+                variant="outlined"
+                type="text"
+                placeholder="Type a message..."
+                name="message"
+                control={control}
+              />
                     <Button
                         variant="contained"
                         color="primary"
-                        className={classes.button}
+                        onClick={() => {
+                            setUpdated(true);
+                          }}
                         endIcon={<Icon>send</Icon>}
                     >
                     Send
                 </Button>
+                {updated === true ? handleUpdated() : null}
                 </Box>
             </form>
         </div>
