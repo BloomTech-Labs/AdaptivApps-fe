@@ -147,6 +147,10 @@ function SideNav(props) {
           <UserIcon className={classes.navIcon} />
           <p>My Profile</p>
         </NavLink>
+        <NavLink to="/chats" className={classes.navLink}>
+          <UserIcon className={classes.navIcon} />
+          <p>Chats</p>
+        </NavLink>
         {user && user[config.roleUrl].includes("Admin") ? (
           <>
             <NavLink to="manage" className={classes.navLink}>
