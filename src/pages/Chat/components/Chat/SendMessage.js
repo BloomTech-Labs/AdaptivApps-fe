@@ -18,7 +18,7 @@ import Icon from '@material-ui/core/Icon';
 
 
 
-const createMessage = gql`
+const sendMessage = gql`
   mutation sendMessage($text: String!, $sentById: ID!) {
     sendMessage(text: $text, sentById: $sentById) {
       id
@@ -31,3 +31,7 @@ const createMessage = gql`
     }
   }
 `
+
+export default graphql(sendMessage, { name: 'sendMessageMutation' })(
+  graphql(allMessages, { name: 'allMessagesQuery' })(Chat),
+)
