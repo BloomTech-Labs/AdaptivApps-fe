@@ -35,14 +35,14 @@ export const GET_CHAT_ROOM_MESSAGES = gql`
   }
 `
 
-// // Delete a chat room
-// export const DELETE_CHAT_ROOM = gql`
-//   mutation deleteChatRoom() {
-//     deleteChatRoom() {
-
-//     }
-//   }
-// `;
+// Delete a chat room
+export const DELETE_CHAT_ROOM = gql`
+  mutation deleteChatRoom( $id: ID! ) {
+    deleteChatRoom( where: { id: $id } ) {
+      id
+    }
+  }
+`;
 
 // Add users to a chat room
 export const ADD_CHAT_ROOM_PARTICIPANTS = gql`
