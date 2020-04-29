@@ -18,16 +18,16 @@ import ManageEvents from "./pages/ManageEvents";
 import Accessibility from "./pages/Landing/Legal/Accessibility";
 import PrivacyPolicy from "./pages/Landing/Legal/PrivacyPolicy";
 import ManageUsers from "./pages/ManageUsers";
-import ChatFeature from './pages/Chat/index';
+import ChatFeature from "./pages/Chat/index";
 
 // Import apollo server
 import { ApolloProvider } from "@apollo/react-hooks";
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
-import { onError } from 'apollo-link-error';
+import { ApolloClient } from "apollo-client";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { HttpLink } from "apollo-link-http";
+import { onError } from "apollo-link-error";
 import { setContext } from "apollo-link-context";
-import { ApolloLink, split } from 'apollo-link';
+import { ApolloLink, Observable, split } from 'apollo-link';
 
 // Subscription connection
 import { WebSocketLink } from 'apollo-link-ws';
@@ -48,33 +48,40 @@ const trackingId = "UA-159556430-1";
 function App() {
   const { getIdTokenClaims } = useAuth0();
 
-  const cache = new InMemoryCache();
-
-
-  const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
-    if (graphQLErrors) {
-      graphQLErrors.forEach(({ message, path }) =>
-        console.log(`[GraphQL error]: Message: ${message}, Path: ${path}`)
-      );
-    }
-    if (networkError) {
-      console.log(
-        `[Network error ${operation.operationName}]: ${networkError.message}`
-      );
-    }
-  });
-
-  const authLink = setContext((_, { headers }) => {
-    const context = {
+  const request = async operation => {
+    const token = await getIdTokenClaims();
+    operation.setContext(context => ({
       headers: {
-        ...headers,
-        Authorization: `bearer ${getIdTokenClaims()}`
-      }
-    };
-    return context;
+        ...context.headers,
+        Authorization: token.__raw,
+      },
+    }));
+  };
+
+  const requestLink = new ApolloLink(
+    (operation, forward) =>
+      new Observable(observer => {
+        let handle;
+        Promise.resolve(operation)
+          .then(oper => request(oper))
+          .then(() => {
+            handle = forward(operation).subscribe({
+              next: observer.next.bind(observer),
+              error: observer.error.bind(observer),
+              complete: observer.complete.bind(observer),
+            });
+          })
+          .catch(observer.error.bind(observer));
+        return () => {
+          if (handle) handle.unsubscribe();
+        };
+      })
+  );
+
+  const httpLink = new HttpLink({ 
+    uri: process.env.REACT_APP_API_URL,
+    credentials: "same-origin", 
   });
-  
-  const httpLink = new HttpLink({ uri: process.env.REACT_APP_API_URL });
 
   const wsLink = new WebSocketLink({
     uri: "ws://localhost:8000/graphql",
@@ -95,10 +102,22 @@ function App() {
     wsLink,
     httpLink,
   );
-  
+
   const client = new ApolloClient({
-    link: ApolloLink.from([errorLink, authLink, link]),
-    cache
+    link: ApolloLink.from([
+      onError(({ graphQLErrors, networkError }) => {
+        if (graphQLErrors)
+          graphQLErrors.forEach(({ message, locations, path }) =>
+            console.log(
+              `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+            )
+          );
+        if (networkError) console.log(`[Network error]: ${networkError}`);
+      }),
+      requestLink,
+      link
+    ]),
+    cache: new InMemoryCache(),
   });
 
   return (

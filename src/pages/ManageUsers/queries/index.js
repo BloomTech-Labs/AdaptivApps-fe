@@ -10,14 +10,6 @@ export const GET_PROFILES = gql`
       birthday
       disability
       legal
-      events {
-        id
-        title
-      }
-      activities {
-        id
-        name
-      }
     }
   }
 `;
