@@ -51,6 +51,32 @@ export const GET_CHAT_ROOM_MESSAGES = gql`
   }
 `
 
+// Create a chat room
+export const CREATE_CHAT_ROOM = gql`
+  mutation createChatRoom( $email: String! ) {
+    createChatRoom( 
+      data: { participants: { connect: [
+          { email: $email },
+          { email: $email }
+        ] } }
+      ) {
+      id
+      participants {
+        firstName
+        lastName
+      }
+      chats {
+        from {
+          firstName
+          lastName
+        }
+        message
+        createdAt
+      }
+    }
+  }
+`;
+
 // Delete a chat room
 export const DELETE_CHAT_ROOM = gql`
   mutation deleteChatRoom( $id: ID! ) {
@@ -103,6 +129,30 @@ export const DELETE_CHAT_ROOM_PARTICIPANTS = gql`
         }
         message
         createdAt
+      }
+    }
+  }
+`;
+
+// Chat room subscription
+export const CHAT_ROOM_SUBSCRIPTION = gql`
+  subscription chatRoomSubscription {
+    chatRoom {
+      mutation
+      node {
+        id
+        participants {
+          firstName
+          lastName
+        }
+        chats {
+          from {
+            firstName
+            lastName
+          }
+          message
+          createdAt
+        }
       }
     }
   }
