@@ -120,3 +120,27 @@ export const DELETE_CHAT_ROOM_PARTICIPANTS = gql`
     }
   }
 `;
+
+// Chat room subscription
+export const CHAT_ROOM_SUBSCRIPTION = gql`
+  subscription chatRoomSubscription {
+    chatRoom {
+      mutation
+      node {
+        id
+        participants {
+          firstName
+          lastName
+        }
+        chats {
+          from {
+            firstName
+            lastName
+          }
+          message
+          createdAt
+        }
+      }
+    }
+  }
+`;
