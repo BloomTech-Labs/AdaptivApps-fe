@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import { styled } from '@material-ui/core/styles';
 import { useQuery } from "react-apollo";
 import { GET_CHAT_ROOMS } from '../../queries/ChatRooms';
+import ChatRoom from './ChatRoom'
 import {
     makeStyles,
     useTheme,
@@ -46,6 +47,14 @@ function InfoBar({ user }) {
     if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     if (error) return `Error! ${error.message}`;
 
+    // const participants = data.profile.chatRooms.map((chatRoom, id) => {
+    //   chatRoom.participants.map((participant, id) => console.log(participant.displayName))
+    // })
+    // const participants = chatRooms.participants.map((participant, id) => console.log(participant))
+    // console.log(data)
+   // console.log('chatrooms', chatRooms)
+    
+
     return (
       <div>
           <h1>Messages</h1>
@@ -57,8 +66,8 @@ function InfoBar({ user }) {
           ): null} */}
           <div>
           {data &&
-          data?.profile.chatRooms?.map((chatRooms, id) => (
-          <h1 key={id} chatRooms={chatRooms}>Chats: {chatRooms.id}</h1>
+          data?.profile.chatRooms?.map((chatRoom, id) => (
+          <ChatRoom chatRoom={chatRoom} key={id}/>
           ))
           }
           </div>
