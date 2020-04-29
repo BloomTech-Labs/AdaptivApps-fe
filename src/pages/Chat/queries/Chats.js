@@ -79,3 +79,24 @@ export const GET_RECENT_RECIPIENTS = gql`
     }
   }
 `;
+
+// Chat subscription
+export const CHAT_SUBSCRIPTION = gql`
+  subscription chatSubscription {
+    chat {
+      mutation
+      node {
+        id
+        message
+        createdAt
+        room {
+          id
+        }
+        from {
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`;
