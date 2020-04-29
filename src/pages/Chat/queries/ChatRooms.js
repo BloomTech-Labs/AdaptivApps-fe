@@ -38,6 +38,32 @@ export const GET_CHAT_ROOM_MESSAGES = gql`
   }
 `
 
+// Create a chat room
+export const CREATE_CHAT_ROOM = gql`
+  mutation createChatRoom( $email: String! ) {
+    createChatRoom( 
+      data: { participants: { connect: [
+          { email: $email },
+          { email: $email }
+        ] } }
+      ) {
+      id
+      participants {
+        firstName
+        lastName
+      }
+      chats {
+        from {
+          firstName
+          lastName
+        }
+        message
+        createdAt
+      }
+    }
+  }
+`;
+
 // Delete a chat room
 export const DELETE_CHAT_ROOM = gql`
   mutation deleteChatRoom( $id: ID! ) {
