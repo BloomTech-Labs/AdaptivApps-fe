@@ -7,12 +7,7 @@ import {
   REGISTER_AS_VOLUNTEER,
   REGISTER_AS_SPECTATOR,
 } from "./queries/ActivityRegister";
-import {
-  UPDATE_AS_ATHLETE,
-  UPDATE_AS_COACH,
-  UPDATE_AS_VOLUNTEER,
-  UPDATE_AS_SPECTATOR,
-} from "./queries/UpdateRole";
+
 // Styling imports
 import { makeStyles, Popover, Button, Box } from "@material-ui/core";
 import { IconContext } from "react-icons";
@@ -61,10 +56,7 @@ export default function SimplePopover({ activity, activityData }) {
   const [registerAsCoach] = useMutation(REGISTER_AS_COACH);
   const [registerAsVolunteer] = useMutation(REGISTER_AS_VOLUNTEER);
   const [registerAsSpectator] = useMutation(REGISTER_AS_SPECTATOR);
-  const [updateAsAthlete] = useMutation(UPDATE_AS_ATHLETE);
-  const [updateAsCoach] = useMutation(UPDATE_AS_COACH);
-  const [updateAsVolunteer] = useMutation(UPDATE_AS_VOLUNTEER);
-  const [updateAsSpectator] = useMutation(UPDATE_AS_SPECTATOR);
+
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
   };
@@ -72,111 +64,66 @@ export default function SimplePopover({ activity, activityData }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const participant = activity.participants.map(participant => {
+    return participant?.id;
+  });
+  const participantIdValue = JSON.stringify(participant).replace(
+    /[\[\]"]+/g,
+    ""
+  );
 
   const athleteRegister = async () => {
-    const participantEmail = activity.participants.map(participant => {
-      return participant?.profile?.email;
+    console.log("participantIdValue", participantIdValue);
+    console.log("participant", participant);
+    await registerAsAthlete({
+      variables: {
+        participantId: participantIdValue,
+        activityId: activity.id,
+        email: user.email,
+      },
     });
-    const participantEmailValue = JSON.stringify(participantEmail).replace(
-      /[\[\]"]+/g,
-      ""
-    );
-    const participantId = activity.participants.map(participant => {
-      return participant.id;
-    });
-
-    const participantIdValue = JSON.stringify(participantId).replace(
-      /[\[\]"]+/g,
-      ""
-    );
-    participantEmailValue === user.email
-      ? await updateAsAthlete({
-          variables: { id: participantIdValue },
-        })
-      : await registerAsAthlete({
-          variables: { id: activity.id, email: user.email },
-        });
     alert("Successfully registered to compete in this event!");
     handleClose();
   };
 
   const coachRegister = async () => {
-    const participantEmail = activity.participants.map(participant => {
-      return participant?.profile?.email;
+    console.log("participantIdValue", participantIdValue);
+    console.log("participant", participant);
+    await registerAsCoach({
+      variables: {
+        participantId: participantIdValue,
+        activityId: activity.id,
+        email: user.email,
+      },
     });
-    const participantEmailValue = JSON.stringify(participantEmail).replace(
-      /[\[\]"]+/g,
-      ""
-    );
-    const participantId = activity.participants.map(participant => {
-      return participant.id;
-    });
-
-    const participantIdValue = JSON.stringify(participantId).replace(
-      /[\[\]"]+/g,
-      ""
-    );
-    participantEmailValue === user.email
-      ? await updateAsCoach({
-          variables: { id: participantIdValue },
-        })
-      : await registerAsCoach({
-          variables: { id: activity.id, email: user.email },
-        });
     alert("Successfully registered as a Coach!");
     handleClose();
   };
 
   const volunteerRegister = async () => {
-    const participantEmail = activity.participants.map(participant => {
-      return participant?.profile?.email;
+    console.log("participantIdValue", participantIdValue);
+    console.log("participant", participant);
+    await registerAsVolunteer({
+      variables: {
+        participantId: participantIdValue,
+        activityId: activity.id,
+        email: user.email,
+      },
     });
-    const participantEmailValue = JSON.stringify(participantEmail).replace(
-      /[\[\]"]+/g,
-      ""
-    );
-    const participantId = activity.participants.map(participant => {
-      return participant.id;
-    });
-
-    const participantIdValue = JSON.stringify(participantId).replace(
-      /[\[\]"]+/g,
-      ""
-    );
-    participantEmailValue === user.email
-      ? await updateAsVolunteer({
-          variables: { id: participantIdValue },
-        })
-      : await registerAsVolunteer({
-          variables: { id: activity.id, email: user.email },
-        });
     alert("Successfully registered as a Volunteer");
     handleClose();
   };
 
   const spectatorRegister = async () => {
-    const participantEmail = activity.participants.map(participant => {
-      return participant?.profile?.email;
+    console.log("participantIdValue", participantIdValue);
+    console.log("participant", participant);
+    await registerAsSpectator({
+      variables: {
+        participantId: participantIdValue,
+        activityId: activity.id,
+        email: user.email,
+      },
     });
-    const participantEmailValue = JSON.stringify(participantEmail).replace(
-      /[\[\]"]+/g,
-      ""
-    );
-    const participantId = activity.participants.map(participant => {
-      return participant.id;
-    });
-
-    const participantIdValue = JSON.stringify(participantId).replace(
-      /[\[\]"]+/g,
-      ""
-    );
-    participantEmailValue === user.email
-      ? await updateAsSpectator({
-          variables: { id: participantIdValue },
-        })
-      : await registerAsSpectator({
-          variables: { id: activity.id, email: user.email },
-        });
     alert("Successfully registered as a Spectator");
     handleClose();
   };
