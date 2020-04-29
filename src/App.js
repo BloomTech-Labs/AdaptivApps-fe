@@ -27,7 +27,11 @@ import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
 import { setContext } from "apollo-link-context";
-import { ApolloLink, Observable } from "apollo-link";
+import { ApolloLink, Observable, split } from 'apollo-link';
+
+// Subscription connection
+import { WebSocketLink } from 'apollo-link-ws';
+import { getMainDefinition } from 'apollo-utilities';
 
 // Google Analytics Imports
 import ReactGA from "react-ga";
@@ -53,6 +57,7 @@ function App() {
       },
     }));
   };
+
   const requestLink = new ApolloLink(
     (operation, forward) =>
       new Observable(observer => {
@@ -72,6 +77,32 @@ function App() {
         };
       })
   );
+
+  const httpLink = new HttpLink({ 
+    uri: process.env.REACT_APP_API_URL,
+    credentials: "same-origin", 
+  });
+
+  const wsLink = new WebSocketLink({
+    uri: "ws://localhost:8000/graphql",
+    options: {
+      reconnect: true
+    }
+  });
+
+  const link = split(
+    // split based on operation type
+    ({ query }) => {
+      const definition = getMainDefinition(query);
+      return (
+        definition.kind === 'OperationDefinition' &&
+        definition.operation === 'subscription'
+      );
+    },
+    wsLink,
+    httpLink,
+  );
+
   const client = new ApolloClient({
     link: ApolloLink.from([
       onError(({ graphQLErrors, networkError }) => {
@@ -84,10 +115,7 @@ function App() {
         if (networkError) console.log(`[Network error]: ${networkError}`);
       }),
       requestLink,
-      new HttpLink({
-        uri: process.env.REACT_APP_API_URL,
-        credentials: "same-origin",
-      }),
+      link
     ]),
     cache: new InMemoryCache(),
   });
