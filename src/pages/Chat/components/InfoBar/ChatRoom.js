@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
+import Messages from '../Messages/Messages'
 
-export default function ChatRoom({chatRoom}) {
+export default function ChatRoom({chatRoom, user}) {
     const [messageToggle, setMessageToggle] = useState(false);
 
-    const participants = chatRoom.participants.map((participant, id) => {return participant.displayName})
+    const participants = chatRoom.participants.map((participant, id) => (participant.email !== user.email && participant.displayName))
 
     const handleClick = e => {
         e.preventDefault();
@@ -15,7 +16,7 @@ export default function ChatRoom({chatRoom}) {
             <button onClick={handleClick}>{participants}</button>
             {messageToggle ? (
             <div className='chats-open'>
-              Chat Open
+              <Messages chatRoom={chatRoom} />
             </div>
           ) : (
             <div className='chats-close'>

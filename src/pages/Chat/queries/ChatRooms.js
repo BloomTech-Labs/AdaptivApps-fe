@@ -13,6 +13,17 @@ export const GET_CHAT_ROOMS = gql`
           email
           id
         }
+        chats(orderBy: createdAt_DESC) {
+          message
+          createdAt
+          room {
+            id
+          }
+          from {
+            firstName
+            lastName
+          }
+        }
       }      
     }
   }
@@ -27,7 +38,9 @@ export const GET_CHAT_ROOM_MESSAGES = gql`
         chats {
           message
           createdAt
-          room
+          room {
+            id
+          }
           from {
             firstName
             lastName
