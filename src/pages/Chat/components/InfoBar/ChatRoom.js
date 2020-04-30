@@ -27,7 +27,10 @@ const useStyles = makeStyles(() => ({
     border: "none",
     '&:hover': {
       cursor: "pointer"
-    } 
+    }, 
+    '&:focus': {
+      border: "none"
+    }
   }
 }))
 

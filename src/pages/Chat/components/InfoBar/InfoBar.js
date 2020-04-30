@@ -3,6 +3,10 @@ import config from "../../../../config/auth_config";
 import { useQuery } from "react-apollo";
 import { GET_CHAT_ROOMS } from '../../queries/ChatRooms';
 import ChatRoom from './ChatRoom';
+
+// Style Imports
+import CreateIcon from '@material-ui/icons/Create';
+import LanguageIcon from '@material-ui/icons/Language';
 import {
     makeStyles,
     Button
@@ -43,10 +47,10 @@ function InfoBar({ user }) {
       <div>
         <h1>Messages</h1>
         <div>
-          <Button onClick={newMessageClick}>New Message</Button>
+          <CreateIcon onClick={newMessageClick} /> New Message
           {user && user[config.roleUrl].includes("Admin") ? (
             <>
-              <Button onClick={newAnnouncementClick}>New Annoucement</Button>
+              <LanguageIcon onClick={newAnnouncementClick}/> New Announcement
             </>
           ): null}
         </div>
