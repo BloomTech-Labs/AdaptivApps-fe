@@ -1,32 +1,13 @@
 import React, {useEffect} from "react";
-import { styled } from '@material-ui/core/styles';
+import config from "../../../../config/auth_config";
 import { useQuery } from "react-apollo";
 import { GET_CHAT_ROOMS } from '../../queries/ChatRooms';
-import ChatRoom from './ChatRoom'
+import ChatRoom from './ChatRoom';
 import {
     makeStyles,
-    useTheme,
-    Box,
-    Drawer,
-    Hidden,
-    IconButton,
-    Toolbar,
-    Button,
+    Button
   } from "@material-ui/core";
-import MenuIcon from "@material-ui/icons/Menu";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import config from "../../../../config/auth_config";
-
-
-// const MyButton = styled(Button)({
-//     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-//     border: 0,
-//     borderRadius: 3,
-//     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-//     color: 'white',
-//     height: 48,
-//     padding: '0 30px',
-//   });
 
 const useStyles = makeStyles(theme => ({
     root: {
