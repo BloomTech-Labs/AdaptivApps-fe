@@ -1,7 +1,9 @@
 import React, {useEffect} from "react";
 import { styled } from '@material-ui/core/styles';
 import { useQuery } from "react-apollo";
-import { GET_CHAT_ROOMS } from '../../queries/ChatRooms';
+import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms';
+
+
 import ChatRoom from './ChatRoom'
 import {
     makeStyles,
@@ -37,15 +39,36 @@ const useStyles = makeStyles(theme => ({
 
 function InfoBar({ user }) {
     const classes = useStyles();
-    const { loading, error, data, refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
-    
+    const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
+
     // refetches CHAT_ROOMS without refreshing page
     useEffect(() => {
         refetch();
     }, [refetch]);
 
+    const _subscribeToNewChatRoom = subscribeToMore => {
+      subscribeToMore({
+        document: CHAT_ROOM_SUBSCRIPTION,
+        updateQuery: (prev, {subscriptionData }) => {
+          if (!subscriptionData.data) return prev
+          const chatRoom = subscriptionData.data.chatRoom
+          const exists = prev.profile.chatRooms.find(({ id }) => id === chatRoom.id);
+          if (exists) return prev;
+
+          return Object.assign({}, prev, {
+            profile: {
+              chatRooms: [chatRoom, ...prev.profile.chatRooms],
+              __typename: prev.profile.__typename
+            }
+          })
+        }
+      })
+    }
+
     if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     if (error) return `Error! ${error.message}`;
+
+    _subscribeToNewChatRoom(subscribeToMore)
   
     return (
       <div>

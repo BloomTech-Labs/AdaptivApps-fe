@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import { useQuery } from "react-apollo";
-import { GET_CHAT_ROOM_MESSAGES } from '../../queries/ChatRooms';
+import { useSubscription } from "react-apollo";
+import { CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms'
 import {
     makeStyles,
     useTheme,
@@ -22,30 +22,32 @@ import {
     },
 }));
 
-export default function Messages({ user, chatRoom }) {
-    const classes = useStyles();
-    //const { loading, error, data, refetch } = useQuery(GET_CHAT_ROOM_MESSAGES, { variables: { email: user.email } });
-
-    // refetches CHAT_ROOM_MESSAGES without refreshing page
-    // useEffect(() => {
-    //     refetch();
-    // }, [refetch]);
-
-    const messages = chatRoom.chats.map((chat, id) => {return [
+const Messages = async ({ chatRoom, subscribeToMore }) => {
+  const messages = chatRoom.chats.map( chat => {return [
         chat.message,
         chat.createdAt,
         
     ]})
 
+    return (
+      <div>
+        {messages}
+      </div>
+    )
+  }
+
+
+    //const classes = useStyles();
+
+
+  
+
     // if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     // if (error) return `Error! ${error.message}`;
 
-    return (
-        <div>
-           {[messages]}
-        </div>
-    )
-}
+  
+
+export default Messages;
 
 
 
