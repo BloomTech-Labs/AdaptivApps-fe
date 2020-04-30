@@ -5,7 +5,6 @@ import InfoBar from './components/InfoBar/InfoBar';
 import {
   makeStyles
 } from "@material-ui/core";
-import ReactDOM from 'react-dom';
 
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";

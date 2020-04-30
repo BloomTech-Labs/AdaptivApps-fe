@@ -1,18 +1,14 @@
-import React, { useEffect } from 'react'
-import { useQuery } from "react-apollo";
-import { GET_CHAT_ROOM_MESSAGES } from '../../queries/ChatRooms';
+import React from 'react'
 import {
     makeStyles
   } from "@material-ui/core";
-  import MenuIcon from "@material-ui/icons/Menu";
-  import CircularProgress from "@material-ui/core/CircularProgress";
 
-  const useStyles = makeStyles(theme => ({
-    root: {
-      display: "flex",
-      flexDirection: "column",
-      border: "none",
-    },
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    border: "none",
+  }
 }));
 
 export default function Messages({ user, chatRoom }) {
