@@ -58,9 +58,10 @@ export default function ChatRoom({chatRoom, user}) {
           <PeopleAltIcon className={classes.chatRoomIcon} />
           <button className={classes.chatRoomButton} onClick={handleClick}>{participants}</button>
           <Drawer
-            anchor="right"
-            open={messageToggle}
-            variant="persistent">
+            anchor = "right"
+            open = {messageToggle}
+            variant = "persistent"
+            PaperProps = {{ style: { width: "66%" } }}>
             <button onClick={closeDrawer}>Close Modal</button>
             <Messages chatRoom={chatRoom} />
           </Drawer>
