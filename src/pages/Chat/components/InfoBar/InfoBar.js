@@ -8,7 +8,6 @@ import ChatRoom from './ChatRoom';
 import CreateIcon from '@material-ui/icons/Create';
 import LanguageIcon from '@material-ui/icons/Language';
 import {
-    withStyles,
     makeStyles,
     Button
   } from "@material-ui/core";
@@ -19,17 +18,12 @@ const useStyles = makeStyles(theme => ({
       display: "flex",
       flexDirection: "column",
       border: "none",
+      width: '40%',
+      color: 'grey',
+      fontSize: '2rem'
     },
 }));
 
-const MessageDiv = withSyles({
-  root: {
-    display: 'flex',
-    flexDirection: 'row',
-    width: '80%',
-    color: 'grey'
-  }
-})
 
 function InfoBar({ user }) {
     const classes = useStyles();
@@ -55,7 +49,7 @@ function InfoBar({ user }) {
   
     return (
       <div>
-        <MessageDiv>
+        <div>
           <h1>Messages</h1>
           <CreateIcon onClick={newMessageClick} /> New Message
           {user && user[config.roleUrl].includes("Admin") ? (
@@ -63,7 +57,7 @@ function InfoBar({ user }) {
               <LanguageIcon onClick={newAnnouncementClick}/> New Announcement
             </>
           ): null}
-        </MessageDiv>
+        </div>
 
         <div>
           {data && data?.profile.chatRooms?.map((chatRoom, id) => (

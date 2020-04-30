@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => ({
       cursor: "pointer"
     }, 
     '&:focus': {
-      border: "none"
+      outline: "none"
     }
   }
 }))
@@ -51,14 +51,14 @@ export default function ChatRoom({chatRoom, user}) {
           <PeopleAltIcon className={classes.chatRoomIcon} />
           <button className={classes.chatRoomButton} onClick={handleClick}>{participants}</button>
         </div>
-        {messageToggle ? (
+        {/* {messageToggle ? (
         <div className='chats-open'>
           <Messages chatRoom={chatRoom} />
         </div>
       ) : (
         <div className='chats-close'>
           Choose a message to display
-        </div> )}
+        </div> )} */}
       </>
     )
 }
