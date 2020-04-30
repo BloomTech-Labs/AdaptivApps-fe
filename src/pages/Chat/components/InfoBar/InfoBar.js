@@ -13,8 +13,9 @@ import {
     Toolbar,
     Button,
   } from "@material-ui/core";
-  import MenuIcon from "@material-ui/icons/Menu";
-  import CircularProgress from "@material-ui/core/CircularProgress";
+import MenuIcon from "@material-ui/icons/Menu";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import config from "../../../../config/auth_config";
 
 
 // const MyButton = styled(Button)({
@@ -46,23 +47,34 @@ function InfoBar({ user }) {
 
     if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     if (error) return `Error! ${error.message}`;
+
+    const newMessageClick = e => {
+      e.preventDefault();
+      console.log('New message clicked')
+    };
+
+    const newAnnouncementClick = e => {
+      e.preventDefault();
+      console.log('New announcement clicked')
+    }
   
     return (
       <div>
-          <h1>Messages</h1>
-          <Button>New Message</Button>
-          {/* {user && user[config.roleUrl].includes("Admin") ? (
-              <> */}
-          <Button>New Annoucement</Button>
-          {/* </>
-          ): null} */}
-          <div>
-          {data &&
-          data?.profile.chatRooms?.map((chatRoom, id) => (
-          <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
-          ))
-          }
-          </div>
+        <h1>Messages</h1>
+        <div>
+          <Button onClick={newMessageClick}>New Message</Button>
+          {user && user[config.roleUrl].includes("Admin") ? (
+            <>
+              <Button onClick={newAnnouncementClick}>New Annoucement</Button>
+            </>
+          ): null}
+        </div>
+
+        <div>
+          {data && data?.profile.chatRooms?.map((chatRoom, id) => (
+            <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
+          ))}
+        </div>
       </div>
     )
 }

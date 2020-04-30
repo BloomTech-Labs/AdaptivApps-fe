@@ -32,10 +32,14 @@ export default function Messages({ user, chatRoom }) {
     // }, [refetch]);
 
     const messages = chatRoom.chats.map((chat, id) => {return [
+        id,
         chat.message,
         chat.createdAt,
-        
+        chat.from.firstName,
+        chat.from.lastName
     ]})
+
+    console.log(messages);
 
     // if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     // if (error) return `Error! ${error.message}`;

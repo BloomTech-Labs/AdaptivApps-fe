@@ -12,16 +12,16 @@ export default function ChatRoom({chatRoom, user}) {
     }
 
     return (
-        <>
-            <button onClick={handleClick}>{participants}</button>
-            {messageToggle ? (
-            <div className='chats-open'>
-              <Messages chatRoom={chatRoom} />
-            </div>
-          ) : (
-            <div className='chats-close'>
-              Choose a message to display
-            </div> )}
-        </>
+      <>
+        <button onClick={handleClick}>{participants}</button>
+        {messageToggle ? (
+        <div className='chats-open'>
+          <Messages chatRoom={chatRoom} />
+        </div>
+      ) : (
+        <div className='chats-close'>
+          Choose a message to display
+        </div> )}
+      </>
     )
 }
