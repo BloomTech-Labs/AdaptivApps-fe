@@ -2,30 +2,41 @@ import React, {useEffect} from "react";
 import { styled } from '@material-ui/core/styles';
 import { useQuery } from "react-apollo";
 import { GET_CHAT_ROOMS } from '../../queries/ChatRooms';
-import ChatRoom from './ChatRoom'
+import ChatRoom from './ChatRoom';
+// Style Imports
+import CreateIcon from '@material-ui/icons/Create';
+import LanguageIcon from '@material-ui/icons/Language';
 import {
+    Container,
     makeStyles,
-    useTheme,
-    Box,
-    Drawer,
-    Hidden,
-    IconButton,
-    Toolbar,
-    Button,
+    Button
   } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import MenuIcon from "@material-ui/icons/Menu";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 
 const useStyles = makeStyles(theme => ({
-    root: {
-      display: "flex",
-      flexDirection: "column",
-      border: "none",
-    },
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    maxWidth: '40%'   
+  },
+  header: {
+    fontSize: '2.5rem',
+    color: 'grey',
+    fontFamily: 'Arial',
+  },
+  icons: {
+    fontSize: '5rem',
+    color: 'grey'
+  },
+  span: {
+    fontSize: '2rem',
+    color: 'grey'
+  },
     modal: {
       display: 'flex',
       alignItems: 'center',
@@ -51,6 +62,11 @@ function InfoBar({ user }) {
 
     if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     if (error) return `Error! ${error.message}`;
+    
+    const newAnnouncementClick = e => {
+      e.preventDefault();
+      console.log('New announcement clicked')
+    }
 
     const handleOpen = () => {
       setOpen(true);
@@ -62,8 +78,9 @@ function InfoBar({ user }) {
   
     return (
       <div>
-          <h1>Messages</h1>
-          <Button type="button" onClick={handleOpen}>New Message</Button>
+        <div className={classes.icons}></div>
+          <h1 className={classes.header}>Messages</h1>
+          <CreateIcon onClick={handleOpen} /><span className={classes.span}>New Message</span>
           <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
@@ -78,14 +95,16 @@ function InfoBar({ user }) {
           >
             <Fade in={open}>
               <div className={classes.paper}>
-                <h2 id="transition-modal-title">Transition modal</h2>
+                <h2 id="transition-modal-title">Select a Recipient</h2>
                 <p id="transition-modal-description">react-transition-group animates me.</p>
               </div>
             </Fade>
            </Modal> 
           {/* {user && user[config.roleUrl].includes("Admin") ? (
               <> */}
-          <Button>New Annoucement</Button>
+          <div className={classes.icons}>
+              <LanguageIcon fontSize='5rem' onClick={newAnnouncementClick}/><span className={classes.span}>New Announcement</span> 
+            </div>
           {/* </>
           ): null} */}
           <div>
