@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import TextContainer from "../TextContainer/TextContainer";
 import {
     makeStyles
   } from "@material-ui/core";
@@ -25,6 +26,7 @@ export default function Messages({ user, chatRoom }) {
     return (
         <div>
            {[messages]}
+           <TextContainer />
         </div>
     )
 }

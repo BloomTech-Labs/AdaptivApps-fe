@@ -1,6 +1,5 @@
 // React imports
 import React from "react";
-import TextContainer from "./components/TextContainer/TextContainer";
 import InfoBar from './components/InfoBar/InfoBar';
 import {
   makeStyles
@@ -28,7 +27,6 @@ function ChatFeature(){
   return (
     <div className={classes.root}>
       <InfoBar user={user} />
-      <TextContainer />
     </div>
   )
 }
