@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import Messages from '../Messages/Messages';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import Drawer from '@material-ui/core/Drawer';
+import CloseIcon from '@material-ui/icons/Close';
 import {
   makeStyles
 } from "@material-ui/core";
@@ -62,7 +63,7 @@ export default function ChatRoom({chatRoom, user}) {
             open = {messageToggle}
             variant = "persistent"
             PaperProps = {{ style: { width: "66%" } }}>
-            <button onClick={closeDrawer}>Close Modal</button>
+            <CloseIcon className={classes.chatRoomButton} onClick={closeDrawer} />
             <Messages chatRoom={chatRoom} />
           </Drawer>
         </div>
