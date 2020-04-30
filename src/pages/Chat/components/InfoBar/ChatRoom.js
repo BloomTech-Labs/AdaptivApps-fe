@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Messages from '../Messages/Messages';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import Drawer from '@material-ui/core/Drawer';
 import {
   makeStyles
 } from "@material-ui/core";
@@ -36,13 +37,19 @@ const useStyles = makeStyles(() => ({
 
 export default function ChatRoom({chatRoom, user}) {
     const classes = useStyles();
+
     const [messageToggle, setMessageToggle] = useState(false);
 
     const participants = chatRoom.participants.map((participant, id) => (participant.email !== user.email && `${participant.firstName} ${participant.lastName}`))
 
     const handleClick = e => {
-        e.preventDefault();
-        messageToggle ? setMessageToggle(false) : setMessageToggle(true)
+      e.preventDefault();
+      messageToggle ? setMessageToggle(false) : setMessageToggle(true)
+    };
+
+    const closeDrawer = e => {
+      e.preventDefault();
+      messageToggle ? setMessageToggle(false) : setMessageToggle(true)
     }
 
     return (
@@ -50,15 +57,14 @@ export default function ChatRoom({chatRoom, user}) {
         <div className={classes.chatRoomDiv}>
           <PeopleAltIcon className={classes.chatRoomIcon} />
           <button className={classes.chatRoomButton} onClick={handleClick}>{participants}</button>
+          <Drawer
+            anchor="right"
+            open={messageToggle}
+            variant="persistent">
+            <button onClick={closeDrawer}>Close Modal</button>
+            <Messages chatRoom={chatRoom} />
+          </Drawer>
         </div>
-        {/* {messageToggle ? (
-        <div className='chats-open'>
-          <Messages chatRoom={chatRoom} />
-        </div>
-      ) : (
-        <div className='chats-close'>
-          Choose a message to display
-        </div> )} */}
       </>
     )
 }
