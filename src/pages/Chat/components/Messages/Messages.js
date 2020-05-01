@@ -1,48 +1,48 @@
-import React, { useEffect } from 'react'
-import { useQuery } from "react-apollo";
-import { GET_CHAT_ROOM_MESSAGES } from '../../queries/ChatRooms';
+import React from 'react';
+import Input from "../Input/Input";
 import {
-    makeStyles,
-    useTheme,
-    Box,
-    Drawer,
-    Hidden,
-    IconButton,
-    Toolbar,
-    Button,
+    makeStyles
   } from "@material-ui/core";
-  import MenuIcon from "@material-ui/icons/Menu";
-  import CircularProgress from "@material-ui/core/CircularProgress";
 
-  const useStyles = makeStyles(theme => ({
-    root: {
-      display: "flex",
-      flexDirection: "column",
-      border: "none",
-    },
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    border: "none",
+  },
+  messageText: {
+    marginTop: "0",
+    padding: "0 2%"
+  },
+  messageSender: {
+    marginLeft: "2%",
+    color: "#2962FF"
+  }
 }));
 
 export default function Messages({ user, chatRoom }) {
     const classes = useStyles();
-    //const { loading, error, data, refetch } = useQuery(GET_CHAT_ROOM_MESSAGES, { variables: { email: user.email } });
 
-    // refetches CHAT_ROOM_MESSAGES without refreshing page
-    // useEffect(() => {
-    //     refetch();
-    // }, [refetch]);
-
-    const messages = chatRoom.chats.map((chat, id) => {return [
-        chat.message,
-        chat.createdAt,
-        
-    ]})
-
-    // if (loading) return <CircularProgress className={classes.loadingSpinner} />;
-    // if (error) return `Error! ${error.message}`;
+    const messages = chatRoom.chats.map((chat, id) => {return {
+        id: id,
+        message: chat.message,
+        createdAt: chat.createdAt,
+        firstName: chat.from.firstName,
+        lastName: chat.from.lastName
+      }
+    });
 
     return (
         <div>
-           {[messages]}
+           {messages.map((message) => (
+             <>
+              <div className={classes.messageDiv}>
+                <span className={classes.messageSender}>{message.firstName} {message.lastName}</span>
+                <p className={classes.messageText}>{message.message}</p>
+              </div>
+             </>
+           ))}
+           <Input />
         </div>
     )
 }
