@@ -29,7 +29,7 @@ const useStyles = makeStyles(() => ({
     border: "none",
     '&:hover': {
       cursor: "pointer",
-      color: "#2962FF"
+      color: "#2962FF",
     }, 
     '&:focus': {
       outline: "none"
@@ -55,7 +55,7 @@ export default function ChatRoom({chatRoom, user}) {
 
     const [messageToggle, setMessageToggle] = useState(false);
 
-    const participants = chatRoom.participants.map((participant, id) => (participant.email !== user.email && `${participant.firstName} ${participant.lastName}`))
+    const participants = chatRoom.participants.map((participant) => (participant.email !== user.email && `${participant.firstName} ${participant.lastName}`))
 
     const handleClick = e => {
       e.preventDefault();

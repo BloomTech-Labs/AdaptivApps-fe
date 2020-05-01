@@ -23,17 +23,33 @@ const useStyles = makeStyles(theme => ({
       maxWidth: '40%'   
     },
     header: {
-      fontSize: '2.5rem',
-      color: 'grey',
+      fontSize: '2rem',
       fontFamily: 'Arial',
+      fontWeight: "normal",
+      color: "#2962FF",
+      marginTop: "0"
+    },
+    iconDiv: {
+      display: "flex",
+      justifyContent: "flex-start",
+      paddingLeft: "12.5%",
+      paddingTop: "1%",
+      "&:hover": {
+        background: "lightgrey",
+        cursor: "pointer",
+        borderRadius: "5px"
+      }
     },
     icons: {
-      fontSize: '5rem',
-      color: 'grey'
+      fontSize: '2rem',
+      color: 'grey',
+      margin: "2% 1% 0 1%"
     },
     span: {
-      fontSize: '2rem',
-      color: 'grey'
+      fontSize: '1.5rem',
+      color: 'grey',
+      padding: "2%",
+      marginBottom: "1%"
     }
 }));
 
@@ -62,12 +78,16 @@ function InfoBar({ user }) {
   
     return (
       <div>
-        <div className={classes.icons}>
+        <div>
           <h1 className={classes.header}>Messages</h1>
-          <CreateIcon onClick={newMessageClick} /><span className={classes.icons}>New Message</span>
+          <div className={classes.iconDiv}>
+            <CreateIcon onClick={newMessageClick} className={classes.icons} />
+            <span className={classes.span}>New Message</span>
+          </div>
           {user && user[config.roleUrl].includes("Admin") ? (
-            <div className={classes.icons}>
-              <LanguageIcon fontSize='5rem' onClick={newAnnouncementClick}/><span className={classes.icons}>New Announcement</span> 
+            <div className={classes.iconDiv}>
+              <LanguageIcon onClick={newAnnouncementClick} className={classes.icons} />
+              <span className={classes.span}>New Announcement</span> 
             </div>
           ): null}
         </div>
