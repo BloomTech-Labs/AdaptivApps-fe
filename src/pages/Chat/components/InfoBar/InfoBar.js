@@ -1,7 +1,8 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import { styled } from '@material-ui/core/styles';
 import { useQuery } from "react-apollo";
 import { GET_CHAT_ROOMS } from '../../queries/ChatRooms';
+import RecipientModal from './Modal';
 import ChatRoom from './ChatRoom';
 
 //Auth0 imports
@@ -65,21 +66,14 @@ const useStyles = makeStyles(theme => ({
 function InfoBar(props) {
     const { user } = props;
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-    const [searchRecipient, setSearchRecipient] = React.useState("");
-    const [searchResults, setSearchResults] = React.useState([]);
+    const [open, setOpen] = useState(false);
+    const [searchRecipient, setSearchRecipient] = useState("");
+    const [searchResults, setSearchResults] = useState([]);
     const { loading, error, data, refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
     
     const handleChange = e => {
       setSearchRecipient(e.target.value);
     };
-
-    // useEffect(() => {
-    //   const results = people.filter(person =>
-    //     person.toLowerCase().includes(searchRecipient)
-    //   );
-    //   setSearchResults(results);
-    // }, [searchRecipient]);
 
     
     // refetches CHAT_ROOMS without refreshing page
@@ -120,37 +114,7 @@ function InfoBar(props) {
               timeout: 500,
             }}
           >
-            <Fade in={open}>
-              <div className={classes.paper}>
-                <h2 id="transition-modal-title" className={classes.span}>Select a Recipient</h2>
-                  {/* Search for Recipients functionality */}
-                  <div>       
-  
-                   <Box component="div">
-                    <TextField
-                      variant="outlined"
-                      type="text"
-                      placeholder="Search for a Recipient"
-                      name="message"
-                      value={searchRecipient}
-                      onChange={handleChange}
-                      />
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        endIcon={<Icon>add_circle</Icon>}
-                    >
-                    Select
-                </Button>
-                </Box>
-                    {/* <ul>
-                      {searchResults.map(item => (
-                        <li>{item}</li>
-                      ))}
-                    </ul> */}
-                  </div>
-              </div>
-            </Fade>
+            <RecipientModal user={user}/>
            </Modal> 
           {user && user[config.roleUrl].includes("Admin") ? (
               <>
