@@ -62,8 +62,6 @@ function App() {
     }));
   };
 
-  
-
   const requestLink = new ApolloLink(
     (operation, forward) =>
       new Observable(observer => {
@@ -95,7 +93,10 @@ function App() {
   const wsLink = new WebSocketLink({
     uri: "ws://localhost:8000/graphql",
     options: {
-      reconnect: true
+      reconnect: true,
+      // connectionParams: {
+      //   authToken: token
+      // }
     }
   });
 
