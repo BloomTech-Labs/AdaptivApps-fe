@@ -8,20 +8,33 @@ import ChatRoom from './ChatRoom';
 import CreateIcon from '@material-ui/icons/Create';
 import LanguageIcon from '@material-ui/icons/Language';
 import {
+    Container,
     makeStyles,
     Button
   } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
+
+
 const useStyles = makeStyles(theme => ({
     root: {
       display: "flex",
       flexDirection: "column",
-      border: "none",
-      width: '40%',
-      color: 'grey',
-      fontSize: '2rem'
+      maxWidth: '40%'   
     },
+    header: {
+      fontSize: '2.5rem',
+      color: 'grey',
+      fontFamily: 'Arial',
+    },
+    icons: {
+      fontSize: '5rem',
+      color: 'grey'
+    },
+    span: {
+      fontSize: '2rem',
+      color: 'grey'
+    }
 }));
 
 
@@ -49,13 +62,13 @@ function InfoBar({ user }) {
   
     return (
       <div>
-        <div>
-          <h1>Messages</h1>
-          <CreateIcon onClick={newMessageClick} /> New Message
+        <div className={classes.icons}>
+          <h1 className={classes.header}>Messages</h1>
+          <CreateIcon onClick={newMessageClick} /><span className={classes.icons}>New Message</span>
           {user && user[config.roleUrl].includes("Admin") ? (
-            <>
-              <LanguageIcon onClick={newAnnouncementClick}/> New Announcement
-            </>
+            <div className={classes.icons}>
+              <LanguageIcon fontSize='5rem' onClick={newAnnouncementClick}/><span className={classes.icons}>New Announcement</span> 
+            </div>
           ): null}
         </div>
 
