@@ -1,53 +1,54 @@
 import React, { useEffect } from 'react'
 import { useSubscription } from "react-apollo";
 import { CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms'
-import {
-    makeStyles,
-    useTheme,
-    Box,
-    Drawer,
-    Hidden,
-    IconButton,
-    Toolbar,
-    Button,
-  } from "@material-ui/core";
-  import MenuIcon from "@material-ui/icons/Menu";
-  import CircularProgress from "@material-ui/core/CircularProgress";
 
-  const useStyles = makeStyles(theme => ({
-    root: {
-      display: "flex",
-      flexDirection: "column",
-      border: "none",
-    },
+import Input from "../Input/Input";
+import {
+    makeStyles
+  } from "@material-ui/core";
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+    border: "none",
+  },
+  messageText: {
+    marginTop: "0",
+    padding: "0 2%"
+  },
+  messageSender: {
+    marginLeft: "2%",
+    color: "#2962FF"
+  }
 }));
 
-const Messages = async ({ chatRoom, subscribeToMore }) => {
-  const messages = chatRoom.chats.map( chat => {return [
-        chat.message,
-        chat.createdAt,
-        
-    ]})
+export default function Messages({ user, chatRoom }) {
+    const classes = useStyles();
+
+    const messages = chatRoom.chats.map((chat, id) => {return {
+        id: id,
+        message: chat.message,
+        createdAt: chat.createdAt,
+        firstName: chat.from.firstName,
+        lastName: chat.from.lastName
+      }
+    });
 
     return (
-      <div>
-        {messages}
-      </div>
+        <div>
+           {messages.map((message) => (
+             <>
+              <div className={classes.messageDiv}>
+                <span className={classes.messageSender}>{message.firstName} {message.lastName}</span>
+                <p className={classes.messageText}>{message.message}</p>
+              </div>
+             </>
+           ))}
+           <Input />
+        </div>
     )
-  }
-
-
-    //const classes = useStyles();
-
-
-  
-
-    // if (loading) return <CircularProgress className={classes.loadingSpinner} />;
-    // if (error) return `Error! ${error.message}`;
-
-  
-
-export default Messages;
+}
 
 
 

@@ -1,3 +1,4 @@
+
 import React, {useEffect, useState} from "react";
 import { styled } from '@material-ui/core/styles';
 import { useQuery } from "react-apollo";
@@ -62,11 +63,45 @@ const useStyles = makeStyles(theme => ({
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
-    },
+    }
+    // root: {
+    //   display: "flex",
+    //   flexDirection: "column",
+    //   maxWidth: '40%'   
+    // },
+    // header: {
+    //   fontSize: '2rem',
+    //   fontFamily: 'Arial',
+    //   fontWeight: "normal",
+    //   color: "#2962FF",
+    //   marginTop: "0"
+    // },
+    // iconDiv: {
+    //   display: "flex",
+    //   justifyContent: "flex-start",
+    //   paddingLeft: "12.5%",
+    //   paddingTop: "1%",
+    //   "&:hover": {
+    //     background: "lightgrey",
+    //     cursor: "pointer",
+    //     borderRadius: "5px"
+    //   }
+    // },
+    // icons: {
+    //   fontSize: '2rem',
+    //   color: 'grey',
+    //   margin: "2% 1% 0 1%"
+    // },
+    // span: {
+    //   fontSize: '1.5rem',
+    //   color: 'grey',
+    //   padding: "2%",
+    //   marginBottom: "1%"
+    // }
 }));
 
-function InfoBar(props) {
-    const { user } = props;
+
+function InfoBar({ user }) {
     const classes = useStyles();
     const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
 
@@ -109,6 +144,11 @@ function InfoBar(props) {
 
     _subscribeToNewChatRoom(subscribeToMore)
     
+    const newMessageClick = e => {
+      e.preventDefault();
+      console.log('New message clicked')
+    };
+
     const newAnnouncementClick = e => {
       e.preventDefault();
       console.log('New announcement clicked')
@@ -172,6 +212,25 @@ function InfoBar(props) {
                     Select
                 </Button>
                 </Box>
+        <div>
+          <h1 className={classes.header}>Messages</h1>
+          <div className={classes.iconDiv}>
+            <CreateIcon onClick={newMessageClick} className={classes.icons} />
+            <span className={classes.span}>New Message</span>
+          </div>
+          {user && user[config.roleUrl].includes("Admin") ? (
+            <div className={classes.iconDiv}>
+              <LanguageIcon onClick={newAnnouncementClick} className={classes.icons} />
+              <span className={classes.span}>New Announcement</span> 
+            </div>
+          ): null}
+        </div>
+
+        <div>
+          {data && data?.profile.chatRooms?.map((chatRoom, id) => (
+            <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
+          ))}
+        </div>
       </div>
     )
 }
