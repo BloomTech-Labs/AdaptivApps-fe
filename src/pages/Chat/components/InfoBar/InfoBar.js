@@ -166,6 +166,23 @@ function InfoBar(props) {
           ))
           }
           </div>
+          <Box component="div">
+                    <TextField
+                      variant="outlined"
+                      type="text"
+                      placeholder="Search Chats"
+                      name="message"
+                      value={searchRecipient}
+                      onChange={handleChange}
+                      />
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        endIcon={<Icon>add_circle</Icon>}
+                    >
+                    Select
+                </Button>
+                </Box>
       </div>
     )
 }
