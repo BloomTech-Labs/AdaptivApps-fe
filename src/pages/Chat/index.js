@@ -1,8 +1,5 @@
 // React imports
 import React, {useEffect} from "react";
-import TextContainer from "./components/TextContainer/TextContainer";
-// Auth0 imports
-import { useAuth0 } from "../../config/react-auth0-spa";
 
 // import NavBar from "./NavBar";
 import InfoBar from './components/InfoBar/InfoBar';
@@ -19,7 +16,7 @@ import { useAuth0 } from "../../config/react-auth0-spa";
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: "25rem",
+    width: "30%",
     height: "100vh",
     padding: "2%",
     marginLeft: "-2rem",

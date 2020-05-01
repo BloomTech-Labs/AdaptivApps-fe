@@ -7,12 +7,17 @@ import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms'
 import RecipientModal from './Modal';
 import ChatRoom from './ChatRoom';
 
+
 //Auth0 imports
 import config from "../../../../config/auth_config";
 
 // Style Imports
 import CreateIcon from '@material-ui/icons/Create';
 import LanguageIcon from '@material-ui/icons/Language';
+import SearchIcon from '@material-ui/icons/Search';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import Divider from '@material-ui/core/Divider';
 
 import {
     Container,
@@ -33,22 +38,28 @@ import MenuIcon from "@material-ui/icons/Menu";
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
-    flexDirection: "column",
-    maxWidth: '40%'   
+    flexDirection: 'column'
   },
   header: {
     fontSize: '2.5rem',
     color: 'grey',
     fontFamily: 'Arial',
+    marginBottom: '10%'
+  },
+  messageIcons: {
+    maxWidth: '95%',
+    display: 'flex',
+    margin: '10% 0',
+    alignItems: 'center'
   },
   icons: {
-    fontSize: '4rem',
+    fontSize: '2.75rem',
     color: 'grey',
-    padding: "0%",
     cursor: "pointer",
+    marginRight: '10%'    
   },
   span: {
-    fontSize: '2rem',
+    fontSize: '1.75rem',
     color: 'grey',
     cursor: 'pointer'
   },
@@ -63,41 +74,13 @@ const useStyles = makeStyles(theme => ({
       border: '2px solid #000',
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
+    },
+    button: {
+      marginTop: '3%'
+    },
+    chatroom: {
+      marginBottom: '15%'
     }
-    // root: {
-    //   display: "flex",
-    //   flexDirection: "column",
-    //   maxWidth: '40%'   
-    // },
-    // header: {
-    //   fontSize: '2rem',
-    //   fontFamily: 'Arial',
-    //   fontWeight: "normal",
-    //   color: "#2962FF",
-    //   marginTop: "0"
-    // },
-    // iconDiv: {
-    //   display: "flex",
-    //   justifyContent: "flex-start",
-    //   paddingLeft: "12.5%",
-    //   paddingTop: "1%",
-    //   "&:hover": {
-    //     background: "lightgrey",
-    //     cursor: "pointer",
-    //     borderRadius: "5px"
-    //   }
-    // },
-    // icons: {
-    //   fontSize: '2rem',
-    //   color: 'grey',
-    //   margin: "2% 1% 0 1%"
-    // },
-    // span: {
-    //   fontSize: '1.5rem',
-    //   color: 'grey',
-    //   padding: "2%",
-    //   marginBottom: "1%"
-    // }
 }));
 
 
@@ -163,10 +146,11 @@ function InfoBar({ user }) {
     };
 
     return (
-      <div>
-        {/* <div className={classes.icons}></div> */}
+      <div className={classes.root}>
           <h1 className={classes.header}>Messages</h1>
+          <div className={classes.messageIcons}>
           <CreateIcon className={classes.icons} onClick={handleOpen} /><span className={classes.span} onClick={handleOpen}>New Message</span>
+          </div>
           <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
@@ -183,7 +167,7 @@ function InfoBar({ user }) {
            </Modal> 
           {user && user[config.roleUrl].includes("Admin") ? (
               <>
-          <div>
+          <div className={classes.messageIcons}>
               <LanguageIcon className={classes.icons} onClick={newAnnouncementClick}/><span className={classes.span} onClick={newAnnouncementClick}>New Announcement</span> 
             </div>
           </>
@@ -191,20 +175,31 @@ function InfoBar({ user }) {
           <div>
           {data &&
           data?.profile.chatRooms?.map((chatRoom, id) => (
-          <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
+          <div className={classes.chatroom}>
+            <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
+            <Divider variant="middle"/>
+            </div>
           ))
+          
           }
           </div>
-          <Box component="div">
+          <Box component="div" marginTop="40%">
                     <TextField
                       variant="outlined"
                       type="text"
-                      placeholder="Search Chats"
                       name="message"
+                      placeholder="Search Messages..."
                       value={searchRecipient}
                       onChange={handleChange}
+                      InputProps={{
+                        endAdornment: <InputAdornment position="end">
+                        <SearchIcon fontSize="large" />
+                      </InputAdornment>
+                      }}
+                      
                       />
                     <Button
+                        className={classes.button}
                         variant="contained"
                         color="primary"
                         endIcon={<Icon>add_circle</Icon>}
@@ -212,25 +207,6 @@ function InfoBar({ user }) {
                     Select
                 </Button>
                 </Box>
-        <div>
-          <h1 className={classes.header}>Messages</h1>
-          <div className={classes.iconDiv}>
-            <CreateIcon onClick={newMessageClick} className={classes.icons} />
-            <span className={classes.span}>New Message</span>
-          </div>
-          {user && user[config.roleUrl].includes("Admin") ? (
-            <div className={classes.iconDiv}>
-              <LanguageIcon onClick={newAnnouncementClick} className={classes.icons} />
-              <span className={classes.span}>New Announcement</span> 
-            </div>
-          ): null}
-        </div>
-
-        <div>
-          {data && data?.profile.chatRooms?.map((chatRoom, id) => (
-            <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
-          ))}
-        </div>
       </div>
     )
 }
