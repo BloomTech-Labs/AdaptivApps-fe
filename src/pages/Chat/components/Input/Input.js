@@ -9,7 +9,6 @@ import {
     TextField,
     Button
   } from "@material-ui/core";
-import Icon from '@material-ui/core/Icon';
 
 const useStyles = makeStyles(() => ({
     sendButton: {
@@ -17,8 +16,13 @@ const useStyles = makeStyles(() => ({
         height: "7.5vh"
     },
     inputField: {
-        width: "90%"
+        width: "85%"
     },
+    textFieldDiv: {
+        width: "100%",
+        position: "absolute",
+        bottom: "0"
+    }
 }));
 
 const Input = ({ loading, chats, updateChats }) => {
@@ -50,7 +54,7 @@ const Input = ({ loading, chats, updateChats }) => {
     return(
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Box component="div">
+                <Box component="div" className={classes.textFieldDiv}>
                     <Controller
                         as={<TextField />}
                         id="message"
@@ -64,15 +68,11 @@ const Input = ({ loading, chats, updateChats }) => {
                     <Button
                         variant="contained"
                         color="primary"
-                        onClick={() => {
-                            setUpdated(true);
-                          }}
-                        endIcon={<Icon>send</Icon>}
-                        className={classes.sendButton}
-                    >
-                    Send
-                </Button>
-                {updated === true ? handleUpdated() : null}
+                        onClick={() => {setUpdated(true)}}
+                        className={classes.sendButton}>
+                        Send
+                    </Button>
+                    {updated === true ? handleUpdated() : null}
                 </Box>
             </form>
         </div>
