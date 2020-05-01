@@ -23,9 +23,10 @@ const useStyles = makeStyles(() => ({
   chatRoomIcon: {
     color: "#2962FF",
     fontSize: "2.5rem",
+    marginRight: "10%"
   },
   chatRoomButton: {
-    fontSize: "2rem",
+    fontSize: "1.6rem",
     border: "none",
     '&:hover': {
       cursor: "pointer",

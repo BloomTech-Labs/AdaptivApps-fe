@@ -15,7 +15,6 @@ import config from "../../../../config/auth_config";
 import CreateIcon from '@material-ui/icons/Create';
 import LanguageIcon from '@material-ui/icons/Language';
 import SearchIcon from '@material-ui/icons/Search';
-import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Divider from '@material-ui/core/Divider';
 
@@ -79,7 +78,7 @@ const useStyles = makeStyles(theme => ({
       marginTop: '3%'
     },
     chatroom: {
-      marginBottom: '15%'
+      margin: '5% 0'
     }
 }));
 
@@ -177,13 +176,13 @@ function InfoBar({ user }) {
           data?.profile.chatRooms?.map((chatRoom, id) => (
           <div className={classes.chatroom}>
             <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
-            <Divider variant="middle"/>
+            <Divider variant="inset"/>
             </div>
           ))
           
           }
           </div>
-          <Box component="div" marginTop="40%">
+          <Box component="div" position='absolute' bottom='3%'>
                     <TextField
                       variant="outlined"
                       type="text"
@@ -198,14 +197,14 @@ function InfoBar({ user }) {
                       }}
                       
                       />
-                    <Button
+                    {/* <Button
                         className={classes.button}
                         variant="contained"
                         color="primary"
                         endIcon={<Icon>add_circle</Icon>}
                     >
                     Select
-                </Button>
+                </Button> */}
                 </Box>
       </div>
     )
