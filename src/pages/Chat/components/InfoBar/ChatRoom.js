@@ -8,22 +8,16 @@ import {
 } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
-  chatRoomDiv: {
-    textDecoration: "none",
-    height: "5rem",
-    display: "flex",
-    alignContent: "flex-start",
-    alignItems: "center",
+  root: {   
     margin: ".5rem auto",
-    textAlign: "left",
-    "& p": {
-      fontSize: "1.6rem",
-    }
+    display: 'flex',
+    whiteSpace: "nowrap",
+    overflow: 'hidden'
   },
   chatRoomIcon: {
     color: "#2962FF",
-    fontSize: "2.5rem",
-    marginRight: "10%"
+    fontSize: "3rem",
+    margin: "0 5%"
   },
   chatRoomButton: {
     fontSize: "1.6rem",
@@ -56,7 +50,7 @@ export default function ChatRoom({chatRoom, user}) {
 
     const [messageToggle, setMessageToggle] = useState(false);
 
-    const participants = chatRoom.participants.map((participant) => (participant.email !== user.email && `${participant.firstName} ${participant.lastName}`))
+    const participants = chatRoom.participants.map((participant) => (chatRoom.participants.length > 2 ? participant.email !== user.email && `${participant.firstName} ${participant.lastName}, ` : participant.email !== user.email && `${participant.firstName} ${participant.lastName}`))
 
     const handleClick = e => {
       e.preventDefault();
@@ -70,18 +64,19 @@ export default function ChatRoom({chatRoom, user}) {
 
     return (
       <>
-        <div className={classes.chatRoomDiv}>
+        <div className={classes.root}>
           <PeopleAltIcon className={classes.chatRoomIcon} />
           <button className={classes.chatRoomButton} onClick={handleClick}>{participants}</button>
+          </div>
           <Drawer
             anchor = "right"
             open = {messageToggle}
             variant = "persistent"
             PaperProps = {{ style: { width: "66%" } }}>
             <CloseIcon className={classes.closeModal} onClick={closeDrawer} />
-            <Messages chatRoom={chatRoom} />
+            <Messages chatRoom={chatRoom} participants={participants} user={user}/>
           </Drawer>
-        </div>
+        
       </>
     )
 }
