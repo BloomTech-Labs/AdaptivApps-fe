@@ -19,9 +19,7 @@ const useStyles = makeStyles(() => ({
         width: "85%"
     },
     textFieldDiv: {
-        width: "100%",
-        position: "absolute",
-        bottom: "0"
+        width: "100%"
     }
 }));
 

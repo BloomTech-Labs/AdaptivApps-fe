@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: '1.5rem'
   },
   messageHeader: {
-    marginBottom: '2%',
+    marginBottom: '4%',
     padding: '1%'
   },
   sender: {
@@ -50,6 +50,13 @@ const useStyles = makeStyles(theme => ({
     color: "#2962FF",
     fontSize: "3rem",
     margin: "0 5%"
+  },
+  inputDiv: {
+    width: '100%',
+    height: '7.5vh',
+    marginTop: '2%',
+    position: 'absolute',
+    bottom: "0"
   }
 }));
 
@@ -67,6 +74,7 @@ export default function Messages({ user, chatRoom, participants }) {
 
     return (
       <div className={classes.root}>
+        <div>
           {messages.map((message) => (
             <>
             <div className={classes.messageBox}>
@@ -81,7 +89,10 @@ export default function Messages({ user, chatRoom, participants }) {
             </div>
             </>
           ))}
+        </div>
+        <div className={classes.inputDiv}>
           <Input />
+        </div>
       </div>
     )
 }
