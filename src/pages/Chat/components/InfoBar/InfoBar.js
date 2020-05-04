@@ -147,7 +147,7 @@ function InfoBar({ user }) {
       <div className={classes.root}>
           <h1 className={classes.header}>Messages</h1>
           <div className={classes.messageIcons}>
-          <CreateIcon className={classes.icons} onClick={handleOpen} /><span className={classes.span} onClick={handleOpen}>New Message</span>
+            <CreateIcon className={classes.icons} onClick={handleOpen} /><span className={classes.span} onClick={handleOpen}>New Message</span>
           </div>
           <Modal
             aria-labelledby="transition-modal-title"
@@ -167,13 +167,13 @@ function InfoBar({ user }) {
               <>
           <div className={classes.messageIcons}>
               <LanguageIcon className={classes.icons} onClick={newAnnouncementClick}/><span className={classes.span} onClick={newAnnouncementClick}>New Announcement</span> 
-            </div>
+          </div>
           </>
           ): null}
           <div>
           {data &&
           data?.profile.chatRooms?.map((chatRoom, id) => (
-          <div className={classes.chatroom}>
+          <div key={id} className={classes.chatroom}>
             <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
             <Divider variant="inset" className={classes.divider}/>
             </div>

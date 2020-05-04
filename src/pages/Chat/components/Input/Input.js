@@ -1,5 +1,5 @@
 // React imports
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 
 //Styling Imports
@@ -23,12 +23,12 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const Input = ({ loading, chats, updateChats }) => {
+const Input = () => {
     const [updated, setUpdated] = useState(false);
     const classes = useStyles();
 
     //useForm hook to update state
-    const { handleSubmit, register, setValue, control } = useForm({
+    const { handleSubmit, control } = useForm({
         mode: "onSubmit",
         defaultValues: {
             // chat: participant.chats
@@ -54,7 +54,7 @@ const Input = ({ loading, chats, updateChats }) => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Box component="div" className={classes.textFieldDiv}>
                     <Controller
-                        as={<TextField multiline='true' rowsMax='4' />}
+                        as={<TextField multiline={true} rowsMax='4' />}
                         id="message"
                         variant="outlined"
                         type="text"

@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 // Component imports
 import ActivityDetails from "./ActivityDetails";
 // Auth0 imports
-import { useAuth0, Auth0Context } from "../../config/react-auth0-spa";
+import { useAuth0 } from "../../config/react-auth0-spa";
 // GraphQL/Apollo imports
 import { useQuery } from "react-apollo";
 import { GET_USER_ACTIVITIES } from "./queries";

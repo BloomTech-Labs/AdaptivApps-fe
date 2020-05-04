@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Input from "../Input/Input";
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import {
@@ -77,16 +77,16 @@ export default function Messages({ user, chatRoom, participants }) {
         <div>
           {messages.map((message) => (
             <>
-            <div className={classes.messageBox}>
-            <PeopleAltIcon className={classes.messageIcon} />
-            <div className={message.sender !== user.email ?
-                classes.messageSender : classes.userMessage}>
-              <div className={classes.messageHeader}>
-                {message.sender === user.email ? <span className={classes.sender}>Me</span> : <span className={classes.sender}>{message.firstName} {message.lastName}</span> }
+              <div key={message.id} className={classes.messageBox}>
+                <PeopleAltIcon className={classes.messageIcon} />
+                <div className={message.sender !== user.email ?
+                    classes.messageSender : classes.userMessage}>
+                  <div className={classes.messageHeader}>
+                    {message.sender === user.email ? <span className={classes.sender}>Me</span> : <span className={classes.sender}>{message.firstName} {message.lastName}</span> }
+                  </div>
+                  <p className={classes.messageText}>{message.message}</p>
+                </div>
               </div>
-              <p className={classes.messageText}>{message.message}</p>
-            </div>
-            </div>
             </>
           ))}
         </div>

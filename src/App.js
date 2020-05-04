@@ -2,7 +2,7 @@
 import React from "react";
 
 // Reach Router imports
-import { Router, Link } from "@reach/router";
+import { Router } from "@reach/router";
 
 // Import route components
 import DashRouter from "./routes/DashRouter";
@@ -26,7 +26,6 @@ import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
-import { setContext } from "apollo-link-context";
 import { ApolloLink, Observable, split } from 'apollo-link';
 
 // Subscription connection

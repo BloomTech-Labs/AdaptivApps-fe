@@ -185,6 +185,8 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
           : formValues.disability,
       legal: formValues.legal === "" ? userProfile.legal : formValues.legal,
     });
+
+    console.log(userProfile)
   };
 
   // updates form fields with new values
@@ -332,7 +334,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 id="bio"
                 name="bio"
                 variant="outlined"
-                multiline
+                multiline={true}
                 rows="8"
                 placeholder={userProfile ? userProfile.bio : null}
                 control={control}

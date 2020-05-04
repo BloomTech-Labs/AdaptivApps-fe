@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { useQuery } from "react-apollo";
 import { GET_RECIPIENTS } from '../../queries/Chats';
 
@@ -9,7 +9,6 @@ import {
     TextField,
     MenuItem
   } from "@material-ui/core";
-import Fade from '@material-ui/core/Fade';
 
 const useStyles = makeStyles(theme => ({
   span: {
@@ -31,25 +30,24 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function RecipientModal(props) {
-    const { user } = props;
+function RecipientModal() {
     const classes = useStyles();
     const [searchRecipient, setSearchRecipient] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
-    const { error, data, refetch, loading } = useQuery(GET_RECIPIENTS);
+    // const [searchResults, setSearchResults] = useState([]);
+    const { data } = useQuery(GET_RECIPIENTS);
     
     const handleChange = e => {
       setSearchRecipient(e.target.value);
     };
 
 
-    useEffect(() => {
-      const results = searchResults.filter(person =>
-        person.toLowerCase().includes(searchRecipient)
-      );
+    // useEffect(() => {
+    //   const results = searchResults.filter(person =>
+    //     person.toLowerCase().includes(searchRecipient)
+    //   );
       
-      setSearchResults(searchResults);
-    },[searchRecipient]);
+    //   setSearchResults(searchResults);
+    // },[searchRecipient]);
 
     return (
       <div>          
