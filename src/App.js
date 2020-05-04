@@ -1,5 +1,5 @@
 // Import dependencies
-import React from "react";
+import React, { useState } from "react";
 
 // Reach Router imports
 import { Router, Link } from "@reach/router";
@@ -50,17 +50,15 @@ const trackingId = "UA-159556430-1";
 
 function App() {
   const { getIdTokenClaims } = useAuth0();
+  const [authToken, setAuthToken] = useState();
 
-  const tokenGenerator = async () => {
+  const request = async operation => {
     const token = await getIdTokenClaims();
-    return token.__raw;
-  };
-
-  const request = operation => {
+    setAuthToken(token.__raw);
     operation.setContext(context => ({
       headers: {
         ...context.headers,
-        Authorization: tokenGenerator(),
+        Authorization: authToken,
       },
     }));
   };
@@ -97,7 +95,7 @@ function App() {
     options: {
       reconnect: true,
       connectionParams: {
-        authToken: tokenGenerator()
+        authToken: authToken,
       }
     }
   });
