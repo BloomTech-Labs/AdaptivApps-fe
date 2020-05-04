@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     color: "#2962FF",
     fontSize: "3rem",
     margin: "0 5%"
-  },
+  }
 }));
 
 export default function Messages({ user, chatRoom, participants }) {
@@ -63,7 +63,6 @@ export default function Messages({ user, chatRoom, participants }) {
 
     return (
       <div className={classes.root}>
-        <h1>Message with {participants}</h1>
           {messages.map((message) => (
             <>
             <div className={classes.messageBox}>

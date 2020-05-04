@@ -31,9 +31,8 @@ const useStyles = makeStyles(() => ({
   },
   closeModal: {
     fontSize: "3rem",
+    marginTop: '1%',
     border: "none",
-    marginLeft: "95%",
-    marginTop: "2%",
     '&:hover': {
       cursor: "pointer",
       color: "#2962FF"
@@ -41,6 +40,16 @@ const useStyles = makeStyles(() => ({
     '&:focus': {
       outline: "none"
     }
+  },
+  roomTitle: {
+    fontSize: '2rem',
+    color: '#2962FF'
+  },
+  titleDiv: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    padding: '1% 2% 0 2%',
+    borderBottom: '1px solid grey'
   }
 }))
 export default function ChatRoom({chatRoom, user}) {
@@ -66,7 +75,10 @@ export default function ChatRoom({chatRoom, user}) {
             open = {messageToggle}
             variant = "persistent"
             PaperProps = {{ style: { width: "66%" } }}>
-            <CloseIcon className={classes.closeModal} onClick={closeDrawer} />
+            <div className={classes.titleDiv}>
+              <h1 className={classes.roomTitle}>{participants}</h1>
+              <CloseIcon className={classes.closeModal} onClick={closeDrawer} />
+            </div>
             <Messages chatRoom={chatRoom} participants={participants} user={user}/>
           </Drawer>
       </>
