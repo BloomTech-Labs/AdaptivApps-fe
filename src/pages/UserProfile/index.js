@@ -7,8 +7,6 @@ import { UPDATE_USER_PROFILE, ADD_USER_PROFILE, PROFILE_INFO } from "./queries";
 const UserProfile = () => {
   const { user } = useAuth0();
 
-  console.log(user);
-
   const [createProfile] = useMutation(ADD_USER_PROFILE);
   const [updateProfile] = useMutation(UPDATE_USER_PROFILE);
 
