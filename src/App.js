@@ -51,12 +51,16 @@ const trackingId = "UA-159556430-1";
 function App() {
   const { getIdTokenClaims } = useAuth0();
 
-  const request = async operation => {
+  const tokenGenerator = async () => {
     const token = await getIdTokenClaims();
+    return token.__raw;
+  };
+
+  const request = operation => {
     operation.setContext(context => ({
       headers: {
         ...context.headers,
-        Authorization: token.__raw,
+        Authorization: tokenGenerator(),
       },
     }));
   };
@@ -92,9 +96,9 @@ function App() {
     uri: "ws://localhost:8000/graphql",
     options: {
       reconnect: true,
-      // connectionParams: {
-      //   authToken: token
-      // }
+      connectionParams: {
+        authToken: tokenGenerator()
+      }
     }
   });
 

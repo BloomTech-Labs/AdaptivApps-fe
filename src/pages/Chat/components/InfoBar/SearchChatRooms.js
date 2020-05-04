@@ -39,7 +39,7 @@ function SearchChatRooms({ user }) {
 
     if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     if (error) return `Error! ${error.message}`;
-    console.log('Data', data)
+    console.log('Data', data);
 
     return (
       <div> 
