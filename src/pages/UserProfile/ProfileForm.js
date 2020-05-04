@@ -112,6 +112,8 @@ const ProfileSchema = yup.object().shape({
 
 // This is the form being used in UserDashboard
 const ProfileForm = ({ loading, profile, user, updateProfile }) => {
+  console.log('User', user);
+
   const [updated, setUpdated] = useState(false);
   const [userProfile, setUserProfile] = useState(null);
   const classes = useStyles();
@@ -121,9 +123,9 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
     validationSchema: ProfileSchema,
     defaultValues: {
       email: user && user.email,
-      firstName: userProfile && userProfile.firstName,
-      lastName: userProfile && userProfile.lastName,
-      displayName: userProfile && userProfile.displayName,
+      firstName: user.given_name ? user && user.given_name : userProfile && userProfile.firstName,
+      lastName: user.family_name ? user && user.family_name : userProfile && userProfile.lastName,
+      displayName: user.nickname ? user && user.nickname : userProfile && userProfile.displayName,
       birthday: userProfile && userProfile.birthday,
       bio: userProfile && userProfile.bio,
       disability: userProfile && userProfile.disability,
