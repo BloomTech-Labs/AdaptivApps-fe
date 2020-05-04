@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
-import { styled } from '@material-ui/core/styles';
 import { useQuery } from "react-apollo";
 import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms';
 import RecipientModal from './Modal';
 import ChatRoom from './ChatRoom';
+
 //Auth0 imports
 import config from "../../../../config/auth_config";
+
 // Style Imports
 import CreateIcon from '@material-ui/icons/Create';
 import LanguageIcon from '@material-ui/icons/Language';
@@ -13,19 +14,14 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Divider from '@material-ui/core/Divider';
 import {
-    Container,
     makeStyles,
-    Button,
-    Icon,
     Box,
     TextField
   } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import MenuIcon from "@material-ui/icons/Menu";
-import { Auth0Context } from "../../../../config/react-auth0-spa";
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -94,6 +90,7 @@ const useStyles = makeStyles(theme => ({
       marginTop:'5%'
     }
 }));
+
 function InfoBar({ user }) {
     const classes = useStyles();
     const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
@@ -103,10 +100,12 @@ function InfoBar({ user }) {
     const handleChange = e => {
       setSearchRecipient(e.target.value);
     };
+
     // refetches CHAT_ROOMS without refreshing page
     useEffect(() => {
         refetch();
     }, [refetch]);
+
     const _subscribeToNewChatRoom = subscribeToMore => {
       subscribeToMore({
         document: CHAT_ROOM_SUBSCRIPTION,
@@ -115,7 +114,6 @@ function InfoBar({ user }) {
           const chatRoom = subscriptionData.data.chatRoom
           const exists = prev.profile.chatRooms.find(({ id }) => id === chatRoom.id);
           if (exists) return prev;
-          console.log('sub data', subscriptionData.data)
           return Object.assign({}, prev, {
             profile: {
               chatRooms: [chatRoom, ...prev.profile.chatRooms],
@@ -124,9 +122,11 @@ function InfoBar({ user }) {
           })
         }
       })
-    }
+    };
+
     if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     if (error) return `Error! ${error.message}`;
+
     _subscribeToNewChatRoom(subscribeToMore)
     const newMessageClick = e => {
       e.preventDefault();
@@ -142,6 +142,7 @@ function InfoBar({ user }) {
     const handleClose = () => {
       setOpen(false);
     };
+
     return (
       <div className={classes.root}>
           <h1 className={classes.header}>Messages</h1>
@@ -180,30 +181,23 @@ function InfoBar({ user }) {
           }
           </div>
           <Box component="div" className={classes.box}>
-                    <TextField
-                      className={classes.searchBox}
-                      variant="outlined"
-                      type="text"
-                      name="message"
-                      placeholder="Search Messages..."
-                      value={searchRecipient}
-                      onChange={handleChange}
-                      InputProps={{
-                        endAdornment: <InputAdornment position="end">
-                        <SearchIcon fontSize="large" />
-                      </InputAdornment>
-                      }}
-                      />
-                    {/* <Button
-                        className={classes.button}
-                        variant="contained"
-                        color="primary"
-                        endIcon={<Icon>add_circle</Icon>}
-                    >
-                    Select
-                </Button> */}
-                </Box>
+            <TextField
+              className={classes.searchBox}
+              variant="outlined"
+              type="text"
+              name="message"
+              placeholder="Search Messages..."
+              value={searchRecipient}
+              onChange={handleChange}
+              InputProps={{
+                endAdornment: <InputAdornment position="end">
+                <SearchIcon fontSize="large" />
+              </InputAdornment>
+              }}
+              />
+            </Box>
       </div>
     )
-}
+};
+
 export default InfoBar;

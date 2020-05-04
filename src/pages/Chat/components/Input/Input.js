@@ -56,7 +56,7 @@ const Input = ({ loading, chats, updateChats }) => {
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Box component="div" className={classes.textFieldDiv}>
                     <Controller
-                        as={<TextField />}
+                        as={<TextField multiline='true' rowsMax='4' />}
                         id="message"
                         variant="outlined"
                         type="text"

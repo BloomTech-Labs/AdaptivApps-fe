@@ -53,7 +53,6 @@ function App() {
 
   const request = async operation => {
     const token = await getIdTokenClaims();
-    console.log('token', token)
     operation.setContext(context => ({
       headers: {
         ...context.headers,
@@ -69,7 +68,6 @@ function App() {
         Promise.resolve(operation)
           .then(oper => {
             request(oper)
-            console.log(request(oper))
           })
           .then(() => {
             handle = forward(operation).subscribe({

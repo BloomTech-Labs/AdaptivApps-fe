@@ -1,11 +1,10 @@
-import React, { useEffect } from 'react'
-import { useSubscription } from "react-apollo";
-import { CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms'
+import React, { useEffect } from 'react';
 import Input from "../Input/Input";
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import {
     makeStyles
   } from "@material-ui/core";
+
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -49,9 +48,9 @@ const useStyles = makeStyles(theme => ({
     margin: "0 5%"
   },
 }));
+
 export default function Messages({ user, chatRoom, participants }) {
     const classes = useStyles();
-    console.log(participants)
     const messages = chatRoom.chats.map((chat, id) => {return {
         id: id,
         message: chat.message,
@@ -61,22 +60,23 @@ export default function Messages({ user, chatRoom, participants }) {
         sender: chat.from.email
       }
     });
+
     return (
-        <div className={classes.root}>
-          <h1>Message with {participants}</h1>
-           {messages.map((message) => (
-             <>
-             <div className={classes.messageBox}>
-             <PeopleAltIcon className={classes.messageIcon} />
-             <div className={message.sender !== user.email ?
-                  classes.messageSender : classes.userMessage}>
-                <h3 className={classes.messageHeader}>{message.firstName} {message.lastName}</h3>
-                <p className={classes.messageText}>{message.message}</p>
-              </div>
-              </div>
-             </>
-           ))}
-           <Input />
-        </div>
+      <div className={classes.root}>
+        <h1>Message with {participants}</h1>
+          {messages.map((message) => (
+            <>
+            <div className={classes.messageBox}>
+            <PeopleAltIcon className={classes.messageIcon} />
+            <div className={message.sender !== user.email ?
+                classes.messageSender : classes.userMessage}>
+              <h3 className={classes.messageHeader}>{message.firstName} {message.lastName}</h3>
+              <p className={classes.messageText}>{message.message}</p>
+            </div>
+            </div>
+            </>
+          ))}
+          <Input />
+      </div>
     )
 }
