@@ -46,29 +46,48 @@ const useStyles = makeStyles(theme => ({
     }
 
  
-      return (
+    return (
         <div>          
                 <div className={classes.paper}>
                   <h2 id="transition-modal-title" className={classes.span}>Create New Announcement</h2>
-                    {/* Search for Recipients functionality */}
+
+                <h3>Announcement Title </h3>
                     <div>       
-    
-                     <Box component="div">
-                      <TextField
-                        variant="outlined"
-                        type="text"
-                        placeholder="Create New Announcement"
-                        name="announcement"
-                        value={NewAnnouncement}
-                        onChange={handleChange}
-                        />
-                             
-                                  </Box>
+                        <Box component="div">
+                            <TextField
+                            variant="outlined"
+                            type="text"
+                            placeholder="New Annoucement Title"
+                            name="announcement"
+                            value={NewAnnouncement}
+                            onChange={handleChange}
+                            />
+                        </Box>
+
+                <h3>Announcement Text</h3>
+                        <Box component="div">
+                            <TextField
+                            variant="outlined"
+                            type="text"
+                            placeholder="New Announcement Text"
+                            name="announcement"
+                            value={NewAnnouncement}
+                            onChange={handleChange}
+                            />
+                        </Box>
+
+                <h3>Send to:</h3>
+                        <Box component="div">
+                        </Box>        
+
+                <h3>Attach image</h3>
+                        <Box component="div">
+                        </Box>                  
                     
                     </div>
                 </div>
         </div>
-             )
-  }
+    )
+}
   
   export default AnnouncementModal;
