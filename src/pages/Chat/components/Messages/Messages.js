@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
 }));
 export default function Messages({ user, chatRoom, participants }) {
     const classes = useStyles();
-    console.log(participants)
+
     const messages = chatRoom.chats.map((chat, id) => {return {
         id: id,
         message: chat.message,

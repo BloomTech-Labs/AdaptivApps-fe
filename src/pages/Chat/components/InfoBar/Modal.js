@@ -42,7 +42,6 @@ function RecipientModal(props) {
     const [searchRecipient, setSearchRecipient] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const { error, data, refetch, loading } = useQuery(GET_RECIPIENTS);
-    console.log(data, "data");
     
     const handleChange = e => {
       setSearchRecipient(e.target.value);
