@@ -54,7 +54,7 @@ export const GET_CHAT_ROOM_MESSAGES = gql`
 // Search for a chat room
 export const SEARCH_CHAT_ROOMS = gql`
   query searchChatRooms( $search: String! ) {
-    chatRooms(where: {
+    profiles(where: {
       OR: [
         {
           firstName_contains: $search

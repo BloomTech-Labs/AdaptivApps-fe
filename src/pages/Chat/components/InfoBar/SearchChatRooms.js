@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useQuery } from "react-apollo";
+import { useLazyQuery } from "react-apollo";
 import { SEARCH_CHAT_ROOMS } from '../../queries/ChatRooms';
 
 // Style Imports
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import CircularProgress from "@material-ui/core/CircularProgress";
 import {
   makeStyles,
   Box,
@@ -27,18 +28,18 @@ const useStyles = makeStyles(() => ({
 function SearchChatRooms({ user }) {
     const classes = useStyles();
     const [searchRecipient, setSearchRecipient] = useState("");
-    const [searchQuery] = useQuery(SEARCH_CHAT_ROOMS);
+    const [
+      filterRooms, 
+      { loading, error, data }
+    ] = useLazyQuery(SEARCH_CHAT_ROOMS, { variables: { search: searchRecipient } });
 
     const handleChange = e => {
       setSearchRecipient(e.target.value);
     }
 
-    const searchRooms = async () => {
-      console.log('Search for ', searchRecipient)
-      await searchQuery({
-        variables: searchRecipient
-      })
-    };
+    if (loading) return <CircularProgress className={classes.loadingSpinner} />;
+    if (error) return `Error! ${error.message}`;
+    console.log('Data', data)
 
     return (
       <div> 
@@ -54,7 +55,7 @@ function SearchChatRooms({ user }) {
             InputProps={{
               endAdornment: 
               <InputAdornment position="end">
-                <IconButton onClick={searchRooms}>
+                <IconButton onClick={() => filterRooms()}>
                   <SearchIcon fontSize="large" />
                 </IconButton>
               </InputAdornment>
