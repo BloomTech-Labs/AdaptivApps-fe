@@ -1,25 +1,18 @@
 // React imports
 import React, {useEffect} from "react";
-import TextContainer from "./components/TextContainer/TextContainer";
-// Auth0 imports
-import { useAuth0 } from "../../config/react-auth0-spa";
-
 // import NavBar from "./NavBar";
 import InfoBar from './components/InfoBar/InfoBar';
 import { GET_CHAT_ROOM_MESSAGES } from './queries/ChatRooms'
 import Messages from './components/Messages/Messages'
 import { useQuery } from 'react-apollo';
-
 import {
   makeStyles
 } from "@material-ui/core";
-
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
-
 const useStyles = makeStyles(() => ({
   root: {
-    width: "25rem",
+    width: "30%",
     height: "100vh",
     padding: "2%",
     marginLeft: "-2rem",
@@ -28,19 +21,13 @@ const useStyles = makeStyles(() => ({
       "0px 1px 3px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.12), 0px 0px 2px rgba(0, 0, 0, 0.14)",
   }
 }))
-
-
 function ChatFeature(){
   const { user } = useAuth0();
   const classes = useStyles();
-
-  
- 
   return (
     <div className={classes.root}>
       <InfoBar user={user} />
     </div>
   )
 }
-
 export default ChatFeature;
