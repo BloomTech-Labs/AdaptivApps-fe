@@ -6,6 +6,10 @@ import { SEND_CHAT } from '../../queries/Chats'
 //Auth0 Imports
 import { Auth0Context } from "../../../../config/react-auth0-spa";
 
+//Emoji Picker Import
+import 'emoji-mart/css/emoji-mart.css'
+import { Picker } from 'emoji-mart'
+
 //Styling Imports
 import InputAdornment from '@material-ui/core/InputAdornment';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
@@ -15,6 +19,7 @@ import RoomIcon from '@material-ui/icons/Room';
 import MoodIcon from '@material-ui/icons/Mood';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import Modal from '@material-ui/core/Modal';
 import {
     makeStyles,
     Box,
@@ -63,16 +68,34 @@ const useStyles = makeStyles(() => ({
         '&:hover': {
             cursor: "pointer",
           }, 
-    }
+    },
+    emojiPicker: {
+        width: '100px',
+        position: 'absolute',
+        bottom: '5%'
+    },
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        fontSize: "-webkit-xxx-large",
+      },
+      
 }));
 
 const Input = ({ loading, chatRoom, user, messages }) => {
-
-    console.log('input.js', chatRoom, user)
-
+    const [toggleEmoji, setToggleEmoji] = useState(false) 
     const [sendChat] = useMutation(SEND_CHAT);
     const [message, setMessage] = useState('');
     const classes = useStyles();
+
+    const handleOpen = () => {
+        setToggleEmoji(true)
+    }
+
+    const handleClose = () => {
+        setToggleEmoji(false)
+    }
    
     const newMessage = async () => {
         await sendChat({
@@ -91,8 +114,15 @@ const Input = ({ loading, chatRoom, user, messages }) => {
         })
     };
 
+    const onEmojiClick = (event, emojiObject) => {
+        setMessage({
+            message: message + emojiObject.native
+        });
+    }
+
     return(
-        <div className={classes.inputDiv}>
+        
+        <div className={classes.inputDiv}>            
             <div className={classes.iconDiv}>
             <AttachFileIcon className={classes.icons} />
             <MicNoneIcon className={classes.icons} />
@@ -117,10 +147,17 @@ const Input = ({ loading, chatRoom, user, messages }) => {
                       }}
                       />
             <div className={classes.iconDiv}>
-            <MoodIcon className={classes.icons}/>
+            <MoodIcon className={classes.icons} onClick={handleOpen}/>
             <FiberManualRecordIcon className={classes.icons}/>
             <AssignmentTurnedInIcon className={classes.icons}/>
-                </div>
+            <Modal
+            className={classes.modal}
+            open={toggleEmoji}
+            onClose={handleClose}
+            >
+            {toggleEmoji ? <Picker onClick={onEmojiClick}/> : null}
+            </Modal>
+            </div>
         </div>
     )
 }

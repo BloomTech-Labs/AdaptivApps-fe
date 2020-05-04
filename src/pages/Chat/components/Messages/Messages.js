@@ -25,7 +25,8 @@ const useStyles = makeStyles(theme => ({
   messageBox: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: '1.5%'
+    marginTop: '1.5%',
+   
   },
   messageSender: {
     backgroundColor: '#C4C4C480',
@@ -80,7 +81,8 @@ export default function Messages({ user, chatRoom, participants }) {
               </div>
              </>
            ))}
-           <Input user={user} chatRoom={chatRoom} />
+           <Input user={user} chatRoom={chatRoom} messages={messages}/>
         </div>
+        
     )
 }
