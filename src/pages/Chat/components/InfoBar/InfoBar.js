@@ -25,10 +25,13 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import MenuIcon from "@material-ui/icons/Menu";
+import { Auth0Context } from "../../../../config/react-auth0-spa";
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
-    flexDirection: 'column'
+    flexDirection: 'column',
+    whiteSpace: "nowrap",
+    overflow: 'hidden'
   },
   header: {
     fontSize: '2.5rem',
@@ -70,6 +73,18 @@ const useStyles = makeStyles(theme => ({
     },
     chatroom: {
       margin: '5% 0'
+    },
+    box: {
+      position: 'absolute',
+      bottom: '3%'
+    },
+    searchBox: {
+      width: '90%',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden'
+    },
+    divider: {
+      marginTop:'5%'
     }
 }));
 function InfoBar({ user }) {
@@ -93,6 +108,7 @@ function InfoBar({ user }) {
           const chatRoom = subscriptionData.data.chatRoom
           const exists = prev.profile.chatRooms.find(({ id }) => id === chatRoom.id);
           if (exists) return prev;
+          console.log('sub data', subscriptionData.data)
           return Object.assign({}, prev, {
             profile: {
               chatRooms: [chatRoom, ...prev.profile.chatRooms],
@@ -151,13 +167,14 @@ function InfoBar({ user }) {
           data?.profile.chatRooms?.map((chatRoom, id) => (
           <div className={classes.chatroom}>
             <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
-            <Divider variant="inset"/>
+            <Divider variant="inset" className={classes.divider}/>
             </div>
           ))
           }
           </div>
-          <Box component="div" position='absolute' bottom='3%'>
+          <Box component="div" className={classes.box}>
                     <TextField
+                      className={classes.searchBox}
                       variant="outlined"
                       type="text"
                       name="message"

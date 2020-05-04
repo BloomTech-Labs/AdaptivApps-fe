@@ -33,6 +33,7 @@ import { ApolloLink, Observable, split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
+
 // Google Analytics Imports
 import ReactGA from "react-ga";
 
@@ -45,11 +46,14 @@ const trackingId = "UA-159556430-1";
   ReactGA.initialize(trackingId, { testMode: true });
   ReactGA.pageview("/");
 })();
+  
+
 function App() {
   const { getIdTokenClaims } = useAuth0();
 
   const request = async operation => {
     const token = await getIdTokenClaims();
+    console.log('token', token)
     operation.setContext(context => ({
       headers: {
         ...context.headers,
@@ -63,7 +67,10 @@ function App() {
       new Observable(observer => {
         let handle;
         Promise.resolve(operation)
-          .then(oper => request(oper))
+          .then(oper => {
+            request(oper)
+            console.log(request(oper))
+          })
           .then(() => {
             handle = forward(operation).subscribe({
               next: observer.next.bind(observer),
@@ -86,17 +93,20 @@ function App() {
   const wsLink = new WebSocketLink({
     uri: "ws://localhost:8000/graphql",
     options: {
-      reconnect: true
+      reconnect: true,
+      // connectionParams: {
+      //   authToken: token
+      // }
     }
   });
 
   const link = split(
     // split based on operation type
     ({ query }) => {
-      const definition = getMainDefinition(query);
+      const { kind, operation } = getMainDefinition(query);
       return (
-        definition.kind === 'OperationDefinition' &&
-        definition.operation === 'subscription'
+        kind === 'OperationDefinition' &&
+        operation === 'subscription'
       );
     },
     wsLink,
