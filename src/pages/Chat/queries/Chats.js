@@ -80,6 +80,17 @@ export const GET_RECENT_RECIPIENTS = gql`
   }
 `;
 
+// Retrieve a list of recipients
+export const GET_RECIPIENTS = gql`
+  query getRecipients {
+    profiles {
+      id
+      firstName
+      lastName
+    }
+  }
+`;
+
 // Chat subscription
 export const CHAT_SUBSCRIPTION = gql`
   subscription chatSubscription {

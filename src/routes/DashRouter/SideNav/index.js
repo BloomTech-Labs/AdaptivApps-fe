@@ -1,8 +1,18 @@
 import React from "react";
-// Suth0 imports
-import { useAuth0 } from "../../../config/react-auth0-spa";
 import config from "../../../config/auth_config";
+
+// Auth0 imports
+import { useAuth0 } from "../../../config/react-auth0-spa";
+
 // Styling imports
+import NavLink from "./NavLink";
+import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
+import BookmarkIcon from "@material-ui/icons/BookmarkBorder";
+import HomeIcon from "@material-ui/icons/HomeOutlined";
+import UserIcon from "@material-ui/icons/PersonOutlineOutlined";
+import GroupIcon from "@material-ui/icons/GroupAddOutlined";
+import MenuIcon from "@material-ui/icons/Menu";
+import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 import {
   makeStyles,
   useTheme,
@@ -13,13 +23,6 @@ import {
   Toolbar,
   Button,
 } from "@material-ui/core";
-import NavLink from "./NavLink";
-import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
-import BookmarkIcon from "@material-ui/icons/BookmarkBorder";
-import HomeIcon from "@material-ui/icons/HomeOutlined";
-import UserIcon from "@material-ui/icons/PersonOutlineOutlined";
-import GroupIcon from "@material-ui/icons/GroupAddOutlined";
-import MenuIcon from "@material-ui/icons/Menu";
 import { IconContext } from "react-icons";
 import { FiLogOut } from "react-icons/fi";
 import acsLogo from "../../../assets/images/acsLogo.png";
@@ -148,7 +151,7 @@ function SideNav(props) {
           <p>My Profile</p>
         </NavLink>
         <NavLink to="/chats" className={classes.navLink}>
-          <UserIcon className={classes.navIcon} />
+          <ForumOutlinedIcon className={classes.navIcon} />
           <p>Chats</p>
         </NavLink>
         {user && user[config.roleUrl].includes("Admin") ? (
