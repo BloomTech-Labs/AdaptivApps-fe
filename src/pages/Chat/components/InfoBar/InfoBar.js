@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useQuery, useLazyQuery } from "react-apollo";
-import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION, SEARCH_CHAT_ROOMS } from '../../queries/ChatRooms';
+import { useQuery } from "react-apollo";
+import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms';
 import RecipientModal from './Modal';
 import ChatRoom from './ChatRoom';
 
@@ -93,7 +93,6 @@ function InfoBar({ user }) {
     const [results, setResults] = useState([]);
 
     const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
-    // const [filterRooms, { data: results }] = useLazyQuery(SEARCH_CHAT_ROOMS, { variables: { search: searchRecipient } });
 
     // refetches CHAT_ROOMS without refreshing page
     useEffect(() => {
@@ -159,8 +158,6 @@ function InfoBar({ user }) {
       setSearchRecipient('');
     };
 
-    console.log('Results', results);
-
     return (
       <div className={classes.root}>
         <h1 className={classes.header}>Messages</h1>
@@ -205,24 +202,24 @@ function InfoBar({ user }) {
             )))
           }
         </div>
-        <Box component="div" className={classes.box}>
-          <TextField
-            className={classes.searchBox}
-            variant="outlined"
-            type="text"
-            name="message"
-            placeholder="Search Messages..."
-            value={searchRecipient}
-            onChange={handleChange}
-            InputProps={{
-              endAdornment: 
-              <InputAdornment position="end">
-                <IconButton onClick={searchRooms}>
-                  <SearchIcon fontSize="large" />
-                </IconButton>
-              </InputAdornment>
-            }} />
-        </Box>
+          <Box component="div" className={classes.box}>
+            <TextField
+              className={classes.searchBox}
+              variant="outlined"
+              type="text"
+              name="message"
+              placeholder="Search Messages..."
+              value={searchRecipient}
+              onChange={handleChange}
+              InputProps={{
+                endAdornment: 
+                <InputAdornment position="end">
+                  <IconButton onClick={searchRooms}>
+                    <SearchIcon fontSize="large" />
+                  </IconButton>
+                </InputAdornment>
+              }} />
+          </Box>
       </div>
     )
 }
