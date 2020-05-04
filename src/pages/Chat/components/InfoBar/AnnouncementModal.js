@@ -12,6 +12,8 @@ import {
 
   } from "@material-ui/core";
 import Fade from '@material-ui/core/Fade';
+import { withStyles } from '@material-ui/core/styles';
+
 
 const useStyles = makeStyles(theme => ({
     span: {
@@ -33,10 +35,26 @@ const useStyles = makeStyles(theme => ({
       },
   }));
 
+  const styles = (theme) => ({
+    root: {
+      margin: 0,
+      padding: theme.spacing(2),
+    },
+    closeButton: {
+      position: 'absolute',
+      right: theme.spacing(1),
+      top: theme.spacing(1),
+      color: theme.palette.grey[500],
+    },
+  });
+  
+  
   function AnnouncementModal(props) {
     const { user } = props;
     const classes = useStyles();
     const [NewAnnouncement, setNewAnnouncement] = useState([]);
+    const [NewAnnouncementText, setNewAnnouncementText] = useState([]);
+    
     
     const handleChange = e => {
       setNewAnnouncement(e.target.value);
@@ -45,7 +63,14 @@ const useStyles = makeStyles(theme => ({
         console.log(NewAnnouncement, "New Announcement");
     }
 
- 
+    const handleChangeText = e => {
+        setNewAnnouncementText(e.target.value);
+      };
+      const onSubmitText = e => {
+          console.log(NewAnnouncementText, "New Announcement Text");
+      }
+
+    
     return (
         <div>          
                 <div className={classes.paper}>
@@ -57,8 +82,8 @@ const useStyles = makeStyles(theme => ({
                             <TextField
                             variant="outlined"
                             type="text"
-                            placeholder="New Annoucement Title"
-                            name="announcement"
+                            placeholder="Announcement Title..."
+                            name="announcementTitle"
                             value={NewAnnouncement}
                             onChange={handleChange}
                             />
@@ -69,24 +94,33 @@ const useStyles = makeStyles(theme => ({
                             <TextField
                             variant="outlined"
                             type="text"
-                            placeholder="New Announcement Text"
-                            name="announcement"
-                            value={NewAnnouncement}
-                            onChange={handleChange}
+                            placeholder="Announcement Text..."
+                            name="announcementText"
+                            value={NewAnnouncementText}
+                            onChange={handleChangeText}
                             />
                         </Box>
 
                 <h3>Send to:</h3>
                         <Box component="div">
+                        
                         </Box>        
 
                 <h3>Attach image</h3>
                         <Box component="div">
-                        </Box>                  
+                        <Button variant="outlined" color="primary" >
+                            Attach
+                            </Button>
+                        </Box>
+                
+                <Button variant="outlined" color="primary" >
+                            Send Announcement
+                </Button>
+
                     
                     </div>
                 </div>
-        </div>
+      </div>
     )
 }
   
