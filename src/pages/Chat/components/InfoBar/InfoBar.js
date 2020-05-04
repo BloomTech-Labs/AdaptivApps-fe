@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useQuery } from "react-apollo";
-import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms';
+import { useQuery, useLazyQuery } from "react-apollo";
+import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION, SEARCH_CHAT_ROOMS } from '../../queries/ChatRooms';
 import RecipientModal from './Modal';
 import ChatRoom from './ChatRoom';
-import SearchChatRooms from './SearchChatRooms';
 
 //Auth0 imports
 import config from "../../../../config/auth_config";
@@ -12,12 +11,17 @@ import config from "../../../../config/auth_config";
 import CreateIcon from '@material-ui/icons/Create';
 import LanguageIcon from '@material-ui/icons/Language';
 import Divider from '@material-ui/core/Divider';
-import {
-  makeStyles
-} from "@material-ui/core";
+import IconButton from '@material-ui/core/IconButton';
+import SearchIcon from '@material-ui/icons/Search';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
+import {
+  makeStyles,
+  Box,
+  TextField
+} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -69,13 +73,27 @@ const useStyles = makeStyles(theme => ({
   },
   divider: {
     marginTop:'5%'
+  },
+  box: {
+    position: 'absolute',
+    bottom: '3%'
+  },
+  searchBox: {
+    width: '90%',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden'
   }
 }));
 
 function InfoBar({ user }) {
     const classes = useStyles();
-    const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
+
     const [open, setOpen] = useState(false);
+    const [searchRecipient, setSearchRecipient] = useState("");
+    const [results, setResults] = useState([]);
+
+    const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
+    // const [filterRooms, { data: results }] = useLazyQuery(SEARCH_CHAT_ROOMS, { variables: { search: searchRecipient } });
 
     // refetches CHAT_ROOMS without refreshing page
     useEffect(() => {
@@ -118,6 +136,31 @@ function InfoBar({ user }) {
       setOpen(false);
     };
 
+    const handleChange = e => {
+      setResults([]);
+      setSearchRecipient(e.target.value);
+    };
+
+    const searchRooms = e => {
+      e.preventDefault();
+      let filter = data?.profile.chatRooms.map(room => {
+        let users = room.participants.map(user => {
+          return `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`;
+        });
+
+        return users.filter(user => {
+          if (user.includes(searchRecipient.toLowerCase())) {
+            results.push(room);
+            return results;
+          };
+        });
+      });
+
+      setSearchRecipient('');
+    };
+
+    console.log('Results', results);
+
     return (
       <div className={classes.root}>
         <h1 className={classes.header}>Messages</h1>
@@ -146,14 +189,40 @@ function InfoBar({ user }) {
           </>
         ) : null}
         <div>
-          {data && data?.profile.chatRooms?.map((chatRoom, id) => (
-          <div className={classes.chatroom}>
-            <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
-            <Divider variant="inset" className={classes.divider}/>
-          </div>
-          ))}
+          {results.length > 0 ? 
+            (results.map((chatRoom, id) => (
+              <div className={classes.chatroom}>
+                <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
+                <Divider variant="inset" className={classes.divider}/>
+              </div>
+            )))
+            :
+            (data && data?.profile.chatRooms?.map((chatRoom, id) => (
+              <div className={classes.chatroom}>
+                <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
+                <Divider variant="inset" className={classes.divider}/>
+              </div>
+            )))
+          }
         </div>
-        <SearchChatRooms user={user} />
+        <Box component="div" className={classes.box}>
+          <TextField
+            className={classes.searchBox}
+            variant="outlined"
+            type="text"
+            name="message"
+            placeholder="Search Messages..."
+            value={searchRecipient}
+            onChange={handleChange}
+            InputProps={{
+              endAdornment: 
+              <InputAdornment position="end">
+                <IconButton onClick={searchRooms}>
+                  <SearchIcon fontSize="large" />
+                </IconButton>
+              </InputAdornment>
+            }} />
+        </Box>
       </div>
     )
 }
