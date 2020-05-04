@@ -25,7 +25,8 @@ const useStyles = makeStyles(theme => ({
   messageBox: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: '3%'
+    marginTop: '1.5%',
+   
   },
   messageSender: {
     backgroundColor: '#C4C4C480',
@@ -48,6 +49,10 @@ const useStyles = makeStyles(theme => ({
     fontSize: "3rem",
     margin: "0 5%"
   },
+  header: {
+    fontSize: '2rem',
+    marginLeft: '4%'
+  }
 }));
 export default function Messages({ user, chatRoom, participants }) {
     const classes = useStyles();
@@ -63,7 +68,7 @@ export default function Messages({ user, chatRoom, participants }) {
     });
     return (
         <div className={classes.root}>
-          <h1>Message with {participants}</h1>
+          <h1 className={classes.header}>Message with {participants}</h1>
            {messages.map((message) => (
              <>
              <div className={classes.messageBox}>
@@ -76,7 +81,8 @@ export default function Messages({ user, chatRoom, participants }) {
               </div>
              </>
            ))}
-           <Input />
+           <Input user={user} chatRoom={chatRoom} messages={messages}/>
         </div>
+        
     )
 }
