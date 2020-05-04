@@ -112,10 +112,12 @@ const ProfileSchema = yup.object().shape({
 
 // This is the form being used in UserDashboard
 const ProfileForm = ({ loading, profile, user, updateProfile }) => {
-  console.log('User', user);
-
   const [updated, setUpdated] = useState(false);
-  const [userProfile, setUserProfile] = useState(null);
+  const [userProfile, setUserProfile] = useState({
+    firstName: user.given_name ? user && user.given_name : null,
+    lastName: user.family_name ? user && user.family_name : null,
+    displayName: user.nickname ? user && user.nickname : null,
+  });
   const classes = useStyles();
 
   const { handleSubmit, register, setValue, control } = useForm({
@@ -135,6 +137,30 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   // updates profile in the backend and frontend
   const onSubmit = (formValues, e) => {
     e.preventDefault();
+
+    // frontend update
+    setUserProfile({
+      email: user.email,
+      firstName:
+        formValues.firstName === ""
+          ? userProfile.firstName
+          : formValues.firstName,
+      lastName:
+        formValues.lastName === "" ? userProfile.lastName : formValues.lastName,
+      displayName:
+        formValues.displayName === ""
+          ? userProfile.displayName
+          : formValues.displayName,
+      birthday:
+        formValues.birthday === "" ? userProfile.birthday : formValues.birthday,
+      bio: formValues.bio === "" ? userProfile.bio : formValues.bio,
+      disability:
+        formValues.disability === ""
+          ? userProfile.disability
+          : formValues.disability,
+      legal: formValues.legal === "" ? userProfile.legal : formValues.legal,
+    });
+    
     // backend update
     updateProfile({
       variables: {
@@ -163,30 +189,6 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
         legal: formValues.legal === "" ? userProfile.legal : formValues.legal,
       },
     });
-    // frontend update
-    setUserProfile({
-      email: user.email,
-      firstName:
-        formValues.firstName === ""
-          ? userProfile.firstName
-          : formValues.firstName,
-      lastName:
-        formValues.lastName === "" ? userProfile.lastName : formValues.lastName,
-      displayName:
-        formValues.displayName === ""
-          ? userProfile.displayName
-          : formValues.displayName,
-      birthday:
-        formValues.birthday === "" ? userProfile.birthday : formValues.birthday,
-      bio: formValues.bio === "" ? userProfile.bio : formValues.bio,
-      disability:
-        formValues.disability === ""
-          ? userProfile.disability
-          : formValues.disability,
-      legal: formValues.legal === "" ? userProfile.legal : formValues.legal,
-    });
-
-    console.log(userProfile)
   };
 
   // updates form fields with new values

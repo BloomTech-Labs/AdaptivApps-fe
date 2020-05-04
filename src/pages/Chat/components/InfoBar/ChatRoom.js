@@ -55,32 +55,40 @@ const useStyles = makeStyles(() => ({
 export default function ChatRoom({chatRoom, user}) {
     const classes = useStyles();
     const [messageToggle, setMessageToggle] = useState(false);
-    const participants = chatRoom.participants.map((participant) => (chatRoom.participants.length > 2 ? participant.email !== user.email && `${participant.firstName} ${participant.lastName}, ` : participant.email !== user.email && `${participant.firstName} ${participant.lastName}`))
+
+    const participants = chatRoom.participants.map((participant) =>
+    (chatRoom.participants.length > 2 ? 
+      participant.email !== user.email && `${participant.firstName} ${participant.lastName}, ` 
+      : 
+      participant.email !== user.email && `${participant.firstName} ${participant.lastName}`));
+
     const handleClick = e => {
       e.preventDefault();
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
     };
+
     const closeDrawer = e => {
       e.preventDefault();
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
-    }
+    };
+
     return (
       <>
         <div className={classes.root}>
           <PeopleAltIcon className={classes.chatRoomIcon} />
           <button className={classes.chatRoomButton} onClick={handleClick}>{participants}</button>
+        </div>
+        <Drawer
+          anchor = "right"
+          open = {messageToggle}
+          variant = "persistent"
+          PaperProps = {{ style: { width: "66%" } }}>
+          <div className={classes.titleDiv}>
+            <h1 className={classes.roomTitle}>{participants}</h1>
+            <CloseIcon className={classes.closeModal} onClick={closeDrawer} />
           </div>
-          <Drawer
-            anchor = "right"
-            open = {messageToggle}
-            variant = "persistent"
-            PaperProps = {{ style: { width: "66%" } }}>
-            <div className={classes.titleDiv}>
-              <h1 className={classes.roomTitle}>{participants}</h1>
-              <CloseIcon className={classes.closeModal} onClick={closeDrawer} />
-            </div>
-            <Messages chatRoom={chatRoom} participants={participants} user={user}/>
-          </Drawer>
+          <Messages chatRoom={chatRoom} participants={participants} user={user}/>
+        </Drawer>
       </>
     )
 }
