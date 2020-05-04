@@ -171,7 +171,7 @@ function InfoBar({ user }) {
           </>
           ): null}
           <div>
-          {data &&
+          {data.profile.chatRooms.length === 0 ? null : data &&
           data?.profile.chatRooms?.map((chatRoom, id) => (
           <div key={id} className={classes.chatroom}>
             <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
