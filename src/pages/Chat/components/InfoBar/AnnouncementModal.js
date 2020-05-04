@@ -13,6 +13,8 @@ import {
   } from "@material-ui/core";
 import Fade from '@material-ui/core/Fade';
 import { withStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
 
 const useStyles = makeStyles(theme => ({
@@ -107,11 +109,22 @@ const useStyles = makeStyles(theme => ({
                         </Box>        
 
                 <h3>Attach image</h3>
-                        <Box component="div">
-                        <Button variant="outlined" color="primary" >
-                            Attach
+                <Box component="div">
+                    <div className={classes.root}>
+                            <input
+                                accept="image/*"
+                                className={classes.input}
+                                id="contained-button-file"
+                                multiple
+                                type="file"
+                            />
+                        <label htmlFor="contained-button-file">
+                            <Button variant="contained" color="primary" component="span">
+                                Attach
                             </Button>
-                        </Box>
+                        </label>
+                    </div>
+                </Box>
                 
                 <Button variant="outlined" color="primary" >
                             Send Announcement
