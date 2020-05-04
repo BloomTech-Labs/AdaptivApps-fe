@@ -12,7 +12,7 @@ import {
 import { useAuth0 } from "../../config/react-auth0-spa";
 const useStyles = makeStyles(() => ({
   root: {
-    width: "30%",
+    width: "21%",
     height: "100vh",
     padding: "2%",
     marginLeft: "-2rem",

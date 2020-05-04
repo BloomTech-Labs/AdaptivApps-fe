@@ -35,15 +35,22 @@ const useStyles = makeStyles(theme => ({
   },
   header: {
     fontSize: '2.5rem',
-    color: 'grey',
+    fontWeight: "normal",
+    color: '#2962FF',
     fontFamily: 'Arial',
-    marginBottom: '10%'
+    marginBottom: '10%',
+    marginTop: "1%"
   },
   messageIcons: {
     maxWidth: '95%',
     display: 'flex',
-    margin: '10% 0',
-    alignItems: 'center'
+    margin: '2.5% 0 5% 0',
+    padding: '1%',
+    alignItems: 'center',
+    "&:hover": {
+      background: 'lightgrey',
+      borderRadius: '5px'
+    }
   },
   icons: {
     fontSize: '2.75rem',
@@ -52,7 +59,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: '10%'    
   },
   span: {
-    fontSize: '1.75rem',
+    fontSize: '1.5rem',
     color: 'grey',
     cursor: 'pointer'
   },
