@@ -4,6 +4,7 @@ import { useQuery } from "react-apollo";
 import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms';
 import RecipientModal from './Modal';
 import ChatRoom from './ChatRoom';
+import AnnouncementModal from './AnnouncementModal';
 //Auth0 imports
 import config from "../../../../config/auth_config";
 // Style Imports
@@ -91,6 +92,7 @@ function InfoBar({ user }) {
     const classes = useStyles();
     const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
     const [open, setOpen] = useState(false);
+    const [announcement, setAnnouncementOpen] = useState(false);
     const [searchRecipient, setSearchRecipient] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const handleChange = e => {
@@ -135,6 +137,12 @@ function InfoBar({ user }) {
     const handleClose = () => {
       setOpen(false);
     };
+    const handleAnnouncementOpen = () => {
+      setAnnouncementOpen(true);
+    };
+    const handleAnnouncementClose = () => {
+      setAnnouncementOpen(false);
+    };
     return (
       <div className={classes.root}>
           <h1 className={classes.header}>Messages</h1>
@@ -158,8 +166,24 @@ function InfoBar({ user }) {
           {user && user[config.roleUrl].includes("Admin") ? (
               <>
           <div className={classes.messageIcons}>
-              <LanguageIcon className={classes.icons} onClick={newAnnouncementClick}/><span className={classes.span} onClick={newAnnouncementClick}>New Announcement</span> 
+              <LanguageIcon className={classes.icons} /><span className={classes.span} onClick={handleAnnouncementOpen} >New Announcement</span> 
             </div>
+
+            <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            className={classes.modal}
+            open={announcement}
+            onClose={handleAnnouncementClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <AnnouncementModal />
+           </Modal> 
+
           </>
           ): null}
           <div>
