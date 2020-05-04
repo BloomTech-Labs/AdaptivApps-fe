@@ -18,8 +18,12 @@ const useStyles = makeStyles(theme => ({
     fontSize: '1.5rem'
   },
   messageHeader: {
-    fontSize: '1.5rem',
-    marginLeft: '2%'
+    marginBottom: '2%',
+    padding: '1%'
+  },
+  sender: {
+    fontSize: '1.25rem',
+    fontWeight: 'bold'
   },
   messageBox: {
     display: 'flex',
@@ -69,7 +73,9 @@ export default function Messages({ user, chatRoom, participants }) {
             <PeopleAltIcon className={classes.messageIcon} />
             <div className={message.sender !== user.email ?
                 classes.messageSender : classes.userMessage}>
-              <h3 className={classes.messageHeader}>{message.firstName} {message.lastName}</h3>
+              <div className={classes.messageHeader}>
+                {message.sender === user.email ? <span className={classes.sender}>Me</span> : <span className={classes.sender}>{message.firstName} {message.lastName}</span> }
+              </div>
               <p className={classes.messageText}>{message.message}</p>
             </div>
             </div>
