@@ -28,7 +28,8 @@ const useStyles = makeStyles(theme => ({
   messageBox: {
     display: 'flex',
     alignItems: 'center',
-    marginTop: '3%'
+    marginTop: '1.5%',
+   
   },
   messageSender: {
     backgroundColor: '#C4C4C480',
@@ -51,12 +52,18 @@ const useStyles = makeStyles(theme => ({
     fontSize: "3rem",
     margin: "0 5%"
   },
+feature/handle_null_wrap_input
   inputDiv: {
     width: '100%',
     height: '7.5vh',
     marginTop: '2%',
     position: 'absolute',
     bottom: "0"
+
+  header: {
+    fontSize: '2rem',
+    marginLeft: '4%'
+    master
   }
 }));
 
@@ -73,6 +80,7 @@ export default function Messages({ user, chatRoom, participants }) {
     });
 
     return (
+ feature/handle_null_wrap_input
       <div className={classes.root}>
         <div>
           {messages.map((message) => (
@@ -94,5 +102,24 @@ export default function Messages({ user, chatRoom, participants }) {
           <Input />
         </div>
       </div>
+
+        <div className={classes.root}>
+          <h1 className={classes.header}>Message with {participants}</h1>
+           {messages.map((message) => (
+             <>
+             <div className={classes.messageBox}>
+             <PeopleAltIcon className={classes.messageIcon} />
+             <div className={message.sender !== user.email ?
+                  classes.messageSender : classes.userMessage}>
+                <h3 className={classes.messageHeader}>{message.firstName} {message.lastName}</h3>
+                <p className={classes.messageText}>{message.message}</p>
+              </div>
+              </div>
+             </>
+           ))}
+           <Input user={user} chatRoom={chatRoom} messages={messages}/>
+        </div>
+        
+ master
     )
 }
