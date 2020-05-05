@@ -55,11 +55,11 @@ export const GET_CHAT_ROOM_MESSAGES = gql`
 
 // Create a chat room
 export const CREATE_CHAT_ROOM = gql`
-  mutation createChatRoom( $email: String! ) {
+  mutation createChatRoom( $useremail: String!, $recipientemail: String! ) {
     createChatRoom( 
       data: { participants: { connect: [
-          { email: $email },
-          { email: $email }
+          { email: $useremail },
+          { email: $recipientemail }
         ] } }
       ) {
       id
