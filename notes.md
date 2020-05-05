@@ -1,98 +1,160 @@
-const Messages = async ({ chatRoom, subscribeToMore }) => {
+// React imports
+import React, { useState } from "react";
+import { useMutation } from "react-apollo";
+import { SEND_CHAT } from '../../queries/Chats'
 
-  useEffect(() => {
-     const messages = subscribeToMore({
-      document: CHAT_ROOM_SUBSCRIPTION,
-      updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data) return prev;
-        console.log('sub data', subscriptionData.data)
-        
-        return {
-          messages: [
-            ...prev.messages,
-            subscriptionData.data.messageCreated,
-          ],
-        };
-      },
-    })
-  }, [])
-  
-  
+//Emoji Picker Import
+import 'emoji-mart/css/emoji-mart.css'
+import { Picker } from 'emoji-mart'
 
-    return (
-      <ul>
-        {messages.map(message => (
-          <li key={message.id}>{message.content}</li>
-        ))}
-        
-      </ul>
-    )}
+//Styling Imports
+import InputAdornment from '@material-ui/core/InputAdornment';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import AttachFileIcon from '@material-ui/icons/AttachFile';
+import MicNoneIcon from '@material-ui/icons/MicNone';
+import RoomIcon from '@material-ui/icons/Room';
+import MoodIcon from '@material-ui/icons/Mood';
+import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
+import Modal from '@material-ui/core/Modal';
+import {
+    makeStyles,
+    TextField
+  } from "@material-ui/core";
 
+const useStyles = makeStyles(() => ({
+    root: {
+        width: "100%",
+        height: "7.5vh"
+    },
+    inputDiv: {
+        position: 'absolute',
+        bottom: '3%',
+        width: '95%',
+        margin: 'auto',
+        display: 'flex',
+        alignItems: 'center'
+    },
+    textFieldDiv: {
+        width: "100%"
+    },
+    iconDiv: {
+        width: '25%',
+        display: 'flex',
+        justifyContent: 'space-evenly'
+    },
+    messageBox: {
+        width: "50%",
+        margin: 'auto',  
+    },
+    icons: {
+        color: '#808080',
+        fontSize: '3.5rem',
+        '&:hover': {
+            cursor: "pointer",
+          }, 
+    },
+    sendMessageIcon: {
+        color: '#2962FF',
+        fontSize: '3rem',
+        border: '2px solid #2962FF',
+        borderRadius: '50px',
+        '&:hover': {
+            cursor: "pointer",
+          }, 
+    },
+    emojiPicker: {
+        width: '100px',
+        position: 'absolute',
+        bottom: '5%'
+    },
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        fontSize: "-webkit-xxx-large",
+    },
+}));
 
-
-
-
-function ChatFeature(){
-  const { user } = useAuth0();
-  const { data, loading, error, subscribeToMore} = useQuery(GET_CHAT_ROOM_MESSAGES, { variables: { email: user.email } })
- 
-  if (!data) {
-    return null;
-  }
-
-  if (loading) {
-    return <span>Loading ...</span>;
-  }
-  
- 
-  return (
-    <div>
-      <InfoBar user={user} />
-      <Messages
-          messages={data.chats}
-          subscribeToMore={subscribeToMore}
-        />
-      <TextContainer />
-    </div>
-  )
-}
-
-export default ChatFeature;
-
-
-
-
-
-function InfoBar({ user }) {
+const Input = ({ chatRoom, user, refetch }) => {
+    const [toggleEmoji, setToggleEmoji] = useState(false) 
+    const [sendChat] = useMutation(SEND_CHAT);
+    const [message, setMessage] = useState('');
     const classes = useStyles();
-    const { loading, error, data, refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
 
-    // refetches CHAT_ROOMS without refreshing page
-    useEffect(() => {
+    const handleOpen = () => {
+        setToggleEmoji(true)
+    };
+
+    const handleClose = () => {
+        setToggleEmoji(false)
+    };
+   
+    const newMessage = async () => {
+        await sendChat({
+            variables: {
+              id: chatRoom.id,
+              email: user.email,
+              message: message.message 
+            }
+        })
+        setMessage({ message: ''})
+        alert('Successfully sent message!');
         refetch();
-    }, [refetch]);
+    };   
 
-    if (loading) return <CircularProgress className={classes.loadingSpinner} />;
-    if (error) return `Error! ${error.message}`;
-  
-    return (
-      <div>
-          <h1>Messages</h1>
-          <Button>New Message</Button>
-          {/* {user && user[config.roleUrl].includes("Admin") ? (
-              <> */}
-          <Button>New Annoucement</Button>
-          {/* </>
-          ): null} */}
-          <div>
-          {data &&
-          data?.profile.chatRooms?.map((chatRoom, id) => (
-          <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
-          ))
-          }
-          </div>
-      </div>
+   const handleChange = e => {
+        setMessage({
+            message: e.target.value
+        })
+    };
+
+    const onEmojiClick = (e) => {
+        setMessage({
+            message: message.message ? message.message + e.native : e.native
+        });
+    };
+
+    return(
+        <div>
+            <div className={classes.inputDiv}>            
+                <div className={classes.iconDiv}>
+                    <AttachFileIcon className={classes.icons} />
+                    <MicNoneIcon className={classes.icons} />
+                    <RoomIcon className={classes.icons} />
+                </div>
+                <TextField
+                    className={classes.messageBox}
+                    multiline={true}
+                    rowsMax='4'
+                    value={message.message}
+                    variant="outlined"
+                    type="text"
+                    name="newChat"
+                    placeholder="Type a message..."
+                    onChange={handleChange}
+                    InputProps={{
+                        endAdornment: <InputAdornment position="end">
+                        <KeyboardArrowRightIcon
+                        className={classes.sendMessageIcon} 
+                        onClick={newMessage} />
+                    </InputAdornment>
+                    }}
+                    />
+                <div className={classes.iconDiv}>
+                    <MoodIcon className={classes.icons} onClick={handleOpen}/>
+                    <FiberManualRecordIcon className={classes.icons}/>
+                    <AssignmentTurnedInIcon className={classes.icons}/>
+                    <Modal
+                        className={classes.modal}
+                        open={toggleEmoji}
+                        onClose={handleClose}>
+                        {toggleEmoji ? <Picker onClick={onEmojiClick}/> : null}
+                    </Modal>
+                </div>
+            </div>
+        </div>
     )
 }
 
-export default InfoBar;
+export default Input;

@@ -1,80 +1,134 @@
 // React imports
-import React, { useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
+import React, { useState } from "react";
+import { useMutation } from "react-apollo";
+import { SEND_CHAT } from '../../queries/Chats'
+
+//Emoji Picker Import
+import 'emoji-mart/css/emoji-mart.css'
+import { Picker } from 'emoji-mart'
 
 //Styling Imports
+import InputAdornment from '@material-ui/core/InputAdornment';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import MoodIcon from '@material-ui/icons/Mood';
+import Modal from '@material-ui/core/Modal';
 import {
     makeStyles,
-    Box,
-    TextField,
-    Button
+    TextField
   } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
-    sendButton: {
-        width: "10%",
-        height: "7.5vh"
+    inputDiv: {
+        position: 'absolute',
+        bottom: '3%',
+        width: '95%',
+        margin: 'auto',
+        display: 'flex',
+        alignItems: 'center'
     },
-    inputField: {
-        width: "85%"
+    iconDiv: {
+        width: '15%',
+        display: 'flex',
+        justifyContent: 'space-evenly'
     },
-    textFieldDiv: {
-        width: "100%",
-        position: "absolute",
-        bottom: "0"
-    }
+    messageBox: {
+        width: "80%",
+        marginLeft: '3%'
+    },
+    icons: {
+        color: '#808080',
+        fontSize: '3.5rem',
+        '&:hover': {
+            cursor: "pointer",
+          }, 
+    },
+    sendMessageIcon: {
+        color: '#2962FF',
+        fontSize: '3rem',
+        border: '2px solid #2962FF',
+        borderRadius: '50px',
+        '&:hover': {
+            cursor: "pointer",
+          }, 
+    },
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        fontSize: "-webkit-xxx-large",
+    },
 }));
 
-const Input = ({ loading, chats, updateChats }) => {
-    const [updated, setUpdated] = useState(false);
+const Input = ({ chatRoom, user, refetch }) => {
+    const [toggleEmoji, setToggleEmoji] = useState(false) 
+    const [sendChat] = useMutation(SEND_CHAT);
+    const [message, setMessage] = useState('');
     const classes = useStyles();
 
-    //useForm hook to update state
-    const { handleSubmit, register, setValue, control } = useForm({
-        mode: "onSubmit",
-        defaultValues: {
-            // chat: participant.chats
-        },
-    });
+    const handleOpen = () => {
+        setToggleEmoji(true)
+    };
 
-    //need an onSubmit to update the chat messages in the backend and frontend
-    const onSubmit = (values, e) => {
-        e.preventDefault();
-        console.log('Sent message!')
-    }
-
-    //Update message area with new chats - useEffect()
+    const handleClose = () => {
+        setToggleEmoji(false)
+    };
    
-    // alerts user to successful update, handy for screen readers
-    const handleUpdated = () => {
-        alert("Chat sent successfully!");
-        setUpdated(false);
+    const newMessage = async () => {
+        await sendChat({
+            variables: {
+              id: chatRoom.id,
+              email: user.email,
+              message: message.message 
+            }
+        })
+        setMessage({ message: ''})
+        alert('Successfully sent message!');
+        refetch();
+    };   
+
+   const handleChange = e => {
+        setMessage({
+            message: e.target.value
+        })
+    };
+
+    const onEmojiClick = (e) => {
+        setMessage({
+            message: message.message ? message.message + e.native : e.native
+        });
     };
 
     return(
         <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Box component="div" className={classes.textFieldDiv}>
-                    <Controller
-                        as={<TextField />}
-                        id="message"
-                        variant="outlined"
-                        type="text"
-                        placeholder="Type a message..."
-                        name="message"
-                        control={control}
-                        className={classes.inputField}
+            <div className={classes.inputDiv}>            
+                <TextField
+                    className={classes.messageBox}
+                    multiline={true}
+                    rowsMax='4'
+                    value={message.message}
+                    variant="outlined"
+                    type="text"
+                    name="newChat"
+                    placeholder="Type a message..."
+                    onChange={handleChange}
+                    InputProps={{
+                        endAdornment: <InputAdornment position="end">
+                        <KeyboardArrowRightIcon
+                        className={classes.sendMessageIcon} 
+                        onClick={newMessage} />
+                    </InputAdornment>
+                    }}
                     />
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => {setUpdated(true)}}
-                        className={classes.sendButton}>
-                        Send
-                    </Button>
-                    {updated === true ? handleUpdated() : null}
-                </Box>
-            </form>
+                <div className={classes.iconDiv}>
+                    <MoodIcon className={classes.icons} onClick={handleOpen}/>
+                    <Modal
+                        className={classes.modal}
+                        open={toggleEmoji}
+                        onClose={handleClose}>
+                        {toggleEmoji ? <Picker onClick={onEmojiClick}/> : null}
+                    </Modal>
+                </div>
+            </div>
         </div>
     )
 }

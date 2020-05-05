@@ -1,8 +1,8 @@
 // Import dependencies
-import React from "react";
+import React, { useState } from "react";
 
 // Reach Router imports
-import { Router, Link } from "@reach/router";
+import { Router } from "@reach/router";
 
 // Import route components
 import DashRouter from "./routes/DashRouter";
@@ -26,13 +26,11 @@ import { ApolloClient } from "apollo-client";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { HttpLink } from "apollo-link-http";
 import { onError } from "apollo-link-error";
-import { setContext } from "apollo-link-context";
 import { ApolloLink, Observable, split } from 'apollo-link';
 
 // Subscription connection
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
-
 
 // Google Analytics Imports
 import ReactGA from "react-ga";
@@ -50,19 +48,18 @@ const trackingId = "UA-159556430-1";
 
 function App() {
   const { getIdTokenClaims } = useAuth0();
+  const [authToken, setAuthToken] = useState();
 
   const request = async operation => {
     const token = await getIdTokenClaims();
-    console.log('token', token)
+    setAuthToken(token.__raw);
     operation.setContext(context => ({
       headers: {
         ...context.headers,
-        Authorization: token.__raw,
+        Authorization: authToken,
       },
     }));
   };
-
-  
 
   const requestLink = new ApolloLink(
     (operation, forward) =>
@@ -71,7 +68,6 @@ function App() {
         Promise.resolve(operation)
           .then(oper => {
             request(oper)
-            console.log(request(oper))
           })
           .then(() => {
             handle = forward(operation).subscribe({
@@ -95,7 +91,10 @@ function App() {
   const wsLink = new WebSocketLink({
     uri: "ws://localhost:8000/graphql",
     options: {
-      reconnect: true
+      reconnect: true,
+      connectionParams: {
+        authToken: authToken,
+      }
     }
   });
 

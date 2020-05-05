@@ -1,19 +1,18 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { useQuery } from "react-apollo";
 import { GET_RECIPIENTS } from '../../queries/Chats';
-
 
 //Style imports
 import {
     makeStyles,
-    Button,
-    Icon,
     Box,
     TextField,
     MenuItem
-
   } from "@material-ui/core";
-import Fade from '@material-ui/core/Fade';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { FixedSizeList } from 'react-window';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -36,26 +35,24 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function RecipientModal(props) {
-    const { user } = props;
+function RecipientModal() {
     const classes = useStyles();
     const [searchRecipient, setSearchRecipient] = useState("");
     const [searchResults, setSearchResults] = useState([]);
-    const { error, data, refetch, loading } = useQuery(GET_RECIPIENTS);
-    console.log(data, "data");
+    const { data } = useQuery(GET_RECIPIENTS);
     
     const handleChange = e => {
       setSearchRecipient(e.target.value);
     };
 
 
-    useEffect(() => {
-      const results = searchResults.filter(person =>
-        person.toLowerCase().includes(searchRecipient)
-      );
+    // useEffect(() => {
+    //   const results = searchResults.filter(person =>
+    //     person.toLowerCase().includes(searchRecipient)
+    //   );
       
-      setSearchResults(searchResults);
-    },[searchRecipient]);
+    //   setSearchResults(searchResults);
+    // },[searchRecipient]);
 
     return (
       <div>          
@@ -73,28 +70,20 @@ function RecipientModal(props) {
                       value={searchRecipient}
                       onChange={handleChange}
                       />
-                            {data && data?.profiles.map(item => (
+                            {/* {data && data?.profiles.map(item => (
+                                <MenuItem 
+                                value={`${item.firstName} ${item.lastName}`}
+                            >{`${item.firstName} ${item.lastName}`}</MenuItem>
+                                ))} */}
+                        <div className={classes.root}>
+                          <FixedSizeList height={400} width={300} itemSize={46} itemCount={200}>
+                          {data && data?.profiles.map(item => (
                                 <MenuItem 
                                 value={`${item.firstName} ${item.lastName}`}
                             >{`${item.firstName} ${item.lastName}`}</MenuItem>
                                 ))}
-        
-                      {/* <TextField
-                      variant="outlined"
-                      type="text"
-                      placeholder="Search for a Recipient"
-                      name="message"
-                      value={searchRecipient}
-                      onChange={handleChange}
-                      selectBoxOptions="List"
-                      />
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        endIcon={<Icon>add_circle</Icon>}
-                    >
-                    Select
-                </Button> */}
+                          </FixedSizeList>
+                        </div>
                 </Box>
                     
                   </div>
