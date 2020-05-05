@@ -6,6 +6,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import {
   makeStyles
 } from "@material-ui/core";
+
 const useStyles = makeStyles(() => ({
   root: {   
     margin: ".5rem auto",
@@ -51,7 +52,8 @@ const useStyles = makeStyles(() => ({
     padding: '1% 2% 0 2%',
     borderBottom: '1px solid grey'
   }
-}))
+}));
+
 export default function ChatRoom({ chatRoom, user, refetch }) {
     const classes = useStyles();
     const [messageToggle, setMessageToggle] = useState(false);
