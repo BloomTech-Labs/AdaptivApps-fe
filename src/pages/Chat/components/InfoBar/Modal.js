@@ -72,9 +72,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function RecipientModal() {
-}));
-
 function RecipientModal({ setOpen }) {
   const classes = useStyles();
   const [searchRecipient, setSearchRecipient] = useState("");
