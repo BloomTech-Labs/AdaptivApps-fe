@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useQuery } from "react-apollo";
 import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION, GET_CHAT_ROOM_MESSAGES } from '../../queries/ChatRooms';
-import { CHAT_SUBSCRIPTION } from '../../queries/Chats';
+import { CHAT_SUBSCRIPTION, GET_MESSAGES } from '../../queries/Chats';
 import RecipientModal from './Modal';
 import ChatRoom from './ChatRoom';
 
@@ -103,13 +103,7 @@ function InfoBar({ user }) {
     const [results, setResults] = useState([]);
 
     const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
-    const { refetch: refetchChats, subscribeToMore: chatsSubscribe } = useQuery(GET_CHAT_ROOM_MESSAGES, { variables: { email: user.email } });
-
-    // refetches CHAT_ROOMS without refreshing page
-    useEffect(() => {
-        refetch();
-        refetchChats();
-    }, [refetch, refetchChats]);
+    const { subscribeToMore: chatsSubscribe } = useQuery(GET_MESSAGES, { variables: { email: user.email } });
 
     const _subscribeToNewChatRoom = subscribeToMore => {
       subscribeToMore({
@@ -135,11 +129,10 @@ function InfoBar({ user }) {
         updateQuery: (prev, {subscriptionData }) => {
           if (!subscriptionData.data) return prev
           const chat = subscriptionData.data.chat
-          const exists = prev.profile.chatRooms.chats.find(({ id }) => id === chat.id);
-          if (exists) return prev;
+          console.log('Chat', chat);
           return Object.assign({}, prev, {
             profile: {
-              chats: [chat, ...prev.profile.chatRooms.chats],
+              chats: [chat, ...prev.profile.chats],
               __typename: prev.profile.__typename
             }
           })
@@ -220,15 +213,15 @@ function InfoBar({ user }) {
           {results.length > 0 ? 
             (results.map((chatRoom, id) => (
               <div className={classes.chatroom}>
-                <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
-                <Divider variant="inset" className={classes.divider}/>
+                <ChatRoom chatRoom={chatRoom} key={id} user={user} refetch={refetch} />
+                <Divider variant="inset" className={classes.divider} />
               </div>
             )))
             :
             (data && data?.profile.chatRooms?.map((chatRoom, id) => (
               <div className={classes.chatroom}>
-                <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
-                <Divider variant="inset" className={classes.divider}/>
+                <ChatRoom chatRoom={chatRoom} key={id} user={user} refetch={refetch} />
+                <Divider variant="inset" className={classes.divider} />
               </div>
             )))
           }

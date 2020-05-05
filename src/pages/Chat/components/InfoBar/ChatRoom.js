@@ -52,7 +52,7 @@ const useStyles = makeStyles(() => ({
     borderBottom: '1px solid grey'
   }
 }))
-export default function ChatRoom({chatRoom, user}) {
+export default function ChatRoom({ chatRoom, user, refetch }) {
     const classes = useStyles();
     const [messageToggle, setMessageToggle] = useState(false);
 
@@ -87,7 +87,7 @@ export default function ChatRoom({chatRoom, user}) {
             <h1 className={classes.roomTitle}>{participants}</h1>
             <CloseIcon className={classes.closeModal} onClick={closeDrawer} />
           </div>
-          <Messages chatRoom={chatRoom} participants={participants} user={user}/>
+          <Messages chatRoom={chatRoom} participants={participants} user={user} refetch={refetch} />
         </Drawer>
       </>
     )

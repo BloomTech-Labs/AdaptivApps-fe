@@ -1,5 +1,26 @@
 import gql from "graphql-tag";
 
+// Retrieve messages for a user
+export const GET_MESSAGES = gql`
+  query getMessages( $email: String! ) {
+    profile( where: { email: $email } ){
+      chats {
+        id
+        from {
+          firstName
+          lastName
+          id
+        }
+        message
+        createdAt
+        room {
+          id
+        }
+      }  
+    }
+  }
+`
+
 // Send a chat
 export const SEND_CHAT = gql`
   mutation sendChat( $id: ID!, $email: String!, $message: String! ) {

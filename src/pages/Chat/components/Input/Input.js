@@ -76,7 +76,7 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Input = ({ chatRoom, user }) => {
+const Input = ({ chatRoom, user, refetch }) => {
     const [toggleEmoji, setToggleEmoji] = useState(false) 
     const [sendChat] = useMutation(SEND_CHAT);
     const [message, setMessage] = useState('');
@@ -99,7 +99,8 @@ const Input = ({ chatRoom, user }) => {
             }
         })
         setMessage({ message: ''})
-        alert('Successfully sent message!');
+        // alert('Successfully sent message!');
+        refetch();
     };   
 
    const handleChange = e => {
@@ -124,7 +125,7 @@ const Input = ({ chatRoom, user }) => {
                 </div>
                 <TextField
                     className={classes.messageBox}
-                    multiline='true'
+                    multiline={true}
                     rowsMax='4'
                     value={message.message}
                     variant="outlined"

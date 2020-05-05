@@ -69,7 +69,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Messages({ user, chatRoom, participants }) {
+export default function Messages({ user, chatRoom, refetch }) {
   const classes = useStyles();
   const messages = chatRoom.chats.map((chat, id) => {return {
       id: id,
@@ -100,7 +100,7 @@ export default function Messages({ user, chatRoom, participants }) {
         ))}
       </div>
       <div className={classes.inputDiv}>
-        <Input chatRoom={chatRoom} user={user} />
+        <Input chatRoom={chatRoom} user={user} refetch={refetch} />
       </div>
     </div>
   )
