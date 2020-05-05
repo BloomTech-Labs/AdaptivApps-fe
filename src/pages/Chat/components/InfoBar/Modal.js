@@ -1,6 +1,7 @@
-import React, {useState} from "react";
-import { useQuery } from "react-apollo";
+import React, {useState, useEffect} from "react";
+import { useQuery, useMutation } from "react-apollo";
 import { GET_RECIPIENTS } from '../../queries/Chats';
+import { CREATE_CHAT_ROOM} from '../../queries/ChatRooms'
 
 //Style imports
 import {
@@ -12,6 +13,7 @@ import {
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { FixedSizeList } from 'react-window';
+import { separateOperations } from "graphql";
 
 
 
@@ -33,17 +35,41 @@ const useStyles = makeStyles(theme => ({
       boxShadow: theme.shadows[5],
       padding: theme.spacing(2, 4, 3),
     },
+    menuItem: {
+      '& hover': {
+        cursor: 'pointer'
+      }
+    }
 }));
 
-function RecipientModal() {
+function RecipientModal({ user, refetch, setOpen }) {
     const classes = useStyles();
     const [searchRecipient, setSearchRecipient] = useState("");
-    const [searchResults, setSearchResults] = useState([]);
+
     const { data } = useQuery(GET_RECIPIENTS);
+    const [createChatRoom] = useMutation(CREATE_CHAT_ROOM);
+
+    useEffect(() => {
+      refetch();
+    }, [refetch])
     
     const handleChange = e => {
       setSearchRecipient(e.target.value);
     };
+
+    console.log(searchRecipient)
+    console.log(user)
+
+    const newChatRoom = async (item) => {
+      await createChatRoom({
+        variables:{
+          useremail: user.email,
+          recipientemail: item.email
+        }
+      })
+      refetch();
+      setOpen(false)
+    }
 
 
     // useEffect(() => {
@@ -53,6 +79,7 @@ function RecipientModal() {
       
     //   setSearchResults(searchResults);
     // },[searchRecipient]);
+
 
     return (
       <div>          
@@ -76,13 +103,15 @@ function RecipientModal() {
                             >{`${item.firstName} ${item.lastName}`}</MenuItem>
                                 ))} */}
                         <div className={classes.root}>
-                          <FixedSizeList height={400} width={300} itemSize={46} itemCount={200}>
+                          <div height={400} width={300} itemSize={46} itemCount={200}>
                           {data && data?.profiles.map(item => (
-                                <MenuItem 
+                                <MenuItem
+                                className={classes.menuItem} 
                                 value={`${item.firstName} ${item.lastName}`}
+                                onClick={() => newChatRoom(item)}
                             >{`${item.firstName} ${item.lastName}`}</MenuItem>
                                 ))}
-                          </FixedSizeList>
+                          </div>
                         </div>
                 </Box>
                     

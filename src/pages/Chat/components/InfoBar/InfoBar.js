@@ -99,7 +99,7 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden'
   },
   chatRoomDiv: {
-    maxHeight: '80vh',
+    maxHeight: '90vh',
     overflowY: 'auto',
     overflowX: 'hidden',
     overflow: 'auto'
@@ -220,7 +220,7 @@ function InfoBar({ user }) {
           BackdropProps={{
             timeout: 500,
           }}>
-            <RecipientModal user={user}/>
+            <RecipientModal user={user} refetch={refetch} setOpen={setOpen}/>
         </Modal> 
         {user && user[config.roleUrl].includes("Admin") ? 
         (
