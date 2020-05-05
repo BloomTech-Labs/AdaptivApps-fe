@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useQuery } from "react-apollo";
-import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms';
+import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION, GET_CHAT_ROOM_MESSAGES } from '../../queries/ChatRooms';
+import { CHAT_SUBSCRIPTION, GET_MESSAGES } from '../../queries/Chats';
 import RecipientModal from './Modal';
 import ChatRoom from './ChatRoom';
 import AnnouncementModal from './AnnouncementModal';
@@ -88,12 +89,20 @@ const useStyles = makeStyles(theme => ({
   },
   box: {
     position: 'absolute',
-    bottom: '3%'
+    bottom: '0',
+    margin: '1% 1% 1% -1%',
+    width: '17.5%'
   },
   searchBox: {
     width: '90%',
     whiteSpace: 'nowrap',
     overflow: 'hidden'
+  },
+  chatRoomDiv: {
+    maxHeight: '80vh',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    overflow: 'auto'
   }
 }));
 
@@ -105,9 +114,10 @@ function InfoBar({ user }) {
     const [searchRecipient, setSearchRecipient] = useState("");
     const [results, setResults] = useState([]);
 
-    // refetches CHAT_ROOMS without refreshing page
+    const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
+    const { subscribeToMore: chatsSubscribe } = useQuery(GET_MESSAGES, { variables: { email: user.email } });
     useEffect(() => {
-        refetch();
+      refetch();
     }, [refetch]);
 
     const _subscribeToNewChatRoom = subscribeToMore => {
@@ -128,10 +138,28 @@ function InfoBar({ user }) {
       })
     };
 
+    const _subscribeToNewChats = chatsSubscribe => {
+      chatsSubscribe({
+        document: CHAT_SUBSCRIPTION,
+        updateQuery: (prev, {subscriptionData }) => {
+          if (!subscriptionData.data) return prev
+          const chat = subscriptionData.data.chat
+          console.log('Chat', chat);
+          return Object.assign({}, prev, {
+            profile: {
+              chats: [chat, ...prev.profile.chats],
+              __typename: prev.profile.__typename
+            }
+          })
+        }
+      })
+    };
+
     if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     if (error) return `Error! ${error.message}`;
 
-    _subscribeToNewChatRoom(subscribeToMore)
+    _subscribeToNewChatRoom(subscribeToMore);
+    _subscribeToNewChats(chatsSubscribe);
 
     const newAnnouncementClick = e => {
       e.preventDefault();
@@ -218,19 +246,19 @@ function InfoBar({ user }) {
 
           </>
         ) : null}
-        <div>
+        <div className={classes.chatRoomDiv}>
           {results.length > 0 ? 
             (results.map((chatRoom, id) => (
               <div className={classes.chatroom}>
-                <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
-                <Divider variant="inset" className={classes.divider}/>
+                <ChatRoom chatRoom={chatRoom} key={id} user={user} refetch={refetch} />
+                <Divider variant="inset" className={classes.divider} />
               </div>
             )))
             :
             (data && data?.profile.chatRooms?.map((chatRoom, id) => (
               <div className={classes.chatroom}>
-                <ChatRoom chatRoom={chatRoom} key={id} user={user}/>
-                <Divider variant="inset" className={classes.divider}/>
+                <ChatRoom chatRoom={chatRoom} key={id} user={user} refetch={refetch} />
+                <Divider variant="inset" className={classes.divider} />
               </div>
             )))
           }

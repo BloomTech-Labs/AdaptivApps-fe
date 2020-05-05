@@ -32,7 +32,6 @@ import { ApolloLink, Observable, split } from 'apollo-link';
 import { WebSocketLink } from 'apollo-link-ws';
 import { getMainDefinition } from 'apollo-utilities';
 
-
 // Google Analytics Imports
 import ReactGA from "react-ga";
 

@@ -10,12 +10,7 @@ import { Picker } from 'emoji-mart'
 //Styling Imports
 import InputAdornment from '@material-ui/core/InputAdornment';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
-import AttachFileIcon from '@material-ui/icons/AttachFile';
-import MicNoneIcon from '@material-ui/icons/MicNone';
-import RoomIcon from '@material-ui/icons/Room';
 import MoodIcon from '@material-ui/icons/Mood';
-import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord';
-import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import Modal from '@material-ui/core/Modal';
 import {
     makeStyles,
@@ -23,10 +18,6 @@ import {
   } from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
-    root: {
-        width: "100%",
-        height: "7.5vh"
-    },
     inputDiv: {
         position: 'absolute',
         bottom: '3%',
@@ -35,17 +26,14 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         alignItems: 'center'
     },
-    textFieldDiv: {
-        width: "100%"
-    },
     iconDiv: {
-        width: '25%',
+        width: '15%',
         display: 'flex',
         justifyContent: 'space-evenly'
     },
     messageBox: {
-        width: "50%",
-        margin: 'auto',  
+        width: "80%",
+        marginLeft: '3%'
     },
     icons: {
         color: '#808080',
@@ -63,11 +51,6 @@ const useStyles = makeStyles(() => ({
             cursor: "pointer",
           }, 
     },
-    emojiPicker: {
-        width: '100px',
-        position: 'absolute',
-        bottom: '5%'
-    },
     modal: {
         display: 'flex',
         alignItems: 'center',
@@ -76,13 +59,11 @@ const useStyles = makeStyles(() => ({
     },
 }));
 
-const Input = ({ chatRoom, user }) => {
+const Input = ({ chatRoom, user, refetch }) => {
     const [toggleEmoji, setToggleEmoji] = useState(false) 
     const [sendChat] = useMutation(SEND_CHAT);
     const [message, setMessage] = useState('');
     const classes = useStyles();
-
-    console.log('Chat room', chatRoom);
 
     const handleOpen = () => {
         setToggleEmoji(true)
@@ -102,6 +83,7 @@ const Input = ({ chatRoom, user }) => {
         })
         setMessage({ message: ''})
         alert('Successfully sent message!');
+        refetch();
     };   
 
    const handleChange = e => {
@@ -119,14 +101,9 @@ const Input = ({ chatRoom, user }) => {
     return(
         <div>
             <div className={classes.inputDiv}>            
-                <div className={classes.iconDiv}>
-                    <AttachFileIcon className={classes.icons} />
-                    <MicNoneIcon className={classes.icons} />
-                    <RoomIcon className={classes.icons} />
-                </div>
                 <TextField
                     className={classes.messageBox}
-                    multiline='true'
+                    multiline={true}
                     rowsMax='4'
                     value={message.message}
                     variant="outlined"
@@ -144,8 +121,6 @@ const Input = ({ chatRoom, user }) => {
                     />
                 <div className={classes.iconDiv}>
                     <MoodIcon className={classes.icons} onClick={handleOpen}/>
-                    <FiberManualRecordIcon className={classes.icons}/>
-                    <AssignmentTurnedInIcon className={classes.icons}/>
                     <Modal
                         className={classes.modal}
                         open={toggleEmoji}

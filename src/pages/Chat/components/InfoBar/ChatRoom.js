@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Messages from '../Messages/Messages';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import Drawer from '@material-ui/core/Drawer';
@@ -52,9 +52,13 @@ const useStyles = makeStyles(() => ({
     borderBottom: '1px solid grey'
   }
 }))
-export default function ChatRoom({chatRoom, user}) {
+export default function ChatRoom({ chatRoom, user, refetch }) {
     const classes = useStyles();
     const [messageToggle, setMessageToggle] = useState(false);
+
+    useEffect(() => {
+      refetch();
+    }, [refetch]);
 
     const participants = chatRoom.participants.map((participant) =>
     (chatRoom.participants.length > 2 ? 
@@ -87,7 +91,7 @@ export default function ChatRoom({chatRoom, user}) {
             <h1 className={classes.roomTitle}>{participants}</h1>
             <CloseIcon className={classes.closeModal} onClick={closeDrawer} />
           </div>
-          <Messages chatRoom={chatRoom} participants={participants} user={user}/>
+          <Messages chatRoom={chatRoom} participants={participants} user={user} refetch={refetch} />
         </Drawer>
       </>
     )

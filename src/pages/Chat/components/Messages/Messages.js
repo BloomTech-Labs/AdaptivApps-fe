@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Input from "../Input/Input";
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import {
@@ -58,14 +58,27 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     bottom: "0"
   },
+  messageDiv: {
+    maxHeight: '80vh',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    overflow: 'auto',
+    display: 'flex',
+    flexDirection: 'column'
+  },
   header: {
     fontSize: '2rem',
     marginLeft: '4%'
   }
 }));
 
-export default function Messages({ user, chatRoom, participants }) {
+export default function Messages({ user, chatRoom, refetch }) {
   const classes = useStyles();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
   const messages = chatRoom.chats.map((chat, id) => {return {
       id: id,
       message: chat.message,
@@ -78,7 +91,7 @@ export default function Messages({ user, chatRoom, participants }) {
 
   return (
     <div className={classes.root}>
-      <div>
+      <div className={classes.messageDiv}>
         {messages.map((message) => (
           <>
             <div key={message.id} className={classes.messageBox}>
@@ -95,7 +108,7 @@ export default function Messages({ user, chatRoom, participants }) {
         ))}
       </div>
       <div className={classes.inputDiv}>
-        <Input chatRoom={chatRoom} user={user} />
+        <Input chatRoom={chatRoom} user={user} refetch={refetch} />
       </div>
     </div>
   )
