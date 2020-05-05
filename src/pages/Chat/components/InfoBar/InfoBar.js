@@ -211,7 +211,7 @@ function InfoBar({ user }) {
           BackdropProps={{
             timeout: 500,
           }}>
-            <RecipientModal user={user}/>
+            <RecipientModal user={user} setOpen={setOpen} />
         </Modal> 
         {user && user[config.roleUrl].includes("Admin") ? 
         (
