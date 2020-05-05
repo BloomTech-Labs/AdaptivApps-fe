@@ -61,7 +61,10 @@ const useStyles = makeStyles(theme => ({
   messageDiv: {
     maxHeight: '80vh',
     overflowY: 'auto',
-    overflowX: 'hidden'
+    overflowX: 'hidden',
+    overflow: 'auto',
+    display: 'flex',
+    flexDirection: 'column'
   },
   header: {
     fontSize: '2rem',
