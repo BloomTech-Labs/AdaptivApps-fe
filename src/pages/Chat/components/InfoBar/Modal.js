@@ -10,10 +10,6 @@ import {
     TextField,
     MenuItem
   } from "@material-ui/core";
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { FixedSizeList } from 'react-window';
-import { separateOperations } from "graphql";
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
@@ -72,10 +68,6 @@ function RecipientModal({ user, refetch, setOpen }) {
 
     const { data } = useQuery(GET_RECIPIENTS);
     const [createChatRoom] = useMutation(CREATE_CHAT_ROOM);
-
-    useEffect(() => {
-      refetch();
-    }, [refetch]);
   
     const searchContacts = e => {
       e.preventDefault();
