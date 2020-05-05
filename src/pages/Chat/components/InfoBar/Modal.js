@@ -9,6 +9,11 @@ import {
     TextField,
     MenuItem
   } from "@material-ui/core";
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { FixedSizeList } from 'react-window';
+
+
 
 const useStyles = makeStyles(theme => ({
   span: {
@@ -65,28 +70,20 @@ function RecipientModal() {
                       value={searchRecipient}
                       onChange={handleChange}
                       />
-                            {data && data?.profiles.map(item => (
+                            {/* {data && data?.profiles.map(item => (
+                                <MenuItem 
+                                value={`${item.firstName} ${item.lastName}`}
+                            >{`${item.firstName} ${item.lastName}`}</MenuItem>
+                                ))} */}
+                        <div className={classes.root}>
+                          <FixedSizeList height={400} width={300} itemSize={46} itemCount={200}>
+                          {data && data?.profiles.map(item => (
                                 <MenuItem 
                                 value={`${item.firstName} ${item.lastName}`}
                             >{`${item.firstName} ${item.lastName}`}</MenuItem>
                                 ))}
-        
-                      {/* <TextField
-                      variant="outlined"
-                      type="text"
-                      placeholder="Search for a Recipient"
-                      name="message"
-                      value={searchRecipient}
-                      onChange={handleChange}
-                      selectBoxOptions="List"
-                      />
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        endIcon={<Icon>add_circle</Icon>}
-                    >
-                    Select
-                </Button> */}
+                          </FixedSizeList>
+                        </div>
                 </Box>
                     
                   </div>
