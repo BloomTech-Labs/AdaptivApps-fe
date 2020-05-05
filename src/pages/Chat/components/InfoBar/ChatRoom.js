@@ -6,7 +6,6 @@ import CloseIcon from '@material-ui/icons/Close';
 import {
   makeStyles
 } from "@material-ui/core";
-
 const useStyles = makeStyles(() => ({
   root: {   
     margin: ".5rem auto",

@@ -108,6 +108,7 @@ export const GET_RECIPIENTS = gql`
       id
       firstName
       lastName
+      email
     }
   }
 `;

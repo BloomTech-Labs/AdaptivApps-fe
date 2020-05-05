@@ -5,8 +5,10 @@ import { CHAT_SUBSCRIPTION, GET_MESSAGES } from '../../queries/Chats';
 import RecipientModal from './Modal';
 import ChatRoom from './ChatRoom';
 import AnnouncementModal from './AnnouncementModal';
+
 //Auth0 imports
 import config from "../../../../config/auth_config";
+import { Auth0Context } from "../../../../config/react-auth0-spa";
 
 // Style Imports
 import CreateIcon from '@material-ui/icons/Create';
@@ -17,12 +19,16 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import {
   makeStyles,
+  Button,
+  Icon,
   Box,
   TextField
 } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
+import MenuIcon from "@material-ui/icons/Menu";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -190,6 +196,7 @@ function InfoBar({ user }) {
     const handleAnnouncementOpen = () => {
       setAnnouncementOpen(true);
     };
+
     const handleAnnouncementClose = () => {
       setAnnouncementOpen(false);
     };
@@ -211,27 +218,27 @@ function InfoBar({ user }) {
           BackdropProps={{
             timeout: 500,
           }}>
-            <RecipientModal user={user} setOpen={setOpen} />
+          <RecipientModal user={user} refetch={refetch} setOpen={setOpen}/>
         </Modal> 
         {user && user[config.roleUrl].includes("Admin") ? 
         (
           <>
             <div className={classes.messageIcons}>
               <LanguageIcon className={classes.icons} /><span className={classes.span} onClick={handleAnnouncementOpen}>New Announcement</span> 
-            </div>
-            <Modal
-              aria-labelledby="transition-modal-title"
-              aria-describedby="transition-modal-description"
-              className={classes.modal}
-              open={announcement}
-              onClose={handleAnnouncementClose}
-              closeAfterTransition
-              BackdropComponent={Backdrop}
-              BackdropProps={{
-                timeout: 500,
-              }}>
-              <AnnouncementModal />
-            </Modal>
+          </div>
+          <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            className={classes.modal}
+            open={announcement}
+            onClose={handleAnnouncementClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}>
+            <AnnouncementModal />
+           </Modal>
           </>
         ) : null}
         <div className={classes.chatRoomDiv}>

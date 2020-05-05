@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useQuery } from "react-apollo";
+import { useQuery, useMutation } from "react-apollo";
 import { GET_RECIPIENTS } from '../../queries/Chats';
+import { CREATE_CHAT_ROOM } from '../../queries/ChatRooms'
 
 //Style imports
 import {
@@ -9,6 +10,10 @@ import {
     TextField,
     MenuItem
   } from "@material-ui/core";
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import { FixedSizeList } from 'react-window';
+import { separateOperations } from "graphql";
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
@@ -60,41 +65,58 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function RecipientModal({ setOpen }) {
-  const classes = useStyles();
-  const [searchRecipient, setSearchRecipient] = useState("");
-  const [results, setResults] = useState([]);
-  const { data } = useQuery(GET_RECIPIENTS);
+function RecipientModal({ user, refetch, setOpen }) {
+    const classes = useStyles();
+    const [searchRecipient, setSearchRecipient] = useState("");
+    const [results, setResults] = useState([]);
 
-  const searchContacts = e => {
-    e.preventDefault();
-    let filter = data?.profiles.map(user => {
-      return [`${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user];
-    });
+    const { data } = useQuery(GET_RECIPIENTS);
+    const [createChatRoom] = useMutation(CREATE_CHAT_ROOM);
 
-    filter.filter(user => {
-      console.log('User', user)
-      if (user[0].includes(searchRecipient.toLowerCase())) {
-        results.push(user[1])
-        return results;
-      }
-    });
-
-    setSearchRecipient('');
-  };
+    useEffect(() => {
+      refetch();
+    }, [refetch]);
   
-  const handleChange = e => {
-    setResults([]);
-    setSearchRecipient(e.target.value);
-  };
+    const searchContacts = e => {
+      e.preventDefault();
+      let filter = data?.profiles.map(user => {
+        return [`${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user];
+      });
 
-  const closeModal = e => {
-    e.preventDefault();
-    setOpen(false);
-  };
+      filter.filter(user => {
+        console.log('User', user)
+        if (user[0].includes(searchRecipient.toLowerCase())) {
+          results.push(user[1])
+          return results;
+        }
+      });
 
-  return (
-    <div>          
+      setSearchRecipient('');
+    };
+
+    const newChatRoom = async (item) => {
+      await createChatRoom({
+        variables:{
+          useremail: user.email,
+          recipientemail: item.email
+        }
+      })
+      refetch();
+      setOpen(false)
+    };
+
+    const handleChange = e => {
+      setResults([]);
+      setSearchRecipient(e.target.value);
+    };
+
+    const closeModal = e => {
+      e.preventDefault();
+      setOpen(false);
+    };
+
+    return (
+     <div>          
       <div className={classes.paper}>
         <CloseIcon className={classes.closeModal} onClick={closeModal} />
         <h2 id="transition-modal-title" className={classes.span}>Select a Chat Recipient</h2>
@@ -116,16 +138,16 @@ function RecipientModal({ setOpen }) {
                 </InputAdornment>
               }} />
             <div className={classes.root}>
-              <div>
+              <div height={400} width={300} itemSize={46} itemCount={200}>
                 {results.length > 0 ? 
                   (results.map(item => (
-                    <MenuItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`}>
+                    <MenuItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
                       {`${item.firstName} ${item.lastName}`}
                     </MenuItem>
                   ))) 
                   : 
                   (data && data?.profiles.map(item => (
-                    <MenuItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`}>
+                    <MenuItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
                       {`${item.firstName} ${item.lastName}`}
                     </MenuItem>
                 )))}
