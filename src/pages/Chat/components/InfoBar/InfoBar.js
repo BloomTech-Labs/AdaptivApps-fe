@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-apollo";
 import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms';
 import { CHAT_SUBSCRIPTION, GET_MESSAGES } from '../../queries/Chats';
@@ -8,7 +8,6 @@ import AnnouncementModal from './AnnouncementModal';
 
 //Auth0 imports
 import config from "../../../../config/auth_config";
-import { Auth0Context } from "../../../../config/react-auth0-spa";
 
 // Style Imports
 import CreateIcon from '@material-ui/icons/Create';
@@ -19,16 +18,12 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import {
   makeStyles,
-  Button,
-  Icon,
   Box,
   TextField
 } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
-import MenuIcon from "@material-ui/icons/Menu";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -117,10 +112,6 @@ function InfoBar({ user }) {
     const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
     const { subscribeToMore: chatsSubscribe } = useQuery(GET_MESSAGES, { variables: { email: user.email } });
 
-    useEffect(() => {
-      refetch();
-    }, [refetch]);
-
     const _subscribeToNewChatRoom = subscribeToMore => {
       subscribeToMore({
         document: CHAT_ROOM_SUBSCRIPTION,
@@ -129,6 +120,7 @@ function InfoBar({ user }) {
           const chatRoom = subscriptionData.data.chatRoom
           const exists = prev.profile.chatRooms.find(({ id }) => id === chatRoom.id);
           if (exists) return prev;
+          refetch();
           return Object.assign({}, prev, {
             profile: {
               chatRooms: [chatRoom, ...prev.profile.chatRooms],
@@ -145,7 +137,7 @@ function InfoBar({ user }) {
         updateQuery: (prev, {subscriptionData }) => {
           if (!subscriptionData.data) return prev
           const chat = subscriptionData.data.chat
-          console.log('Chat', chat);
+          refetch();
           return Object.assign({}, prev, {
             profile: {
               chats: [chat, ...prev.profile.chats],
