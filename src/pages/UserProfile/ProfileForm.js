@@ -114,7 +114,7 @@ const ProfileSchema = yup.object().shape({
 const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   const [updated, setUpdated] = useState(false);
   const [userProfile, setUserProfile] = useState({
-    firstName: user.given_name ? user && user.given_name : null,
+    firstName: userProfile.firstName ? userProfile.firstName : user && user.given_name,
     lastName: user.family_name ? user && user.family_name : null,
     displayName: user.nickname ? user && user.nickname : null,
   });

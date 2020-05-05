@@ -1,19 +1,11 @@
 // React imports
-feature/handle_null_wrap_input
 import React, { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
-
-import React, { useState, useEffect } from "react";
 import { useMutation } from "react-apollo";
 import { SEND_CHAT } from '../../queries/Chats'
-
-//Auth0 Imports
-import { Auth0Context } from "../../../../config/react-auth0-spa";
 
 //Emoji Picker Import
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
- master
 
 //Styling Imports
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -27,13 +19,8 @@ import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 import Modal from '@material-ui/core/Modal';
 import {
     makeStyles,
-    Box,
-    TextField,
-    Button
+    TextField
   } from "@material-ui/core";
-import { send } from "react-ga";
-
-
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -48,29 +35,9 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         alignItems: 'center'
     },
- feature/handle_null_wrap_input
     textFieldDiv: {
         width: "100%"
-    }
-}));
-
-const Input = () => {
-    const [updated, setUpdated] = useState(false);
-    const classes = useStyles();
-
-    //useForm hook to update state
-    const { handleSubmit, control } = useForm({
-        mode: "onSubmit",
-        defaultValues: {
-            // chat: participant.chats
-        },
-    });
-
-    //need an onSubmit to update the chat messages in the backend and frontend
-    const onSubmit = (values, e) => {
-        e.preventDefault();
-        console.log('Sent message!')
-
+    },
     iconDiv: {
         width: '25%',
         display: 'flex',
@@ -78,8 +45,7 @@ const Input = () => {
     },
     messageBox: {
         width: "50%",
-        margin: 'auto',
-        
+        margin: 'auto',  
     },
     icons: {
         color: '#808080',
@@ -107,24 +73,24 @@ const Input = () => {
         alignItems: 'center',
         justifyContent: 'flex-end',
         fontSize: "-webkit-xxx-large",
-      },
-      
+    },
 }));
 
-const Input = ({ loading, chatRoom, user, messages }) => {
+const Input = ({ chatRoom, user }) => {
     const [toggleEmoji, setToggleEmoji] = useState(false) 
     const [sendChat] = useMutation(SEND_CHAT);
     const [message, setMessage] = useState('');
     const classes = useStyles();
 
+    console.log('Chat room', chatRoom);
+
     const handleOpen = () => {
         setToggleEmoji(true)
- master
-    }
+    };
 
     const handleClose = () => {
         setToggleEmoji(false)
-    }
+    };
    
     const newMessage = async () => {
         await sendChat({
@@ -135,7 +101,8 @@ const Input = ({ loading, chatRoom, user, messages }) => {
             }
         })
         setMessage({ message: ''})
-    }    
+        alert('Successfully sent message!');
+    };   
 
    const handleChange = e => {
         setMessage({
@@ -147,95 +114,48 @@ const Input = ({ loading, chatRoom, user, messages }) => {
         setMessage({
             message: message + emojiObject.native
         });
-    }
+    };
 
     return(
- feature/handle_null_wrap_input
         <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <Box component="div" className={classes.textFieldDiv}>
-                    <Controller
-                        as={<TextField multiline={true} rowsMax='4' />}
-                        id="message"
-                        variant="outlined"
-                        type="text"
-                        placeholder="Type a message..."
-                        name="message"
-                        control={control}
-                        className={classes.inputField}
-                    />
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => {setUpdated(true)}}
-                        className={classes.sendButton}>
-                        Send
-                    </Button>
-                    {updated === true ? handleUpdated() : null}
-                </Box>
-            </form>
-
-        
-        <div className={classes.inputDiv}>            
-            <div className={classes.iconDiv}>
-            <AttachFileIcon className={classes.icons} />
-            <MicNoneIcon className={classes.icons} />
-            <RoomIcon className={classes.icons} />
-            </div>
-            <TextField
-                      className={classes.messageBox}
-                      multiline='true'
-                      rowsMax='4'
-                      value={message.message}
-                      variant="outlined"
-                      type="text"
-                      name="newChat"
-                      placeholder="Type a message..."
-                      onChange={handleChange}
-                      InputProps={{
+            <div className={classes.inputDiv}>            
+                <div className={classes.iconDiv}>
+                    <AttachFileIcon className={classes.icons} />
+                    <MicNoneIcon className={classes.icons} />
+                    <RoomIcon className={classes.icons} />
+                </div>
+                <TextField
+                    className={classes.messageBox}
+                    multiline='true'
+                    rowsMax='4'
+                    value={message.message}
+                    variant="outlined"
+                    type="text"
+                    name="newChat"
+                    placeholder="Type a message..."
+                    onChange={handleChange}
+                    InputProps={{
                         endAdornment: <InputAdornment position="end">
                         <KeyboardArrowRightIcon
                         className={classes.sendMessageIcon} 
                         onClick={newMessage} />
-                      </InputAdornment>
-                      }}
-                      />
-            <div className={classes.iconDiv}>
-            <MoodIcon className={classes.icons} onClick={handleOpen}/>
-            <FiberManualRecordIcon className={classes.icons}/>
-            <AssignmentTurnedInIcon className={classes.icons}/>
-            <Modal
-            className={classes.modal}
-            open={toggleEmoji}
-            onClose={handleClose}
-            >
-            {toggleEmoji ? <Picker onClick={onEmojiClick}/> : null}
-            </Modal>
+                    </InputAdornment>
+                    }}
+                    />
+                <div className={classes.iconDiv}>
+                    <MoodIcon className={classes.icons} onClick={handleOpen}/>
+                    <FiberManualRecordIcon className={classes.icons}/>
+                    <AssignmentTurnedInIcon className={classes.icons}/>
+                    <Modal
+                        className={classes.modal}
+                        open={toggleEmoji}
+                        onClose={handleClose}>
+                        {toggleEmoji ? <Picker onClick={onEmojiClick}/> : null}
+                    </Modal>
+                </div>
             </div>
- master
         </div>
     )
 }
 
 export default Input;
-
-{/* <Box component="div" className={classes.textFieldDiv}>
-<TextField
-    as={<TextField />}
-    id="message"
-    variant="outlined"
-    type="text"
-    placeholder="Type a message..."
-    name="message"
-    control={control}
-    className={classes.inputField}
-/>
-<Button
-    variant="contained"
-    color="primary"
-    onClick={() => {setUpdated(true)}}
-    className={classes.sendButton}>
-    Send
-</Button>
-{updated === true ? handleUpdated() : null}
-</Box> */}
