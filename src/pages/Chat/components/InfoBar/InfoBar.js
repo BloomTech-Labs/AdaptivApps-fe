@@ -83,7 +83,9 @@ const useStyles = makeStyles(theme => ({
   },
   box: {
     position: 'absolute',
-    bottom: '3%'
+    bottom: '0',
+    margin: '1% 1% 1% -1%',
+    width: '17.5%'
   },
   searchBox: {
     width: '90%',
