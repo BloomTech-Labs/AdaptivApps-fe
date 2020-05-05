@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Input from "../Input/Input";
-import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import PersonIcon from '@material-ui/icons/Person';
 import {
     makeStyles
   } from "@material-ui/core";
@@ -62,9 +62,6 @@ const useStyles = makeStyles(theme => ({
     maxHeight: '80vh',
     overflowY: 'auto',
     overflowX: 'hidden',
-    overflow: 'auto',
-    display: 'flex',
-    flexDirection: 'column'
   },
   header: {
     fontSize: '2rem',
@@ -95,7 +92,7 @@ export default function Messages({ user, chatRoom, refetch }) {
         {messages.map((message) => (
           <>
             <div key={message.id} className={classes.messageBox}>
-              <PeopleAltIcon className={classes.messageIcon} />
+              <PersonIcon className={classes.messageIcon} />
               <div className={message.sender !== user.email ?
                   classes.messageSender : classes.userMessage}>
                 <div className={classes.messageHeader}>

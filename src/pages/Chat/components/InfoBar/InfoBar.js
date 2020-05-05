@@ -108,7 +108,7 @@ const useStyles = makeStyles(theme => ({
 
 function InfoBar({ user }) {
     const classes = useStyles();
-    const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
+    // const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
     const [open, setOpen] = useState(false);
     const [announcement, setAnnouncementOpen] = useState(false);
     const [searchRecipient, setSearchRecipient] = useState("");
