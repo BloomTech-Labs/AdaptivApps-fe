@@ -1,17 +1,13 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { useQuery } from "react-apollo";
 import { GET_RECIPIENTS } from '../../queries/Chats';
-
 
 //Style imports
 import {
     makeStyles,
-    Button,
-    Icon,
     Box,
     TextField,
     MenuItem
-
   } from "@material-ui/core";
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -39,26 +35,24 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-function RecipientModal(props) {
-    const { user } = props;
+function RecipientModal() {
     const classes = useStyles();
     const [searchRecipient, setSearchRecipient] = useState("");
     const [searchResults, setSearchResults] = useState([]);
-    const { error, data, refetch, loading } = useQuery(GET_RECIPIENTS);
-    console.log(data, "data");
+    const { data } = useQuery(GET_RECIPIENTS);
     
     const handleChange = e => {
       setSearchRecipient(e.target.value);
     };
 
 
-    useEffect(() => {
-      const results = searchResults.filter(person =>
-        person.toLowerCase().includes(searchRecipient)
-      );
+    // useEffect(() => {
+    //   const results = searchResults.filter(person =>
+    //     person.toLowerCase().includes(searchRecipient)
+    //   );
       
-      setSearchResults(searchResults);
-    },[searchRecipient]);
+    //   setSearchResults(searchResults);
+    // },[searchRecipient]);
 
     return (
       <div>          

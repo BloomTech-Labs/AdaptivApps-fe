@@ -330,7 +330,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 id="bio"
                 name="bio"
                 variant="outlined"
-                multiline
+                multiline={true}
                 rows="8"
                 placeholder={userProfile ? userProfile.bio : null}
                 control={control}

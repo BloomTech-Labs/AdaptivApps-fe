@@ -22,6 +22,7 @@ export const GET_CHAT_ROOMS = gql`
           from {
             firstName
             lastName
+            email
           }
         }
       }      
@@ -36,6 +37,7 @@ export const GET_CHAT_ROOM_MESSAGES = gql`
       chatRooms {
         id
         chats {
+          id
           message
           createdAt
           room {
