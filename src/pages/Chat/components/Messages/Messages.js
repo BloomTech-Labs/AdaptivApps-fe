@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Input from "../Input/Input";
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import {
@@ -71,6 +71,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function Messages({ user, chatRoom, refetch }) {
   const classes = useStyles();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+
   const messages = chatRoom.chats.map((chat, id) => {return {
       id: id,
       message: chat.message,

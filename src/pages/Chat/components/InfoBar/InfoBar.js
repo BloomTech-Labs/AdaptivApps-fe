@@ -105,6 +105,10 @@ function InfoBar({ user }) {
     const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
     const { subscribeToMore: chatsSubscribe } = useQuery(GET_MESSAGES, { variables: { email: user.email } });
 
+    useEffect(() => {
+      refetch();
+    }, [refetch]);
+    
     const _subscribeToNewChatRoom = subscribeToMore => {
       subscribeToMore({
         document: CHAT_ROOM_SUBSCRIPTION,

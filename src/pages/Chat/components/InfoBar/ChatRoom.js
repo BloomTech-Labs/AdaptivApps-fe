@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import Messages from '../Messages/Messages';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import Drawer from '@material-ui/core/Drawer';
@@ -55,6 +55,10 @@ const useStyles = makeStyles(() => ({
 export default function ChatRoom({ chatRoom, user, refetch }) {
     const classes = useStyles();
     const [messageToggle, setMessageToggle] = useState(false);
+
+    useEffect(() => {
+      refetch();
+    }, [refetch]);
 
     const participants = chatRoom.participants.map((participant) =>
     (chatRoom.participants.length > 2 ? 
