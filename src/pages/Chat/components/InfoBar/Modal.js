@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
 function RecipientModal() {
     const classes = useStyles();
     const [searchRecipient, setSearchRecipient] = useState("");
-    // const [searchResults, setSearchResults] = useState([]);
+    const [searchResults, setSearchResults] = useState([]);
     const { data } = useQuery(GET_RECIPIENTS);
     
     const handleChange = e => {

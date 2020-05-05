@@ -1,5 +1,5 @@
 // Import dependencies
-import React from "react";
+import React, { useState } from "react";
 
 // Reach Router imports
 import { Router } from "@reach/router";
@@ -49,13 +49,15 @@ const trackingId = "UA-159556430-1";
 
 function App() {
   const { getIdTokenClaims } = useAuth0();
+  const [authToken, setAuthToken] = useState();
 
   const request = async operation => {
     const token = await getIdTokenClaims();
+    setAuthToken(token.__raw);
     operation.setContext(context => ({
       headers: {
         ...context.headers,
-        Authorization: token.__raw,
+        Authorization: authToken,
       },
     }));
   };
@@ -91,9 +93,9 @@ function App() {
     uri: "ws://localhost:8000/graphql",
     options: {
       reconnect: true,
-      // connectionParams: {
-      //   authToken: token
-      // }
+      connectionParams: {
+        authToken: authToken,
+      }
     }
   });
 
