@@ -88,10 +88,18 @@ function RecipientModal() {
               }} />
             <div className={classes.root}>
               <div>
-                {data && data?.profiles.map(item => (
+                {results.length > 0 ? 
+                (results.map(item => (
                   <MenuItem value={`${item.firstName} ${item.lastName}`}>
-                    {`${item.firstName} ${item.lastName}`}</MenuItem>
-                ))}
+                    {`${item.firstName} ${item.lastName}`}
+                  </MenuItem>
+                ))) 
+                : 
+                (data && data?.profiles.map(item => (
+                  <MenuItem value={`${item.firstName} ${item.lastName}`}>
+                    {`${item.firstName} ${item.lastName}`}
+                  </MenuItem>
+                )))}
               </div>
             </div>
           </Box>
