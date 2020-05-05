@@ -58,6 +58,11 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     bottom: "0"
   },
+  messageDiv: {
+    maxHeight: '80vh',
+    overflowY: 'auto',
+    overflowX: 'hidden'
+  },
   header: {
     fontSize: '2rem',
     marginLeft: '4%'
@@ -78,7 +83,7 @@ export default function Messages({ user, chatRoom, participants }) {
 
   return (
     <div className={classes.root}>
-      <div>
+      <div className={classes.messageDiv}>
         {messages.map((message) => (
           <>
             <div key={message.id} className={classes.messageBox}>
