@@ -113,11 +113,7 @@ const ProfileSchema = yup.object().shape({
 // This is the form being used in UserDashboard
 const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   const [updated, setUpdated] = useState(false);
-  const [userProfile, setUserProfile] = useState({
-    firstName: user.given_name ? user && user.given_name : null,
-    lastName: user.family_name ? user && user.family_name : null,
-    displayName: user.nickname ? user && user.nickname : null,
-  });
+  const [userProfile, setUserProfile] = useState(null);
   const classes = useStyles();
 
   const { handleSubmit, register, setValue, control } = useForm({
@@ -125,9 +121,9 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
     validationSchema: ProfileSchema,
     defaultValues: {
       email: user && user.email,
-      firstName: user.given_name ? user && user.given_name : userProfile && userProfile.firstName,
-      lastName: user.family_name ? user && user.family_name : userProfile && userProfile.lastName,
-      displayName: user.nickname ? user && user.nickname : userProfile && userProfile.displayName,
+      firstName: userProfile && userProfile.firstName,
+      lastName: userProfile && userProfile.lastName,
+      displayName: userProfile && userProfile.displayName,
       birthday: userProfile && userProfile.birthday,
       bio: userProfile && userProfile.bio,
       disability: userProfile && userProfile.disability,
@@ -137,30 +133,6 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   // updates profile in the backend and frontend
   const onSubmit = (formValues, e) => {
     e.preventDefault();
-
-    // frontend update
-    setUserProfile({
-      email: user.email,
-      firstName:
-        formValues.firstName === ""
-          ? userProfile.firstName
-          : formValues.firstName,
-      lastName:
-        formValues.lastName === "" ? userProfile.lastName : formValues.lastName,
-      displayName:
-        formValues.displayName === ""
-          ? userProfile.displayName
-          : formValues.displayName,
-      birthday:
-        formValues.birthday === "" ? userProfile.birthday : formValues.birthday,
-      bio: formValues.bio === "" ? userProfile.bio : formValues.bio,
-      disability:
-        formValues.disability === ""
-          ? userProfile.disability
-          : formValues.disability,
-      legal: formValues.legal === "" ? userProfile.legal : formValues.legal,
-    });
-    
     // backend update
     updateProfile({
       variables: {
@@ -188,6 +160,28 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
             : formValues.disability,
         legal: formValues.legal === "" ? userProfile.legal : formValues.legal,
       },
+    });
+    // frontend update
+    setUserProfile({
+      email: user.email,
+      firstName:
+        formValues.firstName === ""
+          ? userProfile.firstName
+          : formValues.firstName,
+      lastName:
+        formValues.lastName === "" ? userProfile.lastName : formValues.lastName,
+      displayName:
+        formValues.displayName === ""
+          ? userProfile.displayName
+          : formValues.displayName,
+      birthday:
+        formValues.birthday === "" ? userProfile.birthday : formValues.birthday,
+      bio: formValues.bio === "" ? userProfile.bio : formValues.bio,
+      disability:
+        formValues.disability === ""
+          ? userProfile.disability
+          : formValues.disability,
+      legal: formValues.legal === "" ? userProfile.legal : formValues.legal,
     });
   };
 
@@ -336,7 +330,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 id="bio"
                 name="bio"
                 variant="outlined"
-                multiline={true}
+                multiline
                 rows="8"
                 placeholder={userProfile ? userProfile.bio : null}
                 control={control}
