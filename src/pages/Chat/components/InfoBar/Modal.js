@@ -9,7 +9,9 @@ import {
     TextField,
     MenuItem
   } from "@material-ui/core";
-import { FixedSizeList } from 'react-window';
+import SearchIcon from '@material-ui/icons/Search';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
 
 const useStyles = makeStyles(theme => ({
   span: {
@@ -34,10 +36,31 @@ const useStyles = makeStyles(theme => ({
 function RecipientModal() {
   const classes = useStyles();
   const [searchRecipient, setSearchRecipient] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [results, setResults] = useState([]);
   const { data } = useQuery(GET_RECIPIENTS);
+
+  const searchContacts = e => {
+    e.preventDefault();
+    let filter = data?.profiles.map(user => {
+      return [`${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user];
+    });
+
+    console.log('Filtered', filter);
+
+    filter.filter(user => {
+      console.log('User', user)
+      if (user[0].includes(searchRecipient.toLowerCase())) {
+        results.push(user[1])
+        return results;
+      }
+    });
+
+    console.log('Results', results)
+    setSearchRecipient('');
+  };
   
   const handleChange = e => {
+    setResults([]);
     setSearchRecipient(e.target.value);
   };
 
@@ -55,14 +78,21 @@ function RecipientModal() {
               name="message"
               value={searchRecipient}
               onChange={handleChange}
-              />
+              InputProps={{
+                endAdornment: 
+                <InputAdornment position="end">
+                  <IconButton onClick={searchContacts}>
+                    <SearchIcon fontSize="large" />
+                  </IconButton>
+                </InputAdornment>
+              }} />
             <div className={classes.root}>
-              <FixedSizeList height={400} width={300} itemSize={46} itemCount={200}>
+              <div>
                 {data && data?.profiles.map(item => (
                   <MenuItem value={`${item.firstName} ${item.lastName}`}>
                     {`${item.firstName} ${item.lastName}`}</MenuItem>
                 ))}
-              </FixedSizeList>
+              </div>
             </div>
           </Box>
         </div>
