@@ -1,12 +1,14 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-apollo";
-import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION, GET_CHAT_ROOM_MESSAGES } from '../../queries/ChatRooms';
+import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms';
 import { CHAT_SUBSCRIPTION, GET_MESSAGES } from '../../queries/Chats';
 import RecipientModal from './Modal';
 import ChatRoom from './ChatRoom';
 import AnnouncementModal from './AnnouncementModal';
+
 //Auth0 imports
 import config from "../../../../config/auth_config";
+import { Auth0Context } from "../../../../config/react-auth0-spa";
 
 // Style Imports
 import CreateIcon from '@material-ui/icons/Create';
@@ -27,7 +29,6 @@ import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import MenuIcon from "@material-ui/icons/Menu";
-import { Auth0Context } from "../../../../config/react-auth0-spa";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -108,13 +109,14 @@ const useStyles = makeStyles(theme => ({
 
 function InfoBar({ user }) {
     const classes = useStyles();
-    const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
     const [open, setOpen] = useState(false);
     const [announcement, setAnnouncementOpen] = useState(false);
     const [searchRecipient, setSearchRecipient] = useState("");
     const [results, setResults] = useState([]);
 
+    const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
     const { subscribeToMore: chatsSubscribe } = useQuery(GET_MESSAGES, { variables: { email: user.email } });
+
     useEffect(() => {
       refetch();
     }, [refetch]);
@@ -160,24 +162,6 @@ function InfoBar({ user }) {
     _subscribeToNewChatRoom(subscribeToMore);
     _subscribeToNewChats(chatsSubscribe);
 
-    const newAnnouncementClick = e => {
-      e.preventDefault();
-      console.log('New announcement clicked')
-    };
-
-    const handleOpen = () => {
-      setOpen(true);
-    };
-    
-    const handleClose = () => {
-      setOpen(false);
-    };
-
-    const handleChange = e => {
-      setResults([]);
-      setSearchRecipient(e.target.value);
-    };
-
     const searchRooms = e => {
       e.preventDefault();
       let filter = data?.profile.chatRooms.map(room => {
@@ -196,9 +180,23 @@ function InfoBar({ user }) {
       setSearchRecipient('');
     };
 
+    const handleOpen = () => {
+      setOpen(true);
+    };
+    
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    const handleChange = e => {
+      setResults([]);
+      setSearchRecipient(e.target.value);
+    };
+
     const handleAnnouncementOpen = () => {
       setAnnouncementOpen(true);
     };
+
     const handleAnnouncementClose = () => {
       setAnnouncementOpen(false);
     };
@@ -220,7 +218,7 @@ function InfoBar({ user }) {
           BackdropProps={{
             timeout: 500,
           }}>
-            <RecipientModal user={user} refetch={refetch} setOpen={setOpen}/>
+          <RecipientModal user={user} refetch={refetch} setOpen={setOpen}/>
         </Modal> 
         {user && user[config.roleUrl].includes("Admin") ? 
         (
@@ -238,11 +236,9 @@ function InfoBar({ user }) {
             BackdropComponent={Backdrop}
             BackdropProps={{
               timeout: 500,
-            }}
-          >
+            }}>
             <AnnouncementModal />
            </Modal>
-
           </>
         ) : null}
         <div className={classes.chatRoomDiv}>
