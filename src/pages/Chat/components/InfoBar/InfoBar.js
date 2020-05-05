@@ -99,7 +99,7 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden'
   },
   chatRoomDiv: {
-    maxHeight: '90vh',
+    maxHeight: '80vh',
     overflowY: 'auto',
     overflowX: 'hidden',
     overflow: 'auto'
