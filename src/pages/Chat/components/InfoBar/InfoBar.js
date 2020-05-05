@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useQuery } from "react-apollo";
-import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms';
+import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION, GET_CHAT_ROOM_MESSAGES } from '../../queries/ChatRooms';
+import { CHAT_SUBSCRIPTION } from '../../queries/Chats';
 import RecipientModal from './Modal';
 import ChatRoom from './ChatRoom';
 
@@ -102,11 +103,13 @@ function InfoBar({ user }) {
     const [results, setResults] = useState([]);
 
     const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
+    const { refetch: refetchChats, subscribeToMore: chatsSubscribe } = useQuery(GET_CHAT_ROOM_MESSAGES, { variables: { email: user.email } });
 
     // refetches CHAT_ROOMS without refreshing page
     useEffect(() => {
         refetch();
-    }, [refetch]);
+        refetchChats();
+    }, [refetch, refetchChats]);
 
     const _subscribeToNewChatRoom = subscribeToMore => {
       subscribeToMore({
@@ -126,10 +129,29 @@ function InfoBar({ user }) {
       })
     };
 
+    const _subscribeToNewChats = chatsSubscribe => {
+      chatsSubscribe({
+        document: CHAT_SUBSCRIPTION,
+        updateQuery: (prev, {subscriptionData }) => {
+          if (!subscriptionData.data) return prev
+          const chat = subscriptionData.data.chat
+          const exists = prev.profile.chatRooms.chats.find(({ id }) => id === chat.id);
+          if (exists) return prev;
+          return Object.assign({}, prev, {
+            profile: {
+              chats: [chat, ...prev.profile.chatRooms.chats],
+              __typename: prev.profile.__typename
+            }
+          })
+        }
+      })
+    };
+
     if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     if (error) return `Error! ${error.message}`;
 
-    _subscribeToNewChatRoom(subscribeToMore)
+    _subscribeToNewChatRoom(subscribeToMore);
+    _subscribeToNewChats(chatsSubscribe);
 
     const newAnnouncementClick = e => {
       e.preventDefault();

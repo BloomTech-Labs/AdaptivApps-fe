@@ -82,8 +82,6 @@ const Input = ({ chatRoom, user }) => {
     const [message, setMessage] = useState('');
     const classes = useStyles();
 
-    console.log('Chat room', chatRoom);
-
     const handleOpen = () => {
         setToggleEmoji(true)
     };
