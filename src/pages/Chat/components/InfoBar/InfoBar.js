@@ -92,6 +92,12 @@ const useStyles = makeStyles(theme => ({
     width: '90%',
     whiteSpace: 'nowrap',
     overflow: 'hidden'
+  },
+  chatRoomDiv: {
+    maxHeight: '80vh',
+    overflowY: 'auto',
+    overflowX: 'hidden',
+    overflow: 'auto'
   }
 }));
 
@@ -108,7 +114,7 @@ function InfoBar({ user }) {
     useEffect(() => {
       refetch();
     }, [refetch]);
-    
+
     const _subscribeToNewChatRoom = subscribeToMore => {
       subscribeToMore({
         document: CHAT_ROOM_SUBSCRIPTION,
@@ -213,7 +219,7 @@ function InfoBar({ user }) {
           </div>
           </>
         ) : null}
-        <div>
+        <div className={classes.chatRoomDiv}>
           {results.length > 0 ? 
             (results.map((chatRoom, id) => (
               <div className={classes.chatroom}>
