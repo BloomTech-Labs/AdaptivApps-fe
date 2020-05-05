@@ -114,9 +114,9 @@ const Input = ({ loading, chatRoom, user, messages }) => {
         })
     };
 
-    const onEmojiClick = (event, emojiObject) => {
+    const onEmojiClick = (e) => {
         setMessage({
-            message: message + emojiObject.native
+            message: message.message + e.native
         });
     }
 
