@@ -8,6 +8,8 @@ import { DELETE_CHAT_ROOM } from '../../queries/ChatRooms'
 // Style Imports
 import Tooltip from '@material-ui/core/Tooltip';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import CancelIcon from '@material-ui/icons/Cancel';
 import Drawer from '@material-ui/core/Drawer';
 import CloseIcon from '@material-ui/icons/Close';
 import Modal from '@material-ui/core/Modal';
@@ -59,15 +61,44 @@ const useStyles = makeStyles(() => ({
     padding: '1% 2% 0 2%',
     borderBottom: '1px solid grey'
   },
-  modal: {
-    position: 'fixed',
-    top: '20%',
-    left: '20%',
-    fontSize: "-webkit-xxx-large",
-}
+  paper: {
+    display: 'flex',
+    flexWrap: 'nowrap',
+    flexDirection: 'column',
+    backgroundColor: 'whitesmoke',
+    position: 'absolute',
+    top: '25%',
+    left: '15%',
+    maxWidth: '35%',
+    maxHeight: '15%',
+    border: '8px solid crimson',
+    boxShadow: '8px 8px 8px black',
+    padding: '1%',
+    fontSize: '2.5rem',
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '1%'
+  },
+  cancelChatDelete: {
+    alignSelf: 'flex-end',
+    fontSize: '2.5rem',
+    marginBottom: '3%',
+    '&:hover': {
+      cursor: 'pointer'
+    }
+  },
+  deleteChat: {
+    fontSize: '4rem',
+    color: 'green',
+    margin: '2% 0%',
+    '&:hover': {
+      cursor: 'pointer'
+    }
+  }
 }));
 
-export default function ChatRoom({ chatRoom, user, refetch }) {
+export default function ChatRoom({ chatRoom, user }) {
     const classes = useStyles();
     const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM);
 
@@ -96,21 +127,33 @@ export default function ChatRoom({ chatRoom, user, refetch }) {
               id: chatRoom.id
           }
       })
+      setEditChatRoom(false)
   }
 
     return (
       <>
         <div className={classes.root}>
-          <Tooltip title="Click to Edit Chatroom">
+          <Tooltip title="Click to Delete Chatroom">
             <PeopleAltIcon 
               className={classes.chatRoomIcon}
               onClick={() => setEditChatRoom(true)}/>
           </Tooltip>
               <Modal
-                className={classes.modal}
+                position="relative"
+                top="10%"
+                left="13%"
                 open={editChatRoom}
                 onClose={() => setEditChatRoom(false)}>
-                {editChatRoom ? <div>hello</div> : null}
+                  {editChatRoom ? (
+                  <div className={classes.paper}>
+                    <Tooltip title="Cancel">
+                    <CancelIcon className={classes.cancelChatDelete} onClick={() => setEditChatRoom(false)} />
+                    </Tooltip>
+                    <p>Delete Chat with {[participants]}?</p>
+                    <Tooltip title="Confirm Delete">
+                    <CheckCircleOutlineIcon className={classes.deleteChat} onClick={deleteRoom}/>
+                    </Tooltip>
+                    </div>) : null}
               </Modal>          
           <Tooltip title="Click to expand messages">
             <button 
@@ -128,7 +171,7 @@ export default function ChatRoom({ chatRoom, user, refetch }) {
             <h1 className={classes.roomTitle}>{participants}</h1>
             <CloseIcon className={classes.closeModal} onClick={closeDrawer} />
           </div>
-          <Messages chatRoom={chatRoom} participants={participants} user={user} refetch={refetch} />
+          <Messages chatRoom={chatRoom} participants={participants} user={user} />
         </Drawer>
       </>
     )

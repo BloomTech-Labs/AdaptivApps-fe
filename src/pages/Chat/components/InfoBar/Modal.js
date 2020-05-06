@@ -73,7 +73,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function RecipientModal({ user, refetch, setOpen }) {
+function RecipientModal({ user, setOpen }) {
     const classes = useStyles();
     const [searchRecipient, setSearchRecipient] = useState("");
     const [results, setResults] = useState([]);
@@ -105,8 +105,7 @@ function RecipientModal({ user, refetch, setOpen }) {
           recipientemail: item.email
         }
       })
-      refetch();
-      setOpen(false)
+      setOpen(false);
     };
 
     const handleChange = e => {
