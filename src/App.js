@@ -89,7 +89,7 @@ function App() {
   });
 
   const wsLink = new WebSocketLink({
-    uri: `ws://${process.env.REACT_APP_WS_URL}`,
+    uri: `wss://${process.env.REACT_APP_WS_URL}`,
     options: {
       reconnect: true,
       connectionParams: {
