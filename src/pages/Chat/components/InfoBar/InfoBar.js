@@ -4,6 +4,7 @@ import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms'
 import { CHAT_SUBSCRIPTION, GET_MESSAGES } from '../../queries/Chats';
 import RecipientModal from './Modal';
 import ChatRoom from './ChatRoom';
+import AnnouncementRoom from './AnnouncementRoom';
 import AnnouncementModal from './AnnouncementModal';
 
 //Auth0 imports
@@ -234,6 +235,8 @@ function InfoBar({ user }) {
           </>
         ) : null}
         <div className={classes.chatRoomDiv}>
+          <AnnouncementRoom key='announcement_room' user={user} refetch={refetch} />
+          <Divider variant="inset" className={classes.divider} />
           {results.length > 0 ? 
             (results.map((chatRoom, id) => (
               <div className={classes.chatroom}>
