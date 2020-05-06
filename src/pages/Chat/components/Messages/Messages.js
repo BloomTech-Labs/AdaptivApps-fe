@@ -40,7 +40,6 @@ const useStyles = makeStyles(theme => ({
   },
   userMessage: {
     backgroundColor: '#2962ff51',
-    lineHeight: '8px',
     padding: '1% 2%',
     fontSize: '1.5rem',
     width: '40%',
