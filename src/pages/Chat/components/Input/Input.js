@@ -60,7 +60,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const Input = ({ chatRoom, user, refetch }) => {
+const Input = ({ chatRoom, user }) => {
     const classes = useStyles();
     const [toggleEmoji, setToggleEmoji] = useState(false)
     
@@ -85,8 +85,6 @@ const Input = ({ chatRoom, user, refetch }) => {
             }
         })
         setMessage({ message: ''})
-        alert('Successfully sent message!');
-        refetch();
     };
 
 

@@ -1,6 +1,4 @@
 import React from 'react';
-import Input from "../Input/Input";
-import PersonIcon from '@material-ui/icons/Person';
 import {
     makeStyles
   } from "@material-ui/core";
@@ -10,7 +8,8 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     border: "none",
-    maxWidth: '95%'
+    maxWidth: '95%',
+    marginLeft: '1%'
   },
   messageText: {
     marginTop: "0",
@@ -18,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: '1.5rem'
   },
   messageHeader: {
-    marginBottom: '4%',
+    marginBottom: '2%',
     padding: '1%'
   },
   sender: {
@@ -29,6 +28,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center',
     marginTop: '1.5%',
+    marginLeft: '3%',
+    width: '97%'
   },
   messageSender: {
     backgroundColor: '#C4C4C480',
@@ -41,25 +42,14 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: '#2962ff51',
     padding: '1% 2%',
     fontSize: '1.5rem',
-    width: '40%',
+    width: '100%',
     borderRadius: '8px'
   },
-  messageIcon: {
-    color: "#2962FF",
-    fontSize: "3rem",
-    margin: "0 5%"
-  },
-  inputDiv: {
-    width: '100%',
-    height: '7.5vh',
-    marginTop: '2%',
-    position: 'absolute',
-    bottom: "0"
-  },
   messageDiv: {
-    maxHeight: '80vh',
+    maxHeight: '90vh',
     overflowY: 'auto',
-    overflowX: 'hidden'
+    overflowX: 'hidden',
+    margin: '0 8%'
   },
   header: {
     fontSize: '2rem',
@@ -67,8 +57,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Messages({ user, chatRoom, participants }) {
+export default function Messages({ chatRoom }) {
   const classes = useStyles();
+
+  // Query for Announcement messages after BE is setup...change messages map, message, title, and change chatRoom prop name
 
   const messages = chatRoom.chats.map((chat, id) => {return {
       id: id,
@@ -86,20 +78,16 @@ export default function Messages({ user, chatRoom, participants }) {
         {messages.map((message) => (
           <>
             <div key={message.id} className={classes.messageBox}>
-              <PersonIcon className={classes.messageIcon} />
-              <div className={message.sender !== user.email ?
-                  classes.messageSender : classes.userMessage}>
+              <div className={classes.userMessage}>
                 <div className={classes.messageHeader}>
-                  {message.sender === user.email ? <span className={classes.sender}>Me</span> : <span className={classes.sender}>{message.firstName} {message.lastName}</span> }
+                  <p className={classes.sender}><strong>From:</strong> ACS Admin</p>
+                  <p className={classes.sender}><strong>Title:</strong> Announcement Title</p>
                 </div>
                 <p className={classes.messageText}>{message.message}</p>
               </div>
             </div>
           </>
         ))}
-      </div>
-      <div className={classes.inputDiv}>
-        <Input chatRoom={chatRoom} user={user} participants={participants}/>
       </div>
     </div>
   )

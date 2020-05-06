@@ -98,7 +98,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function ChatRoom({ chatRoom, user, refetch }) {
+export default function ChatRoom({ chatRoom, user }) {
     const classes = useStyles();
     const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM);
 
@@ -171,7 +171,7 @@ export default function ChatRoom({ chatRoom, user, refetch }) {
             <h1 className={classes.roomTitle}>{participants}</h1>
             <CloseIcon className={classes.closeModal} onClick={closeDrawer} />
           </div>
-          <Messages chatRoom={chatRoom} participants={participants} user={user} refetch={refetch} />
+          <Messages chatRoom={chatRoom} participants={participants} user={user} />
         </Drawer>
       </>
     )

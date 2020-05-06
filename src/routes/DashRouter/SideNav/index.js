@@ -4,6 +4,11 @@ import config from "../../../config/auth_config";
 // Auth0 imports
 import { useAuth0 } from "../../../config/react-auth0-spa";
 
+// Subscription Imports
+import { useQuery } from "react-apollo";
+import { CHAT_SUBSCRIPTION, GET_MESSAGES } from '../../../pages/Chat/queries/Chats';
+import { GET_CHAT_ROOMS } from '../../../pages/Chat/queries/ChatRooms';
+
 // Styling imports
 import NavLink from "./NavLink";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
@@ -127,6 +132,28 @@ function SideNav(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const { refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
+  const { subscribeToMore } = useQuery(GET_MESSAGES, { variables: { email: user.email } });
+
+  const _subscribeToNewChats = subscribeToMore => {
+    subscribeToMore({
+      document: CHAT_SUBSCRIPTION,
+      updateQuery: (prev, {subscriptionData }) => {
+        if (!subscriptionData.data) return prev
+        const chat = subscriptionData.data.chat
+        refetch();
+        return Object.assign({}, prev, {
+          profile: {
+            chats: [chat, ...prev.profile.chats],
+            __typename: prev.profile.__typename
+          }
+        })
+      }
+    })
+  };
+
+  _subscribeToNewChats(subscribeToMore);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
