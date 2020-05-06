@@ -73,6 +73,7 @@ export default function ChatRoom({ chatRoom, user, refetch }) {
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
     };
 
+
     return (
       <>
         <div className={classes.root}>
@@ -82,7 +83,8 @@ export default function ChatRoom({ chatRoom, user, refetch }) {
         <Drawer
           anchor = "right"
           open = {messageToggle}
-          variant = "persistent"
+          onClose={handleClick}
+          variant = "temporary"
           PaperProps = {{ style: { width: "66%" } }}>
           <div className={classes.titleDiv}>
             <h1 className={classes.roomTitle}>{participants}</h1>
