@@ -1,9 +1,9 @@
 // React imports
 import React, { useState } from "react";
 
-// Query & Mutation Imports
-import { useMutation } from "react-apollo";
+// Query Imports
 import { SEND_CHAT } from '../../queries/Chats'
+import { useMutation } from 'react-apollo'
 
 
 //Emoji Picker Import
