@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useQuery } from "react-apollo";
 import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms';
-import { CHAT_SUBSCRIPTION, GET_MESSAGES } from '../../queries/Chats';
 import RecipientModal from './Modal';
 import ChatRoom from './ChatRoom';
 import AnnouncementRoom from './AnnouncementRoom';
@@ -113,7 +112,6 @@ function InfoBar({ user }) {
     const [results, setResults] = useState([]);
 
     const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
-    const { subscribeToMore: chatsSubscribe } = useQuery(GET_MESSAGES, { variables: { email: user.email } });
 
     const _subscribeToNewChatRoom = subscribeToMore => {
       subscribeToMore({
@@ -134,23 +132,6 @@ function InfoBar({ user }) {
       })
     };
 
-    const _subscribeToNewChats = chatsSubscribe => {
-      chatsSubscribe({
-        document: CHAT_SUBSCRIPTION,
-        updateQuery: (prev, {subscriptionData }) => {
-          if (!subscriptionData.data) return prev
-          const chat = subscriptionData.data.chat
-          refetch();
-          return Object.assign({}, prev, {
-            profile: {
-              chats: [chat, ...prev.profile.chats],
-              __typename: prev.profile.__typename
-            }
-          })
-        }
-      })
-    };
-
     if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     if (error) return `Error! ${error.message}`;
 
@@ -159,7 +140,6 @@ function InfoBar({ user }) {
     console.log(announcementRoom);
 
     _subscribeToNewChatRoom(subscribeToMore);
-    _subscribeToNewChats(chatsSubscribe);
 
     const searchRooms = e => {
       e.preventDefault();

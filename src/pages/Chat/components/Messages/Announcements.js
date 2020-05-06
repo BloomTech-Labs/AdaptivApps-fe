@@ -33,7 +33,6 @@ const useStyles = makeStyles(theme => ({
   },
   messageSender: {
     backgroundColor: '#C4C4C480',
-    lineHeight: '8px',
     padding: '1% 2%',
     fontSize: '1.5rem',
     width: '40%',
