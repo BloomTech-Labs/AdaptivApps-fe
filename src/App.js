@@ -89,7 +89,7 @@ function App() {
   });
 
   const wsLink = new WebSocketLink({
-    uri: "ws://localhost:8000/graphql",
+    uri: process.env.REACT_APP_API_URL,
     options: {
       reconnect: true,
       connectionParams: {
