@@ -8,7 +8,10 @@ import {
     makeStyles,
     Box,
     TextField,
-    MenuItem
+    ListItem,
+    Paper,
+    List,
+    ListItemText,
   } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -141,19 +144,23 @@ function RecipientModal({ user, setOpen }) {
                 </InputAdornment>
               }} />
             <div className={classes.root}>
-              <div height={400} width={300} itemSize={46} itemCount={200}>
+              <div>
+              <Paper style={{maxHeight: 200, overflow: 'auto'}}>
+                <List>
                 {results.length > 0 ? 
                   (results.map(item => (
-                    <MenuItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
-                      {`${item.firstName} ${item.lastName}`}
-                    </MenuItem>
+                    <ListItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
+                      <ListItemText primary={`${item.firstName} ${item.lastName}`} />
+                    </ListItem>
                   ))) 
                   : 
                   (data && data?.profiles.map(item => (
-                    <MenuItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
-                      {`${item.firstName} ${item.lastName}`}
-                    </MenuItem>
+                    <ListItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
+                      <ListItemText primary={`${item.firstName} ${item.lastName}`} />
+                    </ListItem>
                 )))}
+                  </List>
+                </Paper>
               </div>
             </div>
           </Box>
