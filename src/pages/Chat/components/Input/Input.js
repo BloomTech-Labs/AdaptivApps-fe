@@ -85,8 +85,6 @@ const Input = ({ chatRoom, user, refetch }) => {
             }
         })
         setMessage({ message: ''})
-        alert('Successfully sent message!');
-        refetch();
     };
 
 
