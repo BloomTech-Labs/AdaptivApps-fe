@@ -89,7 +89,7 @@ function App() {
   });
 
   const wsLink = new WebSocketLink({
-    uri: "ws://localhost:8000/graphql",
+    uri: `wss://${process.env.REACT_APP_WS_URL}`,
     options: {
       reconnect: true,
       connectionParams: {
@@ -97,6 +97,7 @@ function App() {
       }
     }
   });
+
 
   const link = split(
     // split based on operation type

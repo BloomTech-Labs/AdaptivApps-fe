@@ -1,7 +1,10 @@
 // React imports
 import React, { useState } from "react";
-import { useMutation } from "react-apollo";
+
+// Query Imports
 import { SEND_CHAT } from '../../queries/Chats'
+import { useMutation } from 'react-apollo'
+
 
 //Emoji Picker Import
 import 'emoji-mart/css/emoji-mart.css'
@@ -19,8 +22,6 @@ import {
 
 const useStyles = makeStyles(() => ({
     inputDiv: {
-        position: 'absolute',
-        bottom: '3%',
         width: '95%',
         margin: 'auto',
         display: 'flex',
@@ -56,20 +57,22 @@ const useStyles = makeStyles(() => ({
         alignItems: 'center',
         justifyContent: 'flex-end',
         fontSize: "-webkit-xxx-large",
-    },
+    }
 }));
 
 const Input = ({ chatRoom, user, refetch }) => {
-    const [toggleEmoji, setToggleEmoji] = useState(false) 
+    const classes = useStyles();
+    const [toggleEmoji, setToggleEmoji] = useState(false)
+    
     const [sendChat] = useMutation(SEND_CHAT);
     const [message, setMessage] = useState('');
-    const classes = useStyles();
+    
 
-    const handleOpen = () => {
+    const emojiOpen = () => {
         setToggleEmoji(true)
     };
 
-    const handleClose = () => {
+    const emojiClose = () => {
         setToggleEmoji(false)
     };
    
@@ -84,7 +87,8 @@ const Input = ({ chatRoom, user, refetch }) => {
         setMessage({ message: ''})
         alert('Successfully sent message!');
         refetch();
-    };   
+    };
+
 
    const handleChange = e => {
         setMessage({
@@ -120,11 +124,11 @@ const Input = ({ chatRoom, user, refetch }) => {
                     }}
                     />
                 <div className={classes.iconDiv}>
-                    <MoodIcon className={classes.icons} onClick={handleOpen}/>
+                    <MoodIcon className={classes.icons} onClick={emojiOpen}/>
                     <Modal
                         className={classes.modal}
                         open={toggleEmoji}
-                        onClose={handleClose}>
+                        onClose={emojiClose}>
                         {toggleEmoji ? <Picker onClick={onEmojiClick}/> : null}
                     </Modal>
                 </div>

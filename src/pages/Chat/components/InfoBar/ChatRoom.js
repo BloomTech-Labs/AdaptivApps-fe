@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
+
 import Messages from '../Messages/Messages';
+
+import { useMutation } from "react-apollo";
+import { DELETE_CHAT_ROOM } from '../../queries/ChatRooms'
+
+// Style Imports
+import Tooltip from '@material-ui/core/Tooltip';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import Drawer from '@material-ui/core/Drawer';
 import CloseIcon from '@material-ui/icons/Close';
+import Modal from '@material-ui/core/Modal';
 import {
   makeStyles
 } from "@material-ui/core";
@@ -50,12 +58,21 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-between',
     padding: '1% 2% 0 2%',
     borderBottom: '1px solid grey'
-  }
+  },
+  modal: {
+    position: 'fixed',
+    top: '20%',
+    left: '20%',
+    fontSize: "-webkit-xxx-large",
+}
 }));
 
 export default function ChatRoom({ chatRoom, user, refetch }) {
     const classes = useStyles();
+    const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM);
+
     const [messageToggle, setMessageToggle] = useState(false);
+    const [editChatRoom, setEditChatRoom] = useState(false)
 
     const participants = chatRoom.participants.map((participant) =>
     (chatRoom.participants.length > 2 ? 
@@ -73,16 +90,39 @@ export default function ChatRoom({ chatRoom, user, refetch }) {
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
     };
 
+    const deleteRoom = async () => {
+      await deleteChatRoom({
+          variables: {
+              id: chatRoom.id
+          }
+      })
+  }
+
     return (
       <>
         <div className={classes.root}>
-          <PeopleAltIcon className={classes.chatRoomIcon} />
-          <button className={classes.chatRoomButton} onClick={handleClick}>{participants}</button>
+          <Tooltip title="Click to Edit Chatroom">
+            <PeopleAltIcon 
+              className={classes.chatRoomIcon}
+              onClick={() => setEditChatRoom(true)}/>
+          </Tooltip>
+              <Modal
+                className={classes.modal}
+                open={editChatRoom}
+                onClose={() => setEditChatRoom(false)}>
+                {editChatRoom ? <div>hello</div> : null}
+              </Modal>          
+          <Tooltip title="Click to expand messages">
+            <button 
+              className={classes.chatRoomButton} 
+              onClick={handleClick}>{participants}</button>
+          </Tooltip>
         </div>
         <Drawer
           anchor = "right"
           open = {messageToggle}
-          variant = "persistent"
+          onClose={handleClick}
+          variant = "temporary"
           PaperProps = {{ style: { width: "66%" } }}>
           <div className={classes.titleDiv}>
             <h1 className={classes.roomTitle}>{participants}</h1>
