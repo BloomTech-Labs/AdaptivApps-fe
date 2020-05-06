@@ -153,9 +153,9 @@ function SideNav(props) {
         </NavLink>
         {user && user[config.roleUrl].includes("Admin") ? (
           <>
-            <NavLink to="manage" className={classes.navLink}>
+            <NavLink to="createEvent" className={classes.navLink}>
               <HomeIcon className={classes.navIcon} />
-              <p>Manage Events</p>
+              <p>Create Event</p>
             </NavLink>
             <NavLink to="users" className={classes.navLink}>
               <GroupIcon className={classes.navIcon} />
