@@ -152,6 +152,10 @@ function InfoBar({ user }) {
     if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     if (error) return `Error! ${error.message}`;
 
+    const announcementRoom = data?.profile.chatRooms[0];
+
+    console.log(announcementRoom);
+
     _subscribeToNewChatRoom(subscribeToMore);
     _subscribeToNewChats(chatsSubscribe);
 
@@ -235,7 +239,7 @@ function InfoBar({ user }) {
           </>
         ) : null}
         <div className={classes.chatRoomDiv}>
-          <AnnouncementRoom key='announcement_room' user={user} refetch={refetch} />
+          <AnnouncementRoom chatRoom={announcementRoom} key='announcement_room' user={user} refetch={refetch} />
           <Divider variant="inset" className={classes.divider} />
           {results.length > 0 ? 
             (results.map((chatRoom, id) => (

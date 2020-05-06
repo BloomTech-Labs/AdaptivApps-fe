@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Messages from '../Messages/Messages';
+import Announcements from '../Messages/Announcements';
 
 // Style Imports
 import Tooltip from '@material-ui/core/Tooltip';
@@ -65,7 +65,7 @@ const useStyles = makeStyles(() => ({
 }
 }));
 
-export default function AnnouncementRoom({ user, refetch }) {
+export default function AnnouncementRoom({ chatRoom, user, refetch }) {
     const classes = useStyles();
 
     const [messageToggle, setMessageToggle] = useState(false);
@@ -109,7 +109,7 @@ export default function AnnouncementRoom({ user, refetch }) {
             <h1 className={classes.roomTitle}>ACS Announcements</h1>
             <CloseIcon className={classes.closeModal} onClick={closeDrawer} />
           </div>
-          {/* <Messages user={user} refetch={refetch} /> */}
+          <Announcements chatRoom={chatRoom} user={user} refetch={refetch} />
         </Drawer>
       </>
     )
