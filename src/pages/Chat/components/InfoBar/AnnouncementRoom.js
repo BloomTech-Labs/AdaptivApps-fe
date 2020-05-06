@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import Announcements from '../Messages/Announcements';
 
 // Style Imports
@@ -65,8 +64,10 @@ const useStyles = makeStyles(() => ({
 }
 }));
 
-export default function AnnouncementRoom({ chatRoom, user, refetch }) {
+export default function AnnouncementRoom({ chatRoom, user }) {
     const classes = useStyles();
+
+    // Query for Announcement messages after BE is setup...change chatRoom prop name
 
     const [messageToggle, setMessageToggle] = useState(false);
     const [editChatRoom, setEditChatRoom] = useState(false);
@@ -109,7 +110,7 @@ export default function AnnouncementRoom({ chatRoom, user, refetch }) {
             <h1 className={classes.roomTitle}>ACS Announcements</h1>
             <CloseIcon className={classes.closeModal} onClick={closeDrawer} />
           </div>
-          <Announcements chatRoom={chatRoom} user={user} refetch={refetch} />
+          <Announcements chatRoom={chatRoom} user={user} />
         </Drawer>
       </>
     )

@@ -1,5 +1,4 @@
 import React from 'react';
-import PersonIcon from '@material-ui/icons/Person';
 import {
     makeStyles
   } from "@material-ui/core";
@@ -60,8 +59,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Messages({ user, chatRoom }) {
+export default function Messages({ chatRoom }) {
   const classes = useStyles();
+
+  // Query for Announcement messages after BE is setup...change messages map, message, title, and change chatRoom prop name
 
   const messages = chatRoom.chats.map((chat, id) => {return {
       id: id,

@@ -103,6 +103,8 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
+// After BE update for Announcement, change chatRoom prop name, add in query for Announcement messages (or on messages?), setup a subscription for announcements
+
 function InfoBar({ user }) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
@@ -215,7 +217,7 @@ function InfoBar({ user }) {
           BackdropProps={{
             timeout: 500,
           }}>
-          <RecipientModal user={user} refetch={refetch} setOpen={setOpen}/>
+          <RecipientModal user={user} setOpen={setOpen}/>
         </Modal> 
         {user && user[config.roleUrl].includes("Admin") ? 
         (
@@ -239,19 +241,19 @@ function InfoBar({ user }) {
           </>
         ) : null}
         <div className={classes.chatRoomDiv}>
-          <AnnouncementRoom chatRoom={announcementRoom} key='announcement_room' user={user} refetch={refetch} />
+          <AnnouncementRoom chatRoom={announcementRoom} key='announcement_room' user={user} />
           <Divider variant="inset" className={classes.divider} />
           {results.length > 0 ? 
             (results.map((chatRoom, id) => (
               <div className={classes.chatroom}>
-                <ChatRoom chatRoom={chatRoom} key={id} user={user} refetch={refetch} />
+                <ChatRoom chatRoom={chatRoom} key={id} user={user} />
                 <Divider variant="inset" className={classes.divider} />
               </div>
             )))
             :
             (data && data?.profile.chatRooms?.map((chatRoom, id) => (
               <div className={classes.chatroom}>
-                <ChatRoom chatRoom={chatRoom} key={id} user={user} refetch={refetch} />
+                <ChatRoom chatRoom={chatRoom} key={id} user={user} />
                 <Divider variant="inset" className={classes.divider} />
               </div>
             )))
