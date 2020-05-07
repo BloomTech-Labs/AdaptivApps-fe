@@ -119,8 +119,6 @@ function InfoBar({ user }) {
         updateQuery: (prev, {subscriptionData }) => {
           if (!subscriptionData.data) return prev
           const chatRoom = subscriptionData.data.chatRoom
-          const exists = prev.profile.chatRooms.find(({ id }) => id === chatRoom.id);
-          if (exists) return prev;
           refetch();
           return Object.assign({}, prev, {
             profile: {
