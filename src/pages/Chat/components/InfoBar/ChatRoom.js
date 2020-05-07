@@ -105,11 +105,17 @@ export default function ChatRoom({ chatRoom, user }) {
     const [messageToggle, setMessageToggle] = useState(false);
     const [editChatRoom, setEditChatRoom] = useState(false)
 
-    const participants = chatRoom.participants.map((participant) =>
-    (chatRoom.participants.length > 2 ? 
-      participant.email !== user.email && `${participant.firstName} ${participant.lastName}, ` 
-      : 
-      participant.email !== user.email && `${participant.firstName} ${participant.lastName}`));
+
+    const participants = chatRoom.participants.filter((participant) =>
+      participant.email !== user.email && participant)
+
+    const chattingWith = participants.map((participant, index) => {
+      if (participants.length === 1 || index === participants.length - 1) {
+        return `${participant.firstName} ${participant.lastName}`
+        } else {
+        return `${participant.firstName} ${participant.lastName}, `
+        }
+      })
 
     const handleClick = e => {
       e.preventDefault();
@@ -149,7 +155,7 @@ export default function ChatRoom({ chatRoom, user }) {
                     <Tooltip title="Cancel">
                     <CancelIcon className={classes.cancelChatDelete} onClick={() => setEditChatRoom(false)} />
                     </Tooltip>
-                    <p>Delete Chat with {[participants]}?</p>
+                    <p>Delete Chat with {chattingWith}?</p>
                     <Tooltip title="Confirm Delete">
                     <CheckCircleOutlineIcon className={classes.deleteChat} onClick={deleteRoom}/>
                     </Tooltip>
@@ -158,7 +164,7 @@ export default function ChatRoom({ chatRoom, user }) {
           <Tooltip title="Click to expand messages">
             <button 
               className={classes.chatRoomButton} 
-              onClick={handleClick}>{participants}</button>
+              onClick={handleClick}>{chattingWith}</button>
           </Tooltip>
         </div>
         <Drawer
@@ -168,7 +174,7 @@ export default function ChatRoom({ chatRoom, user }) {
           variant = "temporary"
           PaperProps = {{ style: { width: "66%" } }}>
           <div className={classes.titleDiv}>
-            <h1 className={classes.roomTitle}>{participants}</h1>
+            <h1 className={classes.roomTitle}>{chattingWith}</h1>
             <CloseIcon className={classes.closeModal} onClick={closeDrawer} />
           </div>
           <Messages chatRoom={chatRoom} participants={participants} user={user} />
