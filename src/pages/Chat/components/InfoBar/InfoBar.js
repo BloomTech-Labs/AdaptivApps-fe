@@ -178,6 +178,8 @@ function InfoBar({ user }) {
       setAnnouncementOpen(false);
     };
 
+    console.log(data.profile.chatRooms);
+
     return (
       <div className={classes.root}>
         <h1 className={classes.header}>Messages</h1>
@@ -229,7 +231,7 @@ function InfoBar({ user }) {
               </div>
             )))
             :
-            (data && data?.profile.chatRooms ? (data && data?.profile.chatRooms?.map((chatRoom, id) => (
+            (data.profile.chatRooms.length > 0 ? (data && data?.profile.chatRooms?.map((chatRoom, id) => (
               <div className={classes.chatroom}>
                 <ChatRoom chatRoom={chatRoom} key={id} user={user} />
                 <Divider variant="inset" className={classes.divider} />
