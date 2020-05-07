@@ -73,7 +73,8 @@ export default function Messages({ user, chatRoom, participants, messages }) {
   const messagesEndRef = useRef(null)
 
   const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    messagesEndRef.current && messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    
   }
 
   useEffect(() => {
