@@ -92,7 +92,7 @@ function App() {
   // For production, use wss://apollo.adaptivdev.net/graphql
 
   const wsLink = new WebSocketLink({
-    uri: `wss://apollo.adaptivdev.net/graphql`,
+    uri: `ws://localhost:8000/graphql`,
     options: {
       reconnect: true,
       connectionParams: {
