@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import Input from "../Input/Input";
 import PersonIcon from '@material-ui/icons/Person';
 import {
@@ -67,18 +67,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Messages({ user, chatRoom, participants }) {
+export default function Messages({ user, chatRoom, participants, messages }) {
   const classes = useStyles();
 
-  const messages = chatRoom.chats.map((chat, id) => {return {
-      id: id,
-      message: chat.message,
-      createdAt: chat.createdAt,
-      firstName: chat.from.firstName,
-      lastName: chat.from.lastName,
-      sender: chat.from.email
-    }
-  });
+  const messagesEndRef = useRef(null)
+
+  const scrollToBottom = () => {
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [messages])
+
+  
 
   return (
     <div className={classes.root}>
@@ -93,6 +95,7 @@ export default function Messages({ user, chatRoom, participants }) {
                   {message.sender === user.email ? <span className={classes.sender}>Me</span> : <span className={classes.sender}>{message.firstName} {message.lastName}</span> }
                 </div>
                 <p className={classes.messageText}>{message.message}</p>
+                <div ref={messagesEndRef} />
               </div>
             </div>
           </>
