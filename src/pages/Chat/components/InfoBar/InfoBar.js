@@ -231,12 +231,12 @@ function InfoBar({ user }) {
               </div>
             )))
             :
-            (data && data?.profile.chatRooms?.map((chatRoom, id) => (
+            (data && data?.profile.chatRooms ? (data && data?.profile.chatRooms?.map((chatRoom, id) => (
               <div className={classes.chatroom}>
                 <ChatRoom chatRoom={chatRoom} key={id} user={user} />
                 <Divider variant="inset" className={classes.divider} />
               </div>
-            )))
+            ))) : null)
           }
         </div>
           <Box component="div" className={classes.box}>

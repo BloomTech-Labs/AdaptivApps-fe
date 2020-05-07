@@ -91,7 +91,6 @@ function RecipientModal({ user, setOpen }) {
       });
 
       filter.filter(user => {
-        console.log('User', user)
         if (user[0].includes(searchRecipient.toLowerCase())) {
           results.push(user[1])
           return results;
