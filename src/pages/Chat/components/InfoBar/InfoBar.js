@@ -133,9 +133,7 @@ function InfoBar({ user }) {
     if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     if (error) return `Error! ${error.message}`;
 
-    const announcementRoom = data?.profile.chatRooms ? data?.profile.chatRooms[0] : null;
-
-    console.log(announcementRoom);
+    const announcementRoom = data?.profile.chatRooms === undefined ? null : data?.profile.chatRooms[0];
 
     _subscribeToNewChatRoom(subscribeToMore);
 
@@ -177,8 +175,6 @@ function InfoBar({ user }) {
     const handleAnnouncementClose = () => {
       setAnnouncementOpen(false);
     };
-
-    console.log(data.profile.chatRooms);
 
     return (
       <div className={classes.root}>
@@ -231,12 +227,13 @@ function InfoBar({ user }) {
               </div>
             )))
             :
-            (data.profile.chatRooms.length > 0 ? (data && data?.profile.chatRooms?.map((chatRoom, id) => (
+            (data.profile.chatRooms === undefined ? null : 
+            (data && data?.profile.chatRooms?.map((chatRoom, id) => (
               <div className={classes.chatroom}>
                 <ChatRoom chatRoom={chatRoom} key={id} user={user} />
                 <Divider variant="inset" className={classes.divider} />
               </div>
-            ))) : null)
+            ))))
           }
         </div>
           <Box component="div" className={classes.box}>

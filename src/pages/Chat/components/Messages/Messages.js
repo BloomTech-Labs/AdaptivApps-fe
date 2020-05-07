@@ -30,6 +30,12 @@ const useStyles = makeStyles(theme => ({
     alignItems: 'center',
     marginTop: '1.5%',
   },
+  messageBoxRight: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginTop: '1.5%',
+  },
   messageSender: {
     backgroundColor: '#C4C4C480',
     padding: '1% 2%',
@@ -73,22 +79,19 @@ export default function Messages({ user, chatRoom, participants, messages }) {
   const messagesEndRef = useRef(null)
 
   const scrollToBottom = () => {
-    messagesEndRef.current && messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
-    
-  }
+    messagesEndRef.current && messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  };
 
   useEffect(() => {
     scrollToBottom()
-  }, [messages])
-
-  
+  }, [messages]);
 
   return (
     <div className={classes.root}>
       <div className={classes.messageDiv}>
         {messages.map((message) => (
           <>
-            <div key={message.id} className={classes.messageBox}>
+            <div key={message.id} className={message.sender !== user.email ? classes.messageBox : classes.messageBoxRight}>
               <PersonIcon className={classes.messageIcon} />
               <div className={message.sender !== user.email ?
                   classes.messageSender : classes.userMessage}>
