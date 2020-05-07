@@ -8,7 +8,10 @@ import {
     makeStyles,
     Box,
     TextField,
-    MenuItem
+    ListItem,
+    Paper,
+    List,
+    ListItemText,
   } from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -59,9 +62,21 @@ const useStyles = makeStyles(theme => ({
       outline: "none"
     }
   },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontSize: "-webkit-xxx-large",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
 }));
 
-function RecipientModal({ user, refetch, setOpen }) {
+function RecipientModal({ user, setOpen }) {
     const classes = useStyles();
     const [searchRecipient, setSearchRecipient] = useState("");
     const [results, setResults] = useState([]);
@@ -93,8 +108,7 @@ function RecipientModal({ user, refetch, setOpen }) {
           recipientemail: item.email
         }
       })
-      refetch();
-      setOpen(false)
+      setOpen(false);
     };
 
     const handleChange = e => {
@@ -130,19 +144,23 @@ function RecipientModal({ user, refetch, setOpen }) {
                 </InputAdornment>
               }} />
             <div className={classes.root}>
-              <div height={400} width={300} itemSize={46} itemCount={200}>
+              <div>
+              <Paper style={{maxHeight: 200, overflow: 'auto'}}>
+                <List>
                 {results.length > 0 ? 
                   (results.map(item => (
-                    <MenuItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
-                      {`${item.firstName} ${item.lastName}`}
-                    </MenuItem>
+                    <ListItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
+                      <ListItemText primary={`${item.firstName} ${item.lastName}`} />
+                    </ListItem>
                   ))) 
                   : 
                   (data && data?.profiles.map(item => (
-                    <MenuItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
-                      {`${item.firstName} ${item.lastName}`}
-                    </MenuItem>
+                    <ListItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
+                      <ListItemText primary={`${item.firstName} ${item.lastName}`} />
+                    </ListItem>
                 )))}
+                  </List>
+                </Paper>
               </div>
             </div>
           </Box>

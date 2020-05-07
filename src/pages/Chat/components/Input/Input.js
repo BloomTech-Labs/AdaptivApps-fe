@@ -1,9 +1,9 @@
 // React imports
 import React, { useState } from "react";
 
-// Query & Mutation Imports
-import { useMutation } from "react-apollo";
+// Query Imports
 import { SEND_CHAT } from '../../queries/Chats'
+import { useMutation } from 'react-apollo'
 
 
 //Emoji Picker Import
@@ -60,7 +60,7 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-const Input = ({ chatRoom, user, refetch }) => {
+const Input = ({ chatRoom, user }) => {
     const classes = useStyles();
     const [toggleEmoji, setToggleEmoji] = useState(false)
     
@@ -85,8 +85,6 @@ const Input = ({ chatRoom, user, refetch }) => {
             }
         })
         setMessage({ message: ''})
-        alert('Successfully sent message!');
-        refetch();
     };
 
 
