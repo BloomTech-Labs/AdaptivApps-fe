@@ -64,6 +64,10 @@ Why did you choose this framework?
 
 #### Front end deployed to `AWS`
 
+When deploying, in `App.js` change the `wsLink uri` to be `wss://apollo.adaptivdev.net/graphql` - if it isn't changed from the local endpoint websocket connection will fail and product Network / GraphQL authentication errors.
+
+When testing locally, in `App.js` change the `wsLink uri` to be `ws://localhost:8000/graphql` - if it isn't changed from the porduction endpoint websocket connection will fail and produce Network / GraphQL authentication errors.
+
 #### [Back end](https://github.com/Lambda-School-Labs/AdaptivApps-be) built using:
 
 #### **Prismatopia(graphQL, Apollo, Prisma)**
