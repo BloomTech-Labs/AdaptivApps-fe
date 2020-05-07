@@ -117,6 +117,16 @@ export default function ChatRoom({ chatRoom, user }) {
         }
       })
 
+      const messages = chatRoom.chats.map((chat, id) => {return {
+        id: id,
+        message: chat.message,
+        createdAt: chat.createdAt,
+        firstName: chat.from.firstName,
+        lastName: chat.from.lastName,
+        sender: chat.from.email
+      }
+    });
+
     const handleClick = e => {
       e.preventDefault();
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
@@ -177,7 +187,7 @@ export default function ChatRoom({ chatRoom, user }) {
             <h1 className={classes.roomTitle}>{chattingWith}</h1>
             <CloseIcon className={classes.closeModal} onClick={closeDrawer} />
           </div>
-          <Messages chatRoom={chatRoom} participants={participants} user={user} />
+          <Messages chatRoom={chatRoom} participants={participants} user={user} messages={messages} />
         </Drawer>
       </>
     )
