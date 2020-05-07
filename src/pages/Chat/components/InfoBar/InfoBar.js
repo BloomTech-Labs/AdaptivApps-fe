@@ -135,7 +135,7 @@ function InfoBar({ user }) {
     if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     if (error) return `Error! ${error.message}`;
 
-    const announcementRoom = data?.profile.chatRooms[0];
+    const announcementRoom = data?.profile.chatRooms ? data?.profile.chatRooms[0] : null;
 
     console.log(announcementRoom);
 
