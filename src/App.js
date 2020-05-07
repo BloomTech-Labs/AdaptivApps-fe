@@ -90,11 +90,7 @@ function App() {
 
   var location = window.location, new_uri;
 
-  if (location.protocol === "https:") {
-      new_uri = "wss://";
-  } else {
-      new_uri = "ws://";
-  };
+  location.protocol === "https:" ? new_uri = "wss://" : new_uri = "ws://";
 
   const wsLink = new WebSocketLink({
     uri: `${new_uri}${process.env.REACT_APP_WS_URL}`,
