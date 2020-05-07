@@ -88,11 +88,16 @@ function App() {
     credentials: "same-origin", 
   });
 
-  // For local env, use ws://localhost:8000/graphql
-  // For production, use wss://apollo.adaptivdev.net/graphql
+  var location = window.location, new_uri;
+
+  if (location.protocol === "https:") {
+      new_uri = "wss://";
+  } else {
+      new_uri = "ws://";
+  };
 
   const wsLink = new WebSocketLink({
-    uri: `ws://localhost:8000/graphql`,
+    uri: `${new_uri}${process.env.REACT_APP_WS_URL}`,
     options: {
       reconnect: true,
       connectionParams: {
