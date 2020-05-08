@@ -1,10 +1,11 @@
 import React from "react";
 import { makeStyles, Box, Typography } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { useMutation } from "react-apollo";
-import { CREATE_ACTIVITY } from "./graphql";
-
+import { useMutation, useQuery } from "react-apollo";
+import { CREATE_ACTIVITY, GET_ACTIVITIES } from "./graphql";
+import { useParams } from '@reach/router';
 import ActivityForm from "./ActivityForm";
+import ActivityList from "./ActivityList";
 
 const useStyles = makeStyles({
   root: {
@@ -26,8 +27,15 @@ const useStyles = makeStyles({
 });
 
 export default function CreateActivity() {
-  const [createActivity, { data, error, loading }] = useMutation(CREATE_ACTIVITY);
+  const { eventId } = useParams();
+  const [createActivity, { error, loading }] = useMutation(CREATE_ACTIVITY);
+  const { data, refetch } = useQuery(GET_ACTIVITIES, {
+    variables: {
+      id: eventId,
+    },
+  });
   const classes = useStyles();
+  console.log('inside CreateActivity', data);
 
   return (
     <main className={classes.root}>
@@ -37,7 +45,10 @@ export default function CreateActivity() {
         </Typography>
       </Box>
       <Box>
-        <ActivityForm createActivity={createActivity} data={data} />
+        <ActivityForm createActivity={createActivity} eventId={eventId} refetch={refetch} />
+      </Box>
+      <Box>
+        <ActivityList data={data} />
       </Box>
     </main>
   );

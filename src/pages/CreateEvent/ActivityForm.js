@@ -1,8 +1,6 @@
 // React imports
 import React from 'react';
 import { useForm, Controller } from "react-hook-form";
-// Reach Router imports
-import { useParams } from '@reach/router';
 // Material-UI imports
 import {
   makeStyles,
@@ -12,6 +10,7 @@ import {
   MenuItem,
   Button,
 } from "@material-ui/core";
+
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -29,14 +28,12 @@ const useStyles = makeStyles(theme => ({
   form: { display: "flex", flexDirection: "column", width: "400px" },
 }));
 
-export default function ActivityForm({ createActivity }) {
+export default function ActivityForm({ createActivity, eventId, refetch }) {
   const classes = useStyles();
-  const { eventId } = useParams();
   const { register, handleSubmit, errors, control } = useForm();
-
+  
   const onSubmit = async formValues => {
-    console.log(eventId)
-    const { data } = await createActivity({
+    await createActivity({
       variables: {
         name: formValues.name,
         type: formValues.type,
@@ -53,6 +50,7 @@ export default function ActivityForm({ createActivity }) {
       },
     });
     alert("Successfully created an activity!");
+    await refetch();
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
@@ -214,6 +212,5 @@ export default function ActivityForm({ createActivity }) {
         Add
       </Button>
     </form>
-    {activi}
   )
 }
