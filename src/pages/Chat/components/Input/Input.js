@@ -12,7 +12,7 @@ import { Picker } from 'emoji-mart'
 
 //Styling Imports
 import InputAdornment from '@material-ui/core/InputAdornment';
-import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import SendIcon from '@material-ui/icons/Send';
 import MoodIcon from '@material-ui/icons/Mood';
 import Modal from '@material-ui/core/Modal';
 import {
@@ -46,8 +46,6 @@ const useStyles = makeStyles(() => ({
     sendMessageIcon: {
         color: '#2962FF',
         fontSize: '3rem',
-        border: '2px solid #2962FF',
-        borderRadius: '50px',
         '&:hover': {
             cursor: "pointer",
           }, 
@@ -115,7 +113,7 @@ const Input = ({ chatRoom, user }) => {
                     onChange={handleChange}
                     InputProps={{
                         endAdornment: <InputAdornment position="end">
-                        <KeyboardArrowRightIcon
+                        <SendIcon
                         className={classes.sendMessageIcon} 
                         onClick={newMessage} />
                     </InputAdornment>
