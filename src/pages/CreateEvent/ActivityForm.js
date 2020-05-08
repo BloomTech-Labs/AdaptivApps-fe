@@ -214,5 +214,6 @@ export default function ActivityForm({ createActivity }) {
         Add
       </Button>
     </form>
+    {activi}
   )
 }

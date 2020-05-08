@@ -233,3 +233,24 @@ export const CREATE_ACTIVITY = gql`
     }
   }
 `;
+
+export const GET_ACTIVITIES = gql`
+  query getEventActivities($id: ID!) {
+    event(where: { id: $id }) {
+      id
+      title
+      date
+      location
+      activities {
+        id
+        name
+        date
+        location
+        startTime
+        endTime
+        type
+        details
+      }
+    }
+  }
+`;
