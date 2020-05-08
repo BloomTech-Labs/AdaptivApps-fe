@@ -37,7 +37,7 @@ export default function CreateActivity() {
         </Typography>
       </Box>
       <Box>
-        <ActivityForm createActivity={createActivity} />
+        <ActivityForm createActivity={createActivity} data={data} />
       </Box>
     </main>
   );

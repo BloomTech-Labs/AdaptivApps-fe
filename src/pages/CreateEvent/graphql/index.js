@@ -216,20 +216,20 @@ export const CREATE_ACTIVITY = gql`
   ) {
     createActivity(
       data: {
-        name: $String!
-        type: $String!
-        sportType: $String!
-        date: $String!
-        location: $String!
-        link: $String
-        startTime: $String!
-        endTime: $String
-        details: $String
-        coaches: $String!
+        name: $name
+        type: $type
+        sportType: $sportType
+        date: $date
+        location: $location
+        link: $link
+        startTime: $startTime
+        endTime: $endTime
+        details: $details
+        coaches: $coaches
         event: { connect: { id: $eventId } }
       }
     ) {
       id
     }
   }
-`
+`;
