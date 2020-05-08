@@ -33,27 +33,30 @@ const useStyles = makeStyles(theme => ({
   messageBoxRight: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    alignSelf: 'flex-end',
+    flexDirection: 'row-reverse',
     marginTop: '1.5%',
   },
   messageSender: {
-    backgroundColor: '#C4C4C480',
+    backgroundColor: 'rgba(196, 196, 196, 0.25)',
     padding: '1% 2%',
     fontSize: '1.5rem',
-    width: '40%',
+    width: '50%',
     borderRadius: '8px'
   },
   userMessage: {
-    backgroundColor: '#2962ff51',
+    backgroundColor: 'rgba(41, 98, 255, 0.11)',
     padding: '1% 2%',
     fontSize: '1.5rem',
-    width: '40%',
+    width: '50%',
     borderRadius: '8px'
   },
   messageIcon: {
     color: "#2962FF",
     fontSize: "3rem",
-    margin: "0 5%"
+    margin: "0 3%",
+    border: '1px solid #2962FF',
+    borderRadius: '50px'
   },
   inputDiv: {
     width: '100%',
