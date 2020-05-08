@@ -1,7 +1,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/9030c05fde6af8c35028/maintainability)](https://codeclimate.com/github/Lambda-School-Labs/AdaptivApps-fe/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/9030c05fde6af8c35028/test_coverage)](https://codeclimate.com/github/Lambda-School-Labs/AdaptivApps-fe/test_coverage)
 
-# AdaptivApps
+# Angel City Sports
 
 You can find the deployed project at [adaptivapps](https://adaptivdev.net/).
 
