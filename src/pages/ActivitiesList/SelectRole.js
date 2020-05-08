@@ -73,8 +73,6 @@ export default function SimplePopover({ activity, activityData }) {
   );
 
   const athleteRegister = async () => {
-    console.log("participantIdValue", participantIdValue);
-    console.log("participant", participant);
     await registerAsAthlete({
       variables: {
         participantId: participantIdValue,
@@ -87,8 +85,6 @@ export default function SimplePopover({ activity, activityData }) {
   };
 
   const coachRegister = async () => {
-    console.log("participantIdValue", participantIdValue);
-    console.log("participant", participant);
     await registerAsCoach({
       variables: {
         participantId: participantIdValue,
@@ -101,8 +97,6 @@ export default function SimplePopover({ activity, activityData }) {
   };
 
   const volunteerRegister = async () => {
-    console.log("participantIdValue", participantIdValue);
-    console.log("participant", participant);
     await registerAsVolunteer({
       variables: {
         participantId: participantIdValue,
@@ -115,8 +109,6 @@ export default function SimplePopover({ activity, activityData }) {
   };
 
   const spectatorRegister = async () => {
-    console.log("participantIdValue", participantIdValue);
-    console.log("participant", participant);
     await registerAsSpectator({
       variables: {
         participantId: participantIdValue,

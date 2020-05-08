@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { makeStyles, Box, Typography } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { useAuth0 } from "../../config/react-auth0-spa";
+import { useQuery, useMutation } from "react-apollo";
+import { CREATE_EVENT, GET_EVENTS } from "./graphql";
 
 import EventForm from "./EventForm";
 
@@ -24,7 +27,9 @@ const useStyles = makeStyles({
 });
 
 export default function CreateEvent() {
+  const [createEvent, { data, error, loading }] = useMutation(CREATE_EVENT);
   const classes = useStyles();
+
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
@@ -33,7 +38,7 @@ export default function CreateEvent() {
         </Typography>
       </Box>
       <Box>
-        <EventForm />
+        <EventForm createEvent={createEvent} data={data} />
       </Box>
     </main>
   );

@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
+import { Link } from "@reach/router";
+import { useNavigate } from "@reach/router";
 
 import {
   makeStyles,
@@ -26,16 +28,43 @@ const useStyles = makeStyles(theme => ({
       width: "100%",
     },
   },
+  form: { display: "flex", flexDirection: "column", width: "400px" },
 }));
 
-export default function EventForm() {
+export default function EventForm({ createEvent }) {
   const classes = useStyles();
+  const navigate = useNavigate();
   const { register, handleSubmit, errors, control } = useForm();
-  const onSubmit = data => console.log(data);
-  console.log(errors);
 
+  const onSubmit = async (formValues, e) => {
+    const { data } = await createEvent({
+      variables: {
+        type: formValues.type,
+        sportType: formValues.sportType,
+        tags: formValues.tags,
+        title: formValues.title,
+        host: formValues.host,
+        coaches: formValues.coaches,
+        speakers: formValues.speakers,
+        date: formValues.date,
+        startTime: formValues.startTime,
+        endTime: formValues.endTime,
+        location: formValues.location,
+        link: formValues.link,
+        sponsors: formValues.sponsors,
+        imgUrl: formValues.imgUrl,
+        details: formValues.details,
+      },
+    });
+
+    alert("Successfully created an event!");
+    await navigate(`/createEvent/${data?.createEvent?.id}`);
+  };
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
+      <InputLabel className={classes.inputLabel} htmlFor="type">
+        Event Type
+      </InputLabel>
       <Controller
         as={
           <Select>
@@ -48,6 +77,9 @@ export default function EventForm() {
         control={control}
         ref={register({ required: true })}
       />
+      <InputLabel className={classes.inputLabel} htmlFor="sportType">
+        Sport Type
+      </InputLabel>
       <Controller
         as={
           <Select>
@@ -67,6 +99,9 @@ export default function EventForm() {
         control={control}
         ref={register({ required: true })}
       />
+      <InputLabel className={classes.inputLabel} htmlFor="tags">
+        Meta Tags
+      </InputLabel>
       <Controller
         as={<TextField />}
         type="text"
@@ -76,6 +111,9 @@ export default function EventForm() {
         variant="outlined"
         control={control}
       />
+      <InputLabel className={classes.inputLabel} htmlFor="title">
+        Event Title
+      </InputLabel>
       <Controller
         as={<TextField />}
         type="text"
@@ -85,24 +123,33 @@ export default function EventForm() {
         control={control}
         ref={register({ required: true, maxLength: 255 })}
       />
+      <InputLabel className={classes.inputLabel} htmlFor="host">
+        Who's Hosting the Event?
+      </InputLabel>
       <Controller
         as={<TextField />}
-        type="search"
+        type="text"
         placeholder="host"
         name="host"
         variant="outlined"
         control={control}
         ref={register({ required: true })}
       />
+      <InputLabel className={classes.inputLabel} htmlFor="coaches">
+        Who's Coaching the Event?
+      </InputLabel>
       <Controller
         as={<TextField />}
-        type="search"
+        type="text"
         placeholder="coaches"
         name="coaches"
         variant="outlined"
         control={control}
         ref={register({ required: true })}
       />
+      <InputLabel className={classes.inputLabel} htmlFor="speakers">
+        Who's Speaking at the Event?
+      </InputLabel>
       <Controller
         as={<TextField />}
         type="text"
@@ -112,6 +159,9 @@ export default function EventForm() {
         control={control}
         ref={register({ maxLength: 255 })}
       />
+      <InputLabel className={classes.inputLabel} htmlFor="date">
+        Date
+      </InputLabel>
       <Controller
         as={<TextField />}
         type="date"
@@ -121,6 +171,9 @@ export default function EventForm() {
         control={control}
         ref={register({ required: true })}
       />
+      <InputLabel className={classes.inputLabel} htmlFor="startTime">
+        What time does the event start?
+      </InputLabel>
       <Controller
         as={<TextField />}
         type="time"
@@ -130,6 +183,9 @@ export default function EventForm() {
         control={control}
         ref={register({ required: true })}
       />
+      <InputLabel className={classes.inputLabel} htmlFor="endTime">
+        What time does the event end?
+      </InputLabel>
       <Controller
         as={<TextField />}
         type="time"
@@ -139,6 +195,9 @@ export default function EventForm() {
         control={control}
         ref={register({ required: true })}
       />
+      <InputLabel className={classes.inputLabel} htmlFor="location">
+        Where is the event location?
+      </InputLabel>
       <Controller
         as={<TextField />}
         type="text"
@@ -148,6 +207,9 @@ export default function EventForm() {
         control={control}
         ref={register({ required: true, maxLength: 255 })}
       />
+      <InputLabel className={classes.inputLabel} htmlFor="link">
+        Is there a zoom link?
+      </InputLabel>
       <Controller
         as={<TextField />}
         type="text"
@@ -157,6 +219,9 @@ export default function EventForm() {
         control={control}
         ref={register}
       />
+      <InputLabel className={classes.inputLabel} htmlFor="sponsors">
+        Who are the sponsors?
+      </InputLabel>
       <Controller
         as={<TextField />}
         type="text"
@@ -166,6 +231,9 @@ export default function EventForm() {
         control={control}
         ref={register({ required: true })}
       />
+      <InputLabel className={classes.inputLabel} htmlFor="imgUrl">
+        Find an image on the internet and pase the URL here!
+      </InputLabel>
       <Controller
         as={<TextField />}
         type="text"
@@ -175,10 +243,15 @@ export default function EventForm() {
         control={control}
         ref={register}
       />
+      <InputLabel className={classes.inputLabel} htmlFor="details">
+        Event details
+      </InputLabel>
       <Controller
         as={<TextField />}
         name="details"
         variant="outlined"
+        multiline
+        rows="8"
         control={control}
         ref={register({ required: true, maxLength: 510 })}
       />
@@ -189,7 +262,7 @@ export default function EventForm() {
         color="primary"
         type="submit"
         aria-label="Click here to create an event"
-        onClick={() => console.log("created an event")}
+        onClick={handleSubmit}
       >
         Save
       </Button>
