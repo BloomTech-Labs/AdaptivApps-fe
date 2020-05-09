@@ -106,7 +106,7 @@ export default function EventCard({ event }) {
             color="textSecondary"
             component="p"
           >
-            {event.startDate} - {event.endDate}
+            {event.date} - {event.date}
           </Typography>
           <Typography
             className={classes.cardTitle}

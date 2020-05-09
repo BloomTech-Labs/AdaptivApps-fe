@@ -45,7 +45,7 @@ export default function Activities({ activity, activityData }) {
       <td className={classes.nameLink}>
         <SimpleModal activity={activity} activityData={activityData} />
       </td>
-      <td className={classes.tableData}>{activity.startDate}</td>
+      <td className={classes.tableData}>{activity.date}</td>
       {activityData.event.type === "In Person" ? (
         <td className={classes.tableData}>{activity.location}</td>
       ) : null}
