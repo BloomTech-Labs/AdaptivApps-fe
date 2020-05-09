@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 // Apollo-GraphQL imports
 import { useMutation } from 'react-apollo';
 import { DELETE_ACTIVITY } from './graphql';
+// Component imports
+import DeleteModal from '../../theme/DeleteModal';
 // Material-UI imports
 import { makeStyles, Button } from "@material-ui/core";
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
@@ -26,8 +28,27 @@ export default function Activity({ activity }) {
   const classes = useStyles();
   const [DeleteActivity] = useMutation(DELETE_ACTIVITY);
 
-  
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const body = (
+    <>
+      <p>{activity.name}</p>
+      <p>{activity.date}</p>
+      <p>{activity.location}</p>
+      <p>{activity.startTime} - {activity.endTime}</p>
+      <p>Delete this activity?</p>
+    </>
+  );
   return (
+    <>
     <tbody className={classes.root}>
       <tr>
         <td>{activity.name}</td>
@@ -37,10 +58,13 @@ export default function Activity({ activity }) {
         <Button>
           <EditOutlinedIcon color="primary" fontSize="large"/>
         </Button>
-        <Button>
+        <Button onClick={handleOpen}>
           <DeleteOutlineIcon color="primary" fontSize="large" />  
         </Button>
+        
       </tr>
     </tbody>
+    <DeleteModal open={open} body={body} handleClose={handleClose} />
+    </>
   )
 }
