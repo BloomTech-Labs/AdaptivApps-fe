@@ -197,3 +197,60 @@ export const UPDATE_EVENT = gql`
     }
   }
 `;
+
+
+////////////// Activity Creation ///////////////
+export const CREATE_ACTIVITY = gql`
+  mutation CreateActivity(
+    $name: String!
+    $type: String!
+    $sportType: String!
+    $date: String!
+    $location: String!
+    $link: String
+    $startTime: String!
+    $endTime: String
+    $details: String
+    $coaches: String!
+    $eventId: ID!
+  ) {
+    createActivity(
+      data: {
+        name: $name
+        type: $type
+        sportType: $sportType
+        date: $date
+        location: $location
+        link: $link
+        startTime: $startTime
+        endTime: $endTime
+        details: $details
+        coaches: $coaches
+        event: { connect: { id: $eventId } }
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+export const GET_ACTIVITIES = gql`
+  query getEventActivities($id: ID!) {
+    event(where: { id: $id }) {
+      id
+      title
+      date
+      location
+      activities {
+        id
+        name
+        date
+        location
+        startTime
+        endTime
+        type
+        details
+      }
+    }
+  }
+`;
