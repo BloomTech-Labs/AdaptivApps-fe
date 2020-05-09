@@ -27,11 +27,20 @@ const useStyles = makeStyles((theme) => ({
   },
   deleteBtn: {
     background: "#2962FF",
-    color: "white"
+    color: "white",
+    '&:hover': {
+      border: "1px solid #2962FF",
+      background: "white",
+      color: "#2962FF"
+    },
   },
   closeBtn: {
     color: "primary",
-    border: "1px solid #2962FF"
+    border: "1px solid #2962FF",
+    '&:hover': {
+      color: "white",
+      background: "#2962FF"
+    },
   }
 }));
 
