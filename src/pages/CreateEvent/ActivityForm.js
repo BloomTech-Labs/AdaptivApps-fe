@@ -11,7 +11,6 @@ import {
   Button,
 } from "@material-ui/core";
 
-
 const useStyles = makeStyles(theme => ({
   button: {
     marginTop: "3rem",
@@ -32,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   form: { display: "flex", flexDirection: "column", width: "400px" },
 }));
 
-export default function ActivityForm({ createActivity, eventId, refetch }) {
+export default function ActivityForm({ data, createActivity, eventId, refetch }) {
   const classes = useStyles();
   const { register, handleSubmit, errors, control } = useForm();
   

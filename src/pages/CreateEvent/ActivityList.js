@@ -6,7 +6,18 @@ import { makeStyles, Box, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginLeft: "3rem"
+    marginLeft: "3rem",
+    "& tr": {
+      display: "flex",
+    },
+    "& th": {
+      margin: "0",
+      fontWeight: 550,
+      fontSize: "1.6rem",
+      width: "15rem",
+      padding: "1% 1% 2% 0",
+      textAlign: "left",
+    },
   },
   subHeadings: {
     color: '#808080',
@@ -34,11 +45,20 @@ export default function ActivityList({ data }) {
           </p>
         </>
       ) : (
-        <>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Date</th>
+              <th>Location</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+        
           {data?.event?.activities.map((activity, id) => (
             <Activity key={id} activity={activity} />
           ))}
-        </>
+        </table>
       )}
     </div>
   );

@@ -254,3 +254,49 @@ export const GET_ACTIVITIES = gql`
     }
   }
 `;
+
+export const DELETE_ACTIVITY = gql`
+  mutation DeleteActivity($id: ID!) {
+    deleteActivity(where: { id: $id }) {
+      id
+    }
+  }
+`;
+
+export const UPDATE_ACTIVITY = gql`
+  mutation UpdateActivity(
+    $id: ID!
+    $name: String!
+    $startDate: String!
+    $startTime: String!
+    $location: String
+    $link: String
+    $type: String
+    $details: String
+  ) {
+    updateActivity(
+      data: {
+        name: $name
+        startDate: $startDate
+        startTime: $startTime
+        location: $location
+        link: $link
+        type: $type
+        details: $details
+      }
+      where: { id: $id }
+    ) {
+      id
+      name
+      startDate
+      startTime
+      location
+      link
+      type
+      details
+      event {
+        title
+      }
+    }
+  }
+`;
