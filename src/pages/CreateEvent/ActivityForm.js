@@ -16,10 +16,14 @@ const useStyles = makeStyles(theme => ({
   button: {
     marginTop: "3rem",
     border: "1px solid #2962FF",
-    color: "#2962FF",
+    background: "#2962FF",
+    color: "#FFFFFF",
     height: "4rem",
     width: "8rem",
-    fontSize: "1.2rem",
+    "& .MuiButton-label": {
+      fontSize: "1.6rem",
+      fontWeight: 500,
+    },
     textTransform: "none",
     [theme.breakpoints.down("sm")]: {
       width: "100%",
@@ -204,7 +208,6 @@ export default function ActivityForm({ createActivity, eventId, refetch }) {
       <Button
         className={classes.button}
         variant="outlined"
-        color="primary"
         type="submit"
         aria-label="Click here to add an activity"
         onClick={handleSubmit}
