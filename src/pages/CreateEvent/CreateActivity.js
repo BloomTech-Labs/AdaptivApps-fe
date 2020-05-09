@@ -1,11 +1,15 @@
 import React from "react";
-import { makeStyles, Box, Typography } from "@material-ui/core";
-import CircularProgress from "@material-ui/core/CircularProgress";
+// Reach Router imports
+import { useParams } from '@reach/router';
+// Apollo-GraphQL imports
 import { useMutation, useQuery } from "react-apollo";
 import { CREATE_ACTIVITY, GET_ACTIVITIES } from "./graphql";
-import { useParams } from '@reach/router';
+// Component imports
 import ActivityForm from "./ActivityForm";
 import ActivityList from "./ActivityList";
+// Material-UI imports
+import { makeStyles, Box, Typography, Container } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles({
   root: {
@@ -24,6 +28,10 @@ const useStyles = makeStyles({
     right: "50%",
     color: "#2763FF",
   },
+  activityCreation: {
+    display: "flex",
+    justifyContent: "space-between"
+  }
 });
 
 export default function CreateActivity() {
@@ -44,12 +52,14 @@ export default function CreateActivity() {
           Add Activities to an Event
         </Typography>
       </Box>
-      <Box>
-        <ActivityForm createActivity={createActivity} eventId={eventId} refetch={refetch} />
-      </Box>
-      <Box>
-        <ActivityList data={data} />
-      </Box>
+      <Container className={classes.activityCreation}>
+        <Box>
+          <ActivityForm createActivity={createActivity} eventId={eventId} refetch={refetch} />
+        </Box>
+        <Box>
+          <ActivityList data={data} />
+        </Box>
+      </Container>
     </main>
   );
 }
