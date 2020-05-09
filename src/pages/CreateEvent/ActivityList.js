@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ActivityList({ data }) {
+export default function ActivityList({ data, refetch }) {
   const classes = useStyles();
   console.log("inside ActivityList", data);
   return (
@@ -56,7 +56,7 @@ export default function ActivityList({ data }) {
           </thead>
         
           {data?.event?.activities.map((activity, id) => (
-            <Activity key={id} activity={activity} />
+            <Activity key={id} activity={activity} refetch={refetch} />
           ))}
         </table>
       )}

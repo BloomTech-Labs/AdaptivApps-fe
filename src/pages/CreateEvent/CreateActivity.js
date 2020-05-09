@@ -56,7 +56,7 @@ export default function CreateActivity() {
           <ActivityForm data={data} createActivity={createActivity} eventId={eventId} refetch={refetch} />
         </Box>
         <Box>
-          <ActivityList data={data} />
+          <ActivityList data={data} refetch={refetch} />
         </Box>
       </Container>
     </main>

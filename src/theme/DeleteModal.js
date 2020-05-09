@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
   deleteBtn: {
     background: "#2962FF",
+    color: "white"
   },
   closeBtn: {
     color: "primary",
@@ -44,7 +45,7 @@ export default function DeleteModal(props) {
     >
       <div style={modalStyle} className={classes.paper}>
         {props.body}
-        <Button className={classes.deleteBtn}>
+        <Button className={classes.deleteBtn} onClick={props.deleteActivity}>
           Delete
         </Button>
         <Button className={classes.closeBtn} onClick={props.handleClose}>
