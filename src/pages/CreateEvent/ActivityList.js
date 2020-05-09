@@ -6,7 +6,7 @@ import { makeStyles, Box, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
-
+    marginLeft: "3rem"
   },
   subHeadings: {
     color: '#808080',
@@ -17,7 +17,7 @@ export default function ActivityList({ data }) {
   const classes = useStyles();
   console.log("inside ActivityList", data);
   return (
-    <div>
+    <div className={classes.root}>
       <Box>
         <Typography variant="h2">{data?.event?.title}</Typography>
         <Typography variant="h5" className={classes.subHeadings}>{data?.event?.date}</Typography>

@@ -29,8 +29,7 @@ const useStyles = makeStyles({
     color: "#2763FF",
   },
   activityCreation: {
-    display: "flex",
-    justifyContent: "space-between"
+    display: "flex"
   }
 });
 
