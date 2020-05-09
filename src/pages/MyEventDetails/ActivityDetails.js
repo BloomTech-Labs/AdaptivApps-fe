@@ -38,7 +38,7 @@ export default function ActivityDetails({ activity }) {
       <td className={classes.nameLink}>
         <SimpleModal activity={activity} />
       </td>
-      <td>{activity.startDate}</td>
+      <td>{activity.date}</td>
       {activeEvent.type === "Webinar" ? (
         <td>
           <a className={classes.nameLink} href={activity.link} target="_blank">
