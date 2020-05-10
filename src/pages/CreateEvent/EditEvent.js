@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles, Box, Typography } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { useAuth0 } from "../../config/react-auth0-spa";
 import { useQuery, useMutation } from "react-apollo";
-import { CREATE_EVENT, GET_EVENTS } from "./graphql";
+import { useParams } from "@reach/router";
+import { UPDATE_EVENT, GET_EVENT } from "./graphql";
 
 import EventForm from "./EventForm";
 
@@ -26,19 +26,29 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CreateEvent() {
+export default function EditEvent() {
   const classes = useStyles();
-  const [createEvent, { data, error, loading }] = useMutation(CREATE_EVENT);
+  const { eventId } = useParams();
+  const [updateEvent] = useMutation(UPDATE_EVENT);
+  const { data, error, loading } = useQuery(GET_EVENT, {
+    variables: { id: eventId },
+  });
+  const event = data?.event;
 
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
         <Typography className={classes.heading} variant="h1" gutterBottom>
-          Create An Event
+          Edit An Event
         </Typography>
       </Box>
       <Box>
-        <EventForm createEvent={createEvent} data={data} />
+        <EventForm
+          updateEvent={updateEvent}
+          event={event}
+          loading={loading}
+          eventId={eventId}
+        />
       </Box>
     </main>
   );

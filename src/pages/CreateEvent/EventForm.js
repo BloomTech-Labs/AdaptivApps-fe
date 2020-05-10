@@ -31,34 +31,107 @@ const useStyles = makeStyles(theme => ({
   form: { display: "flex", flexDirection: "column", width: "400px" },
 }));
 
-export default function EventForm({ createEvent }) {
+export default function EventForm({
+  createEvent,
+  updateEvent,
+  event,
+  loading,
+  eventId,
+}) {
+  const [updated, setUpdated] = useState(false);
+  const [currentEvent, setCurrentEvent] = useState(event);
   const classes = useStyles();
   const navigate = useNavigate();
-  const { register, handleSubmit, errors, control } = useForm();
+  const { register, handleSubmit, errors, setValue, control } = useForm({
+    defaultValues: {
+      type: currentEvent && currentEvent.type,
+      sportType: currentEvent && currentEvent.sportType,
+      tags: currentEvent && currentEvent.tags,
+      title: currentEvent && currentEvent.title,
+      host: currentEvent && currentEvent.host,
+      coaches: currentEvent && currentEvent.coaches,
+      speakers: currentEvent && currentEvent.speakers,
+      date: currentEvent && currentEvent.date,
+      startTime: currentEvent && currentEvent.startTime,
+      endTime: currentEvent && currentEvent.endTime,
+      location: currentEvent && currentEvent.location,
+      link: currentEvent && currentEvent.link,
+      sponsors: currentEvent && currentEvent.sponsors,
+      imgUrl: currentEvent && currentEvent.imgUrl,
+      details: currentEvent && currentEvent.details,
+    },
+  });
+
+  useEffect(() => {
+    if (!loading && !currentEvent) setCurrentEvent(event);
+    if (!loading && currentEvent) {
+      setValue([
+        { type: currentEvent && currentEvent.type },
+        { sportType: currentEvent && currentEvent.sportType },
+        { tags: currentEvent && currentEvent.tags },
+        { title: currentEvent && currentEvent.title },
+        { host: currentEvent && currentEvent.host },
+        { coaches: currentEvent && currentEvent.coaches },
+        { speakers: currentEvent && currentEvent.speakers },
+        { date: currentEvent && currentEvent.date },
+        { startTime: currentEvent && currentEvent.startTime },
+        { endTime: currentEvent && currentEvent.endTime },
+        { location: currentEvent && currentEvent.location },
+        { link: currentEvent && currentEvent.link },
+        { sponsors: currentEvent && currentEvent.sponsors },
+        { imgUrl: currentEvent && currentEvent.imgUrl },
+        { details: currentEvent && currentEvent.details },
+      ]);
+    }
+  }, [loading, currentEvent, setValue, event]);
 
   const onSubmit = async (formValues, e) => {
-    const { data } = await createEvent({
-      variables: {
-        type: formValues.type,
-        sportType: formValues.sportType,
-        tags: formValues.tags,
-        title: formValues.title,
-        host: formValues.host,
-        coaches: formValues.coaches,
-        speakers: formValues.speakers,
-        date: formValues.date,
-        startTime: formValues.startTime,
-        endTime: formValues.endTime,
-        location: formValues.location,
-        link: formValues.link,
-        sponsors: formValues.sponsors,
-        imgUrl: formValues.imgUrl,
-        details: formValues.details,
-      },
-    });
-
-    alert("Successfully created an event!");
-    await navigate(`/createEvent/${data?.createEvent?.id}`);
+    if (window.location.pathname === `/createEvent`) {
+      const { data } = await createEvent({
+        variables: {
+          type: formValues.type,
+          sportType: formValues.sportType,
+          tags: formValues.tags,
+          title: formValues.title,
+          host: formValues.host,
+          coaches: formValues.coaches,
+          speakers: formValues.speakers,
+          date: formValues.date,
+          startTime: formValues.startTime,
+          endTime: formValues.endTime,
+          location: formValues.location,
+          link: formValues.link,
+          sponsors: formValues.sponsors,
+          imgUrl: formValues.imgUrl,
+          details: formValues.details,
+        },
+      });
+      alert("Successfully created an event!");
+      await navigate(`/createEvent/${data?.createEvent?.id}`);
+    } else if (window.location.pathname === `/editEvent/${eventId}`) {
+      await updateEvent({
+        variables: {
+          id: eventId,
+          type: formValues.type,
+          sportType: formValues.sportType,
+          tags: formValues.tags,
+          title: formValues.title,
+          host: formValues.host,
+          coaches: formValues.coaches,
+          speakers: formValues.speakers,
+          date: formValues.date,
+          startTime: formValues.startTime,
+          endTime: formValues.endTime,
+          location: formValues.location,
+          link: formValues.link,
+          sponsors: formValues.sponsors,
+          imgUrl: formValues.imgUrl,
+          details: formValues.details,
+        },
+      });
+    }
+    alert("Successfully updated an event!");
+    await navigate(`/createEvent/${eventId}`);
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>

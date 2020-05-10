@@ -16,6 +16,7 @@ import ActivityList from "./pages/ActivitiesList";
 import MyEventDetails from "./pages/MyEventDetails";
 import ManageEvents from "./pages/ManageEvents";
 import CreateEvent from "./pages/CreateEvent/CreateEvent";
+import EditEvent from "./pages/CreateEvent/EditEvent";
 import CreateActivity from "./pages/CreateEvent/CreateActivity";
 import Accessibility from "./pages/Landing/Legal/Accessibility";
 import PrivacyPolicy from "./pages/Landing/Legal/PrivacyPolicy";
@@ -107,6 +108,7 @@ function App() {
             <MyEvents path="myevents" />
             <MyEventDetails path="myevents/:eventId" />
             <CreateEvent path="createEvent" />
+            <EditEvent path="editEvent/:eventId" />
             <CreateActivity path="createEvent/:eventId" />
             {/* <ManageEvents path="manage" /> */}
             <ManageUsers path="users" />
