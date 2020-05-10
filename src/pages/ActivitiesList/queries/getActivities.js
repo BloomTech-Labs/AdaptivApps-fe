@@ -7,15 +7,14 @@ export const GET_EVENT_ACTIVITIES = gql`
       id
       title
       type
-      startDate
-      endDate
+      date
       location
       imgUrl
       details
       activities {
         id
         name
-        startDate
+        date
         location
         link
         startTime

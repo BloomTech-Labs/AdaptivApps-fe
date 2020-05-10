@@ -73,13 +73,13 @@ const useStyles = makeStyles({
 
 export default function EventCard({ event }) {
   const classes = useStyles();
-  const [updateEvent] = useMutation(REGISTER_EVENT);
+  const [createParticipant] = useMutation(REGISTER_EVENT);
 
   const { user } = useAuth0();
   const navigate = useNavigate();
 
   const registerEvent = async () => {
-    await updateEvent({
+    await createParticipant({
       variables: { id: event.id, email: user.email },
     });
     await navigate(`/calendar/${event.id}`);
@@ -106,7 +106,7 @@ export default function EventCard({ event }) {
             color="textSecondary"
             component="p"
           >
-            {event.startDate} - {event.endDate}
+            {event.date} - {event.date}
           </Typography>
           <Typography
             className={classes.cardTitle}

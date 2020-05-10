@@ -29,8 +29,7 @@ const useStyles = makeStyles({
     color: "#2763FF",
   },
   activityCreation: {
-    display: "flex",
-    justifyContent: "space-between"
+    display: "flex"
   }
 });
 
@@ -54,10 +53,10 @@ export default function CreateActivity() {
       </Box>
       <Container className={classes.activityCreation}>
         <Box>
-          <ActivityForm createActivity={createActivity} eventId={eventId} refetch={refetch} />
+          <ActivityForm data={data} createActivity={createActivity} eventId={eventId} refetch={refetch} />
         </Box>
         <Box>
-          <ActivityList data={data} />
+          <ActivityList data={data} refetch={refetch} />
         </Box>
       </Container>
     </main>

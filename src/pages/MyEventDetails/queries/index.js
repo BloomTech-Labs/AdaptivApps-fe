@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 // Retrieves the details of a specific event a user is registered to.
 export const GET_EVENT_DETAILS = gql`
   query getEventDetails($id: ID!, $email: String!) {
-    events(where: { id: $id, AND: [{ attendees_some: { email: $email } }] }) {
+    events(where: { id: $id, AND: [{ attendees_some: { eventProfile: { email: $email} } }] }) {
       id
       type
       title
@@ -11,8 +11,7 @@ export const GET_EVENT_DETAILS = gql`
       speakers
       sponsors
       startTime
-      startDate
-      endDate
+      date
       details
       location
       link
@@ -39,7 +38,7 @@ export const GET_USER_ACTIVITIES = gql`
     ) {
       id
       name
-      startDate
+      date
       startTime
       location
       link
