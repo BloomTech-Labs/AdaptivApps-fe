@@ -29,11 +29,11 @@ const useStyles = makeStyles({
 export default function EditEvent() {
   const classes = useStyles();
   const { eventId } = useParams();
-  const [updateEvent] = useMutation(UPDATE_EVENT);
-  const { data, error, loading } = useQuery(GET_EVENT, {
+  const [updateEvent, { data: updateData }] = useMutation(UPDATE_EVENT);
+  const { data: eventData, error, loading } = useQuery(GET_EVENT, {
     variables: { id: eventId },
   });
-  const event = data?.event;
+  const event = eventData?.event;
 
   return (
     <main className={classes.root}>
@@ -44,6 +44,7 @@ export default function EditEvent() {
       </Box>
       <Box>
         <EventForm
+          updateData={updateData}
           updateEvent={updateEvent}
           event={event}
           loading={loading}

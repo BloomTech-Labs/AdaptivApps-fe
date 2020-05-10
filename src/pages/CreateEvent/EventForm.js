@@ -32,13 +32,13 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function EventForm({
+  updateData,
   createEvent,
   updateEvent,
   event,
   loading,
   eventId,
 }) {
-  const [updated, setUpdated] = useState(false);
   const [currentEvent, setCurrentEvent] = useState(event);
   const classes = useStyles();
   const navigate = useNavigate();
@@ -130,7 +130,6 @@ export default function EventForm({
         },
       });
     }
-    alert("Successfully updated an event!");
     await navigate(`/createEvent/${eventId}`);
   };
   return (
