@@ -2,13 +2,9 @@ import gql from "graphql-tag";
 
 // Retrieve announcements
 export const GET_ANNOUNCEMENTS = gql`
-  query getAnnouncements( $isAnnouncementRoom: boolean! ) {
-    announcements {
-        participants {
-            firstName
-            lastName
-            email
-        }
+  query getAnnouncements( $isAnnouncementRoom: Boolean! ) {
+    announcements(where: {isAnnouncementRoom: $isAnnouncementRoom}) {
+        
         title
         message
         createdAt

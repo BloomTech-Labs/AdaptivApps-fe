@@ -153,6 +153,7 @@ export default function ChatRoom({ chatRoom, user }) {
               onClick={() => setEditChatRoom(true)}/>
           </Tooltip>
               <Modal
+                participants={participants}
                 position="relative"
                 top="10%"
                 left="13%"

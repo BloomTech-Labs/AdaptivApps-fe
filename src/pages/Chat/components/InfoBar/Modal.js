@@ -76,7 +76,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function RecipientModal({ user, setOpen }) {
+function RecipientModal({ user, setOpen, participants }) {
     const classes = useStyles();
     const [searchRecipient, setSearchRecipient] = useState("");
     const [results, setResults] = useState([]);
@@ -100,14 +100,27 @@ function RecipientModal({ user, setOpen }) {
       setSearchRecipient('');
     };
 
-    const newChatRoom = async (item) => {
-      await createChatRoom({
+    const participantsEmail = participants.map(item => item.email)
+    const uniqueEmails = [...new Set(participantsEmail)]
+
+    console.log(participantsEmail)
+    console.log(uniqueEmails)
+
+    const newChatRoom = (item) => {
+      const filtered = uniqueEmails.filter(email => email === item.email)
+
+       filtered[0] !== item.email ? 
+       (createChatRoom({
         variables:{
           useremail: user.email,
           recipientemail: item.email
         }
-      })
+      })) :
+       alert('You are chatting with this person already')
+      ;
       setOpen(false);
+      
+      console.log('filtered', filtered)
     };
 
     const handleChange = e => {
