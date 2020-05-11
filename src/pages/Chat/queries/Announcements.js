@@ -29,6 +29,23 @@ export const CREATE_ANNOUNCEMENT = gql`
     }
 `
 
+export const UPDATE_ANNOUNCEMENT = gql`
+    mutation updateAnnouncement ($id: ID! $message: String! $title: String!) {
+        updateAnnouncement(
+            where: {id: $id}
+            data: {
+                title: $title
+                message: $message
+            }
+        ) {
+            id
+            message
+            title
+            createdAt
+        }
+    }
+`;
+
 // Announcement subscription
 export const ANNOUNCEMENT_SUBSCRIPTION = gql`
   subscription announcementSubscription {
