@@ -9,14 +9,13 @@ import { DELETE_CHAT_ROOM } from '../../queries/ChatRooms'
 import Tooltip from '@material-ui/core/Tooltip';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import CancelIcon from '@material-ui/icons/Cancel';
-import Drawer from '@material-ui/core/Drawer';
 import CloseIcon from '@material-ui/icons/Close';
+import Drawer from '@material-ui/core/Drawer';
 import Modal from '@material-ui/core/Modal';
 import {
   makeStyles
 } from "@material-ui/core";
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {   
     margin: ".5rem auto",
     display: 'flex',
@@ -26,7 +25,10 @@ const useStyles = makeStyles(() => ({
   chatRoomIcon: {
     color: "#2962FF",
     fontSize: "3rem",
-    margin: "0 5%"
+    margin: "0 5%",
+    '&:hover': {
+      cursor: 'pointer'
+    }
   },
   chatRoomButton: {
     fontSize: "1.6rem",
@@ -68,24 +70,38 @@ const useStyles = makeStyles(() => ({
     backgroundColor: 'whitesmoke',
     position: 'absolute',
     top: '25%',
-    left: '15%',
-    maxWidth: '35%',
-    maxHeight: '15%',
-    border: '8px solid crimson',
-    boxShadow: '8px 8px 8px black',
+    left: '40%',
+    width: '25%',
+    borderRadius: '5px',
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
     padding: '1%',
     fontSize: '2.5rem',
     fontWeight: 'bold',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '1%'
+    padding: '1%',
+    '&:focus': {
+      outline: 'none'
+    }
+  },
+  span: {
+    fontSize: '2rem',
+    color: '#2962FF',
+    textAlign: 'center',
+    fontWeight: 'normal',
+    marginTop: '0%'
   },
   cancelChatDelete: {
-    alignSelf: 'flex-end',
-    fontSize: '2.5rem',
-    marginBottom: '3%',
+    fontSize: "2rem",
+    marginLeft: '95%',
+    border: "none",
     '&:hover': {
-      cursor: 'pointer'
+      cursor: "pointer",
+      color: "#2962FF"
+    }, 
+    '&:focus': {
+      outline: "none"
     }
   },
   deleteChat: {
@@ -98,7 +114,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function ChatRoom({ chatRoom, user }) {
+export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
     const classes = useStyles();
     const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM);
 
@@ -141,7 +157,8 @@ export default function ChatRoom({ chatRoom, user }) {
               id: chatRoom.id
           }
       })
-      setEditChatRoom(false)
+      setEditChatRoom(false);
+      setDeleteRoom(true);
   }
 
     return (
@@ -152,24 +169,24 @@ export default function ChatRoom({ chatRoom, user }) {
               className={classes.chatRoomIcon}
               onClick={() => setEditChatRoom(true)}/>
           </Tooltip>
-              <Modal
-                participants={participants}
-                position="relative"
-                top="10%"
-                left="13%"
-                open={editChatRoom}
-                onClose={() => setEditChatRoom(false)}>
-                  {editChatRoom ? (
-                  <div className={classes.paper}>
-                    <Tooltip title="Cancel">
-                    <CancelIcon className={classes.cancelChatDelete} onClick={() => setEditChatRoom(false)} />
-                    </Tooltip>
-                    <p>Delete Chat with {chattingWith}?</p>
-                    <Tooltip title="Confirm Delete">
-                    <CheckCircleOutlineIcon className={classes.deleteChat} onClick={deleteRoom}/>
-                    </Tooltip>
-                    </div>) : null}
-              </Modal>          
+          <Modal
+            participants={participants}
+            position="relative"
+            top="10%"
+            left="13%"
+            open={editChatRoom}
+            onClose={() => setEditChatRoom(false)}>
+            {editChatRoom ? (
+            <div className={classes.paper}>
+              <Tooltip title="Cancel">
+                <CloseIcon className={classes.cancelChatDelete} onClick={() => setEditChatRoom(false)} />
+              </Tooltip>
+              <p className={classes.span}>Delete Chat with {chattingWith}?</p>
+              <Tooltip title="Confirm Delete">
+                <CheckCircleOutlineIcon className={classes.deleteChat} onClick={deleteRoom}/>
+              </Tooltip>
+            </div>) : null}
+          </Modal>          
           <Tooltip title="Click to expand messages">
             <button 
               className={classes.chatRoomButton} 

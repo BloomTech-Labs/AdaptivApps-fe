@@ -34,8 +34,8 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
     borderRadius: '5px',
+    border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
@@ -76,7 +76,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function RecipientModal({ user, setOpen, participants }) {
+function RecipientModal({ user, setOpen, participants, setNewRoom }) {
     const classes = useStyles();
     const [searchRecipient, setSearchRecipient] = useState("");
     const [results, setResults] = useState([]);
@@ -113,9 +113,10 @@ function RecipientModal({ user, setOpen, participants }) {
           recipientemail: item.email
         }
       })) :
-       alert('You are chatting with this person already')
-      ;
+       alert('You are chatting with this person already');
+      
       setOpen(false);
+      setNewRoom(true);
     };
 
     const handleChange = e => {

@@ -70,7 +70,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
   
-function AnnouncementModal({ setAnnouncementOpen }) {
+function AnnouncementModal({ setAnnouncementOpen, setAlertOpen }) {
   const classes = useStyles();
 
   const [createAnnouncement] = useMutation(CREATE_ANNOUNCEMENT);
@@ -97,7 +97,7 @@ function AnnouncementModal({ setAnnouncementOpen }) {
     });
 
     setAnnouncementOpen(false);
-    alert('Successfully sent announcement');
+    setAlertOpen(true);
   };
 
   const closeModal = e => {
