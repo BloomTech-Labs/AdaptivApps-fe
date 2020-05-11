@@ -89,12 +89,14 @@ function RecipientModal({ user, setOpen, participants }) {
       let filter = data?.profiles.map(user => {
         return [`${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user];
       });
+      console.log('filter', filter)
 
       filter.filter(user => {
         if (user[0].includes(searchRecipient.toLowerCase())) {
           results.push(user[1])
           return results;
         }
+        console.log('results', results)
       });
 
       setSearchRecipient('');
@@ -119,8 +121,6 @@ function RecipientModal({ user, setOpen, participants }) {
        alert('You are chatting with this person already')
       ;
       setOpen(false);
-      
-      console.log('filtered', filtered)
     };
 
     const handleChange = e => {
@@ -160,13 +160,13 @@ function RecipientModal({ user, setOpen, participants }) {
               <Paper style={{maxHeight: 200, overflow: 'auto'}}>
                 <List>
                 {results.length > 0 ? 
-                  (results.map(item => (
+                  (results.map(item => item.email !== user.email && (
                     <ListItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
                       <ListItemText primary={`${item.firstName} ${item.lastName}`} />
                     </ListItem>
                   ))) 
                   : 
-                  (data && data?.profiles.map(item => (
+                  (data && data?.profiles.map(item => item.email !== user.email && (
                     <ListItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
                       <ListItemText primary={`${item.firstName} ${item.lastName}`} />
                     </ListItem>

@@ -139,13 +139,15 @@ function InfoBar({ user }) {
 
     _subscribeToNewChatRoom(subscribeToMore);
 
+    // let filter = data?.profiles.map(users => user.id !== users.id && [`${users.firstName.toLowerCase()} ${users.lastName.toLowerCase()}`, users]);
+    //   console.log(filter)
+
     const searchRooms = e => {
       e.preventDefault();
       let filter = data?.profile.chatRooms.map(room => {
         let users = room.participants.map(user => {
           return `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`;
         });
-
         return users.filter(user => {
           if (user.includes(searchRecipient.toLowerCase())) {
             results.push(room);
