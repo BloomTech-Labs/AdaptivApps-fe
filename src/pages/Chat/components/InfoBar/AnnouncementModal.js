@@ -97,6 +97,7 @@ function AnnouncementModal({ setAnnouncementOpen }) {
     });
 
     setAnnouncementOpen(false);
+    alert('Successfully sent announcement');
   };
 
   const closeModal = e => {
