@@ -76,7 +76,7 @@ export default function Activity({ activity, refetch }) {
         </tr>
       </tbody>
       <DeleteModal
-        deleteActivity={deleteActivity}
+        onClick={deleteActivity}
         open={open}
         body={body}
         handleClose={handleClose}

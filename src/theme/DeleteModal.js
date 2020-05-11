@@ -54,7 +54,7 @@ export default function DeleteModal(props) {
     >
       <div style={modalStyle} className={classes.paper}>
         {props.body}
-        <Button className={classes.deleteBtn} onClick={props.deleteActivity}>
+        <Button className={classes.deleteBtn} onClick={props.onClick}>
           Delete
         </Button>
         <Button className={classes.closeBtn} onClick={props.handleClose}>
