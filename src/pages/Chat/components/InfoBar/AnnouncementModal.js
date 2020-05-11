@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useMutation } from "react-apollo";
+import { CREATE_ANNOUNCEMENT } from '../../queries/Announcements';
 
 //Style imports
 import {
@@ -70,6 +72,9 @@ const useStyles = makeStyles(theme => ({
   
 function AnnouncementModal({ setAnnouncementOpen }) {
   const classes = useStyles();
+
+  const [createAnnouncement] = useMutation(CREATE_ANNOUNCEMENT);
+
   const [newAnnouncement, setNewAnnouncement] = useState();
   const [newAnnouncementText, setNewAnnouncementText] = useState();
   
@@ -83,8 +88,15 @@ function AnnouncementModal({ setAnnouncementOpen }) {
 
   const onSubmit = e => {
     e.preventDefault();
-    console.log("Title", newAnnouncement);
-    console.log("Message", newAnnouncementText)
+    createAnnouncement({
+      variables: {
+        title: newAnnouncement,
+        message: newAnnouncementText,
+        isAnnouncementRoom: true
+      }
+    });
+
+    setAnnouncementOpen(false);
   };
 
   const closeModal = e => {
