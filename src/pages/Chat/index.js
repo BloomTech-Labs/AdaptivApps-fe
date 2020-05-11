@@ -35,7 +35,9 @@ function ChatFeature(){
   const classes = useStyles();
   const [alert, setAlertOpen] = useState(false);
   const [newRoom, setNewRoom] = useState(false);
+  const [updateChat, setUpdateChat] = useState(false);
   const [deleteRoom, setDeleteRoom] = useState(false);
+  const [deleteChat, setDeleteChat] = useState(false);
 
   return (
     <>
@@ -76,6 +78,24 @@ function ChatFeature(){
           </Alert>
         </Collapse>
 
+        <Collapse in={updateChat}>
+          <Alert
+            severity="success"
+            color="info"
+            action={
+              <IconButton
+                aria-label="close"
+                size="small"
+                onClick={() => {
+                  setNewRoom(false);
+                }}>
+                <CloseIcon fontSize="3rem" />
+              </IconButton>
+            }>
+            Successfully updated chat
+          </Alert>
+        </Collapse>
+
         <Collapse in={deleteRoom}>
           <Alert
             severity="success"
@@ -93,9 +113,27 @@ function ChatFeature(){
             Successfully deleted chat room
           </Alert>
         </Collapse>
+
+        <Collapse in={deleteChat}>
+          <Alert
+            severity="success"
+            color="error"
+            action={
+              <IconButton
+                aria-label="close"
+                size="small"
+                onClick={() => {
+                  setDeleteChat(false);
+                }}>
+                <CloseIcon fontSize="3rem" />
+              </IconButton>
+            }>
+            Successfully deleted chat
+          </Alert>
+        </Collapse>
       </div>
       <div className={classes.root}>
-        <InfoBar user={user} setAlertOpen={setAlertOpen} setNewRoom={setNewRoom} setDeleteRoom={setDeleteRoom} />
+        <InfoBar user={user} setAlertOpen={setAlertOpen} setNewRoom={setNewRoom} setUpdateChat={setUpdateChat} setDeleteRoom={setDeleteRoom} setDeleteChat={setDeleteChat} />
       </div>
     </>
   )

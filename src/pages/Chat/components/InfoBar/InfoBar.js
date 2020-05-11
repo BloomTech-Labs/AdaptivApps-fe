@@ -102,7 +102,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
+function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom, setUpdateChat, setDeleteChat }) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const [announcement, setAnnouncementOpen] = useState(false);
