@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
 function ChatFeature(){
   const { user } = useAuth0();
   const classes = useStyles();
-  const [alert, setAlertOpen] = useState(true);
+  const [alert, setAlertOpen] = useState(false);
 
   return (
     <>
