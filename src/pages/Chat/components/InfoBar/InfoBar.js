@@ -102,7 +102,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function InfoBar({ user, setAlertOpen }) {
+function InfoBar({ user, setAlertOpen, setNewRoom }) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const [announcement, setAnnouncementOpen] = useState(false);
@@ -189,7 +189,7 @@ function InfoBar({ user, setAlertOpen }) {
           BackdropProps={{
             timeout: 500,
           }}>
-          <RecipientModal user={user} setOpen={setOpen} participants={participants}/>
+          <RecipientModal user={user} setOpen={setOpen} setNewRoom={setNewRoom} participants={participants} />
         </Modal> 
         {user && user[config.roleUrl].includes("Admin") ? 
         (
