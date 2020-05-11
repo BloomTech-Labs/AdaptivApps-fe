@@ -99,6 +99,7 @@ export default function Announcements({ user }) {
                   <p className={classes.sender}>Title: {announcement.title}</p>
                 </div>
                 <p className={classes.messageText}>{announcement.message}</p>
+                <div ref={announcementsEndRef} />
               </div>
             </div>
           </>
