@@ -10,17 +10,17 @@ import AnnouncementModal from './AnnouncementModal';
 import config from "../../../../config/auth_config";
 
 // Style Imports
+import {
+  makeStyles,
+  Box,
+  TextField
+} from "@material-ui/core";
 import CreateIcon from '@material-ui/icons/Create';
 import LanguageIcon from '@material-ui/icons/Language';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
-import {
-  makeStyles,
-  Box,
-  TextField
-} from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -102,9 +102,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-// After BE update for Announcement, change chatRoom prop name, add in query for Announcement messages (or on messages?), setup a subscription for announcements
-
-function InfoBar({ user }) {
+function InfoBar({ user, setAlertOpen }) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const [announcement, setAnnouncementOpen] = useState(false);
@@ -210,7 +208,7 @@ function InfoBar({ user }) {
             BackdropProps={{
               timeout: 500,
             }}>
-            <AnnouncementModal setAnnouncementOpen={setAnnouncementOpen} />
+            <AnnouncementModal setAnnouncementOpen={setAnnouncementOpen} setAlertOpen={setAlertOpen} />
            </Modal>
           </>
         ) : null}
