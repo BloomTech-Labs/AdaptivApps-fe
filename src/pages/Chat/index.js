@@ -92,7 +92,7 @@ function ChatFeature(){
                 <CloseIcon fontSize="3rem" />
               </IconButton>
             }>
-            Successfully updated chat
+            Successfully updated
           </Alert>
         </Collapse>
 
@@ -128,7 +128,7 @@ function ChatFeature(){
                 <CloseIcon fontSize="3rem" />
               </IconButton>
             }>
-            Successfully deleted chat
+            Successfully deleted
           </Alert>
         </Collapse>
       </div>
