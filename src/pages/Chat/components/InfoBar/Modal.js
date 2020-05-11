@@ -89,14 +89,12 @@ function RecipientModal({ user, setOpen, participants }) {
       let filter = data?.profiles.map(user => {
         return [`${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user];
       });
-      console.log('filter', filter)
 
       filter.filter(user => {
         if (user[0].includes(searchRecipient.toLowerCase())) {
           results.push(user[1])
           return results;
         }
-        console.log('results', results)
       });
 
       setSearchRecipient('');

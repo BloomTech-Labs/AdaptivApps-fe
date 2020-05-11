@@ -152,7 +152,6 @@ function InfoBar({ user }) {
           };
         });
       });
-
       setSearchRecipient('');
     };
 
