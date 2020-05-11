@@ -102,7 +102,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function InfoBar({ user, setAlertOpen, setNewRoom }) {
+function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const [announcement, setAnnouncementOpen] = useState(false);
@@ -218,7 +218,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
           {results.length > 0 ? 
             (results.map((chatRoom, id) => (
               <div className={classes.chatroom}>
-                <ChatRoom chatRoom={chatRoom} key={id} user={user} />
+                <ChatRoom chatRoom={chatRoom} key={id} user={user} setDeleteRoom={setDeleteRoom} />
                 <Divider variant="inset" className={classes.divider} />
               </div>
             )))
@@ -226,7 +226,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
             (data.profile.chatRooms === undefined ? null : 
             (data && data?.profile.chatRooms?.map((chatRoom, id) => (
               <div className={classes.chatroom}>
-                <ChatRoom chatRoom={chatRoom} key={id} user={user} />
+                <ChatRoom chatRoom={chatRoom} key={id} user={user} setDeleteRoom={setDeleteRoom} />
                 <Divider variant="inset" className={classes.divider} />
               </div>
             ))))

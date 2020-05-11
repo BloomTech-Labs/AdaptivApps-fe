@@ -98,7 +98,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function ChatRoom({ chatRoom, user }) {
+export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
     const classes = useStyles();
     const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM);
 
@@ -141,7 +141,8 @@ export default function ChatRoom({ chatRoom, user }) {
               id: chatRoom.id
           }
       })
-      setEditChatRoom(false)
+      setEditChatRoom(false);
+      setDeleteRoom(true);
   }
 
     return (
