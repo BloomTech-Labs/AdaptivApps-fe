@@ -50,7 +50,7 @@ export default function EventsCalendar() {
       <Grid className={classes.grid}>
         {data &&
           data?.events?.map((event, id) => (
-            <EventCard key={id} event={event} />
+            <EventCard key={id} event={event} refetch={refetch} />
           ))}
       </Grid>
     </main>

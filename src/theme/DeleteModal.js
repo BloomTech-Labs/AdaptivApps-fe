@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // Material-UI components
-import { Modal, Button, makeStyles } from '@material-ui/core';
+import { Modal, Button, makeStyles } from "@material-ui/core";
 
 function getModalStyle() {
   const top = 50;
@@ -13,12 +13,12 @@ function getModalStyle() {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   paper: {
-    position: 'absolute',
+    position: "absolute",
     width: 400,
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     display: "flex",
@@ -28,20 +28,20 @@ const useStyles = makeStyles((theme) => ({
   deleteBtn: {
     background: "#2962FF",
     color: "white",
-    '&:hover': {
+    "&:hover": {
       border: "1px solid #2962FF",
       background: "white",
-      color: "#2962FF"
+      color: "#2962FF",
     },
   },
   closeBtn: {
     color: "primary",
     border: "1px solid #2962FF",
-    '&:hover': {
+    "&:hover": {
       color: "white",
-      background: "#2962FF"
+      background: "#2962FF",
     },
-  }
+  },
 }));
 
 export default function DeleteModal(props) {
@@ -49,12 +49,10 @@ export default function DeleteModal(props) {
   const classes = useStyles();
 
   return (
-    <Modal
-      open={props.open}
-    >
+    <Modal open={props.open}>
       <div style={modalStyle} className={classes.paper}>
         {props.body}
-        <Button className={classes.deleteBtn} onClick={props.deleteActivity}>
+        <Button className={classes.deleteBtn} onClick={props.onClick}>
           Delete
         </Button>
         <Button className={classes.closeBtn} onClick={props.handleClose}>
@@ -64,4 +62,3 @@ export default function DeleteModal(props) {
     </Modal>
   );
 }
-
