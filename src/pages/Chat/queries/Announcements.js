@@ -4,13 +4,29 @@ import gql from "graphql-tag";
 export const GET_ANNOUNCEMENTS = gql`
   query getAnnouncements( $isAnnouncementRoom: Boolean! ) {
     announcements(where: {isAnnouncementRoom: $isAnnouncementRoom}) {
-        
         title
         message
         createdAt
         isAnnouncementRoom
     }
   }
+`
+
+export const CREATE_ANNOUNCEMENT = gql`
+	mutation createAnnouncement ($title: String!, $message: String!, $isAnnouncementRoom: Boolean!) {
+        createAnnouncement(
+            data: {
+                title: $title
+                message: $message
+                isAnnouncementRoom: $isAnnouncementRoom
+            }
+        ) {
+            id
+            message
+            title
+            createdAt
+        }
+    }
 `
 
 // Announcement subscription
