@@ -115,7 +115,7 @@ export default function ChatRoom({ chatRoom, user }) {
         }
       })
 
-      const messages = chatRoom.chats.map((chat, id) => {return {
+    const messages = chatRoom.chats.map((chat, id) => {return {
         id: id,
         message: chat.message,
         createdAt: chat.createdAt,

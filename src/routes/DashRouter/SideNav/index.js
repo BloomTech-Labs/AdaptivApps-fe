@@ -157,7 +157,6 @@ function SideNav(props) {
 
   _subscribeToNewChats(subscribeToMore);
 
-
   const _subscribeToNewAnnouncements = announcementSubscription => {
     announcementSubscription({
       document: ANNOUNCEMENT_SUBSCRIPTION,
@@ -176,8 +175,6 @@ function SideNav(props) {
   };
 
   _subscribeToNewAnnouncements(announcementSubscription);
-  console.log(data)
-
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

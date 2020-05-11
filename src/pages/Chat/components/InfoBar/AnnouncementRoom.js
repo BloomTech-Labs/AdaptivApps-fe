@@ -64,7 +64,7 @@ const useStyles = makeStyles(() => ({
 }
 }));
 
-export default function AnnouncementRoom({ chatRoom, user }) {
+export default function AnnouncementRoom({ user }) {
     const classes = useStyles();
 
     // Query for Announcement messages after BE is setup...change chatRoom prop name
@@ -110,7 +110,7 @@ export default function AnnouncementRoom({ chatRoom, user }) {
             <h1 className={classes.roomTitle}>ACS Announcements</h1>
             <CloseIcon className={classes.closeModal} onClick={closeDrawer} />
           </div>
-          <Announcements chatRoom={chatRoom} user={user} />
+          <Announcements user={user} />
         </Drawer>
       </>
     )

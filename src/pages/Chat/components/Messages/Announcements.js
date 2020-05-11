@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useQuery } from "react-apollo";
+import { GET_ANNOUNCEMENTS } from '../../queries/Announcements';
+
 import {
-    makeStyles
-  } from "@material-ui/core";
+  makeStyles
+} from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,8 +25,9 @@ const useStyles = makeStyles(theme => ({
     padding: '1%'
   },
   sender: {
-    fontSize: '1.25rem',
-    fontWeight: 'bold'
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    marginBottom: '0'
   },
   messageBox: {
     display: 'flex',
@@ -57,33 +62,44 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Messages({ chatRoom }) {
+export default function Announcements({ user }) {
   const classes = useStyles();
 
-  // Query for Announcement messages after BE is setup...change messages map, message, title, and change chatRoom prop name
+  const { loading, error, data } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
 
-  const messages = chatRoom.chats.map((chat, id) => {return {
+  const announcements = data && data?.announcements?.map((announcement, id) => {return {
       id: id,
-      message: chat.message,
-      createdAt: chat.createdAt,
-      firstName: chat.from.firstName,
-      lastName: chat.from.lastName,
-      sender: chat.from.email
+      title: announcement.title,
+      message: announcement.message,
+      createdAt: announcement.createdAt
     }
   });
+
+  const announcementsEndRef = useRef(null)
+
+  const scrollToBottom = () => {
+    announcementsEndRef.current && announcementsEndRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [announcements]);
+
+  if (loading) return <CircularProgress className={classes.loadingSpinner} />;
+  if (error) return `Error! ${error.message}`;
 
   return (
     <div className={classes.root}>
       <div className={classes.messageDiv}>
-        {messages.map((message) => (
+        {announcements.map((announcement) => (
           <>
-            <div key={message.id} className={classes.messageBox}>
+            <div key={announcement.id} className={classes.messageBox}>
               <div className={classes.userMessage}>
                 <div className={classes.messageHeader}>
-                  <p className={classes.sender}><strong>From:</strong> ACS Admin</p>
-                  <p className={classes.sender}><strong>Title:</strong> Announcement Title</p>
+                  {/* <p className={classes.sender}>From: ACS Admin</p> */}
+                  <p className={classes.sender}>Title: {announcement.title}</p>
                 </div>
-                <p className={classes.messageText}>{message.message}</p>
+                <p className={classes.messageText}>{announcement.message}</p>
               </div>
             </div>
           </>
