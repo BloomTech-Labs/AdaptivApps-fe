@@ -130,6 +130,7 @@ export default function EventForm({
         },
       });
       await navigate(`/createEvent/${eventId}`);
+      alert("Successfully updated an event!");
     }
   };
   return (
