@@ -105,9 +105,7 @@ export default function ChatRoom({ chatRoom, user }) {
     const [messageToggle, setMessageToggle] = useState(false);
     const [editChatRoom, setEditChatRoom] = useState(false)
 
-
-    const participants = chatRoom.participants.filter((participant) =>
-      participant.email !== user.email && participant)
+    const participants = chatRoom.participants.filter((participant) => participant.email !== user.email && participant)
 
     const chattingWith = participants.map((participant, index) => {
       if (participants.length === 1 || index === participants.length - 1) {
@@ -155,6 +153,7 @@ export default function ChatRoom({ chatRoom, user }) {
               onClick={() => setEditChatRoom(true)}/>
           </Tooltip>
               <Modal
+                participants={participants}
                 position="relative"
                 top="10%"
                 left="13%"

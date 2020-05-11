@@ -7,6 +7,7 @@ import { useAuth0 } from "../../../config/react-auth0-spa";
 // Subscription Imports
 import { useQuery } from "react-apollo";
 import { CHAT_SUBSCRIPTION, GET_MESSAGES } from '../../../pages/Chat/queries/Chats';
+import { ANNOUNCEMENT_SUBSCRIPTION, GET_ANNOUNCEMENTS } from '../../../pages/Chat/queries/Announcements'
 import { GET_CHAT_ROOMS } from '../../../pages/Chat/queries/ChatRooms';
 
 // Styling imports
@@ -134,6 +135,7 @@ function SideNav(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const { refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
+  const { subscribeToMore: announcementSubscription, data, refetch: refetchAnnouncements  } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
   const { subscribeToMore } = useQuery(GET_MESSAGES, { variables: { email: user.email } });
 
   const _subscribeToNewChats = subscribeToMore => {
@@ -154,6 +156,28 @@ function SideNav(props) {
   };
 
   _subscribeToNewChats(subscribeToMore);
+
+
+  const _subscribeToNewAnnouncements = announcementSubscription => {
+    announcementSubscription({
+      document: ANNOUNCEMENT_SUBSCRIPTION,
+      updateQuery: (prev, {subscriptionData }) => {
+        if (!subscriptionData.data) return prev
+        const announcement = subscriptionData.data.announcement
+        refetchAnnouncements();
+        return Object.assign({}, prev, {
+          profile: {
+            announcements: [announcement, ...prev.profile.announcements],
+            __typename: prev.profile.__typename
+          }
+        })
+      }
+    })
+  };
+
+  _subscribeToNewAnnouncements(announcementSubscription);
+  console.log(data)
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -254,5 +278,6 @@ function SideNav(props) {
     </div>
   );
 }
+
 
 export default SideNav;
