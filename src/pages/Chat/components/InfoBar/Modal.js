@@ -137,7 +137,7 @@ function RecipientModal({ user, setOpen, participants }) {
      <div>          
       <div className={classes.paper}>
         <CloseIcon className={classes.closeModal} onClick={closeModal} />
-        <h2 id="transition-modal-title" className={classes.span}>Select a Chat Recipient</h2>
+        <h2 id="transition-modal-title" className={classes.span} aria-label="Select a Chat Recipient">Select a Chat Recipient</h2>
         <div>       
           <Box component="div">
             <TextField
