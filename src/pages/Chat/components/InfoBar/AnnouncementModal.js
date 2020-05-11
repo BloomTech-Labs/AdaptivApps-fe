@@ -1,103 +1,146 @@
 import React, { useState } from "react";
-import { useQuery } from "react-apollo";
+import { useMutation } from "react-apollo";
+import { CREATE_ANNOUNCEMENT } from '../../queries/Announcements';
 
 //Style imports
 import {
   makeStyles,
   Button,
   Box,
-  TextField,
+  TextField
 } from "@material-ui/core";
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(theme => ({
   span: {
     fontSize: '2rem',
-    color: 'grey',
-    cursor: 'pointer'
+    color: '#2962FF',
+    textAlign: 'center',
+    fontWeight: 'normal',
+    marginTop: '0%'
   },
   modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     fontSize: "-webkit-xxx-large",
+    width: '50%'
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #000',
+    borderRadius: '5px',
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+    padding: theme.spacing(2, 4, 3)
+  },
+  closeModal: {
+    fontSize: "2rem",
+    marginLeft: '100%',
+    border: "none",
+    '&:hover': {
+      cursor: "pointer",
+      color: "#2962FF"
+    }, 
+    '&:focus': {
+      outline: "none"
+    }
+  },
+  titles: {
+    fontSize: '1.5rem',
+    marginBottom: '0',
+    fontWeight: 'normal'
+  },
+  titleDiv: {
+    display: "flex",
+    justifyContent: 'center'
+  },
+  titleInput: {
+    width: '100%'
+  },
+  buttonDiv: {
+    marginTop: '5%',
+    display: 'flex',
+    justifyContent: 'center'
+  },
+  button: {
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    background: '#2962FF',
+    color: 'white',
+    '&:hover': {
+      color: '#2962FF'
+    }
   }
 }));
   
-function AnnouncementModal(props) {
+function AnnouncementModal({ setAnnouncementOpen }) {
   const classes = useStyles();
-  const [NewAnnouncement, setNewAnnouncement] = useState([]);
-  const [NewAnnouncementText, setNewAnnouncementText] = useState([]);
+
+  const [createAnnouncement] = useMutation(CREATE_ANNOUNCEMENT);
+
+  const [newAnnouncement, setNewAnnouncement] = useState();
+  const [newAnnouncementText, setNewAnnouncementText] = useState();
   
-  const handleChange = e => {
+  const handleTitleChange = e => {
     setNewAnnouncement(e.target.value);
   };
 
-  const onSubmit = e => {
-    console.log(NewAnnouncement, "New Announcement");
-  };
-
-  const handleChangeText = e => {
+  const handleMessageChange = e => {
     setNewAnnouncementText(e.target.value);
   };
 
-  const onSubmitText = e => {
-    console.log(NewAnnouncementText, "New Announcement Text");
+  const onSubmit = e => {
+    e.preventDefault();
+    createAnnouncement({
+      variables: {
+        title: newAnnouncement,
+        message: newAnnouncementText,
+        isAnnouncementRoom: true
+      }
+    });
+
+    setAnnouncementOpen(false);
+    alert('Successfully sent announcement');
+  };
+
+  const closeModal = e => {
+    e.preventDefault();
+    setAnnouncementOpen(false);
   };
 
   return (
-    <div>          
+    <div className={classes.modal}>          
       <div className={classes.paper}>
+        <CloseIcon className={classes.closeModal} onClick={closeModal} />
         <h2 id="transition-modal-title" className={classes.span}>Create New Announcement</h2>
-        <h3>Announcement Title </h3>
-          <div>       
-            <Box component="div">
-              <TextField
-                variant="outlined"
-                type="text"
-                placeholder="Announcement Title..."
-                name="announcementTitle"
-                value={NewAnnouncement}
-                onChange={handleChange} />
-            </Box>
-            <h3>Announcement Text</h3>
-                <Box component="div">
-                  <TextField
-                    variant="outlined"
-                    type="text"
-                    placeholder="Announcement Text..."
-                    name="announcementText"
-                    value={NewAnnouncementText}
-                    onChange={handleChangeText} />
-                </Box>
-            <h3>Send to:</h3>
-                <Box component="div">
-                
-                </Box>        
-            <h3>Attach image</h3>
-            <Box component="div">
-              <div className={classes.root}>
-                <input
-                    accept="image/*"
-                    className={classes.input}
-                    id="contained-button-file"
-                    multiple
-                    type="file" />
-                <label htmlFor="contained-button-file">
-                  <Button variant="contained" color="primary" component="span">
-                      Attach
-                  </Button>
-                </label>
-              </div>
-            </Box>
-            <Button variant="outlined" color="primary" >
-              Send Announcement
-            </Button>
+        <h3 className={classes.titles}>Announcement Title</h3>
+        <div className={classes.titleDiv}>       
+          <Box component="div" className={classes.titleInput}>
+            <TextField
+              variant="outlined"
+              type="text"
+              fullWidth
+              name="announcementTitle"
+              value={newAnnouncement}
+              onChange={handleTitleChange} />
+          </Box>
+        </div>
+        <h3 className={classes.titles}>Announcement Text</h3>
+        <div className={classes.titleDiv}>
+          <Box component="div" className={classes.titleInput}>
+            <TextField
+              variant="outlined"
+              multiline={true}
+              rows={2}
+              rowsMax={4}
+              fullWidth
+              type="text"
+              name="announcementText"
+              value={newAnnouncementText}
+              onChange={handleMessageChange} />
+          </Box>
+        </div>      
+        <div className={classes.buttonDiv}>
+          <Button variant="outlined" color="primary" onClick={onSubmit} className={classes.button}>
+            Send Announcement
+          </Button>
         </div>
       </div>
     </div>

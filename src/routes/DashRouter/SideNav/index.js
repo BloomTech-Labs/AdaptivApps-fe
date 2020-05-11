@@ -165,10 +165,8 @@ function SideNav(props) {
         const announcement = subscriptionData.data.announcement
         refetchAnnouncements();
         return Object.assign({}, prev, {
-          profile: {
-            announcements: [announcement, ...prev.profile.announcements],
-            __typename: prev.profile.__typename
-          }
+          announcements: [announcement, ...prev.announcements],
+          __typename: prev.__typename
         })
       }
     })
