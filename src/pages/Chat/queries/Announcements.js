@@ -46,6 +46,14 @@ export const UPDATE_ANNOUNCEMENT = gql`
     }
 `;
 
+export const DELETE_ANNOUNCEMENT = gql`
+  mutation deleteAnnouncement( $id: ID! ) {
+    deleteAnnouncement( where: { id: $id } ) {
+      id
+    }
+  }
+`;
+
 // Announcement subscription
 export const ANNOUNCEMENT_SUBSCRIPTION = gql`
   subscription announcementSubscription {
