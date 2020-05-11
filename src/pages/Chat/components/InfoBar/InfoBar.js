@@ -133,8 +133,6 @@ function InfoBar({ user }) {
     if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     if (error) return `Error! ${error.message}`;
 
-    const announcementRoom = data?.profile.chatRooms === undefined ? null : data?.profile.chatRooms[0];
-
     const participants = data?.profile.chatRooms.map(item => item.participants).concat().flat();
 
     _subscribeToNewChatRoom(subscribeToMore);
@@ -219,7 +217,7 @@ function InfoBar({ user }) {
           </>
         ) : null}
         <div className={classes.chatRoomDiv}>
-          <AnnouncementRoom chatRoom={announcementRoom} key='announcement_room' user={user} />
+          <AnnouncementRoom key='announcement_room' user={user} />
           <Divider variant="inset" className={classes.divider} />
           {results.length > 0 ? 
             (results.map((chatRoom, id) => (
