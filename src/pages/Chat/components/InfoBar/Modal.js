@@ -76,19 +76,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function RecipientModal({ user, setOpen, participants }) {
+function RecipientModal({ user, setOpen }) {
     const classes = useStyles();
     const [searchRecipient, setSearchRecipient] = useState("");
     const [results, setResults] = useState([]);
 
     const { data } = useQuery(GET_RECIPIENTS);
     const [createChatRoom] = useMutation(CREATE_CHAT_ROOM);
-
-    //Retrieve participant emails, then remove duplicates
-    //Use uniqueEmails to determine if chatRoom exists already
-    const participantsEmail = participants.map(item => item.email)
-    const uniqueEmails = [...new Set(participantsEmail)]
-    //console.log('participants', participantsEmail, uniqueEmails)
   
     const searchContacts = e => {
       e.preventDefault();
@@ -107,17 +101,12 @@ function RecipientModal({ user, setOpen, participants }) {
     };
 
     const newChatRoom = async (item) => {
-      uniqueEmails.filter(email => {
-        email === item.email ? alert('You are chatting with this person already') :
-      
-        
       await createChatRoom({
-          variables:{
-            useremail: user.email,
-            recipientemail: item.email
-          }
-        })
-      }     
+        variables:{
+          useremail: user.email,
+          recipientemail: item.email
+        }
+      })
       setOpen(false);
     };
 

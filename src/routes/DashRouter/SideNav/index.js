@@ -135,7 +135,7 @@ function SideNav(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const { refetch,  } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
-  const { subscribeToMore  } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
+  const { subscribeToMore: announcementSubscription  } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
   const { subscribeToMore } = useQuery(GET_MESSAGES, { variables: { email: user.email } });
 
   const _subscribeToNewChats = subscribeToMore => {
@@ -157,8 +157,9 @@ function SideNav(props) {
 
   _subscribeToNewChats(subscribeToMore);
 
-  const _subscribeToNewAnnouncements = subscribeToMore => {
-    subscribeToMore({
+
+  const _subscribeToNewAnnouncements = announcementSubscription => {
+    announcementSubscription({
       document: ANNOUNCEMENT_SUBSCRIPTION,
       updateQuery: (prev, {subscriptionData }) => {
         if (!subscriptionData.data) return prev
@@ -174,7 +175,7 @@ function SideNav(props) {
     })
   };
 
-  _subscribeToNewAnnouncements(subscribeToMore);
+  _subscribeToNewAnnouncements(announcementSubscription);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -275,5 +276,6 @@ function SideNav(props) {
     </div>
   );
 }
+
 
 export default SideNav;
