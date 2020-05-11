@@ -22,12 +22,26 @@ const useStyles = makeStyles({
       fontSize: "1.6rem",
     },
   },
+  body: {
+    paddingLeft: "2.4rem",
+    textAlign: "left",
+    "& h3": {
+      fontSize: "2.1rem",
+      fontWeight: 600,
+    },
+    "& p": {
+      fontSize: "1.8rem",
+    },
+  },
+  question: {
+    color: "#2962FF",
+    fontWeight: 600,
+  },
 });
 
 export default function Activity({ activity, refetch }) {
   const classes = useStyles();
   const [DeleteActivity] = useMutation(DELETE_ACTIVITY);
-
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -46,17 +60,19 @@ export default function Activity({ activity, refetch }) {
     });
     refetch();
   };
+
   const body = (
-    <>
-      <p>{activity.name}</p>
+    <div className={classes.body}>
+      <h3>{activity.name}</h3>
       <p>{activity.date}</p>
       <p>
         {activity.startTime} - {activity.endTime}
       </p>
       <p>{activity.location}</p>
-      <p>Delete this activity?</p>
-    </>
+      <p className={classes.question}>Delete this activity?</p>
+    </div>
   );
+
   return (
     <>
       <tbody className={classes.root}>
