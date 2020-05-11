@@ -135,6 +135,8 @@ function InfoBar({ user }) {
 
     const announcementRoom = data?.profile.chatRooms === undefined ? null : data?.profile.chatRooms[0];
 
+    const participants = data?.profile.chatRooms.map(item => item.participants).concat().flat();
+
     _subscribeToNewChatRoom(subscribeToMore);
 
     const searchRooms = e => {
@@ -193,7 +195,7 @@ function InfoBar({ user }) {
           BackdropProps={{
             timeout: 500,
           }}>
-          <RecipientModal user={user} setOpen={setOpen}/>
+          <RecipientModal user={user} setOpen={setOpen} participants={participants}/>
         </Modal> 
         {user && user[config.roleUrl].includes("Admin") ? 
         (
