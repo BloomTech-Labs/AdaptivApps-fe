@@ -96,25 +96,20 @@ function RecipientModal({ user, setOpen, participants, setNewRoom }) {
           return results;
         }
       });
-
       setSearchRecipient('');
     };
 
     const participantsEmail = participants.map(item => item.email)
     const uniqueEmails = [...new Set(participantsEmail)]
 
-    const newChatRoom = (item) => {
-      const filtered = uniqueEmails.filter(email => email === item.email)
-
-      filtered[0] !== item.email ? 
-      (createChatRoom({
+    const newChatRoom = async (item) => {
+        await (createChatRoom({
         variables:{
           useremail: user.email,
           recipientemail: item.email
         }
-      })) :
-       alert('You are chatting with this person already');
-      
+      }));
+
       setOpen(false);
       setNewRoom(true);
     };
@@ -129,6 +124,34 @@ function RecipientModal({ user, setOpen, participants, setNewRoom }) {
       setOpen(false);
     };
 
+    const searchList = (
+    <List>
+    {results.length > 0 ? 
+      (results.map(item => {
+        const filtered = uniqueEmails.filter(email => email === item.email)
+        if (filtered[0] !== item.email) {
+          return (
+            <ListItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
+              <ListItemText primary={`${item.firstName} ${item.lastName}`} />
+            </ListItem>
+          )
+        }
+        }))
+      : 
+      (data && data?.profiles.map(item => {
+        const filtered = uniqueEmails.filter(email => email === item.email)
+        if (filtered[0] !== item.email) {
+          return (
+            <ListItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
+                <ListItemText primary={`${item.firstName} ${item.lastName}`} />
+              </ListItem>
+          )
+        }
+        }))}
+      </List>
+      )
+
+      
     return (
      <div>          
       <div className={classes.paper}>
@@ -154,20 +177,7 @@ function RecipientModal({ user, setOpen, participants, setNewRoom }) {
             <div className={classes.root}>
               <div>
               <Paper style={{maxHeight: 200, overflow: 'auto'}}>
-                <List>
-                {results.length > 0 ? 
-                  (results.map(item => item.email !== user.email && (
-                    <ListItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
-                      <ListItemText primary={`${item.firstName} ${item.lastName}`} />
-                    </ListItem>
-                  ))) 
-                  : 
-                  (data && data?.profiles.map(item => item.email !== user.email && (
-                    <ListItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
-                      <ListItemText primary={`${item.firstName} ${item.lastName}`} />
-                    </ListItem>
-                )))}
-                  </List>
+                {searchList}
                 </Paper>
               </div>
             </div>
