@@ -86,7 +86,7 @@ export default function EventForm({
   }, [loading, currentEvent, setValue, event]);
 
   const onSubmit = async (formValues, e) => {
-    if (window.location.pathname === `/createEvent`) {
+    if (window.location.pathname !== `/editEvent/${eventId}`) {
       const { data } = await createEvent({
         variables: {
           type: formValues.type,
@@ -108,7 +108,7 @@ export default function EventForm({
       });
       alert("Successfully created an event!");
       await navigate(`/createEvent/${data?.createEvent?.id}`);
-    } else if (window.location.pathname === `/editEvent/${eventId}`) {
+    } else {
       await updateEvent({
         variables: {
           id: eventId,
@@ -129,8 +129,8 @@ export default function EventForm({
           details: formValues.details,
         },
       });
+      await navigate(`/createEvent/${eventId}`);
     }
-    await navigate(`/createEvent/${eventId}`);
   };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
