@@ -96,7 +96,6 @@ export default function Announcements({ user }) {
             <div key={announcement.id} className={classes.messageBox}>
               <div className={classes.userMessage}>
                 <div className={classes.messageHeader}>
-                  {/* <p className={classes.sender}>From: ACS Admin</p> */}
                   <p className={classes.sender}>Title: {announcement.title}</p>
                 </div>
                 <p className={classes.messageText}>{announcement.message}</p>
