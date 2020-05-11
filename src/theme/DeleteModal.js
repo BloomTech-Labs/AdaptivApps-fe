@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 // Material-UI components
 import { Modal, Button, Box, Paper, makeStyles } from '@material-ui/core';
 
@@ -13,13 +13,13 @@ function getModalStyle() {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   paper: {
     position: 'absolute',
     minHeight: 320, 
     width: 320,
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: "2px solid #000",
     boxShadow: theme.shadows[5],
     display: "flex",
     flexDirection: "column",
@@ -33,10 +33,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.6rem",
     fontWeight: 550,
     color: "white",
-    '&:hover': {
+    "&:hover": {
       border: "1px solid #2962FF",
       background: "white",
-      color: "#2962FF"
+      color: "#2962FF",
     },
   },
   closeBtn: {
@@ -45,11 +45,11 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.6rem",
     fontWeight: 550,
     border: "1px solid #2962FF",
-    '&:hover': {
+    "&:hover": {
       color: "white",
-      background: "#2962FF"
+      background: "#2962FF",
     },
-  }
+  },
 }));
 
 export default function DeleteModal(props) {
@@ -74,4 +74,3 @@ export default function DeleteModal(props) {
     </Modal>
   );
 }
-

@@ -19,3 +19,11 @@ export const GET_EVENT_LIST = gql`
     }
   }
 `;
+
+export const DELETE_EVENT = gql`
+  mutation deleteEvent($id: ID!) {
+    deleteEvent(where: { id: $id }) {
+      id
+    }
+  }
+`;
