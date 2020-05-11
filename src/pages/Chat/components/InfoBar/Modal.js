@@ -155,13 +155,13 @@ function RecipientModal({ user, setOpen, participants }) {
               <Paper style={{maxHeight: 200, overflow: 'auto'}}>
                 <List>
                 {results.length > 0 ? 
-                  (results.map(item => (
+                  (results.map(item => item.email !== user.email && (
                     <ListItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
                       <ListItemText primary={`${item.firstName} ${item.lastName}`} />
                     </ListItem>
                   ))) 
                   : 
-                  (data && data?.profiles.map(item => (
+                  (data && data?.profiles.map(item => item.email !== user.email && (
                     <ListItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
                       <ListItemText primary={`${item.firstName} ${item.lastName}`} />
                     </ListItem>

@@ -143,7 +143,6 @@ function InfoBar({ user }) {
         let users = room.participants.map(user => {
           return `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`;
         });
-
         return users.filter(user => {
           if (user.includes(searchRecipient.toLowerCase())) {
             results.push(room);
@@ -151,7 +150,6 @@ function InfoBar({ user }) {
           };
         });
       });
-
       setSearchRecipient('');
     };
 
