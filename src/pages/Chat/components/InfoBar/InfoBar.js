@@ -212,7 +212,7 @@ function InfoBar({ user }) {
             BackdropProps={{
               timeout: 500,
             }}>
-            <AnnouncementModal />
+            <AnnouncementModal setAnnouncementOpen={setAnnouncementOpen} />
            </Modal>
           </>
         ) : null}
