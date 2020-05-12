@@ -246,3 +246,4 @@ export default function ActivityForm({ data, createActivity, eventId, refetch })
     </form>
   )
 }
+ 
