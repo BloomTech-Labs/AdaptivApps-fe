@@ -2,10 +2,15 @@ import React, { useEffect, useRef } from 'react';
 import { useQuery } from "react-apollo";
 import { GET_ANNOUNCEMENTS } from '../../queries/Announcements';
 
+//Auth0 imports
+import config from "../../../../config/auth_config";
+
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Tooltip from '@material-ui/core/Tooltip';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import {
   makeStyles
 } from "@material-ui/core";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -22,7 +27,9 @@ const useStyles = makeStyles(theme => ({
   },
   messageHeader: {
     marginBottom: '2%',
-    padding: '1%'
+    padding: '1%',
+    display: 'flex',
+    justifyContent: 'space-between'
   },
   sender: {
     fontSize: '1.5rem',
@@ -59,6 +66,12 @@ const useStyles = makeStyles(theme => ({
   header: {
     fontSize: '2rem',
     marginLeft: '4%'
+  },
+  editIcon: {
+    '&:hover': {
+      cursor: 'pointer',
+      color: '#2962FF'
+    }
   }
 }));
 
@@ -96,7 +109,11 @@ export default function Announcements({ user }) {
             <div key={announcement.id} className={classes.messageBox}>
               <div className={classes.userMessage}>
                 <div className={classes.messageHeader}>
-                  <p className={classes.sender}>Title: {announcement.title}</p>
+                  <p className={classes.sender}>{announcement.title}</p>
+                  {user && user[config.roleUrl].includes("Admin") ? (
+                  <Tooltip title="Edit Message">
+                    <EditOutlinedIcon className={classes.editIcon} />
+                  </Tooltip>) : null}
                 </div>
                 <p className={classes.messageText}>{announcement.message}</p>
                 <div ref={announcementsEndRef} />

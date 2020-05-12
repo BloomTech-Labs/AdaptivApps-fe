@@ -1,9 +1,12 @@
 import React, { useEffect, useRef } from 'react';
 import Input from "../Input/Input";
+
 import PersonIcon from '@material-ui/icons/Person';
+import Tooltip from '@material-ui/core/Tooltip';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import {
-    makeStyles
-  } from "@material-ui/core";
+  makeStyles
+} from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -19,7 +22,9 @@ const useStyles = makeStyles(theme => ({
   },
   messageHeader: {
     marginBottom: '4%',
-    padding: '1%'
+    padding: '1%',
+    display: 'flex',
+    justifyContent: 'space-between'
   },
   sender: {
     fontSize: '1.25rem',
@@ -73,6 +78,12 @@ const useStyles = makeStyles(theme => ({
   header: {
     fontSize: '2rem',
     marginLeft: '4%'
+  },
+  editIcon: {
+    '&:hover': {
+      cursor: 'pointer',
+      color: '#2962FF'
+    }
   }
 }));
 
@@ -100,6 +111,10 @@ export default function Messages({ user, chatRoom, participants, messages }) {
                   classes.messageSender : classes.userMessage}>
                 <div className={classes.messageHeader}>
                   {message.sender === user.email ? <span className={classes.sender}>Me</span> : <span className={classes.sender}>{message.firstName} {message.lastName}</span> }
+                  {message.sender === user.email ? (
+                  <Tooltip title="Edit Message">
+                    <EditOutlinedIcon className={classes.editIcon} />
+                  </Tooltip>) : null}
                 </div>
                 <p className={classes.messageText}>{message.message}</p>
                 <div ref={messagesEndRef} />
