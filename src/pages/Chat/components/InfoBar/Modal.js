@@ -109,6 +109,7 @@ function RecipientModal({ user, setOpen, participants, setNewRoom }) {
           recipientemail: item.email
         }
       }));
+
       setOpen(false);
       setNewRoom(true);
     };
