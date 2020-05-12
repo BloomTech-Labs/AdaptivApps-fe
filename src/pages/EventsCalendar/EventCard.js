@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "@reach/router";
 import { useAuth0 } from "../../config/react-auth0-spa";
-import SimpleModal from "./SimpleModal";
+// import SimpleModal from "./SimpleModal";
+// Component imports
+import DeleteModal from "../../theme/DeleteModal";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import { DELETE_EVENT } from "./queries";
@@ -89,14 +91,41 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "space-between",
   },
+  imgBox: {
+    width: "100%",
+  },
+  img: {
+    width: "100%",
+    padding: "0",
+    height: "16rem",
+    objectFit: "cover",
+  },
+  modalMiddle: {
+    padding: "2rem 0 2rem 2rem",
+    marginBottom: "2rem",
+    textAlign: "left",
+  },
+  question: {
+    color: "#2962FF",
+    fontWeight: 600,
+  },
 });
 
-export default function EventCard({ event }) {
+export default function EventCard({ event, refetch }) {
   const classes = useStyles();
   const { user } = useAuth0();
   const navigate = useNavigate();
   const [createParticipant] = useMutation(REGISTER_EVENT);
   const [deleteEvent] = useMutation(DELETE_EVENT);
+  const [open, setOpen] = useState(false);
+  // will open DeleteModal when invoked
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  // will close DeleteModal when invoked
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   const registerEvent = async () => {
     await createParticipant({
@@ -112,9 +141,33 @@ export default function EventCard({ event }) {
     await deleteEvent({
       variables: { id: event.id },
     });
+    await handleClose();
+    refetch();
   };
 
+  const body = (
+    <>
+    <Box className={classes.imgBox}>
+    <img className={classes.img} src={event.imgUrl} alt="Event" />
+    </Box>
+    <Box className={classes.modalMiddle}>
+      <Typography className={classes.date}>
+        {event.date} - {event.date}
+      </Typography>
+      <Typography variant="h3" id="simple-modal-title">
+        {event.title}
+      </Typography>
+      <Typography className={classes.loc}>{event.location}</Typography>
+      <Typography className={classes.details} id="simple-modal-description">
+        {event.details}
+      </Typography>
+      <Typography className={classes.question}>Delete this event?</Typography>
+    </Box>
+  </>
+  );
+
   return (
+    <>
     <Card className={classes.root}>
       <CardActionArea className={classes.card}>
         <Box>
@@ -163,7 +216,7 @@ export default function EventCard({ event }) {
                 fontSize="large"
               />
             </Button>
-            <Button>
+            <Button onClick={handleOpen}>
               <DeleteOutlineIcon
                 className={classes.icon}
                 color="primary"
@@ -173,9 +226,17 @@ export default function EventCard({ event }) {
           </Box>
         </Box>
       </CardActionArea>
-      <CardActions className={classes.btnContainer}>
+      
+      {/* <CardActions className={classes.btnContainer}>
         <SimpleModal event={event} registerEvent={registerEvent} />
-      </CardActions>
+      </CardActions> */}
     </Card>
+    <DeleteModal
+    onClick={removeEvent}
+    open={open}
+    body={body}
+    handleClose={handleClose}
+  />
+  </>
   );
 }
