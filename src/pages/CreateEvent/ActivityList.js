@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Component imports
 import Activity from "./Activity";
 // Material-UI imports
@@ -20,21 +20,26 @@ const useStyles = makeStyles(theme => ({
     },
   },
   subHeadings: {
-    color: '#808080',
+    color: "#808080",
   },
 }));
 
 export default function ActivityList({ data, refetch }) {
   const classes = useStyles();
-  console.log("inside ActivityList", data);
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
   return (
     <div className={classes.root}>
       <Box>
         <Typography variant="h2">{data?.event?.title}</Typography>
-        <Typography variant="h5" className={classes.subHeadings}>{data?.event?.date}</Typography>
-        <Typography variant="h4" className={classes.subHeadings}>{data?.event?.location}</Typography>
+        <Typography variant="h5" className={classes.subHeadings}>
+          {data?.event?.date}
+        </Typography>
+        <Typography variant="h4" className={classes.subHeadings}>
+          {data?.event?.location}
+        </Typography>
       </Box>
-      
       <h1>Added Activities</h1>
       {data?.event?.activities.length === 0 ? (
         <>
@@ -54,7 +59,7 @@ export default function ActivityList({ data, refetch }) {
               <th>Time</th>
             </tr>
           </thead>
-        
+
           {data?.event?.activities.map((activity, id) => (
             <Activity key={id} activity={activity} refetch={refetch} />
           ))}
