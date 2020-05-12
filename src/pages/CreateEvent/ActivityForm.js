@@ -1,6 +1,8 @@
 // React imports
 import React from 'react';
 import { useForm, Controller } from "react-hook-form";
+// Component imports
+import LightTooltip from '../../theme/LightTooltip'
 // Material-UI imports
 import {
   makeStyles,
@@ -9,11 +11,13 @@ import {
   Select,
   MenuItem,
   Button,
+  Box
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   button: {
     marginTop: "3rem",
+    margin: theme.spacing(1),
     border: "1px solid #2962FF",
     background: "#2962FF",
     color: "#FFFFFF",
@@ -22,6 +26,11 @@ const useStyles = makeStyles(theme => ({
     "& .MuiButton-label": {
       fontSize: "1.6rem",
       fontWeight: 500,
+    },
+    "&:hover": {
+      border: "1px solid #2962FF",
+      background: "white",
+      color: "#2962FF",
     },
     textTransform: "none",
     [theme.breakpoints.down("sm")]: {
@@ -55,6 +64,7 @@ export default function ActivityForm({ data, createActivity, eventId, refetch })
     alert("Successfully created an activity!");
     await refetch();
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
       <InputLabel className={classes.inputLabel} htmlFor="date">
@@ -204,15 +214,30 @@ export default function ActivityForm({ data, createActivity, eventId, refetch })
         control={control}
         ref={register({ required: true, maxLength: 510 })}
       />
-      <Button
-        className={classes.button}
-        variant="outlined"
-        type="submit"
-        aria-label="Click here to add an activity"
-        onClick={handleSubmit}
-      >
-        Add
-      </Button>
+      <Box>
+        <LightTooltip title="Add Activity">
+          <Button
+          className={classes.button}
+          variant="outlined"
+          type="submit"
+          aria-label="Click here to add an activity"
+          onClick={handleSubmit}
+          >
+            Add
+          </Button>
+        </LightTooltip>
+        <LightTooltip title="Finish Event Creation">
+          <Button
+          className={classes.button}
+          variant="outlined"
+          type="submit"
+          aria-label="Click here to finish event creation"
+          // onClick={()=>navigate(`/calendar/${event.id}`)}
+          >
+            Finish
+          </Button>
+        </LightTooltip>
+      </Box>
     </form>
   )
 }

@@ -10,13 +10,13 @@ export const REGISTER_AS_VOLUNTEER = gql`
       where: { id: $participantId }
       update: { role: VOLUNTEER }
       create: {
-        profile: { connect: { email: $email } }
+        activityProfile: { connect: { email: $email } }
         role: VOLUNTEER
         activity: { connect: { id: $activityId } }
       }
     ) {
       id
-      profile {
+      activityProfile {
         id
         email
       }
@@ -34,14 +34,14 @@ export const REGISTER_AS_COACH = gql`
     upsertParticipant(
       where: { id: $participantId }
       create: {
-        profile: { connect: { email: $email } }
+        activityProfile: { connect: { email: $email } }
         role: COACH
         activity: { connect: { id: $activityId } }
       }
       update: { role: COACH }
     ) {
       id
-      profile {
+      activityProfile {
         id
         email
       }
@@ -59,14 +59,14 @@ export const REGISTER_AS_SPECTATOR = gql`
     upsertParticipant(
       where: { id: $participantId }
       create: {
-        profile: { connect: { email: $email } }
+        activityProfile: { connect: { email: $email } }
         role: SPECTATOR
         activity: { connect: { id: $activityId } }
       }
       update: { role: SPECTATOR }
     ) {
       id
-      profile {
+      activityProfile {
         id
         email
       }
@@ -83,14 +83,14 @@ export const REGISTER_AS_ATHLETE = gql`
     upsertParticipant(
       where: { id: $participantId }
       create: {
-        profile: { connect: { email: $email } }
+        activityProfile: { connect: { email: $email } }
         role: ATHLETE
         activity: { connect: { id: $activityId } }
       }
       update: { role: ATHLETE }
     ) {
       id
-      profile {
+      activityProfile {
         id
         email
       }

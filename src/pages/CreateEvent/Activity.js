@@ -5,7 +5,7 @@ import { DELETE_ACTIVITY } from "./graphql";
 // Component imports
 import DeleteModal from "../../theme/DeleteModal";
 // Material-UI imports
-import { makeStyles, Button } from "@material-ui/core";
+import { makeStyles, Button, Box, Typography } from "@material-ui/core";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 
@@ -22,22 +22,29 @@ const useStyles = makeStyles({
       fontSize: "1.6rem",
     },
   },
+  body: {
+    paddingLeft: "2.4rem",
+    textAlign: "left",
+  },
+  question: {
+    color: "#2962FF",
+    fontWeight: 600,
+  },
 });
 
 export default function Activity({ activity, refetch }) {
   const classes = useStyles();
   const [DeleteActivity] = useMutation(DELETE_ACTIVITY);
-
   const [open, setOpen] = useState(false);
-
+  // will open DeleteModal when invoked
   const handleOpen = () => {
     setOpen(true);
   };
-
+  // will close DeleteModal when invoked
   const handleClose = () => {
     setOpen(false);
   };
-
+  // will delete an activity from an event
   const deleteActivity = async () => {
     await DeleteActivity({
       variables: {
@@ -46,17 +53,19 @@ export default function Activity({ activity, refetch }) {
     });
     refetch();
   };
+  // body for DeleteModal to display Activity info
   const body = (
-    <>
-      <p>{activity.name}</p>
-      <p>{activity.date}</p>
-      <p>
+    <Box className={classes.body}>
+      <Typography variant="h3">{activity.name}</Typography>
+      <Typography>{activity.date}</Typography>
+      <Typography>
         {activity.startTime} - {activity.endTime}
-      </p>
-      <p>{activity.location}</p>
-      <p>Delete this activity?</p>
-    </>
+      </Typography>
+      <Typography>{activity.location}</Typography>
+      <Typography className={classes.question}>Delete this activity?</Typography>
+    </Box>
   );
+
   return (
     <>
       <tbody className={classes.root}>
@@ -76,7 +85,7 @@ export default function Activity({ activity, refetch }) {
         </tr>
       </tbody>
       <DeleteModal
-        deleteActivity={deleteActivity}
+        onClick={deleteActivity}
         open={open}
         body={body}
         handleClose={handleClose}

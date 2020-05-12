@@ -33,7 +33,7 @@ export const GET_USER_ACTIVITIES = gql`
     activities(
       where: {
         event: { id: $id }
-        AND: { participants_some: { profile: { email: $email } } }
+        AND: { participants_some: { activityProfile: { email: $email } } }
       }
     ) {
       id
@@ -52,7 +52,7 @@ export const GET_USER_ACTIVITIES = gql`
       participants {
         id
         role
-        profile {
+        activityProfile {
           id
           email
         }
