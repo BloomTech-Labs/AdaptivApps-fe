@@ -64,6 +64,7 @@ export default function ActivityForm({ data, createActivity, eventId, refetch })
     alert("Successfully created an activity!");
     await refetch();
   };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
       <InputLabel className={classes.inputLabel} htmlFor="date">
@@ -231,6 +232,7 @@ export default function ActivityForm({ data, createActivity, eventId, refetch })
           variant="outlined"
           type="submit"
           aria-label="Click here to finish event creation"
+          // onClick={()=>navigate(`/calendar/${event.id}`)}
           >
             Finish
           </Button>
