@@ -9553,6 +9553,11 @@ react-scripts@^3.4.1:
   optionalDependencies:
     fsevents "2.1.2"
 
+react-speech-recognition@^2.0.4:
+  version "2.0.4"
+  resolved "https://registry.yarnpkg.com/react-speech-recognition/-/react-speech-recognition-2.0.4.tgz#34ae2652cacef7ca6ca1c57659ded2fafec4c16d"
+  integrity sha512-CVIcNZuRf/zbsg2bMIOxwLTHvHVlcCXlB8DaVPdqKhNFJNeIOVcuNX1Lc4925HTDO1ZkQiaMD/xadMmYdx3DHQ==
+
 react-test-renderer@^16.9.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.13.1.tgz#de25ea358d9012606de51e012d9742e7f0deabc1"

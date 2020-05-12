@@ -1,5 +1,8 @@
 // React imports
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+
+//Speech-To-Text Recognition 
+import SpeechRecognition from 'react-speech-recognition'
 
 // Query Imports
 import { SEND_CHAT } from '../../queries/Chats'
@@ -14,6 +17,7 @@ import { Picker } from 'emoji-mart'
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SendIcon from '@material-ui/icons/Send';
 import MoodIcon from '@material-ui/icons/Mood';
+import MicNoneIcon from '@material-ui/icons/MicNone';
 import Modal from '@material-ui/core/Modal';
 import {
     makeStyles,
@@ -58,6 +62,13 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
+// //Setup for Speech Recognition Object
+// const speechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+// const recognition = new SpeechRecognition();
+
+// recognition.start();
+
 const Input = ({ chatRoom, user }) => {
     const classes = useStyles();
     const [toggleEmoji, setToggleEmoji] = useState(false)
@@ -100,7 +111,10 @@ const Input = ({ chatRoom, user }) => {
 
     return(
         <div>
-            <div className={classes.inputDiv}>            
+            <div className={classes.inputDiv}>
+                <div className={classes.iconDiv}>
+                    <MicNoneIcon className={classes.icons} />
+                </div>
                 <TextField
                     className={classes.messageBox}
                     multiline={true}
