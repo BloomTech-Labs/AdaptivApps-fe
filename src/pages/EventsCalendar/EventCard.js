@@ -109,8 +109,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: "1.6rem",
   },
   modalMiddle: {
-    padding: "2rem 0 2rem 2rem",
-    marginBottom: "2rem",
+    padding: "2rem 0 0rem 2rem",
     textAlign: "left",
   },
   details: {
@@ -123,7 +122,8 @@ const useStyles = makeStyles(theme => ({
   },
   question: {
     color: "#2962FF",
-    fontWeight: 600,
+    fontWeight: 500,
+    marginTop: 64,
   },
 }));
 
@@ -177,7 +177,7 @@ export default function EventCard({ event, refetch }) {
         <Typography className={classes.details} id="simple-modal-description">
           {event.details}
         </Typography>
-        <Typography className={classes.question}>Delete this event?</Typography>
+        <Typography variant="h2" className={classes.question}>Delete this event?</Typography>
       </Box>
     </>
   );
