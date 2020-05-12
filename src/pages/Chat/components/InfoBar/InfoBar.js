@@ -131,13 +131,13 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom, setUpdateChat,
     if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     if (error) return `Error! ${error.message}`;
 
-    const participants = data?.profile.chatRooms.map(item => item.participants).concat().flat();
+    const participants = data && data?.profile.chatRooms.map(item => item.participants).concat().flat();
 
     _subscribeToNewChatRoom(subscribeToMore);
 
     const searchRooms = e => {
       e.preventDefault();
-      let filter = data?.profile.chatRooms.map(room => {
+      let filter = data && data?.profile.chatRooms.map(room => {
         let users = room.participants.map(user => {
           return `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`;
         });
