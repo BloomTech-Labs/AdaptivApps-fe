@@ -98,6 +98,16 @@ const Input = ({ chatRoom, user }) => {
         setMessage({ message: ''})
     };
 
+    const newSpeechMessage = async () => {
+        await sendChat({
+            variables: {
+              id: chatRoom.id,
+              email: user.email,
+              message: textValue.textValue 
+            }
+        })
+        setTextValue({ message: ''})
+    };
 
    const handleChange = e => {
         setMessage({
@@ -134,7 +144,8 @@ const Input = ({ chatRoom, user }) => {
                         endAdornment: <InputAdornment position="end">
                         <SendIcon
                         className={classes.sendMessageIcon} 
-                        onClick={newMessage} />
+                        onClick={newMessage}
+                        onClick={newSpeechMessage} />
                     </InputAdornment>
                     }}
                     />
