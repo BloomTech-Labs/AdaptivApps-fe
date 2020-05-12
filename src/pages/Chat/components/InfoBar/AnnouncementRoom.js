@@ -71,7 +71,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function AnnouncementRoom({ user }) {
+export default function AnnouncementRoom({ user, setAnnouncementOpen }) {
     const classes = useStyles();
 
     const [messageToggle, setMessageToggle] = useState(false);
