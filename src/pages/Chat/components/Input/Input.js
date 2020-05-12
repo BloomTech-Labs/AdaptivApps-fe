@@ -47,6 +47,14 @@ const useStyles = makeStyles(() => ({
             cursor: "pointer",
           }, 
     },
+    speechIcon: {
+        color: '#808080',
+        fontSize: '3.5rem',
+        '&:hover': {
+            cursor: "pointer",
+          }, 
+          marginLeft: '45px',
+    },
     sendMessageIcon: {
         color: '#2962FF',
         fontSize: '3rem',
@@ -141,7 +149,7 @@ const Input = ({ chatRoom, user }) => {
         <div>
             <div className={classes.inputDiv}>
                 <div className={classes.iconDiv}>
-                    <MicNoneIcon className={classes.icons} onMouseDown={listen} onMouseUp={stop}/>
+                    <MicNoneIcon className={classes.speechIcon} onMouseDown={listen} onMouseUp={stop}/>
                     {listening && <div>Go ahead I'm listening</div>}
                 </div>
                 <TextField
