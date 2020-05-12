@@ -2,6 +2,8 @@ import React, { useState } from "react";
 // Apollo-GraphQL imports
 import { useMutation } from "react-apollo";
 import { DELETE_ACTIVITY } from "./graphql";
+//reach router imports
+import { useNavigate } from "@reach/router";
 // Component imports
 import DeleteModal from "../../theme/DeleteModal";
 // Material-UI imports
@@ -27,7 +29,7 @@ const useStyles = makeStyles({
 export default function Activity({ activity, refetch }) {
   const classes = useStyles();
   const [DeleteActivity] = useMutation(DELETE_ACTIVITY);
-
+  const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -46,6 +48,10 @@ export default function Activity({ activity, refetch }) {
     });
     refetch();
   };
+  const editActivity = async () => {
+    await navigate(`/editActivity/${activity.id}`);
+  };
+
   const body = (
     <>
       <p>{activity.name}</p>
@@ -68,7 +74,11 @@ export default function Activity({ activity, refetch }) {
             {activity.startTime} - {activity.endTime}
           </td>
           <Button>
-            <EditOutlinedIcon color="primary" fontSize="large" />
+            <EditOutlinedIcon
+              onClick={editActivity}
+              color="primary"
+              fontSize="large"
+            />
           </Button>
           <Button onClick={handleOpen}>
             <DeleteOutlineIcon color="primary" fontSize="large" />
@@ -76,7 +86,7 @@ export default function Activity({ activity, refetch }) {
         </tr>
       </tbody>
       <DeleteModal
-        deleteActivity={deleteActivity}
+        onClick={deleteActivity}
         open={open}
         body={body}
         handleClose={handleClose}

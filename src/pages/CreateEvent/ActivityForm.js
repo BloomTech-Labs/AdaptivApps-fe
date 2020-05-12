@@ -1,5 +1,5 @@
 // React imports
-import React from 'react';
+import React from "react";
 import { useForm, Controller } from "react-hook-form";
 // Material-UI imports
 import {
@@ -31,11 +31,17 @@ const useStyles = makeStyles(theme => ({
   form: { display: "flex", flexDirection: "column", width: "400px" },
 }));
 
-export default function ActivityForm({ data, createActivity, eventId, refetch }) {
+export default function ActivityForm({
+  data,
+  createActivity,
+  eventId,
+  refetch,
+}) {
   const classes = useStyles();
   const { register, handleSubmit, errors, control } = useForm();
-  
-  const onSubmit = async formValues => {
+
+  const onSubmit = async (formValues, e) => {
+    e.preventDefault();
     await createActivity({
       variables: {
         name: formValues.name,
@@ -214,5 +220,5 @@ export default function ActivityForm({ data, createActivity, eventId, refetch })
         Add
       </Button>
     </form>
-  )
+  );
 }
