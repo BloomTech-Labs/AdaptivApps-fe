@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 export default function ActivityDetails({ activity }) {
   const classes = useStyles();
   const { user } = useAuth0();
-
+console.log('Inside ActivityDetails', activity.participants)
   const activeEvent = activity.event;
   return (
     <tr className={classes.root}>
@@ -50,7 +50,7 @@ export default function ActivityDetails({ activity }) {
       )}
       <td>{activity.startTime}</td>
       {activity?.participants.map((participant, id) =>
-        participant && participant?.profile?.email === user.email ? (
+        participant && participant?.activityProfile?.email === user.email ? (
           <td>{participant.role}</td>
         ) : null
       )}
