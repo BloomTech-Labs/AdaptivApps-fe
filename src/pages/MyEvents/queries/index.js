@@ -20,7 +20,7 @@ export const GET_USER_EVENTS = gql`
         id
         participants {
           id
-          profile {
+          activityProfile {
             id
             email
           }
@@ -35,7 +35,7 @@ export const GET_PARTICIPANT_IDS = gql`
   query getParticipantIds($email: String!, $id: ID!) {
     participants(
       where: {
-        profile: { email: $email }
+        activityProfile: { email: $email }
         AND: { activity: { event: { id: $id } } }
       }
     ) {
