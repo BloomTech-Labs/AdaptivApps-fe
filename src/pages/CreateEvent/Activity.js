@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // Apollo-GraphQL imports
 import { useMutation } from "react-apollo";
 import { DELETE_ACTIVITY } from "./graphql";
@@ -57,9 +57,11 @@ export default function Activity({ activity, refetch }) {
     refetch();
   };
   const editActivity = async () => {
-    await navigate(`/editActivity/${activity.id}`);
+    await navigate(`/editActivity/${activity?.id}`);
   };
-  console.log(activity);
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   // body for DeleteModal to display Activity info
   const body = (

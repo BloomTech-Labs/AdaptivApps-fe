@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 // Component imports
 import Activity from "./Activity";
 // Material-UI imports
 import { makeStyles, Box, Typography } from "@material-ui/core";
-import EditActivity from "./EditActivity";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,7 +26,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function ActivityList({ data, refetch }) {
   const classes = useStyles();
-  console.log("inside ActivityList", data);
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
   return (
     <div className={classes.root}>
       <Box>

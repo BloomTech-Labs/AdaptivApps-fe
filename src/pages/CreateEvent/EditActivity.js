@@ -3,7 +3,7 @@ import React from "react";
 import { useParams, Link } from "@reach/router";
 // Apollo-GraphQL imports
 import { useMutation, useQuery } from "react-apollo";
-import { UPDATE_ACTIVITY, GET_ACTIVITIES } from "./graphql";
+import { UPDATE_ACTIVITY, GET_ACTIVITY } from "./graphql";
 // Component imports
 import ActivityForm from "./ActivityForm";
 import ActivityList from "./ActivityList";
@@ -45,10 +45,15 @@ const useStyles = makeStyles({
 
 export default function EditActivity() {
   const classes = useStyles();
-  const { eventId } = useParams();
+  const { activityId } = useParams();
+  const { data, refetch } = useQuery(GET_ACTIVITY, {
+    variables: { id: activityId },
+  });
   const [updateActivity, { error, loading }] = useMutation(UPDATE_ACTIVITY);
+
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
+  console.log("data in edit activity", data);
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
@@ -58,10 +63,16 @@ export default function EditActivity() {
       </Box>
       <Container className={classes.activityCreation}>
         <Box>
-          <ActivityForm updateActivity={updateActivity} eventId={eventId} />
+          <ActivityForm
+            updateActivity={updateActivity}
+            activityId={activityId}
+            data={data}
+            loading={loading}
+            refetch={refetch}
+          />
         </Box>
         <Box>
-          <ActivityList />
+          <ActivityList refetch={refetch} />
         </Box>
       </Container>
     </main>
