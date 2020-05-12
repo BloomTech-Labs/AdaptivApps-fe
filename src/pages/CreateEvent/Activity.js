@@ -25,12 +25,28 @@ const useStyles = makeStyles({
     },
   },
   body: {
+    marginTop: "3.2rem",
     paddingLeft: "2.4rem",
     textAlign: "left",
+    fontSize: "1.8rem"
+  },
+  name: {
+    fontWeight: "bold",
+    marginBottom: "0.8rem"
+  },
+  date: {
+    marginBottom: "0.8rem"
+  },
+  time: {
+    marginBottom: "0.8rem"
+  },
+  location: {
+    marginBottom: "0.8rem"
   },
   question: {
     color: "#2962FF",
-    fontWeight: 600,
+    fontWeight: 500,
+    marginTop: '3.2rem'
   },
 });
 
@@ -66,13 +82,13 @@ export default function Activity({ activity, refetch }) {
   // body for DeleteModal to display Activity info
   const body = (
     <Box className={classes.body}>
-      <Typography variant="h3">{activity.name}</Typography>
-      <Typography>{activity.date}</Typography>
-      <Typography>
+      <Typography variant="h2" className={classes.name}>{activity.name}</Typography>
+      <Typography className={classes.date}>{activity.date}</Typography>
+      <Typography className={classes.time}>
         {activity.startTime} - {activity.endTime}
       </Typography>
-      <Typography>{activity.location}</Typography>
-      <Typography className={classes.question}>
+      <Typography className={classes.location}>{activity.location}</Typography>
+      <Typography variant="h2" className={classes.question}>
         Delete this activity?
       </Typography>
     </Box>
