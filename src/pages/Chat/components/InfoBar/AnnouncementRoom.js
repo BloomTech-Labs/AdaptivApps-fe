@@ -97,7 +97,7 @@ export default function AnnouncementRoom({ user }) {
           <Tooltip title="Click to expand messages">
             <button 
               className={classes.chatRoomButton} 
-              onClick={handleClick}>Announcements</button>
+              onClick={handleClick} aria-label="Open all announcements">Announcements</button>
           </Tooltip>
         </div>
         <Drawer
@@ -108,7 +108,7 @@ export default function AnnouncementRoom({ user }) {
           PaperProps = {{ style: { width: "66%" } }}>
           <div className={classes.titleDiv}>
             <h1 className={classes.roomTitle}>ACS Announcements</h1>
-            <CloseIcon className={classes.closeModal} onClick={closeDrawer} />
+            <CloseIcon className={classes.closeModal} onClick={closeDrawer} aria-label="Close Announcements"/>
           </div>
           <Announcements user={user} />
         </Drawer>

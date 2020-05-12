@@ -176,7 +176,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom, setUpdateChat,
       <div className={classes.root}>
         <h1 className={classes.header}>Messages</h1>
         <div className={classes.messageIcons}>
-          <CreateIcon className={classes.icons} onClick={handleOpen} /><span className={classes.span} onClick={handleOpen}>New Message</span>
+          <CreateIcon className={classes.icons} onClick={handleOpen} /><span className={classes.span} onClick={handleOpen} aria-label="New Message Button">New Message</span>
         </div>
         <Modal
           aria-labelledby="transition-modal-title"
@@ -195,7 +195,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom, setUpdateChat,
         (
           <>
             <div className={classes.messageIcons}>
-              <LanguageIcon className={classes.icons} /><span className={classes.span} onClick={handleAnnouncementOpen}>New Announcement</span> 
+              <LanguageIcon className={classes.icons} /><span className={classes.span} onClick={handleAnnouncementOpen} aria-label="New Announcement Button">New Announcement</span> 
           </div>
           <Modal
             aria-labelledby="transition-modal-title"
@@ -239,12 +239,13 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom, setUpdateChat,
               type="text"
               name="message"
               placeholder="Search Messages..."
+              aria-label="Search Chatrooms"
               value={searchRecipient}
               onChange={handleChange}
               InputProps={{
                 endAdornment: 
                 <InputAdornment position="end">
-                  <IconButton onClick={searchRooms}>
+                  <IconButton onClick={searchRooms} aria-label="Search Chatrooms">
                     <SearchIcon fontSize="large" />
                   </IconButton>
                 </InputAdornment>
