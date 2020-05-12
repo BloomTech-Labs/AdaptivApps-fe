@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation } from "react-apollo";
 import { GET_ANNOUNCEMENTS, DELETE_ANNOUNCEMENT } from '../../queries/Announcements';
-import EditAnnouncementModal from '../InfoBar/EditAnnouncementModal';
+import EditAnnouncementModal from '../Modals/EditAnnouncementModal';
 
 //Auth0 imports
 import config from "../../../../config/auth_config";

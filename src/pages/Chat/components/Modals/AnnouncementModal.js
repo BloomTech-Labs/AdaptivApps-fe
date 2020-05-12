@@ -3,13 +3,14 @@ import { useMutation } from "react-apollo";
 import { CREATE_ANNOUNCEMENT } from '../../queries/Announcements';
 
 //Style imports
+import CloseIcon from '@material-ui/icons/Close';
+import Tooltip from '@material-ui/core/Tooltip';
 import {
   makeStyles,
   Button,
   Box,
   TextField
 } from "@material-ui/core";
-import CloseIcon from '@material-ui/icons/Close';
 
 const useStyles = makeStyles(theme => ({
   span: {
@@ -108,7 +109,9 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen }) {
   return (
     <div className={classes.modal}>          
       <div className={classes.paper}>
-        <CloseIcon className={classes.closeModal} onClick={closeModal} />
+        <Tooltip title="Cancel">
+          <CloseIcon className={classes.closeModal} onClick={closeModal} />
+        </Tooltip>
         <h2 id="transition-modal-title" className={classes.span}>Create New Announcement</h2>
         <h3 className={classes.titles}>Announcement Title</h3>
         <div className={classes.titleDiv}>       
@@ -138,9 +141,11 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen }) {
           </Box>
         </div>      
         <div className={classes.buttonDiv}>
-          <Button variant="outlined" color="primary" onClick={onSubmit} className={classes.button}>
-            Send Announcement
-          </Button>
+          <Tooltip title="Send Announcement">
+            <Button variant="outlined" color="primary" onClick={onSubmit} className={classes.button}>
+              Send Announcement
+            </Button>
+          </Tooltip>
         </div>
       </div>
     </div>

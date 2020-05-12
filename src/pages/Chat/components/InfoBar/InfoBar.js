@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useQuery } from "react-apollo";
 import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms';
-import RecipientModal from './Modal';
+import RecipientModal from '../Modals/Modal';
 import ChatRoom from './ChatRoom';
 import AnnouncementRoom from './AnnouncementRoom';
-import AnnouncementModal from './AnnouncementModal';
+import AnnouncementModal from '../Modals/AnnouncementModal';
 
 //Auth0 imports
 import config from "../../../../config/auth_config";
