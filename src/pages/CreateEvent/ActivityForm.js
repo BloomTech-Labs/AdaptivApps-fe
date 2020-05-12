@@ -1,6 +1,7 @@
-// React imports
+// React & Reach Router imports
 import React from 'react';
 import { useForm, Controller } from "react-hook-form";
+import { useNavigate } from '@reach/router';
 // Component imports
 import LightTooltip from '../../theme/LightTooltip'
 // Material-UI imports
@@ -15,6 +16,9 @@ import {
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    display: "flex",
+  },
   button: {
     marginTop: "3rem",
     margin: theme.spacing(1),
@@ -42,6 +46,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function ActivityForm({ data, createActivity, eventId, refetch }) {
   const classes = useStyles();
+  const navigate = useNavigate();
   const { register, handleSubmit, errors, control } = useForm();
   
   const onSubmit = async formValues => {
@@ -66,6 +71,7 @@ export default function ActivityForm({ data, createActivity, eventId, refetch })
   };
 
   return (
+   
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
       <InputLabel className={classes.inputLabel} htmlFor="date">
         Date
@@ -230,9 +236,8 @@ export default function ActivityForm({ data, createActivity, eventId, refetch })
           <Button
           className={classes.button}
           variant="outlined"
-          type="submit"
           aria-label="Click here to finish event creation"
-          // onClick={()=>navigate(`/calendar/${event.id}`)}
+          onClick={()=>navigate(`/calendar/${eventId}`)}
           >
             Finish
           </Button>
