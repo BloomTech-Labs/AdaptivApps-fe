@@ -1,9 +1,9 @@
-// React & Reach Router imports
-import React from 'react';
+// React imports
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
-import { useNavigate } from '@reach/router';
+import { useNavigate } from "@reach/router";
 // Component imports
-import LightTooltip from '../../theme/LightTooltip'
+import LightTooltip from "../../theme/LightTooltip";
 // Material-UI imports
 import {
   makeStyles,
@@ -12,13 +12,10 @@ import {
   Select,
   MenuItem,
   Button,
-  Box
+  Box,
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
-  container: {
-    display: "flex",
-  },
   button: {
     marginTop: "3rem",
     margin: theme.spacing(1),
@@ -44,34 +41,100 @@ const useStyles = makeStyles(theme => ({
   form: { display: "flex", flexDirection: "column", width: "400px" },
 }));
 
-export default function ActivityForm({ data, createActivity, eventId, refetch }) {
+export default function ActivityForm({
+  data,
+  loading,
+  createActivity,
+  updateActivity,
+  eventId,
+  activityId,
+  refetch,
+}) {
   const classes = useStyles();
   const navigate = useNavigate();
-  const { register, handleSubmit, errors, control } = useForm();
-  
-  const onSubmit = async formValues => {
-    await createActivity({
-      variables: {
-        name: formValues.name,
-        type: formValues.type,
-        sportType: formValues.sportType,
-        coaches: formValues.coaches,
-        date: formValues.date,
-        startTime: formValues.startTime,
-        endTime: formValues.endTime,
-        location: formValues.location,
-        link: formValues.link,
-        sponsors: formValues.sponsors,
-        details: formValues.details,
-        eventId: eventId,
-      },
-    });
-    alert("Successfully created an activity!");
-    await refetch();
+  const [currentActivity, setCurrentActivity] = useState(data);
+  const activity = currentActivity?.activity;
+  const { register, handleSubmit, setValue, errors, control } = useForm({
+    defaultValues: {
+      name: activity && activity.name,
+      type: activity && activity.type,
+      sportType: activity && activity.sportType,
+      coaches: activity && activity.coaches,
+      date: activity && activity.date,
+      startTime: activity && activity.startTime,
+      endTime: activity && activity.endTime,
+      location: activity && activity.location,
+      link: activity && activity.link,
+      sponsors: activity && activity.sponsors,
+      details: activity && activity.details,
+    },
+  });
+  useEffect(() => {
+    if (!loading && !activity) setCurrentActivity(data);
+    if (!loading && activity) {
+      setValue([
+        { name: activity.name },
+        { type: activity.type },
+        { sportType: activity.sportType },
+        { coaches: activity.coaches },
+        { date: activity.date },
+        { startTime: activity.startTime },
+        { endTime: activity.endTime },
+        { location: activity.location },
+        { link: activity.link },
+        { sponsors: activity.sponsors },
+        { details: activity.details },
+      ]);
+    }
+  }, [loading, currentActivity, setValue, data]);
+
+  console.log("current activity", currentActivity?.activity?.sponsors);
+  console.log("current data", data);
+
+  const onSubmit = async (formValues, e) => {
+    e.preventDefault();
+    if (window.location.pathname !== `/editActivity/${activityId}`) {
+      const { data } = await createActivity({
+        variables: {
+          name: formValues.name,
+          type: formValues.type,
+          sportType: formValues.sportType,
+          coaches: formValues.coaches,
+          date: formValues.date,
+          startTime: formValues.startTime,
+          endTime: formValues.endTime,
+          location: formValues.location,
+          link: formValues.link,
+          sponsors: formValues.sponsors,
+          details: formValues.details,
+          eventId: eventId,
+        },
+      });
+      alert("Successfully created an activity!");
+      await refetch();
+    } else {
+      await updateActivity({
+        variables: {
+          name: formValues.name,
+          type: formValues.type,
+          sportType: formValues.sportType,
+          coaches: formValues.coaches,
+          date: formValues.date,
+          startTime: formValues.startTime,
+          endTime: formValues.endTime,
+          location: formValues.location,
+          link: formValues.link,
+          sponsors: formValues.sponsors,
+          details: formValues.details,
+          activityId: activityId,
+        },
+      });
+      alert("Successfully updated an activity!");
+      await navigate(`/createEvent/${data?.activity?.event?.id}`);
+    }
   };
 
   return (
-   
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
       <InputLabel className={classes.inputLabel} htmlFor="date">
         Date
@@ -196,18 +259,6 @@ export default function ActivityForm({ data, createActivity, eventId, refetch })
         control={control}
         ref={register}
       />
-      <InputLabel className={classes.inputLabel} htmlFor="sponsors">
-        Sponsors
-      </InputLabel>
-      <Controller
-        as={<TextField />}
-        type="text"
-        placeholder="sponsors"
-        name="sponsors"
-        variant="outlined"
-        control={control}
-        ref={register({ required: true })}
-      />
       <InputLabel className={classes.inputLabel} htmlFor="details">
         Activity Details
       </InputLabel>
@@ -223,27 +274,26 @@ export default function ActivityForm({ data, createActivity, eventId, refetch })
       <Box>
         <LightTooltip title="Add Activity">
           <Button
-          className={classes.button}
-          variant="outlined"
-          type="submit"
-          aria-label="Click here to add an activity"
-          onClick={handleSubmit}
+            className={classes.button}
+            variant="outlined"
+            type="submit"
+            aria-label="Click here to add an activity"
+            onClick={handleSubmit}
           >
-            Add
+            Save
           </Button>
         </LightTooltip>
         <LightTooltip title="Finish Event Creation">
           <Button
-          className={classes.button}
-          variant="outlined"
-          aria-label="Click here to finish event creation"
-          onClick={()=>navigate(`/calendar/${eventId}`)}
+            className={classes.button}
+            variant="outlined"
+            aria-label="Click here to finish event creation"
+            onClick={() => navigate(`/calendar/${eventId}`)}
           >
             Finish
           </Button>
         </LightTooltip>
       </Box>
     </form>
-  )
+  );
 }
-  

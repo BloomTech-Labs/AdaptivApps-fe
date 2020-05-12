@@ -17,6 +17,7 @@ import MyEventDetails from "./pages/MyEventDetails";
 import ManageEvents from "./pages/ManageEvents";
 import CreateEvent from "./pages/CreateEvent/CreateEvent";
 import EditEvent from "./pages/CreateEvent/EditEvent";
+import EditActivity from "./pages/CreateEvent/EditActivity";
 import CreateActivity from "./pages/CreateEvent/CreateActivity";
 import Accessibility from "./pages/Landing/Legal/Accessibility";
 import PrivacyPolicy from "./pages/Landing/Legal/PrivacyPolicy";
@@ -110,6 +111,7 @@ function App() {
             <CreateEvent path="createEvent" />
             <EditEvent path="editEvent/:eventId" />
             <CreateActivity path="createEvent/:eventId" />
+            <EditActivity path="editActivity/:activityId" />
             {/* <ManageEvents path="manage" /> */}
             <ManageUsers path="users" />
             <ChatFeature path="chats" />

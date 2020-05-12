@@ -140,6 +140,28 @@ export const UPDATE_EVENT = gql`
 `;
 
 ////////////// Activity Creation ///////////////
+
+export const GET_ACTIVITY = gql`
+  query getActivity($id: ID!) {
+    activity(where: { id: $id }) {
+      id
+      name
+      type
+      sportType
+      date
+      location
+      link
+      startTime
+      endTime
+      details
+      coaches
+      event {
+        id
+      }
+    }
+  }
+`;
+
 export const CREATE_ACTIVITY = gql`
   mutation CreateActivity(
     $name: String!
@@ -170,6 +192,16 @@ export const CREATE_ACTIVITY = gql`
       }
     ) {
       id
+      name
+      type
+      sportType
+      date
+      location
+      link
+      startTime
+      endTime
+      details
+      coaches
     }
   }
 `;
@@ -184,12 +216,18 @@ export const GET_ACTIVITIES = gql`
       activities {
         id
         name
+        type
+        sportType
         date
         location
+        link
         startTime
         endTime
-        type
         details
+        coaches
+        event {
+          id
+        }
       }
     }
   }
@@ -205,35 +243,43 @@ export const DELETE_ACTIVITY = gql`
 
 export const UPDATE_ACTIVITY = gql`
   mutation UpdateActivity(
-    $id: ID!
+    $activityId: ID!
     $name: String!
-    $startDate: String!
-    $startTime: String!
+    $type: String!
+    $sportType: String!
+    $date: String!
     $location: String
     $link: String
-    $type: String
+    $startTime: String!
+    $endTime: String!
+    $coaches: String!
     $details: String
   ) {
     updateActivity(
       data: {
         name: $name
-        startDate: $startDate
-        startTime: $startTime
+        type: $type
+        sportType: $sportType
+        date: $date
         location: $location
         link: $link
-        type: $type
+        startTime: $startTime
+        endTime: $endTime
         details: $details
+        coaches: $coaches
       }
-      where: { id: $id }
+      where: { id: $activityId }
     ) {
-      id
       name
-      startDate
-      startTime
+      type
+      sportType
+      date
       location
       link
-      type
+      startTime
+      endTime
       details
+      coaches
       event {
         title
       }
