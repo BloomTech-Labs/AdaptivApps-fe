@@ -123,7 +123,7 @@ const useStyles = makeStyles(theme => ({
   question: {
     color: "#2962FF",
     fontWeight: 500,
-    marginTop: 64,
+    marginTop: 58,
   },
 }));
 

@@ -27,7 +27,8 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
   },
   btnBox: {
-    paddingLeft: "1.4rem"
+    paddingLeft: "1.4rem",
+    marginTop: "0.8rem"
   },
   deleteBtn: {
     width: 96,
