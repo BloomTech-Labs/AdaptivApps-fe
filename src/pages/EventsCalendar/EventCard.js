@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "@reach/router";
 import { useAuth0 } from "../../config/react-auth0-spa";
-// import SimpleModal from "./SimpleModal";
 // Component imports
+import SimpleModal from "./SimpleModal";
 import DeleteModal from "../../theme/DeleteModal";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
@@ -23,7 +23,7 @@ import {
 import { useMutation } from "react-apollo";
 import { REGISTER_EVENT } from "./queries/joinEvent";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: "transparent",
     borderRadius: ".5rem",
@@ -100,16 +100,32 @@ const useStyles = makeStyles({
     height: "16rem",
     objectFit: "cover",
   },
+  date: {
+    color: "#808080",
+    fontSize: "1.4rem",
+  },
+  loc: {
+    color: "#808080",
+    fontSize: "1.6rem",
+  },
   modalMiddle: {
     padding: "2rem 0 2rem 2rem",
     marginBottom: "2rem",
     textAlign: "left",
   },
+  details: {
+    marginTop: "2rem",
+    overflowY: "scroll",
+    overflowX: "hidden",
+    height: "13rem",
+    fontSize: "1.4rem",
+    paddingRight: "1rem",
+  },
   question: {
     color: "#2962FF",
     fontWeight: 600,
   },
-});
+}));
 
 export default function EventCard({ event, refetch }) {
   const classes = useStyles();
@@ -147,96 +163,95 @@ export default function EventCard({ event, refetch }) {
 
   const body = (
     <>
-    <Box className={classes.imgBox}>
-    <img className={classes.img} src={event.imgUrl} alt="Event" />
-    </Box>
-    <Box className={classes.modalMiddle}>
-      <Typography className={classes.date}>
-        {event.date} - {event.date}
-      </Typography>
-      <Typography variant="h3" id="simple-modal-title">
-        {event.title}
-      </Typography>
-      <Typography className={classes.loc}>{event.location}</Typography>
-      <Typography className={classes.details} id="simple-modal-description">
-        {event.details}
-      </Typography>
-      <Typography className={classes.question}>Delete this event?</Typography>
-    </Box>
-  </>
+      <Box className={classes.imgBox}>
+        <img className={classes.img} src={event.imgUrl} alt="Event" />
+      </Box>
+      <Box className={classes.modalMiddle}>
+        <Typography className={classes.date}>
+          {event.date} - {event.date}
+        </Typography>
+        <Typography variant="h2" id="simple-modal-title">
+          {event.title}
+        </Typography>
+        <Typography className={classes.loc}>{event.location}</Typography>
+        <Typography className={classes.details} id="simple-modal-description">
+          {event.details}
+        </Typography>
+        <Typography className={classes.question}>Delete this event?</Typography>
+      </Box>
+    </>
   );
 
   return (
     <>
-    <Card className={classes.root}>
-      <CardActionArea className={classes.card}>
-        <Box>
-          <div className={classes.banner}>{event.type}</div>
-          <CardMedia
-            className={classes.cardImg}
-            component="img"
-            alt="Event"
-            width="15rem"
-            image={event?.imgUrl}
-            title="Angel City Event"
-          />
-        </Box>
-        <Box className={classes.contentWrapper}>
-          <CardContent className={classes.content}>
-            <Typography
-              className={classes.cardDate}
-              variant="body2"
-              color="textSecondary"
-              component="p"
-            >
-              {event.date} - {event.date}
-            </Typography>
-            <Typography
-              className={classes.cardTitle}
-              gutterBottom
-              variant="h5"
-              component="h2"
-            >
-              {event.title}
-            </Typography>
-            <Typography
-              className={classes.cardLoc}
-              variant="body2"
-              color="textSecondary"
-              component="p"
-            >
-              {event.location}
-            </Typography>
-          </CardContent>
-          <Box className={classes.editDeleteBtn}>
-            <Button onClick={editEvent}>
-              <EditOutlinedIcon
-                className={classes.icon}
-                color="primary"
-                fontSize="large"
-              />
-            </Button>
-            <Button onClick={handleOpen}>
-              <DeleteOutlineIcon
-                className={classes.icon}
-                color="primary"
-                fontSize="large"
-              />
-            </Button>
+      <Card className={classes.root}>
+        <CardActionArea className={classes.card}>
+          <Box>
+            <div className={classes.banner}>{event.type}</div>
+            <CardMedia
+              className={classes.cardImg}
+              component="img"
+              alt="Event"
+              width="15rem"
+              image={event?.imgUrl}
+              title="Angel City Event"
+            />
           </Box>
-        </Box>
-      </CardActionArea>
-      
-      {/* <CardActions className={classes.btnContainer}>
-        <SimpleModal event={event} registerEvent={registerEvent} />
-      </CardActions> */}
-    </Card>
-    <DeleteModal
-    onClick={removeEvent}
-    open={open}
-    body={body}
-    handleClose={handleClose}
-  />
-  </>
+          <Box className={classes.contentWrapper}>
+            <CardContent className={classes.content}>
+              <Typography
+                className={classes.cardDate}
+                variant="body2"
+                color="textSecondary"
+                component="p"
+              >
+                {event.date} - {event.date}
+              </Typography>
+              <Typography
+                className={classes.cardTitle}
+                gutterBottom
+                variant="h5"
+                component="h2"
+              >
+                {event.title}
+              </Typography>
+              <Typography
+                className={classes.cardLoc}
+                variant="body2"
+                color="textSecondary"
+                component="p"
+              >
+                {event.location}
+              </Typography>
+            </CardContent>
+            <Box className={classes.editDeleteBtn}>
+              <Button onClick={editEvent}>
+                <EditOutlinedIcon
+                  className={classes.icon}
+                  color="primary"
+                  fontSize="large"
+                />
+              </Button>
+              <Button onClick={handleOpen}>
+                <DeleteOutlineIcon
+                  className={classes.icon}
+                  color="primary"
+                  fontSize="large"
+                />
+              </Button>
+            </Box>
+          </Box>
+        </CardActionArea>
+        <CardActions className={classes.btnContainer}>
+          <SimpleModal event={event} registerEvent={registerEvent} />
+        </CardActions>
+      </Card>
+      <DeleteModal
+        onClick={removeEvent}
+        open={open}
+        body={body}
+        handleClose={handleClose}
+      />
+    </>
   );
 }

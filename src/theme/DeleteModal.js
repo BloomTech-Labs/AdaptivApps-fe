@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // Material-UI components
-import { Modal, Button, Box, Paper, makeStyles } from '@material-ui/core';
+import { Modal, Button, Box, Paper, Typography, makeStyles } from '@material-ui/core';
 
 function getModalStyle() {
   const top = 50;
