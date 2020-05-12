@@ -59,6 +59,7 @@ export default function Activity({ activity, refetch }) {
   const editActivity = async () => {
     await navigate(`/editActivity/${activity.id}`);
   };
+  console.log(activity);
 
   // body for DeleteModal to display Activity info
   const body = (
