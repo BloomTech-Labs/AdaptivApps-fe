@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { useQuery } from "react-apollo";
-import { GET_ANNOUNCEMENTS } from '../../queries/Announcements';
+import { useQuery, useMutation } from "react-apollo";
+import { GET_ANNOUNCEMENTS, DELETE_ANNOUNCEMENT } from '../../queries/Announcements';
 
 //Auth0 imports
 import config from "../../../../config/auth_config";
@@ -8,6 +8,7 @@ import config from "../../../../config/auth_config";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Tooltip from '@material-ui/core/Tooltip';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import DeleteIcon from '@material-ui/icons/Delete';
 import {
   makeStyles
 } from "@material-ui/core";
@@ -67,21 +68,34 @@ const useStyles = makeStyles(theme => ({
     fontSize: '2rem',
     marginLeft: '4%'
   },
+  iconDiv: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '6%'
+  },
   editIcon: {
     '&:hover': {
       cursor: 'pointer',
       color: '#2962FF'
     }
+  },
+  deleteIcon: {
+    '&:hover': {
+      cursor: 'pointer',
+      color: 'red'
+    }
   }
 }));
 
-export default function Announcements({ user }) {
+export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
   const classes = useStyles();
+
+  const [deleteAnnouncement] = useMutation(DELETE_ANNOUNCEMENT);
 
   const { loading, error, data } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
 
-  const announcements = data && data?.announcements?.map((announcement, id) => {return {
-      id: id,
+  const announcements = data && data?.announcements?.map((announcement) => {return {
+      id: announcement.id,
       title: announcement.title,
       message: announcement.message,
       createdAt: announcement.createdAt
@@ -98,6 +112,13 @@ export default function Announcements({ user }) {
     scrollToBottom()
   }, [announcements]);
 
+  const deleteMessage = async (announcement) => {
+    await deleteAnnouncement({
+      variables: { id: announcement.id }
+    });
+    setDeleteChat(true);
+  };
+
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
 
@@ -111,9 +132,14 @@ export default function Announcements({ user }) {
                 <div className={classes.messageHeader}>
                   <p className={classes.sender}>{announcement.title}</p>
                   {user && user[config.roleUrl].includes("Admin") ? (
-                  <Tooltip title="Edit Message">
+                  <div className={classes.iconDiv}>
+                  <Tooltip title="Edit Announcement">
                     <EditOutlinedIcon className={classes.editIcon} />
-                  </Tooltip>) : null}
+                  </Tooltip>
+                  <Tooltip title="Delete Announcement">
+                    <DeleteIcon className={classes.deleteIcon} onClick={() => deleteMessage(announcement)} />
+                  </Tooltip>
+                  </div>) : null}
                 </div>
                 <p className={classes.messageText}>{announcement.message}</p>
                 <div ref={announcementsEndRef} />
