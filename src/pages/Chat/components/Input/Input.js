@@ -1,8 +1,8 @@
 // React imports
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
-//Speech-To-Text Recognition 
-import SpeechRecognition from 'react-speech-recognition'
+// Speech Recognition Import
+import { useSpeechRecognition } from "react-speech-kit";
 
 // Query Imports
 import { SEND_CHAT } from '../../queries/Chats'
@@ -62,16 +62,18 @@ const useStyles = makeStyles(() => ({
     }
 }));
 
-// //Setup for Speech Recognition Object
-// const speechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-// const recognition = new SpeechRecognition();
-
-// recognition.start();
 
 const Input = ({ chatRoom, user }) => {
     const classes = useStyles();
-    const [toggleEmoji, setToggleEmoji] = useState(false)
+    const [toggleEmoji, setToggleEmoji] = useState(false);
+
+    //Setting state for speech recognition
+    const [textValue, setTextValue] = useState("");
+    const { listen, listening, stop } = useSpeechRecognition({
+        onResult: result => {
+          setTextValue(result);
+        }
+      });
     
     const [sendChat] = useMutation(SEND_CHAT);
     const [message, setMessage] = useState('');
@@ -113,18 +115,21 @@ const Input = ({ chatRoom, user }) => {
         <div>
             <div className={classes.inputDiv}>
                 <div className={classes.iconDiv}>
-                    <MicNoneIcon className={classes.icons} />
+                    <MicNoneIcon className={classes.icons} onMouseDown={listen} onMouseUp={stop}/>
+                    {listening && <div>Go ahead I'm listening</div>}
                 </div>
                 <TextField
                     className={classes.messageBox}
                     multiline={true}
                     rowsMax='4'
                     value={message.message}
+                    value={textValue}
                     variant="outlined"
                     type="text"
                     name="newChat"
                     placeholder="Type a message..."
                     onChange={handleChange}
+                    onChange={event => setTextValue(event.target.value)}
                     InputProps={{
                         endAdornment: <InputAdornment position="end">
                         <SendIcon
