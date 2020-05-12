@@ -41,6 +41,7 @@ export const SEND_CHAT = gql`
     ) {
       id
       from {
+        id
         firstName
         lastName
       }
@@ -62,6 +63,7 @@ export const UPDATE_CHAT = gql`
     ) {
       id
       from {
+        id
         firstName
         lastName
       }
@@ -90,10 +92,12 @@ export const GET_RECENT_RECIPIENTS = gql`
       chatRooms {
         id
         participants {
+          id
           firstName
           lastName
         }
         chats {
+          id
           createdAt
         }
       }

@@ -35,9 +35,7 @@ function ChatFeature(){
   const classes = useStyles();
   const [alert, setAlertOpen] = useState(false);
   const [newRoom, setNewRoom] = useState(false);
-  const [updateChat, setUpdateChat] = useState(false);
   const [deleteRoom, setDeleteRoom] = useState(false);
-  const [deleteChat, setDeleteChat] = useState(false);
 
   return (
     <>
@@ -53,7 +51,7 @@ function ChatFeature(){
                 onClick={() => {
                   setAlertOpen(false);
                 }}>
-                <CloseIcon fontSize="3rem" />
+                <CloseIcon fontSize="large" />
               </IconButton>
             }>
             Successfully sent announcement
@@ -71,14 +69,14 @@ function ChatFeature(){
                 onClick={() => {
                   setNewRoom(false);
                 }}>
-                <CloseIcon fontSize="3rem" />
+                <CloseIcon fontSize="large" />
               </IconButton>
             }>
             Successfully created chat room
           </Alert>
         </Collapse>
 
-        <Collapse in={updateChat}>
+        <Collapse in={deleteRoom}>
           <Alert
             severity="success"
             color="info"
@@ -87,53 +85,17 @@ function ChatFeature(){
                 aria-label="close"
                 size="small"
                 onClick={() => {
-                  setNewRoom(false);
-                }}>
-                <CloseIcon fontSize="3rem" />
-              </IconButton>
-            }>
-            Successfully updated
-          </Alert>
-        </Collapse>
-
-        <Collapse in={deleteRoom}>
-          <Alert
-            severity="success"
-            color="error"
-            action={
-              <IconButton
-                aria-label="close"
-                size="small"
-                onClick={() => {
                   setDeleteRoom(false);
                 }}>
-                <CloseIcon fontSize="3rem" />
+                <CloseIcon fontSize="large" />
               </IconButton>
             }>
             Successfully deleted chat room
           </Alert>
         </Collapse>
-
-        <Collapse in={deleteChat}>
-          <Alert
-            severity="success"
-            color="error"
-            action={
-              <IconButton
-                aria-label="close"
-                size="small"
-                onClick={() => {
-                  setDeleteChat(false);
-                }}>
-                <CloseIcon fontSize="3rem" />
-              </IconButton>
-            }>
-            Successfully deleted
-          </Alert>
-        </Collapse>
       </div>
       <div className={classes.root}>
-        <InfoBar user={user} setAlertOpen={setAlertOpen} setNewRoom={setNewRoom} setUpdateChat={setUpdateChat} setDeleteRoom={setDeleteRoom} setDeleteChat={setDeleteChat} />
+        <InfoBar user={user} setAlertOpen={setAlertOpen} setNewRoom={setNewRoom} setDeleteRoom={setDeleteRoom} />
       </div>
     </>
   )

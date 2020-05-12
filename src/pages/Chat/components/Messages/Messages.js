@@ -1,9 +1,16 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Input from "../Input/Input";
+
+// Update / Delete Mutations
+import { useMutation } from 'react-apollo';
+import { UPDATE_CHAT, DELETE_CHAT } from '../../queries/Chats';
 
 import PersonIcon from '@material-ui/icons/Person';
 import Tooltip from '@material-ui/core/Tooltip';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import CloseIcon from '@material-ui/icons/Close';
+import Modal from '@material-ui/core/Modal';
 import {
   makeStyles
 } from "@material-ui/core";
@@ -63,6 +70,17 @@ const useStyles = makeStyles(theme => ({
     border: '1px solid #2962FF',
     borderRadius: '50px'
   },
+  deleteMessageIcon: {
+    color: "#2962FF",
+    fontSize: "3rem",
+    margin: "0 3%",
+    border: '1px solid #2962FF',
+    borderRadius: '50px',
+    '&:hover': {
+      cursor: 'pointer',
+      color: 'red'
+    }
+  },
   inputDiv: {
     width: '100%',
     height: '7.5vh',
@@ -84,11 +102,64 @@ const useStyles = makeStyles(theme => ({
       cursor: 'pointer',
       color: '#2962FF'
     }
+  },
+  paper: {
+    display: 'flex',
+    flexWrap: 'nowrap',
+    flexDirection: 'column',
+    backgroundColor: 'whitesmoke',
+    position: 'absolute',
+    top: '25%',
+    left: '40%',
+    width: '25%',
+    borderRadius: '5px',
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: '1%',
+    fontSize: '2.5rem',
+    fontWeight: 'bold',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '1%',
+    '&:focus': {
+      outline: 'none'
+    }
+  },
+  span: {
+    fontSize: '2rem',
+    color: '#2962FF',
+    textAlign: 'center',
+    fontWeight: 'normal',
+    marginTop: '0%'
+  },
+  cancelChatDelete: {
+    fontSize: "2rem",
+    marginLeft: '95%',
+    border: "none",
+    '&:hover': {
+      cursor: "pointer",
+      color: "#2962FF"
+    }, 
+    '&:focus': {
+      outline: "none"
+    }
+  },
+  deleteChat: {
+    fontSize: '4rem',
+    color: 'green',
+    margin: '2% 0%',
+    '&:hover': {
+      cursor: 'pointer'
+    }
   }
 }));
 
-export default function Messages({ user, chatRoom, participants, messages }) {
+export default function Messages({ user, chatRoom, participants, messages, setUpdateChat, setDeleteChat }) {
   const classes = useStyles();
+  const [updateChat] = useMutation(UPDATE_CHAT);
+  const [deleteChat] = useMutation(DELETE_CHAT);
+
+  console.log('Messages', messages);
 
   const messagesEndRef = useRef(null)
 
@@ -100,13 +171,24 @@ export default function Messages({ user, chatRoom, participants, messages }) {
     scrollToBottom()
   }, [messages]);
 
+  const deleteMessage = async (message) => {
+    await deleteChat({ variables: { id: message.id } });
+    setDeleteChat(true);
+  }
+
   return (
     <div className={classes.root}>
       <div className={classes.messageDiv}>
         {messages.map((message) => (
           <>
             <div key={message.id} className={message.sender !== user.email ? classes.messageBox : classes.messageBoxRight}>
-              <PersonIcon className={classes.messageIcon} />
+              {message.sender === user.email ? (
+                <Tooltip title="Delete Message">
+                  <PersonIcon className={classes.deleteMessageIcon} onClick={() => deleteMessage(message)} />
+                </Tooltip>
+              ) : (
+                <PersonIcon className={classes.messageIcon} />
+              )}
               <div className={message.sender !== user.email ?
                   classes.messageSender : classes.userMessage}>
                 <div className={classes.messageHeader}>

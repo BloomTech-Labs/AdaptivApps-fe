@@ -12,6 +12,9 @@ import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
 import CloseIcon from '@material-ui/icons/Close';
 import Drawer from '@material-ui/core/Drawer';
 import Modal from '@material-ui/core/Modal';
+import IconButton from '@material-ui/core/IconButton';
+import Collapse from '@material-ui/core/Collapse';
+import Alert from '@material-ui/lab/Alert';
 import {
   makeStyles
 } from "@material-ui/core";
@@ -27,7 +30,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "3rem",
     margin: "0 5%",
     '&:hover': {
-      cursor: 'pointer'
+      cursor: 'pointer',
+      color: 'red'
     }
   },
   chatRoomButton: {
@@ -111,6 +115,10 @@ const useStyles = makeStyles((theme) => ({
     '&:hover': {
       cursor: 'pointer'
     }
+  },
+  alertDiv: {
+    width: '100%',
+    margin: '0'
   }
 }));
 
@@ -119,7 +127,9 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
     const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM);
 
     const [messageToggle, setMessageToggle] = useState(false);
-    const [editChatRoom, setEditChatRoom] = useState(false)
+    const [editChatRoom, setEditChatRoom] = useState(false);
+    const [updateChat, setUpdateChat] = useState(false);
+    const [deleteChat, setDeleteChat] = useState(false);
 
     const participants = chatRoom.participants.filter((participant) => participant.email !== user.email && participant)
 
@@ -131,8 +141,8 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
         }
       })
 
-    const messages = chatRoom.chats.map((chat, id) => {return {
-        id: id,
+    const messages = chatRoom.chats.map((chat) => {return {
+        id: chat.id,
         message: chat.message,
         createdAt: chat.createdAt,
         firstName: chat.from.firstName,
@@ -199,11 +209,47 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
           onClose={handleClick}
           variant = "temporary"
           PaperProps = {{ style: { width: "66%" } }}>
+          <div className={classes.alertDiv}>
+            <Collapse in={updateChat}>
+              <Alert
+                severity="success"
+                color="info"
+                action={
+                  <IconButton
+                    aria-label="close"
+                    size="small"
+                    onClick={() => {
+                      setUpdateChat(false);
+                    }}>
+                    <CloseIcon fontSize="large" />
+                  </IconButton>
+                }>
+                Successfully updated
+              </Alert>
+            </Collapse>
+            <Collapse in={deleteChat}>
+              <Alert
+                severity="success"
+                color="info"
+                action={
+                  <IconButton
+                    aria-label="close"
+                    size="small"
+                    onClick={() => {
+                      setDeleteChat(false);
+                    }}>
+                    <CloseIcon fontSize="large" />
+                  </IconButton>
+                }>
+                Successfully deleted
+              </Alert>
+            </Collapse>  
+          </div>  
           <div className={classes.titleDiv}>
             <h1 className={classes.roomTitle}>{chattingWith}</h1>
             <CloseIcon className={classes.closeModal} onClick={closeDrawer} />
           </div>
-          <Messages chatRoom={chatRoom} participants={participants} user={user} messages={messages} />
+          <Messages chatRoom={chatRoom} participants={participants} user={user} messages={messages} setUpdateChat={setUpdateChat} setDeleteChat={setDeleteChat} />
         </Drawer>
       </>
     )
