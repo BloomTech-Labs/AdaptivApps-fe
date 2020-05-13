@@ -57,11 +57,9 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const EditInput = ({ chatRoom, messageToEdit, setUpdateChat, setEditInput }) => {
+const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
   const classes = useStyles();
   const [toggleEmoji, setToggleEmoji] = useState(false);
-
-  console.log('Message to edit', messageToEdit);
   
   const [updateChat] = useMutation(UPDATE_CHAT);
   const [message, setMessage] = useState(messageToEdit.message);
