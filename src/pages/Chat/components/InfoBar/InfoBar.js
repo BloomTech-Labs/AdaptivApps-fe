@@ -131,7 +131,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
     if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     if (error) return `Error! ${error.message}`;
 
-    const participants = data && data?.profile.chatRooms.map(item => item.participants).concat().flat();
+    const participants = data && data?.profile.chatRooms.map(item => item !== null && item.participants).concat().flat();
 
     _subscribeToNewChatRoom(subscribeToMore);
 
@@ -139,8 +139,10 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
       e.preventDefault();
       let filter = data && data?.profile.chatRooms.map(room => {
         let users = room.participants.map(user => {
+          if (user.firstName !== null && user.lastName !== null &&
+              user.firstName !== '' && user.lastName !== '') {
           return `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`;
-        });
+        }});
         return users.filter(user => {
           if (user.includes(searchRecipient.toLowerCase())) {
             results.push(room);
