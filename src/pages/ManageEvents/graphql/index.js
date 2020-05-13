@@ -233,9 +233,6 @@ export const GET_ACTIVITIES = gql`
         endTime
         details
         coaches
-        event {
-          id
-        }
       }
     }
   }

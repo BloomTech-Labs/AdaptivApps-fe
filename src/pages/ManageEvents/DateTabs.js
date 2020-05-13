@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { Tabs, Tab, Typography, Box, AppBar } from "@material-ui/core";
 import moment from "moment";
+import ActivityList from "./ActivityList";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -45,7 +46,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function DateTabs({ data }) {
+export default function DateTabs({ data, refetch }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -76,6 +77,9 @@ export default function DateTabs({ data }) {
   };
   const days = getDatesRangeArray(startDate, endDate);
 
+  const activityDate = data?.event?.activities.map(activity => {
+    return activity?.date;
+  });
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -88,29 +92,13 @@ export default function DateTabs({ data }) {
           textColor="primary"
           aria-label="scrollable force tabs example"
         >
-          <Tab label="Item One" />
+          {days.map((day, index) => (
+            <Tab label={day} key={index} />
+          ))}
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        Item One
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Five
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Item Seven
+        <ActivityList data={data} refetch={refetch} />
       </TabPanel>
     </div>
   );
