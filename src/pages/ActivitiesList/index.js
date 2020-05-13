@@ -134,7 +134,7 @@ export default function ActivityList() {
             color="textSecondary"
             component="p"
           >
-            {activityData.event.date}-{activityData.event.date}
+            {activityData.event.startDate}-{activityData.event.endDate}
           </Typography>
           <Typography className={classes.title}>
             {activityData.event.title}

@@ -148,7 +148,7 @@ export default function EventDetails(props) {
         </Box>
         {activeEvent.type === "Webinar" ? (
           <Box className={classes.topContentText} m="2.4rem">
-            <p>{activeEvent.date}</p>
+            <p>{activeEvent.startDate}</p>
             <h2>{activeEvent.title}</h2>
             <Typography variant="subtitle1">{activeEvent.location}</Typography>
             <p>Start time: {activeEvent.startTime}</p>
@@ -156,7 +156,7 @@ export default function EventDetails(props) {
         ) : (
           <Box className={classes.topContentText} m="2.4rem">
             <p>
-              {activeEvent.date} - {activeEvent.date}
+              {activeEvent.startDate} - {activeEvent.endDate}
             </p>
             <h2>{activeEvent.title}</h2>
             <Typography variant="subtitle1">{activeEvent.location}</Typography>

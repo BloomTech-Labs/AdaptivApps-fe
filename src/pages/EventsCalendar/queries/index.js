@@ -10,7 +10,8 @@ export const GET_EVENT_LIST = gql`
       speakers
       startTime
       title
-      date
+      startDate
+      endDate
       location
       link
       sponsors

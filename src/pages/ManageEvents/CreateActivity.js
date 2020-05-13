@@ -6,7 +6,8 @@ import { useMutation, useQuery } from "react-apollo";
 import { CREATE_ACTIVITY, GET_ACTIVITIES } from "./graphql";
 // Component imports
 import ActivityForm from "./ActivityForm";
-import ActivityList from "./ActivityList";
+// import ActivityList from "./ActivityList";
+import DateTabs from "./DateTabs";
 // Material-UI imports
 import { makeStyles, Box, Typography, Container } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -42,6 +43,10 @@ const useStyles = makeStyles({
   activityCreation: {
     display: "flex",
   },
+  eventInfo: {
+    display: "flex",
+    flexDirection: "column",
+  },
 });
 
 export default function CreateActivity() {
@@ -76,7 +81,20 @@ export default function CreateActivity() {
           />
         </Box>
         <Box>
-          <ActivityList data={data} refetch={refetch} />
+          <Box className={classes.eventInfo}>
+            <Typography variant="h2">{data?.event?.title}</Typography>
+            <Typography variant="h5" className={classes.subHeadings}>
+              {data?.event?.startDate} - {data?.event?.endDate}
+            </Typography>
+            <Typography variant="h4" className={classes.subHeadings}>
+              {data?.event?.location}
+            </Typography>
+          </Box>
+          <Typography variant="h3">Added Activities</Typography>
+          <Box>
+            <DateTabs data={data} refetch={refetch} />
+            {/* <ActivityList data={data} refetch={refetch} /> */}
+          </Box>
         </Box>
       </Container>
     </main>

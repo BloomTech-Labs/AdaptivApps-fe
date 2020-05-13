@@ -3,33 +3,41 @@ import gql from "graphql-tag";
 export const UPDATE_USER_PROFILE = gql`
   mutation UpdateProfile(
     $email: String!
+    $type: String!
+    $private: Boolean
     $firstName: String
     $lastName: String
     $displayName: String
-    $birthday: String
+    $phoneNumber: String
+    $state: String
+    $city: String
     $bio: String
-    $disability: String
     $legal: String
   ) {
     updateProfile(
       where: { email: $email }
       data: {
+        type: $type
+        private: $private
         firstName: $firstName
         lastName: $lastName
         displayName: $displayName
-        birthday: $birthday
+        phoneNumber: $phoneNumber
+        state: $state
+        city: $city
         bio: $bio
-        disability: $disability
         legal: $legal
       }
     ) {
-      email
+      type
+      private
       firstName
       lastName
       displayName
-      birthday
+      phoneNumber
+      state
+      city
       bio
-      disability
       legal
       createdAt
       updatedAt
@@ -54,12 +62,13 @@ export const PROFILE_INFO = gql`
       firstName
       lastName
       displayName
-      birthday
+      phoneNumber
+      state
+      city
       bio
-      disability
       legal
-      createdAt
-      updatedAt
+      type
+      private
     }
   }
 `;

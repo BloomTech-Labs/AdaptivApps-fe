@@ -88,9 +88,6 @@ export default function ActivityForm({
     }
   }, [loading, currentActivity, setValue, data]);
 
-  console.log("current activity", currentActivity?.activity?.sponsors);
-  console.log("current data", data);
-
   const onSubmit = async (formValues, e) => {
     e.preventDefault();
     if (window.location.pathname !== `/editActivity/${activityId}`) {

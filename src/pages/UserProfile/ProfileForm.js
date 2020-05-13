@@ -12,6 +12,7 @@ import {
   Select,
   MenuItem,
   Button,
+  Checkbox,
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -70,6 +71,9 @@ const useStyles = makeStyles(theme => ({
   resize: {
     fontSize: "1.4rem",
   },
+  checkbox: {
+    width: "0px",
+  },
   box: {
     display: "flex",
     flexDirection: "column",
@@ -95,6 +99,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ProfileSchema = yup.object().shape({
+  type: yup.string(),
+  private: yup.boolean(),
   firstName: yup
     .string()
     .min(2)
@@ -104,9 +110,10 @@ const ProfileSchema = yup.object().shape({
     .min(3)
     .max(15),
   displayName: yup.string().max(10),
-  birthday: yup.string().max(10),
+  phoneNumber: yup.string(),
+  state: yup.string(),
+  city: yup.string(),
   bio: yup.string().max(255),
-  disability: yup.string(),
   legal: yup.string(),
 });
 
@@ -121,12 +128,16 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
     validationSchema: ProfileSchema,
     defaultValues: {
       email: user && user.email,
+      type: userProfile && userProfile.type,
+      private: userProfile && userProfile.private,
       firstName: userProfile && userProfile.firstName,
       lastName: userProfile && userProfile.lastName,
+      phoneNumber: userProfile && userProfile.phoneNumber,
       displayName: userProfile && userProfile.displayName,
-      birthday: userProfile && userProfile.birthday,
+      state: userProfile && userProfile.state,
+      city: userProfile && userProfile.city,
       bio: userProfile && userProfile.bio,
-      disability: userProfile && userProfile.disability,
+      legal: userProfile && userProfile.legal,
     },
   });
 
@@ -137,6 +148,11 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
     updateProfile({
       variables: {
         email: user.email,
+        type: formValues.type === "" ? userProfile.type : formValues.type,
+        private:
+          formValues.private === null
+            ? userProfile.private
+            : formValues.private,
         firstName:
           formValues.firstName === ""
             ? userProfile.firstName
@@ -149,21 +165,22 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
           formValues.displayName === ""
             ? userProfile.displayName
             : formValues.displayName,
-        birthday:
-          formValues.birthday === ""
-            ? userProfile.birthday
-            : formValues.birthday,
+        phoneNumber:
+          formValues.phoneNumber === ""
+            ? userProfile.phoneNumber
+            : formValues.phoneNumber,
         bio: formValues.bio === "" ? userProfile.bio : formValues.bio,
-        disability:
-          formValues.disability === ""
-            ? userProfile.disability
-            : formValues.disability,
+        state: formValues.state === "" ? userProfile.state : formValues.state,
+        city: formValues.city === "" ? userProfile.city : formValues.city,
         legal: formValues.legal === "" ? userProfile.legal : formValues.legal,
       },
     });
     // frontend update
     setUserProfile({
       email: user.email,
+      type: formValues.type === "" ? userProfile.type : formValues.type,
+      private:
+        formValues.private === null ? userProfile.private : formValues.private,
       firstName:
         formValues.firstName === ""
           ? userProfile.firstName
@@ -174,13 +191,13 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
         formValues.displayName === ""
           ? userProfile.displayName
           : formValues.displayName,
-      birthday:
-        formValues.birthday === "" ? userProfile.birthday : formValues.birthday,
+      phoneNumber:
+        formValues.phoneNumber === ""
+          ? userProfile.phoneNumber
+          : formValues.phoneNumber,
       bio: formValues.bio === "" ? userProfile.bio : formValues.bio,
-      disability:
-        formValues.disability === ""
-          ? userProfile.disability
-          : formValues.disability,
+      state: formValues.state === "" ? userProfile.state : formValues.state,
+      city: formValues.city === "" ? userProfile.city : formValues.city,
       legal: formValues.legal === "" ? userProfile.legal : formValues.legal,
     });
   };
@@ -190,12 +207,15 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
     if (!loading && !userProfile) setUserProfile(profile);
     if (!loading && userProfile) {
       setValue([
+        { type: userProfile && userProfile.type },
+        { private: userProfile && userProfile.private },
         { firstName: userProfile && userProfile.firstName },
         { lastName: userProfile && userProfile.lastName },
         { displayName: userProfile && userProfile.displayName },
-        { birthday: userProfile && userProfile.birthday },
+        { phoneNumber: userProfile && userProfile.phoneNumber },
         { bio: userProfile && userProfile.bio },
-        { disability: userProfile && userProfile.disability },
+        { state: userProfile && userProfile.state },
+        { city: userProfile && userProfile.city },
         { legal: userProfile && userProfile.legal },
       ]);
     }
@@ -208,7 +228,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   };
 
   const userPicture = user && user.picture;
- 
+
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
@@ -236,6 +256,25 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
           <Box component="div" className={classes.formBox}>
             <Box className={classes.box}>
+              <InputLabel className={classes.inputLabel} htmlFor="type">
+                Type
+              </InputLabel>
+              <Controller
+                as={<TextField />}
+                className={classes.input}
+                id="type"
+                variant="outlined"
+                type="text"
+                placeholder={userProfile ? userProfile.type : ""}
+                name="type"
+                control={control}
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
+              />
+
               <InputLabel className={classes.inputLabel} htmlFor="firstName">
                 First Name
               </InputLabel>
@@ -276,6 +315,24 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               />
             </Box>
           </Box>
+          <InputLabel className={classes.inputLabel} htmlFor="phoneNumber">
+            Phone Number
+          </InputLabel>
+          <Controller
+            as={<TextField />}
+            className={classes.input}
+            id="phoneNumber"
+            type="text"
+            variant="outlined"
+            placeholder={userProfile ? userProfile.phoneNumber : ""}
+            name="phoneNumber"
+            control={control}
+            InputProps={{
+              classes: {
+                input: classes.resize,
+              },
+            }}
+          />
           <Box className={classes.formBox}>
             <Box className={classes.box}>
               <InputLabel className={classes.inputLabel} htmlFor="displayName">
@@ -298,17 +355,35 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               />
             </Box>
             <Box className={classes.box}>
-              <InputLabel className={classes.inputLabel} htmlFor="birthday">
-                Date of Birth
+              <InputLabel className={classes.inputLabel} htmlFor="state">
+                State
               </InputLabel>
               <Controller
                 as={<TextField />}
                 className={classes.input}
-                id="birthday"
+                id="state"
                 type="text"
                 variant="outlined"
-                name="birthday"
-                placeholder={userProfile ? userProfile.birthday : "mm/dd/yyyy"}
+                name="state"
+                placeholder={userProfile ? userProfile.state : ""}
+                control={control}
+                InputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
+              />
+              <InputLabel className={classes.inputLabel} htmlFor="city">
+                City
+              </InputLabel>
+              <Controller
+                as={<TextField />}
+                className={classes.input}
+                id="city"
+                type="text"
+                variant="outlined"
+                name="city"
+                placeholder={userProfile ? userProfile.city : ""}
                 control={control}
                 InputProps={{
                   classes: {
@@ -342,56 +417,46 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
               />
             </Box>
           </Box>
-
-          <Box className={classes.formBox}>
-            <Box className={classes.box}>
-              <InputLabel className={classes.inputLabel} htmlFor="disability">
-                Disability Status
-              </InputLabel>
-              <Controller
-                as={<TextField />}
-                className={classes.input}
-                id="disability"
-                type="select"
-                variant="outlined"
-                name="disability"
-                ref={register}
-                placeholder={userProfile ? userProfile.disability : null}
-                control={control}
-                InputProps={{
-                  classes: {
-                    input: classes.resize,
-                  },
-                }}
-              />
-            </Box>
-            <Box className={classes.box}>
-              <InputLabel className={classes.inputLabel} htmlFor="legal">
-                Are you over 18 years old?
-              </InputLabel>
-              <Controller
-                as={
-                  <Select value={userProfile?.legal}>
-                    <MenuItem value="">
-                      {userProfile ? userProfile.legal : ""}
-                    </MenuItem>
-                    <MenuItem value={`Adult`}>Yes</MenuItem>
-                    <MenuItem value={`Minor`}>No</MenuItem>
-                  </Select>
-                }
-                className={classes.input}
-                id="legal"
-                name="legal"
-                variant="outlined"
-                control={control}
-                InputProps={{
-                  classes: {
-                    input: classes.resize,
-                  },
-                }}
-              />
-            </Box>
+          <Box className={classes.box}>
+            <InputLabel className={classes.inputLabel} htmlFor="legal">
+              Are you over 18 years old?
+            </InputLabel>
+            <Controller
+              as={
+                <Select>
+                  <MenuItem value={`Adult`}>Yes</MenuItem>
+                  <MenuItem value={`Minor`}>No</MenuItem>
+                </Select>
+              }
+              className={classes.input}
+              id="legal"
+              name="legal"
+              variant="outlined"
+              control={control}
+              InputProps={{
+                classes: {
+                  input: classes.resize,
+                },
+              }}
+            />
+            <InputLabel className={classes.inputLabel} htmlFor="private">
+              Private
+            </InputLabel>
+            <Controller
+              as={<Checkbox />}
+              defaultChecked
+              inputProps={{ "aria-label": "secondary checkbox" }}
+              color="primary"
+              size="medium"
+              className={classes.checkbox}
+              id="private"
+              variant="outlined"
+              placeholder={userProfile ? userProfile.private : null}
+              name="private"
+              control={control}
+            />
           </Box>
+
           <Box className={classes.formBox}>
             <Button
               className={classes.button}

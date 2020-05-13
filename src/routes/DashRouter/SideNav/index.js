@@ -155,7 +155,7 @@ function SideNav(props) {
           <>
             <NavLink to="createEvent" className={classes.navLink}>
               <HomeIcon className={classes.navIcon} />
-              <p>Create Event</p>
+              <p>Manage Events</p>
             </NavLink>
             <NavLink to="users" className={classes.navLink}>
               <GroupIcon className={classes.navIcon} />
