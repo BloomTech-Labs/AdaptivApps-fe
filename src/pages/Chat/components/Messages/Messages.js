@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Input from "../Input/Input";
+import EditInput from '../Input/EditInput';
 
 // Update / Delete Mutations
 import { useMutation } from 'react-apollo';
@@ -8,9 +9,6 @@ import { UPDATE_CHAT, DELETE_CHAT } from '../../queries/Chats';
 import PersonIcon from '@material-ui/icons/Person';
 import Tooltip from '@material-ui/core/Tooltip';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
-import CloseIcon from '@material-ui/icons/Close';
-import Modal from '@material-ui/core/Modal';
 import {
   makeStyles
 } from "@material-ui/core";
@@ -156,12 +154,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function Messages({ user, chatRoom, participants, messages, setUpdateChat, setDeleteChat }) {
   const classes = useStyles();
-  const [updateChat] = useMutation(UPDATE_CHAT);
+  
   const [deleteChat] = useMutation(DELETE_CHAT);
 
-  console.log('Messages', messages);
+  const [messageToEdit, setMessageToEdit] = useState();
+  const [editInput, setEditInput] = useState(false);
 
-  const messagesEndRef = useRef(null)
+  const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current && messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -174,7 +173,7 @@ export default function Messages({ user, chatRoom, participants, messages, setUp
   const deleteMessage = async (message) => {
     await deleteChat({ variables: { id: message.id } });
     setDeleteChat(true);
-  }
+  };
 
   return (
     <div className={classes.root}>
@@ -195,7 +194,7 @@ export default function Messages({ user, chatRoom, participants, messages, setUp
                   {message.sender === user.email ? <span className={classes.sender}>Me</span> : <span className={classes.sender}>{message.firstName} {message.lastName}</span> }
                   {message.sender === user.email ? (
                   <Tooltip title="Edit Message">
-                    <EditOutlinedIcon className={classes.editIcon} />
+                    <EditOutlinedIcon className={classes.editIcon} onClick={() => {setEditInput(true); setMessageToEdit(message)}} />
                   </Tooltip>) : null}
                 </div>
                 <p className={classes.messageText}>{message.message}</p>
@@ -206,7 +205,11 @@ export default function Messages({ user, chatRoom, participants, messages, setUp
         ))}
       </div>
       <div className={classes.inputDiv}>
-        <Input chatRoom={chatRoom} user={user} participants={participants}/>
+        {editInput ? (
+          <EditInput chatRoom={chatRoom} messageToEdit={messageToEdit} setUpdateChat={setUpdateChat} setEditInput={setEditInput} />
+        ) : (
+          <Input chatRoom={chatRoom} user={user} />
+        )}
       </div>
     </div>
   )

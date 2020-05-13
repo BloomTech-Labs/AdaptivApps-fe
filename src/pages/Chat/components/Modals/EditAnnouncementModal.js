@@ -73,7 +73,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
   
-function EditAnnouncementModal({ setAnnouncementOpen, announcement }) {
+function EditAnnouncementModal({ setAnnouncementOpen, announcement, setUpdateChat }) {
   const classes = useStyles();
 
   const [updateAnnouncement] = useMutation(UPDATE_ANNOUNCEMENT);
@@ -98,6 +98,7 @@ function EditAnnouncementModal({ setAnnouncementOpen, announcement }) {
       }
     });
     setAnnouncementOpen(false);
+    setUpdateChat(true);
   };
 
   const closeModal = e => {
