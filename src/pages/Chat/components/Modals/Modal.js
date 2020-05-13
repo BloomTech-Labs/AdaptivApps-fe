@@ -147,7 +147,7 @@ function RecipientModal({ user, setOpen, participants, setNewRoom }) {
       setSearchRecipient('');
     };
 
-    const participantsEmail = participants.map(item => item.email)
+    const participantsEmail = participants.map(item => (item.firstName & item.lastName !== null) && item.email)
     const uniqueEmails = [...new Set(participantsEmail)]
 
     const newChatRoom = async (item) => {
