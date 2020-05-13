@@ -25,8 +25,7 @@ import {
 
 const useStyles = makeStyles(() => ({
   inputDiv: {
-    width: '95%',
-    margin: 'auto',
+    width: '75%',
     display: 'flex',
     alignItems: 'center'
   },
@@ -37,7 +36,6 @@ const useStyles = makeStyles(() => ({
   },
   messageBox: {
     width: "80%",
-    marginLeft: '3%'
   },
   icons: {
     color: '#808080',
@@ -52,7 +50,6 @@ const useStyles = makeStyles(() => ({
     '&:hover': {
         cursor: "pointer",
       }, 
-      marginLeft: '45px',
   },
   sendMessageIcon: {
     color: '#2962FF',
