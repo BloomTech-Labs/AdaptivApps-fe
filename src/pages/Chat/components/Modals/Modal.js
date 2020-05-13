@@ -130,7 +130,9 @@ function RecipientModal({ user, setOpen, participants, setNewRoom }) {
     const searchContacts = e => {
       e.preventDefault();
       let filter = data?.profiles.map(user => {
-        return [`${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user];
+        if (user !== null) {
+          return [`${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user]
+        }
       },
       setSearchText(false)
       );
@@ -145,7 +147,7 @@ function RecipientModal({ user, setOpen, participants, setNewRoom }) {
       setSearchRecipient('');
     };
 
-    const participantsEmail = participants.map(item => item.email)
+    const participantsEmail = participants.map(item => (item.firstName !== null && item.lastName !== null) && item.email)
     const uniqueEmails = [...new Set(participantsEmail)]
 
     const newChatRoom = async (item) => {
@@ -222,7 +224,7 @@ function RecipientModal({ user, setOpen, participants, setNewRoom }) {
               <List>
                   <div className={errorState ? classes.errorState : classes.noError}>
                     
-                    <p><CloseIcon className={classes.errorClose} onClick={() => setErrorState(false)} /> No users found </p>
+                    <p><CloseIcon className={classes.errorClose} onClick={() => setErrorState(false)} /> We couldn't find that user </p>
                     <p>Are you chatting with this person already?</p>
                     </div>
                 {searchResults}
