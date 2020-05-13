@@ -25,8 +25,7 @@ import {
 
 const useStyles = makeStyles(() => ({
     inputDiv: {
-        width: '95%',
-        margin: 'auto',
+        width: '75%',
         display: 'flex',
         alignItems: 'center'
     },
@@ -37,7 +36,6 @@ const useStyles = makeStyles(() => ({
     },
     messageBox: {
         width: "80%",
-        marginLeft: '3%'
     },
     icons: {
         color: '#808080',
@@ -52,7 +50,6 @@ const useStyles = makeStyles(() => ({
         '&:hover': {
             cursor: "pointer",
           }, 
-          marginLeft: '45px',
     },
     sendMessageIcon: {
         color: '#2962FF',
@@ -70,18 +67,19 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Input = ({ chatRoom, user }) => {
+    console.log('ChatRoomID', chatRoom);
     const classes = useStyles();
     const [toggleEmoji, setToggleEmoji] = useState(false);
+
+    //Setting state for speech recognition
+    const [textValue, setTextValue] = useState("");
+
+    const [sendChat] = useMutation(SEND_CHAT);
+    const [message, setMessage] = useState({ message: '' });
 
     const onResult = result => {
         setTextValue(result);
     }
-    
-    //Setting state for speech recognition
-    const [textValue, setTextValue] = useState("");
-    
-    const [sendChat] = useMutation(SEND_CHAT);
-    const [message, setMessage] = useState('');
     
     const emojiOpen = () => {
         setToggleEmoji(true)
@@ -105,7 +103,13 @@ const Input = ({ chatRoom, user }) => {
               message: message.message 
             }
         })
-        setMessage({ message: ''})
+        setMessage({ message: '' });
+
+        console.log('Variables', {
+            id: chatRoom.id,
+            email: user.email,
+            message: message.message
+        });
     };
 
     const newSpeechMessage = async () => {
@@ -119,10 +123,8 @@ const Input = ({ chatRoom, user }) => {
         setTextValue('');
     };
 
-   const handleChange = e => {
-        setMessage({
-            message: e.target.value
-        })
+    const handleChange = e => {
+        setMessage({ message: e.target.value });
     };
 
     const onEmojiClick = (e) => {

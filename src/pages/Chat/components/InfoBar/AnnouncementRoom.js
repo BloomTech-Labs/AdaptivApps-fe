@@ -79,6 +79,14 @@ export default function AnnouncementRoom({ user, setAnnouncementOpen }) {
     const [updateChat, setUpdateChat] = useState(false);
     const [deleteChat, setDeleteChat] = useState(false);
 
+    setTimeout(function () {
+      if (updateChat) {
+        setUpdateChat(false);
+      } else if (deleteChat) {
+        setDeleteChat(false);
+      }
+    }, 3000)
+
     const handleClick = e => {
       e.preventDefault();
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)

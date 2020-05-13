@@ -41,7 +41,6 @@ export const SEND_CHAT = gql`
     ) {
       id
       from {
-        id
         firstName
         lastName
       }

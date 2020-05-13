@@ -25,8 +25,7 @@ import {
 
 const useStyles = makeStyles(() => ({
   inputDiv: {
-    width: '95%',
-    margin: 'auto',
+    width: '75%',
     display: 'flex',
     alignItems: 'center'
   },
@@ -37,7 +36,6 @@ const useStyles = makeStyles(() => ({
   },
   messageBox: {
     width: "80%",
-    marginLeft: '3%'
   },
   icons: {
     color: '#808080',
@@ -52,7 +50,6 @@ const useStyles = makeStyles(() => ({
     '&:hover': {
         cursor: "pointer",
       }, 
-      marginLeft: '45px',
   },
   sendMessageIcon: {
     color: '#2962FF',
@@ -77,7 +74,7 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
   const [textValue, setTextValue] = useState("");
   
   const [updateChat] = useMutation(UPDATE_CHAT);
-  const [message, setMessage] = useState(messageToEdit.message);
+  const [message, setMessage] = useState({ message: messageToEdit.message });
   
   const emojiOpen = () => {
       setToggleEmoji(true)
@@ -101,7 +98,7 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
     await updateChat({
       variables: {
         id: messageToEdit.id,
-        message: message 
+        message: message.message 
       }
     })
     setEditInput(false);
@@ -112,14 +109,15 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
     await updateChat({
         variables: {
           id: messageToEdit.id,
-          message: message || textValue
+          message: textValue
         }
     })
     setTextValue('');
+    setUpdateChat(true);
   };
 
   const handleChange = e => {
-    setMessage(e.target.value);
+    setMessage({ message: e.target.value });
   };
 
   const onEmojiClick = (e) => {
@@ -139,7 +137,7 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
           className={classes.messageBox}
           multiline={true}
           rowsMax='4'
-          value={message || textValue}
+          value={message.message || textValue}
           variant="outlined"
           type="text"
           name="updateChat"
