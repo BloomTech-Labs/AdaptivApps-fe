@@ -37,6 +37,16 @@ function ChatFeature(){
   const [newRoom, setNewRoom] = useState(false);
   const [deleteRoom, setDeleteRoom] = useState(false);
 
+  setTimeout(function () {
+    if (alert) {
+      setAlertOpen(false);
+    } else if (newRoom) {
+      setNewRoom(false);
+    } else if (deleteRoom) {
+      setDeleteRoom(false);
+    }
+  }, 3000);
+
   return (
     <>
       <div className={classes.alertDiv}>

@@ -131,6 +131,14 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
     const [updateChat, setUpdateChat] = useState(false);
     const [deleteChat, setDeleteChat] = useState(false);
 
+    setTimeout(function () {
+      if (updateChat) {
+        setUpdateChat(false);
+      } else if (deleteChat) {
+        setDeleteChat(false);
+      }
+    }, 3000)
+
     const participants = chatRoom.participants.filter((participant) => participant.email !== user.email && participant)
 
     const chattingWith = participants.map((participant, index) => {
