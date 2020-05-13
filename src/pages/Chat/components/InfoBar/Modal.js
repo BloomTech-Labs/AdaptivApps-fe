@@ -74,8 +74,46 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2, 4, 3),
   },
   search: {
+    textAlign: 'center',
+    fontSize: '2rem',
+    lineHeight: '10px',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#2962FF'
+  },
+  noSearch: {
     display: 'none'
   },
+  errorState: {
+    display: 'block',
+    width: '95%',
+    fontSize: '2.2rem',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    '& p': {
+      marginTop: '-4%'      
+    },
+    '& p:first-child': {
+      color: 'red'      
+    },
+  },
+  errorClose: {
+    fontSize: "2rem",
+    color: 'black',
+    marginLeft: '85%',
+    marginTop: '5%',
+    border: "none",
+    '&:hover': {
+      cursor: "pointer",
+      color: "#2962FF"
+    },
+    '&:focus': {
+      outline: "none"
+    }
+  },
+  noError: {
+    display: 'none'
+  }
 }));
 
 function RecipientModal({ user, setOpen, participants, setNewRoom }) {
@@ -83,6 +121,8 @@ function RecipientModal({ user, setOpen, participants, setNewRoom }) {
     const [searchRecipient, setSearchRecipient] = useState("");
     const [results, setResults] = useState([]);
     const [searchText, setSearchText] = useState(false);
+    const [errorState, setErrorState] = useState(false);
+    console.log(errorState)
 
     const { data } = useQuery(GET_RECIPIENTS);
     const [createChatRoom] = useMutation(CREATE_CHAT_ROOM);
@@ -91,12 +131,15 @@ function RecipientModal({ user, setOpen, participants, setNewRoom }) {
       e.preventDefault();
       let filter = data?.profiles.map(user => {
         return [`${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user];
-      });
-
+      },
+      setSearchText(false)
+      );
       filter.filter(user => {
         if (user[0].includes(searchRecipient.toLowerCase())) {
           results.push(user[1])
           return results;
+        } else {
+          setErrorState(true);
         }
       });
       setSearchRecipient('');
@@ -158,6 +201,7 @@ function RecipientModal({ user, setOpen, participants, setNewRoom }) {
         <div>       
           <Box component="div">
             <TextField
+              onKeyPress={() => setSearchText(true)}
               variant="outlined"
               type="text"
               placeholder="Search for a Recipient"
@@ -175,8 +219,20 @@ function RecipientModal({ user, setOpen, participants, setNewRoom }) {
             <div className={classes.root}>
               <div>
               <Paper style={{maxHeight: 200, overflow: 'auto'}}>
+              <List>
+                  <div className={errorState ? classes.errorState : classes.noError}>
+                    
+                    <p><CloseIcon className={classes.errorClose} onClick={() => setErrorState(false)} /> No users found </p>
+                    <p>Are you chatting with this person already?</p>
+                    </div>
                 {searchResults}
+                {!results.length && 
+                <div className={!searchText ? classes.search : classes.noSearch}>
+                  <p>Search for a user above or</p> 
+                  <p>choose from the list below!</p>
+                  </div>}
                 {chatResults}
+                </List>
                 </Paper>
               </div>
             </div>
