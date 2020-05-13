@@ -109,10 +109,10 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
   };
 
   const updateSpeechMessage = async () => {
-    await sendChat({
+    await updateChat({
         variables: {
           id: messageToEdit.id,
-          message: textValue
+          message: message || textValue
         }
     })
     setTextValue('');
