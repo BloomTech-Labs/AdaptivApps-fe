@@ -8,7 +8,6 @@ import { useSpeechRecognition } from "react-speech-kit";
 import { SEND_CHAT } from '../../queries/Chats'
 import { useMutation } from 'react-apollo'
 
-
 //Emoji Picker Import
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
@@ -84,7 +83,6 @@ const Input = ({ chatRoom, user }) => {
     const [sendChat] = useMutation(SEND_CHAT);
     const [message, setMessage] = useState('');
     
-
     const emojiOpen = () => {
         setToggleEmoji(true)
     };
@@ -95,9 +93,10 @@ const Input = ({ chatRoom, user }) => {
    
     const onEnd =  () => {
         console.log("Listening has finished")
-      };
+    };
 
     const { listen, listening, stop } = useSpeechRecognition({onResult, onEnd});
+
     const newMessage = async () => {
         await sendChat({
             variables: {
@@ -121,7 +120,6 @@ const Input = ({ chatRoom, user }) => {
     };
 
    const handleChange = e => {
-       console.log(e.target, "event");
         setMessage({
             message: e.target.value
         })

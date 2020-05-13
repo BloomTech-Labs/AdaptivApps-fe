@@ -14,12 +14,14 @@ export const GET_CHAT_ROOMS = gql`
           id
         }
         chats(orderBy: createdAt_DESC) {
+          id
           message
           createdAt
           room {
             id
           }
           from {
+            id
             firstName
             lastName
             email
@@ -44,6 +46,7 @@ export const GET_CHAT_ROOM_MESSAGES = gql`
             id
           }
           from {
+            id
             firstName
             lastName
           }
@@ -64,11 +67,14 @@ export const CREATE_CHAT_ROOM = gql`
       ) {
       id
       participants {
+        id
         firstName
         lastName
       }
       chats {
+        id
         from {
+          id
           firstName
           lastName
         }
@@ -97,11 +103,14 @@ export const ADD_CHAT_ROOM_PARTICIPANTS = gql`
       ) {
       id
       participants {
+        id
         firstName
         lastName
       }
       chats {
+        id
         from {
+          id
           firstName
           lastName
         }
@@ -121,11 +130,14 @@ export const DELETE_CHAT_ROOM_PARTICIPANTS = gql`
     ) {
       id
       participants {
+        id
         firstName
         lastName
       }
       chats {
+        id
         from {
+          id
           firstName
           lastName
         }

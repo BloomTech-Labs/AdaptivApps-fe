@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 export const GET_ANNOUNCEMENTS = gql`
   query getAnnouncements( $isAnnouncementRoom: Boolean! ) {
     announcements(where: {isAnnouncementRoom: $isAnnouncementRoom}) {
+        id
         title
         message
         createdAt
