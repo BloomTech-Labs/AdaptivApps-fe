@@ -89,6 +89,7 @@ function EditAnnouncementModal({ setAnnouncementOpen, announcement, setUpdateCha
     setUpdateMessage(e.target.value);
   };
 
+  // Send updated announcement to BE
   const onSubmit = async () => {
     await updateAnnouncement({
       variables: {

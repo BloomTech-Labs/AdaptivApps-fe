@@ -134,10 +134,12 @@ function SideNav(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  // Setup Chat and Announcement Subscriptions
   const { refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
   const { subscribeToMore: announcementSubscription, refetch: refetchAnnouncements  } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
   const { subscribeToMore } = useQuery(GET_MESSAGES, { variables: { email: user.email } });
 
+  // Chat Subscription
   const _subscribeToNewChats = subscribeToMore => {
     subscribeToMore({
       document: CHAT_SUBSCRIPTION,
@@ -157,6 +159,7 @@ function SideNav(props) {
 
   _subscribeToNewChats(subscribeToMore);
 
+  // Announcement Subscriptions
   const _subscribeToNewAnnouncements = announcementSubscription => {
     announcementSubscription({
       document: ANNOUNCEMENT_SUBSCRIPTION,

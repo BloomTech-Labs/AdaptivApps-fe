@@ -76,6 +76,7 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
   const [updateChat] = useMutation(UPDATE_CHAT);
   const [message, setMessage] = useState({ message: messageToEdit.message });
   
+  // Toggle emoji picker
   const emojiOpen = () => {
       setToggleEmoji(true)
   };
@@ -84,6 +85,13 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
       setToggleEmoji(false)
   };
 
+  const onEmojiClick = (e) => {
+    setMessage({
+      message: message.message ? message.message + e.native : e.native
+    });
+  };
+
+  // Speech to text logic
   const onResult = result => {
     setTextValue(result);
   };
@@ -94,6 +102,7 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
 
   const { listen, listening, stop } = useSpeechRecognition({onResult, onEnd});
   
+  // Update message via text
   const updateMessage = async () => {
     await updateChat({
       variables: {
@@ -105,6 +114,7 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
     setUpdateChat(true);
   };
 
+  // Update message via speech to text
   const updateSpeechMessage = async () => {
     await updateChat({
         variables: {
@@ -118,12 +128,6 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
 
   const handleChange = e => {
     setMessage({ message: e.target.value });
-  };
-
-  const onEmojiClick = (e) => {
-    setMessage({
-      message: message.message ? message.message + e.native : e.native
-    });
   };
 
   return(
@@ -161,6 +165,6 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
       </div>
     </div>
   )
-}
+};
 
 export default EditInput;

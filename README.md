@@ -32,11 +32,11 @@ You can find the deployed project at [adaptivapps](https://adaptivdev.net/).
 
 ## Project Overview
 
-[Trello Board](https://trello.com/b/DzMVabtu/ace)
-
 [Product Canvas](https://www.notion.so/AdaptivApps-b8ff290465be4c5d813425c774f6bd25)
 
 [UX Design files](https://www.figma.com/file/xuXwvLz0LDnQC3rS53129B/Adaptivapps%2C-Josh-Armantrout?node-id=218%3A1)
+
+[Chat Design Files](https://www.figma.com/file/YUvN8gkUAOI7xDW4E3tDZP/Adaptive-Apps%2C-Brian-(Harzak)?node-id=177%3A6)
 
 A nonprofit organization and is looking for a better way to engage their staff, volunteers, athletes, parents, coaches and spectators. This app would need to be digitally accessible with the ability to meet various physical changes.
 
@@ -45,7 +45,7 @@ A nonprofit organization and is looking for a better way to engage their staff, 
 - User Onboarding
 - Create Events / Register for Events
 - Calendar / Map Features
-- Real time Chat
+- Real-time Chat (Direct Messaging and Announcements)
 
 ## Tech Stack
 
@@ -62,15 +62,16 @@ Why did you choose this framework?
 - Fast rendering with virtual DOM
 - Testability
 
-#### Front end deployed to `AWS`
+#### Front end deployed to `AWS Amplify`
+Setup with CI
 
 #### [Back end](https://github.com/Lambda-School-Labs/AdaptivApps-be) built using:
 
-#### **Prismatopia(graphQL, Apollo, Prisma)**
+#### **Prismatopia (GraphQL, Apollo, Prisma)**
 
-- Generated Crud Schema
-- GraphQl is fastest query slinger this side of the mississippi!
-- Bernie Durfee is the man!
+- Generated CRUD Schema
+- GraphQL is fastest query slinger this side of the mississippi!
+- Built in Subscription services to handle real-time chat
 
 # Environment Variables
 

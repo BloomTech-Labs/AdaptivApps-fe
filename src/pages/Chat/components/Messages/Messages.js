@@ -6,6 +6,7 @@ import EditInput from '../Input/EditInput';
 import { useMutation } from 'react-apollo';
 import { DELETE_CHAT } from '../../queries/Chats';
 
+// Styling imports
 import PersonIcon from '@material-ui/icons/Person';
 import Tooltip from '@material-ui/core/Tooltip';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
@@ -151,7 +152,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Messages({ user, chatRoom, participants, messages, setUpdateChat, setDeleteChat }) {
+export default function Messages({ user, chatRoom, messages, setUpdateChat, setDeleteChat }) {
   const classes = useStyles();
   
   const [deleteChat] = useMutation(DELETE_CHAT);
@@ -159,6 +160,7 @@ export default function Messages({ user, chatRoom, participants, messages, setUp
   const [messageToEdit, setMessageToEdit] = useState();
   const [editInput, setEditInput] = useState(false);
 
+  // Sets up an auto-scroll to last message when new message received, or when a message is updated/deleted
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -169,6 +171,7 @@ export default function Messages({ user, chatRoom, participants, messages, setUp
     scrollToBottom()
   }, [messages]);
 
+  // Delete a message
   const deleteMessage = async (message) => {
     await deleteChat({ variables: { id: message.id } });
     setDeleteChat(true);
@@ -212,4 +215,4 @@ export default function Messages({ user, chatRoom, participants, messages, setUp
       </div>
     </div>
   )
-}
+};

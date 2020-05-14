@@ -1,8 +1,11 @@
 // React imports
 import React, { useState } from "react";
-
 import InfoBar from './components/InfoBar/InfoBar';
 
+// Auth0 imports
+import { useAuth0 } from "../../config/react-auth0-spa";
+
+// Styling imports
 import {
   makeStyles
 } from "@material-ui/core";
@@ -10,9 +13,6 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Collapse from '@material-ui/core/Collapse';
 import Alert from '@material-ui/lab/Alert';
-
-// Auth0 imports
-import { useAuth0 } from "../../config/react-auth0-spa";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -37,6 +37,7 @@ function ChatFeature(){
   const [newRoom, setNewRoom] = useState(false);
   const [deleteRoom, setDeleteRoom] = useState(false);
 
+  // Timeout for automated alerts
   setTimeout(function () {
     if (alert) {
       setAlertOpen(false);

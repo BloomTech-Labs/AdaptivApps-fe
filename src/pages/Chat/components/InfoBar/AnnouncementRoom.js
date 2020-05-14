@@ -79,13 +79,14 @@ export default function AnnouncementRoom({ user, setAnnouncementOpen }) {
     const [updateChat, setUpdateChat] = useState(false);
     const [deleteChat, setDeleteChat] = useState(false);
 
+    // Set timeout for automated alerts
     setTimeout(function () {
       if (updateChat) {
         setUpdateChat(false);
       } else if (deleteChat) {
         setDeleteChat(false);
       }
-    }, 3000)
+    }, 3000);
 
     const handleClick = e => {
       e.preventDefault();
@@ -100,15 +101,15 @@ export default function AnnouncementRoom({ user, setAnnouncementOpen }) {
     return (
       <>
         <div className={classes.root}>
-            <BookmarksIcon 
-              className={classes.chatRoomIcon}
-              onClick={() => setEditChatRoom(true)} />
-              <Modal
-                className={classes.modal}
-                open={editChatRoom}
-                onClose={() => setEditChatRoom(false)}>
-                {editChatRoom ? <div>hello</div> : null}
-              </Modal>          
+          <BookmarksIcon 
+            className={classes.chatRoomIcon}
+            onClick={() => setEditChatRoom(true)} />
+          <Modal
+            className={classes.modal}
+            open={editChatRoom}
+            onClose={() => setEditChatRoom(false)}>
+            {editChatRoom ? <div>hello</div> : null}
+          </Modal>          
           <Tooltip title="Click to expand messages">
             <button 
               className={classes.chatRoomButton} 
@@ -165,4 +166,4 @@ export default function AnnouncementRoom({ user, setAnnouncementOpen }) {
         </Drawer>
       </>
     )
-}
+};

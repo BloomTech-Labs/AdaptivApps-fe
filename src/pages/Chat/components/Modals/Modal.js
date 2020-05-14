@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "react-apollo";
-import { CREATE_CHAT_ROOM } from '../../queries/ChatRooms'
+import { CREATE_CHAT_ROOM } from '../../queries/ChatRooms';
 
 //Style imports
 import {
@@ -99,12 +99,15 @@ const useStyles = makeStyles(theme => ({
 
 function RecipientModal({ user, setOpen, participants, setNewRoom, validParticipants }) {
     const classes = useStyles();
+
     const [searchRecipient, setSearchRecipient] = useState("");
     const [results, setResults] = useState([]);
     const [searchText, setSearchText] = useState(true);
     const [errorState, setErrorState] = useState(false);
+
     const [createChatRoom] = useMutation(CREATE_CHAT_ROOM);
   
+    // Search for a recipient logic
     const searchContacts = e => {
       e.preventDefault();
       let filter = uniqueEmails.map(user => {
@@ -124,6 +127,7 @@ function RecipientModal({ user, setOpen, participants, setNewRoom, validParticip
       setSearchRecipient('');
     };
 
+    // Creating a new chat room
     const newChatRoom = async (item) => {
         await (createChatRoom({
         variables:{
@@ -146,20 +150,25 @@ function RecipientModal({ user, setOpen, participants, setNewRoom, validParticip
       setOpen(false);
     };
     
-    const uniqueEmails = []    
-      validParticipants.map(person => {
-        let unique = participants.find(item => item.email === person.email) 
-        if (unique === undefined && person.email !== user.email) {
-          uniqueEmails.push(person)
-        }})
+    // List of participants not currently chatting with for modal list - prevents duplicate chat rooms
+    const uniqueEmails = [];
+
+    validParticipants.map(person => {
+      let unique = participants.find(item => item.email === person.email) 
+      if (unique === undefined && person.email !== user.email) {
+        uniqueEmails.push(person);
+      };
+    });
     
+    // Return search results in list
     const searchResults = results.length > 0 &&
     (results.map(item => {
       const filtered = uniqueEmails.filter(user => {
         if (user.email === item.email && 
             user.firstName !== '' && user.lastName !== '') {
           return user
-        }})
+        }
+      })
       if (filtered[0] !== item.email) {
         return (
           <ListItem 
@@ -168,14 +177,17 @@ function RecipientModal({ user, setOpen, participants, setNewRoom, validParticip
             onClick={() => newChatRoom(item)}>
             <ListItemText primary={`${item.firstName} ${item.lastName}`} />
           </ListItem>
-        )}}))
+        )
+      }
+    }));
 
-      const chatResults = !results.length && uniqueEmails.map(item => {          
-          return (
-            <ListItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
-                <ListItemText primary={`${item.firstName} ${item.lastName}`} />
-              </ListItem>
-          )})
+    // List of recipients available to chat with
+    const chatResults = !results.length && uniqueEmails.map(item => {          
+      return (
+        <ListItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
+          <ListItemText primary={`${item.firstName} ${item.lastName}`} />
+        </ListItem>
+    )});
       
     return (
      <div>          
