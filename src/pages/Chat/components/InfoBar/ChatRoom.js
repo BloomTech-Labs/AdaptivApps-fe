@@ -139,12 +139,14 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
       }
     }, 3000)
 
-    const participants = chatRoom.participants.filter((participant) => {
+    const participants = []
+    
+    chatRoom.participants.map((participant) => {
       if (participant.email !== user.email &&
           participant.firstName !== null && participant.lastName !== null &&
-          participant.firstName !== '' && participant.lastName !== '') {
-            return participant;
-          }})    
+          participant.firstName !== "" && participant.lastName !== "") {
+            participants.push(participant)
+          }})   
 
     const chattingWith = participants.map((participant, index) => {
       if (participants.length === 1 || index === participants.length - 1) {

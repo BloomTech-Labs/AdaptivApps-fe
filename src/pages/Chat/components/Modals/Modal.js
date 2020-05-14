@@ -90,65 +90,52 @@ const useStyles = makeStyles(theme => ({
     fontSize: '2.2rem',
     textAlign: 'center',
     fontWeight: 'bold',
-    '& p': {
-      marginTop: '-4%'      
-    },
+    lineHeight: '15px',
     '& p:first-child': {
-      color: 'red'      
+      color: 'red'  ,
+      marginTop: '5%'    
     },
   },
   errorClose: {
-    fontSize: "2rem",
+    fontSize: "1.25rem",
     color: 'black',
-    marginLeft: '85%',
-    marginTop: '5%',
-    border: "none",
+    fontWeight: 'bolder',
     '&:hover': {
       cursor: "pointer",
       color: "#2962FF"
     },
-    '&:focus': {
-      outline: "none"
-    }
   },
   noError: {
     display: 'none'
   }
 }));
 
-function RecipientModal({ user, setOpen, participants, setNewRoom }) {
+function RecipientModal({ user, setOpen, participants, setNewRoom, validParticipants }) {
     const classes = useStyles();
     const [searchRecipient, setSearchRecipient] = useState("");
     const [results, setResults] = useState([]);
-    const [searchText, setSearchText] = useState(false);
+    const [searchText, setSearchText] = useState(true);
     const [errorState, setErrorState] = useState(false);
-    console.log(errorState)
-
-    const { data } = useQuery(GET_RECIPIENTS);
     const [createChatRoom] = useMutation(CREATE_CHAT_ROOM);
   
     const searchContacts = e => {
       e.preventDefault();
-      let filter = data?.profiles.map(user => {
-        if (user !== null) {
-          return [`${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user]
-        }
+      let filter = uniqueEmails.map(user => {
+       return [`${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user]
       },
       setSearchText(false)
       );
       filter.filter(user => {
         if (user[0].includes(searchRecipient.toLowerCase())) {
           results.push(user[1])
-          return results;
-        } else {
+        }
+        if (results.length === 0) {
           setErrorState(true);
+          setSearchText(false)
         }
       });
       setSearchRecipient('');
     };
-
-    const participantsEmail = participants.map(item => (item.firstName !== null && item.lastName !== null) && item.email)
-    const uniqueEmails = [...new Set(participantsEmail)]
 
     const newChatRoom = async (item) => {
         await (createChatRoom({
@@ -171,29 +158,37 @@ function RecipientModal({ user, setOpen, participants, setNewRoom }) {
       e.preventDefault();
       setOpen(false);
     };
-
+    
+    const uniqueEmails = []    
+      validParticipants.map(person => {
+        let unique = participants.find(item => item.email === person.email) 
+        if (unique === undefined && person.email !== user.email) {
+          uniqueEmails.push(person)
+        }})
+    
     const searchResults = results.length > 0 &&
     (results.map(item => {
-      const filtered = uniqueEmails.filter(email => email === item.email)
+      const filtered = uniqueEmails.filter(user => {
+        if (user.email === item.email && 
+            user.firstName !== '' && user.lastName !== '') {
+          return user
+        }})
       if (filtered[0] !== item.email) {
         return (
-          <ListItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
+          <ListItem 
+            className={classes.listItem} 
+            value={`${item.firstName} ${item.lastName}`} 
+            onClick={() => newChatRoom(item)}>
             <ListItemText primary={`${item.firstName} ${item.lastName}`} />
           </ListItem>
-        )
-      }
-      }))
-      const chatResults = !results.length && data && data?.profiles.map(item => {
-        const filtered = uniqueEmails.filter(email => email === item.email)
-        if (filtered[0] !== item.email) {
+        )}}))
+
+      const chatResults = !results.length && uniqueEmails.map(item => {          
           return (
             <ListItem className={classes.listItem} value={`${item.firstName} ${item.lastName}`} onClick={() => newChatRoom(item)}>
                 <ListItemText primary={`${item.firstName} ${item.lastName}`} />
               </ListItem>
-          )
-        }
-        })
-
+          )})
       
     return (
      <div>          
@@ -203,7 +198,7 @@ function RecipientModal({ user, setOpen, participants, setNewRoom }) {
         <div>       
           <Box component="div">
             <TextField
-              onKeyPress={() => setSearchText(true)}
+              onKeyPress={() => setSearchText(false)}
               variant="outlined"
               type="text"
               placeholder="Search for a Recipient"
@@ -223,13 +218,14 @@ function RecipientModal({ user, setOpen, participants, setNewRoom }) {
               <Paper style={{maxHeight: 200, overflow: 'auto'}}>
               <List>
                   <div className={errorState ? classes.errorState : classes.noError}>
-                    
-                    <p><CloseIcon className={classes.errorClose} onClick={() => setErrorState(false)} /> We couldn't find that user </p>
+                    <p> We couldn't find that user </p>
                     <p>Are you chatting with this person already?</p>
+                    <p className={classes.errorClose} 
+                      onClick={() => {setErrorState(false); setSearchText(true)}}>X Close</p>
                     </div>
                 {searchResults}
                 {!results.length && 
-                <div className={!searchText ? classes.search : classes.noSearch}>
+                <div className={searchText ? classes.search : classes.noSearch}>
                   <p>Search for a user above or</p> 
                   <p>choose from the list below!</p>
                   </div>}
