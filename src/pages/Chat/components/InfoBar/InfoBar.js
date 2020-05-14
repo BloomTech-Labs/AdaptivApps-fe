@@ -22,6 +22,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
+import Tooltip from '@material-ui/core/Tooltip';
 import {
   makeStyles,
   Box,
@@ -165,6 +166,8 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
           if (user.includes(searchRecipient.toLowerCase())) {
             results.push(room);
             return results;
+          } else if (searchRecipient === "all" || searchRecipient === "All") {
+            return participants;
           };
         });
       });
@@ -252,25 +255,27 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
             ))))
           }
         </div>
-          <Box component="div" className={classes.box}>
-            <TextField
-              className={classes.searchBox}
-              variant="outlined"
-              type="text"
-              name="message"
-              placeholder="Search Messages..."
-              aria-label="Search Chatrooms"
-              value={searchRecipient}
-              onChange={handleChange}
-              InputProps={{
-                endAdornment: 
-                <InputAdornment position="end">
-                  <IconButton onClick={searchRooms} aria-label="Search Chatrooms">
-                    <SearchIcon fontSize="large" />
-                  </IconButton>
-                </InputAdornment>
-              }} />
-          </Box>
+          <Tooltip title="Type 'all' or 'All' to clear search results">
+            <Box component="div" className={classes.box}>
+              <TextField
+                className={classes.searchBox}
+                variant="outlined"
+                type="text"
+                name="message"
+                placeholder="Search Messages..."
+                aria-label="Search Chatrooms"
+                value={searchRecipient}
+                onChange={handleChange}
+                InputProps={{
+                  endAdornment: 
+                  <InputAdornment position="end">
+                    <IconButton onClick={searchRooms} aria-label="Search Chatrooms">
+                      <SearchIcon fontSize="large" />
+                    </IconButton>
+                  </InputAdornment>
+                }} />
+            </Box>
+          </Tooltip>
       </div>
     )
 };
