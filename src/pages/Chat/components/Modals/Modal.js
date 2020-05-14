@@ -61,12 +61,6 @@ const useStyles = makeStyles(theme => ({
       outline: "none"
     }
   },
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: "-webkit-xxx-large",
-  },
   search: {
     textAlign: 'center',
     fontSize: '2rem',
