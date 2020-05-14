@@ -61,23 +61,10 @@ const useStyles = makeStyles(theme => ({
       outline: "none"
     }
   },
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontSize: "-webkit-xxx-large",
-  },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
   search: {
     textAlign: 'center',
     fontSize: '2rem',
     lineHeight: '10px',
-    textAlign: 'center',
     fontWeight: 'bold',
     color: '#2962FF'
   },

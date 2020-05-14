@@ -182,7 +182,7 @@ export default function EventDetails(props) {
         <Box className={classes.webinarBox}>
           <p>Hosted by: {activeEvent.host}</p>
           <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
-          <a href={activeEvent.link} target="_blank">
+          <a href={activeEvent.link} rel="noopener noreferrer" target="_blank">
             Click Here to Join Us!
           </a>
         </Box>

@@ -240,16 +240,16 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
           <Divider variant="inset" className={classes.divider} />
           {results.length > 0 ? 
             (results.map((chatRoom, id) => (
-              <div className={classes.chatroom}>
-                <ChatRoom chatRoom={chatRoom} key={id} user={user} setDeleteRoom={setDeleteRoom} />
+              <div className={classes.chatroom} key={id}>
+                <ChatRoom chatRoom={chatRoom} user={user} setDeleteRoom={setDeleteRoom} />
                 <Divider variant="inset" className={classes.divider} />
               </div>
             )))
             :
             (data.profile.chatRooms === undefined ? null : 
             (data && data?.profile.chatRooms?.map((chatRoom, id) => (
-              <div className={classes.chatroom}>
-                <ChatRoom chatRoom={chatRoom} key={id} user={user} setDeleteRoom={setDeleteRoom} />
+              <div className={classes.chatroom} key={id}>
+                <ChatRoom chatRoom={chatRoom} user={user} setDeleteRoom={setDeleteRoom} />
                 <Divider variant="inset" className={classes.divider} />
               </div>
             ))))

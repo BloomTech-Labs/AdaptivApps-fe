@@ -41,7 +41,7 @@ export default function ActivityDetails({ activity }) {
       <td>{activity.startDate}</td>
       {activeEvent.type === "Webinar" ? (
         <td>
-          <a className={classes.nameLink} href={activity.link} target="_blank">
+          <a className={classes.nameLink} href={activity.link} rel="noopener noreferrer" target="_blank">
             Join!
           </a>
         </td>

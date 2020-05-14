@@ -136,7 +136,7 @@ function SideNav(props) {
 
   // Setup Chat and Announcement Subscriptions
   const { refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
-  const { subscribeToMore: announcementSubscription, data, refetch: refetchAnnouncements  } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
+  const { subscribeToMore: announcementSubscription, refetch: refetchAnnouncements  } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
   const { subscribeToMore } = useQuery(GET_MESSAGES, { variables: { email: user.email } });
 
   // Chat Subscription
