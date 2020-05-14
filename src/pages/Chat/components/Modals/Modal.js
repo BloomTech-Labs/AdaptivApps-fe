@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { useQuery, useMutation } from "react-apollo";
-import { GET_RECIPIENTS } from '../../queries/Chats';
+import { useMutation } from "react-apollo";
 import { CREATE_CHAT_ROOM } from '../../queries/ChatRooms'
+
 //Style imports
-import Alert from '@material-ui/lab/Alert';
 import {
     makeStyles,
     Box,
@@ -17,6 +16,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+
 const useStyles = makeStyles(theme => ({
   span: {
     fontSize: '2rem',
@@ -67,17 +67,10 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'center',
     fontSize: "-webkit-xxx-large",
   },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
   search: {
     textAlign: 'center',
     fontSize: '2rem',
     lineHeight: '10px',
-    textAlign: 'center',
     fontWeight: 'bold',
     color: '#2962FF'
   },
