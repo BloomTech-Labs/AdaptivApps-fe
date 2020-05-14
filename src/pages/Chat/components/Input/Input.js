@@ -4,7 +4,7 @@ import React, { useState } from "react";
 // Speech Recognition Import
 import { useSpeechRecognition } from "react-speech-kit";
 
-// Query Imports
+// Query / Mutation Imports
 import { SEND_CHAT } from '../../queries/Chats'
 import { useMutation } from 'react-apollo'
 
@@ -21,7 +21,7 @@ import Modal from '@material-ui/core/Modal';
 import {
     makeStyles,
     TextField
-  } from "@material-ui/core";
+} from "@material-ui/core";
 
 const useStyles = makeStyles(() => ({
     inputDiv: {
@@ -67,7 +67,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Input = ({ chatRoom, user }) => {
-    console.log('ChatRoomID', chatRoom);
     const classes = useStyles();
     const [toggleEmoji, setToggleEmoji] = useState(false);
 
@@ -77,10 +76,7 @@ const Input = ({ chatRoom, user }) => {
     const [sendChat] = useMutation(SEND_CHAT);
     const [message, setMessage] = useState({ message: '' });
 
-    const onResult = result => {
-        setTextValue(result);
-    }
-    
+    // Toggle emoji picker
     const emojiOpen = () => {
         setToggleEmoji(true)
     };
@@ -88,13 +84,25 @@ const Input = ({ chatRoom, user }) => {
     const emojiClose = () => {
         setToggleEmoji(false)
     };
-   
+
+    const onEmojiClick = (e) => {
+        setMessage({
+            message: message.message ? message.message + e.native : e.native
+        });
+    };
+
+    // Speech to text logic
+    const onResult = result => {
+        setTextValue(result);
+    };
+
     const onEnd =  () => {
         console.log("Listening has finished")
     };
 
     const { listen, listening, stop } = useSpeechRecognition({onResult, onEnd});
 
+    // Create message via text
     const newMessage = async () => {
         await sendChat({
             variables: {
@@ -112,6 +120,7 @@ const Input = ({ chatRoom, user }) => {
         });
     };
 
+    // Create message via speech to text
     const newSpeechMessage = async () => {
         await sendChat({
             variables: {
@@ -125,12 +134,6 @@ const Input = ({ chatRoom, user }) => {
 
     const handleChange = e => {
         setMessage({ message: e.target.value });
-    };
-
-    const onEmojiClick = (e) => {
-        setMessage({
-            message: message.message ? message.message + e.native : e.native
-        });
     };
 
     return(

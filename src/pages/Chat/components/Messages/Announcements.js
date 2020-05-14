@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+
+// Query / Mutations
 import { useQuery, useMutation } from "react-apollo";
 import { GET_ANNOUNCEMENTS, DELETE_ANNOUNCEMENT } from '../../queries/Announcements';
 import EditAnnouncementModal from '../Modals/EditAnnouncementModal';
@@ -6,6 +8,7 @@ import EditAnnouncementModal from '../Modals/EditAnnouncementModal';
 //Auth0 imports
 import config from "../../../../config/auth_config";
 
+// Styling imports
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Tooltip from '@material-ui/core/Tooltip';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
@@ -108,6 +111,7 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
     }
   });
 
+  // Sets up an auto-scroll to last announcement when new announcement received, or when an announcement is updated/deleted
   const announcementsEndRef = useRef(null)
 
   const scrollToBottom = () => {
@@ -122,6 +126,7 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
     setAnnouncementOpen(false);
   };
 
+  // Delete an announcement
   const deleteMessage = async (announcement) => {
     await deleteAnnouncement({
       variables: { id: announcement.id }
@@ -173,4 +178,4 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
       </div>
     </div>
   )
-}
+};

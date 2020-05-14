@@ -87,6 +87,7 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen }) {
     setNewAnnouncementText(e.target.value);
   };
 
+  // Send announcement to BE
   const onSubmit = e => {
     e.preventDefault();
     createAnnouncement({
