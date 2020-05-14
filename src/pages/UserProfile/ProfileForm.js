@@ -248,7 +248,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 placeholder={userProfile ? userProfile.firstName : ""}
                 name="firstName"
                 control={control}
-                InputProps={{
+                inputProps={{
                   classes: {
                     input: classes.resize,
                   },
@@ -268,7 +268,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 placeholder={userProfile ? userProfile.lastName : ""}
                 name="lastName"
                 control={control}
-                InputProps={{
+                inputProps={{
                   classes: {
                     input: classes.resize,
                   },
@@ -290,7 +290,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 placeholder={userProfile ? userProfile.displayName : ""}
                 name="displayName"
                 control={control}
-                InputProps={{
+                inputProps={{
                   classes: {
                     input: classes.resize,
                   },
@@ -310,7 +310,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 name="birthday"
                 placeholder={userProfile ? userProfile.birthday : "mm/dd/yyyy"}
                 control={control}
-                InputProps={{
+                inputProps={{
                   classes: {
                     input: classes.resize,
                   },
@@ -334,7 +334,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 rows="8"
                 placeholder={userProfile ? userProfile.bio : null}
                 control={control}
-                InputProps={{
+                inputProps={{
                   classes: {
                     input: classes.resize,
                   },
@@ -358,7 +358,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 ref={register}
                 placeholder={userProfile ? userProfile.disability : null}
                 control={control}
-                InputProps={{
+                inputProps={{
                   classes: {
                     input: classes.resize,
                   },
@@ -384,7 +384,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 name="legal"
                 variant="outlined"
                 control={control}
-                InputProps={{
+                inputProps={{
                   classes: {
                     input: classes.resize,
                   },

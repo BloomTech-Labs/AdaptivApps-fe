@@ -27,7 +27,8 @@ const AdminEventList = props => {
 
   // Grab the events data from props
   const events = props.events;
-  const eventType = props.events.type;
+  //commented out to remove console warning, eventType defined but never used
+  //const eventType = props.events.type;
 
   const useStyles = makeStyles({
     grid: {
