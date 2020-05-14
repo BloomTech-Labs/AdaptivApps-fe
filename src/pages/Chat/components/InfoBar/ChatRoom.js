@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-
 import Messages from '../Messages/Messages';
 
+// Mutation Imports
 import { useMutation } from "react-apollo";
 import { DELETE_CHAT_ROOM } from '../../queries/ChatRooms'
 
@@ -18,6 +18,7 @@ import Alert from '@material-ui/lab/Alert';
 import {
   makeStyles
 } from "@material-ui/core";
+
 const useStyles = makeStyles((theme) => ({
   root: {   
     margin: ".5rem auto",
@@ -124,6 +125,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
     const classes = useStyles();
+
     const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM);
 
     const [messageToggle, setMessageToggle] = useState(false);
@@ -131,6 +133,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
     const [updateChat, setUpdateChat] = useState(false);
     const [deleteChat, setDeleteChat] = useState(false);
 
+    // Set timeout for automated alerts
     setTimeout(function () {
       if (updateChat) {
         setUpdateChat(false);
@@ -139,6 +142,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
       }
     }, 3000)
 
+    // Remove participants with invalid first / last names
     const participants = []
     
     chatRoom.participants.map((participant) => {
@@ -146,15 +150,17 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
           participant.firstName !== null && participant.lastName !== null &&
           participant.firstName !== "" && participant.lastName !== "") {
             participants.push(participant)
-          }})   
+      }
+    })   
 
+    // Logic to set group chat rooms
     const chattingWith = participants.map((participant, index) => {
       if (participants.length === 1 || index === participants.length - 1) {
         return `${participant.firstName} ${participant.lastName}`
-        } else {
+      } else {
         return `${participant.firstName} ${participant.lastName}, `
-        }
-      })
+      }
+    });
 
     const messages = chatRoom.chats.map((chat) => {return {
         id: chat.id,
@@ -176,6 +182,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
     };
 
+    // Delete a chat room
     const deleteRoom = async () => {
       await deleteChatRoom({
           variables: {
@@ -184,7 +191,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
       })
       setEditChatRoom(false);
       setDeleteRoom(true);
-  }
+    };
 
     return (
       <>
@@ -268,4 +275,4 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
         </Drawer>
       </>
     )
-}
+};
