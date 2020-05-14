@@ -84,7 +84,6 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '1%',
     '&:focus': {
       outline: 'none'
     }

@@ -4,7 +4,7 @@ import EditInput from '../Input/EditInput';
 
 // Update / Delete Mutations
 import { useMutation } from 'react-apollo';
-import { UPDATE_CHAT, DELETE_CHAT } from '../../queries/Chats';
+import { DELETE_CHAT } from '../../queries/Chats';
 
 import PersonIcon from '@material-ui/icons/Person';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -118,7 +118,6 @@ const useStyles = makeStyles(theme => ({
     fontWeight: 'bold',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: '1%',
     '&:focus': {
       outline: 'none'
     }
