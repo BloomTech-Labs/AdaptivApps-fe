@@ -50,7 +50,7 @@ export default function DateTabs({ data, refetch }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [activityByDates, setActivityByDates] = useState();
-  const [activityGroup, setActivityGroup] = useState();
+  const [activityGroups, setActivityGroups] = useState();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -79,21 +79,13 @@ export default function DateTabs({ data, refetch }) {
   };
   const days = getDatesRangeArray(startDate, endDate);
 
-  // const activityDate = data?.event?.activities.map(activity => {
-  //   return activity?.date;
-  // });
-
   useEffect(() => {
     setActivityByDates(data?.event?.activities);
   });
 
-  console.log("Inside DateTabs", data?.event?.activities);
-
-  console.log(activityByDates);
-
   const groupBy = (array, key) => {
     // Return the end result
-    return array.reduce((result, currentValue) => {
+    return array && array.reduce((result, currentValue) => {
       // If an array already present for key, push it to the array. Else create an array and push the object
       (result[currentValue[key]] = result[currentValue[key]] || []).push(
         currentValue
@@ -103,13 +95,21 @@ export default function DateTabs({ data, refetch }) {
     }, {}); // empty object is the initial value for result object
   };
 
-  const onSubmit = async () => {
-    const activitiesGroupedByDate = await groupBy(activityByDates, "date");
+  const activitiesGroupedByDate = groupBy(activityByDates, "date");
     console.log(activitiesGroupedByDate);
-    await setActivityGroup(activitiesGroupedByDate);
-   
-  };
-  console.log('inside submit', activityGroup);
+  // const activityGroup = async () => {
+  //   let newGroup = [];
+  //   await newGroup.push(activitiesGroupedByDate);
+  //   newGroup && newGroup.map(group => console.log('inside activityGroup', group));
+  // }
+
+  // useEffect(() => {
+  //   activityGroup();
+    
+  // });
+
+  // console.log(activityGroup);
+
 
   return (
     <div className={classes.root}>
@@ -123,14 +123,15 @@ export default function DateTabs({ data, refetch }) {
           textColor="primary"
           aria-label="scrollable force tabs example"
         >
+          
           {days.map((day, index) => (
             <Tab label={day} key={index} />
           ))}
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={1}>
+      <TabPanel value={value} index={0}>
         <ActivityList data={data} refetch={refetch} />
-        <Button onClick={onSubmit}>Push Me</Button>
+        {/* <Button onClick={onSubmit}>Push Me</Button> */}
       </TabPanel>
     </div>
   );
