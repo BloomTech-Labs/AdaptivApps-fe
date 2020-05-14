@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "react-apollo";
 import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms';
+import { GET_RECIPIENTS } from '../../queries/Chats'
 import RecipientModal from '../Modals/Modal';
 import ChatRoom from './ChatRoom';
 import AnnouncementRoom from './AnnouncementRoom';
@@ -110,6 +111,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
     const [results, setResults] = useState([]);
 
     const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
+    const { data: recipients } = useQuery(GET_RECIPIENTS)
 
     const _subscribeToNewChatRoom = subscribeToMore => {
       subscribeToMore({
@@ -128,10 +130,19 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
       })
     };
 
+    const validParticipants = []
+
+    recipients && recipients.profiles.map(user => {
+      if (user.firstName !== null && user.lastName !== null && 
+          user.firstName !== '' && user.lastName !== '') {
+            validParticipants.push(user)
+          }
+    })
+
     if (loading) return <CircularProgress className={classes.loadingSpinner} />;
     if (error) return `Error! ${error.message}`;
 
-    const participants = data && data?.profile.chatRooms.map(item => item.participants).concat().flat();
+    const participants = data && data?.profile.chatRooms.map(item => item !== null && item.participants).concat().flat();
 
     _subscribeToNewChatRoom(subscribeToMore);
 
@@ -139,8 +150,10 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
       e.preventDefault();
       let filter = data && data?.profile.chatRooms.map(room => {
         let users = room.participants.map(user => {
+          if (user.firstName !== null && user.lastName !== null &&
+              user.firstName !== '' && user.lastName !== '') {
           return `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`;
-        });
+        }});
         return users.filter(user => {
           if (user.includes(searchRecipient.toLowerCase())) {
             results.push(room);
@@ -189,7 +202,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
           BackdropProps={{
             timeout: 500,
           }}>
-          <RecipientModal user={user} setOpen={setOpen} setNewRoom={setNewRoom} participants={participants} />
+          <RecipientModal user={user} setOpen={setOpen} setNewRoom={setNewRoom} participants={participants} validParticipants={validParticipants} />
         </Modal> 
         {user && user[config.roleUrl].includes("Admin") ? 
         (
