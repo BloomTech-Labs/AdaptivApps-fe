@@ -199,6 +199,8 @@ function SideNav(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  console.log('Data', data);
+
   const drawer = (
     <>
       <Box className={classes.imgBox}>
@@ -217,7 +219,7 @@ function SideNav(props) {
           <UserIcon className={classes.navIcon} />
           <p>My Profile</p>
         </NavLink>
-        {data && (data?.profile.firstName === null || data?.profile.lastName === null) ? 
+        {data === undefined || data.profile === null || (data && (data?.profile.firstName === null || data?.profile.lastName === null)) ? 
         (
           <Tooltip title="Please complete your profile information to access Chats">
             <div className={classes.disabledNavLink}>
