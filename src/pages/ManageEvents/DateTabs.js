@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
-import { Tabs, Tab, Typography, Box, AppBar, Button } from "@material-ui/core";
+import { Tabs, Tab, Typography, Box, Paper, Button } from "@material-ui/core";
 import moment from "moment";
 import ActivityList from "./ActivityList";
 
@@ -9,19 +9,20 @@ function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
+    <Typography
       role="tabpanel"
       hidden={value !== index}
       id={`scrollable-force-tabpanel-${index}`}
       aria-labelledby={`scrollable-force-tab-${index}`}
       {...other}
     >
-      {value === index && (
+      {/* {value === index && (
         <Box p={3}>
           <Typography>{children}</Typography>
         </Box>
-      )}
-    </div>
+      )} */}
+      <Box p={3}>{value === index && children}</Box>
+    </Typography>
   );
 }
 
@@ -58,6 +59,7 @@ export default function DateTabs({ data, refetch }) {
 
   const startDate = moment(data?.event?.startDate);
   const endDate = moment(data?.event?.endDate);
+  console.log(data)
 
   const getDatesRangeArray = function(startDate, endDate, interval) {
     console.log(startDate, endDate, interval);
@@ -92,7 +94,7 @@ export default function DateTabs({ data, refetch }) {
       );
       // Return the current iteration `result` value, this will be taken as next iteration `result` value and accumulate
       return result;
-    }, {}); // empty object is the initial value for result object
+    }, []); // empty object is the initial value for result object
   };
 
   const activitiesGroupedByDate = groupBy(activityByDates, "date");
@@ -113,7 +115,7 @@ export default function DateTabs({ data, refetch }) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <Paper square color="default">
         <Tabs
           value={value}
           onChange={handleChange}
@@ -123,16 +125,18 @@ export default function DateTabs({ data, refetch }) {
           textColor="primary"
           aria-label="scrollable force tabs example"
         >
-          
           {days.map((day, index) => (
-            <Tab label={day} key={index} />
+            <Tab label={day} key={index} value={value} />
           ))}
         </Tabs>
-      </AppBar>
-      <TabPanel value={value} index={0}>
-        <ActivityList data={data} refetch={refetch} />
-        {/* <Button onClick={onSubmit}>Push Me</Button> */}
-      </TabPanel>
+      </Paper>
+      {days.map((day, index) => (
+         <TabPanel value={value} index={index}>
+         <ActivityList data={data} refetch={refetch}  />
+         {/* <Button onClick={onSubmit}>Push Me</Button> */}
+       </TabPanel>
+      ))}
+     
     </div>
   );
 }
