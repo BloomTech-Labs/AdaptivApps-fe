@@ -69,6 +69,7 @@ export const ANNOUNCEMENT_SUBSCRIPTION = gql`
         message
         createdAt
         participants {
+            id
             email
             firstName
             lastName

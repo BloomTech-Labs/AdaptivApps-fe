@@ -158,11 +158,14 @@ export const CHAT_ROOM_SUBSCRIPTION = gql`
         participants {
           firstName
           lastName
+          id
         }
         chats {
+          id
           from {
             firstName
             lastName
+            id
           }
           message
           createdAt

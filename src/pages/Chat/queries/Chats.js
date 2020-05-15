@@ -43,6 +43,8 @@ export const SEND_CHAT = gql`
       from {
         firstName
         lastName
+        id
+        email
       }
       message
       createdAt
@@ -131,6 +133,8 @@ export const CHAT_SUBSCRIPTION = gql`
         from {
           firstName
           lastName
+          id
+          email
         }
       }
     }

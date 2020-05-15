@@ -25,6 +25,10 @@ export const GET_USER_PROFILE = gql`
   query getUserProfile($email: String!) {
     profile(where: { email: $email }) {
       id
+      firstName
+      lastName
+      email
+      birthday
     }
   }
 `;

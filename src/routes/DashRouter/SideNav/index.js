@@ -9,6 +9,7 @@ import { useQuery } from "react-apollo";
 import { CHAT_SUBSCRIPTION, GET_MESSAGES } from '../../../pages/Chat/queries/Chats';
 import { ANNOUNCEMENT_SUBSCRIPTION, GET_ANNOUNCEMENTS } from '../../../pages/Chat/queries/Announcements'
 import { GET_CHAT_ROOMS } from '../../../pages/Chat/queries/ChatRooms';
+import { GET_USER_PROFILE } from '../../../pages/MyEventDetails/queries/index';
 
 // Styling imports
 import NavLink from "./NavLink";
@@ -19,6 +20,7 @@ import UserIcon from "@material-ui/icons/PersonOutlineOutlined";
 import GroupIcon from "@material-ui/icons/GroupAddOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
 import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
+import Tooltip from '@material-ui/core/Tooltip';
 import {
   makeStyles,
   useTheme,
@@ -92,6 +94,21 @@ const useStyles = makeStyles(theme => ({
       fontSize: "1.6rem",
     },
   },
+  disabledNavLink: {
+    textDecoration: "none",
+    height: "5rem",
+    display: "flex",
+    alignContent: "flex-start",
+    alignItems: "center",
+    margin: ".5rem 0",
+    textAlign: "left",
+    "& p": {
+      fontSize: "1.6rem",
+    },
+    "&:hover": {
+      cursor: 'pointer'
+    }
+  },
   logoutContainer: {
     display: "flex",
     alignSelf: "flex-start",
@@ -138,6 +155,7 @@ function SideNav(props) {
   const { refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
   const { subscribeToMore: announcementSubscription, refetch: refetchAnnouncements  } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
   const { subscribeToMore } = useQuery(GET_MESSAGES, { variables: { email: user.email } });
+  const { data } = useQuery(GET_USER_PROFILE, { variables: { email: user.email } });
 
   // Chat Subscription
   const _subscribeToNewChats = subscribeToMore => {
@@ -199,10 +217,22 @@ function SideNav(props) {
           <UserIcon className={classes.navIcon} />
           <p>My Profile</p>
         </NavLink>
-        <NavLink to="/chats" className={classes.navLink}>
-          <ForumOutlinedIcon className={classes.navIcon} />
-          <p>Chats</p>
-        </NavLink>
+        {data && (data?.profile.firstName === null || data?.profile.lastName === null) ? 
+        (
+          <Tooltip title="Please complete your profile information to access Chats">
+            <div className={classes.disabledNavLink}>
+              <ForumOutlinedIcon className={classes.navIcon} />
+              <p>Chats</p>
+            </div>
+          </Tooltip>
+        ) 
+        : 
+        (
+          <NavLink to="/chats" className={classes.navLink}>
+            <ForumOutlinedIcon className={classes.navIcon} />
+            <p>Chats</p>
+          </NavLink>
+        )}
         {user && user[config.roleUrl].includes("Admin") ? (
           <>
             <NavLink to="manage" className={classes.navLink}>
