@@ -50,7 +50,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Activity({ activity, refetch }) {
+export default function Activity({ activity, refetch, value, data }) {
   const classes = useStyles();
   const [DeleteActivity] = useMutation(DELETE_ACTIVITY);
   const navigate = useNavigate();
@@ -95,35 +95,40 @@ export default function Activity({ activity, refetch }) {
       </Typography>
     </Box>
   );
-
+  console.log("calue in activity", value);
   return (
     <>
-      <tbody className={classes.root}>
-        <tr>
-          <td>{activity.name}</td>
-          <td>{activity.date}</td>
-          <td>{activity.location}</td>
-          <td>
-            {activity.startTime} - {activity.endTime}
-          </td>
-          <Button>
-            <EditOutlinedIcon
-              onClick={editActivity}
-              color="primary"
-              fontSize="large"
-            />
-          </Button>
-          <Button onClick={handleOpen}>
-            <DeleteOutlineIcon color="primary" fontSize="large" />
-          </Button>
-        </tr>
-      </tbody>
-      <DeleteModal
-        onClick={deleteActivity}
-        open={open}
-        body={body}
-        handleClose={handleClose}
-      />
+      {value === activity?.date ? (
+        <>
+          {" "}
+          <tbody className={classes.root}>
+            <tr>
+              <td>{activity.name}</td>
+              <td>{activity.date}</td>
+              <td>{activity.location}</td>
+              <td>
+                {activity.startTime} - {activity.endTime}
+              </td>
+              <Button>
+                <EditOutlinedIcon
+                  onClick={editActivity}
+                  color="primary"
+                  fontSize="large"
+                />
+              </Button>
+              <Button onClick={handleOpen}>
+                <DeleteOutlineIcon color="primary" fontSize="large" />
+              </Button>
+            </tr>
+          </tbody>
+          <DeleteModal
+            onClick={deleteActivity}
+            open={open}
+            body={body}
+            handleClose={handleClose}
+          />{" "}
+        </>
+      ) : null}
     </>
   );
 }

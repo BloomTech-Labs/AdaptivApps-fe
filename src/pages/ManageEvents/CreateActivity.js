@@ -91,9 +91,19 @@ export default function CreateActivity() {
             </Typography>
           </Box>
           <Typography variant="h3">Added Activities</Typography>
-          <Box>
-            <ActivityGroup data={data} refetch={refetch} />
-          </Box>
+          {data?.event?.activities.length === 0 ? (
+            <>
+              <Typography>No activities added yet!</Typography>
+              <Typography>
+                Use the form on the left to add activities to any of the days
+                for the event.
+              </Typography>
+            </>
+          ) : (
+            <Box>
+              <ActivityGroup data={data} refetch={refetch} />
+            </Box>
+          )}
         </Box>
       </Container>
     </main>

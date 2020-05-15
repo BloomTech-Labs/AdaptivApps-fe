@@ -48,7 +48,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function ActivityGroup({ data, refetch }) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
   const [activityByDates, setActivityByDates] = useState();
 
   const handleChange = (event, newValue) => {
@@ -77,6 +76,7 @@ export default function ActivityGroup({ data, refetch }) {
     return dateArray;
   };
   const days = getDatesRangeArray(startDate, endDate);
+  const [value, setValue] = React.useState(days[0]);
 
   useEffect(() => {
     setActivityByDates(data?.event?.activities);
@@ -118,13 +118,19 @@ export default function ActivityGroup({ data, refetch }) {
         </Tabs>
       </AppBar>
       {console.log("value of tab date", value)}
-      {days.map(day => (
-        <TabPanel value={day} index={day}>
-          {days.map(day => (
-            <Activities day={day} data={data} refetch={refetch} />
-          ))}
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <TabPanel value={value} index={value}>
+          <Activities value={value} data={data} refetch={refetch} />
         </TabPanel>
-      ))}
+      </table>
     </div>
   );
 }
