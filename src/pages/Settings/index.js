@@ -4,13 +4,23 @@ import { useAuth0 } from "../../config/react-auth0-spa";
 // Apollo/GraphQL imports
 import { useQuery, useMutation } from "react-apollo";
 // import ProfileForm from "./ProfileForm";
-import { UPDATE_USER_PROFILE, ADD_USER_PROFILE, PROFILE_INFO } from "./queries";
+import { ADD_USER_PROFILE, PROFILE_INFO } from "./queries";
+// Material-UI imports
+import { makeStyles, Box, Typography } from '@material-ui/core';
+
+const useStyles = makeStyles({
+  headingBox: {
+    margin: "6rem 0 2rem 3rem",
+    fontWeight: "400",
+    borderColor: "#D3D3D3"
+  },
+});
 
 export default function Settings() {
   const { user } = useAuth0();
+  const classes = useStyles();
 
   const [createProfile] = useMutation(ADD_USER_PROFILE);
-  const [updateProfile] = useMutation(UPDATE_USER_PROFILE);
 
   // Fetch profile for the user using the email associated with auth0 login
   const { loading, error, data } = useQuery(PROFILE_INFO, {
@@ -36,9 +46,11 @@ export default function Settings() {
   };
 
   return (
-    <div>
-      <p>Welcome to your settings page!</p>
-    </div>
+    <Box className={classes.headingBox} borderBottom={2}>
+      <Typography variant="h1" gutterBottom>
+        Account Settings
+      </Typography>
+    </Box>
     // <ProfileForm
     //   loading={loading}
     //   profile={profile ? profile : null}
