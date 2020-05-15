@@ -32,7 +32,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function EventForm({
-  updateData,
   createEvent,
   updateEvent,
   event,
@@ -42,7 +41,7 @@ export default function EventForm({
   const [currentEvent, setCurrentEvent] = useState(event);
   const classes = useStyles();
   const navigate = useNavigate();
-  const { register, handleSubmit, errors, setValue, control } = useForm({
+  const { handleSubmit, setValue, control } = useForm({
     defaultValues: {
       type: currentEvent && currentEvent.type,
       sportType: currentEvent && currentEvent.sportType,
@@ -152,7 +151,7 @@ export default function EventForm({
         name="type"
         variant="outlined"
         control={control}
-        ref={register({ required: true })}
+        defaultValue=""
       />
       <InputLabel className={classes.inputLabel} htmlFor="sportType">
         Sport Type
@@ -174,7 +173,7 @@ export default function EventForm({
         name="sportType"
         variant="outlined"
         control={control}
-        ref={register({ required: true })}
+        defaultValue=""
       />
       <InputLabel className={classes.inputLabel} htmlFor="tags">
         Meta Tags
@@ -183,10 +182,10 @@ export default function EventForm({
         as={<TextField />}
         type="text"
         placeholder="tags"
-        ref={register({ required: true, maxLength: 100 })}
         name="tags"
         variant="outlined"
         control={control}
+        defaultValue=""
       />
       <InputLabel className={classes.inputLabel} htmlFor="title">
         Event Title
@@ -198,7 +197,7 @@ export default function EventForm({
         name="title"
         variant="outlined"
         control={control}
-        ref={register({ required: true, maxLength: 255 })}
+        defaultValue=""
       />
       <InputLabel className={classes.inputLabel} htmlFor="host">
         Who's Hosting the Event?
@@ -210,7 +209,7 @@ export default function EventForm({
         name="host"
         variant="outlined"
         control={control}
-        ref={register({ required: true })}
+        defaultValue=""
       />
       <InputLabel className={classes.inputLabel} htmlFor="coaches">
         Who's Coaching the Event?
@@ -222,7 +221,7 @@ export default function EventForm({
         name="coaches"
         variant="outlined"
         control={control}
-        ref={register({ required: true })}
+        defaultValue=""
       />
       <InputLabel className={classes.inputLabel} htmlFor="speakers">
         Who's Speaking at the Event?
@@ -234,7 +233,7 @@ export default function EventForm({
         name="speakers"
         variant="outlined"
         control={control}
-        ref={register({ maxLength: 255 })}
+        defaultValue=""
       />
       <InputLabel className={classes.inputLabel} htmlFor="startDate">
         Start Date
@@ -246,7 +245,7 @@ export default function EventForm({
         name="startDate"
         variant="outlined"
         control={control}
-        ref={register({ required: true })}
+        defaultValue=""
       />
       <InputLabel className={classes.inputLabel} htmlFor="endDate">
         End Date
@@ -258,7 +257,7 @@ export default function EventForm({
         name="endDate"
         variant="outlined"
         control={control}
-        ref={register({ required: true })}
+        defaultValue=""
       />
       <InputLabel className={classes.inputLabel} htmlFor="startTime">
         What time does the event start?
@@ -270,7 +269,7 @@ export default function EventForm({
         name="startTime"
         variant="outlined"
         control={control}
-        ref={register({ required: true })}
+        defaultValue=""
       />
       <InputLabel className={classes.inputLabel} htmlFor="endTime">
         What time does the event end?
@@ -282,7 +281,7 @@ export default function EventForm({
         name="endTime"
         variant="outlined"
         control={control}
-        ref={register({ required: true })}
+        defaultValue=""
       />
       <InputLabel className={classes.inputLabel} htmlFor="location">
         Where is the event location?
@@ -294,7 +293,7 @@ export default function EventForm({
         name="location"
         variant="outlined"
         control={control}
-        ref={register({ required: true, maxLength: 255 })}
+        defaultValue=""
       />
       <InputLabel className={classes.inputLabel} htmlFor="link">
         Is there a zoom link?
@@ -306,7 +305,7 @@ export default function EventForm({
         name="link"
         variant="outlined"
         control={control}
-        ref={register}
+        defaultValue=""
       />
       <InputLabel className={classes.inputLabel} htmlFor="sponsors">
         Who are the sponsors?
@@ -318,7 +317,7 @@ export default function EventForm({
         name="sponsors"
         variant="outlined"
         control={control}
-        ref={register({ required: true })}
+        defaultValue=""
       />
       <InputLabel className={classes.inputLabel} htmlFor="imgUrl">
         Find an image on the internet and pase the URL here!
@@ -330,7 +329,7 @@ export default function EventForm({
         name="imgUrl"
         variant="outlined"
         control={control}
-        ref={register}
+        defaultValue=""
       />
       <InputLabel className={classes.inputLabel} htmlFor="details">
         Event details
@@ -342,9 +341,7 @@ export default function EventForm({
         multiline
         rows="8"
         control={control}
-        ref={register({ required: true, maxLength: 510 })}
       />
-
       <Button
         className={classes.button}
         variant="outlined"

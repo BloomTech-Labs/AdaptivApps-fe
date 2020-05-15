@@ -35,13 +35,7 @@ export default function Activities({ data, refetch, value }) {
   return (
     <div className={classes.root}>
       {data?.event?.activities.map((activity, id) => (
-        <Activity
-          key={id}
-          activity={activity}
-          refetch={refetch}
-          value={value}
-          data={data}
-        />
+        <Activity key={id} activity={activity} refetch={refetch} data={data} />
       ))}
     </div>
   );

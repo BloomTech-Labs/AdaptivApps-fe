@@ -50,7 +50,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Activity({ activity, refetch, value, data }) {
+export default function Activity({ activity, refetch, value }) {
   const classes = useStyles();
   const [DeleteActivity] = useMutation(DELETE_ACTIVITY);
   const navigate = useNavigate();
