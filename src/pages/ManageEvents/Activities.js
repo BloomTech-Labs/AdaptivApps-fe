@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import moment from "moment";
 // Component imports
 import Activity from "./Activity";
 // Material-UI imports
@@ -25,16 +25,25 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ActivityList({ data, refetch }) {
+export default function Activities({ data, refetch, day }) {
   const classes = useStyles();
 
   useEffect(() => {
     refetch();
   }, [refetch]);
 
+  // const activities = data?.event?.activities.map(activity => {
+  //   return activity;
+  // });
+  // const formatDates = moment(activities?.date).format("ddd MM/DD/YY");
+  // console.log("activities in Activities.js", activities);
+  // console.log("activity dates in Activities.js", formatDates);
+  // console.log("Day inside ActivityList", day);
+  // console.log("data inside ActivityList", data);
+
   return (
     <div className={classes.root}>
-      {data?.event?.activities.length === 0 ? (
+      {/* {data?.event?.activities.length === 0 ? (
         <>
           <p>No activities added yet!</p>
           <p>
@@ -57,7 +66,7 @@ export default function ActivityList({ data, refetch }) {
             <Activity key={id} activity={activity} refetch={refetch} />
           ))}
         </table>
-      )}
+      )} */}
     </div>
   );
 }

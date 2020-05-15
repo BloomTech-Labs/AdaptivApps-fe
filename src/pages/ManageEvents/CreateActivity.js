@@ -7,7 +7,7 @@ import { CREATE_ACTIVITY, GET_ACTIVITIES } from "./graphql";
 // Component imports
 import ActivityForm from "./ActivityForm";
 // import ActivityList from "./ActivityList";
-import DateTabs from "./DateTabs";
+import ActivityGroup from "./ActivityGroup";
 // Material-UI imports
 import { makeStyles, Box, Typography, Container } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
@@ -92,8 +92,7 @@ export default function CreateActivity() {
           </Box>
           <Typography variant="h3">Added Activities</Typography>
           <Box>
-            <DateTabs data={data} refetch={refetch} />
-            {/* <ActivityList data={data} refetch={refetch} /> */}
+            <ActivityGroup data={data} refetch={refetch} />
           </Box>
         </Box>
       </Container>

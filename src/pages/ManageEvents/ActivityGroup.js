@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import { Tabs, Tab, Typography, Box, AppBar, Button } from "@material-ui/core";
 import moment from "moment";
-import ActivityList from "./ActivityList";
+import Activities from "./Activities";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -25,18 +25,18 @@ function TabPanel(props) {
   );
 }
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
+// TabPanel.propTypes = {
+//   children: PropTypes.node,
+//   index: PropTypes.any.isRequired,
+//   value: PropTypes.any.isRequired,
+// };
 
-function a11yProps(index) {
-  return {
-    id: `scrollable-force-tab-${index}`,
-    "aria-controls": `scrollable-force-tabpanel-${index}`,
-  };
-}
+// function a11yProps(index) {
+//   return {
+//     id: `scrollable-force-tab-${index}`,
+//     "aria-controls": `scrollable-force-tabpanel-${index}`,
+//   };
+// }
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -46,11 +46,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function DateTabs({ data, refetch }) {
+export default function ActivityGroup({ data, refetch }) {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [activityByDates, setActivityByDates] = useState();
-  const [activityGroups, setActivityGroups] = useState();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -72,7 +71,7 @@ export default function DateTabs({ data, refetch }) {
       currentDate <= endDate
     );
     while (currentDate <= endDate) {
-      dateArray.push(currentDate.format("YYYY-MM-DD"));
+      dateArray.push(currentDate.format("ddd MM/DD/YY"));
       currentDate = currentDate.add(1, cfg.interval);
     }
     return dateArray;
@@ -85,31 +84,21 @@ export default function DateTabs({ data, refetch }) {
 
   const groupBy = (array, key) => {
     // Return the end result
-    return array && array.reduce((result, currentValue) => {
-      // If an array already present for key, push it to the array. Else create an array and push the object
-      (result[currentValue[key]] = result[currentValue[key]] || []).push(
-        currentValue
-      );
-      // Return the current iteration `result` value, this will be taken as next iteration `result` value and accumulate
-      return result;
-    }, {}); // empty object is the initial value for result object
+    return (
+      array &&
+      array.reduce((result, currentValue) => {
+        // If an array already present for key, push it to the array. Else create an array and push the object
+        (result[currentValue[key]] = result[currentValue[key]] || []).push(
+          currentValue
+        );
+        // Return the current iteration `result` value, this will be taken as next iteration `result` value and accumulate
+        return result;
+      }, {})
+    ); // empty object is the initial value for result object
   };
 
   const activitiesGroupedByDate = groupBy(activityByDates, "date");
-    console.log(activitiesGroupedByDate);
-  // const activityGroup = async () => {
-  //   let newGroup = [];
-  //   await newGroup.push(activitiesGroupedByDate);
-  //   newGroup && newGroup.map(group => console.log('inside activityGroup', group));
-  // }
-
-  // useEffect(() => {
-  //   activityGroup();
-    
-  // });
-
-  // console.log(activityGroup);
-
+  console.log(activitiesGroupedByDate);
 
   return (
     <div className={classes.root}>
@@ -123,16 +112,19 @@ export default function DateTabs({ data, refetch }) {
           textColor="primary"
           aria-label="scrollable force tabs example"
         >
-          
-          {days.map((day, index) => (
-            <Tab label={day} key={index} />
+          {days.map(day => (
+            <Tab label={day} value={day} />
           ))}
         </Tabs>
       </AppBar>
-      <TabPanel value={value} index={0}>
-        <ActivityList data={data} refetch={refetch} />
-        {/* <Button onClick={onSubmit}>Push Me</Button> */}
-      </TabPanel>
+      {console.log("value of tab date", value)}
+      {days.map(day => (
+        <TabPanel value={day} index={day}>
+          {days.map(day => (
+            <Activities day={day} data={data} refetch={refetch} />
+          ))}
+        </TabPanel>
+      ))}
     </div>
   );
 }
