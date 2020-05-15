@@ -112,12 +112,6 @@ const Input = ({ chatRoom, user }) => {
             }
         })
         setMessage({ message: '' });
-
-        console.log('Variables', {
-            id: chatRoom.id,
-            email: user.email,
-            message: message.message
-        });
     };
 
     // Create message via speech to text
