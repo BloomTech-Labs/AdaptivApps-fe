@@ -199,8 +199,6 @@ function SideNav(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  console.log('Data', data);
-
   const drawer = (
     <>
       <Box className={classes.imgBox}>
