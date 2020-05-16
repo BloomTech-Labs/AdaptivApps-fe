@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react'
+// React/Reach Router imports
+import React, { useEffect } from "react";
+import { useNavigate } from "@reach/router";
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
 // Apollo/GraphQL imports
@@ -6,20 +8,22 @@ import { useQuery, useMutation } from "react-apollo";
 // import ProfileForm from "./ProfileForm";
 import { ADD_USER_PROFILE, PROFILE_INFO } from "./queries";
 // Material-UI imports
-import { makeStyles, Container, Box, Typography, Button } from '@material-ui/core';
+import {
+  makeStyles,
+  Container,
+  Box,
+  Typography,
+  Button,
+} from "@material-ui/core";
 
 const useStyles = makeStyles({
-  root: {
-
-  },
+  root: {},
   headingBox: {
     margin: "6rem 0 2rem 3rem",
     fontWeight: "400",
-    borderColor: "#D3D3D3"
+    borderColor: "#D3D3D3",
   },
-  ctaBox: {
-
-  },
+  ctaBox: {},
   ctaBtn: {
     textTransform: "none",
     marginTop: "2.4rem",
@@ -36,12 +40,13 @@ const useStyles = makeStyles({
       background: "white",
       color: "#2962FF",
     },
-  }
+  },
 });
 
 export default function Settings() {
   const { user } = useAuth0();
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const [createProfile] = useMutation(ADD_USER_PROFILE);
 
@@ -71,29 +76,22 @@ export default function Settings() {
   return (
     <Container>
       <Box className={classes.headingBox} borderBottom={2}>
-      <Typography variant="h1" gutterBottom>
-        Account Settings
-      </Typography>
-    </Box>
-    <Box className={classes.ctaBox}>
-      <Typography>
-        Help us bring you the best
-      </Typography>
-      <Typography>
-        Angel City Sports experience--
-      </Typography>
-      <Typography>
-        Tell us a bit more about yourself!
-      </Typography>
-      <Button className={classes.ctaBtn}>Add my info</Button>
-    </Box>
+        <Typography variant="h1" gutterBottom>
+          Account Settings
+        </Typography>
+      </Box>
+      <Box className={classes.ctaBox}>
+        <Typography>Help us bring you the best</Typography>
+        <Typography>Angel City Sports experience--</Typography>
+        <Typography>Tell us a bit more about yourself!</Typography>
+        <Button
+          className={classes.ctaBtn}
+          aria-label="Click here to update account information."
+          onClick={() => navigate(`/updateaccount`)}
+        >
+          Add my info
+        </Button>
+      </Box>
     </Container>
-    
-    // <ProfileForm
-    //   loading={loading}
-    //   profile={profile ? profile : null}
-    //   user={user}
-    //   updateProfile={updateProfile}
-    // />
-  )
+  );
 }
