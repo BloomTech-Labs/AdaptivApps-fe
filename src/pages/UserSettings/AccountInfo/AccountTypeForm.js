@@ -1,7 +1,10 @@
 // React/Reach Router imports
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "@reach/router";
 import { useForm, Controller } from "react-hook-form";
+// Apollo/GraphQL imports
+import { useMutation } from "react-apollo";
+import { UPDATE_USER_PROFILE } from "../queries";
 // Component imports
 import NextButton from "../../../theme/NextButton";
 // Material-UI imports
@@ -18,37 +21,57 @@ import {
 const useStyles = makeStyles({
   typeSelect: {
     width: 744,
-    height: 48
-  }
-})
+    height: 48,
+  },
+});
 
-export default function AccountTypeForm() {
+export default function AccountTypeForm({ user }) {
   const classes = useStyles();
   const navigate = useNavigate();
-  const { register, handleSubmit, setValue, errors, control } = useForm({});
+  const { handleSubmit, errors, control } = useForm();
+
+  const [UpdateProfile] = useMutation(UPDATE_USER_PROFILE);
+
+  const onSubmit = (data) => {
+    UpdateProfile({
+      variables: {
+        type: data?.type,
+        email: user.email,
+      },
+    });
+
+    alert("Successfully updated account type!");
+    navigate("/updateaccount/step1");
+  };
+
   return (
     <Container>
-      <form>
-        <InputLabel>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <InputLabel htmlFor="account type">
           Are you registering as an individual or an organization?
         </InputLabel>
         <Controller
           as={
             <Select className={classes.typeSelect}>
-              <MenuItem value="Individual">I'm registering as an individual</MenuItem>
-              <MenuItem value="Organization">I'm registering as an organization</MenuItem>
+              <MenuItem value="Individual">
+                I'm registering as an individual
+              </MenuItem>
+              <MenuItem value="Organization">
+                I'm registering as an organization
+              </MenuItem>
             </Select>
           }
           name="type"
           variant="outlined"
           control={control}
+          defaultValue=""
+        />
+        <NextButton
+          type="submit"
+          ariaLabel="Click here to complete step 1 of update account information and move to step 2."
+          onClick={onSubmit}
         />
       </form>
-
-      <NextButton
-        ariaLabel="Click here to complete step 1 of update account information."
-        onClick={() => navigate("/updateaccount/step1")}
-      />
     </Container>
   );
 }
