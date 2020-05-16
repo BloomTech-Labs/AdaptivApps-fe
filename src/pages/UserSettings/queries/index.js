@@ -45,7 +45,7 @@ export const UPDATE_USER_PROFILE = gql`
   }
 `;
 
-// Creating a profile, being used in UserDashboard
+// Creating a profile
 export const ADD_USER_PROFILE = gql`
   mutation createProfile($email: String!) {
     createProfile(data: { email: $email }) {
@@ -54,10 +54,11 @@ export const ADD_USER_PROFILE = gql`
   }
 `;
 
-// Getting a profile, being used in UserDashboard
+// Retrieves user profile
 export const PROFILE_INFO = gql`
   query getProfile($email: String!) {
     profile(where: { email: $email }) {
+      id
       email
       firstName
       lastName

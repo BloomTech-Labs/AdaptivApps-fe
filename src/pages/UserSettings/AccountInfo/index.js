@@ -1,8 +1,9 @@
 // React/Reach Router imports
 import React from "react";
-import { useNavigate } from "@reach/router";
+import { Router } from "@reach/router";
 // Component imports
-import NextButton from '../../theme/NextButton';
+import AccountTypeForm from './AccountTypeForm';
+import Step1 from './Step1'
 // Material-UI imports
 import {
   makeStyles,
@@ -22,17 +23,17 @@ const useStyles = makeStyles({
 
 export default function AccountInfo() {
   const classes = useStyles();
-  const navigate = useNavigate();
-
+ 
   return (
     <Container>
       <Box className={classes.headingBox} borderBottom={2}>
         <Typography variant="h1">Update Account Information</Typography>
       </Box>
-      <NextButton
-        aria-label="Click here to complete step 1 of update account information."
-        onClick={() => navigate(`/step1`)}
-      />
+      <Router>
+        <AccountTypeForm path="/"/>
+        <Step1 path="step1" />
+      </Router>
+      
     </Container>
   );
 }

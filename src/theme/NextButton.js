@@ -25,7 +25,7 @@ export default function NextButton(props) {
   const classes = useStyles();
 
   return (
-  <Button className={classes.button} onClick={props.onClick}>
+  <Button className={classes.button} aria-label={props.ariaLabel} onClick={props.onClick}>
     Next
   </Button>
   )
