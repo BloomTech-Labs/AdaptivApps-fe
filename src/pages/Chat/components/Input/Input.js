@@ -125,7 +125,8 @@ const Input = ({ chatRoom, user }) => {
             variables: {
               id: chatRoom.id,
               email: user.email,
-              message: textValue
+              message: textValue,
+              recipient: recipientEmail[0].email
             }
         })
         setTextValue('');
