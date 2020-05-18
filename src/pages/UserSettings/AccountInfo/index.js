@@ -30,7 +30,7 @@ export default function AccountInfo() {
   const [UpdateProfile] = useMutation(UPDATE_USER_PROFILE);
 
   return (
-    <Container>
+    <>
       <Box className={classes.headingBox} borderBottom={2}>
         <Typography variant="h1">Update Account Information</Typography>
       </Box>
@@ -40,6 +40,6 @@ export default function AccountInfo() {
         <OrgStep1 path="org/step1of6" updateProfile={UpdateProfile} />
         <Step2 path="step2of6" />
       </Router>
-    </Container>
+    </>
   );
 }
