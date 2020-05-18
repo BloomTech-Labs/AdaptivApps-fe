@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ActivityGroup({ data, refetch }) {
+export default function ActivityGroup({ activityData, refetch }) {
   const classes = useStyles();
   const [activityByDates, setActivityByDates] = useState();
 
@@ -41,8 +41,8 @@ export default function ActivityGroup({ data, refetch }) {
     setValue(newValue);
   };
 
-  const startDate = moment(data?.event?.startDate);
-  const endDate = moment(data?.event?.endDate);
+  const startDate = moment(activityData?.event?.startDate);
+  const endDate = moment(activityData?.event?.endDate);
 
   const getDatesRangeArray = function(startDate, endDate, interval) {
     console.log(startDate, endDate, interval);
@@ -66,7 +66,7 @@ export default function ActivityGroup({ data, refetch }) {
   const [value, setValue] = React.useState(days[0]);
 
   useEffect(() => {
-    setActivityByDates(data?.event?.activities);
+    setActivityByDates(activityData?.event?.activities);
   });
 
   const groupBy = (array, key) => {
@@ -85,8 +85,9 @@ export default function ActivityGroup({ data, refetch }) {
   };
 
   const activitiesGroupedByDate = groupBy(activityByDates, "date");
-  console.log(activitiesGroupedByDate);
-
+  console.log("activities grouped by date", activitiesGroupedByDate);
+  console.log("days", days);
+  console.log("Activity Data in ActivityGroup.js", activityData);
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
@@ -114,7 +115,11 @@ export default function ActivityGroup({ data, refetch }) {
           </tr>
         </thead>
         <TabPanel value={value} index={value}>
-          <Activities value={value} data={data} refetch={refetch} />
+          <Activities
+            value={value}
+            activityData={activityData}
+            refetch={refetch}
+          />
         </TabPanel>
       </table>
     </div>

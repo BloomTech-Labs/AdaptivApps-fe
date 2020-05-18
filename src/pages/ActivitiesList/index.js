@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "react-apollo";
-import Activities from "./Activities";
+import ActivityGroup from "./ActivityGroup";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { useParams } from "@reach/router";
@@ -104,7 +104,7 @@ const useStyles = makeStyles({
 export default function ActivityList() {
   const classes = useStyles();
   const { eventId } = useParams();
-  const { loading, error, data: activityData } = useQuery(
+  const { loading, error, data: activityData, refetch } = useQuery(
     GET_EVENT_ACTIVITIES,
     {
       variables: { id: eventId },
@@ -134,10 +134,10 @@ export default function ActivityList() {
             color="textSecondary"
             component="p"
           >
-            {activityData.event.startDate}-{activityData.event.endDate}
+            {activityData?.event?.startDate}-{activityData?.event?.endDate}
           </Typography>
           <Typography className={classes.title}>
-            {activityData.event.title}
+            {activityData?.event?.title}
           </Typography>
           <Typography
             className={classes.loc}
@@ -155,22 +155,7 @@ export default function ActivityList() {
           <p>Activities Schedule</p>
           <table className={classes.table}>
             <tbody>
-              <tr className={classes.headerRow}>
-                <th className={classes.tableH}>Name</th>
-                <th className={classes.tableH}>Date</th>
-                {activityData.event.type === "In Person" ? (
-                  <th className={classes.tableH}>Location</th>
-                ) : null}
-                <th className={classes.tableH}>Time</th>
-              </tr>
-              {activityData &&
-                activityData?.event?.activities.map((activity, id) => (
-                  <Activities
-                    key={id}
-                    activity={activity}
-                    activityData={activityData}
-                  />
-                ))}
+              <ActivityGroup activityData={activityData} refetch={refetch} />
             </tbody>
           </table>
         </Box>

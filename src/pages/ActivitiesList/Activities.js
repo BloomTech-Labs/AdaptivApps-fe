@@ -1,62 +1,48 @@
-import React from "react";
-import SimpleModal from "./SimpleModal";
-import RolesDialog from "./SelectRole";
-import { makeStyles } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import moment from "moment";
+// Component imports
+import Activity from "./Activity";
+// Material-UI imports
+import { makeStyles, Box, Typography, Link } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
-    "& td": {
-      marginLeft: "3rem",
-      width: "20rem",
-      padding: "0 1% 2% 0",
+    marginLeft: "3rem",
+    "& tr": {
       display: "flex",
+    },
+    "& th": {
+      margin: "0",
+      fontWeight: 550,
+      fontSize: "1.6rem",
+      width: "15rem",
+      padding: "1% 1% 2% 0",
       textAlign: "left",
-      fontSize: "1.6rem",
-    },
-    "& a": {
-      fontSize: "1.6rem",
-      textDecoration: "none",
     },
   },
-  nameLink: {
-    color: "#2962FF",
-    "& .MuiButton-label": {
-      fontSize: "1.6rem",
-      fontWeight: 500,
-    },
+  subHeadings: {
+    color: "#808080",
   },
-  rolesDialog: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    margin: "0",
-    padding: "0",
-  },
-  time: {
-    margin: "0",
-    maxWidth: "5rem",
-  },
-});
+}));
 
-export default function Activities({ activity, activityData }) {
+export default function Activities({ refetch, value, activityData }) {
   const classes = useStyles();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
+  console.log("activity Data in activities.js", activityData);
   return (
-    <tr className={classes.root}>
-      <td className={classes.nameLink}>
-        <SimpleModal activity={activity} activityData={activityData} />
-      </td>
-      <td className={classes.tableData}>{activity.date}</td>
-      {activityData.event.type === "In Person" ? (
-        <td className={classes.tableData}>{activity.location}</td>
-      ) : null}
-      <td className={classes.time}>{activity.startTime}</td>
-      <td>
-        <RolesDialog
-          className={classes.rolesDialog}
+    <div className={classes.root}>
+      {activityData?.event?.activities.map((activity, id) => (
+        <Activity
+          key={id}
           activity={activity}
           activityData={activityData}
+          refetch={refetch}
+          value={value}
         />
-      </td>
-    </tr>
+      ))}
+    </div>
   );
 }

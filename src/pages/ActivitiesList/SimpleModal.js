@@ -64,10 +64,10 @@ const useStyles = makeStyles(theme => ({
     paddingRight: "1rem",
   },
   nameLink: {
-    fontSize: '1.8rem',
-    fontWeight: '500',
-    textDecoration: 'none',
-    color: '#2962FF'
+    fontSize: "1.8rem",
+    fontWeight: "500",
+    textDecoration: "none",
+    color: "#2962FF",
   },
   modalBottom: {
     display: "flex",
@@ -117,9 +117,9 @@ export default function SimpleModal({ activity, activityData }) {
       </Box>
       <Box className={classes.modalMiddle}>
         <Typography className={classes.title} id="simple-modal-title">
-          {activity.name}
+          {activity?.name}
         </Typography>
-        <Typography className={classes.date}>{activity.startTime}</Typography>
+        <Typography className={classes.date}>{activity?.startTime}</Typography>
         <Typography className={classes.details} id="simple-modal-description">
           {activity?.details}
         </Typography>
@@ -133,11 +133,12 @@ export default function SimpleModal({ activity, activityData }) {
       </Box>
     </Container>
   );
-
+  console.log("activity ", activity);
+  console.log("activity Data", activityData);
   return (
     <div>
       <Button className={classes.btn} onClick={handleOpen}>
-        {activity.name}
+        {activity?.name}
       </Button>
       <Modal
         open={open}

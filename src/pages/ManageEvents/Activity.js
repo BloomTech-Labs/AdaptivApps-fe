@@ -95,7 +95,6 @@ export default function Activity({ activity, refetch, value }) {
       </Typography>
     </Box>
   );
-  console.log("calue in activity", value);
   return (
     <>
       {value === activity?.date ? (
