@@ -107,7 +107,8 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
       id: announcement.id,
       title: announcement.title,
       message: announcement.message,
-      createdAt: announcement.createdAt
+      createdAt: announcement.createdAt,
+      notifications: announcement.notifications
     }
   });
 
