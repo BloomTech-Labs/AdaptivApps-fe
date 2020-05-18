@@ -10,6 +10,7 @@ import { CHAT_SUBSCRIPTION, GET_MESSAGES } from '../../../pages/Chat/queries/Cha
 import { ANNOUNCEMENT_SUBSCRIPTION, GET_ANNOUNCEMENTS } from '../../../pages/Chat/queries/Announcements'
 import { GET_CHAT_ROOMS } from '../../../pages/Chat/queries/ChatRooms';
 import { GET_USER_PROFILE } from '../../../pages/MyEventDetails/queries/index';
+import { NOTIFICATION_SUBSCRIPTION, GET_NOTIFICATIONS } from '../../../pages/Chat/queries/Notifications';
 
 // Styling imports
 import NavLink from "./NavLink";
@@ -155,13 +156,14 @@ function SideNav(props) {
   const { refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
   const { subscribeToMore: announcementSubscription, refetch: refetchAnnouncements  } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
   const { subscribeToMore } = useQuery(GET_MESSAGES, { variables: { email: user.email } });
+  const { subscribeToMore: notificationSubscription } = useQuery(GET_NOTIFICATIONS, { variables: { email: user.email } });
   const { data } = useQuery(GET_USER_PROFILE, { variables: { email: user.email } });
 
   // Chat Subscription
   const _subscribeToNewChats = subscribeToMore => {
     subscribeToMore({
       document: CHAT_SUBSCRIPTION,
-      updateQuery: (prev, {subscriptionData }) => {
+      updateQuery: (prev, { subscriptionData }) => {
         if (!subscriptionData.data) return prev
         const chat = subscriptionData.data.chat
         refetch();
@@ -181,7 +183,7 @@ function SideNav(props) {
   const _subscribeToNewAnnouncements = announcementSubscription => {
     announcementSubscription({
       document: ANNOUNCEMENT_SUBSCRIPTION,
-      updateQuery: (prev, {subscriptionData }) => {
+      updateQuery: (prev, { subscriptionData }) => {
         if (!subscriptionData.data) return prev
         const announcement = subscriptionData.data.announcement
         refetchAnnouncements();
@@ -194,6 +196,27 @@ function SideNav(props) {
   };
 
   _subscribeToNewAnnouncements(announcementSubscription);
+
+  // Notification Subscriptions
+  const _subscribeToNewNotifications = notificationSubscription => {
+    notificationSubscription({
+      document: NOTIFICATION_SUBSCRIPTION,
+      updateQuery: (prev, { subscriptionData }) => {
+        if (!subscriptionData.data) return prev
+        const notification = subscriptionData.data.notification
+        refetch();
+        refetchAnnouncements();
+        return Object.assign({}, prev, {
+          profile: {
+            notifications: [notification, ...prev.profile.notifications],
+            __typename: prev.profile.__typename
+          }
+        })
+      }
+    })
+  };
+
+  _subscribeToNewNotifications(notificationSubscription);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

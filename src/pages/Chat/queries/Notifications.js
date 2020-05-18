@@ -1,9 +1,23 @@
 import gql from "graphql-tag";
 
+// Get notifications
+export const GET_NOTIFICATIONS = gql`
+  query getNotifications ( $email: String! ) {
+    profile ( where: { email: $email } ) {
+      firstName
+      lastName
+      email
+      notifications {
+        label
+      }
+    }
+  }
+`;
+
 // Delete notification
 export const DELETE_NOTIFICATION = gql`
-  mutation deleteNotification($id: ID!) {
-    deleteNotification(where: {id: $id}) {
+  mutation deleteNotification( $id: ID! ) {
+    deleteNotification( where: { id: $id } ) {
       id
     }
   } 
