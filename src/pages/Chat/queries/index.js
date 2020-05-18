@@ -12,11 +12,3 @@ export const GET_CONTACTS = gql`
     }
   }
 `;
-
-export const DELETE_NOTIFICATION = gql`
-  mutation deleteNotification($id: ID!) {
-    deleteNotification(where: {id: $id}) {
-      id
-    }
-  } 
-`
