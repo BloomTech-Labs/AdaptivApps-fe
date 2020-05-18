@@ -28,7 +28,7 @@ const useStyles = makeStyles({
 export default function AccountTypeForm({ user }) {
   const classes = useStyles();
   const navigate = useNavigate();
-  // const userEmail = useParams();
+  const { userEmail } = useParams();
   const { handleSubmit, errors, control } = useForm();
 
   const [UpdateProfile] = useMutation(UPDATE_USER_PROFILE);
@@ -42,7 +42,7 @@ export default function AccountTypeForm({ user }) {
     });
 
     alert("Successfully updated account type!");
-    await navigate(`/updateaccount/${user?.email}/step1`);
+    await navigate(`/updateaccount/${userEmail}/step1`);
   };
 
   return (
