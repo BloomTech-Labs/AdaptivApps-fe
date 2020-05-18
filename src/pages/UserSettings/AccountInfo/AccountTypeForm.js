@@ -33,7 +33,7 @@ export default function AccountTypeForm({ user }) {
 
   const [UpdateProfile] = useMutation(UPDATE_USER_PROFILE);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async data => {
     UpdateProfile({
       variables: {
         type: data.type,
@@ -42,7 +42,9 @@ export default function AccountTypeForm({ user }) {
     });
 
     alert("Successfully updated account type!");
-    await navigate(`/updateaccount/${userEmail}/step1`);
+    data?.type === "Individual"
+      ? await navigate(`/updateaccount/${userEmail}/step1`)
+      : await navigate(`/updateaccount/${userEmail}/org/step1`);
   };
 
   return (

@@ -6,6 +6,7 @@ import { useAuth0 } from "../../../config/react-auth0-spa";
 // Component imports
 import AccountTypeForm from "./AccountTypeForm";
 import Step1 from "./Step1";
+import OrgStep1 from "./OrgStep1";
 // Material-UI imports
 import {
   makeStyles,
@@ -35,6 +36,7 @@ export default function AccountInfo() {
       <Router>
         <AccountTypeForm path="/" user={user} />
         <Step1 path="step1" />
+        <OrgStep1 path="org/step1" />
       </Router>
     </Container>
   );
