@@ -9,18 +9,36 @@ export const GET_ANNOUNCEMENTS = gql`
       message
       createdAt
       isAnnouncementRoom
+      notifications {
+        id
+        label
+        profile {
+          email
+          id
+        }
+      }
     }
   }
 `
 
 // Create an announcement
 export const CREATE_ANNOUNCEMENT = gql`
-	mutation createAnnouncement ( $title: String!, $message: String!, $isAnnouncementRoom: Boolean! ) {
+	mutation createAnnouncement ( $title: String!, $message: String!, $recipient: String!, $isAnnouncementRoom: Boolean! ) {
     createAnnouncement(
       data: {
         title: $title
         message: $message
         isAnnouncementRoom: $isAnnouncementRoom
+        notification: {
+          create: {
+            label: $title
+            profile: {
+              connect: {
+                email: $recipient
+              }
+            }
+          }
+        }
       }
     ) {
       id
