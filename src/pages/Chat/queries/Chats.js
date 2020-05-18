@@ -16,14 +16,22 @@ export const GET_MESSAGES = gql`
         room {
           id
         }
-      }  
+      }
+      notification {
+        id
+        label
+        profile {
+          id 
+          email
+        }
+      } 
     }
   }
 `
 
 // Send a chat
 export const SEND_CHAT = gql`
-  mutation sendChat( $id: ID!, $email: String!, $message: String! ) {
+  mutation sendChat( $id: ID!, $email: String!, $message: String!, $recipient: String!) {
     createChat(
       data: {
         from: {
@@ -35,6 +43,16 @@ export const SEND_CHAT = gql`
         room: {
           connect: {
             id: $id
+          }
+        }
+        notification: {
+          create: {
+            label: $message
+            profile: {
+              connect: {
+                email: $recipient
+              }
+            }
           }
         }
       }
