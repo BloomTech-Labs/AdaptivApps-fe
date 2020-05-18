@@ -32,16 +32,16 @@ export default function AccountTypeForm({ user }) {
 
   const [UpdateProfile] = useMutation(UPDATE_USER_PROFILE);
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     UpdateProfile({
       variables: {
-        type: data?.type,
+        type: data.type,
         email: user.email,
       },
     });
 
     alert("Successfully updated account type!");
-    navigate("/updateaccount/step1");
+    await navigate("/updateaccount/step1");
   };
 
   return (
@@ -69,7 +69,7 @@ export default function AccountTypeForm({ user }) {
         <NextButton
           type="submit"
           ariaLabel="Click here to complete step 1 of update account information and move to step 2."
-          onClick={onSubmit}
+          onClick={handleSubmit}
         />
       </form>
     </Container>
