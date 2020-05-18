@@ -13,7 +13,6 @@ import Step2 from "./Step2"
 import {
   makeStyles,
   Typography,
-  Container,
   Box
 } from "@material-ui/core";
 
@@ -25,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function AccountInfo() {
+export default function AccountInfo({children}) {
   const classes = useStyles();
   const [UpdateProfile] = useMutation(UPDATE_USER_PROFILE);
 
@@ -33,6 +32,9 @@ export default function AccountInfo() {
     <>
       <Box className={classes.headingBox} borderBottom={2}>
         <Typography variant="h1">Update Account Information</Typography>
+      </Box>
+      <Box>
+        {children}
       </Box>
       <Router>
         <AccountTypeForm path="/" updateProfile={UpdateProfile} />

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "@reach/router";
 import { useForm, Controller } from "react-hook-form";
 // Component imports
-import NextButton from "../../../theme/NextButton";
+import FormButton from "../../../theme/FormButton";
 // Material-UI imports
 import {
   makeStyles,
@@ -63,8 +63,9 @@ export default function AccountTypeForm({ updateProfile }) {
           control={control}
           defaultValue=""
         />
-        <NextButton
+        <FormButton
           type="submit"
+          label={"Next"}
           ariaLabel="Click here to complete step 1 of update account information and move to step 2."
           onClick={handleSubmit}
         />

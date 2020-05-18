@@ -21,12 +21,12 @@ const useStyles = makeStyles({
     },
   }
 })
-export default function NextButton(props) {
+export default function FormButton(props) {
   const classes = useStyles();
 
   return (
   <Button className={classes.button} type={props.type} aria-label={props.ariaLabel} onClick={props.onClick}>
-    Next
+   {props.label}
   </Button>
   )
 }

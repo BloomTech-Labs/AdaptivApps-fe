@@ -3,13 +3,12 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Component imports
-import NextButton from "../../../theme/NextButton";
+import NextButton from "../../../theme/FormButton";
 // Material-UI imports
 import {
   makeStyles,
   Container,
   Box,
-  InputLabelProps,
   InputLabel,
   TextField,
   Select,
