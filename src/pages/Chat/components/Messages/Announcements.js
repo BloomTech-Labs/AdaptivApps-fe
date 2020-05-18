@@ -112,15 +112,6 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
     }
   });
 
- const notifications = announcements.map((ann) => {
-   ann.notification.map(notification => {
-     return notification
-   })
- })
-
-  console.log('data', data)
-  console.log('announcements', notifications.length)
-
   // Sets up an auto-scroll to last announcement when new announcement received, or when an announcement is updated/deleted
   const announcementsEndRef = useRef(null)
 
@@ -128,7 +119,9 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
     announcementsEndRef.current && announcementsEndRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
+
   useEffect(() => {
+
     scrollToBottom()
   }, [announcements]);
 

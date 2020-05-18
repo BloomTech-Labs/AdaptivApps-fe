@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RecipientModal from '../Modals/Modal';
 import ChatRoom from './ChatRoom';
 import AnnouncementRoom from './AnnouncementRoom';
@@ -8,6 +8,7 @@ import AnnouncementModal from '../Modals/AnnouncementModal';
 import { useQuery } from "react-apollo";
 import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms';
 import { GET_RECIPIENTS } from '../../queries/Chats';
+import { GET_ANNOUNCEMENTS } from '../../queries/Announcements'
 
 //Auth0 imports
 import config from "../../../../config/auth_config";
@@ -23,6 +24,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Tooltip from '@material-ui/core/Tooltip';
+import Badge from '@material-ui/core/Badge';
 import {
   makeStyles,
   Box,
@@ -82,7 +84,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: '3%'
   },
   chatroom: {
-    margin: '5% 0'
+    margin: '2% 0'
   },
   divider: {
     marginTop:'5%'
@@ -117,6 +119,8 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
     const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
     const { data: recipients } = useQuery(GET_RECIPIENTS);
 
+    const { data: announcements } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
+
     // Chat Room Subscription
     const _subscribeToNewChatRoom = subscribeToMore => {
       subscribeToMore({
@@ -137,7 +141,12 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
 
     _subscribeToNewChatRoom(subscribeToMore);
 
-    // Remove users who have null, or "", first / last names to prevent chatting with unknown users and prevent search errors
+   const announcementArray = announcements && Object.values(announcements)
+
+   const notifications = announcementArray && announcementArray.map(ann => {
+     return ann.filter(item => item.notification.length > 0 && item.notification)})
+
+
     const validParticipants = [];
 
     recipients && recipients.profiles.map(user => {
@@ -236,7 +245,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
           </>
         ) : null}
         <div className={classes.chatRoomDiv}>
-          <AnnouncementRoom key='announcement_room' user={user} />
+          <AnnouncementRoom notifications={notifications} key='announcement_room' user={user} />
           <Divider variant="inset" className={classes.divider} />
           {results.length > 0 ? 
             (results.map((chatRoom, id) => (

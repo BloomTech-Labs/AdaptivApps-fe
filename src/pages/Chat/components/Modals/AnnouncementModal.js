@@ -78,6 +78,8 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen }) {
 
   const [newAnnouncement, setNewAnnouncement] = useState();
   const [newAnnouncementText, setNewAnnouncementText] = useState();
+
+  const [notification, setNotification] = useState(true)
   
   const handleTitleChange = e => {
     setNewAnnouncement(e.target.value);
@@ -95,7 +97,7 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen }) {
         title: newAnnouncement,
         message: newAnnouncementText,
         isAnnouncementRoom: true,
-        recipient: 'amohler09@gmail.com'
+        recipient: 'amohler09@gmail.com',
       }
     });
 

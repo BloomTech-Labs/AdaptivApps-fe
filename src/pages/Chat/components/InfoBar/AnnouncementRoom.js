@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import Announcements from '../Messages/Announcements';
 
+import { useMutation } from 'react-apollo'
+import { DELETE_NOTIFICATION } from '../../queries/Notifications'
+
 // Style Imports
 import Tooltip from '@material-ui/core/Tooltip';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import Drawer from '@material-ui/core/Drawer';
 import CloseIcon from '@material-ui/icons/Close';
-import Modal from '@material-ui/core/Modal';
 import IconButton from '@material-ui/core/IconButton';
 import Collapse from '@material-ui/core/Collapse';
 import Alert from '@material-ui/lab/Alert';
+import Badge from '@material-ui/core/Badge';
 import {
   makeStyles
 } from "@material-ui/core";
@@ -17,6 +20,7 @@ import {
 const useStyles = makeStyles(() => ({
   root: {   
     margin: ".5rem auto",
+    height: '2.5vh',
     display: 'flex',
     whiteSpace: "nowrap",
     overflow: 'hidden'
@@ -71,11 +75,12 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function AnnouncementRoom({ user, setAnnouncementOpen }) {
+export default function AnnouncementRoom({ user, setAnnouncementOpen, notifications }) {
+    console.log(notifications)
+    const [deleteNotifications] = useMutation(DELETE_NOTIFICATION)
     const classes = useStyles();
 
     const [messageToggle, setMessageToggle] = useState(false);
-    const [editChatRoom, setEditChatRoom] = useState(false);
     const [updateChat, setUpdateChat] = useState(false);
     const [deleteChat, setDeleteChat] = useState(false);
 
@@ -91,6 +96,15 @@ export default function AnnouncementRoom({ user, setAnnouncementOpen }) {
     const handleClick = e => {
       e.preventDefault();
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
+      notifications.map(item => {
+        item.map(item => {
+          deleteNotifications({
+            variables: {
+              id: item.notification[0].id
+            }
+          })
+        })
+      })
     };
 
     const closeDrawer = e => {
@@ -101,15 +115,16 @@ export default function AnnouncementRoom({ user, setAnnouncementOpen }) {
     return (
       <>
         <div className={classes.root}>
+          {notifications[0].length > 0 ?
+          <Badge badgeContent={notifications.length} 
+          variant='dot'
+          color='error' 
+          overlap='circle'>
           <BookmarksIcon 
-            className={classes.chatRoomIcon}
-            onClick={() => setEditChatRoom(true)} />
-          <Modal
-            className={classes.modal}
-            open={editChatRoom}
-            onClose={() => setEditChatRoom(false)}>
-            {editChatRoom ? <div>hello</div> : null}
-          </Modal>          
+            className={classes.chatRoomIcon}/>
+            </Badge> :
+            <BookmarksIcon 
+            className={classes.chatRoomIcon}/>}           
           <Tooltip title="Click to expand messages">
             <button 
               className={classes.chatRoomButton} 
