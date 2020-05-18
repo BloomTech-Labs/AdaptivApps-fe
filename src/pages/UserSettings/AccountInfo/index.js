@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function AccountInfo({children}) {
+export default function AccountInfo() {
   const classes = useStyles();
   const [UpdateProfile] = useMutation(UPDATE_USER_PROFILE);
 
@@ -33,13 +33,10 @@ export default function AccountInfo({children}) {
       <Box className={classes.headingBox} borderBottom={2}>
         <Typography variant="h1">Update Account Information</Typography>
       </Box>
-      <Box>
-        {children}
-      </Box>
       <Router>
         <AccountTypeForm path="/" updateProfile={UpdateProfile} />
         <Step1 path="step1of6" updateProfile={UpdateProfile} />
-        <OrgStep1 path="org/step1of6" updateProfile={UpdateProfile} />
+        <OrgStep1 path="orginfo" updateProfile={UpdateProfile} />
         <Step2 path="step2of6" />
       </Router>
     </>
