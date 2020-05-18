@@ -2,10 +2,10 @@
 import React from "react";
 import { Router } from "@reach/router";
 // Auth0 imports
-import { useAuth0 } from '../../../config/react-auth0-spa'
+import { useAuth0 } from "../../../config/react-auth0-spa";
 // Component imports
-import AccountTypeForm from './AccountTypeForm';
-import Step1 from './Step1'
+import AccountTypeForm from "./AccountTypeForm";
+import Step1 from "./Step1";
 // Material-UI imports
 import {
   makeStyles,
@@ -26,17 +26,16 @@ const useStyles = makeStyles({
 export default function AccountInfo() {
   const classes = useStyles();
   const { user } = useAuth0();
- 
+
   return (
     <Container>
       <Box className={classes.headingBox} borderBottom={2}>
         <Typography variant="h1">Update Account Information</Typography>
       </Box>
       <Router>
-        <AccountTypeForm path="/" user={user}/>
+        <AccountTypeForm path="/" user={user} />
         <Step1 path="step1" />
       </Router>
-      
     </Container>
   );
 }

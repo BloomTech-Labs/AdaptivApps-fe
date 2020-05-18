@@ -1,6 +1,6 @@
 // React/Reach Router imports
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "@reach/router";
+import { useNavigate, useParams } from "@reach/router";
 import { useForm, Controller } from "react-hook-form";
 // Apollo/GraphQL imports
 import { useMutation } from "react-apollo";
@@ -28,6 +28,7 @@ const useStyles = makeStyles({
 export default function AccountTypeForm({ user }) {
   const classes = useStyles();
   const navigate = useNavigate();
+  // const userEmail = useParams();
   const { handleSubmit, errors, control } = useForm();
 
   const [UpdateProfile] = useMutation(UPDATE_USER_PROFILE);
@@ -41,7 +42,7 @@ export default function AccountTypeForm({ user }) {
     });
 
     alert("Successfully updated account type!");
-    await navigate("/updateaccount/step1");
+    await navigate(`/updateaccount/${user?.email}/step1`);
   };
 
   return (

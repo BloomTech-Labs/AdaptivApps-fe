@@ -47,6 +47,7 @@ export default function Settings() {
   const { user } = useAuth0();
   const classes = useStyles();
   const navigate = useNavigate();
+  const userEmail = user.email;
 
   const [createProfile] = useMutation(ADD_USER_PROFILE);
 
@@ -87,7 +88,7 @@ export default function Settings() {
         <Button
           className={classes.ctaBtn}
           aria-label="Click here to update account information."
-          onClick={() => navigate(`/updateaccount`)}
+          onClick={() => navigate(`/updateaccount/${userEmail}`)}
         >
           Add my info
         </Button>
