@@ -115,7 +115,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
     const [results, setResults] = useState([]);
 
     const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
-    const { data: recipients } = useQuery(GET_RECIPIENTS)
+    const { data: recipients } = useQuery(GET_RECIPIENTS);
 
     // Chat Room Subscription
     const _subscribeToNewChatRoom = subscribeToMore => {

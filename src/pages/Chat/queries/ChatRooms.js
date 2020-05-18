@@ -27,7 +27,15 @@ export const GET_CHAT_ROOMS = gql`
             email
           }
         }
-      }      
+      }
+      notifications {
+          label
+          profile {
+            email
+            firstName
+            lastName
+          }
+        }      
     }
   }
 `

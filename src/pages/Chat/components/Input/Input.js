@@ -102,13 +102,18 @@ const Input = ({ chatRoom, user }) => {
 
     const { listen, listening, stop } = useSpeechRecognition({onResult, onEnd});
 
+    const recipientEmail = chatRoom.participants.filter(participant => {
+        return participant.email !== user.email
+    });
+
     // Create message via text
     const newMessage = async () => {
         await sendChat({
             variables: {
               id: chatRoom.id,
               email: user.email,
-              message: message.message 
+              message: message.message, 
+              recipient: recipientEmail[0].email
             }
         })
         setMessage({ message: '' });
@@ -120,7 +125,8 @@ const Input = ({ chatRoom, user }) => {
             variables: {
               id: chatRoom.id,
               email: user.email,
-              message: textValue
+              message: textValue,
+              recipient: recipientEmail[0].email
             }
         })
         setTextValue('');

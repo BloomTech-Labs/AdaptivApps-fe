@@ -94,7 +94,8 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen }) {
       variables: {
         title: newAnnouncement,
         message: newAnnouncementText,
-        isAnnouncementRoom: true
+        isAnnouncementRoom: true,
+        recipient: 'amohler09@gmail.com'
       }
     });
 

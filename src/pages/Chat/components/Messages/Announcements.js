@@ -108,9 +108,18 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
       title: announcement.title,
       message: announcement.message,
       createdAt: announcement.createdAt,
-      notifications: announcement.notifications
+      notification: announcement.notification      
     }
   });
+
+ const notifications = announcements.map((ann) => {
+   ann.notification.map(notification => {
+     return notification
+   })
+ })
+
+  console.log('data', data)
+  console.log('announcements', notifications.length)
 
   // Sets up an auto-scroll to last announcement when new announcement received, or when an announcement is updated/deleted
   const announcementsEndRef = useRef(null)
