@@ -2,15 +2,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "@reach/router";
 import { useForm, Controller } from "react-hook-form";
-// Apollo/GraphQL imports
-import { useMutation } from "react-apollo";
-import { UPDATE_USER_PROFILE } from "../queries";
 // Component imports
 import NextButton from "../../../theme/NextButton";
 // Material-UI imports
 import {
   makeStyles,
-  Typography,
   Container,
   Box,
   InputLabel,
@@ -25,26 +21,24 @@ const useStyles = makeStyles({
   },
 });
 
-export default function AccountTypeForm({ user }) {
+export default function AccountTypeForm({ updateProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
   const { handleSubmit, errors, control } = useForm();
 
-  const [UpdateProfile] = useMutation(UPDATE_USER_PROFILE);
-
   const onSubmit = async data => {
-    UpdateProfile({
+    updateProfile({
       variables: {
         type: data.type,
-        email: user.email,
+        email: userEmail,
       },
     });
 
     alert("Successfully updated account type!");
     data?.type === "Individual"
-      ? await navigate(`/updateaccount/${userEmail}/step1`)
-      : await navigate(`/updateaccount/${userEmail}/org/step1`);
+      ? await navigate(`/updateaccount/${userEmail}/step1of6`)
+      : await navigate(`/updateaccount/${userEmail}/org/step1of6`);
   };
 
   return (

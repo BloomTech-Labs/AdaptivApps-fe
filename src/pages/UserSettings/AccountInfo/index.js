@@ -1,19 +1,20 @@
 // React/Reach Router imports
 import React from "react";
 import { Router } from "@reach/router";
-// Auth0 imports
-import { useAuth0 } from "../../../config/react-auth0-spa";
+// Apollo/GraphQL imports
+import { useMutation } from "react-apollo";
+import { UPDATE_USER_PROFILE } from "../queries";
 // Component imports
 import AccountTypeForm from "./AccountTypeForm";
 import Step1 from "./Step1";
 import OrgStep1 from "./OrgStep1";
+import Step2 from "./Step2"
 // Material-UI imports
 import {
   makeStyles,
   Typography,
   Container,
-  Box,
-  Button,
+  Box
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -26,7 +27,7 @@ const useStyles = makeStyles({
 
 export default function AccountInfo() {
   const classes = useStyles();
-  const { user } = useAuth0();
+  const [UpdateProfile] = useMutation(UPDATE_USER_PROFILE);
 
   return (
     <Container>
@@ -34,9 +35,10 @@ export default function AccountInfo() {
         <Typography variant="h1">Update Account Information</Typography>
       </Box>
       <Router>
-        <AccountTypeForm path="/" user={user} />
-        <Step1 path="step1" />
-        <OrgStep1 path="org/step1" />
+        <AccountTypeForm path="/" updateProfile={UpdateProfile} />
+        <Step1 path="step1of6" updateProfile={UpdateProfile} />
+        <OrgStep1 path="org/step1of6" updateProfile={UpdateProfile} />
+        <Step2 path="step2of6" />
       </Router>
     </Container>
   );
