@@ -207,8 +207,10 @@ function SideNav(props) {
         refetch();
         refetchAnnouncements();
         return Object.assign({}, prev, {
-          notifications: [notification, ...prev.notifications],
-          __typename: prev.__typename
+          profile: {
+            notifications: [notification, ...prev.profile.notifications],
+            __typename: prev.profile.__typename
+          }
         })
       }
     })
