@@ -9,7 +9,7 @@ export const GET_ANNOUNCEMENTS = gql`
       message
       createdAt
       isAnnouncementRoom
-      notifications {
+      notification {
         id
         label
         profile {

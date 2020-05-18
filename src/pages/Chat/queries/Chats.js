@@ -17,7 +17,7 @@ export const GET_MESSAGES = gql`
           id
         }
       }
-      notification {
+      notifications {
         id
         label
         profile {
