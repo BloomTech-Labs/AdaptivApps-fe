@@ -22,6 +22,7 @@ import GroupIcon from "@material-ui/icons/GroupAddOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
 import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
+import Badge from '@material-ui/core/Badge';
 import {
   makeStyles,
   useTheme,
@@ -159,6 +160,8 @@ function SideNav(props) {
   const { subscribeToMore: notificationSubscription } = useQuery(GET_NOTIFICATIONS, { variables: { email: user.email } });
   const { data } = useQuery(GET_USER_PROFILE, { variables: { email: user.email } });
 
+  console.log(data);
+
   // Chat Subscription
   const _subscribeToNewChats = subscribeToMore => {
     subscribeToMore({
@@ -244,7 +247,16 @@ function SideNav(props) {
         (
           <Tooltip title="Please complete your profile information to access Chats">
             <div className={classes.disabledNavLink}>
-              <ForumOutlinedIcon className={classes.navIcon} />
+              {data && data?.profile.notifications.length > 0 ? (
+                <Badge
+                variant='dot'
+                color='error' 
+                overlap='circle'>
+                  <ForumOutlinedIcon className={classes.navIcon} />
+                </Badge>
+              ) : (
+                <ForumOutlinedIcon className={classes.navIcon} />
+              )}
               <p>Chats</p>
             </div>
           </Tooltip>
@@ -252,7 +264,16 @@ function SideNav(props) {
         : 
         (
           <NavLink to="/chats" className={classes.navLink}>
-            <ForumOutlinedIcon className={classes.navIcon} />
+            {data && data?.profile.notifications.length > 0 ? (
+              <Badge 
+              variant='dot'
+              color='error' 
+              overlap='circle'>
+                <ForumOutlinedIcon className={classes.navIcon} />
+              </Badge>
+            ) : (
+              <ForumOutlinedIcon className={classes.navIcon} />
+            )}
             <p>Chats</p>
           </NavLink>
         )}
