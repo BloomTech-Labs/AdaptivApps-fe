@@ -160,8 +160,6 @@ function SideNav(props) {
   const { subscribeToMore: notificationSubscription } = useQuery(GET_NOTIFICATIONS, { variables: { email: user.email } });
   const { data } = useQuery(GET_USER_PROFILE, { variables: { email: user.email } });
 
-  console.log(data);
-
   // Chat Subscription
   const _subscribeToNewChats = subscribeToMore => {
     subscribeToMore({

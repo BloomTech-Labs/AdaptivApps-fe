@@ -111,19 +111,21 @@ function RecipientModal({ user, setOpen, participants, setNewRoom, validParticip
     const searchContacts = e => {
       e.preventDefault();
       let filter = uniqueEmails.map(user => {
-       return [`${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user]
-      },
-      setSearchText(false)
-      );
+        setErrorState(false);
+        return [`${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user]
+      });
+
       filter.filter(user => {
         if (user[0].includes(searchRecipient.toLowerCase())) {
-          results.push(user[1])
-        }
-        if (results.length === 0) {
+          results.push(user[1]);
+        };
+
+        if (results[0] == undefined || results.length === 0) {
           setErrorState(true);
-          setSearchText(false)
-        }
+          setSearchText(false);
+        };
       });
+
       setSearchRecipient('');
     };
 
@@ -217,10 +219,8 @@ function RecipientModal({ user, setOpen, participants, setNewRoom, validParticip
               <Paper style={{maxHeight: 200, overflow: 'auto'}}>
               <List>
                   <div className={errorState ? classes.errorState : classes.noError}>
-                    <p> We couldn't find that user </p>
-                    <p>Are you chatting with this person already?</p>
-                    <p className={classes.errorClose} 
-                      onClick={() => {setErrorState(false); setSearchText(true)}}>X Close</p>
+                    <p>We couldn't find that user</p>
+                    <p>Check your current chat rooms</p>
                     </div>
                 {searchResults}
                 {!results.length && 
