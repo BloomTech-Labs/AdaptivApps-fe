@@ -67,6 +67,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Input = ({ chatRoom, user }) => {
+    console.log('chatRoom', chatRoom)
+    console.log('user', user)
     const classes = useStyles();
     const [toggleEmoji, setToggleEmoji] = useState(false);
 
@@ -102,9 +104,11 @@ const Input = ({ chatRoom, user }) => {
 
     const { listen, listening, stop } = useSpeechRecognition({onResult, onEnd});
 
-    const recipientEmail = chatRoom.participants.filter(participant => {
+    // Remove current user from participants array
+    const recipient = chatRoom.participants.filter(participant => {
         return participant.email !== user.email
     });
+    console.log(recipient[0].email, user.email)
 
     // Create message via text
     const newMessage = async () => {
@@ -113,7 +117,7 @@ const Input = ({ chatRoom, user }) => {
               id: chatRoom.id,
               email: user.email,
               message: message.message, 
-              recipient: recipientEmail[0].email
+              recipient: recipient[0].email
             }
         })
         setMessage({ message: '' });
@@ -126,7 +130,7 @@ const Input = ({ chatRoom, user }) => {
               id: chatRoom.id,
               email: user.email,
               message: textValue,
-              recipient: recipientEmail[0].email
+              recipient: recipient[0].email
             }
         })
         setTextValue('');

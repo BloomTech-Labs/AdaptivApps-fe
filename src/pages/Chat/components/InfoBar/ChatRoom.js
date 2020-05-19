@@ -150,7 +150,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
 
     // Remove participants with invalid first / last names
     const participants = []
-    
+
     chatRoom.participants.map((participant) => {
       if (participant.email !== user.email &&
           participant.firstName !== null && participant.lastName !== null &&
@@ -219,10 +219,10 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
       <>
         <div className={classes.root}>
           <Tooltip title="Click to Delete Chatroom">
-          {notifications !== null && notifications.length > 0 ?
+          {notifications !== null && notifications.length > 0 && user.email !== participants[0].email ?
           <Badge badgeContent={notifications.length} 
           variant='dot'
-          color='error' 
+          color='#052942' 
           overlap='circle'>
           <PeopleAltIcon 
               className={classes.chatRoomIcon}

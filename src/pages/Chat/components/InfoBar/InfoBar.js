@@ -118,7 +118,6 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
 
     const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
     const { data: recipients } = useQuery(GET_RECIPIENTS);
-
     const { data: announcements } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
 
     // Chat Room Subscription
@@ -141,11 +140,13 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
 
     _subscribeToNewChatRoom(subscribeToMore);
 
+    // Convert announcement object to Array & filter out notifications
     const announcementArray = announcements && Object.values(announcements)
 
     const notifications = announcementArray && announcementArray.map(ann => {
      return ann.filter(item => item.notification.length > 0 && item.notification)})
    
+    // Make sure no participants pass through with a null or empty name
     const validParticipants = [];
 
     recipients && recipients.profiles.map(user => {
@@ -207,7 +208,8 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
       <div className={classes.root}>
         <h1 className={classes.header}>Messages</h1>
         <div className={classes.messageIcons}>
-          <CreateIcon className={classes.icons} onClick={handleOpen} /><span className={classes.span} onClick={handleOpen} aria-label="New Message Button">New Message</span>
+          <CreateIcon className={classes.icons} onClick={handleOpen} />
+            <span className={classes.span} onClick={handleOpen} aria-label="New Message Button">New Message</span>
         </div>
         <Modal
           aria-labelledby="transition-modal-title"
