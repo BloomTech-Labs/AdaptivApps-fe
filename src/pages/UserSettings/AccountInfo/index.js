@@ -4,6 +4,7 @@ import { Router } from "@reach/router";
 // Apollo/GraphQL imports
 import { useMutation } from "react-apollo";
 import { UPDATE_USER_PROFILE } from "../queries";
+import { UPDATE_ORG_PROFILE } from "../queries";
 // Component imports
 import AccountTypeForm from "./AccountTypeForm";
 import Step1 from "./Step1";
@@ -37,6 +38,7 @@ const useStyles = makeStyles({
 export default function AccountInfo() {
   const classes = useStyles();
   const [UpdateProfile] = useMutation(UPDATE_USER_PROFILE);
+  const [UpdateOrgProfile] = useMutation(UPDATE_ORG_PROFILE);
 
   return (
     <Container className={classes.root}>
@@ -47,7 +49,7 @@ export default function AccountInfo() {
       <Router className={classes.children}>
         <AccountTypeForm path="/" updateProfile={UpdateProfile} />
         <Step1 path="step1of6" updateProfile={UpdateProfile} />
-        <OrgStep1 path="orginfo" updateProfile={UpdateProfile} />
+        <OrgStep1 path="orginfo" updateProfile={UpdateOrgProfile} />
         <Step2 path="step2of6" />
       </Router>
     </Container>

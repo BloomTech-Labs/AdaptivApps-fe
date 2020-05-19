@@ -73,3 +73,34 @@ export const PROFILE_INFO = gql`
     }
   }
 `;
+
+// Updates Organization Profile
+export const UPDATE_ORG_PROFILE = gql`
+  mutation UpdateOrgProfile(
+    $email: String! 
+    $phoneNumber: String 
+    $city: String 
+    $state: String 
+    $bio: String 
+    $orgName: String 
+    $website: String
+    ) {
+    updateProfile(
+      where: { email: $email }
+      data: { 
+        phoneNumber: $phoneNumber
+        city: $city
+        state: $state
+        bio: $bio
+        extProfile: {
+          create: {
+            orgName: $orgName
+            website: $website
+          }
+        }
+      }
+    ) {
+      id
+    }
+  }
+`;
