@@ -16,9 +16,6 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    maxwidth: "100%",
-    width: "90%",
-    marginLeft: "2.8rem",
     "& .MuiTextField-root": {
       width: 744,
       height: 48,
@@ -50,6 +47,13 @@ const useStyles = makeStyles({
     width: 744,
     height: 48,
   },
+  bioBox: {
+    marginBottom: 200
+  },
+  btnBox: {
+    display: "flex",
+    justifyContent: "flex-end"
+  }
 });
 
 export default function OrgStep1({ updateProfile }) {
@@ -125,7 +129,7 @@ export default function OrgStep1({ updateProfile }) {
           />
         </Box>
       </Box>
-      <Box>
+      <Box className={classes.bioBox}>
         <InputLabel className={classes.inputLabel} htmlFor="bio">
           Tell us about your organization
         </InputLabel>
@@ -138,11 +142,13 @@ export default function OrgStep1({ updateProfile }) {
           control={control}
         />
       </Box>
-      <FormButton
-        label="Finish"
-        type="submit"
-        ariaLabel="Click here to finish updating your organization information."
-      />
+      <Box className={classes.btnBox}>
+        <FormButton
+          label="Finish"
+          type="submit"
+          ariaLabel="Click here to finish updating your organization information."
+        />
+      </Box>
     </form>
   );
 }

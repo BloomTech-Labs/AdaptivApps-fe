@@ -16,9 +16,9 @@ import {
 
 const useStyles = makeStyles({
   root: {
-    maxwidth: "100%",
-    width: "90%",
-    marginLeft: "2.8rem",
+    // maxwidth: "100%",
+    // width: "90%",
+    // marginLeft: "2.8rem",
     display: "flex",
     flexDirection: "column"
   },

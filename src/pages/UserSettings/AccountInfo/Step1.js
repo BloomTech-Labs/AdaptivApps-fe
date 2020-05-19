@@ -83,6 +83,7 @@ export default function Step1({ updateProfile }) {
        
         <NextButton
           type="submit"
+          label={"Next"}
           ariaLabel="Click here to complete step 1 and move onto step 2."
           onClick={handleSubmit}
         />
