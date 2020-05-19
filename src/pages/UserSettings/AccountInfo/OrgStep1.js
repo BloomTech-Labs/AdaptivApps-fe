@@ -56,22 +56,27 @@ const useStyles = makeStyles({
   }
 });
 
-export default function OrgStep1({ updateProfile }) {
+export default function OrgStep1({ updateOrgProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
   const { handleSubmit, setValue, errors, control } = useForm();
 
   const onSubmit = async data => {
-    updateProfile({
+    updateOrgProfile({
       variables: {
-        type: data.type,
         email: userEmail,
+        phoneNumber: data.phoneNumber,
+        city: data.city,
+        state: data.state,
+        bio: data.bio,
+        orgName: data.orgName,
+        website: data.website
       },
     });
 
-    alert("Successfully updated account information!");
-    await navigate(`/updateaccount/${userEmail}/step2of6`);
+    alert("Successfully updated organization account information!");
+    await navigate(`/`);
   };
   return (
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
@@ -146,6 +151,7 @@ export default function OrgStep1({ updateProfile }) {
         <FormButton
           label="Finish"
           type="submit"
+          onClick={handleSubmit}
           ariaLabel="Click here to finish updating your organization information."
         />
       </Box>

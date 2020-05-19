@@ -49,7 +49,7 @@ export default function AccountInfo() {
       <Router className={classes.children}>
         <AccountTypeForm path="/" updateProfile={UpdateProfile} />
         <Step1 path="step1of6" updateProfile={UpdateProfile} />
-        <OrgStep1 path="orginfo" updateProfile={UpdateOrgProfile} />
+        <OrgStep1 path="orginfo" updateOrgProfile={UpdateOrgProfile} />
         <Step2 path="step2of6" />
       </Router>
     </Container>
