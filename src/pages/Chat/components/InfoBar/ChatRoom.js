@@ -4,6 +4,7 @@ import Messages from '../Messages/Messages';
 // Mutation Imports
 import { useMutation } from "react-apollo";
 import { DELETE_CHAT_ROOM } from '../../queries/ChatRooms'
+import { DELETE_NOTIFICATION } from '../../queries/Notifications'
 
 // Style Imports
 import Tooltip from '@material-ui/core/Tooltip';
@@ -15,6 +16,7 @@ import Modal from '@material-ui/core/Modal';
 import IconButton from '@material-ui/core/IconButton';
 import Collapse from '@material-ui/core/Collapse';
 import Alert from '@material-ui/lab/Alert';
+import Badge from '@material-ui/core/Badge';
 import {
   makeStyles
 } from "@material-ui/core";
@@ -126,6 +128,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
     const classes = useStyles();
 
     const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM);
+    const [deleteNotifications] = useMutation(DELETE_NOTIFICATION)
 
     const [messageToggle, setMessageToggle] = useState(false);
     const [editChatRoom, setEditChatRoom] = useState(false);
@@ -140,6 +143,10 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
         setDeleteChat(false);
       }
     }, 3000)
+
+    // Identify notifications as they come in
+    const notifications = chatRoom.chats.length > 0 &&
+      (chatRoom.chats.filter(item => item.notification.length > 0 && item.notification))
 
     // Remove participants with invalid first / last names
     const participants = []
@@ -174,6 +181,22 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
     const handleClick = e => {
       e.preventDefault();
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
+    }
+
+    const handleNotifications = e => {
+      e.preventDefault();
+      messageToggle ? setMessageToggle(false) : setMessageToggle(true)
+      if (notifications !== null && notifications.length > 0) {
+        notifications.map(item => {
+          item.notification.map(item => {
+            deleteNotifications({
+              variables: {
+                id: item.id
+              }
+            })
+          })
+        })
+      }
     };
 
     const closeDrawer = e => {
@@ -196,9 +219,18 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
       <>
         <div className={classes.root}>
           <Tooltip title="Click to Delete Chatroom">
-            <PeopleAltIcon 
+          {notifications !== null && notifications.length > 0 ?
+          <Badge badgeContent={notifications.length} 
+          variant='dot'
+          color='error' 
+          overlap='circle'>
+          <PeopleAltIcon 
               className={classes.chatRoomIcon}
               onClick={() => setEditChatRoom(true)}/>
+            </Badge> :
+            <PeopleAltIcon 
+            className={classes.chatRoomIcon}
+            onClick={() => setEditChatRoom(true)}/>}
           </Tooltip>
           <Modal
             participants={participants}
@@ -221,7 +253,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
           <Tooltip title="Click to expand messages">
             <button 
               className={classes.chatRoomButton} 
-              onClick={handleClick}>{chattingWith}</button>
+              onClick={handleNotifications}>{chattingWith}</button>
           </Tooltip>
         </div>
         <Drawer

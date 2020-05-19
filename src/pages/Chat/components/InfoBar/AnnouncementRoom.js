@@ -76,7 +76,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 export default function AnnouncementRoom({ user, setAnnouncementOpen, notifications }) {
-    console.log(notifications)
     const [deleteNotifications] = useMutation(DELETE_NOTIFICATION)
     const classes = useStyles();
 

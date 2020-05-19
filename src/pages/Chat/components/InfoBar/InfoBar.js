@@ -141,12 +141,11 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
 
     _subscribeToNewChatRoom(subscribeToMore);
 
-   const announcementArray = announcements && Object.values(announcements)
+    const announcementArray = announcements && Object.values(announcements)
 
-   const notifications = announcementArray && announcementArray.map(ann => {
+    const notifications = announcementArray && announcementArray.map(ann => {
      return ann.filter(item => item.notification.length > 0 && item.notification)})
-
-
+   
     const validParticipants = [];
 
     recipients && recipients.profiles.map(user => {
@@ -250,7 +249,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
           {results.length > 0 ? 
             (results.map((chatRoom, id) => (
               <div className={classes.chatroom} key={id}>
-                <ChatRoom chatRoom={chatRoom} user={user} setDeleteRoom={setDeleteRoom} />
+                <ChatRoom chatRoom={chatRoom} user={user} setDeleteRoom={setDeleteRoom}/>
                 <Divider variant="inset" className={classes.divider} />
               </div>
             )))

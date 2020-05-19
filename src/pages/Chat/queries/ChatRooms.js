@@ -17,6 +17,10 @@ export const GET_CHAT_ROOMS = gql`
           id
           message
           createdAt
+          notification {
+            label
+            id
+          }
           room {
             id
           }
