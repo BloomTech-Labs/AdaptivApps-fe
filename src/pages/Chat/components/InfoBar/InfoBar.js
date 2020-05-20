@@ -241,7 +241,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
             BackdropProps={{
               timeout: 500,
             }}>
-            <AnnouncementModal validParticipants={validParticipants} setAnnouncementOpen={setAnnouncementOpen} setAlertOpen={setAlertOpen} />
+            <AnnouncementModal user={user} validParticipants={validParticipants} setAnnouncementOpen={setAnnouncementOpen} setAlertOpen={setAlertOpen} />
            </Modal>
           </>
         ) : null}

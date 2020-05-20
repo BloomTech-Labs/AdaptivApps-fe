@@ -71,7 +71,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
   
-function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipants }) {
+function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipants, user }) {
   const classes = useStyles();
 
   const [createAnnouncement] = useMutation(CREATE_ANNOUNCEMENT);
@@ -89,8 +89,11 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
     setNewAnnouncementText(e.target.value);
   };
 
-  validParticipants.map(item => console.log(item.email))
-  // Send announcement to BE
+  // Create array of emails to match BE data shape, exclude yourself
+  const allUserEmails = validParticipants.map(participant => user.email !== participant.email && 
+    { "email": participant.email }).filter(participant => participant !== undefined)
+
+  // Send announcement to BE & all users
   const onSubmit = e => {
     e.preventDefault();
     createAnnouncement({
@@ -98,8 +101,8 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
         title: newAnnouncement,
         message: newAnnouncementText,
         isAnnouncementRoom: true,
-        recipients: [{"email": "amohler09@gmail.com"}, {"email": "johnnybravo@gmail.com"}],
-        participants: [{"email": "amohler09@gmail.com"}, {"email": "johnnybravo@gmail.com"}],
+        recipients: allUserEmails,
+        participants: allUserEmails,
       }
     })
     setAnnouncementOpen(false);
