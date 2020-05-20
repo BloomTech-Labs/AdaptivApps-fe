@@ -11,14 +11,15 @@ import PrivateRoute from "./routes/PrivateRoute";
 // Import page components
 import EventsCalendar from "./pages/EventsCalendar";
 import UserProfile from "./pages/UserProfile";
+import Settings from "./pages/UserSettings/Settings";
+import AccountInfo from './pages/UserSettings/AccountInfo/'
 import MyEvents from "./pages/MyEvents";
 import ActivityList from "./pages/ActivitiesList";
 import MyEventDetails from "./pages/MyEventDetails";
-import ManageEvents from "./pages/ManageEvents";
-import CreateEvent from "./pages/CreateEvent/CreateEvent";
-import EditEvent from "./pages/CreateEvent/EditEvent";
-import EditActivity from "./pages/CreateEvent/EditActivity";
-import CreateActivity from "./pages/CreateEvent/CreateActivity";
+import CreateEvent from "./pages/ManageEvents/CreateEvent";
+import EditEvent from "./pages/ManageEvents/EditEvent";
+import EditActivity from "./pages/ManageEvents/EditActivity";
+import CreateActivity from "./pages/ManageEvents/CreateActivity";
 import Accessibility from "./pages/Landing/Legal/Accessibility";
 import PrivacyPolicy from "./pages/Landing/Legal/PrivacyPolicy";
 import ManageUsers from "./pages/ManageUsers";
@@ -103,7 +104,9 @@ function App() {
           <Accessibility path="/accessibility" />
           <PrivacyPolicy path="/privacy-policy" />
           <PrivateRoute path="/" component={DashRouter}>
-            <UserProfile path="/" />
+            <UserProfile path="/myprofile" />
+            <Settings path="/" />
+            <AccountInfo path="updateaccount/:userEmail/*" />
             <EventsCalendar path="calendar" />
             <ActivityList path="calendar/:eventId" />
             <MyEvents path="myevents" />
@@ -112,7 +115,6 @@ function App() {
             <EditEvent path="editEvent/:eventId" />
             <CreateActivity path="createEvent/:eventId" />
             <EditActivity path="editActivity/:activityId" />
-            {/* <ManageEvents path="manage" /> */}
             <ManageUsers path="users" />
             <ChatFeature path="chats" />
           </PrivateRoute>

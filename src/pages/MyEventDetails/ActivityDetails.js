@@ -31,7 +31,6 @@ const useStyles = makeStyles({
 export default function ActivityDetails({ activity }) {
   const classes = useStyles();
   const { user } = useAuth0();
-console.log('Inside ActivityDetails', activity.participants)
   const activeEvent = activity.event;
   return (
     <tr className={classes.root}>

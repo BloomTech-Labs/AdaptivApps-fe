@@ -129,7 +129,7 @@ export default function SimpleModal({ event, registerEvent }) {
       </Box>
       <Box className={classes.modalMiddle}>
         <Typography className={classes.date}>
-          {event.date} - {event.date}
+          {event.startDate} - {event.endDate}
         </Typography>
         <Typography className={classes.title} id="simple-modal-title">
           {event.title}

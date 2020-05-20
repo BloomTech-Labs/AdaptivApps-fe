@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 export const UPDATE_USER_PROFILE = gql`
   mutation UpdateProfile(
     $email: String!
-    $type: String!
+    $type: String
     $private: Boolean
     $firstName: String
     $lastName: String
@@ -45,7 +45,7 @@ export const UPDATE_USER_PROFILE = gql`
   }
 `;
 
-// Creating a profile, being used in UserDashboard
+// Creating a profile
 export const ADD_USER_PROFILE = gql`
   mutation createProfile($email: String!) {
     createProfile(data: { email: $email }) {
@@ -54,10 +54,11 @@ export const ADD_USER_PROFILE = gql`
   }
 `;
 
-// Getting a profile, being used in UserDashboard
+// Retrieves user profile
 export const PROFILE_INFO = gql`
   query getProfile($email: String!) {
     profile(where: { email: $email }) {
+      id
       email
       firstName
       lastName
@@ -69,6 +70,37 @@ export const PROFILE_INFO = gql`
       legal
       type
       private
+    }
+  }
+`;
+
+// Updates Organization Profile
+export const UPDATE_ORG_PROFILE = gql`
+  mutation UpdateOrgProfile(
+    $email: String! 
+    $phoneNumber: String 
+    $city: String 
+    $state: String 
+    $bio: String 
+    $orgName: String 
+    $website: String
+    ) {
+    updateProfile(
+      where: { email: $email }
+      data: { 
+        phoneNumber: $phoneNumber
+        city: $city
+        state: $state
+        bio: $bio
+        extProfile: {
+          create: {
+            orgName: $orgName
+            website: $website
+          }
+        }
+      }
+    ) {
+      id
     }
   }
 `;

@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
 // Component imports
 import Activity from "./Activity";
 // Material-UI imports
-import { makeStyles, Box, Typography } from "@material-ui/core";
+import { makeStyles, Box, Typography, Link } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,21 +27,13 @@ const useStyles = makeStyles(theme => ({
 
 export default function ActivityList({ data, refetch }) {
   const classes = useStyles();
+
   useEffect(() => {
     refetch();
   }, [refetch]);
+
   return (
     <div className={classes.root}>
-      <Box>
-        <Typography variant="h2">{data?.event?.title}</Typography>
-        <Typography variant="h5" className={classes.subHeadings}>
-          {data?.event?.date}
-        </Typography>
-        <Typography variant="h4" className={classes.subHeadings}>
-          {data?.event?.location}
-        </Typography>
-      </Box>
-      <h1>Added Activities</h1>
       {data?.event?.activities.length === 0 ? (
         <>
           <p>No activities added yet!</p>

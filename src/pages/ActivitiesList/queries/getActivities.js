@@ -7,7 +7,8 @@ export const GET_EVENT_ACTIVITIES = gql`
       id
       title
       type
-      date
+      startDate
+      endDate
       location
       imgUrl
       details

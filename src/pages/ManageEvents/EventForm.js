@@ -51,7 +51,8 @@ export default function EventForm({
       host: currentEvent && currentEvent.host,
       coaches: currentEvent && currentEvent.coaches,
       speakers: currentEvent && currentEvent.speakers,
-      date: currentEvent && currentEvent.date,
+      startDate: currentEvent && currentEvent.startDate,
+      endDate: currentEvent && currentEvent.endDate,
       startTime: currentEvent && currentEvent.startTime,
       endTime: currentEvent && currentEvent.endTime,
       location: currentEvent && currentEvent.location,
@@ -73,7 +74,8 @@ export default function EventForm({
         { host: currentEvent && currentEvent.host },
         { coaches: currentEvent && currentEvent.coaches },
         { speakers: currentEvent && currentEvent.speakers },
-        { date: currentEvent && currentEvent.date },
+        { startDate: currentEvent && currentEvent.startDate },
+        { endDate: currentEvent && currentEvent.endDate },
         { startTime: currentEvent && currentEvent.startTime },
         { endTime: currentEvent && currentEvent.endTime },
         { location: currentEvent && currentEvent.location },
@@ -96,7 +98,8 @@ export default function EventForm({
           host: formValues.host,
           coaches: formValues.coaches,
           speakers: formValues.speakers,
-          date: formValues.date,
+          startDate: formValues.startDate,
+          endDate: formValues.endDate,
           startTime: formValues.startTime,
           endTime: formValues.endTime,
           location: formValues.location,
@@ -119,7 +122,8 @@ export default function EventForm({
           host: formValues.host,
           coaches: formValues.coaches,
           speakers: formValues.speakers,
-          date: formValues.date,
+          startDate: formValues.startDate,
+          endDate: formValues.endDate,
           startTime: formValues.startTime,
           endTime: formValues.endTime,
           location: formValues.location,
@@ -232,14 +236,26 @@ export default function EventForm({
         control={control}
         ref={register({ maxLength: 255 })}
       />
-      <InputLabel className={classes.inputLabel} htmlFor="date">
-        Date
+      <InputLabel className={classes.inputLabel} htmlFor="startDate">
+        Start Date
       </InputLabel>
       <Controller
         as={<TextField />}
         type="date"
-        placeholder="date"
-        name="date"
+        placeholder="Start Date"
+        name="startDate"
+        variant="outlined"
+        control={control}
+        ref={register({ required: true })}
+      />
+      <InputLabel className={classes.inputLabel} htmlFor="endDate">
+        End Date
+      </InputLabel>
+      <Controller
+        as={<TextField />}
+        type="date"
+        placeholder="End Date"
+        name="endDate"
         variant="outlined"
         control={control}
         ref={register({ required: true })}

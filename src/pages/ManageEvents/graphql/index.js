@@ -11,7 +11,8 @@ export const GET_EVENT = gql`
       host
       coaches
       speakers
-      date
+      startDate
+      endDate
       startTime
       endTime
       location
@@ -32,7 +33,8 @@ export const CREATE_EVENT = gql`
     $host: String!
     $coaches: String!
     $speakers: String!
-    $date: String!
+    $startDate: String!
+    $endDate: String!
     $startTime: String!
     $endTime: String!
     $location: String!
@@ -50,7 +52,8 @@ export const CREATE_EVENT = gql`
         host: $host
         coaches: $coaches
         speakers: $speakers
-        date: $date
+        startDate: $startDate
+        endDate: $endDate
         startTime: $startTime
         endTime: $endTime
         location: $location
@@ -68,7 +71,8 @@ export const CREATE_EVENT = gql`
       host
       coaches
       speakers
-      date
+      startDate
+      endDate
       startTime
       endTime
       location
@@ -90,7 +94,8 @@ export const UPDATE_EVENT = gql`
     $host: String!
     $coaches: String!
     $speakers: String!
-    $date: String!
+    $startDate: String!
+    $endDate: String!
     $startTime: String!
     $endTime: String!
     $location: String!
@@ -109,7 +114,8 @@ export const UPDATE_EVENT = gql`
         host: $host
         coaches: $coaches
         speakers: $speakers
-        date: $date
+        startDate: $startDate
+        endDate: $endDate
         startTime: $startTime
         endTime: $endTime
         location: $location
@@ -127,7 +133,8 @@ export const UPDATE_EVENT = gql`
       host
       coaches
       speakers
-      date
+      startDate
+      endDate
       startTime
       endTime
       location
@@ -211,7 +218,8 @@ export const GET_ACTIVITIES = gql`
     event(where: { id: $id }) {
       id
       title
-      date
+      startDate
+      endDate
       location
       activities {
         id
@@ -225,9 +233,6 @@ export const GET_ACTIVITIES = gql`
         endTime
         details
         coaches
-        event {
-          id
-        }
       }
     }
   }

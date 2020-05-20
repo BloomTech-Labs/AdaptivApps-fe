@@ -168,7 +168,7 @@ export default function EventCard({ event, refetch }) {
       </Box>
       <Box className={classes.modalMiddle}>
         <Typography className={classes.date}>
-          {event.date} - {event.date}
+          {event.startDate} - {event.endDate}
         </Typography>
         <Typography variant="h2" id="simple-modal-title">
           {event.title}
@@ -177,7 +177,9 @@ export default function EventCard({ event, refetch }) {
         <Typography className={classes.details} id="simple-modal-description">
           {event.details}
         </Typography>
-        <Typography variant="h2" className={classes.question}>Delete this event?</Typography>
+        <Typography variant="h2" className={classes.question}>
+          Delete this event?
+        </Typography>
       </Box>
     </>
   );
@@ -205,7 +207,7 @@ export default function EventCard({ event, refetch }) {
                 color="textSecondary"
                 component="p"
               >
-                {event.date} - {event.date}
+                {event.startDate} - {event.endDate}
               </Typography>
               <Typography
                 className={classes.cardTitle}

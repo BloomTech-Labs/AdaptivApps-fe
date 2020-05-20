@@ -3,14 +3,15 @@ import gql from "graphql-tag";
 // Retrieves all events a user is registered to.
 export const GET_USER_EVENTS = gql`
   query getUserEvents($email: String!) {
-    events(where: { attendees_some: { eventProfile: { email: $email} } }) {
+    events(where: { attendees_some: { eventProfile: { email: $email } } }) {
       id
       type
       host
       speakers
       startTime
       title
-      date
+      startDate
+      endDate
       location
       link
       sponsors
