@@ -7,7 +7,6 @@ import NextButton from "../../../theme/FormButton";
 // Material-UI imports
 import {
   makeStyles,
-  Container,
   Box,
   InputLabel,
   TextField,
@@ -43,8 +42,8 @@ const useStyles = makeStyles({
   btnBox: {
     display: "flex",
     justifyContent: "flex-end",
-    marginTop: "11.2rem"
-  }
+    marginTop: "11.2rem",
+  },
 });
 
 export default function Step2() {
@@ -117,7 +116,35 @@ export default function Step2() {
         control={control}
         defaultValue=""
       />
-      <InputLabel htmlFor="legal">Are you over 18 years old?</InputLabel>
+      <InputLabel htmlFor="disability">
+        Please select the category of physical disablity that is most accurate
+        for you
+      </InputLabel>
+      <Controller
+        as={
+          <Select className={classes.longSelect}>
+           <MenuItem value="Ataxia">Ataxia</MenuItem>
+           <MenuItem value="Hearing Impairment">Hearing Impairment</MenuItem>
+           <MenuItem value="Hypertonia">Hypertonia</MenuItem>
+           <MenuItem value="Impaired Muscle Power">Impaired Muscle Power</MenuItem>
+           <MenuItem value="Impaired Passive Range">Impaired Passive Range</MenuItem>
+           <MenuItem value="Intellectual Impairment">Intellectual Impairment</MenuItem>
+           <MenuItem value="Leg Length Diff">Leg Length Diff</MenuItem>
+           <MenuItem value="Limb Deficiency">Limb Deficiency</MenuItem>
+           <MenuItem value="Short Stature">Short Stature</MenuItem>
+           <MenuItem value="Vision Impairment">Vision Impairment</MenuItem>
+           <MenuItem value="None">None</MenuItem>
+          </Select>
+        }
+        name="disability"
+        variant="outlined"
+        control={control}
+        defaultValue=""
+      />
+      <InputLabel htmlFor="detailedDisability">
+        Please select the specific disability diagnosis that is most accurate
+        for you
+      </InputLabel>
       <Controller
         as={
           <Select className={classes.longSelect}>
@@ -125,25 +152,14 @@ export default function Step2() {
             <MenuItem value="No">No</MenuItem>
           </Select>
         }
-        name="legal"
+        name="detailedDisability"
         variant="outlined"
         control={control}
         defaultValue=""
       />
-      <InputLabel htmlFor="legal">Are you over 18 years old?</InputLabel>
-      <Controller
-        as={
-          <Select className={classes.longSelect}>
-            <MenuItem value="Yes">Yes</MenuItem>
-            <MenuItem value="No">No</MenuItem>
-          </Select>
-        }
-        name="legal"
-        variant="outlined"
-        control={control}
-        defaultValue=""
-      />
-      <InputLabel htmlFor="legal">Are you over 18 years old?</InputLabel>
+      <InputLabel htmlFor="mobilityStatus">
+        Please select the mobility status that is most accurate for you
+      </InputLabel>
       <Controller
         as={
           <Select>
@@ -151,7 +167,7 @@ export default function Step2() {
             <MenuItem value="No">No</MenuItem>
           </Select>
         }
-        name="legal"
+        name="mobilityStatus"
         variant="outlined"
         control={control}
         defaultValue=""
