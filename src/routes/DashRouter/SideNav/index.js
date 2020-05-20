@@ -20,6 +20,7 @@ import HomeIcon from "@material-ui/icons/HomeOutlined";
 import UserIcon from "@material-ui/icons/PersonOutlineOutlined";
 import GroupIcon from "@material-ui/icons/GroupAddOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
+import SettingsIcon from "@material-ui/icons/SettingsOutlined";
 import { IconContext } from "react-icons";
 import { FiLogOut } from "react-icons/fi";
 import acsLogo from "../../../assets/images/acsLogo.png";
@@ -143,9 +144,13 @@ function SideNav(props) {
           <BookmarkIcon className={classes.navIcon} />
           <p>My Events</p>
         </NavLink>
-        <NavLink to="/" className={classes.navLink}>
+        <NavLink to="/myprofile" className={classes.navLink}>
           <UserIcon className={classes.navIcon} />
           <p>My Profile</p>
+        </NavLink>
+        <NavLink to="/" className={classes.navLink}>
+          <SettingsIcon className={classes.navIcon} />
+          <p>Settings</p>
         </NavLink>
         <NavLink to="/chats" className={classes.navLink}>
           <UserIcon className={classes.navIcon} />

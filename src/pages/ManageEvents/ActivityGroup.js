@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Tabs, Tab, Typography, Box, AppBar, Button } from "@material-ui/core";
+import { Tabs, Tab, Typography, Box, Paper, Button } from "@material-ui/core";
 import moment from "moment";
 import Activities from "./Activities";
 
@@ -9,19 +9,20 @@ function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
   return (
-    <div
+    <Typography
       role="tabpanel"
       hidden={value !== index}
       id={`scrollable-force-tabpanel-${index}`}
       aria-labelledby={`scrollable-force-tab-${index}`}
       {...other}
     >
-      {value === index && (
+      {/* {value === index && (
         <Box p={3}>
           <Typography>{children}</Typography>
         </Box>
-      )}
-    </div>
+      )} */}
+      <Box p={3}>{value === index && children}</Box>
+    </Typography>
   );
 }
 
@@ -43,6 +44,7 @@ export default function ActivityGroup({ data, refetch }) {
 
   const startDate = moment(data?.event?.startDate);
   const endDate = moment(data?.event?.endDate);
+  console.log(data);
 
   const getDatesRangeArray = function(startDate, endDate, interval) {
     console.log(startDate, endDate, interval);
@@ -89,7 +91,7 @@ export default function ActivityGroup({ data, refetch }) {
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <Paper square color="default">
         <Tabs
           value={value}
           onChange={handleChange}
@@ -103,7 +105,7 @@ export default function ActivityGroup({ data, refetch }) {
             <Tab label={day} value={day} />
           ))}
         </Tabs>
-      </AppBar>
+      </Paper>
       <table>
         <thead>
           <tr>

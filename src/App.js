@@ -11,6 +11,8 @@ import PrivateRoute from "./routes/PrivateRoute";
 // Import page components
 import EventsCalendar from "./pages/EventsCalendar";
 import UserProfile from "./pages/UserProfile";
+import Settings from "./pages/UserSettings/Settings";
+import AccountInfo from './pages/UserSettings/AccountInfo/'
 import MyEvents from "./pages/MyEvents";
 import ActivityList from "./pages/ActivitiesList";
 import MyEventDetails from "./pages/MyEventDetails";
@@ -102,7 +104,9 @@ function App() {
           <Accessibility path="/accessibility" />
           <PrivacyPolicy path="/privacy-policy" />
           <PrivateRoute path="/" component={DashRouter}>
-            <UserProfile path="/" />
+            <UserProfile path="/myprofile" />
+            <Settings path="/" />
+            <AccountInfo path="updateaccount/:userEmail/*" />
             <EventsCalendar path="calendar" />
             <ActivityList path="calendar/:eventId" />
             <MyEvents path="myevents" />

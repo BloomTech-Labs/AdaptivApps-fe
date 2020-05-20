@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "@reach/router";
 import { useAuth0 } from "../../config/react-auth0-spa";
+import moment from "moment";
 // Component imports
 import SimpleModal from "./SimpleModal";
 import DeleteModal from "../../theme/DeleteModal";
@@ -168,7 +169,8 @@ export default function EventCard({ event, refetch }) {
       </Box>
       <Box className={classes.modalMiddle}>
         <Typography className={classes.date}>
-          {event.startDate} - {event.endDate}
+          {moment(event.startDate).format("MM/DD/YYYY")} -{" "}
+          {moment(event.endDate).format("MM/DD/YYYY")}
         </Typography>
         <Typography variant="h2" id="simple-modal-title">
           {event.title}
@@ -207,7 +209,10 @@ export default function EventCard({ event, refetch }) {
                 color="textSecondary"
                 component="p"
               >
-                {event.startDate} - {event.endDate}
+                {moment(event.startDate).format("MM/DD/YYYY")}{" "}
+                <span className={classes.cardDate}>
+                  {event.startTime} - {event.endTime}
+                </span>
               </Typography>
               <Typography
                 className={classes.cardTitle}

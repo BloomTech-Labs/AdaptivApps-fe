@@ -39,7 +39,6 @@ export default function EventsCalendar() {
   }, [refetch]);
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
-
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
