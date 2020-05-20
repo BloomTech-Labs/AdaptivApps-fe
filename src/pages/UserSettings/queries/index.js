@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 export const UPDATE_USER_PROFILE = gql`
   mutation UpdateProfile(
     $email: String!
-    $type: String!
+    $type: String
     $private: Boolean
     $firstName: String
     $lastName: String
