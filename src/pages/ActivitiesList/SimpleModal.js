@@ -90,7 +90,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SimpleModal({ activity, activityData }) {
+export default function SimpleModal({ activity, activityData, activeEvent }) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -103,14 +103,15 @@ export default function SimpleModal({ activity, activityData }) {
   const handleClose = () => {
     setOpen(false);
   };
+  console.log(activity);
   const body = (
     <Container style={modalStyle} className={classes.paper}>
       <Box className={classes.imgBox}>
         <img
           className={classes.img}
           src={
-            (activity && activity?.event?.imgUrl) ||
-            (activityData && activityData?.event?.imgUrl)
+            (activityData && activityData?.event?.imgUrl) ||
+            (activeEvent && activeEvent?.imgUrl)
           }
           alt="Event"
         />
@@ -134,7 +135,7 @@ export default function SimpleModal({ activity, activityData }) {
     </Container>
   );
   console.log("activity ", activity);
-  console.log("activity Data", activityData);
+  console.log("activity Data", activeEvent);
   return (
     <div>
       <Button className={classes.btn} onClick={handleOpen}>

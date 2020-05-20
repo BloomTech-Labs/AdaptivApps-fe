@@ -1,7 +1,7 @@
 // React imports
 import React, { useEffect } from "react";
 // Component imports
-import ActivityDetails from "./ActivityDetails";
+import ActivityGroup from "./ActivityGroup";
 // Auth0 imports
 import { useAuth0, Auth0Context } from "../../config/react-auth0-spa";
 // GraphQL/Apollo imports
@@ -200,10 +200,12 @@ export default function EventDetails(props) {
                   <th className={classes.tableH}>Time</th>
                   <th className={classes.tableH}>My Role</th>
                 </tr>
-                {currentActivities &&
-                  currentActivities.map((activity, id) => (
-                    <ActivityDetails key={id} activity={activity} />
-                  ))}
+                <ActivityGroup
+                  data={data}
+                  activeEvent={activeEvent}
+                  currentActivities={currentActivities}
+                  refetch={refetch}
+                />
               </tbody>
             </table>
           </Box>

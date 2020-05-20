@@ -32,6 +32,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function EventForm({
+  updateData,
   createEvent,
   updateEvent,
   event,
