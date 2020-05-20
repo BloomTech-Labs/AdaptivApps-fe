@@ -178,9 +178,7 @@ function SideNav(props) {
     })
   };
 
-  _subscribeToNewChats(subscribeToMore);
-
-  // Announcement Subscriptions
+  // Announcement Subscription
   const _subscribeToNewAnnouncements = announcementSubscription => {
     announcementSubscription({
       document: ANNOUNCEMENT_SUBSCRIPTION,
@@ -198,7 +196,7 @@ function SideNav(props) {
 
   _subscribeToNewAnnouncements(announcementSubscription);
 
-  // Notification Subscriptions
+  // Notification Subscription
   const _subscribeToNewNotifications = notificationSubscription => {
     notificationSubscription({
       document: NOTIFICATION_SUBSCRIPTION,
@@ -245,7 +243,7 @@ function SideNav(props) {
         (
           <Tooltip title="Please complete your profile information to access Chats">
             <div className={classes.disabledNavLink}>
-              {data && data?.profile.notifications.length > 0 ? (
+              {(data && data.profile !== null) && (data && data?.profile.notifications.length > 0) ? (
                 <Badge
                 variant='dot'
                 color='error' 
