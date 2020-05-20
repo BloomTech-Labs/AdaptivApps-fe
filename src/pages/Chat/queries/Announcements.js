@@ -23,7 +23,7 @@ export const GET_ANNOUNCEMENTS = gql`
 
 // Create an announcement
 export const CREATE_ANNOUNCEMENT = gql`
-	mutation createAnnouncement ( $title: String!, $message: String!, $recipient: String!, $isAnnouncementRoom: Boolean! ) {
+	mutation createAnnouncement ( $title: String!, $message: String!, $recipient: [{email: String!}], $isAnnouncementRoom: Boolean! ) {
     createAnnouncement(
       data: {
         title: $title

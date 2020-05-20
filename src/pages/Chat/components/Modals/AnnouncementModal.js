@@ -71,7 +71,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
   
-function AnnouncementModal({ setAnnouncementOpen, setAlertOpen }) {
+function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipants }) {
   const classes = useStyles();
 
   const [createAnnouncement] = useMutation(CREATE_ANNOUNCEMENT);
@@ -89,6 +89,7 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen }) {
     setNewAnnouncementText(e.target.value);
   };
 
+  validParticipants.map(item => console.log(item.email))
   // Send announcement to BE
   const onSubmit = e => {
     e.preventDefault();
@@ -97,7 +98,7 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen }) {
         title: newAnnouncement,
         message: newAnnouncementText,
         isAnnouncementRoom: true,
-        recipient: 'amohler09@gmail.com',
+        recipient: [validParticipants],
       }
     });
 

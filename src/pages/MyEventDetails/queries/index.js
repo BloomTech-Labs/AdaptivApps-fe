@@ -27,6 +27,18 @@ export const GET_USER_PROFILE = gql`
       firstName
       lastName
       email
+      notifications {
+        id
+        label
+        chat {
+          id
+          message
+        }
+        announcement {
+          id
+          title
+        }
+      }
     }
   }
 `;

@@ -22,6 +22,7 @@ import GroupIcon from "@material-ui/icons/GroupAddOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
 import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
+import Badge from '@material-ui/core/Badge';
 import {
   makeStyles,
   useTheme,
@@ -244,7 +245,16 @@ function SideNav(props) {
         (
           <Tooltip title="Please complete your profile information to access Chats">
             <div className={classes.disabledNavLink}>
-              <ForumOutlinedIcon className={classes.navIcon} />
+              {data && data?.profile.notifications.length > 0 ? (
+                <Badge
+                variant='dot'
+                color='error' 
+                overlap='circle'>
+                  <ForumOutlinedIcon className={classes.navIcon} />
+                </Badge>
+              ) : (
+                <ForumOutlinedIcon className={classes.navIcon} />
+              )}
               <p>Chats</p>
             </div>
           </Tooltip>
@@ -252,7 +262,16 @@ function SideNav(props) {
         : 
         (
           <NavLink to="/chats" className={classes.navLink}>
-            <ForumOutlinedIcon className={classes.navIcon} />
+            {data && data?.profile.notifications.length > 0 ? (
+              <Badge 
+              variant='dot'
+              color='error' 
+              overlap='circle'>
+                <ForumOutlinedIcon className={classes.navIcon} />
+              </Badge>
+            ) : (
+              <ForumOutlinedIcon className={classes.navIcon} />
+            )}
             <p>Chats</p>
           </NavLink>
         )}
