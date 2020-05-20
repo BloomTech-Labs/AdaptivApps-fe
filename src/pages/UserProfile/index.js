@@ -25,6 +25,7 @@ const UserProfile = () => {
     if (!loading && !profile) {
       newProfile();
     }
+
     // eslint-disable-next-line
   }, [profile]);
 

@@ -158,27 +158,7 @@ function SideNav(props) {
   const { subscribeToMore: announcementSubscription, refetch: refetchAnnouncements  } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
   const { subscribeToMore } = useQuery(GET_MESSAGES, { variables: { email: user.email } });
   const { subscribeToMore: notificationSubscription } = useQuery(GET_NOTIFICATIONS, { variables: { email: user.email } });
-  const { data, subscribeToMore: profileSubscription, refetch: refetchProfile } = useQuery(GET_USER_PROFILE, { variables: { email: user.email } });
-
-  // Profile Subscription
-  const _subscribeToProfileChanges = profileSubscription => {
-    profileSubscription({
-      document: GET_USER_PROFILE,
-      updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data) return prev
-        const profile = subscriptionData.data.profile
-        refetchProfile({ variables: { email: user.email } });
-        return Object.assign({}, prev, {
-          profile: {
-            profile, ...prev.profile,
-            __typename: prev.profile.__typename
-          }
-        })
-      }
-    })
-  };
-
-  _subscribeToProfileChanges(profileSubscription);
+  const { data } = useQuery(GET_USER_PROFILE, { variables: { email: user.email } });
 
   // Chat Subscription
   const _subscribeToNewChats = subscribeToMore => {
@@ -197,8 +177,6 @@ function SideNav(props) {
       }
     })
   };
-
-  _subscribeToNewChats(subscribeToMore);
 
   // Announcement Subscription
   const _subscribeToNewAnnouncements = announcementSubscription => {

@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useQuery } from 'react-apollo';
+import { GET_USER_PROFILE } from '../MyEventDetails/queries/index';
+
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 //material ui
@@ -116,6 +119,8 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   const [userProfile, setUserProfile] = useState(null);
   const classes = useStyles();
 
+  const { refetch: refetchProfile } = useQuery(GET_USER_PROFILE, { variables: { email: user.email } });
+
   const { handleSubmit, register, setValue, control } = useForm({
     mode: "onSubmit",
     validationSchema: ProfileSchema,
@@ -133,6 +138,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   // updates profile in the backend and frontend
   const onSubmit = (formValues, e) => {
     e.preventDefault();
+
     // backend update
     updateProfile({
       variables: {
@@ -161,6 +167,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
         legal: formValues.legal === "" ? userProfile.legal : formValues.legal,
       },
     });
+
     // frontend update
     setUserProfile({
       email: user.email,
@@ -183,6 +190,8 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
           : formValues.disability,
       legal: formValues.legal === "" ? userProfile.legal : formValues.legal,
     });
+
+    refetchProfile();
   };
 
   // updates form fields with new values
@@ -203,6 +212,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 
   // alerts user to successful update, handy for screen readers
   const handleUpdated = () => {
+    refetchProfile();
     alert("Profile updated successfully!");
     setUpdated(false);
   };
