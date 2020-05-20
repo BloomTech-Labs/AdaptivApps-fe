@@ -63,7 +63,7 @@ export default function Step1({ updateProfile }) {
   const navigate = useNavigate();
   const { userEmail } = useParams();
   const { handleSubmit, errors, control } = useForm();
-  
+
   const onSubmit = async data => {
     updateProfile({
       variables: {
@@ -74,7 +74,7 @@ export default function Step1({ updateProfile }) {
         city: data.city,
         state: data.state,
         legal: data.legal,
-        bio: data.bio
+        bio: data.bio,
       },
     });
 
@@ -86,7 +86,9 @@ export default function Step1({ updateProfile }) {
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
       <Box className={classes.nameBox}>
         <Box>
-          <InputLabel required htmlFor="firstName">First Name</InputLabel>
+          <InputLabel required htmlFor="firstName">
+            First Name
+          </InputLabel>
           <Controller
             as={<TextField />}
             className={classes.firstInput}

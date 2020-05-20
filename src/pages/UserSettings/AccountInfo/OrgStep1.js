@@ -2,7 +2,7 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Component imports
-import FormButton from "../../../theme/FormButton";
+import FinishButton from "../../../theme/FormButton";
 // Material-UI imports
 import {
   makeStyles,
@@ -148,7 +148,7 @@ export default function OrgStep1({ updateOrgProfile }) {
         />
       </Box>
       <Box className={classes.btnBox}>
-        <FormButton
+        <FinishButton
           label="Finish"
           type="submit"
           onClick={handleSubmit}
