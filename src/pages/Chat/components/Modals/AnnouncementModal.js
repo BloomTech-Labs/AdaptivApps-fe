@@ -98,10 +98,10 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
         title: newAnnouncement,
         message: newAnnouncementText,
         isAnnouncementRoom: true,
-        recipient: [validParticipants],
+        recipients: [{"email": "amohler09@gmail.com"}, {"email": "johnnybravo@gmail.com"}],
+        participants: [{"email": "amohler09@gmail.com"}, {"email": "johnnybravo@gmail.com"}],
       }
-    });
-
+    })
     setAnnouncementOpen(false);
     setAlertOpen(true);
   };
