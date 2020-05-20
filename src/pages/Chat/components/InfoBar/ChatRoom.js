@@ -7,6 +7,8 @@ import { DELETE_CHAT_ROOM } from '../../queries/ChatRooms'
 import { DELETE_NOTIFICATION } from '../../queries/Notifications'
 
 // Style Imports
+import { withStyles } from '@material-ui/core/styles';
+
 import Tooltip from '@material-ui/core/Tooltip';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
@@ -20,6 +22,17 @@ import Badge from '@material-ui/core/Badge';
 import {
   makeStyles
 } from "@material-ui/core";
+
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    left: -10,
+    top: 10,
+    width: '2%', 
+    backgroundColor: '#052942',
+    color: 'white',
+    fontSize: '1.25rem'
+  },
+}))(Badge);
 
 const useStyles = makeStyles((theme) => ({
   root: {   
@@ -121,6 +134,9 @@ const useStyles = makeStyles((theme) => ({
   alertDiv: {
     width: '100%',
     margin: '0'
+  },
+  badge: {
+    color: '#052942'
   }
 }));
 
@@ -220,14 +236,13 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
         <div className={classes.root}>
           <Tooltip title="Click to Delete Chatroom">
           {notifications !== null && notifications.length > 0 && user.email !== participants[0].email ?
-          <Badge badgeContent={notifications.length} 
-          variant='dot'
-          color='#052942' 
+          <StyledBadge badgeContent={notifications.length} 
+          badgeContent={4}
           overlap='circle'>
           <PeopleAltIcon 
               className={classes.chatRoomIcon}
               onClick={() => setEditChatRoom(true)}/>
-            </Badge> :
+            </StyledBadge> :
             <PeopleAltIcon 
             className={classes.chatRoomIcon}
             onClick={() => setEditChatRoom(true)}/>}
