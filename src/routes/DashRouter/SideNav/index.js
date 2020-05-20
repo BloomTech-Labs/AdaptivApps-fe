@@ -265,7 +265,7 @@ function SideNav(props) {
         (
           <Tooltip title="Please complete your profile information to access Chats">
             <div className={classes.disabledNavLink}>
-              {(data && data.profile.notifications !== null) && (data && data?.profile.notifications.length > 0) ? (
+              {(data && data.profile !== null) && (data && data?.profile.notifications.length > 0) ? (
                 <Badge
                 variant='dot'
                 color='error' 
