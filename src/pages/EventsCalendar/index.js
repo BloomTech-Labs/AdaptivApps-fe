@@ -3,7 +3,7 @@ import { useQuery } from "react-apollo";
 import { makeStyles, Grid, Box, Typography } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import EventCard from "./EventCard";
+import EventList from "./EventList";
 import { GET_EVENT_LIST } from "./queries";
 
 const useStyles = makeStyles({
@@ -37,6 +37,7 @@ export default function EventsCalendar() {
   useEffect(() => {
     refetch();
   }, [refetch]);
+  const currentEvents = data?.events;
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
   return (
@@ -47,10 +48,7 @@ export default function EventsCalendar() {
         </Typography>
       </Box>
       <Grid className={classes.grid}>
-        {data &&
-          data?.events?.map((event, id) => (
-            <EventCard key={id} event={event} refetch={refetch} />
-          ))}
+        <EventList currentEvents={currentEvents} />
       </Grid>
     </main>
   );

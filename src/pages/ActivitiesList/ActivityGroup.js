@@ -35,7 +35,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function ActivityGroup({ activityData, refetch }) {
   const classes = useStyles();
-  const [activityByDates, setActivityByDates] = useState();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -65,27 +64,6 @@ export default function ActivityGroup({ activityData, refetch }) {
   const days = getDatesRangeArray(startDate, endDate);
   const [value, setValue] = React.useState(days[0]);
 
-  useEffect(() => {
-    setActivityByDates(activityData?.event?.activities);
-  });
-
-  const groupBy = (array, key) => {
-    // Return the end result
-    return (
-      array &&
-      array.reduce((result, currentValue) => {
-        // If an array already present for key, push it to the array. Else create an array and push the object
-        (result[currentValue[key]] = result[currentValue[key]] || []).push(
-          currentValue
-        );
-        // Return the current iteration `result` value, this will be taken as next iteration `result` value and accumulate
-        return result;
-      }, {})
-    ); // empty object is the initial value for result object
-  };
-
-  const activitiesGroupedByDate = groupBy(activityByDates, "date");
-  console.log("activities grouped by date", activitiesGroupedByDate);
   console.log("days", days);
   console.log("Activity Data in ActivityGroup.js", activityData);
   return (

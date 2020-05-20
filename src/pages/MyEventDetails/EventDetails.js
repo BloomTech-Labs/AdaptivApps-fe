@@ -193,13 +193,6 @@ export default function EventDetails(props) {
             <p>My Activities</p>
             <table className={classes.table}>
               <tbody>
-                <tr className={classes.headerRow}>
-                  <th className={classes.tableH}>Name</th>
-                  <th className={classes.tableH}>Date</th>
-                  <th className={classes.tableH}>Location</th>
-                  <th className={classes.tableH}>Time</th>
-                  <th className={classes.tableH}>My Role</th>
-                </tr>
                 <ActivityGroup
                   data={data}
                   activeEvent={activeEvent}
