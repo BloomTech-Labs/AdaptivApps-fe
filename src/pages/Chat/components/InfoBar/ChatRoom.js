@@ -163,6 +163,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
     // Identify notifications as they come in
     const notifications = chatRoom.chats.length > 0 &&
       (chatRoom.chats.filter(item => item.notification.length > 0 && item.notification))
+      
 
     // Remove participants with invalid first / last names
     const participants = []
