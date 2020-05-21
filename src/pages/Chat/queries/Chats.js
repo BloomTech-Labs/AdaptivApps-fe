@@ -10,6 +10,7 @@ export const GET_MESSAGES = gql`
           firstName
           lastName
           id
+          email
         }
         message
         createdAt
@@ -80,6 +81,7 @@ export const UPDATE_CHAT = gql`
     ) {
       id
       from {
+        email
         id
         firstName
         lastName

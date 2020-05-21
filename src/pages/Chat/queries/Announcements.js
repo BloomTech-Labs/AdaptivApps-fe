@@ -53,6 +53,7 @@ export const CREATE_ANNOUNCEMENT = gql`
       notification {
         label
         profile {
+          id
           email
         }
       }
@@ -99,6 +100,7 @@ export const ANNOUNCEMENT_SUBSCRIPTION = gql`
         createdAt
         participants {
             email
+            id
             firstName
             lastName
         }
