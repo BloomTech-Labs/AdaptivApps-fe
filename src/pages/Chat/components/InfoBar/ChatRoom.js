@@ -140,7 +140,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
+export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
     const classes = useStyles();
 
     const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM);
@@ -161,9 +161,21 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
     }, 3000)
 
     // Identify notifications as they come in
-    const notifications = chatRoom.chats.length > 0 &&
-      (chatRoom.chats.filter(item => item.notification.length > 0 && item.notification))
-      
+    
+      // chatRoom.chats.length > 0 &&
+      // (chatRoom.chats.filter(item => item.notification.length > 0 && item.notification))
+    const notificationArray = []
+
+    const notifications = () => {
+      if (chats !== undefined && (chats && chats.profile.notifications.length > 0)) {
+        chats.profile.notifications.map(item => {
+          if (item.chat !== null && item.chat.room.id === chatRoom.id) {
+            notificationArray.push(item)
+          } 
+        })}
+      return notificationArray;
+     }
+    notifications();    
 
     // Remove participants with invalid first / last names
     const participants = []
@@ -203,18 +215,15 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
     const handleNotifications = e => {
       e.preventDefault();
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
-      if (notifications !== null && notifications.length > 0) {
-        notifications.map(item => {
-          item.notification.map(item => {
+      if (notificationArray !== null && notificationArray.length > 0) {
+        notificationArray.map(item => {
             deleteNotifications({
               variables: {
                 id: item.id
               }
             })
-          })
-        })
-      }
-    };
+        })}
+      };
 
     const closeDrawer = e => {
       e.preventDefault();
@@ -236,9 +245,8 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
       <>
         <div className={classes.root}>
           <Tooltip title="Click to Delete Chatroom">
-          {notifications !== null && notifications.length > 0 && user.email !== participants[0].email ?
-          <StyledBadge badgeContent={notifications.length} 
-          badgeContent={4}
+          {notificationArray !== null && notificationArray.length > 0 && user.email !== participants[0].email ?
+          <StyledBadge badgeContent={notificationArray.length}
           overlap='circle'>
           <PeopleAltIcon 
               className={classes.chatRoomIcon}

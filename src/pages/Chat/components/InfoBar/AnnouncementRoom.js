@@ -5,6 +5,8 @@ import { useMutation } from 'react-apollo'
 import { DELETE_NOTIFICATION } from '../../queries/Notifications'
 
 // Style Imports
+import { withStyles } from '@material-ui/core/styles';
+
 import Tooltip from '@material-ui/core/Tooltip';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import Drawer from '@material-ui/core/Drawer';
@@ -17,6 +19,16 @@ import {
   makeStyles
 } from "@material-ui/core";
 
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    left: 0,
+    top: 10,
+    width: '2%', 
+    backgroundColor: '#052942',
+    color: 'white',
+    fontSize: '1.25rem'
+  },
+}))(Badge);
 const useStyles = makeStyles(() => ({
   root: {   
     margin: ".5rem auto",
@@ -75,7 +87,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function AnnouncementRoom({ user, setAnnouncementOpen, notifications }) {
+export default function AnnouncementRoom({ user, setAnnouncementOpen, chats }) {
     const [deleteNotifications] = useMutation(DELETE_NOTIFICATION)
     const classes = useStyles();
 
@@ -92,18 +104,37 @@ export default function AnnouncementRoom({ user, setAnnouncementOpen, notificati
       }
     }, 3000);
 
+    const notificationArray = []
+
+    const notifications = () => {
+      if (chats !== undefined && (chats && chats.profile.notifications)) {
+        chats.profile.notifications.map(item => {
+          if (item.announcement) {
+            notificationArray.push(item)
+          } 
+        })}
+      return notificationArray;
+     }
+
+    notifications();
+
     const handleClick = e => {
       e.preventDefault();
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
-      notifications.map(item => {
-        item.map(item => {
+    }
+
+    const handleNotifications = e => {
+      e.preventDefault();
+      messageToggle ? setMessageToggle(false) : setMessageToggle(true)
+      if (notificationArray !== null && notificationArray.length > 0) {
+      notificationArray.map(item => {
+        console.log('item', item)
           deleteNotifications({
             variables: {
-              id: item.notification[0].id
+              id: item.id
             }
           })
-        })
-      })
+        })}
     };
 
     const closeDrawer = e => {
@@ -114,20 +145,18 @@ export default function AnnouncementRoom({ user, setAnnouncementOpen, notificati
     return (
       <>
         <div className={classes.root}>
-          {notifications[0].length > 0 ?
-          <Badge badgeContent={notifications.length} 
-          variant='dot'
-          color='error' 
+          {notificationArray !== undefined && notificationArray.length > 0 ?
+          <StyledBadge badgeContent={notificationArray.length}
           overlap='circle'>
           <BookmarksIcon 
             className={classes.chatRoomIcon}/>
-            </Badge> :
+            </StyledBadge> :
             <BookmarksIcon 
             className={classes.chatRoomIcon}/>}           
           <Tooltip title="Click to expand messages">
             <button 
               className={classes.chatRoomButton} 
-              onClick={handleClick} aria-label="Open all announcements">Announcements</button>
+              onClick={handleNotifications} aria-label="Open all announcements">Announcements</button>
           </Tooltip>
         </div>
         <Drawer

@@ -122,8 +122,6 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
     const { data: announcements } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
     const { data: chats }  = useQuery(GET_USER_PROFILE, { variables: { email: user.email } });
 
-    console.log('chats', chats)
-
     // Chat Room Subscription
     const _subscribeToNewChatRoom = subscribeToMore => {
       subscribeToMore({
@@ -250,12 +248,12 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
           </>
         ) : null}
         <div className={classes.chatRoomDiv}>
-          <AnnouncementRoom notifications={notifications} key='announcement_room' user={user} />
+          <AnnouncementRoom notifications={notifications} key='announcement_room' user={user} chats={chats}/>
           <Divider variant="inset" className={classes.divider} />
           {results.length > 0 ? 
             (results.map((chatRoom, id) => (
               <div className={classes.chatroom} key={id}>
-                <ChatRoom chatRoom={chatRoom} user={user} setDeleteRoom={setDeleteRoom}/>
+                <ChatRoom chatRoom={chatRoom} user={user} setDeleteRoom={setDeleteRoom} chats={chats}/>
                 <Divider variant="inset" className={classes.divider} />
               </div>
             )))
@@ -263,7 +261,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
             (data.profile.chatRooms === undefined ? null : 
             (data && data?.profile.chatRooms?.map((chatRoom, id) => (
               <div className={classes.chatroom} key={id}>
-                <ChatRoom chatRoom={chatRoom} user={user} setDeleteRoom={setDeleteRoom} />
+                <ChatRoom chatRoom={chatRoom} user={user} setDeleteRoom={setDeleteRoom} chats={chats} />
                 <Divider variant="inset" className={classes.divider} />
               </div>
             ))))
