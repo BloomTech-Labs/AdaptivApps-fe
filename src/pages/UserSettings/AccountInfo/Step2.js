@@ -50,7 +50,21 @@ export default function Step2() {
   const classes = useStyles();
   const { handleSubmit, errors, control } = useForm();
 
-  const onSubmit = async data => {};
+  const onSubmit = async data => {
+  
+    // updateProfile({
+    //   variables: {
+    //     email: userEmail,
+    //     firstName: data.firstName,
+    //     lastName: data.lastName,
+    //     phoneNumber: data.phoneNumber,
+    //     city: data.city,
+    //     state: data.state,
+    //     legal: data.legal,
+    //     bio: data.bio,
+    //   },
+    // })
+  };
 
   return (
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
@@ -68,6 +82,7 @@ export default function Step2() {
               </Select>
             }
             name="legal"
+            type="select"
             variant="outlined"
             control={control}
             defaultValue=""
@@ -80,6 +95,7 @@ export default function Step2() {
           <Controller
             as={<TextField />}
             name="birthday"
+            type="date"
             variant="outlined"
             control={control}
             defaultValue=""
@@ -92,6 +108,7 @@ export default function Step2() {
       <Controller
         as={<TextField />}
         name="ec1Name"
+        type="text"
         variant="outlined"
         control={control}
         defaultValue=""
@@ -102,6 +119,7 @@ export default function Step2() {
       <Controller
         as={<TextField />}
         name="ec1Relation"
+        type="text"
         variant="outlined"
         control={control}
         defaultValue=""
@@ -112,6 +130,7 @@ export default function Step2() {
       <Controller
         as={<TextField />}
         name="ec1Phone"
+        type="text"
         variant="outlined"
         control={control}
         defaultValue=""
@@ -123,20 +142,21 @@ export default function Step2() {
       <Controller
         as={
           <Select className={classes.longSelect}>
-           <MenuItem value="Ataxia">Ataxia</MenuItem>
-           <MenuItem value="Hearing Impairment">Hearing Impairment</MenuItem>
-           <MenuItem value="Hypertonia">Hypertonia</MenuItem>
-           <MenuItem value="Impaired Muscle Power">Impaired Muscle Power</MenuItem>
-           <MenuItem value="Impaired Passive Range">Impaired Passive Range</MenuItem>
-           <MenuItem value="Intellectual Impairment">Intellectual Impairment</MenuItem>
-           <MenuItem value="Leg Length Diff">Leg Length Diff</MenuItem>
-           <MenuItem value="Limb Deficiency">Limb Deficiency</MenuItem>
-           <MenuItem value="Short Stature">Short Stature</MenuItem>
-           <MenuItem value="Vision Impairment">Vision Impairment</MenuItem>
-           <MenuItem value="None">None</MenuItem>
+            <MenuItem value="Ataxia">Ataxia</MenuItem>
+            <MenuItem value="Hearing Impairment">Hearing Impairment</MenuItem>
+            <MenuItem value="Hypertonia">Hypertonia</MenuItem>
+            <MenuItem value="Impaired Muscle Power">Impaired Muscle Power</MenuItem>
+            <MenuItem value="Impaired Passive Range">Impaired Passive Range</MenuItem>
+            <MenuItem value="Intellectual Impairment">Intellectual Impairment</MenuItem>
+            <MenuItem value="Leg Length Discrepancy">Leg Length Discrepancy</MenuItem>
+            <MenuItem value="Limb Deficiency">Limb Deficiency</MenuItem>
+            <MenuItem value="Short Stature">Short Stature</MenuItem>
+            <MenuItem value="Vision Impairment">Vision Impairment</MenuItem>
+            <MenuItem value="None">I do not have a disability/impairment</MenuItem>
           </Select>
         }
         name="disability"
+        type="select"
         variant="outlined"
         control={control}
         defaultValue=""
@@ -148,11 +168,36 @@ export default function Step2() {
       <Controller
         as={
           <Select className={classes.longSelect}>
-            <MenuItem value="Yes">Yes</MenuItem>
-            <MenuItem value="No">No</MenuItem>
+            <MenuItem value="ALS">ALS</MenuItem>
+            <MenuItem value="Amputation">Amputation</MenuItem>
+            <MenuItem value="Arthogyposis">Arthogyposis</MenuItem>
+            <MenuItem value="Brachial Plexus Injury">Brachial Plexus Injury</MenuItem>
+            <MenuItem value="Cauda Equina Syndrome">Cauda Equina Syndrome</MenuItem>
+            <MenuItem value="Cerebral Palsy">Cerebral Palsy</MenuItem>
+            <MenuItem value="Arthritis">Arthritis</MenuItem>
+            <MenuItem value="Charcot Marie Tooth">Charcot Marie Tooth</MenuItem>
+            <MenuItem value="Drop Foot">Drop Foot</MenuItem>
+            <MenuItem value="Dwarfism">Dwarfism</MenuItem>
+            <MenuItem value="Ehlers Danlos Syndrome">Ehlers Danlos Syndrome</MenuItem>
+            <MenuItem value="Fibromyalgia">Fibromyalgia</MenuItem>
+            <MenuItem value="Guillain-Barre Syndrome">Guillain-Barre Syndrome</MenuItem>
+            <MenuItem value="Multiple Sclerosis">Multiple Sclerosis</MenuItem>
+            <MenuItem value="Muscular Dystrophy">Muscular Dystrophy</MenuItem>
+            <MenuItem value="Osteogenesis Imperfecta">Osteogenesis Imperfecta</MenuItem>
+            <MenuItem value="Osteoporosis">Osteoporosis</MenuItem>
+            <MenuItem value="Parkinsons">Parkinsons</MenuItem>
+            <MenuItem value="Polio">Polio</MenuItem>
+            <MenuItem value="Prader Willi Syndrome">Prader Willi Syndrome</MenuItem>
+            <MenuItem value="Spina Bifida">Spina Bifida</MenuItem>
+            <MenuItem value="Paraplegiae">Paraplegia</MenuItem>
+            <MenuItem value="Quadraplegia">Quadraplegia</MenuItem>
+            <MenuItem value="TBI">TBI</MenuItem>
+            <MenuItem value="Other">Other</MenuItem>
+            <MenuItem value="N/A">I choose not to answer this question</MenuItem>
           </Select>
         }
         name="detailedDisability"
+        type="select"
         variant="outlined"
         control={control}
         defaultValue=""
@@ -163,15 +208,18 @@ export default function Step2() {
       <Controller
         as={
           <Select>
-            <MenuItem value="Yes">Yes</MenuItem>
-            <MenuItem value="No">No</MenuItem>
+            <MenuItem value="I walk independently">I walk independently</MenuItem>
+            <MenuItem value="I walk with an assistive device">I walk with an assistive device</MenuItem>
+            <MenuItem value="I use a manual wheelchair">I use a manual wheelchair</MenuItem>
+            <MenuItem value="I use a power chair">I use a power chair</MenuItem>
           </Select>
         }
         name="mobilityStatus"
+        type="select"
         variant="outlined"
         control={control}
         defaultValue=""
-      />
+      /> 
       <Box className={classes.btnBox}>
         <NextButton
           label="Next"
