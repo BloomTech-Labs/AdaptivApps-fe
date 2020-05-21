@@ -9,6 +9,7 @@ import { useQuery } from "react-apollo";
 import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms';
 import { GET_RECIPIENTS } from '../../queries/Chats';
 import { GET_ANNOUNCEMENTS } from '../../queries/Announcements'
+import { GET_USER_PROFILE } from '../../../MyEventDetails/queries/index'
 
 //Auth0 imports
 import config from "../../../../config/auth_config";
@@ -119,6 +120,9 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
     const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
     const { data: recipients } = useQuery(GET_RECIPIENTS);
     const { data: announcements } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
+    const { data: chats }  = useQuery(GET_USER_PROFILE, { variables: { email: user.email } });
+
+    console.log('chats', chats)
 
     // Chat Room Subscription
     const _subscribeToNewChatRoom = subscribeToMore => {

@@ -67,8 +67,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Input = ({ chatRoom, user }) => {
-    console.log('chatRoom', chatRoom)
-    console.log('user', user)
     const classes = useStyles();
     const [toggleEmoji, setToggleEmoji] = useState(false);
 
@@ -108,7 +106,6 @@ const Input = ({ chatRoom, user }) => {
     const recipient = chatRoom.participants.filter(participant => {
         return participant.email !== user.email
     });
-    console.log(recipient[0].email, user.email)
 
     // Create message via text
     const newMessage = async () => {
