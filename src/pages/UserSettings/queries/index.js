@@ -110,24 +110,28 @@ export const UPDATE_EXT_PROFILE = gql`
     $eC1Relation: String
     $eC1Phone: String
     $physicalDisability: String
-    $detailedDisability: String
+    $detailedDisabilities: String
     $mobilityStatus: String
   ) {
     updateProfile(
       where: { email: $email }
       data: {
-        gender: $gender
-        birthday: $birthday
-        eC1Name: $eC1Name
-        eC1Relation: $eC1Relation
-        eC1Phone: $eC1Phone
-        disability: {
+        extProfile: {
           create: {
-            physicalDisability: $physicalDisability
-            detailedDisability: $detailedDisability
+            gender: $gender
+            birthday: $birthday
+            eC1Name: $eC1Name
+            eC1Relation: $eC1Relation
+            eC1Phone: $eC1Phone
+            disability: {
+              create: {
+                physicalDisability: $physicalDisability
+                detailedDisabilities: $detailedDisabilities
+              }
+            }
+            mobilityStatus: $mobilityStatus
           }
         }
-        mobilityStatus: $mobilityStatus
       }
     ) {
       id

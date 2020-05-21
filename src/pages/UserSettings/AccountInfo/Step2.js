@@ -46,24 +46,28 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Step2() {
+export default function Step2({ updateExtProfile }) {
   const classes = useStyles();
+  const navigate = useNavigate();
+  const { userEmail } = useParams();
   const { handleSubmit, errors, control } = useForm();
 
   const onSubmit = async data => {
-  
-    // updateProfile({
-    //   variables: {
-    //     email: userEmail,
-    //     firstName: data.firstName,
-    //     lastName: data.lastName,
-    //     phoneNumber: data.phoneNumber,
-    //     city: data.city,
-    //     state: data.state,
-    //     legal: data.legal,
-    //     bio: data.bio,
-    //   },
-    // })
+    updateExtProfile({
+      variables: {
+        email: userEmail,
+        gender: data.gender,
+        birthday: data.birthday,
+        eC1Name: data.eC1Name,
+        eC1Phone: data.eC1Phone,
+        eC1Relation: data.eC1Relation,
+        physicalDisability: data.physicalDisability,
+        detailedDisabilities: data.detailedDisabilities,
+        mobilityStatus: data.mobilityStatus,
+      },
+    });
+    alert("Succesfully updated extend profile!");
+    await navigate(`/updateaccount/${userEmail}/step3of6`);
   };
 
   return (
@@ -81,7 +85,7 @@ export default function Step2() {
                 <MenuItem value="Other">Other</MenuItem>
               </Select>
             }
-            name="legal"
+            name="gender"
             type="select"
             variant="outlined"
             control={control}
@@ -102,41 +106,41 @@ export default function Step2() {
           />
         </Box>
       </Box>
-      <InputLabel required htmlFor="ec1Name">
+      <InputLabel required htmlFor="eC1Name">
         Please enter the name of your emergency contact
       </InputLabel>
       <Controller
         as={<TextField />}
-        name="ec1Name"
+        name="eC1Name"
         type="text"
         variant="outlined"
         control={control}
         defaultValue=""
       />
-      <InputLabel required htmlFor="ec1Relation">
+      <InputLabel required htmlFor="eC1Relation">
         Please tell us how your emergency contact is related to you
       </InputLabel>
       <Controller
         as={<TextField />}
-        name="ec1Relation"
+        name="eC1Relation"
         type="text"
         variant="outlined"
         control={control}
         defaultValue=""
       />
-      <InputLabel required htmlFor="ec1Phone">
+      <InputLabel required htmlFor="eC1Phone">
         Please enter the best phone number for your emergency contact
       </InputLabel>
       <Controller
         as={<TextField />}
-        name="ec1Phone"
+        name="eC1Phone"
         type="text"
         variant="outlined"
         control={control}
         defaultValue=""
       />
-      <InputLabel htmlFor="disability">
-        Please select the category of physical disablity that is most accurate
+      <InputLabel htmlFor="physicalDisability">
+        Please select the category of physical disability that is most accurate
         for you
       </InputLabel>
       <Controller
@@ -145,23 +149,33 @@ export default function Step2() {
             <MenuItem value="Ataxia">Ataxia</MenuItem>
             <MenuItem value="Hearing Impairment">Hearing Impairment</MenuItem>
             <MenuItem value="Hypertonia">Hypertonia</MenuItem>
-            <MenuItem value="Impaired Muscle Power">Impaired Muscle Power</MenuItem>
-            <MenuItem value="Impaired Passive Range">Impaired Passive Range</MenuItem>
-            <MenuItem value="Intellectual Impairment">Intellectual Impairment</MenuItem>
-            <MenuItem value="Leg Length Discrepancy">Leg Length Discrepancy</MenuItem>
+            <MenuItem value="Impaired Muscle Power">
+              Impaired Muscle Power
+            </MenuItem>
+            <MenuItem value="Impaired Passive Range">
+              Impaired Passive Range
+            </MenuItem>
+            <MenuItem value="Intellectual Impairment">
+              Intellectual Impairment
+            </MenuItem>
+            <MenuItem value="Leg Length Discrepancy">
+              Leg Length Discrepancy
+            </MenuItem>
             <MenuItem value="Limb Deficiency">Limb Deficiency</MenuItem>
             <MenuItem value="Short Stature">Short Stature</MenuItem>
             <MenuItem value="Vision Impairment">Vision Impairment</MenuItem>
-            <MenuItem value="None">I do not have a disability/impairment</MenuItem>
+            <MenuItem value="None">
+              I do not have a disability/impairment
+            </MenuItem>
           </Select>
         }
-        name="disability"
+        name="physicalDisability"
         type="select"
         variant="outlined"
         control={control}
         defaultValue=""
       />
-      <InputLabel htmlFor="detailedDisability">
+      <InputLabel htmlFor="detailedDisabilities">
         Please select the specific disability diagnosis that is most accurate
         for you
       </InputLabel>
@@ -171,32 +185,47 @@ export default function Step2() {
             <MenuItem value="ALS">ALS</MenuItem>
             <MenuItem value="Amputation">Amputation</MenuItem>
             <MenuItem value="Arthogyposis">Arthogyposis</MenuItem>
-            <MenuItem value="Brachial Plexus Injury">Brachial Plexus Injury</MenuItem>
-            <MenuItem value="Cauda Equina Syndrome">Cauda Equina Syndrome</MenuItem>
+            <MenuItem value="Brachial Plexus Injury">
+              Brachial Plexus Injury
+            </MenuItem>
+            <MenuItem value="Cauda Equina Syndrome">
+              Cauda Equina Syndrome
+            </MenuItem>
             <MenuItem value="Cerebral Palsy">Cerebral Palsy</MenuItem>
             <MenuItem value="Arthritis">Arthritis</MenuItem>
             <MenuItem value="Charcot Marie Tooth">Charcot Marie Tooth</MenuItem>
             <MenuItem value="Drop Foot">Drop Foot</MenuItem>
             <MenuItem value="Dwarfism">Dwarfism</MenuItem>
-            <MenuItem value="Ehlers Danlos Syndrome">Ehlers Danlos Syndrome</MenuItem>
+            <MenuItem value="Ehlers Danlos Syndrome">
+              Ehlers Danlos Syndrome
+            </MenuItem>
             <MenuItem value="Fibromyalgia">Fibromyalgia</MenuItem>
-            <MenuItem value="Guillain-Barre Syndrome">Guillain-Barre Syndrome</MenuItem>
+            <MenuItem value="Guillain-Barre Syndrome">
+              Guillain-Barre Syndrome
+            </MenuItem>
             <MenuItem value="Multiple Sclerosis">Multiple Sclerosis</MenuItem>
             <MenuItem value="Muscular Dystrophy">Muscular Dystrophy</MenuItem>
-            <MenuItem value="Osteogenesis Imperfecta">Osteogenesis Imperfecta</MenuItem>
+            <MenuItem value="Osteogenesis Imperfecta">
+              Osteogenesis Imperfecta
+            </MenuItem>
             <MenuItem value="Osteoporosis">Osteoporosis</MenuItem>
             <MenuItem value="Parkinsons">Parkinsons</MenuItem>
             <MenuItem value="Polio">Polio</MenuItem>
-            <MenuItem value="Prader Willi Syndrome">Prader Willi Syndrome</MenuItem>
+            <MenuItem value="Prader Willi Syndrome">
+              Prader Willi Syndrome
+            </MenuItem>
             <MenuItem value="Spina Bifida">Spina Bifida</MenuItem>
-            <MenuItem value="Paraplegiae">Paraplegia</MenuItem>
+            <MenuItem value="Paraplegia">Paraplegia</MenuItem>
             <MenuItem value="Quadraplegia">Quadraplegia</MenuItem>
             <MenuItem value="TBI">TBI</MenuItem>
             <MenuItem value="Other">Other</MenuItem>
-            <MenuItem value="N/A">I choose not to answer this question</MenuItem>
+            <MenuItem value="None">None</MenuItem>
+            <MenuItem value="N/A">
+              I choose not to answer this question
+            </MenuItem>
           </Select>
         }
-        name="detailedDisability"
+        name="detailedDisabilities"
         type="select"
         variant="outlined"
         control={control}
@@ -208,9 +237,15 @@ export default function Step2() {
       <Controller
         as={
           <Select>
-            <MenuItem value="I walk independently">I walk independently</MenuItem>
-            <MenuItem value="I walk with an assistive device">I walk with an assistive device</MenuItem>
-            <MenuItem value="I use a manual wheelchair">I use a manual wheelchair</MenuItem>
+            <MenuItem value="I walk independently">
+              I walk independently
+            </MenuItem>
+            <MenuItem value="I walk with an assistive device">
+              I walk with an assistive device
+            </MenuItem>
+            <MenuItem value="I use a manual wheelchair">
+              I use a manual wheelchair
+            </MenuItem>
             <MenuItem value="I use a power chair">I use a power chair</MenuItem>
           </Select>
         }
@@ -219,7 +254,7 @@ export default function Step2() {
         variant="outlined"
         control={control}
         defaultValue=""
-      /> 
+      />
       <Box className={classes.btnBox}>
         <NextButton
           label="Next"
