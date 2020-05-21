@@ -192,9 +192,7 @@ function SideNav(props) {
     })
   };
 
-  _subscribeToNewChats(subscribeToMore);
-
-  // Announcement Subscriptions
+  // Announcement Subscription
   const _subscribeToNewAnnouncements = announcementSubscription => {
     announcementSubscription({
       document: ANNOUNCEMENT_SUBSCRIPTION,
