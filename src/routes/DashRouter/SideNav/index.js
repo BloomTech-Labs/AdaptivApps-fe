@@ -13,6 +13,8 @@ import { GET_USER_PROFILE } from '../../../pages/MyEventDetails/queries/index';
 import { NOTIFICATION_SUBSCRIPTION, GET_NOTIFICATIONS } from '../../../pages/Chat/queries/Notifications';
 
 // Styling imports
+import { withStyles } from '@material-ui/core/styles';
+
 import NavLink from "./NavLink";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import BookmarkIcon from "@material-ui/icons/BookmarkBorder";
@@ -38,6 +40,17 @@ import { FiLogOut } from "react-icons/fi";
 import acsLogo from "../../../assets/images/acsLogo.png";
 
 const drawerWidth = "25rem";
+
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    left: 0,
+    top: 10,
+    width: '2%', 
+    backgroundColor: '#052942',
+    color: 'white',
+    fontSize: '1.25rem'
+  },
+}))(Badge);
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -248,12 +261,11 @@ function SideNav(props) {
           <Tooltip title="Please complete your profile information to access Chats">
             <div className={classes.disabledNavLink}>
             {(data && data.profile !== null) && (data && data?.profile.notifications.length > 0) ? (
-                <Badge
-                variant='dot'
-                color='error' 
-                overlap='circle'>
+                <StyledBadge
+                 overlap='circle'
+                 badgeContent={data.profile.notifications.length}>
                   <ForumOutlinedIcon className={classes.navIcon} />
-                </Badge>
+                </StyledBadge>
               ) : (
                 <ForumOutlinedIcon className={classes.navIcon} />
               )}
@@ -265,12 +277,12 @@ function SideNav(props) {
         (
           <NavLink to="/chats" className={classes.navLink}>
             {data && data?.profile.notifications.length > 0 ? (
-              <Badge 
-              variant='dot'
-              color='error' 
-              overlap='circle'>
+              <StyledBadge 
+              overlap='circle'
+              badgeContent={data.profile.notifications.length}
+              >
                 <ForumOutlinedIcon className={classes.navIcon} />
-              </Badge>
+              </StyledBadge>
             ) : (
               <ForumOutlinedIcon className={classes.navIcon} />
             )}

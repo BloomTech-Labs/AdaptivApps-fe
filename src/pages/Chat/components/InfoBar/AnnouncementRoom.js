@@ -21,7 +21,7 @@ import {
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
-    left: 0,
+    left: -10,
     top: 10,
     width: '2%', 
     backgroundColor: '#052942',
