@@ -71,13 +71,15 @@ const useStyles = makeStyles(theme => ({
   }
 }));
   
-function AnnouncementModal({ setAnnouncementOpen, setAlertOpen }) {
+function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipants, user }) {
   const classes = useStyles();
 
   const [createAnnouncement] = useMutation(CREATE_ANNOUNCEMENT);
 
   const [newAnnouncement, setNewAnnouncement] = useState();
   const [newAnnouncementText, setNewAnnouncementText] = useState();
+
+  const [notification, setNotification] = useState(true)
   
   const handleTitleChange = e => {
     setNewAnnouncement(e.target.value);
@@ -87,17 +89,22 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen }) {
     setNewAnnouncementText(e.target.value);
   };
 
-  // Send announcement to BE
+  // Create array of emails to match BE data shape, exclude yourself
+  const allUserEmails = validParticipants.map(participant => user.email !== participant.email && 
+    { "email": participant.email }).filter(participant => participant !== false)
+
+  // Send announcement to BE & all
   const onSubmit = e => {
     e.preventDefault();
     createAnnouncement({
       variables: {
         title: newAnnouncement,
         message: newAnnouncementText,
-        isAnnouncementRoom: true
+        isAnnouncementRoom: true,
+        recipients: allUserEmails,
+        participants: allUserEmails,
       }
-    });
-
+    })
     setAnnouncementOpen(false);
     setAlertOpen(true);
   };

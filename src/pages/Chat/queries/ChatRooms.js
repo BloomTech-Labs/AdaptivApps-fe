@@ -17,6 +17,10 @@ export const GET_CHAT_ROOMS = gql`
           id
           message
           createdAt
+          notification {
+            label
+            id
+          }
           room {
             id
           }
@@ -31,6 +35,7 @@ export const GET_CHAT_ROOMS = gql`
       notifications {
           label
           profile {
+            id
             email
             firstName
             lastName
@@ -83,6 +88,7 @@ export const CREATE_CHAT_ROOM = gql`
         id
         from {
           id
+          email
           firstName
           lastName
         }
@@ -169,6 +175,8 @@ export const CHAT_ROOM_SUBSCRIPTION = gql`
         }
         chats {
           from {
+            id
+            email
             firstName
             lastName
           }

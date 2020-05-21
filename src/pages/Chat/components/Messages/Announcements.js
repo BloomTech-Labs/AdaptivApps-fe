@@ -107,7 +107,8 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
       id: announcement.id,
       title: announcement.title,
       message: announcement.message,
-      createdAt: announcement.createdAt
+      createdAt: announcement.createdAt,
+      notification: announcement.notification      
     }
   });
 
@@ -118,7 +119,9 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
     announcementsEndRef.current && announcementsEndRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
+
   useEffect(() => {
+
     scrollToBottom()
   }, [announcements]);
 

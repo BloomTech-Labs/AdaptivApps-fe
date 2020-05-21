@@ -102,7 +102,8 @@ const Input = ({ chatRoom, user }) => {
 
     const { listen, listening, stop } = useSpeechRecognition({onResult, onEnd});
 
-    const recipientEmail = chatRoom.participants.filter(participant => {
+    // Remove current user from participants array
+    const recipient = chatRoom.participants.filter(participant => {
         return participant.email !== user.email
     });
 
@@ -113,7 +114,7 @@ const Input = ({ chatRoom, user }) => {
               id: chatRoom.id,
               email: user.email,
               message: message.message, 
-              recipient: recipientEmail[0].email
+              recipient: recipient[0].email
             }
         })
         setMessage({ message: '' });
@@ -126,7 +127,7 @@ const Input = ({ chatRoom, user }) => {
               id: chatRoom.id,
               email: user.email,
               message: textValue,
-              recipient: recipientEmail[0].email
+              recipient: recipient[0].email
             }
         })
         setTextValue('');

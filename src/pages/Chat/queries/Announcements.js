@@ -23,19 +23,24 @@ export const GET_ANNOUNCEMENTS = gql`
 
 // Create an announcement
 export const CREATE_ANNOUNCEMENT = gql`
-	mutation createAnnouncement ( $title: String!, $message: String!, $recipient: String!, $isAnnouncementRoom: Boolean! ) {
+	mutation createAnnouncement ( 
+    $title: String!, 
+    $message: String!, 
+    $recipients: [ProfileWhereUniqueInput!], 
+    $isAnnouncementRoom: Boolean! ) {
     createAnnouncement(
       data: {
         title: $title
         message: $message
         isAnnouncementRoom: $isAnnouncementRoom
+        participants: {
+          connect: $recipients
+        }
         notification: {
           create: {
             label: $title
             profile: {
-              connect: {
-                email: $recipient
-              }
+              connect: $recipients
             }
           }
         }
@@ -45,6 +50,13 @@ export const CREATE_ANNOUNCEMENT = gql`
       message
       title
       createdAt
+      notification {
+        label
+        profile {
+          id
+          email
+        }
+      }
     }
   }
 `
@@ -88,6 +100,7 @@ export const ANNOUNCEMENT_SUBSCRIPTION = gql`
         createdAt
         participants {
             email
+            id
             firstName
             lastName
         }

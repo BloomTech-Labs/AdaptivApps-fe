@@ -13,6 +13,8 @@ import { GET_USER_PROFILE } from '../../../pages/MyEventDetails/queries/index';
 import { NOTIFICATION_SUBSCRIPTION, GET_NOTIFICATIONS } from '../../../pages/Chat/queries/Notifications';
 
 // Styling imports
+import { withStyles } from '@material-ui/core/styles';
+
 import NavLink from "./NavLink";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import BookmarkIcon from "@material-ui/icons/BookmarkBorder";
@@ -38,6 +40,17 @@ import { FiLogOut } from "react-icons/fi";
 import acsLogo from "../../../assets/images/acsLogo.png";
 
 const drawerWidth = "25rem";
+
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    left: 0,
+    top: 10,
+    width: '2%', 
+    backgroundColor: '#052942',
+    color: 'white',
+    fontSize: '1.25rem'
+  },
+}))(Badge);
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -157,8 +170,8 @@ function SideNav(props) {
   const { refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
   const { subscribeToMore: announcementSubscription, refetch: refetchAnnouncements  } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
   const { subscribeToMore } = useQuery(GET_MESSAGES, { variables: { email: user.email } });
+  const { data, refetch: refetchProfile } = useQuery(GET_USER_PROFILE, { variables: { email: user.email } });
   const { subscribeToMore: notificationSubscription } = useQuery(GET_NOTIFICATIONS, { variables: { email: user.email } });
-  const { data } = useQuery(GET_USER_PROFILE, { variables: { email: user.email } });
 
   // Chat Subscription
   const _subscribeToNewChats = subscribeToMore => {
@@ -168,6 +181,7 @@ function SideNav(props) {
         if (!subscriptionData.data) return prev
         const chat = subscriptionData.data.chat
         refetch();
+        refetchProfile();
         return Object.assign({}, prev, {
           profile: {
             chats: [chat, ...prev.profile.chats],
@@ -186,6 +200,7 @@ function SideNav(props) {
         if (!subscriptionData.data) return prev
         const announcement = subscriptionData.data.announcement
         refetchAnnouncements();
+        refetchProfile();
         return Object.assign({}, prev, {
           announcements: [announcement, ...prev.announcements],
           __typename: prev.__typename
@@ -205,6 +220,7 @@ function SideNav(props) {
         const notification = subscriptionData.data.notification
         refetch();
         refetchAnnouncements();
+        refetchProfile();
         return Object.assign({}, prev, {
           profile: {
             notifications: [notification, ...prev.profile.notifications],
@@ -214,7 +230,6 @@ function SideNav(props) {
       }
     })
   };
-
   _subscribeToNewNotifications(notificationSubscription);
 
   const handleDrawerToggle = () => {
@@ -243,13 +258,12 @@ function SideNav(props) {
         (
           <Tooltip title="Please complete your profile information to access Chats">
             <div className={classes.disabledNavLink}>
-              {(data && data.profile !== null) && (data && data?.profile.notifications.length > 0) ? (
-                <Badge
-                variant='dot'
-                color='error' 
-                overlap='circle'>
+            {(data && data.profile !== null) && (data && data?.profile.notifications.length > 0) ? (
+                <StyledBadge
+                 overlap='circle'
+                 badgeContent={data.profile.notifications.length}>
                   <ForumOutlinedIcon className={classes.navIcon} />
-                </Badge>
+                </StyledBadge>
               ) : (
                 <ForumOutlinedIcon className={classes.navIcon} />
               )}
@@ -261,12 +275,12 @@ function SideNav(props) {
         (
           <NavLink to="/chats" className={classes.navLink}>
             {data && data?.profile.notifications.length > 0 ? (
-              <Badge 
-              variant='dot'
-              color='error' 
-              overlap='circle'>
+              <StyledBadge 
+              overlap='circle'
+              badgeContent={data.profile.notifications.length}
+              >
                 <ForumOutlinedIcon className={classes.navIcon} />
-              </Badge>
+              </StyledBadge>
             ) : (
               <ForumOutlinedIcon className={classes.navIcon} />
             )}

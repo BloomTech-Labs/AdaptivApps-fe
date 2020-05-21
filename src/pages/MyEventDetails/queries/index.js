@@ -33,6 +33,9 @@ export const GET_USER_PROFILE = gql`
         chat {
           id
           message
+          room {
+            id
+          }
         }
         announcement {
           id

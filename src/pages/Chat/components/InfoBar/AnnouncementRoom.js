@@ -1,22 +1,38 @@
 import React, { useState } from 'react';
 import Announcements from '../Messages/Announcements';
 
+import { useMutation } from 'react-apollo'
+import { DELETE_NOTIFICATION } from '../../queries/Notifications'
+
 // Style Imports
+import { withStyles } from '@material-ui/core/styles';
+
 import Tooltip from '@material-ui/core/Tooltip';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import Drawer from '@material-ui/core/Drawer';
 import CloseIcon from '@material-ui/icons/Close';
-import Modal from '@material-ui/core/Modal';
 import IconButton from '@material-ui/core/IconButton';
 import Collapse from '@material-ui/core/Collapse';
 import Alert from '@material-ui/lab/Alert';
+import Badge from '@material-ui/core/Badge';
 import {
   makeStyles
 } from "@material-ui/core";
 
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    left: -10,
+    top: 10,
+    width: '2%', 
+    backgroundColor: '#052942',
+    color: 'white',
+    fontSize: '1.25rem'
+  },
+}))(Badge);
 const useStyles = makeStyles(() => ({
   root: {   
     margin: ".5rem auto",
+    height: '2.5vh',
     display: 'flex',
     whiteSpace: "nowrap",
     overflow: 'hidden'
@@ -71,11 +87,11 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function AnnouncementRoom({ user, setAnnouncementOpen }) {
+export default function AnnouncementRoom({ user, setAnnouncementOpen, chats }) {
+    const [deleteNotifications] = useMutation(DELETE_NOTIFICATION)
     const classes = useStyles();
 
     const [messageToggle, setMessageToggle] = useState(false);
-    const [editChatRoom, setEditChatRoom] = useState(false);
     const [updateChat, setUpdateChat] = useState(false);
     const [deleteChat, setDeleteChat] = useState(false);
 
@@ -88,9 +104,37 @@ export default function AnnouncementRoom({ user, setAnnouncementOpen }) {
       }
     }, 3000);
 
+    const notificationArray = []
+
+    const notifications = () => {
+      if (chats !== undefined && (chats && chats.profile.notifications)) {
+        chats.profile.notifications.map(item => {
+          if (item.announcement) {
+            notificationArray.push(item)
+          } 
+        })}
+      return notificationArray;
+     }
+
+    notifications();
+
     const handleClick = e => {
       e.preventDefault();
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
+    }
+
+    const handleNotifications = e => {
+      e.preventDefault();
+      messageToggle ? setMessageToggle(false) : setMessageToggle(true)
+      if (notificationArray !== null && notificationArray.length > 0) {
+      notificationArray.map(item => {
+        console.log('item', item)
+          deleteNotifications({
+            variables: {
+              id: item.id
+            }
+          })
+        })}
     };
 
     const closeDrawer = e => {
@@ -101,19 +145,18 @@ export default function AnnouncementRoom({ user, setAnnouncementOpen }) {
     return (
       <>
         <div className={classes.root}>
+          {notificationArray !== undefined && notificationArray.length > 0 ?
+          <StyledBadge badgeContent={notificationArray.length}
+          overlap='circle'>
           <BookmarksIcon 
-            className={classes.chatRoomIcon}
-            onClick={() => setEditChatRoom(true)} />
-          <Modal
-            className={classes.modal}
-            open={editChatRoom}
-            onClose={() => setEditChatRoom(false)}>
-            {editChatRoom ? <div>hello</div> : null}
-          </Modal>          
+            className={classes.chatRoomIcon}/>
+            </StyledBadge> :
+            <BookmarksIcon 
+            className={classes.chatRoomIcon}/>}           
           <Tooltip title="Click to expand messages">
             <button 
               className={classes.chatRoomButton} 
-              onClick={handleClick} aria-label="Open all announcements">Announcements</button>
+              onClick={handleNotifications} aria-label="Open all announcements">Announcements</button>
           </Tooltip>
         </div>
         <Drawer

@@ -4,8 +4,11 @@ import Messages from '../Messages/Messages';
 // Mutation Imports
 import { useMutation } from "react-apollo";
 import { DELETE_CHAT_ROOM } from '../../queries/ChatRooms'
+import { DELETE_NOTIFICATION } from '../../queries/Notifications'
 
 // Style Imports
+import { withStyles } from '@material-ui/core/styles';
+
 import Tooltip from '@material-ui/core/Tooltip';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
@@ -15,9 +18,21 @@ import Modal from '@material-ui/core/Modal';
 import IconButton from '@material-ui/core/IconButton';
 import Collapse from '@material-ui/core/Collapse';
 import Alert from '@material-ui/lab/Alert';
+import Badge from '@material-ui/core/Badge';
 import {
   makeStyles
 } from "@material-ui/core";
+
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    left: -10,
+    top: 10,
+    width: '2%', 
+    backgroundColor: '#052942',
+    color: 'white',
+    fontSize: '1.25rem'
+  },
+}))(Badge);
 
 const useStyles = makeStyles((theme) => ({
   root: {   
@@ -119,13 +134,17 @@ const useStyles = makeStyles((theme) => ({
   alertDiv: {
     width: '100%',
     margin: '0'
+  },
+  badge: {
+    color: '#052942'
   }
 }));
 
-export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
+export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
     const classes = useStyles();
 
     const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM);
+    const [deleteNotifications] = useMutation(DELETE_NOTIFICATION)
 
     const [messageToggle, setMessageToggle] = useState(false);
     const [editChatRoom, setEditChatRoom] = useState(false);
@@ -141,9 +160,26 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
       }
     }, 3000)
 
+    // Identify notifications as they come in
+    
+      // chatRoom.chats.length > 0 &&
+      // (chatRoom.chats.filter(item => item.notification.length > 0 && item.notification))
+    const notificationArray = []
+
+    const notifications = () => {
+      if (chats !== undefined && (chats && chats.profile.notifications.length > 0)) {
+        chats.profile.notifications.map(item => {
+          if (item.chat !== null && item.chat.room.id === chatRoom.id) {
+            notificationArray.push(item)
+          } 
+        })}
+      return notificationArray;
+     }
+    notifications();    
+
     // Remove participants with invalid first / last names
     const participants = []
-    
+
     chatRoom.participants.map((participant) => {
       if (participant.email !== user.email &&
           participant.firstName !== null && participant.lastName !== null &&
@@ -174,7 +210,20 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
     const handleClick = e => {
       e.preventDefault();
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
-    };
+    }
+
+    const handleNotifications = e => {
+      e.preventDefault();
+      messageToggle ? setMessageToggle(false) : setMessageToggle(true)
+      if (notificationArray !== null && notificationArray.length > 0) {
+        notificationArray.map(item => {
+            deleteNotifications({
+              variables: {
+                id: item.id
+              }
+            })
+        })}
+      };
 
     const closeDrawer = e => {
       e.preventDefault();
@@ -196,9 +245,16 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
       <>
         <div className={classes.root}>
           <Tooltip title="Click to Delete Chatroom">
-            <PeopleAltIcon 
+          {notificationArray !== null && notificationArray.length > 0 && user.email !== participants[0].email ?
+          <StyledBadge badgeContent={notificationArray.length}
+          overlap='circle'>
+          <PeopleAltIcon 
               className={classes.chatRoomIcon}
               onClick={() => setEditChatRoom(true)}/>
+            </StyledBadge> :
+            <PeopleAltIcon 
+            className={classes.chatRoomIcon}
+            onClick={() => setEditChatRoom(true)}/>}
           </Tooltip>
           <Modal
             participants={participants}
@@ -221,7 +277,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom }) {
           <Tooltip title="Click to expand messages">
             <button 
               className={classes.chatRoomButton} 
-              onClick={handleClick}>{chattingWith}</button>
+              onClick={handleNotifications}>{chattingWith}</button>
           </Tooltip>
         </div>
         <Drawer
