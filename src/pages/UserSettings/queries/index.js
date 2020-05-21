@@ -77,27 +77,57 @@ export const PROFILE_INFO = gql`
 // Updates Organization Profile
 export const UPDATE_ORG_PROFILE = gql`
   mutation UpdateOrgProfile(
-    $email: String! 
-    $phoneNumber: String 
-    $city: String 
-    $state: String 
-    $bio: String 
-    $orgName: String 
+    $email: String!
+    $phoneNumber: String
+    $city: String
+    $state: String
+    $bio: String
+    $orgName: String
     $website: String
-    ) {
+  ) {
     updateProfile(
       where: { email: $email }
-      data: { 
+      data: {
         phoneNumber: $phoneNumber
         city: $city
         state: $state
         bio: $bio
-        extProfile: {
+        extProfile: { create: { orgName: $orgName, website: $website } }
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+// Update User Extended Profile
+export const UPDATE_EXT_PROFILE = gql`
+  mutation UpdateExtProfile(
+    $email: String!
+    $gender: String
+    $birthday: String
+    $eC1Name: String
+    $eC1Relation: String
+    $eC1Phone: String
+    $physicalDisability: String
+    $detailedDisability: String
+    $mobilityStatus: String
+  ) {
+    updateProfile(
+      where: { email: $email }
+      data: {
+        gender: $gender
+        birthday: $birthday
+        eC1Name: $eC1Name
+        eC1Relation: $eC1Relation
+        eC1Phone: $eC1Phone
+        disability: {
           create: {
-            orgName: $orgName
-            website: $website
+            physicalDisability: $physicalDisability
+            detailedDisability: $detailedDisability
           }
         }
+        mobilityStatus: $mobilityStatus
       }
     ) {
       id
