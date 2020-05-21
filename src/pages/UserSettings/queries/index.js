@@ -138,3 +138,30 @@ export const UPDATE_EXT_PROFILE = gql`
     }
   }
 `;
+
+// Update Demographic Profile
+export const UPDATE_DEMO_PROFILE = gql `
+  mutation UpdateDemoProfile(
+    $email: String!
+    $adaptivSportsParticipation: String
+    $acsParticipation: String
+    $notParticipating: String
+    $angelCityParticipation: String
+  ){
+    updateProfile(
+      where: { email: $email}
+      data: {
+        demographicProfile: {
+          create: {
+            adaptivSportsParticipation: $adaptivSportsParticipation
+            acsParticipation: $acsParticipation
+            notParticipating: $notParticipating
+            angelCityParticipation: $angelCityParticipation   
+          }
+        }
+      }
+    ) {
+      id
+    }
+  }
+`;

@@ -6,6 +6,7 @@ import { useMutation } from "react-apollo";
 import { UPDATE_USER_PROFILE } from "../queries";
 import { UPDATE_ORG_PROFILE } from "../queries";
 import { UPDATE_EXT_PROFILE } from "../queries";
+import { UPDATE_DEMO_PROFILE } from "../queries"
 // Component imports
 import AccountTypeForm from "./AccountTypeForm";
 import Step1 from "./Step1";
@@ -42,6 +43,7 @@ export default function AccountInfo() {
   const [UpdateProfile] = useMutation(UPDATE_USER_PROFILE);
   const [UpdateOrgProfile] = useMutation(UPDATE_ORG_PROFILE);
   const [UpdateExtProfile] = useMutation(UPDATE_EXT_PROFILE);
+  const [UpdateDemoProfile] = useMutation(UPDATE_DEMO_PROFILE);
 
   return (
     <Container className={classes.root}>
@@ -54,7 +56,7 @@ export default function AccountInfo() {
         <Step1 path="step1of6" updateProfile={UpdateProfile} />
         <OrgStep1 path="orginfo" updateOrgProfile={UpdateOrgProfile} />
         <Step2 path="step2of6" updateExtProfile={UpdateExtProfile}/>
-        <Step3 path="step3of6" updateExtProfile={UpdateExtProfile}/>
+        <Step3 path="step3of6" updateDemoProfile={UpdateDemoProfile}/>
       </Router>
     </Container>
   );
