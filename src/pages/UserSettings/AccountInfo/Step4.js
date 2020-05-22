@@ -1,14 +1,887 @@
-import React from 'react'
+// React/Reach Router imports
+import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { useParams, useNavigate } from "@reach/router";
+// Component imports
+import NextButton from "../../../theme/FormButton";
+// Material-UI imports
+import {
+  makeStyles,
+  Box,
+  Checkbox,
+  InputLabel,
+} from "@material-ui/core";
 
-export default function Step4() {
+const useStyles = makeStyles({
+  root: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  checkBoxContainer: {
+    display: "flex",
+    flexDirection: "row",
+    width: 100,
+  },
+  boxSpacing: {
+    marginRight: "11.2rem",
+    width: 100,
+  },
+  checkbox: {
+    display: "flex",
+    alignItems: "center",
+    width: 100
+  },
+  label: {
+    width: 90
+  }
+});
+
+export default function Step4({ updateSportsDemo }) {
+  const classes = useStyles();
+  const navigate = useNavigate();
+  const { userEmail } = useParams();
+  const { handleSubmit, errors, setValue, control } = useForm();
+
+  const onSubmit = async data => {
+    // console.log(data.airRifle)
+    updateSportsDemo({
+      variables: {
+        email: userEmail,
+        airRifle: data.airRifle,
+      },
+    });
+    alert("Successfully completed step 4 of account info update!");
+    await navigate(`/updateaccount/${userEmail}/step5of6`);
+  };
+
   return (
-    <div>
-      <h1>Step 4!!!!</h1>
-    </div>
-  )
+    <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
+      <Box className={classes.checkBoxContainer}>
+        <Box className={classes.boxSpacing}>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="airRifle" className={classes.label}>Air Rifle</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="airRifle"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing" className={classes.label}>Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+        </Box>
+        <Box className={classes.boxSpacing}>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="airRifle">Air Rifle</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="airRifle"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+        </Box>
+        <Box className={classes.boxSpacing}>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="airRifle">Air Rifle</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="airRifle"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+        </Box>
+        <Box className={classes.boxSpacing}>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="airRifle">Air Rifle</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="airRifle"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+          <Box className={classes.checkbox}>
+            <InputLabel htmlFor="alpineSkiing">Alpine Skiing</InputLabel>
+            <Controller
+              as={<Checkbox />}
+              name="alpineSkiing"
+              type="checkbox"
+              control={control}
+              color="primary"
+              defaultValue={false}
+              value={true}
+            />
+          </Box>
+        </Box>
+      </Box>
+      <Box>
+        <NextButton
+          type="submit"
+          label="Next"
+          onClick={handleSubmit}
+          ariaLabel="Click here to complete step 4 and move onto step 5 of account information update."
+        />
+      </Box>
+    </form>
+  );
 }
-// airRifle: Boolean @default(value: false)
-//   alpineSkiing: Boolean @default(value: false)
+
 //   archery: Boolean @default(value: false)
 //   badminton: Boolean @default(value: false)
 //   baseball: Boolean @default(value: false)
@@ -73,4 +946,3 @@ export default function Step4() {
 //   wrestling: Boolean @default(value: false)
 //   yoga: Boolean @default(value: false)
 //   other: Boolean @default(value: false)
-

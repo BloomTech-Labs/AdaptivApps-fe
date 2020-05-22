@@ -140,23 +140,23 @@ export const UPDATE_EXT_PROFILE = gql`
 `;
 
 // Update Demographic Profile
-export const UPDATE_DEMO_PROFILE = gql `
+export const UPDATE_DEMO_PROFILE = gql`
   mutation UpdateDemoProfile(
     $email: String!
     $adaptivSportsParticipation: String
     $acsParticipation: String
     $notParticipating: String
     $angelCityParticipation: String
-  ){
+  ) {
     updateProfile(
-      where: { email: $email}
+      where: { email: $email }
       data: {
         demographicProfile: {
           create: {
             adaptivSportsParticipation: $adaptivSportsParticipation
             acsParticipation: $acsParticipation
             notParticipating: $notParticipating
-            angelCityParticipation: $angelCityParticipation   
+            angelCityParticipation: $angelCityParticipation
           }
         }
       }
@@ -170,73 +170,153 @@ export const UPDATE_DEMO_PROFILE = gql `
 export const UPDATE_SPORTS_DEMO = gql`
   mutation UpdateSportsDemo(
     $email: String!
-    $airRifle: Boolean 
-$alpineSkiing: Boolean 
-$archery: Boolean 
-$badminton: Boolean 
-$baseball: Boolean 
-$beepBaseball: Boolean 
-$biathlon: Boolean 
-$blindHockey: Boolean 
-$boccia: Boolean 
-$bowling: Boolean 
-$boxing: Boolean 
-$canoe: Boolean 
-$cheerleading: Boolean 
-$crossFit: Boolean 
-$crossCountrySkiing: Boolean 
-$curling: Boolean 
-$cycling: Boolean 
-$equestrian: Boolean 
-$esports: Boolean 
-$fishing: Boolean 
-$goalball: Boolean 
-$golf: Boolean 
-$hiking: Boolean 
-$hunting: Boolean 
-$judo: Boolean 
-$juJitsu: Boolean 
-$lacrosse: Boolean 
-$mixedMartialArts: Boolean 
-$motorsportsMotorcross: Boolean 
-$mountainBiking: Boolean 
-$powerlifting: Boolean 
-$rafting: Boolean 
-$rockClimbing: Boolean 
-$rowing: Boolean 
-$sailing: Boolean 
-$scuba: Boolean 
-$shooting: Boolean 
-$skateboarding: Boolean 
-$snowboarding: Boolean 
-$sledHockey: Boolean 
-$soccerBlindSoccerFiveaside: Boolean 
-$soccerAmputeeCrutchSoccer: Boolean 
-$soccerPowerSoccer: Boolean 
-$soccerCPSevenaside: Boolean 
-$standupWheelchairPaddling: Boolean 
-$swimming: Boolean 
-$surfing: Boolean 
-$tableTennis: Boolean 
-$taekwondo: Boolean 
-$taiChi: Boolean 
-$trackField: Boolean 
-$triathlon: Boolean 
-$volleyballBeachVolleyball: Boolean 
-$volleyballSittingVolleyball: Boolean 
-$waterSkiing: Boolean 
-$wheelchairSkateboarding: Boolean 
-$wheelchairBasketball: Boolean 
-$wheelchairCurling: Boolean 
-$wheelchairFencing: Boolean 
-$wheelchairFootball: Boolean 
-$wheelchairSoftball: Boolean 
-$wheelchairRugby: Boolean 
-$wheelchairTennis: Boolean 
-$wrestling: Boolean 
-$yoga: Boolean 
-$other: Boolean 
+    $airRifle: Boolean
+    $alpineSkiing: Boolean
+    $archery: Boolean
+    $badminton: Boolean
+    $baseball: Boolean
+    $beepBaseball: Boolean
+    $biathlon: Boolean
+    $blindHockey: Boolean
+    $boccia: Boolean
+    $bowling: Boolean
+    $boxing: Boolean
+    $canoe: Boolean
+    $cheerleading: Boolean
+    $crossFit: Boolean
+    $crossCountrySkiing: Boolean
+    $curling: Boolean
+    $cycling: Boolean
+    $equestrian: Boolean
+    $esports: Boolean
+    $fishing: Boolean
+    $goalball: Boolean
+    $golf: Boolean
+    $hiking: Boolean
+    $hunting: Boolean
+    $judo: Boolean
+    $juJitsu: Boolean
+    $lacrosse: Boolean
+    $mixedMartialArts: Boolean
+    $motorsportsMotorcross: Boolean
+    $mountainBiking: Boolean
+    $powerlifting: Boolean
+    $rafting: Boolean
+    $rockClimbing: Boolean
+    $rowing: Boolean
+    $sailing: Boolean
+    $scuba: Boolean
+    $shooting: Boolean
+    $skateboarding: Boolean
+    $snowboarding: Boolean
+    $sledHockey: Boolean
+    $soccerBlindSoccerFiveaside: Boolean
+    $soccerAmputeeCrutchSoccer: Boolean
+    $soccerPowerSoccer: Boolean
+    $soccerCPSevenaside: Boolean
+    $standupWheelchairPaddling: Boolean
+    $swimming: Boolean
+    $surfing: Boolean
+    $tableTennis: Boolean
+    $taekwondo: Boolean
+    $taiChi: Boolean
+    $trackField: Boolean
+    $triathlon: Boolean
+    $volleyballBeachVolleyball: Boolean
+    $volleyballSittingVolleyball: Boolean
+    $waterSkiing: Boolean
+    $wheelchairSkateboarding: Boolean
+    $wheelchairBasketball: Boolean
+    $wheelchairCurling: Boolean
+    $wheelchairFencing: Boolean
+    $wheelchairFootball: Boolean
+    $wheelchairSoftball: Boolean
+    $wheelchairRugby: Boolean
+    $wheelchairTennis: Boolean
+    $wrestling: Boolean
+    $yoga: Boolean
+    $other: Boolean
   ) {
-    updateProfile(where: { email: $email} data: {})
+    updateProfile(
+      where: { email: $email }
+      data: {
+        demographicProfile: {
+          create: {
+            sportsParticipation: {
+              create: {
+                alpineSkiing: $alpineSkiing
+                airRifle: $airRifle
+                archery: $archery
+                badminton: $badminton
+                baseball: $baseball
+                beepBaseball: $beepBaseball
+                biathlon: $biathlon
+                blindHockey: $blindHockey
+                boccia: $boccia
+                bowling: $bowling
+                boxing: $boxing
+                canoe: $canoe
+                cheerleading: $cheerleading
+                crossFit: $crossFit
+                crossCountrySkiing: $crossCountrySkiing
+                curling: $curling
+                cycling: $cycling
+                equestrian: $equestrian
+                esports: $esports
+                fishing: $fishing
+                goalball: $goalball
+                golf: $golf
+                hiking: $hiking
+                hunting: $hunting
+                judo: $judo
+                juJitsu: $juJitsu
+                lacrosse: $lacrosse
+                mixedMartialArts: $mixedMartialArts
+                motorsportsMotorcross: $motorsportsMotorcross
+                mountainBiking: $mountainBiking
+                powerlifting: $powerlifting
+                rafting: $rafting
+                rockClimbing: $rockClimbing
+                rowing: $rowing
+                sailing: $sailing
+                scuba: $scuba
+                shooting: $shooting
+                skateboarding: $skateboarding
+                snowboarding: $snowboarding
+                sledHockey: $sledHockey
+                soccerBlindSoccerFiveaside: $soccerBlindSoccerFiveaside
+                soccerAmputeeCrutchSoccer: $soccerAmputeeCrutchSoccer
+                soccerPowerSoccer: $soccerPowerSoccer
+                soccerCPSevenaside: $soccerCPSevenaside
+                standupWheelchairPaddling: $standupWheelchairPaddling
+                swimming: $swimming
+                surfing: $surfing
+                tableTennis: $tableTennis
+                taekwondo: $taekwondo
+                taiChi: $taiChi
+                trackField: $trackField
+                triathlon: $triathlon
+                volleyballBeachVolleyball: $volleyballBeachVolleyball
+                volleyballSittingVolleyball: $volleyballSittingVolleyball
+                waterSkiing: $waterSkiing
+                wheelchairSkateboarding: $wheelchairSkateboarding
+                wheelchairBasketball: $wheelchairBasketball
+                wheelchairCurling: $wheelchairCurling
+                wheelchairFencing: $wheelchairFencing
+                wheelchairFootball: $wheelchairFootball
+                wheelchairSoftball: $wheelchairSoftball
+                wheelchairRugby: $wheelchairRugby
+                wheelchairTennis: $wheelchairTennis
+                wrestling: $wrestling
+                yoga: $yoga
+                other: $other
+              }
+            }
+          }
+        }
+      }
+    ) {
+      id
+    }
   }
 `;
