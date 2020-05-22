@@ -1,13 +1,12 @@
 // React/Reach Router imports
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useNavigate, useParams } from "@reach/router";
 import { useForm, Controller } from "react-hook-form";
 // Component imports
-import FormButton from "../../../theme/FormButton";
+import NextButton from "../../../theme/FormButton";
 // Material-UI imports
 import {
   makeStyles,
-  Container,
   Box,
   InputLabel,
   Select,
@@ -16,15 +15,17 @@ import {
 
 const useStyles = makeStyles({
   root: {
-    // maxwidth: "100%",
-    // width: "90%",
-    // marginLeft: "2.8rem",
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    alignContent: "space-between"
   },
   typeSelect: {
     width: 744,
     height: 48,
+  },
+  btnBox: {
+    display: "flex",
+    alignContent: "flex-end",
   },
 });
 
@@ -50,30 +51,34 @@ export default function AccountTypeForm({ updateProfile }) {
 
   return (
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
-      <InputLabel htmlFor="account type">
-        Are you registering as an individual or an organization?
-      </InputLabel>
-      <Controller
-        as={
-          <Select className={classes.typeSelect}>
-            <MenuItem value="Individual">
-              I'm registering as an individual
-            </MenuItem>
-            <MenuItem value="Organization">
-              I'm registering as an organization
-            </MenuItem>
-          </Select>
-        }
-        name="type"
-        variant="outlined"
-        control={control}
-        defaultValue=""
-      />
-      <FormButton
+      <Box>
+        <InputLabel htmlFor="account type">
+          Are you registering as an individual or an organization?
+        </InputLabel>
+        <Controller
+          as={
+            <Select className={classes.typeSelect}>
+              <MenuItem value="Individual">
+                I'm registering as an individual
+              </MenuItem>
+              <MenuItem value="Organization">
+                I'm registering as an organization
+              </MenuItem>
+            </Select>
+          }
+          name="type"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+      </Box>
+
+      <NextButton
         type="submit"
         label={"Next"}
         ariaLabel="Click here to complete step 1 of update account information and move to step 2."
         onClick={handleSubmit}
+        className={classes.btnBox}
       />
     </form>
   );

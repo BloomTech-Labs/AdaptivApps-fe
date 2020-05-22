@@ -70,6 +70,25 @@ export const PROFILE_INFO = gql`
       legal
       type
       private
+      extProfile {
+        private
+        birthday
+        gender
+        eC1Name
+        eC1Relation
+        eC1Phone
+        disability {
+          physicalDisability
+          detailedDisabilities
+        }
+      }
+      demographicProfile {
+        private
+        veteranStatus
+        militaryBranch
+        yearsServed
+        ethnicity
+      }
     }
   }
 `;
