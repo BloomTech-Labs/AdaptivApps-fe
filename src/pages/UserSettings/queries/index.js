@@ -77,25 +77,86 @@ export const PROFILE_INFO = gql`
 // Updates Organization Profile
 export const UPDATE_ORG_PROFILE = gql`
   mutation UpdateOrgProfile(
-    $email: String! 
-    $phoneNumber: String 
-    $city: String 
-    $state: String 
-    $bio: String 
-    $orgName: String 
+    $email: String!
+    $phoneNumber: String
+    $city: String
+    $state: String
+    $bio: String
+    $orgName: String
     $website: String
-    ) {
+  ) {
     updateProfile(
       where: { email: $email }
-      data: { 
+      data: {
         phoneNumber: $phoneNumber
         city: $city
         state: $state
         bio: $bio
+        extProfile: { create: { orgName: $orgName, website: $website } }
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+// Update User Extended Profile
+export const UPDATE_EXT_PROFILE = gql`
+  mutation UpdateExtProfile(
+    $email: String!
+    $gender: String
+    $birthday: String
+    $eC1Name: String
+    $eC1Relation: String
+    $eC1Phone: String
+    $physicalDisability: String
+    $detailedDisabilities: String
+    $mobilityStatus: String
+  ) {
+    updateProfile(
+      where: { email: $email }
+      data: {
         extProfile: {
           create: {
-            orgName: $orgName
-            website: $website
+            gender: $gender
+            birthday: $birthday
+            eC1Name: $eC1Name
+            eC1Relation: $eC1Relation
+            eC1Phone: $eC1Phone
+            disability: {
+              create: {
+                physicalDisability: $physicalDisability
+                detailedDisabilities: $detailedDisabilities
+              }
+            }
+            mobilityStatus: $mobilityStatus
+          }
+        }
+      }
+    ) {
+      id
+    }
+  }
+`;
+
+// Update Demographic Profile
+export const UPDATE_DEMO_PROFILE = gql `
+  mutation UpdateDemoProfile(
+    $email: String!
+    $adaptivSportsParticipation: String
+    $acsParticipation: String
+    $notParticipating: String
+    $angelCityParticipation: String
+  ){
+    updateProfile(
+      where: { email: $email}
+      data: {
+        demographicProfile: {
+          create: {
+            adaptivSportsParticipation: $adaptivSportsParticipation
+            acsParticipation: $acsParticipation
+            notParticipating: $notParticipating
+            angelCityParticipation: $angelCityParticipation   
           }
         }
       }
