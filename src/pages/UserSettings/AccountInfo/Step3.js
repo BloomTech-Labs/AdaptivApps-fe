@@ -1,5 +1,5 @@
 // React/Reach Router imports
-import React from 'react'
+import React from "react";
 import { useForm, Controller } from "reach-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Component imports
@@ -44,7 +44,7 @@ export default function Step3({ updateDemoProfile }) {
   const navigate = useNavigate();
   const { userEmail } = useParams();
   const { handleSubmit, errors, control } = useForm();
- 
+
   const onSubmit = async data => {
     updateDemoProfile({
       variables: {
@@ -57,11 +57,17 @@ export default function Step3({ updateDemoProfile }) {
     });
     alert("Successfully completed step 3 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step4of6`);
-  }
+  };
 
   return (
-    <form>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <h1>Step 3!!!!!</h1>
+      <NextButton
+        label="Next"
+        type="submit"
+        onClick={handleSubmit}
+        ariaLabel="Click here to complete step 3 and move onto step 4 of account information update."
+      />
     </form>
-  )
+  );
 }
