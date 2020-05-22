@@ -13,6 +13,7 @@ import {
   Container,
   Box,
   Typography,
+  Checkbox,
   Button,
 } from "@material-ui/core";
 
@@ -25,7 +26,7 @@ const useStyles = makeStyles({
   },
   subHeading: {
     marginBottom: "2.4rem",
-    fontWeight: 550
+    fontWeight: 550,
   },
   infoBox: {
     display: "flex",
@@ -33,9 +34,9 @@ const useStyles = makeStyles({
   dataBox: {
     display: "flex",
     justifyContent: "space-between",
-    '& :nth-child(1)': {
-      fontWeight: 550
-    }
+    "& :nth-child(1)": {
+      fontWeight: 550,
+    },
   },
   ctaBox: {
     marginLeft: "9.9rem",
@@ -57,6 +58,13 @@ const useStyles = makeStyles({
       color: "#2962FF",
     },
   },
+  disabilityBox: {
+    display: "flex",
+    flexDirection: "column",
+    "& :nth-child(1)": {
+      fontWeight: 500,
+    },
+  }
 });
 
 export default function Settings() {
@@ -100,7 +108,9 @@ export default function Settings() {
       </Box>
       <Box className={classes.infoBox}>
         <Box>
-          <Typography variant="h2" className={classes.subHeading}>Account Information</Typography>
+          <Typography variant="h2" className={classes.subHeading}>
+            Account Information
+          </Typography>
           <Box className={classes.dataBox}>
             <Typography>Full name</Typography>
             <Typography>
@@ -124,6 +134,65 @@ export default function Settings() {
             <Typography>
               {profile && profile.city}, {profile && profile.state}
             </Typography>
+          </Box>
+          <Box className={classes.dataBox}>
+            <Typography>Display this info publicly?</Typography>
+            <Checkbox color="primary" size="medium" />
+          </Box>
+          <Box className={classes.dataBox}>
+            <Typography>Birthday</Typography>
+            <Typography>{profile && profile.extProfile.birthday}</Typography>
+          </Box>
+          <Box className={classes.dataBox}>
+            <Typography>Gender</Typography>
+            <Typography>{profile && profile.extProfile.gender}</Typography>
+          </Box>
+          <Box className={classes.dataBox}>
+            <Typography>Emergency contact</Typography>
+            <Typography>{profile && profile.extProfile.eC1Name}</Typography>
+          </Box>
+          <Box className={classes.dataBox}>
+            <Typography>Relation</Typography>
+            <Typography>{profile && profile.extProfile.eC1Relation}</Typography>
+          </Box>
+          <Box className={classes.dataBox}>
+            <Typography>Phone</Typography>
+            <Typography>{profile && profile.extProfile.eC1Phone}</Typography>
+          </Box>
+          <Box className={classes.dataBox}>
+            <Typography>Disability details</Typography>
+            <Box className={classes.disabilityBox}>
+              <Typography>
+                {profile && profile.extProfile.disability.physicalDisability}
+              </Typography>
+              <Typography>
+                {profile && profile.extProfile.disability.detailedDisabilities}
+              </Typography>
+            </Box>
+          </Box>
+          <Box className={classes.dataBox}>
+            <Typography>Display this info publicly?</Typography>
+            <Checkbox color="primary" size="medium" />
+          </Box>
+          <Box className={classes.dataBox}>
+            <Typography>Veteran Status</Typography>
+            <Typography>{profile && profile.demographicProfile.veteranStatus}</Typography>
+          </Box>
+          <Box className={classes.dataBox}>
+            <Typography>Military Branch</Typography>
+            <Typography>{profile && profile.demographicProfile.militaryBranch}</Typography>
+          </Box>
+          <Box className={classes.dataBox}>
+            <Typography>Years Served</Typography>
+            <Typography>{profile && profile.demographicProfile.yearsServed}</Typography>
+          </Box>
+          <Box className={classes.dataBox}>
+            <Typography>Ethnicity</Typography>
+            <Typography>{profile && profile.demographicProfile.ethnicity}</Typography>
+          </Box>
+          <Box className={classes.dataBox}>
+            <Typography>Display this info publicly?</Typography>
+            <Checkbox color="primary" size="medium" />
           </Box>
         </Box>
         <Box className={classes.ctaBox}>
