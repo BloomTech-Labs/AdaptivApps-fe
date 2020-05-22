@@ -150,6 +150,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
     const [editChatRoom, setEditChatRoom] = useState(false);
     const [updateChat, setUpdateChat] = useState(false);
     const [deleteChat, setDeleteChat] = useState(false);
+    const [disableClick, setDisableClick] = useState(false);
 
     // Set timeout for automated alerts
     setTimeout(function () {
@@ -212,6 +213,8 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
     }
 
+    // When a chatRoom is clicked, delete all notifications attached to it to update # of notifications
+    // And disable button for 5 seconds to prevent app breaking
     const handleNotifications = e => {
       e.preventDefault();
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
@@ -223,6 +226,8 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
               }
             })
         })}
+        setDisableClick(true);
+        setTimeout(() => setDisableClick(false), 5000);
       };
 
     const closeDrawer = e => {
@@ -277,7 +282,8 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
           <Tooltip title="Click to expand messages">
             <button 
               className={classes.chatRoomButton} 
-              onClick={handleNotifications}>{chattingWith}</button>
+              onClick={handleNotifications}
+              disabled={disableClick}>{chattingWith}</button>
           </Tooltip>
         </div>
         <Drawer
