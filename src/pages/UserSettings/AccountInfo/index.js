@@ -16,6 +16,7 @@ import Step2 from "./Step2"
 import Step3 from "./Step3"
 import Step4 from "./Step4"
 import Step5 from "./Step5"
+import Step6 from "./Step6"
 // Material-UI imports
 import {
   makeStyles,
@@ -48,6 +49,8 @@ export default function AccountInfo() {
   const [UpdateExtProfile] = useMutation(UPDATE_EXT_PROFILE);
   const [UpdateDemoProfile] = useMutation(UPDATE_DEMO_PROFILE);
   const [UpdateSportsDemo] = useMutation(UPDATE_SPORTS_DEMO);
+  const [UpdateDemo2] = useMutation(UPDATE_DEMO_2);
+  const [UpdateDemo3] = useMutation(UPDATE_DEMO_3);
 
   return (
     <Container className={classes.root}>
@@ -62,7 +65,8 @@ export default function AccountInfo() {
         <Step2 path="step2of6" updateExtProfile={UpdateExtProfile}/>
         <Step3 path="step3of6" updateDemoProfile={UpdateDemoProfile}/>
         <Step4 path="step4of6" updateSportsDemo={UpdateSportsDemo}/>
-        <Step5 path="step5of6" updateProfile={UpdateDemoProfile}/>
+        <Step5 path="step5of6" updateProfile={UpdateDemo2}/>
+        <Step6 path="step6of6" updateProfile={UpdateDemo3}/>
       </Router>
     </Container>
   );
