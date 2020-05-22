@@ -57,6 +57,7 @@ const useStyles = makeStyles(theme => ({
     textTransform: "none",
   },
   cardImg: {
+    borderRadius: ".5rem",
     maxWidth: "36rem",
     maxHeight: "16rem",
   },
