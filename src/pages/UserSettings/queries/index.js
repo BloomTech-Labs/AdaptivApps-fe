@@ -320,3 +320,38 @@ export const UPDATE_SPORTS_DEMO = gql`
     }
   }
 `;
+
+// Updates Demo Profile part 2
+export const UPDATE_DEMO_2 = gql`
+  mutation UpdateDemo2(
+    $email: String!
+    $veteranStatus: String
+    $militaryBranch: String
+    $yearsServed: String
+    $ethnicity: String
+    $householdIncome: String
+    $employment: String
+    $favProAthletes: String
+    $favCelebs: String
+  ) {
+    updateProfile(
+      where: { email: $email }
+      data: {
+        demographicProfile: {
+          create: {
+            veteranStatus: $veteranStatus
+            militaryBranch: $militaryBranch
+            yearsServed: $yearsServed
+            ethnicity: $ethnicity
+            householdIncome: $householdIncome
+            employment: $employment
+            favProAthletes: $favProAthletes
+            favCelebs: $favCelebs
+          }
+        }
+      }
+    ) {
+      id
+    }
+  }
+`;
