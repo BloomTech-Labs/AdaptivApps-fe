@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function EventList({ currentEvents }) {
+export default function EventList({ currentEvents, refetch }) {
   const classes = useStyles();
   const [eventsByMonth, setEventsByMonth] = useState();
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function EventList({ currentEvents }) {
           <Typography variant="h1">January</Typography>
           <div className={classes.eventCard}>
             {eventsGroupedByMonth?.January.map((event, id) => (
-              <EventCard key={id} event={event} />
+              <EventCard key={id} event={event} refetch={refetch} />
             ))}
           </div>
         </div>
@@ -63,7 +63,7 @@ export default function EventList({ currentEvents }) {
           <Typography variant="h1">February</Typography>
           <div className={classes.eventCard}>
             {eventsGroupedByMonth?.February.map((event, id) => (
-              <EventCard key={id} event={event} />
+              <EventCard key={id} event={event} refetch={refetch} />
             ))}
           </div>
         </div>
@@ -74,7 +74,7 @@ export default function EventList({ currentEvents }) {
           <Typography variant="h1">March</Typography>
           <div className={classes.eventCard}>
             {eventsGroupedByMonth?.March.map((event, id) => (
-              <EventCard key={id} event={event} />
+              <EventCard key={id} event={event} refetch={refetch} />
             ))}
           </div>
         </div>
@@ -85,7 +85,7 @@ export default function EventList({ currentEvents }) {
           <Typography variant="h1">April</Typography>
           <div className={classes.eventCard}>
             {eventsGroupedByMonth?.April.map((event, id) => (
-              <EventCard key={id} event={event} />
+              <EventCard key={id} event={event} refetch={refetch} />
             ))}
           </div>
         </div>
@@ -96,7 +96,7 @@ export default function EventList({ currentEvents }) {
           <Typography variant="h1">May</Typography>
           <div className={classes.eventCard}>
             {eventsGroupedByMonth?.May.map((event, id) => (
-              <EventCard key={id} event={event} />
+              <EventCard key={id} event={event} refetch={refetch} />
             ))}
           </div>
         </div>
@@ -107,7 +107,7 @@ export default function EventList({ currentEvents }) {
           <Typography variant="h1">June</Typography>
           <div className={classes.eventCard}>
             {eventsGroupedByMonth?.June.map((event, id) => (
-              <EventCard key={id} event={event} />
+              <EventCard key={id} event={event} refetch={refetch} />
             ))}
           </div>
         </div>
@@ -118,7 +118,7 @@ export default function EventList({ currentEvents }) {
           <Typography variant="h1">July</Typography>
           <div className={classes.eventCard}>
             {eventsGroupedByMonth?.July.map((event, id) => (
-              <EventCard key={id} event={event} />
+              <EventCard key={id} event={event} refetch={refetch} />
             ))}
           </div>
         </div>
@@ -129,7 +129,7 @@ export default function EventList({ currentEvents }) {
           <Typography variant="h1">August</Typography>
           <div className={classes.eventCard}>
             {eventsGroupedByMonth?.August.map((event, id) => (
-              <EventCard key={id} event={event} />
+              <EventCard key={id} event={event} refetch={refetch} />
             ))}
           </div>
         </div>
@@ -140,7 +140,7 @@ export default function EventList({ currentEvents }) {
           <Typography variant="h1">September</Typography>
           <div className={classes.eventCard}>
             {eventsGroupedByMonth?.September.map((event, id) => (
-              <EventCard key={id} event={event} />
+              <EventCard key={id} event={event} refetch={refetch} />
             ))}
           </div>
         </div>
@@ -151,7 +151,7 @@ export default function EventList({ currentEvents }) {
           <Typography variant="h1">October</Typography>
           <div className={classes.eventCard}>
             {eventsGroupedByMonth?.October.map((event, id) => (
-              <EventCard key={id} event={event} />
+              <EventCard key={id} event={event} refetch={refetch} />
             ))}
           </div>
         </div>
@@ -162,7 +162,7 @@ export default function EventList({ currentEvents }) {
           <Typography variant="h1">November</Typography>
           <div className={classes.eventCard}>
             {eventsGroupedByMonth?.November.map((event, id) => (
-              <EventCard key={id} event={event} />
+              <EventCard key={id} event={event} refetch={refetch} />
             ))}
           </div>
         </div>
@@ -173,7 +173,7 @@ export default function EventList({ currentEvents }) {
           <Typography variant="h1">December</Typography>
           <div className={classes.eventCard}>
             {eventsGroupedByMonth?.December.map((event, id) => (
-              <EventCard key={id} event={event} />
+              <EventCard key={id} event={event} refetch={refetch} />
             ))}
           </div>
         </div>

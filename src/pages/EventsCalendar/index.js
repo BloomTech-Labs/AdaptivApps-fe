@@ -47,7 +47,7 @@ export default function EventsCalendar() {
         </Typography>
       </Box>
       <Grid className={classes.grid}>
-        <EventList currentEvents={currentEvents} />
+        <EventList currentEvents={currentEvents} refetch={refetch} />
       </Grid>
     </main>
   );
