@@ -66,7 +66,7 @@ export default function Step2({ updateExtProfile }) {
         mobilityStatus: data.mobilityStatus,
       },
     });
-    alert("Succesfully updated extend profile!");
+    alert("Succesfully completed step 2 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step3of6`);
   };
 

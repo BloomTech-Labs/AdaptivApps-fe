@@ -13,6 +13,7 @@ import Step1 from "./Step1";
 import OrgStep1 from "./OrgStep1";
 import Step2 from "./Step2"
 import Step3 from "./Step3"
+import Step4 from "./Step4"
 // Material-UI imports
 import {
   makeStyles,
@@ -57,6 +58,7 @@ export default function AccountInfo() {
         <OrgStep1 path="orginfo" updateOrgProfile={UpdateOrgProfile} />
         <Step2 path="step2of6" updateExtProfile={UpdateExtProfile}/>
         <Step3 path="step3of6" updateDemoProfile={UpdateDemoProfile}/>
+        <Step4 path="step4of6" updateDemoProfile={UpdateDemoProfile}/>
       </Router>
     </Container>
   );
