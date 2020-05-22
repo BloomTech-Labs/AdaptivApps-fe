@@ -9,11 +9,12 @@ import { UPDATE_EXT_PROFILE } from "../queries";
 import { UPDATE_DEMO_PROFILE } from "../queries"
 // Component imports
 import AccountTypeForm from "./AccountTypeForm";
-import Step1 from "./Step1";
 import OrgStep1 from "./OrgStep1";
+import Step1 from "./Step1";
 import Step2 from "./Step2"
 import Step3 from "./Step3"
 import Step4 from "./Step4"
+import Step5 from "./Step5"
 // Material-UI imports
 import {
   makeStyles,
@@ -54,11 +55,12 @@ export default function AccountInfo() {
     
       <Router className={classes.children}>
         <AccountTypeForm path="/" updateProfile={UpdateProfile} />
-        <Step1 path="step1of6" updateProfile={UpdateProfile} />
         <OrgStep1 path="orginfo" updateOrgProfile={UpdateOrgProfile} />
+        <Step1 path="step1of6" updateProfile={UpdateProfile} />
         <Step2 path="step2of6" updateExtProfile={UpdateExtProfile}/>
         <Step3 path="step3of6" updateDemoProfile={UpdateDemoProfile}/>
         <Step4 path="step4of6" updateDemoProfile={UpdateDemoProfile}/>
+        <Step4 path="step5of6" updateDemoProfile={UpdateDemoProfile}/>
       </Router>
     </Container>
   );
