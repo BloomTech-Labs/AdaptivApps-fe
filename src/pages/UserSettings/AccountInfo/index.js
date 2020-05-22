@@ -8,6 +8,8 @@ import { UPDATE_ORG_PROFILE } from "../queries";
 import { UPDATE_EXT_PROFILE } from "../queries";
 import { UPDATE_DEMO_PROFILE } from "../queries"
 import { UPDATE_SPORTS_DEMO } from "../queries"
+import { UPDATE_DEMO_2 } from "../queries"
+import { UPDATE_DEMO_3 } from "../queries"
 // Component imports
 import AccountTypeForm from "./AccountTypeForm";
 import OrgStep1 from "./OrgStep1";
