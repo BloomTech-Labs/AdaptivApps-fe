@@ -150,11 +150,13 @@ export default function AnnouncementRoom({ user, setAnnouncementOpen, chats }) {
       <>
         <div className={classes.root}>
           {notificationArray !== undefined && notificationArray.length > 0 ?
+          <Tooltip title="You have a new announcement!">
           <StyledBadge badgeContent={notificationArray.length}
           overlap='circle'>
           <BookmarksIcon 
             className={classes.chatRoomIcon}/>
-            </StyledBadge> :
+            </StyledBadge>
+            </Tooltip> :
             <BookmarksIcon 
             className={classes.chatRoomIcon}/>}           
           <Tooltip title="Click to expand messages">
