@@ -360,28 +360,28 @@ export const UPDATE_DEMO_2 = gql`
 export const UPDATE_DEMO_3 = gql`
   mutation UpdateDemo3(
     $email: String!
-    $veteranStatus: String
-    $militaryBranch: String
-    $yearsServed: String
-    $ethnicity: String
-    $householdIncome: String
-    $employment: String
-    $favProAthletes: String
-    $favCelebs: String
+    $becomeAthleteMentor: String
+    $athleteMentorHelp: String
+    $athleteMentorSport: String
+    $acsDiscovery: String
+    $acsOrgSpecificDiscovery: String
+    $amplaEmail: String
+    $hangerClinic: String
+    $challengeMagazine: String
   ) {
     updateProfile(
       where: { email: $email }
       data: {
         demographicProfile: {
           create: {
-            veteranStatus: $veteranStatus
-            militaryBranch: $militaryBranch
-            yearsServed: $yearsServed
-            ethnicity: $ethnicity
-            householdIncome: $householdIncome
-            employment: $employment
-            favProAthletes: $favProAthletes
-            favCelebs: $favCelebs
+            becomeAthleteMentor: $becomeAthleteMentor
+            athleteMentorHelp: $athleteMentorHelp
+            athleteMentorSport: $athleteMentorSport
+            acsDiscovery: $acsDiscovery
+            acsOrgSpecificDiscovery: $acsOrgSpecificDiscovery
+            amplaEmail: $amplaEmail
+            hangerClinic: $hangerClinic
+            challengeMagazine: $challengeMagazine
           }
         }
       }
