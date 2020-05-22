@@ -36,7 +36,7 @@ const useStyles = makeStyles({
   },
   children: {
     maxwidth: "100%",
-    width: 744,
+    width: "90%",
     height: "100%"
   },
 });
