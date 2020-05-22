@@ -251,15 +251,22 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
         <div className={classes.root}>
           <Tooltip title="Click to Delete Chatroom">
           {notificationArray !== null && notificationArray.length > 0 && user.email !== participants[0].email ?
+          <Tooltip title="New Message!">
           <StyledBadge badgeContent={notificationArray.length}
           overlap='circle'>
           <PeopleAltIcon 
               className={classes.chatRoomIcon}
-              onClick={() => setEditChatRoom(true)}/>
-            </StyledBadge> :
+              onClick={() => setEditChatRoom(true)}
+              aria-label="Delete selected Chatroom"
+              />
+            </StyledBadge>
+            </Tooltip> :
             <PeopleAltIcon 
             className={classes.chatRoomIcon}
-            onClick={() => setEditChatRoom(true)}/>}
+            onClick={() => setEditChatRoom(true)}
+            aria-label="Delete selected Chatroom"
+            />
+            }
           </Tooltip>
           <Modal
             participants={participants}
@@ -271,19 +278,30 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
             {editChatRoom ? (
             <div className={classes.paper}>
               <Tooltip title="Cancel">
-                <CloseIcon className={classes.cancelChatDelete} onClick={() => setEditChatRoom(false)} />
+                <CloseIcon 
+                  className={classes.cancelChatDelete} 
+                  onClick={() => setEditChatRoom(false)} 
+                  aria-label="Cancel Delete"
+                  />
               </Tooltip>
               <p className={classes.span}>Delete Chat with {chattingWith}?</p>
               <Tooltip title="Confirm Delete">
-                <CheckCircleOutlineIcon className={classes.deleteChat} onClick={deleteRoom}/>
+                <CheckCircleOutlineIcon 
+                  className={classes.deleteChat} 
+                  onClick={deleteRoom}
+                  aria-label="Confirm Delete"
+                  />
               </Tooltip>
             </div>) : null}
           </Modal>          
           <Tooltip title="Click to expand messages">
             <button 
+              aria-label="Expand chat messages"
               className={classes.chatRoomButton} 
               onClick={handleNotifications}
-              disabled={disableClick}>{chattingWith}</button>
+              disabled={disableClick}>
+                {chattingWith}
+              </button>
           </Tooltip>
         </div>
         <Drawer
@@ -304,7 +322,9 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
                     onClick={() => {
                       setUpdateChat(false);
                     }}>
-                    <CloseIcon fontSize="large" />
+                    <CloseIcon 
+                      fontSize="large"
+                      />
                   </IconButton>
                 }>
                 Successfully updated
@@ -330,7 +350,13 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
           </div>  
           <div className={classes.titleDiv}>
             <h1 className={classes.roomTitle}>{chattingWith}</h1>
-            <CloseIcon className={classes.closeModal} onClick={closeDrawer} />
+            <Tooltip title="Close Chatroom">
+            <CloseIcon 
+              className={classes.closeModal} 
+              onClick={closeDrawer}
+              aria-label="Close Chatroom"
+              />
+              </Tooltip>
           </div>
           <Messages chatRoom={chatRoom} participants={participants} user={user} messages={messages} setUpdateChat={setUpdateChat} setDeleteChat={setDeleteChat} />
         </Drawer>
