@@ -13,6 +13,7 @@ import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
 
 //Styling Imports
+import Tooltip from '@material-ui/core/Tooltip';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import SendIcon from '@material-ui/icons/Send';
 import MoodIcon from '@material-ui/icons/Mood';
@@ -134,7 +135,13 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
     <div>
       <div className={classes.inputDiv}>
         <div className={classes.iconDiv}>
-          <MicNoneIcon className={classes.speechIcon} onMouseDown={listen} onMouseUp={stop}/>
+          <Tooltip title="Create a Speech-to-Text Message">
+          <MicNoneIcon 
+            className={classes.speechIcon} 
+            onMouseDown={listen} 
+            onMouseUp={stop}
+            aria-label="create speech-to-text message"/>
+          </Tooltip>
           {listening && <div>Go ahead I'm listening</div>}
         </div>            
         <TextField
@@ -148,18 +155,31 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
           onChange={textValue ? onResult : handleChange}
           InputProps={{
               endAdornment: <InputAdornment position="end">
+              <Tooltip title="Update Message">
               <SendIcon
               className={classes.sendMessageIcon} 
-              onClick={textValue ? updateSpeechMessage : updateMessage} />
+              onClick={textValue ? updateSpeechMessage : updateMessage}
+              aria-label="update message" />
+              </Tooltip>
           </InputAdornment>
           }} />
         <div className={classes.iconDiv}>
-          <MoodIcon className={classes.icons} onClick={emojiOpen}/>
+          <Tooltip title="Add an emoji!">
+          <MoodIcon 
+            className={classes.icons} 
+            onClick={emojiOpen}
+            aria-label="open emoji picker"/>
+          </Tooltip>
           <Modal
             className={classes.modal}
             open={toggleEmoji}
             onClose={emojiClose}>
-            {toggleEmoji ? <Picker onClick={onEmojiClick}/> : null}
+            {toggleEmoji ? 
+            <Picker 
+              onClick={onEmojiClick}
+              title='Pick an Emoji!'
+              emoji='woman_in_manual_wheelchair'
+              /> : null}
           </Modal>
         </div>
       </div>

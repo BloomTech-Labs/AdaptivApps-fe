@@ -94,6 +94,7 @@ export default function AnnouncementRoom({ user, setAnnouncementOpen, chats }) {
     const [messageToggle, setMessageToggle] = useState(false);
     const [updateChat, setUpdateChat] = useState(false);
     const [deleteChat, setDeleteChat] = useState(false);
+    const [disableClick, setDisableClick] = useState(false);
 
     // Set timeout for automated alerts
     setTimeout(function () {
@@ -135,6 +136,9 @@ export default function AnnouncementRoom({ user, setAnnouncementOpen, chats }) {
             }
           })
         })}
+        setDisableClick(true);
+        setTimeout(() => setDisableClick(false), 5000);
+        console.log(disableClick)
     };
 
     const closeDrawer = e => {
@@ -146,17 +150,21 @@ export default function AnnouncementRoom({ user, setAnnouncementOpen, chats }) {
       <>
         <div className={classes.root}>
           {notificationArray !== undefined && notificationArray.length > 0 ?
+          <Tooltip title="You have a new announcement!">
           <StyledBadge badgeContent={notificationArray.length}
           overlap='circle'>
           <BookmarksIcon 
             className={classes.chatRoomIcon}/>
-            </StyledBadge> :
+            </StyledBadge>
+            </Tooltip> :
             <BookmarksIcon 
             className={classes.chatRoomIcon}/>}           
           <Tooltip title="Click to expand messages">
             <button 
               className={classes.chatRoomButton} 
-              onClick={handleNotifications} aria-label="Open all announcements">Announcements</button>
+              onClick={handleNotifications} 
+              aria-label="Open all announcements"
+              disabled={disableClick}>Announcements</button>
           </Tooltip>
         </div>
         <Drawer

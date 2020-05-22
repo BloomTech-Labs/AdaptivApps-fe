@@ -120,7 +120,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
     const { loading, error, data, refetch, subscribeToMore } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
     const { data: recipients } = useQuery(GET_RECIPIENTS);
     const { data: announcements } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
-    const { data: chats }  = useQuery(GET_USER_PROFILE, { variables: { email: user.email } });
+    const { data: chats, refetch: refetchProfile }  = useQuery(GET_USER_PROFILE, { variables: { email: user.email } });
 
     // Chat Room Subscription
     const _subscribeToNewChatRoom = subscribeToMore => {
@@ -130,6 +130,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
           if (!subscriptionData.data) return prev
           const chatRoom = subscriptionData.data.chatRoom
           refetch();
+          refetchProfile();
           return Object.assign({}, prev, {
             profile: {
               chatRooms: [chatRoom, ...prev.profile.chatRooms],
