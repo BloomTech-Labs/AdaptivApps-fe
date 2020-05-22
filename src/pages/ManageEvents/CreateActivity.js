@@ -41,11 +41,22 @@ const useStyles = makeStyles({
     color: "#2763FF",
   },
   activityCreation: {
+    marginLeft: ".5rem",
     display: "flex",
   },
   eventInfo: {
+    margin: "2rem 0 3rem 4rem",
     display: "flex",
     flexDirection: "column",
+  },
+  addedAct: {
+    marginLeft: "4rem",
+  },
+  box: {
+    margin: "2rem 0 0 4rem",
+    "& p:nth-child(1)": {
+      color: "blue",
+    },
   },
 });
 
@@ -90,15 +101,17 @@ export default function CreateActivity() {
               {data?.event?.location}
             </Typography>
           </Box>
-          <Typography variant="h3">Added Activities</Typography>
+          <Typography variant="h3" className={classes.addedAct}>
+            Added Activities
+          </Typography>
           {data?.event?.activities.length === 0 ? (
-            <>
+            <Box className={classes.box}>
               <Typography>No activities added yet!</Typography>
               <Typography>
                 Use the form on the left to add activities to any of the days
                 for the event.
               </Typography>
-            </>
+            </Box>
           ) : (
             <Box>
               <ActivityGroup data={data} refetch={refetch} />

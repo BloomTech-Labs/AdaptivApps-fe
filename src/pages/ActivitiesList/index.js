@@ -55,23 +55,23 @@ const useStyles = makeStyles({
     fontSize: "1.6rem",
   },
   activityC: {
-    "& p": {
-      fontWeight: "bold",
-      fontSize: "1.8rem",
-      margin: "3rem 0 2rem 3rem",
-    },
     "& tr": {
       display: "flex",
       alignItems: "center",
-    },
-    "& th": {
-      margin: "0 0 0 3rem",
-      fontWeight: 550,
-      fontSize: "1.6rem",
-      width: "20rem",
-      padding: "1% 1% 2% 0",
       textAlign: "left",
     },
+    "& th": {
+      fontWeight: 550,
+      fontSize: "1.6rem",
+      width: "19.6rem",
+      padding: "1% 0 2% 0",
+      textAlign: "left",
+    },
+  },
+  myActivities: {
+    fontWeight: "bold",
+    fontSize: "1.8rem",
+    margin: "3rem 0 2rem 3rem",
   },
   headerRow: {
     textAlign: "left",
@@ -152,7 +152,7 @@ export default function ActivityList() {
       <Box className={classes.details}>{activityData.event.details}</Box>
       {activityData.event.activities.length >= 1 ? (
         <Box className={classes.activityC}>
-          <p>Activities Schedule</p>
+          <p className={classes.myActivities}>Activities Schedule</p>
           <table className={classes.table}>
             <tbody>
               <ActivityGroup activityData={activityData} refetch={refetch} />

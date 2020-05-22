@@ -7,7 +7,8 @@ import { makeStyles, Box, Typography, Link } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginLeft: "3rem",
+    padding: "0",
+    marginLeft: ".6rem",
     "& tr": {
       display: "flex",
     },

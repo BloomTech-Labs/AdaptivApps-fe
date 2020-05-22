@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Tabs, Tab, Typography, Box, AppBar, Button } from "@material-ui/core";
+import { Tabs, Tab, Typography, Box, Paper, Button } from "@material-ui/core";
 import moment from "moment";
 import Activities from "./Activities";
 
@@ -30,6 +30,31 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     width: "100%",
     backgroundColor: theme.palette.background.paper,
+  },
+  paper: {
+    padding: "0",
+    width: "70rem",
+    boxShadow: "none",
+  },
+  tabs: {
+    marginLeft: "1.2rem",
+  },
+  tab: {
+    padding: "0",
+    "& span": {
+      alignItems: "start",
+    },
+  },
+  trow: {
+    marginLeft: "3rem",
+  },
+  activities: {
+    padding: "0",
+  },
+  tabPanel: {
+    "& div": {
+      padding: "0 2.4rem 1rem .8rem",
+    },
   },
 }));
 
@@ -68,7 +93,7 @@ export default function ActivityGroup({ activityData, refetch }) {
   console.log("Activity Data in ActivityGroup.js", activityData);
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <Paper position="static" color="default" className={classes.paper}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -77,26 +102,33 @@ export default function ActivityGroup({ activityData, refetch }) {
           indicatorColor="primary"
           textColor="primary"
           aria-label="scrollable force tabs example"
+          className={classes.tabs}
         >
           {days.map(day => (
-            <Tab label={day} value={day} />
+            <Tab label={day} value={day} className={classes.tab} />
           ))}
         </Tabs>
-      </AppBar>
+      </Paper>
       <table>
         <thead>
-          <tr>
+          <tr className={classes.trow}>
             <th>Name</th>
             <th>Date</th>
-            <th>Location</th>
+            {activityData.event.type === "Webinar" ? (
+              <th>Link</th>
+            ) : (
+              <th>Location</th>
+            )}
+
             <th>Time</th>
           </tr>
         </thead>
-        <TabPanel value={value} index={value}>
+        <TabPanel value={value} index={value} className={classes.tabPanel}>
           <Activities
             value={value}
             activityData={activityData}
             refetch={refetch}
+            className={classes.activities}
           />
         </TabPanel>
       </table>

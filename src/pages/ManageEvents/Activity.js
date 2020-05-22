@@ -48,6 +48,13 @@ const useStyles = makeStyles({
     fontWeight: 500,
     marginTop: "3.2rem",
   },
+  btn: {
+    height: "2.2rem",
+    padding: "0",
+  },
+  editDelete: {
+    margin: "0",
+  },
 });
 
 export default function Activity({ activity, refetch, value }) {
@@ -108,15 +115,20 @@ export default function Activity({ activity, refetch, value }) {
               <td>
                 {activity.startTime} - {activity.endTime}
               </td>
-              <Button>
+              <Button className={classes.btn}>
                 <EditOutlinedIcon
+                  className={classes.editDelete}
                   onClick={editActivity}
                   color="primary"
                   fontSize="large"
                 />
               </Button>
-              <Button onClick={handleOpen}>
-                <DeleteOutlineIcon color="primary" fontSize="large" />
+              <Button onClick={handleOpen} className={classes.btn}>
+                <DeleteOutlineIcon
+                  color="primary"
+                  fontSize="large"
+                  className={classes.editDelete}
+                />
               </Button>
             </tr>
           </tbody>

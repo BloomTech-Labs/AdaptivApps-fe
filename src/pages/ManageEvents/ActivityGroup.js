@@ -32,6 +32,24 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     backgroundColor: theme.palette.background.paper,
   },
+  activityGroup: {
+    marginTop: "1.6rem",
+    boxShadow: "none",
+  },
+  tabs: {
+    width: "70rem",
+  },
+  table: {
+    margin: "2.5rem 0 0 3.8rem",
+  },
+  tableRow: {
+    textAlign: "left",
+    "& th": {
+      width: "14.8rem",
+      fontSize: "1.4rem",
+      textAlgin: "left",
+    },
+  },
 }));
 
 export default function ActivityGroup({ data, refetch }) {
@@ -91,7 +109,7 @@ export default function ActivityGroup({ data, refetch }) {
 
   return (
     <div className={classes.root}>
-      <Paper square color="default">
+      <Paper square color="default" className={classes.activityGroup}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -100,25 +118,26 @@ export default function ActivityGroup({ data, refetch }) {
           indicatorColor="primary"
           textColor="primary"
           aria-label="scrollable force tabs example"
+          className={classes.tabs}
         >
           {days.map(day => (
-            <Tab label={day} value={day} />
+            <Tab label={day} value={day} className={classes.tab} />
           ))}
         </Tabs>
       </Paper>
-      <table>
+      <table className={classes.table}>
         <thead>
-          <tr>
+          <tr className={classes.tableRow}>
             <th>Name</th>
             <th>Date</th>
             <th>Location</th>
             <th>Time</th>
           </tr>
         </thead>
-        <TabPanel value={value} index={value}>
-          <Activities value={value} data={data} refetch={refetch} />
-        </TabPanel>
       </table>
+      <TabPanel value={value} index={value}>
+        <Activities value={value} data={data} refetch={refetch} />
+      </TabPanel>
     </div>
   );
 }

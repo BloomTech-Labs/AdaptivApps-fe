@@ -30,9 +30,13 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
   },
   btn: {
+    alignItems: "start",
     padding: "0",
     textTransform: "none",
     color: "#2962FF",
+    "& span": {
+      alignItems: "start",
+    },
   },
   img: {
     width: "100%",
