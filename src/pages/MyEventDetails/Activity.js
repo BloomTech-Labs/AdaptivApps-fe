@@ -14,6 +14,7 @@ const useStyles = makeStyles({
       display: "flex",
       textAlign: "left",
       fontSize: "1.6rem",
+      fontWeight: "400",
     },
     "& a": {
       fontSize: "1.6rem",
@@ -21,10 +22,15 @@ const useStyles = makeStyles({
     },
   },
   nameLink: {
+    textAlign: "left",
+    alignItems: "start",
     color: "#2962FF",
     "& .MuiButton-label": {
+      textAlign: "left",
+      alignItems: "start",
       fontSize: "1.6rem",
       fontWeight: 500,
+      justifyContent: "start",
     },
   },
 });

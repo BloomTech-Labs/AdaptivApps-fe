@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
       fontWeight: 550,
       fontSize: "1.6rem",
       width: "15rem",
-      padding: "1% 1% 2% 0",
+      padding: "1% 1% 0 0",
       textAlign: "left",
     },
   },

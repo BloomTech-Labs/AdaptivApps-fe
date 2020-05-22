@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Tabs, Tab, Typography, Box, AppBar, Button } from "@material-ui/core";
+import { Tabs, Tab, Typography, Box, Paper, Button } from "@material-ui/core";
 import moment from "moment";
 import Activities from "./Activities";
 
@@ -27,9 +27,36 @@ function TabPanel(props) {
 
 const useStyles = makeStyles(theme => ({
   root: {
+    display: "flex",
+    flexDirection: "column",
     flexGrow: 1,
     width: "100%",
     backgroundColor: theme.palette.background.paper,
+  },
+  paper: {
+    position: "relative",
+    right: "1.6rem",
+    padding: "0",
+    width: "70rem",
+    boxShadow: "none",
+  },
+  tab: {
+    padding: "0",
+    "& span": {
+      alignItems: "start",
+    },
+  },
+  tabPanel: {
+    "& div": {
+      padding: "0 2.4rem 1rem 0",
+    },
+  },
+  table: {
+    alignItems: "start",
+    textAlign: "left",
+    "& th": {
+      textAlign: "start",
+    },
   },
 }));
 
@@ -97,7 +124,7 @@ export default function ActivityGroup({
   console.log("Activity Data in ActivityGroup.js", activityData);
   return (
     <div className={classes.root}>
-      <AppBar position="static" color="default">
+      <Paper position="static" color="default" className={classes.paper}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -106,22 +133,23 @@ export default function ActivityGroup({
           indicatorColor="primary"
           textColor="primary"
           aria-label="scrollable force tabs example"
+          className={classes.tabs}
         >
           {days.map(day => (
-            <Tab label={day} value={day} />
+            <Tab label={day} value={day} className={classes.tab} />
           ))}
         </Tabs>
-      </AppBar>
-      <table>
+      </Paper>
+      <table className={classes.table}>
         <thead>
-          <tr>
+          <tr className={classes.tRow}>
             <th>Name</th>
             <th>Date</th>
             <th>Location</th>
             <th>Time</th>
           </tr>
         </thead>
-        <TabPanel value={value} index={value}>
+        <TabPanel value={value} index={value} className={classes.tabPanel}>
           <Activities
             data={data}
             activeEvent={activeEvent}

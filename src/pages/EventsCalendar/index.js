@@ -17,7 +17,6 @@ const useStyles = makeStyles({
     borderColor: "#D3D3D3",
   },
   grid: {
-    display: "flex",
     justifyContent: "flex-start",
     flexWrap: "wrap",
     marginLeft: "3rem",
