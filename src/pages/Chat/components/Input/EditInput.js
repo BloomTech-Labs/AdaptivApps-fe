@@ -70,120 +70,85 @@ const useStyles = makeStyles(() => ({
 const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
   const classes = useStyles();
   const [toggleEmoji, setToggleEmoji] = useState(false);
-
-  //Setting state for speech recognition
-  const [textValue, setTextValue] = useState("");
   
   const [updateChat] = useMutation(UPDATE_CHAT);
-  const [message, setMessage] = useState({ message: messageToEdit.message });
+  const [message, setMessage] = useState(messageToEdit.message);
   
-  // Toggle emoji picker
-  const emojiOpen = () => {
-      setToggleEmoji(true)
-  };
-
-  const emojiClose = () => {
-      setToggleEmoji(false)
-  };
-
-  const onEmojiClick = (e) => {
-    setMessage({
-      message: message.message ? message.message + e.native : e.native
-    });
+  const emojiClick = (e) => {
+    setMessage(message ? message + e.native : e.native);
   };
 
   // Speech to text logic
-  const onResult = result => {
-    setTextValue(result);
-  };
+  const { listen, listening, stop } = useSpeechRecognition({
+    onResult: result => {
+        setMessage(message ? message + result : result);
+    },
+    onEnd: () => console.log('Listening has finished')});
 
-  const onEnd =  () => {
-    console.log("Listening has finished")
-  };
+  const toggleListen = listening ? stop : () => listen();
 
-  const { listen, listening, stop } = useSpeechRecognition({onResult, onEnd});
-  
   // Update message via text
   const updateMessage = async () => {
     await updateChat({
       variables: {
         id: messageToEdit.id,
-        message: message.message 
+        message: message 
       }
     })
     setEditInput(false);
     setUpdateChat(true);
   };
 
-  // Update message via speech to text
-  const updateSpeechMessage = async () => {
-    await updateChat({
-        variables: {
-          id: messageToEdit.id,
-          message: textValue
-        }
-    })
-    setTextValue('');
-    setUpdateChat(true);
-  };
-
-  const handleChange = e => {
-    setMessage({ message: e.target.value });
-  };
-
   return(
     <div>
       <div className={classes.inputDiv}>
-        <div className={classes.iconDiv}>
-          <Tooltip title="Create a Speech-to-Text Message">
-          <MicNoneIcon 
-            className={classes.speechIcon} 
-            onMouseDown={listen} 
-            onMouseUp={stop}
-            aria-label="create speech-to-text message"/>
-          </Tooltip>
-          {listening && <div>Go ahead I'm listening</div>}
-        </div>            
+        <div className={classes.iconDiv}
+          aria-label="create speech-to-text message"
+          onClick={toggleListen}>
+            <MicNoneIcon className={classes.speechIcon}/>
+            {listening && "Go ahead, I'm listening"}
+        </div>
         <TextField
           className={classes.messageBox}
           multiline={true}
           rowsMax='4'
-          value={message.message || textValue}
+          value={message}
           variant="outlined"
           type="text"
           name="updateChat"
-          onChange={textValue ? onResult : handleChange}
+          onChange={(e) => setMessage(e.target.value)}
           InputProps={{
-              endAdornment: <InputAdornment position="end">
-              <Tooltip title="Update Message">
-              <SendIcon
-              className={classes.sendMessageIcon} 
-              onClick={textValue ? updateSpeechMessage : updateMessage}
-              aria-label="update message" />
-              </Tooltip>
-          </InputAdornment>
+              endAdornment: 
+                <InputAdornment position="end">
+                  <Tooltip title="Update Message">
+                  <SendIcon
+                    className={classes.sendMessageIcon} 
+                    onClick={updateMessage}
+                    aria-label="update message" />
+                  </Tooltip>
+                </InputAdornment>
           }} />
-        <div className={classes.iconDiv}>
-          <Tooltip title="Add an emoji!">
-          <MoodIcon 
-            className={classes.icons} 
-            onClick={emojiOpen}
-            aria-label="open emoji picker"/>
-          </Tooltip>
-          <Modal
-            className={classes.modal}
-            open={toggleEmoji}
-            onClose={emojiClose}>
-            {toggleEmoji ? 
-            <Picker 
-              onClick={onEmojiClick}
-              title='Pick an Emoji!'
-              emoji='woman_in_manual_wheelchair'
-              /> : null}
-          </Modal>
+          <div className={classes.iconDiv}>
+            <Tooltip title="Add an emoji!">
+            <MoodIcon 
+              className={classes.icons} 
+              onClick={() => setToggleEmoji(true)}
+              aria-label="open emoji picker"/>
+            </Tooltip>
+            <Modal
+              className={classes.modal}
+              open={toggleEmoji}
+              onClose={() => setToggleEmoji(false)}>
+              {toggleEmoji ? 
+              <Picker 
+                onClick={emojiClick}
+                title='Pick an Emoji!'
+                emoji='woman_in_manual_wheelchair'
+                /> : null}
+            </Modal>
+          </div>
         </div>
       </div>
-    </div>
   )
 };
 
