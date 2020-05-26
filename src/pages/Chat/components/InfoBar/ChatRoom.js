@@ -294,7 +294,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
               </Tooltip>
             </div>) : null}
           </Modal>          
-          <Tooltip title="Click to expand messages">
+          
             <button 
               aria-label="Expand chat messages"
               className={classes.chatRoomButton} 
@@ -302,7 +302,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
               disabled={disableClick}>
                 {chattingWith}
               </button>
-          </Tooltip>
+          
         </div>
         <Drawer
           anchor = "right"

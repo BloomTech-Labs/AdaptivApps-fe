@@ -104,6 +104,7 @@ function RecipientModal({ user, setOpen, participants, setNewRoom, validParticip
     const [results, setResults] = useState([]);
     const [searchText, setSearchText] = useState(true);
     const [errorState, setErrorState] = useState(false);
+    const [disableClick, setDisableClick] = useState(false);
 
     const [createChatRoom] = useMutation(CREATE_CHAT_ROOM);
   
@@ -119,14 +120,17 @@ function RecipientModal({ user, setOpen, participants, setNewRoom, validParticip
         if (user[0].includes(searchRecipient.toLowerCase())) {
           results.push(user[1]);
         };
-
-        if (results[0] == undefined || results.length === 0) {
-          setErrorState(true);
-          setSearchText(false);
-        };
+        setTimeout(() => {
+          if (results[0] == undefined || results.length === 0) {
+            console.log(results)
+              setErrorState(true);
+              setSearchText(false);
+          };
+        }, 500)
+        
       });
-
-      setSearchRecipient('');
+      setSearchRecipient('')
+    
     };
 
     // Creating a new chat room
@@ -136,7 +140,9 @@ function RecipientModal({ user, setOpen, participants, setNewRoom, validParticip
           useremail: user.email,
           recipientemail: item.email
         }
-      }));
+      }))
+        setDisableClick(true);
+        setTimeout(() => setDisableClick(false), 5000);
 
       setOpen(false);
       setNewRoom(true);
@@ -176,6 +182,7 @@ function RecipientModal({ user, setOpen, participants, setNewRoom, validParticip
           <ListItem 
             className={classes.listItem} 
             value={`${item.firstName} ${item.lastName}`} 
+            diabled={disableClick}
             onClick={() => newChatRoom(item)}>
             <ListItemText primary={`${item.firstName} ${item.lastName}`} />
           </ListItem>
