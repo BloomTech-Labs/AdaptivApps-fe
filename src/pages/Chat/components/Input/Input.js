@@ -71,102 +71,65 @@ const Input = ({ chatRoom, user }) => {
     const classes = useStyles();
     const [toggleEmoji, setToggleEmoji] = useState(false);
 
-    //Setting state for speech recognition
-    const [textValue, setTextValue] = useState("");
-
     const [sendChat] = useMutation(SEND_CHAT);
-    const [message, setMessage] = useState({ message: '' });
+    const [message, setMessage] = useState('');
 
-    // Toggle emoji picker
-    const emojiOpen = () => {
-        setToggleEmoji(true)
-    };
-
-    const emojiClose = () => {
-        setToggleEmoji(false)
-    };
-
-    const onEmojiClick = (e) => {
-        setMessage({
-            message: message.message ? message.message + e.native : e.native
-        });
+    const emojiClick = (e) => {
+        setMessage(message ? message + e.native : e.native);
     };
 
     // Speech to text logic
-    const onResult = result => {
-        setTextValue(result);
-    };
+    const { listen, listening, stop } = useSpeechRecognition({
+        onResult: result => {
+            setMessage(message ? message + result : result);
+        },
+        onEnd: () => console.log('Listening has finished')});
 
-    const onEnd =  () => {
-        console.log("Listening has finished")
-    };
-
-    const { listen, listening, stop } = useSpeechRecognition({onResult, onEnd});
+    const toggleListen = listening ? stop : () => listen();
 
     // Remove current user from participants array
     const recipient = chatRoom.participants.filter(participant => {
         return participant.email !== user.email
     });
 
-    // Create message via text
+    // Create message via text or speech message
     const newMessage = async () => {
         await sendChat({
             variables: {
               id: chatRoom.id,
               email: user.email,
-              message: message.message, 
+              message: message, 
               recipient: recipient[0].email
             }
         })
-        setMessage({ message: '' });
-    };
-
-    // Create message via speech to text
-    const newSpeechMessage = async () => {
-        await sendChat({
-            variables: {
-              id: chatRoom.id,
-              email: user.email,
-              message: textValue,
-              recipient: recipient[0].email
-            }
-        })
-        setTextValue('');
-    };
-
-    const handleChange = e => {
-        setMessage({ message: e.target.value });
+        setMessage('');
     };
 
     return(
         <div>
             <div className={classes.inputDiv}>
-                <div className={classes.iconDiv}>
-                    <Tooltip title="Create a Speech-to-Text Message">
-                    <MicNoneIcon 
-                        className={classes.speechIcon} 
-                        onMouseDown={listen} 
-                        onMouseUp={stop}
-                        aria-label="create speech-to-text message"/>
-                        </Tooltip>
-                    {listening && <div>Go ahead I'm listening</div>}
+                <div className={classes.iconDiv}
+                    aria-label="create speech-to-text message"
+                    onClick={toggleListen}>
+                    <MicNoneIcon className={classes.speechIcon}/>
+                    {listening && "Go ahead, I'm listening"}
                 </div>
                 <TextField
                     className={classes.messageBox}
                     multiline={true}
                     rowsMax='4'
-                    value={message.message || textValue}
+                    value={message}
                     variant="outlined"
                     type="text"
                     name="newChat"
                     placeholder="Type a message..."
-                    onChange={textValue ? onResult : handleChange }
+                    onChange={(e) => setMessage(e.target.value)}
                     InputProps={{
                         endAdornment: <InputAdornment position="end">
                         <Tooltip title="Send Message">
                         <SendIcon
                         className={classes.sendMessageIcon} 
-                        onClick={textValue ? newSpeechMessage : newMessage} 
+                        onClick={newMessage} 
                         aria-label="send message"
                          />
                          </Tooltip>
@@ -177,16 +140,16 @@ const Input = ({ chatRoom, user }) => {
                     <Tooltip title="Add an emoji!">
                     <MoodIcon 
                         className={classes.icons} 
-                        onClick={emojiOpen}
+                        onClick={() => setToggleEmoji(true)}
                         aria-label="open emoji picker"/>
                     </Tooltip>
                     <Modal
                         className={classes.modal}
                         open={toggleEmoji}
-                        onClose={emojiClose}>
+                        onClose={() => setToggleEmoji(false)}>
                         {toggleEmoji ? 
                         <Picker 
-                            onClick={onEmojiClick}
+                            onClick={emojiClick}
                             title='Pick an Emoji!'
                             emoji='woman_in_manual_wheelchair'
                             /> : null}
