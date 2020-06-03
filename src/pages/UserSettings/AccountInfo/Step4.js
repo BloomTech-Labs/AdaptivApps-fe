@@ -492,7 +492,7 @@ export default function Step4({ updateSportsDemo }) {
           </Box>
           <Box className={classes.checkbox}>
             <InputLabel htmlFor="juJitsu" className={classes.label}>
-              JuJitsu
+              JiuJitsu
             </InputLabel>
             <Controller
               as={<Checkbox />}
@@ -710,7 +710,7 @@ export default function Step4({ updateSportsDemo }) {
               htmlFor="soccerBlindSoccerFiveaside"
               className={classes.label}
             >
-              Blind Soccer Five-a-side
+              Blind Soccer 5-a-side
             </InputLabel>
             <Controller
               as={<Checkbox />}
@@ -755,7 +755,7 @@ export default function Step4({ updateSportsDemo }) {
           </Box>
           <Box className={classes.checkbox}>
             <InputLabel htmlFor="soccerCPSevenaside" className={classes.label}>
-              CP Seven-a-side
+              CP 7-a-side
             </InputLabel>
             <Controller
               as={<Checkbox />}
