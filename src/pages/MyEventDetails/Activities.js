@@ -7,8 +7,6 @@ import { makeStyles, Box, Typography, Link } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    padding: "0",
-    marginLeft: ".6rem",
     "& tr": {
       display: "flex",
     },
@@ -17,7 +15,7 @@ const useStyles = makeStyles(theme => ({
       fontWeight: 550,
       fontSize: "1.6rem",
       width: "15rem",
-      padding: "1% 1% 2% 0",
+      padding: "1% 1% 0 0",
       textAlign: "left",
     },
   },
@@ -26,20 +24,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Activities({ refetch, value, activityData }) {
+export default function Activities({ refetch, value, data, activeEvent }) {
   const classes = useStyles();
 
   useEffect(() => {
     refetch();
   }, [refetch]);
-  console.log("activity Data in activities.js", activityData);
+  console.log("active Event activities.js", activeEvent);
+
   return (
     <div className={classes.root}>
-      {activityData?.event?.activities.map((activity, id) => (
+      {activeEvent?.activities.map((activity, id) => (
         <Activity
           key={id}
+          activeEvent={activeEvent}
           activity={activity}
-          activityData={activityData}
           refetch={refetch}
           value={value}
         />

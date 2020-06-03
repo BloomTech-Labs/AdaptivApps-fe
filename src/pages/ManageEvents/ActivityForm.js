@@ -1,6 +1,7 @@
 // React imports
 import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
+import moment from "moment";
 import { useNavigate } from "@reach/router";
 // Component imports
 import LightTooltip from "../../theme/LightTooltip";
@@ -60,7 +61,7 @@ export default function ActivityForm({
       type: activity && activity.type,
       sportType: activity && activity.sportType,
       coaches: activity && activity.coaches,
-      date: activity && activity.date,
+      date: activity && moment(activity.date).format("ddd MM/DD/YY"),
       startTime: activity && activity.startTime,
       endTime: activity && activity.endTime,
       location: activity && activity.location,
@@ -77,7 +78,7 @@ export default function ActivityForm({
         { type: activity.type },
         { sportType: activity.sportType },
         { coaches: activity.coaches },
-        { date: activity.date },
+        { date: moment(activity.date).format("ddd MM/DD/YY") },
         { startTime: activity.startTime },
         { endTime: activity.endTime },
         { location: activity.location },
@@ -97,7 +98,7 @@ export default function ActivityForm({
           type: formValues.type,
           sportType: formValues.sportType,
           coaches: formValues.coaches,
-          date: formValues.date,
+          date: moment(formValues.date).format("ddd MM/DD/YY"),
           startTime: formValues.startTime,
           endTime: formValues.endTime,
           location: formValues.location,
@@ -116,7 +117,7 @@ export default function ActivityForm({
           type: formValues.type,
           sportType: formValues.sportType,
           coaches: formValues.coaches,
-          date: formValues.date,
+          date: moment(formValues.date).format("ddd MM/DD/YY"),
           startTime: formValues.startTime,
           endTime: formValues.endTime,
           location: formValues.location,

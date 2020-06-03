@@ -15,17 +15,28 @@ import {
 
 const useStyles = makeStyles({
   root: {
+    height: "80vh",
+    maxwidth: "100%",
+    width: "100%",
     display: "flex",
     flexDirection: "column",
-    alignContent: "space-between"
   },
   typeSelect: {
     width: 744,
     height: 48,
   },
-  btnBox: {
+  box: {
+    height: "100%",
     display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
+  btnWrapper: {
+    display: "flex",
+    alignSelf: "flex-end",
+    alignItems: "flex-end",
     alignContent: "flex-end",
+    justifyContent: "flex-end",
   },
 });
 
@@ -51,10 +62,10 @@ export default function AccountTypeForm({ updateProfile }) {
 
   return (
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
-      <Box>
-        <InputLabel htmlFor="account type">
-          Are you registering as an individual or an organization?
-        </InputLabel>
+      <InputLabel htmlFor="account type">
+        Are you registering as an individual or an organization?
+      </InputLabel>
+      <Box className={classes.box}>
         <Controller
           as={
             <Select className={classes.typeSelect}>
@@ -72,14 +83,15 @@ export default function AccountTypeForm({ updateProfile }) {
           defaultValue=""
         />
       </Box>
-
-      <NextButton
-        type="submit"
-        label={"Next"}
-        ariaLabel="Click here to complete step 1 of update account information and move to step 2."
-        onClick={handleSubmit}
-        className={classes.btnBox}
-      />
+      <Box className={classes.btnWrapper}>
+        <FormButton
+          type="submit"
+          label={"Next"}
+          ariaLabel="Click here to complete step 1 of update account information and move to step 2."
+          onClick={handleSubmit}
+          className={classes.btn}
+        />
+      </Box>
     </form>
   );
 }
