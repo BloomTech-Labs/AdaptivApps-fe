@@ -7,13 +7,18 @@ import { UPDATE_USER_PROFILE } from "../queries";
 import { UPDATE_ORG_PROFILE } from "../queries";
 import { UPDATE_EXT_PROFILE } from "../queries";
 import { UPDATE_DEMO_PROFILE } from "../queries"
+import { UPDATE_SPORTS_DEMO } from "../queries"
+import { UPDATE_DEMO_2 } from "../queries"
+import { UPDATE_DEMO_3 } from "../queries"
 // Component imports
 import AccountTypeForm from "./AccountTypeForm";
-import Step1 from "./Step1";
 import OrgStep1 from "./OrgStep1";
+import Step1 from "./Step1";
 import Step2 from "./Step2"
 import Step3 from "./Step3"
 import Step4 from "./Step4"
+import Step5 from "./Step5"
+import Step6 from "./Step6"
 // Material-UI imports
 import {
   makeStyles,
@@ -34,7 +39,7 @@ const useStyles = makeStyles({
   },
   children: {
     maxwidth: "100%",
-    width: 744,
+    width: "90%",
     height: "100%"
   },
 });
@@ -45,6 +50,9 @@ export default function AccountInfo() {
   const [UpdateOrgProfile] = useMutation(UPDATE_ORG_PROFILE);
   const [UpdateExtProfile] = useMutation(UPDATE_EXT_PROFILE);
   const [UpdateDemoProfile] = useMutation(UPDATE_DEMO_PROFILE);
+  const [UpdateSportsDemo] = useMutation(UPDATE_SPORTS_DEMO);
+  const [UpdateDemo2] = useMutation(UPDATE_DEMO_2);
+  const [UpdateDemo3] = useMutation(UPDATE_DEMO_3);
 
   return (
     <Container className={classes.root}>
@@ -54,11 +62,13 @@ export default function AccountInfo() {
     
       <Router className={classes.children}>
         <AccountTypeForm path="/" updateProfile={UpdateProfile} />
-        <Step1 path="step1of6" updateProfile={UpdateProfile} />
         <OrgStep1 path="orginfo" updateOrgProfile={UpdateOrgProfile} />
+        <Step1 path="step1of6" updateProfile={UpdateProfile} />
         <Step2 path="step2of6" updateExtProfile={UpdateExtProfile}/>
         <Step3 path="step3of6" updateDemoProfile={UpdateDemoProfile}/>
-        <Step4 path="step4of6" updateDemoProfile={UpdateDemoProfile}/>
+        <Step4 path="step4of6" updateSportsDemo={UpdateSportsDemo}/>
+        <Step5 path="step5of6" updateDemo2={UpdateDemo2}/>
+        <Step6 path="step6of6" updateDemo3={UpdateDemo3}/>
       </Router>
     </Container>
   );
