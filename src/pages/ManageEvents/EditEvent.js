@@ -24,6 +24,9 @@ const useStyles = makeStyles({
     right: "50%",
     color: "#2763FF",
   },
+  box: {
+    marginLeft: "3rem",
+  },
 });
 
 export default function EditEvent() {
@@ -42,7 +45,7 @@ export default function EditEvent() {
           Edit An Event
         </Typography>
       </Box>
-      <Box>
+      <Box className={classes.box}>
         <EventForm
           updateData={updateData}
           updateEvent={updateEvent}

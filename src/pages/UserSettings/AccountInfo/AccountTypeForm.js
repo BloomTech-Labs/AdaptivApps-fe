@@ -16,15 +16,28 @@ import {
 
 const useStyles = makeStyles({
   root: {
-    // maxwidth: "100%",
-    // width: "90%",
-    // marginLeft: "2.8rem",
+    height: "80vh",
+    maxwidth: "100%",
+    width: "100%",
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   typeSelect: {
     width: 744,
     height: 48,
+  },
+  box: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+  },
+  btnWrapper: {
+    display: "flex",
+    alignSelf: "flex-end",
+    alignItems: "flex-end",
+    alignContent: "flex-end",
+    justifyContent: "flex-end",
   },
 });
 
@@ -53,28 +66,33 @@ export default function AccountTypeForm({ updateProfile }) {
       <InputLabel htmlFor="account type">
         Are you registering as an individual or an organization?
       </InputLabel>
-      <Controller
-        as={
-          <Select className={classes.typeSelect}>
-            <MenuItem value="Individual">
-              I'm registering as an individual
-            </MenuItem>
-            <MenuItem value="Organization">
-              I'm registering as an organization
-            </MenuItem>
-          </Select>
-        }
-        name="type"
-        variant="outlined"
-        control={control}
-        defaultValue=""
-      />
-      <FormButton
-        type="submit"
-        label={"Next"}
-        ariaLabel="Click here to complete step 1 of update account information and move to step 2."
-        onClick={handleSubmit}
-      />
+      <Box className={classes.box}>
+        <Controller
+          as={
+            <Select className={classes.typeSelect}>
+              <MenuItem value="Individual">
+                I'm registering as an individual
+              </MenuItem>
+              <MenuItem value="Organization">
+                I'm registering as an organization
+              </MenuItem>
+            </Select>
+          }
+          name="type"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+      </Box>
+      <Box className={classes.btnWrapper}>
+        <FormButton
+          type="submit"
+          label={"Next"}
+          ariaLabel="Click here to complete step 1 of update account information and move to step 2."
+          onClick={handleSubmit}
+          className={classes.btn}
+        />
+      </Box>
     </form>
   );
 }

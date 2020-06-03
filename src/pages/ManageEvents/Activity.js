@@ -48,9 +48,16 @@ const useStyles = makeStyles({
     fontWeight: 500,
     marginTop: "3.2rem",
   },
+  btn: {
+    height: "2.2rem",
+    padding: "0",
+  },
+  editDelete: {
+    margin: "0",
+  },
 });
 
-export default function Activity({ activity, refetch }) {
+export default function Activity({ activity, refetch, value }) {
   const classes = useStyles();
   const [DeleteActivity] = useMutation(DELETE_ACTIVITY);
   const navigate = useNavigate();
@@ -95,35 +102,44 @@ export default function Activity({ activity, refetch }) {
       </Typography>
     </Box>
   );
-
   return (
     <>
-      <tbody className={classes.root}>
-        <tr>
-          <td>{activity.name}</td>
-          <td>{activity.date}</td>
-          <td>{activity.location}</td>
-          <td>
-            {activity.startTime} - {activity.endTime}
-          </td>
-          <Button>
-            <EditOutlinedIcon
-              onClick={editActivity}
-              color="primary"
-              fontSize="large"
-            />
-          </Button>
-          <Button onClick={handleOpen}>
-            <DeleteOutlineIcon color="primary" fontSize="large" />
-          </Button>
-        </tr>
-      </tbody>
-      <DeleteModal
-        onClick={deleteActivity}
-        open={open}
-        body={body}
-        handleClose={handleClose}
-      />
+      {value === activity?.date ? (
+        <>
+          {" "}
+          <tbody className={classes.root}>
+            <tr>
+              <td>{activity.name}</td>
+              <td>{activity.date}</td>
+              <td>{activity.location}</td>
+              <td>
+                {activity.startTime} - {activity.endTime}
+              </td>
+              <Button className={classes.btn}>
+                <EditOutlinedIcon
+                  className={classes.editDelete}
+                  onClick={editActivity}
+                  color="primary"
+                  fontSize="large"
+                />
+              </Button>
+              <Button onClick={handleOpen} className={classes.btn}>
+                <DeleteOutlineIcon
+                  color="primary"
+                  fontSize="large"
+                  className={classes.editDelete}
+                />
+              </Button>
+            </tr>
+          </tbody>
+          <DeleteModal
+            onClick={deleteActivity}
+            open={open}
+            body={body}
+            handleClose={handleClose}
+          />{" "}
+        </>
+      ) : null}
     </>
   );
 }

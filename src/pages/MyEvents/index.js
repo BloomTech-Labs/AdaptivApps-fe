@@ -1,7 +1,7 @@
 // React imports
 import React, { useEffect } from "react";
 // Component imports
-import MyEventCard from "./MyEventCard";
+import EventList from "./EventList";
 // GraphQL/Apollo imports
 import { useQuery } from "react-apollo";
 import { GET_USER_EVENTS } from "./queries";
@@ -24,6 +24,7 @@ const useStyles = makeStyles({
   },
   grid: {
     display: "flex",
+    flexDirection: "column",
     justifyContent: "flex-start",
     flexWrap: "wrap",
     marginLeft: "3rem",
@@ -70,10 +71,7 @@ export default function MyEvents() {
       </Box>
       {data.events.length >= 1 ? (
         <Grid className={classes.grid}>
-          {data &&
-            data?.events?.map((event, id) => (
-              <MyEventCard key={id} event={event} refetch={refetch} />
-            ))}
+          <EventList data={data} refetch={refetch} />
         </Grid>
       ) : (
         <>

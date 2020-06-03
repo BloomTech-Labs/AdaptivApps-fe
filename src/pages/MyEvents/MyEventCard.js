@@ -62,6 +62,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   cardImg: {
+    borderRadius: ".5rem",
     maxWidth: "36rem",
     maxHeight: "16rem",
   },

@@ -6,7 +6,7 @@ import { useMutation, useQuery } from "react-apollo";
 import { UPDATE_ACTIVITY, GET_ACTIVITY } from "./graphql";
 // Component imports
 import ActivityForm from "./ActivityForm";
-import ActivityList from "./ActivityList";
+import Activities from "./Activities";
 // Material-UI imports
 import { makeStyles, Box, Typography, Container } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -53,7 +53,7 @@ export default function EditActivity() {
 
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
-  console.log("data in edit activity", data);
+
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
@@ -72,7 +72,7 @@ export default function EditActivity() {
           />
         </Box>
         <Box>
-          <ActivityList refetch={refetch} />
+          <Activities refetch={refetch} />
         </Box>
       </Container>
     </main>

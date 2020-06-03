@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+
 import { makeStyles } from "@material-ui/core/styles";
 import { Tabs, Tab, Typography, Box, Paper, Button } from "@material-ui/core";
 import moment from "moment";
-import ActivityList from "./ActivityList";
+import Activities from "./Activities";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -26,32 +26,35 @@ function TabPanel(props) {
   );
 }
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
-
-function a11yProps(index) {
-  return {
-    id: `scrollable-force-tab-${index}`,
-    "aria-controls": `scrollable-force-tabpanel-${index}`,
-  };
-}
-
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     width: "100%",
     backgroundColor: theme.palette.background.paper,
   },
+  activityGroup: {
+    marginTop: "1.6rem",
+    boxShadow: "none",
+  },
+  tabs: {
+    width: "70rem",
+  },
+  table: {
+    margin: "2.5rem 0 0 3.8rem",
+  },
+  tableRow: {
+    textAlign: "left",
+    "& th": {
+      width: "14.8rem",
+      fontSize: "1.4rem",
+      textAlgin: "left",
+    },
+  },
 }));
 
-export default function DateTabs({ data, refetch }) {
+export default function ActivityGroup({ data, refetch }) {
   const classes = useStyles();
-  const [value, setValue] = React.useState(0);
   const [activityByDates, setActivityByDates] = useState();
-  const [activityGroups, setActivityGroups] = useState();
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -59,7 +62,7 @@ export default function DateTabs({ data, refetch }) {
 
   const startDate = moment(data?.event?.startDate);
   const endDate = moment(data?.event?.endDate);
-  console.log(data)
+  console.log(data);
 
   const getDatesRangeArray = function(startDate, endDate, interval) {
     console.log(startDate, endDate, interval);
@@ -74,12 +77,13 @@ export default function DateTabs({ data, refetch }) {
       currentDate <= endDate
     );
     while (currentDate <= endDate) {
-      dateArray.push(currentDate.format("YYYY-MM-DD"));
+      dateArray.push(currentDate.format("ddd MM/DD/YY"));
       currentDate = currentDate.add(1, cfg.interval);
     }
     return dateArray;
   };
   const days = getDatesRangeArray(startDate, endDate);
+  const [value, setValue] = React.useState(days[0]);
 
   useEffect(() => {
     setActivityByDates(data?.event?.activities);
@@ -87,35 +91,25 @@ export default function DateTabs({ data, refetch }) {
 
   const groupBy = (array, key) => {
     // Return the end result
-    return array && array.reduce((result, currentValue) => {
-      // If an array already present for key, push it to the array. Else create an array and push the object
-      (result[currentValue[key]] = result[currentValue[key]] || []).push(
-        currentValue
-      );
-      // Return the current iteration `result` value, this will be taken as next iteration `result` value and accumulate
-      return result;
-    }, []); // empty object is the initial value for result object
+    return (
+      array &&
+      array.reduce((result, currentValue) => {
+        // If an array already present for key, push it to the array. Else create an array and push the object
+        (result[currentValue[key]] = result[currentValue[key]] || []).push(
+          currentValue
+        );
+        // Return the current iteration `result` value, this will be taken as next iteration `result` value and accumulate
+        return result;
+      }, {})
+    ); // empty object is the initial value for result object
   };
 
   const activitiesGroupedByDate = groupBy(activityByDates, "date");
-    console.log(activitiesGroupedByDate);
-  // const activityGroup = async () => {
-  //   let newGroup = [];
-  //   await newGroup.push(activitiesGroupedByDate);
-  //   newGroup && newGroup.map(group => console.log('inside activityGroup', group));
-  // }
-
-  // useEffect(() => {
-  //   activityGroup();
-    
-  // });
-
-  // console.log(activityGroup);
-
+  console.log(activitiesGroupedByDate);
 
   return (
     <div className={classes.root}>
-      <Paper square color="default">
+      <Paper square color="default" className={classes.activityGroup}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -124,19 +118,26 @@ export default function DateTabs({ data, refetch }) {
           indicatorColor="primary"
           textColor="primary"
           aria-label="scrollable force tabs example"
+          className={classes.tabs}
         >
-          {days.map((day, index) => (
-            <Tab label={day} key={index} value={value} />
+          {days.map(day => (
+            <Tab label={day} value={day} className={classes.tab} />
           ))}
         </Tabs>
       </Paper>
-      {days.map((day, index) => (
-         <TabPanel value={value} index={index}>
-         <ActivityList data={data} refetch={refetch}  />
-         {/* <Button onClick={onSubmit}>Push Me</Button> */}
-       </TabPanel>
-      ))}
-     
+      <table className={classes.table}>
+        <thead>
+          <tr className={classes.tableRow}>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+      </table>
+      <TabPanel value={value} index={value}>
+        <Activities value={value} data={data} refetch={refetch} />
+      </TabPanel>
     </div>
   );
 }
