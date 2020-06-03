@@ -24,6 +24,9 @@ const useStyles = makeStyles({
     right: "50%",
     color: "#2763FF",
   },
+  formContainer: {
+    marginLeft: "3rem",
+  },
 });
 
 export default function CreateEvent() {
@@ -37,7 +40,7 @@ export default function CreateEvent() {
           Create An Event
         </Typography>
       </Box>
-      <Box>
+      <Box className={classes.formContainer}>
         <EventForm createEvent={createEvent} data={data} />
       </Box>
     </main>

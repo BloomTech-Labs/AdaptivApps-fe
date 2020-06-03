@@ -12,7 +12,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 import EventsCalendar from "./pages/EventsCalendar";
 import UserProfile from "./pages/UserProfile";
 import Settings from "./pages/UserSettings/Settings";
-import AccountInfo from './pages/UserSettings/AccountInfo/'
+import AccountInfo from "./pages/UserSettings/AccountInfo/";
 import MyEvents from "./pages/MyEvents";
 import ActivityList from "./pages/ActivitiesList";
 import MyEventDetails from "./pages/MyEventDetails";

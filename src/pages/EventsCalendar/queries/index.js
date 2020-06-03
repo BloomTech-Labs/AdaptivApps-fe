@@ -9,6 +9,7 @@ export const GET_EVENT_LIST = gql`
       host
       speakers
       startTime
+      endTime
       title
       startDate
       endDate

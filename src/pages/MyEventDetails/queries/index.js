@@ -22,6 +22,21 @@ export const GET_EVENT_DETAILS = gql`
       location
       link
       imgUrl
+      activities {
+        id
+        name
+        date
+        location
+        startTime
+        participants {
+          id
+          activityProfile {
+            id
+            email
+          }
+          role
+        }
+      }
     }
   }
 `;

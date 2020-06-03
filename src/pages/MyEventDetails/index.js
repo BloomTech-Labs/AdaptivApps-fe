@@ -11,7 +11,7 @@ import { useQuery } from "react-apollo";
 import { GET_EVENT_DETAILS } from "./queries";
 // Styling imports
 import { Box, Typography, makeStyles, Link } from "@material-ui/core";
-import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos"
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles({
@@ -27,12 +27,12 @@ const useStyles = makeStyles({
   },
   linkBack: {
     color: "#202020",
-    fontSize: '1.8rem',
+    fontSize: "1.8rem",
     fontWeight: 530,
-    display: 'flex',
-    alignItems: 'center',
-    marginBottom: '1.6rem',
-    marginLeft: '0.3rem'
+    display: "flex",
+    alignItems: "center",
+    marginBottom: "1.6rem",
+    marginLeft: "0.3rem",
   },
   loadingSpinner: {
     position: "absolute",
@@ -72,7 +72,9 @@ export default function MyEventDetails() {
         </Typography>
       </Box>
       {activeEvent &&
-        activeEvent.map((event, id) => <EventDetails key={id} event={event} />)}
+        activeEvent.map((event, id) => (
+          <EventDetails key={id} event={event} data={data} />
+        ))}
     </main>
   );
 }
