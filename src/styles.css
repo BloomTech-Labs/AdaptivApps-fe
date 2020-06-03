@@ -2,3 +2,11 @@
   font-size: 62.5%;
   font-style: normal;
 }
+
+.MuiAlert-standardInfo .MuiAlert-icon {
+  color: #2962FF !important;
+}
+
+.MuiAlert-message {
+  font-size: 1.25rem !important;
+}
