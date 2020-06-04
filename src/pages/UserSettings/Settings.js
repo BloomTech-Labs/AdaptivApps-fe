@@ -65,7 +65,11 @@ const useStyles = makeStyles({
   },
   ctaBox: {
     marginLeft: "9.9rem",
-    marginTop: '4.8rem'
+    marginTop: '4.8rem',
+    '& p': {
+
+      fontSize: '1.8rem'
+    }
   },
   ctaBtn: {
     textTransform: "none",
