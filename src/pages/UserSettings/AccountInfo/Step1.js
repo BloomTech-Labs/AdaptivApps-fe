@@ -93,6 +93,7 @@ export default function Step1({ updateProfile }) {
             as={<TextField />}
             className={classes.firstInput}
             name="firstName"
+            type="text"
             variant="outlined"
             control={control}
             defaultValue=""
@@ -103,6 +104,7 @@ export default function Step1({ updateProfile }) {
           <Controller
             as={<TextField />}
             name="lastName"
+            type="text"
             variant="outlined"
             control={control}
             defaultValue=""
@@ -126,6 +128,7 @@ export default function Step1({ updateProfile }) {
           <Controller
             as={<TextField />}
             name="city"
+            type="text"
             className={classes.firstInput}
             variant="outlined"
             control={control}
@@ -137,6 +140,7 @@ export default function Step1({ updateProfile }) {
           <Controller
             as={<TextField />}
             name="state"
+            type="text"
             variant="outlined"
             control={control}
             defaultValue=""
@@ -152,6 +156,7 @@ export default function Step1({ updateProfile }) {
           </Select>
         }
         name="legal"
+        type="select"
         variant="outlined"
         control={control}
         defaultValue=""
@@ -162,6 +167,7 @@ export default function Step1({ updateProfile }) {
       <Controller
         as={<TextField />}
         name="bio"
+        type="text"
         variant="outlined"
         className={classes.bioBox}
         control={control}
