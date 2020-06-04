@@ -235,6 +235,7 @@ export default function Step6({ updateDemo3 }) {
               Angel City Sports Oregon
             </MenuItem>
             <MenuItem value="Abilities Expo">Abilities Expo</MenuItem>
+            <MenuItem value="Other">Other</MenuItem>
           </Select>
         }
         name="acsOrgSpecificDiscovery"
