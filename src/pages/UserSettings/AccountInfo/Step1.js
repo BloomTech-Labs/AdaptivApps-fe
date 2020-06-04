@@ -116,6 +116,7 @@ export default function Step1({ updateProfile }) {
         as={<TextField />}
         name="phoneNumber"
         variant="outlined"
+        type="text"
         control={control}
         defaultValue=""
       />
