@@ -10,7 +10,6 @@ import { ADD_USER_PROFILE, PROFILE_INFO } from "./queries";
 // Material-UI imports
 import {
   makeStyles,
-  Container,
   Box,
   Typography,
   Checkbox,
@@ -18,7 +17,9 @@ import {
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
-  root: {},
+  root: {
+    marginLeft: '3rem'
+  },
   headingBox: {
     margin: "6rem 0 2rem",
     fontWeight: "400",
@@ -130,7 +131,7 @@ export default function Settings() {
   };
 
   return (
-    <Container>
+    <Box className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
         <Typography variant="h1" gutterBottom>
           Account Settings
@@ -229,6 +230,6 @@ export default function Settings() {
           </Button>
         </Box>
       </Box>
-    </Container>
+    </Box>
   );
 }
