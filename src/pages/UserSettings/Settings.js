@@ -31,11 +31,36 @@ const useStyles = makeStyles({
   infoBox: {
     display: "flex",
   },
-  dataBox: {
+  acctInfoBox: {
+    width: "30%",
+  },
+  dataContainer: {
     display: "flex",
     justifyContent: "space-between",
-    "& :nth-child(1)": {
+  },
+  data: {
+    textAlign: "left",
+    display: "flex",
+    flexDirection: "column",
+    '& p': {
+      lineHeight: '3rem'
+    }
+  },
+  dataBox: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    "& p": {
       fontWeight: 550,
+      lineHeight: '3rem'
+    },
+  },
+  displayBox: {
+    display: "flex",
+    marginBottom: '.4rem',
+    "& p": {
+      fontWeight: "bold",
+      lineHeight: '3rem'
     },
   },
   ctaBox: {
@@ -64,7 +89,7 @@ const useStyles = makeStyles({
     "& :nth-child(1)": {
       fontWeight: 500,
     },
-  }
+  },
 });
 
 export default function Settings() {
@@ -80,7 +105,6 @@ export default function Settings() {
     variables: { email: user?.email },
   });
   const profile = data?.profile;
-  console.log('Inside Settings.js', profile);
 
   // Extract the profile from returning data of useQuery
   useEffect(() => {
@@ -107,39 +131,35 @@ export default function Settings() {
         </Typography>
       </Box>
       <Box className={classes.infoBox}>
-        <Box>
+        <Box className={classes.acctInfoBox}>
           <Typography variant="h2" className={classes.subHeading}>
             Account Information
           </Typography>
-          <Box className={classes.dataBox}>
-            <Typography>Full name</Typography>
-            <Typography>
-              {profile?.firstName} {profile?.lastName}
-            </Typography>
+          <Box className={classes.dataContainer}>
+            <Box className={classes.dataBox}>
+              <Typography>Full name</Typography>
+              <Typography>Username</Typography>
+              <Typography>Phone</Typography>
+              <Typography>Email</Typography>
+              <Typography>City, State</Typography>
+            </Box>
+            <Box className={classes.data}>
+              <Typography>
+                {profile?.firstName} {profile?.lastName}
+              </Typography>
+              <Typography>{profile?.displayName}Maddy</Typography>
+              <Typography>{profile?.phoneNumber}</Typography>
+              <Typography>{profile?.email}</Typography>
+              <Typography>
+                {profile?.city}, {profile?.state}
+              </Typography>
+            </Box>
           </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Username</Typography>
-            <Typography>{profile?.displayName}</Typography>
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Phone</Typography>
-            <Typography>{profile?.phoneNumber}</Typography>
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Email</Typography>
-            <Typography>{profile?.email}</Typography>
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>City, State</Typography>
-            <Typography>
-              {profile?.city}, {profile?.state}
-            </Typography>
-          </Box>
-          <Box className={classes.dataBox}>
+          <Box className={classes.displayBox}>
             <Typography>Display this info publicly?</Typography>
             <Checkbox color="primary" size="medium" />
           </Box>
-          <Box className={classes.dataBox}>
+          {/* <Box className={classes.dataBox}>
             <Typography>Birthday</Typography>
             <Typography>{profile?.extProfile?.birthday}</Typography>
           </Box>
@@ -193,7 +213,7 @@ export default function Settings() {
           <Box className={classes.dataBox}>
             <Typography>Display this info publicly?</Typography>
             <Checkbox color="primary" size="medium" />
-          </Box>
+          </Box> */}
         </Box>
         <Box className={classes.ctaBox}>
           <Typography>Help us bring you the best</Typography>
