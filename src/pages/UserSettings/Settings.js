@@ -77,10 +77,10 @@ export default function Settings() {
 
   // Fetch profile for the user using the email associated with auth0 login
   const { loading, error, data } = useQuery(PROFILE_INFO, {
-    variables: { email: user && user.email },
+    variables: { email: user?.email },
   });
-  const profile = data && data.profile;
-  console.log(profile);
+  const profile = data?.profile;
+  console.log('Inside Settings.js', profile);
 
   // Extract the profile from returning data of useQuery
   useEffect(() => {
@@ -114,25 +114,25 @@ export default function Settings() {
           <Box className={classes.dataBox}>
             <Typography>Full name</Typography>
             <Typography>
-              {profile && profile.firstName} {profile && profile.lastName}
+              {profile?.firstName} {profile?.lastName}
             </Typography>
           </Box>
           <Box className={classes.dataBox}>
             <Typography>Username</Typography>
-            <Typography>{profile && profile.displayName}</Typography>
+            <Typography>{profile?.displayName}</Typography>
           </Box>
           <Box className={classes.dataBox}>
             <Typography>Phone</Typography>
-            <Typography>{profile && profile.phoneNumber}</Typography>
+            <Typography>{profile?.phoneNumber}</Typography>
           </Box>
           <Box className={classes.dataBox}>
             <Typography>Email</Typography>
-            <Typography>{profile && profile.email}</Typography>
+            <Typography>{profile?.email}</Typography>
           </Box>
           <Box className={classes.dataBox}>
             <Typography>City, State</Typography>
             <Typography>
-              {profile && profile.city}, {profile && profile.state}
+              {profile?.city}, {profile?.state}
             </Typography>
           </Box>
           <Box className={classes.dataBox}>
@@ -141,32 +141,32 @@ export default function Settings() {
           </Box>
           <Box className={classes.dataBox}>
             <Typography>Birthday</Typography>
-            <Typography>{profile && profile.extProfile.birthday}</Typography>
+            <Typography>{profile?.extProfile?.birthday}</Typography>
           </Box>
           <Box className={classes.dataBox}>
             <Typography>Gender</Typography>
-            <Typography>{profile && profile.extProfile.gender}</Typography>
+            <Typography>{profile?.extProfile?.gender}</Typography>
           </Box>
           <Box className={classes.dataBox}>
             <Typography>Emergency contact</Typography>
-            <Typography>{profile && profile.extProfile.eC1Name}</Typography>
+            <Typography>{profile?.extProfile?.eC1Name}</Typography>
           </Box>
           <Box className={classes.dataBox}>
             <Typography>Relation</Typography>
-            <Typography>{profile && profile.extProfile.eC1Relation}</Typography>
+            <Typography>{profile?.extProfile?.eC1Relation}</Typography>
           </Box>
           <Box className={classes.dataBox}>
             <Typography>Phone</Typography>
-            <Typography>{profile && profile.extProfile.eC1Phone}</Typography>
+            <Typography>{profile?.extProfile?.eC1Phone}</Typography>
           </Box>
           <Box className={classes.dataBox}>
             <Typography>Disability details</Typography>
             <Box className={classes.disabilityBox}>
               <Typography>
-                {profile && profile.extProfile.disability.physicalDisability}
+                {profile?.extProfile?.disability?.physicalDisability}
               </Typography>
               <Typography>
-                {profile && profile.extProfile.disability.detailedDisabilities}
+                {profile?.extProfile?.disability?.detailedDisabilities}
               </Typography>
             </Box>
           </Box>
@@ -176,19 +176,19 @@ export default function Settings() {
           </Box>
           <Box className={classes.dataBox}>
             <Typography>Veteran Status</Typography>
-            <Typography>{profile && profile.demographicProfile.veteranStatus}</Typography>
+            <Typography>{profile?.demographicProfile?.veteranStatus}</Typography>
           </Box>
           <Box className={classes.dataBox}>
             <Typography>Military Branch</Typography>
-            <Typography>{profile && profile.demographicProfile.militaryBranch}</Typography>
+            <Typography>{profile?.demographicProfile?.militaryBranch}</Typography>
           </Box>
           <Box className={classes.dataBox}>
             <Typography>Years Served</Typography>
-            <Typography>{profile && profile.demographicProfile.yearsServed}</Typography>
+            <Typography>{profile?.demographicProfile?.yearsServed}</Typography>
           </Box>
           <Box className={classes.dataBox}>
             <Typography>Ethnicity</Typography>
-            <Typography>{profile && profile.demographicProfile.ethnicity}</Typography>
+            <Typography>{profile?.demographicProfile?.ethnicity}</Typography>
           </Box>
           <Box className={classes.dataBox}>
             <Typography>Display this info publicly?</Typography>
