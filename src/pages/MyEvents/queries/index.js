@@ -32,7 +32,7 @@ export const GET_USER_EVENTS = gql`
   }
 `;
 
-export const GET_PARTICIPANT_IDS = gql`
+export const GET_PARTICIPANTS = gql`
   query getParticipantIds($email: String!, $id: ID!) {
     participants(
       where: {
@@ -86,11 +86,22 @@ export const UNREGISTER_FROM_EVENT_ACTIVITY = gql`
     }
   }
 `;
+// export const UNREGISTER_FROM_EVENT = gql`
+//   mutation unregisterFromEvent($id: ID!, $email: String!) {
+//     updateEvent(
+//       where: { id: $id }
+//       data: { attendees: { disconnect: { email: $email } } }
+//     ) {
+//       id
+//     }
+//   }
+// `;
+
 export const UNREGISTER_FROM_EVENT = gql`
   mutation unregisterFromEvent($id: ID!, $email: String!) {
-    updateEvent(
-      where: { id: $id }
-      data: { attendees: { disconnect: { email: $email } } }
+    updateProfile(
+      where: { email: $email }
+      data: { events: { disconnect: { id: $participantId } } }
     ) {
       id
     }

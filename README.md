@@ -7,17 +7,21 @@ You can find the deployed project at [adaptivapps](https://adaptivdev.net/).
 
 ## Contributors
 
-|                                                  [Student 1](https://github.com/MsMaddyMac)                                                   |                                         [Student 2](https://github.com/josharmantrout91)                                          |                                              [Student 3](https://github.com/taylorbcool)                                               |                                              [Student 4](https://github.com/JimmyMcBride)                                               |                                              [Student 5](https://github.com/jonathanthec)                                               |
-| :-------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
-|          [<img src="https://ca.slack-edge.com/T4JUEB3ME-UMNBA5VE0-3af79b1d47c2-512" width = "200" />](https://github.com/MsMaddyMac)          | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UDP7EGLGY-ca9ad8160058-512" width = "200" />](https://github.com/josharmantrout91) |      [<img src="https://ca.slack-edge.com/T4JUEB3ME-UNLQWDZEK-0037104c64c3-512" width = "200" />](https://github.com/taylorbcool)      |      [<img src="https://ca.slack-edge.com/T4JUEB3ME-UFTKAJ542-10bd26e82a74-512" width = "200" />](https://github.com/JimmyMcBride)      |      [<img src="https://ca.slack-edge.com/T4JUEB3ME-UNM5XND4N-4eb1bc163393-512" width = "200" />](https://github.com/jonathanthec)      |
-|                            [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/MsMaddyMac)                            |                   [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/josharmantrout91)                   |                        [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/taylorbcool)                        |                        [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/JimmyMcBride)                        |                        [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/jonathanthec)                        |
-| [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/madeline-i-mcintosh-787b3656/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/josh-armantrout/)  | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/taylor-cool-440090149/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jimmy-mcbride-183072b6/) | [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jonathan-chen-86589686/) |
 
-|                                         [Student 6](https://github.com/forrest-bingham)                                          |                                         [Student 7](https://github.com/Robert-D-Campbell)                                          |                                                      [Student 8](https://github.com/)                                                       |                                                       [Student 9](https://github.com/)                                                        |                                                      [Student 10](https://github.com/)                                                      |
+|[Madeline McIntosh](https://github.com/MsMaddyMac)|[Josh Armantrout](https://github.com/josharmantrout91)|[Taylor Cool](https://github.com/taylorbcool)|[Jimmy Mcbride](https://github.com/JimmyMcBride)|[Jonathan Thec](https://github.com/jonathanthec)|
 | :------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
-| [<img src="https://ca.slack-edge.com/T4JUEB3ME-UMR11342J-9ed03f6ba22b-512" width = "200" />](https://github.com/forrest-bingham) | [<img src="https://ca.slack-edge.com/T4JUEB3ME-UMBBZ3WHH-ef1f8e97a322-512" width = "200" />](https://github.com/Robert-D-Campbell) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-female.png" width = "200" />](https://github.com/) | [<img src="https://www.dalesjewelers.com/wp-content/uploads/2018/10/placeholder-silhouette-male.png" width = "200" />](https://github.com/) |
-|                   [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/forrest-bingham)                   |                   [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/Robert-D-Campbell)                   |                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                |                                 [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                 |                                [<img src="https://github.com/favicon.ico" width="15"> ](https://github.com/)                                |
-|          [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)           |   [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/rcampbell509/)    |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |                 [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                 |                [ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)                |
+|[<img src="https://ca.slack-edge.com/T4JUEB3ME-UMNBA5VE0-3af79b1d47c2-512" width = "200" />](https://github.com/MsMaddyMac)| [<img src="https://ca.slack-edge.com/T4JUEB3ME-UDP7EGLGY-ca9ad8160058-512" width = "200" />](https://github.com/josharmantrout91)|[<img src="https://ca.slack-edge.com/T4JUEB3ME-UNLQWDZEK-0037104c64c3-512" width = "200" />](https://github.com/taylorbcool)|[<img src="https://ca.slack-edge.com/T4JUEB3ME-UFTKAJ542-10bd26e82a74-512" width = "200" />](https://github.com/JimmyMcBride)|[<img src="https://ca.slack-edge.com/T4JUEB3ME-UNM5XND4N-4eb1bc163393-512" width = "200" />](https://github.com/jonathanthec)|
+|[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/madeline-i-mcintosh-787b3656/)|[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/josh-armantrout/)|[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/taylor-cool-440090149/)|[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jimmy-mcbride-183072b6/)|[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/jonathan-chen-86589686/) |
+
+|[Forrest Bingham](https://github.com/forrest-bingham)|[Robert Campbell](https://github.com/Robert-D-Campbell)|[Amber Mohler](https://github.com/amohler09)|[Ryan Sizemore](https://github.com/mastaryan)|[Priya Vaidya](https://github.com/pvaidya56)|
+| :------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------------------------------------------------: |
+|[<img src="https://ca.slack-edge.com/T4JUEB3ME-UMR11342J-9ed03f6ba22b-512" width = "200" />](https://github.com/forrest-bingham)|[<img src="https://ca.slack-edge.com/T4JUEB3ME-UMBBZ3WHH-ef1f8e97a322-512" width = "200" />](https://github.com/Robert-D-Campbell)|[<img src="https://avatars3.githubusercontent.com/u/57140471?s=460&u=a668f288a902dbc5e9be115be0cb49e17404f18a&v=4" width = "200" />](https://github.com/amohler09)|[<img src="https://avatars1.githubusercontent.com/u/58410246?s=460&u=36c0093b24e7eb356d530fcb77d9e63d3bebd482&v=4" width = "200" />](https://github.com/mastaryan)|[<img src="https://avatars3.githubusercontent.com/u/22938773?s=460&u=6b06f102262dea47d942db6cbdd6af97d6fc4860&v=4" width = "200" />](https://github.com/pvaidya56)|
+|[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/)|[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/rcampbell509/)|[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/amber-mohler-377778198/)|[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/ryan-sizemore-05696489/)|[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/in/priyavaidya98/)|
+
+|[Amanda Hogan](https://github.com/anhogan)|
+| :------------------------------------------------------------------------------------------------------------------------------: | 
+|[<img src="https://avatars1.githubusercontent.com/u/40039041?s=460&u=fa6f568b6ad9b7e9c6d778314f74bed7356e0636&v=4" width = "200" />](https://github.com/anhogan)|
+|[ <img src="https://static.licdn.com/sc/h/al2o9zrvru7aqj8e1x2rzsrca" width="15"> ](https://www.linkedin.com/anhogan)|
 
 <br>
 <br>
@@ -28,11 +32,11 @@ You can find the deployed project at [adaptivapps](https://adaptivdev.net/).
 
 ## Project Overview
 
-[Trello Board](https://trello.com/b/DzMVabtu/ace)
-
 [Product Canvas](https://www.notion.so/AdaptivApps-b8ff290465be4c5d813425c774f6bd25)
 
 [UX Design files](https://www.figma.com/file/xuXwvLz0LDnQC3rS53129B/Adaptivapps%2C-Josh-Armantrout?node-id=218%3A1)
+
+[Chat Design Files](https://www.figma.com/file/YUvN8gkUAOI7xDW4E3tDZP/Adaptive-Apps%2C-Brian-(Harzak)?node-id=177%3A6)
 
 A nonprofit organization and is looking for a better way to engage their staff, volunteers, athletes, parents, coaches and spectators. This app would need to be digitally accessible with the ability to meet various physical changes.
 
@@ -41,8 +45,7 @@ A nonprofit organization and is looking for a better way to engage their staff, 
 - User Onboarding
 - Create Events / Register for Events
 - Calendar / Map Features
-- feature four
-- feature five
+- Real-time Chat (Direct Messaging and Announcements)
 
 ## Tech Stack
 
@@ -59,15 +62,16 @@ Why did you choose this framework?
 - Fast rendering with virtual DOM
 - Testability
 
-#### Front end deployed to `AWS`
+#### Front end deployed to `AWS Amplify`
+Setup with CI
 
 #### [Back end](https://github.com/Lambda-School-Labs/AdaptivApps-be) built using:
 
-#### **Prismatopia(graphQL, Apollo, Prisma)**
+#### **Prismatopia (GraphQL, Apollo, Prisma)**
 
-- Generated Crud Schema
-- GraphQl is fastest query slinger this side of the mississippi!
-- Bernie Durfee is the man!
+- Generated CRUD Schema
+- GraphQL is fastest query slinger this side of the mississippi!
+- Built in Subscription services to handle real-time chat
 
 # Environment Variables
 
@@ -77,6 +81,7 @@ In order for the app to function correctly, the user must set up their own envir
     REACT_APP_API_URL=can be found in the AWS Amplify application. This is the authentication API
     REACT_APP_CLIENT_DOMAIN=auth0 domain for the AdaptivApps application
     REACT_APP_AUDIENCE=auth0 endpoint for the AdaptivApps application
+    REACT_APP_WS_URL=websocket endpoint
 
 # Testing
 
