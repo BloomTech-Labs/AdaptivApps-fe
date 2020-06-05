@@ -71,6 +71,7 @@ export const PROFILE_INFO = gql`
       type
       private
       extProfile {
+        id
         private
         birthday
         gender
@@ -78,11 +79,13 @@ export const PROFILE_INFO = gql`
         eC1Relation
         eC1Phone
         disability {
+          id
           physicalDisability
           detailedDisabilities
         }
       }
       demographicProfile {
+        id
         private
         veteranStatus
         militaryBranch
@@ -260,7 +263,7 @@ export const UPDATE_SPORTS_DEMO = gql`
       where: { email: $email }
       data: {
         demographicProfile: {
-          create: {
+          update: {
             sportsParticipation: {
               create: {
                 alpineSkiing: $alpineSkiing
@@ -357,7 +360,7 @@ export const UPDATE_DEMO_2 = gql`
       where: { email: $email }
       data: {
         demographicProfile: {
-          create: {
+          update: {
             veteranStatus: $veteranStatus
             militaryBranch: $militaryBranch
             yearsServed: $yearsServed
@@ -371,14 +374,6 @@ export const UPDATE_DEMO_2 = gql`
       }
     ) {
       id
-      veteranStatus
-      militaryBranch
-      yearsSerced
-      ethnicity
-      householdIncome
-      employment
-      favProAthletes
-      favCelebs
     }
   }
 `;
@@ -400,7 +395,7 @@ export const UPDATE_DEMO_3 = gql`
       where: { email: $email }
       data: {
         demographicProfile: {
-          create: {
+          update: {
             becomeAthleteMentor: $becomeAthleteMentor
             athleteMentorHelp: $athleteMentorHelp
             athleteMentorSport: $athleteMentorSport

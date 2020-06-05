@@ -53,7 +53,7 @@ export default function Step2({ updateExtProfile }) {
   const { handleSubmit, errors, control } = useForm();
 
   const onSubmit = async data => {
-    updateExtProfile({
+   await updateExtProfile({
       variables: {
         email: userEmail,
         gender: data.gender,
