@@ -72,6 +72,7 @@ export default function SimplePopover({ activity, activityData }) {
     ""
   );
   console.log("participant", participant);
+  console.log("participant ID VALUE", participantIdValue);
   console.log("activity", activity);
   console.log("activityData", activityData);
 

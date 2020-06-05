@@ -8,6 +8,7 @@ import DeleteModal from "../../theme/DeleteModal";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import { DELETE_EVENT } from "./queries";
+import { REGISTER_FOR_EVENT } from "./queries/joinEvent";
 
 import {
   makeStyles,
@@ -22,7 +23,6 @@ import {
 } from "@material-ui/core";
 
 import { useMutation } from "react-apollo";
-import { REGISTER_EVENT } from "./queries/joinEvent";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -133,7 +133,7 @@ export default function EventCard({ event, refetch }) {
   const classes = useStyles();
   const { user } = useAuth0();
   const navigate = useNavigate();
-  const [createParticipant] = useMutation(REGISTER_EVENT);
+  const [registerForEvent] = useMutation(REGISTER_FOR_EVENT);
   const [deleteEvent] = useMutation(DELETE_EVENT);
   const [open, setOpen] = useState(false);
   // will open DeleteModal when invoked
@@ -145,9 +145,18 @@ export default function EventCard({ event, refetch }) {
     setOpen(false);
   };
 
+  const attendee = event?.attendees.map(attendee => {
+    return attendee?.id;
+  });
+  const attendeeIdValue = JSON.stringify(attendee).replace(/[\[\]"]+/g, "");
+
   const registerEvent = async () => {
-    await createParticipant({
-      variables: { id: event.id, email: user.email },
+    await registerForEvent({
+      variables: {
+        attendeeId: attendeeIdValue,
+        eventId: event.id,
+        eventProfile: user.email,
+      },
     });
     await navigate(`/calendar/${event.id}`);
   };

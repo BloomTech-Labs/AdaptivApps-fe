@@ -78,6 +78,7 @@ export const PROFILE_INFO = gql`
         eC1Relation
         eC1Phone
         disability {
+          id
           physicalDisability
           detailedDisabilities
         }
@@ -371,14 +372,6 @@ export const UPDATE_DEMO_2 = gql`
       }
     ) {
       id
-      veteranStatus
-      militaryBranch
-      yearsSerced
-      ethnicity
-      householdIncome
-      employment
-      favProAthletes
-      favCelebs
     }
   }
 `;
