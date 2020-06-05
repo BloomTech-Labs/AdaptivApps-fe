@@ -111,6 +111,7 @@ export default function Settings() {
   const { loading, error, data } = useQuery(PROFILE_INFO, {
     variables: { email: user?.email },
   });
+  
   const profile = data?.profile;
 
   // Extract the profile from returning data of useQuery
@@ -154,7 +155,7 @@ export default function Settings() {
               <Typography>
                 {profile?.firstName} {profile?.lastName}
               </Typography>
-              <Typography>{profile?.displayName}Maddy</Typography>
+              <Typography>{profile?.displayName}</Typography>
               <Typography>{profile?.phoneNumber}</Typography>
               <Typography>{profile?.email}</Typography>
               <Typography>

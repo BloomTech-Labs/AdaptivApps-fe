@@ -65,7 +65,7 @@ export default function Step1({ updateProfile }) {
   const { handleSubmit, errors, control } = useForm();
 
   const onSubmit = async data => {
-    updateProfile({
+    await updateProfile({
       variables: {
         email: userEmail,
         firstName: data.firstName,

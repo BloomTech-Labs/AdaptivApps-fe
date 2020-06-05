@@ -47,7 +47,7 @@ export default function AccountTypeForm({ updateProfile }) {
   const { handleSubmit, errors, control } = useForm();
 
   const onSubmit = async data => {
-    updateProfile({
+   await updateProfile({
       variables: {
         type: data.type,
         email: userEmail,
