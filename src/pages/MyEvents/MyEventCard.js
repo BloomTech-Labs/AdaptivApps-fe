@@ -7,6 +7,7 @@ import { useMutation, useQuery } from "react-apollo";
 import {
   UNREGISTER_FROM_EVENT,
   UNREGISTER_FROM_ALL,
+  GET_ATTENDEES,
   GET_PARTICIPANTS,
   UNREGISTER_FROM_EVENT_ACTIVITY,
 } from "./queries";
@@ -89,19 +90,23 @@ export default function MyEventCard({ event, refetch }) {
   const navigate = useNavigate();
   // Retrieves current user info from Auth0
   const { user } = useAuth0();
-  const { data } = useQuery(GET_PARTICIPANTS, {
+  // const { data: participantData } = useQuery(GET_PARTICIPANTS, {
+  //   variables: { email: user.email, id: event.id },
+  //   fetchPolicy: "no-cache",
+  // });
+  const { data: attendeeData } = useQuery(GET_ATTENDEES, {
     variables: { email: user.email, id: event.id },
     fetchPolicy: "no-cache",
   });
   const [unregisterFromEvent] = useMutation(UNREGISTER_FROM_EVENT);
-  const [unregisterFromAll] = useMutation(UNREGISTER_FROM_ALL);
-  const [unregisterFromEventActivity] = useMutation(
-    UNREGISTER_FROM_EVENT_ACTIVITY
-  );
+  // const [unregisterFromAll] = useMutation(UNREGISTER_FROM_ALL);
+  // const [unregisterFromEventActivity] = useMutation(
+  //   UNREGISTER_FROM_EVENT_ACTIVITY
+  // );
 
-  const participantIds = data?.participants?.map(participant => {
-    return participant.id;
-  });
+  // const participantIds = data?.participants?.map(participant => {
+  //   return participant.id;
+  // });
 
   // const participantIdValue = data?.participants?.map(participant => {
   //   return participant.id;
@@ -111,8 +116,9 @@ export default function MyEventCard({ event, refetch }) {
   //   /[\[\]"]+/g,
   //   ""
   // );
+  console.log("Attendee Data", attendeeData);
 
-  console.log("Participant IDS", participantIds);
+  // console.log("Participant IDS", participantIds);
   // console.log("Participant ID VALUE", participantIdValue);
   // console.log("participant ID", participantId);
 
