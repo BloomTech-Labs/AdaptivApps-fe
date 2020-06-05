@@ -18,6 +18,9 @@ export const GET_EVENT_LIST = gql`
       sponsors
       imgUrl
       details
+      attendees {
+        id
+      }
     }
   }
 `;
