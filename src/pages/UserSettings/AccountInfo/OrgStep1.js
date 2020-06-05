@@ -63,7 +63,7 @@ export default function OrgStep1({ updateOrgProfile }) {
   const { handleSubmit, setValue, errors, control } = useForm();
 
   const onSubmit = async data => {
-    updateOrgProfile({
+   await updateOrgProfile({
       variables: {
         email: userEmail,
         phoneNumber: data.phoneNumber,

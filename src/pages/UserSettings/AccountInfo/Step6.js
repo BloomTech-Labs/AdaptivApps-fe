@@ -39,7 +39,7 @@ export default function Step6({ updateDemo3 }) {
   const { handleSubmit, errors, control } = useForm();
 
   const onSubmit = async data => {
-    updateDemo3({
+  await updateDemo3({
       variables: {
         email: userEmail,
         becomeAthleteMentor: data.becomeAthleteMentor,
