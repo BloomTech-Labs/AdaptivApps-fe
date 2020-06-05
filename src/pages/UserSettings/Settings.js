@@ -10,7 +10,6 @@ import { ADD_USER_PROFILE, PROFILE_INFO } from "./queries";
 // Material-UI imports
 import {
   makeStyles,
-  Container,
   Box,
   Typography,
   Checkbox,
@@ -18,7 +17,9 @@ import {
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
-  root: {},
+  root: {
+    marginLeft: '3rem'
+  },
   headingBox: {
     margin: "6rem 0 2rem",
     fontWeight: "400",
@@ -31,15 +32,45 @@ const useStyles = makeStyles({
   infoBox: {
     display: "flex",
   },
+  acctInfoBox: {
+    width: "30%",
+  },
+  dataContainer: {
+    display: "flex",
+  },
   dataBox: {
     display: "flex",
-    justifyContent: "space-between",
-    "& :nth-child(1)": {
+    minWidth: "45%",
+    flexDirection: "column",
+
+    "& p": {
       fontWeight: 550,
+      lineHeight: "3rem",
+    },
+  },
+  data: {
+    textAlign: "left",
+    display: "flex",
+    flexDirection: "column",
+    "& p": {
+      lineHeight: "3rem",
+    },
+  },
+  displayBox: {
+    display: "flex",
+    marginBottom: 40,
+    "& p": {
+      fontWeight: "bold",
+      lineHeight: "3rem",
     },
   },
   ctaBox: {
     marginLeft: "9.9rem",
+    marginTop: '4.8rem',
+    '& p': {
+
+      fontSize: '1.8rem'
+    }
   },
   ctaBtn: {
     textTransform: "none",
@@ -59,12 +90,13 @@ const useStyles = makeStyles({
     },
   },
   disabilityBox: {
+    border: "1px solid red",
     display: "flex",
     flexDirection: "column",
     "& :nth-child(1)": {
       fontWeight: 500,
     },
-  }
+  },
 });
 
 export default function Settings() {
@@ -77,10 +109,9 @@ export default function Settings() {
 
   // Fetch profile for the user using the email associated with auth0 login
   const { loading, error, data } = useQuery(PROFILE_INFO, {
-    variables: { email: user && user.email },
+    variables: { email: user?.email },
   });
-  const profile = data && data.profile;
-  console.log(profile);
+  const profile = data?.profile;
 
   // Extract the profile from returning data of useQuery
   useEffect(() => {
@@ -100,100 +131,93 @@ export default function Settings() {
   };
 
   return (
-    <Container>
+    <Box className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
         <Typography variant="h1" gutterBottom>
           Account Settings
         </Typography>
       </Box>
       <Box className={classes.infoBox}>
-        <Box>
+        <Box className={classes.acctInfoBox}>
           <Typography variant="h2" className={classes.subHeading}>
             Account Information
           </Typography>
-          <Box className={classes.dataBox}>
-            <Typography>Full name</Typography>
-            <Typography>
-              {profile && profile.firstName} {profile && profile.lastName}
-            </Typography>
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Username</Typography>
-            <Typography>{profile && profile.displayName}</Typography>
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Phone</Typography>
-            <Typography>{profile && profile.phoneNumber}</Typography>
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Email</Typography>
-            <Typography>{profile && profile.email}</Typography>
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>City, State</Typography>
-            <Typography>
-              {profile && profile.city}, {profile && profile.state}
-            </Typography>
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Display this info publicly?</Typography>
-            <Checkbox color="primary" size="medium" />
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Birthday</Typography>
-            <Typography>{profile && profile.extProfile.birthday}</Typography>
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Gender</Typography>
-            <Typography>{profile && profile.extProfile.gender}</Typography>
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Emergency contact</Typography>
-            <Typography>{profile && profile.extProfile.eC1Name}</Typography>
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Relation</Typography>
-            <Typography>{profile && profile.extProfile.eC1Relation}</Typography>
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Phone</Typography>
-            <Typography>{profile && profile.extProfile.eC1Phone}</Typography>
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Disability details</Typography>
-            <Box className={classes.disabilityBox}>
+          <Box className={classes.dataContainer}>
+            <Box className={classes.dataBox}>
+              <Typography>Full name</Typography>
+              <Typography>Username</Typography>
+              <Typography>Phone</Typography>
+              <Typography>Email</Typography>
+              <Typography>City, State</Typography>
+            </Box>
+            <Box className={classes.data}>
               <Typography>
-                {profile && profile.extProfile.disability.physicalDisability}
+                {profile?.firstName} {profile?.lastName}
               </Typography>
+              <Typography>{profile?.displayName}Maddy</Typography>
+              <Typography>{profile?.phoneNumber}</Typography>
+              <Typography>{profile?.email}</Typography>
               <Typography>
-                {profile && profile.extProfile.disability.detailedDisabilities}
+                {profile?.city}, {profile?.state}
               </Typography>
             </Box>
           </Box>
-          <Box className={classes.dataBox}>
+          {/* Display option will be a feature in  */}
+          <Box className={classes.displayBox}>
+            {/* <Typography>Display this info publicly?</Typography>
+            <Checkbox color="primary" size="medium" /> */}
+          </Box>
+
+          <Box className={classes.dataContainer}>
+            <Box className={classes.dataBox}>
+              <Typography>Birthday</Typography>
+              <Typography>Gender</Typography>
+              <Typography>Emergency contact</Typography>
+              <Typography>Relation</Typography>
+              <Typography>Phone</Typography>
+              <Typography>Disability details</Typography>
+            </Box>
+            <Box className={classes.data}>
+              <Typography>{profile?.extProfile?.birthday}</Typography>
+              <Typography>{profile?.extProfile?.gender}</Typography>
+              <Typography>{profile?.extProfile?.eC1Name}</Typography>
+              <Typography>{profile?.extProfile?.eC1Relation}</Typography>
+              <Typography>{profile?.extProfile?.eC1Phone}</Typography>
+              <Typography>
+                {profile?.extProfile?.disability?.physicalDisability}
+              </Typography>
+            </Box>
+          </Box>
+          {/* Display option will be a feature in  */}
+          <Box className={classes.displayBox}>
+            {/* <Typography>Display this info publicly?</Typography>
+            <Checkbox color="primary" size="medium" /> */}
+          </Box>
+          <Box className={classes.dataContainer}>
+            <Box className={classes.dataBox}>
+              <Typography>Veteran Status</Typography>
+              <Typography>Military Branch</Typography>
+              <Typography>Years Served</Typography>
+              <Typography>Ethnicity</Typography>
+            </Box>
+            <Box className={classes.data}>
+              <Typography>
+                {profile?.demographicProfile?.veteranStatus}
+              </Typography>
+              <Typography>
+                {profile?.demographicProfile?.militaryBranch}
+              </Typography>
+              <Typography>
+                {profile?.demographicProfile?.yearsServed}
+              </Typography>
+              <Typography>{profile?.demographicProfile?.ethnicity}</Typography>
+            </Box>
+          </Box>
+            {/* Display option will be a feature in  */}
+          {/* <Box className={classes.displayBox}>
             <Typography>Display this info publicly?</Typography>
             <Checkbox color="primary" size="medium" />
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Veteran Status</Typography>
-            <Typography>{profile && profile.demographicProfile.veteranStatus}</Typography>
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Military Branch</Typography>
-            <Typography>{profile && profile.demographicProfile.militaryBranch}</Typography>
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Years Served</Typography>
-            <Typography>{profile && profile.demographicProfile.yearsServed}</Typography>
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Ethnicity</Typography>
-            <Typography>{profile && profile.demographicProfile.ethnicity}</Typography>
-          </Box>
-          <Box className={classes.dataBox}>
-            <Typography>Display this info publicly?</Typography>
-            <Checkbox color="primary" size="medium" />
-          </Box>
+          </Box> */}
         </Box>
         <Box className={classes.ctaBox}>
           <Typography>Help us bring you the best</Typography>
@@ -208,6 +232,6 @@ export default function Settings() {
           </Button>
         </Box>
       </Box>
-    </Container>
+    </Box>
   );
 }

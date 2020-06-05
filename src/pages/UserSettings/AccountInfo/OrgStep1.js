@@ -85,6 +85,7 @@ export default function OrgStep1({ updateOrgProfile }) {
         <Controller
           as={<TextField />}
           name="orgName"
+          type="text"
           variant="outlined"
           control={control}
           defaultValue=""
@@ -95,6 +96,7 @@ export default function OrgStep1({ updateOrgProfile }) {
         <Controller
           as={<TextField />}
           name="website"
+          type="text"
           variant="outlined"
           control={control}
           defaultValue=""
@@ -107,6 +109,7 @@ export default function OrgStep1({ updateOrgProfile }) {
         <Controller
           as={<TextField />}
           name="phoneNumber"
+          type="text"
           variant="outlined"
           control={control}
           defaultValue=""
@@ -118,6 +121,7 @@ export default function OrgStep1({ updateOrgProfile }) {
           <Controller
             as={<TextField />}
             name="city"
+            type="text"
             variant="outlined"
             control={control}
             defaultValue=""
@@ -128,6 +132,7 @@ export default function OrgStep1({ updateOrgProfile }) {
           <Controller
             as={<TextField />}
             name="state"
+            type="text"
             variant="outlined"
             control={control}
             defaultValue=""
@@ -141,6 +146,7 @@ export default function OrgStep1({ updateOrgProfile }) {
         <Controller
           as={<TextField />}
           name="bio"
+          type="text"
           variant="outlined"
           multiline
           rows="8"

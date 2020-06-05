@@ -371,6 +371,14 @@ export const UPDATE_DEMO_2 = gql`
       }
     ) {
       id
+      veteranStatus
+      militaryBranch
+      yearsSerced
+      ethnicity
+      householdIncome
+      employment
+      favProAthletes
+      favCelebs
     }
   }
 `;

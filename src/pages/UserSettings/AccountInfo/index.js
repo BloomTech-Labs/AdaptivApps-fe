@@ -29,7 +29,7 @@ import {
 
 const useStyles = makeStyles({
   root: {
-    marginLeft: "3rem",
+    marginLeft: "1.5rem",
     height: "100%"
   },
   headingBox: {

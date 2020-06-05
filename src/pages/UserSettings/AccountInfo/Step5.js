@@ -57,6 +57,7 @@ export default function Step5({ updateDemo2 }) {
         favCelebs: data.favCelebs,
       },
     });
+   
     alert("Successfully completed step 5 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step6of6`);
   };
