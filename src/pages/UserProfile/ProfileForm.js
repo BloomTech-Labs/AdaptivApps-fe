@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { useQuery } from "react-apollo";
+import { GET_USER_PROFILE } from "../MyEventDetails/queries/index";
+
 import { useForm, Controller } from "react-hook-form";
 import * as yup from "yup";
 //material ui
@@ -123,6 +126,10 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   const [userProfile, setUserProfile] = useState(null);
   const classes = useStyles();
 
+  const { refetch: refetchProfile } = useQuery(GET_USER_PROFILE, {
+    variables: { email: user.email },
+  });
+
   const { handleSubmit, register, setValue, control } = useForm({
     mode: "onSubmit",
     validationSchema: ProfileSchema,
@@ -144,6 +151,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
   // updates profile in the backend and frontend
   const onSubmit = (formValues, e) => {
     e.preventDefault();
+
     // backend update
     updateProfile({
       variables: {
@@ -175,6 +183,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
         legal: formValues.legal === "" ? userProfile.legal : formValues.legal,
       },
     });
+
     // frontend update
     setUserProfile({
       email: user.email,
@@ -200,6 +209,8 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
       city: formValues.city === "" ? userProfile.city : formValues.city,
       legal: formValues.legal === "" ? userProfile.legal : formValues.legal,
     });
+
+    refetchProfile();
   };
 
   // updates form fields with new values
@@ -223,6 +234,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
 
   // alerts user to successful update, handy for screen readers
   const handleUpdated = () => {
+    refetchProfile();
     alert("Profile updated successfully!");
     setUpdated(false);
   };
@@ -287,7 +299,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 placeholder={userProfile ? userProfile.firstName : ""}
                 name="firstName"
                 control={control}
-                InputProps={{
+                inputProps={{
                   classes: {
                     input: classes.resize,
                   },
@@ -307,7 +319,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 placeholder={userProfile ? userProfile.lastName : ""}
                 name="lastName"
                 control={control}
-                InputProps={{
+                inputProps={{
                   classes: {
                     input: classes.resize,
                   },
@@ -347,7 +359,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 placeholder={userProfile ? userProfile.displayName : ""}
                 name="displayName"
                 control={control}
-                InputProps={{
+                inputProps={{
                   classes: {
                     input: classes.resize,
                   },
@@ -367,7 +379,7 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 name="state"
                 placeholder={userProfile ? userProfile.state : ""}
                 control={control}
-                InputProps={{
+                inputProps={{
                   classes: {
                     input: classes.resize,
                   },
@@ -384,8 +396,11 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 variant="outlined"
                 name="city"
                 placeholder={userProfile ? userProfile.city : ""}
+                multiline={true}
+                rows="8"
+                placeholder={userProfile ? userProfile.bio : null}
                 control={control}
-                InputProps={{
+                inputProps={{
                   classes: {
                     input: classes.resize,
                   },
@@ -404,12 +419,44 @@ const ProfileForm = ({ loading, profile, user, updateProfile }) => {
                 className={classes.bio}
                 id="bio"
                 name="bio"
+                className={classes.input}
+                id="disability"
+                type="select"
+                variant="outlined"
+                name="disability"
+                ref={register}
+                placeholder={userProfile ? userProfile.disability : null}
+                control={control}
+                inputProps={{
+                  classes: {
+                    input: classes.resize,
+                  },
+                }}
+              />
+            </Box>
+            <Box className={classes.box}>
+              <InputLabel className={classes.inputLabel} htmlFor="legal">
+                Are you over 18 years old?
+              </InputLabel>
+              <Controller
+                as={
+                  <Select value={userProfile?.legal}>
+                    <MenuItem value="">
+                      {userProfile ? userProfile.legal : ""}
+                    </MenuItem>
+                    <MenuItem value={`Adult`}>Yes</MenuItem>
+                    <MenuItem value={`Minor`}>No</MenuItem>
+                  </Select>
+                }
+                className={classes.input}
+                id="legal"
+                name="legal"
                 variant="outlined"
                 multiline
                 rows="8"
                 placeholder={userProfile ? userProfile.bio : null}
                 control={control}
-                InputProps={{
+                inputProps={{
                   classes: {
                     input: classes.resize,
                   },

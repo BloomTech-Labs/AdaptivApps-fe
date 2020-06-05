@@ -6,7 +6,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { useParams } from "@reach/router";
 import { GET_EVENT_ACTIVITIES } from "./queries/getActivities";
 
-import { makeStyles, Box, Typography, Grid } from "@material-ui/core";
+import { makeStyles, Box, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {

@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 // Component imports
 import ActivityGroup from "./ActivityGroup";
 // Auth0 imports
-import { useAuth0, Auth0Context } from "../../config/react-auth0-spa";
+import { useAuth0 } from "../../config/react-auth0-spa";
 // GraphQL/Apollo imports
 import { useQuery } from "react-apollo";
 import { GET_USER_ACTIVITIES } from "./queries";
@@ -182,7 +182,7 @@ export default function EventDetails(props) {
         <Box className={classes.webinarBox}>
           <p>Hosted by: {activeEvent.host}</p>
           <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
-          <a href={activeEvent.link} target="_blank">
+          <a href={activeEvent.link} rel="noopener noreferrer" target="_blank">
             Click Here to Join Us!
           </a>
         </Box>

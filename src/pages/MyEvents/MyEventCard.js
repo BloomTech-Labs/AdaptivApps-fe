@@ -5,8 +5,9 @@ import { useNavigate } from "@reach/router";
 // GraphQL/Apollo imports
 import { useMutation, useQuery } from "react-apollo";
 import {
+  UNREGISTER_FROM_EVENT,
   UNREGISTER_FROM_ALL,
-  GET_PARTICIPANT_IDS,
+  GET_PARTICIPANTS,
   UNREGISTER_FROM_EVENT_ACTIVITY,
 } from "./queries";
 // Auth0 imports
@@ -62,7 +63,6 @@ const useStyles = makeStyles(theme => ({
     },
   },
   cardImg: {
-    borderRadius: ".5rem",
     maxWidth: "36rem",
     maxHeight: "16rem",
   },
@@ -89,52 +89,62 @@ export default function MyEventCard({ event, refetch }) {
   const navigate = useNavigate();
   // Retrieves current user info from Auth0
   const { user } = useAuth0();
-  const { data } = useQuery(GET_PARTICIPANT_IDS, {
+  const { data } = useQuery(GET_PARTICIPANTS, {
     variables: { email: user.email, id: event.id },
     fetchPolicy: "no-cache",
   });
+  const [unregisterFromEvent] = useMutation(UNREGISTER_FROM_EVENT);
   const [unregisterFromAll] = useMutation(UNREGISTER_FROM_ALL);
   const [unregisterFromEventActivity] = useMutation(
     UNREGISTER_FROM_EVENT_ACTIVITY
   );
+
+  const participantIds = data?.participants?.map(participant => {
+    return participant.id;
+  });
+
+  // const participantIdValue = data?.participants?.map(participant => {
+  //   return participant.id;
+  // });
+
+  // const participantId = JSON.stringify(participantIdValue).replace(
+  //   /[\[\]"]+/g,
+  //   ""
+  // );
+
+  console.log("Participant IDS", participantIds);
+  // console.log("Participant ID VALUE", participantIdValue);
+  // console.log("participant ID", participantId);
+
   // Unregisters user from specified event and all it's activities
-  const unregisterFromEvent = async () => {
-    const participantIds = data?.participants?.map(participant => {
-      return participant.id;
-    });
-
-    const participantIdValue = data?.participants?.map(participant => {
-      return participant.id;
-    });
-
-    const participantId = JSON.stringify(participantIdValue).replace(
-      /[\[\]"]+/g,
-      ""
-    );
-
-    data && data?.participants?.length === 1
-      ? await unregisterFromEventActivity({
-          variables: {
-            id: event.id,
-            email: user.email,
-            participantId: participantId,
-          },
-        })
-      : data && data?.participants === null
-      ? await unregisterFromEvent({
-          variables: {
-            id: event.id,
-            email: user.email,
-          },
-        })
-      : await unregisterFromAll({
-          variables: {
-            id: event.id,
-            email: user.email,
-            participantIds: participantIds,
-          },
-        });
-    await refetch();
+  const eventUnregister = async () => {
+    // data && data?.participants?.length > 1 ? await unregisterFromEvent({
+    //   variables: {
+    //   }
+    // })
+    // data && data?.participants?.length === 1
+    //   ? await unregisterFromEventActivity({
+    //       variables: {
+    //         id: event.id,
+    //         email: user.email,
+    //         participantId: participantId,
+    //       },
+    //     })
+    //   : data && data?.participants === null
+    //   ? await unregisterFromEvent({
+    //       variables: {
+    //         id: event.id,
+    //         email: user.email,
+    //       },
+    //     })
+    //   : await unregisterFromAll({
+    //       variables: {
+    //         id: event.id,
+    //         email: user.email,
+    //         participantIds: participantIds,
+    //       },
+    //     });
+    // await refetch();
   };
   const viewEventDetails = async () => {
     await navigate(`/myevents/${event?.id}`);
