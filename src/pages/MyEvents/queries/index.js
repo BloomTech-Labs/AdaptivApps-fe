@@ -32,6 +32,16 @@ export const GET_USER_EVENTS = gql`
   }
 `;
 
+export const GET_ATTENDEES = gql`
+  query getAllAttendees($email: String!, $id: ID!) {
+    participants(
+      where: { eventProfile: { email: $email }, AND: { event: { id: $id } } }
+    ) {
+      id
+    }
+  }
+`;
+
 export const GET_PARTICIPANTS = gql`
   query getParticipantIds($email: String!, $id: ID!) {
     participants(
