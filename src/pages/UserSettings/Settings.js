@@ -162,9 +162,10 @@ export default function Settings() {
               </Typography>
             </Box>
           </Box>
+          {/* Display option will be a feature in  */}
           <Box className={classes.displayBox}>
-            <Typography>Display this info publicly?</Typography>
-            <Checkbox color="primary" size="medium" />
+            {/* <Typography>Display this info publicly?</Typography>
+            <Checkbox color="primary" size="medium" /> */}
           </Box>
 
           <Box className={classes.dataContainer}>
@@ -187,9 +188,10 @@ export default function Settings() {
               </Typography>
             </Box>
           </Box>
+          {/* Display option will be a feature in  */}
           <Box className={classes.displayBox}>
-            <Typography>Display this info publicly?</Typography>
-            <Checkbox color="primary" size="medium" />
+            {/* <Typography>Display this info publicly?</Typography>
+            <Checkbox color="primary" size="medium" /> */}
           </Box>
           <Box className={classes.dataContainer}>
             <Box className={classes.dataBox}>
@@ -211,11 +213,11 @@ export default function Settings() {
               <Typography>{profile?.demographicProfile?.ethnicity}</Typography>
             </Box>
           </Box>
-
-          <Box className={classes.displayBox}>
+            {/* Display option will be a feature in  */}
+          {/* <Box className={classes.displayBox}>
             <Typography>Display this info publicly?</Typography>
             <Checkbox color="primary" size="medium" />
-          </Box>
+          </Box> */}
         </Box>
         <Box className={classes.ctaBox}>
           <Typography>Help us bring you the best</Typography>
