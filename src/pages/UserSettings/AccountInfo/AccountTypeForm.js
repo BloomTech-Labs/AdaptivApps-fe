@@ -84,7 +84,7 @@ export default function AccountTypeForm({ updateProfile }) {
         />
       </Box>
       <Box className={classes.btnWrapper}>
-        <FormButton
+        <NextButton
           type="submit"
           label={"Next"}
           ariaLabel="Click here to complete step 1 of update account information and move to step 2."
