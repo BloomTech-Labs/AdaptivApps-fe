@@ -90,72 +90,66 @@ export default function MyEventCard({ event, refetch }) {
   const navigate = useNavigate();
   // Retrieves current user info from Auth0
   const { user } = useAuth0();
-  // const { data: participantData } = useQuery(GET_PARTICIPANTS, {
-  //   variables: { email: user.email, id: event.id },
-  //   fetchPolicy: "no-cache",
-  // });
+  const { data } = useQuery(GET_PARTICIPANTS, {
+    variables: { email: user.email, id: event.id },
+    fetchPolicy: "no-cache",
+  });
   const { data: attendeeData } = useQuery(GET_ATTENDEES, {
     variables: { email: user.email, id: event.id },
     fetchPolicy: "no-cache",
   });
   const [unregisterFromEvent] = useMutation(UNREGISTER_FROM_EVENT);
-  // const [unregisterFromAll] = useMutation(UNREGISTER_FROM_ALL);
-  // const [unregisterFromEventActivity] = useMutation(
-  //   UNREGISTER_FROM_EVENT_ACTIVITY
-  // );
-
-  // const participantIds = data?.participants?.map(participant => {
-  //   return participant.id;
-  // });
-
-  // const participantIdValue = data?.participants?.map(participant => {
-  //   return participant.id;
-  // });
-
-  // const participantId = JSON.stringify(participantIdValue).replace(
-  //   /[\[\]"]+/g,
-  //   ""
-  // );
-  console.log("Attendee Data", attendeeData);
-
-  // console.log("Participant IDS", participantIds);
-  // console.log("Participant ID VALUE", participantIdValue);
-  // console.log("participant ID", participantId);
+  const [unregisterFromAll] = useMutation(UNREGISTER_FROM_ALL);
+  const [unregisterFromEventActivity] = useMutation(
+    UNREGISTER_FROM_EVENT_ACTIVITY
+  );
 
   // Unregisters user from specified event and all it's activities
   const eventUnregister = async () => {
-    // data && data?.participants?.length > 1 ? await unregisterFromEvent({
-    //   variables: {
-    //   }
-    // })
-    // data && data?.participants?.length === 1
-    //   ? await unregisterFromEventActivity({
-    //       variables: {
-    //         id: event.id,
-    //         email: user.email,
-    //         participantId: participantId,
-    //       },
-    //     })
-    //   : data && data?.participants === null
-    //   ? await unregisterFromEvent({
-    //       variables: {
-    //         id: event.id,
-    //         email: user.email,
-    //       },
-    //     })
-    //   : await unregisterFromAll({
-    //       variables: {
-    //         id: event.id,
-    //         email: user.email,
-    //         participantIds: participantIds,
-    //       },
-    //     });
-    // await refetch();
+    const participantIds = data?.participants?.map(participant => {
+      return participant.id;
+    });
+
+    const participantId = data?.participants?.map(participant => {
+      return participant.id;
+    });
+    const attendeeId = attendeeData?.participants?.map(attendee => {
+      return attendee.id;
+    });
+    const participantIdValue = JSON.stringify(participantId).replace(
+      /[\[\]"]+/g,
+      ""
+    );
+    const attendeeIdValue = JSON.stringify(attendeeId).replace(/[\[\]"]+/g, "");
+    data && data?.participants?.length === 1
+      ? await unregisterFromEventActivity({
+          variables: {
+            attendeeId: attendeeIdValue,
+            email: user?.email,
+            participantId: participantIdValue,
+          },
+        })
+      : data && data?.participants === null
+      ? await unregisterFromEvent({
+          variables: {
+            attendeeId: attendeeIdValue,
+            email: user?.email,
+          },
+        })
+      : await unregisterFromAll({
+          variables: {
+            attendeeId: attendeeIdValue,
+            email: user?.email,
+            participantIds: participantIds,
+          },
+        });
+    await refetch();
   };
   const viewEventDetails = async () => {
     await navigate(`/myevents/${event?.id}`);
   };
 
+  console.log("event being passed down as props", event);
   return (
     <Card className={classes.root}>
       <CardActionArea className={classes.card}>
@@ -201,7 +195,7 @@ export default function MyEventCard({ event, refetch }) {
         <Button onClick={viewEventDetails} className={classes.btn}>
           View Details
         </Button>
-        <Button className={classes.btn} onClick={unregisterFromEvent}>
+        <Button className={classes.btn} onClick={eventUnregister}>
           Unregister
         </Button>
       </CardActions>
