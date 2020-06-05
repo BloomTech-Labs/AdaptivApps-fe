@@ -143,9 +143,9 @@ function App() {
           <Accessibility path="/accessibility" />
           <PrivacyPolicy path="/privacy-policy" />
           <PrivateRoute path="/" component={DashRouter}>
-            <UserProfile path="/myprofile" />
             <Settings path="/" />
             <AccountInfo path="updateaccount/:userEmail/*" />
+            <UserProfile path="/myprofile" />
             <EventsCalendar path="calendar" />
             <ActivityList path="calendar/:eventId" />
             <MyEvents path="myevents" />
