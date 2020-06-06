@@ -213,6 +213,8 @@ function SideNav(props) {
     });
   };
 
+  _subscribeToNewChats(subscribeToMore);
+
   // Announcement Subscription
   const _subscribeToNewAnnouncements = announcementSubscription => {
     announcementSubscription({
