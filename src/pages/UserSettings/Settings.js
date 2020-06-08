@@ -108,20 +108,24 @@ export default function Settings() {
   const [createProfile] = useMutation(ADD_USER_PROFILE);
 
   // Fetch profile for the user using the email associated with auth0 login
-  const { loading, error, data } = useQuery(PROFILE_INFO, {
+  const { loading, error, data, refetch } = useQuery(PROFILE_INFO, {
     variables: { email: user?.email },
   });
-  
+ 
   const profile = data?.profile;
-
+ 
   // Extract the profile from returning data of useQuery
   useEffect(() => {
     if (error) {
       return <p>Error</p>;
     }
     // If user does not have a profile in backend, create one for them
-    if (!loading && !profile) {
+    if (!loading && !profile?.id) {
       newProfile();
+    }
+
+    if (profile) {
+      refetch();
     }
     // eslint-disable-next-line
   }, [profile]);
@@ -129,6 +133,7 @@ export default function Settings() {
   // Function that creates a profile for given email
   const newProfile = async () => {
     await createProfile({ variables: { email: user.email } });
+    refetch();
   };
 
   return (
