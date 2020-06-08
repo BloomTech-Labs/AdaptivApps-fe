@@ -1,86 +1,85 @@
 import React, { useState } from "react";
 import { useMutation } from "react-apollo";
-import { UPDATE_ANNOUNCEMENT } from '../../queries/Announcements';
+import { UPDATE_ANNOUNCEMENT } from "../../queries/Announcements";
 
 //Style imports
-import CloseIcon from '@material-ui/icons/Close';
-import Tooltip from '@material-ui/core/Tooltip';
-import {
-  makeStyles,
-  Button,
-  Box,
-  TextField
-} from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
+import Tooltip from "@material-ui/core/Tooltip";
+import { makeStyles, Button, Box, TextField } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   span: {
-    fontSize: '2rem',
-    color: '#2962FF',
-    textAlign: 'center',
-    fontWeight: 'normal',
-    marginTop: '0%'
+    fontSize: "2rem",
+    color: "#2962FF",
+    textAlign: "center",
+    fontWeight: "normal",
+    marginTop: "0%",
   },
   modal: {
     fontSize: "-webkit-xxx-large",
-    width: '50%',
-    marginLeft: '25%',
-    marginTop: '5%'
+    width: "50%",
+    marginLeft: "25%",
+    marginTop: "5%",
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    borderRadius: '5px',
+    border: "2px solid #000",
+    borderRadius: "5px",
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3)
+    padding: theme.spacing(2, 4, 3),
   },
   closeModal: {
     fontSize: "2rem",
-    marginLeft: '100%',
+    marginLeft: "100%",
     border: "none",
-    '&:hover': {
+    "&:hover": {
       cursor: "pointer",
-      color: "#2962FF"
-    }, 
-    '&:focus': {
-      outline: "none"
-    }
+      color: "#2962FF",
+    },
+    "&:focus": {
+      outline: "none",
+    },
   },
   titles: {
-    fontSize: '1.5rem',
-    marginBottom: '0',
-    fontWeight: 'normal'
+    fontSize: "1.5rem",
+    marginBottom: "0",
+    fontWeight: "normal",
   },
   titleDiv: {
     display: "flex",
-    justifyContent: 'center'
+    justifyContent: "center",
   },
   titleInput: {
-    width: '100%'
+    width: "100%",
   },
   buttonDiv: {
-    marginTop: '5%',
-    display: 'flex',
-    justifyContent: 'center'
+    marginTop: "5%",
+    display: "flex",
+    justifyContent: "center",
   },
   button: {
-    fontSize: '2rem',
-    fontWeight: 'bold',
-    background: '#2962FF',
-    color: 'white',
-    '&:hover': {
-      color: '#2962FF'
-    }
-  }
+    fontSize: "2rem",
+    fontWeight: "bold",
+    background: "#2962FF",
+    color: "white",
+    "&:hover": {
+      color: "#2962FF",
+    },
+  },
 }));
-  
-function EditAnnouncementModal({ setAnnouncementOpen, announcement, setUpdateChat }) {
+
+function EditAnnouncementModal({
+  setAnnouncementOpen,
+  announcement,
+  setUpdateChat,
+}) {
   const classes = useStyles();
 
   const [updateAnnouncement] = useMutation(UPDATE_ANNOUNCEMENT);
 
   const [updateTitle, setUpdateTitle] = useState(announcement.title);
   const [updateMessage, setUpdateMessage] = useState(announcement.message);
-  
+
   const handleTitleChange = e => {
     setUpdateTitle(e.target.value);
   };
@@ -95,8 +94,8 @@ function EditAnnouncementModal({ setAnnouncementOpen, announcement, setUpdateCha
       variables: {
         id: announcement.id,
         title: updateTitle,
-        message: updateMessage
-      }
+        message: updateMessage,
+      },
     });
     setAnnouncementOpen(false);
     setUpdateChat(true);
@@ -108,14 +107,16 @@ function EditAnnouncementModal({ setAnnouncementOpen, announcement, setUpdateCha
   };
 
   return (
-    <div className={classes.modal}>          
+    <div className={classes.modal}>
       <div className={classes.paper}>
         <Tooltip title="Cancel">
           <CloseIcon className={classes.closeModal} onClick={closeModal} />
         </Tooltip>
-        <h2 id="transition-modal-title" className={classes.span}>Update Announcement</h2>
+        <h2 id="transition-modal-title" className={classes.span}>
+          Update Announcement
+        </h2>
         <h3 className={classes.titles}>Announcement Title</h3>
-        <div className={classes.titleDiv}>       
+        <div className={classes.titleDiv}>
           <Box component="div" className={classes.titleInput}>
             <TextField
               variant="outlined"
@@ -123,7 +124,8 @@ function EditAnnouncementModal({ setAnnouncementOpen, announcement, setUpdateCha
               fullWidth
               name="announcementTitle"
               value={updateTitle}
-              onChange={handleTitleChange} />
+              onChange={handleTitleChange}
+            />
           </Box>
         </div>
         <h3 className={classes.titles}>Announcement Text</h3>
@@ -138,19 +140,25 @@ function EditAnnouncementModal({ setAnnouncementOpen, announcement, setUpdateCha
               type="text"
               name="announcementText"
               value={updateMessage}
-              onChange={handleMessageChange} />
+              onChange={handleMessageChange}
+            />
           </Box>
-        </div>      
+        </div>
         <div className={classes.buttonDiv}>
           <Tooltip title="Update Announcement">
-            <Button variant="outlined" color="primary" onClick={onSubmit} className={classes.button}>
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={onSubmit}
+              className={classes.button}
+            >
               Update Announcement
             </Button>
           </Tooltip>
         </div>
       </div>
     </div>
-  )
-};
-  
+  );
+}
+
 export default EditAnnouncementModal;
