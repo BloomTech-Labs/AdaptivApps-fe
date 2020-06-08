@@ -128,6 +128,7 @@ export default function Settings() {
 
   // Function that creates a profile for given email
   const newProfile = async () => {
+    console.log('Inside Settings.js', newProfile)
     await createProfile({ variables: { email: user.email } });
   };
 
