@@ -66,13 +66,8 @@ export const PROFILE_INFO = gql`
       phoneNumber
       state
       city
-      bio
-      legal
-      type
-      private
       extProfile {
         id
-        private
         birthday
         gender
         eC1Name
@@ -81,12 +76,10 @@ export const PROFILE_INFO = gql`
         disability {
           id
           physicalDisability
-          detailedDisabilities
         }
       }
       demographicProfile {
         id
-        private
         veteranStatus
         militaryBranch
         yearsServed

@@ -281,24 +281,20 @@ function SideNav(props) {
           <SettingsIcon className={classes.navIcon} />
           <p>Settings</p>
         </NavLink>
-        {/* <NavLink to="/chats" className={classes.navLink}>
-          <UserIcon className={classes.navIcon} />
-          <p>Chats</p>
-        </NavLink> */}
         {data === undefined ||
         data?.profile === null ||
         (data &&
-          (data?.profile?.firstName === null ||
-            data?.profile?.lastName === null)) ? (
+          data?.profile?.firstName === null &&
+            data?.profile?.lastName === null) ? (
           <Tooltip title="Please complete your profile information to access Chats">
             <div className={classes.disabledNavLink}>
-              {
-              // data?.profile !== null &&
-              
-              data?.profile?.notifications.length > 0 ? (
+              {data &&
+              data?.profile !== null &&
+              data &&
+              data?.profile?.notifications?.length > 0 ? (
                 <StyledBadge
                   overlap="circle"
-                  badgeContent={data?.profile?.notifications.length}
+                  badgeContent={data?.profile?.notifications?.length}
                 >
                   <ForumOutlinedIcon className={classes.navIcon} />
                 </StyledBadge>
@@ -310,10 +306,10 @@ function SideNav(props) {
           </Tooltip>
         ) : (
           <NavLink to="/chats" className={classes.navLink}>
-            {data?.profile?.notifications.length > 0 ? (
+            {data && data?.profile?.notifications?.length > 0 ? (
               <StyledBadge
                 overlap="circle"
-                badgeContent={data?.profile?.notifications.length}
+                badgeContent={data?.profile?.notifications?.length}
               >
                 <ForumOutlinedIcon className={classes.navIcon} />
               </StyledBadge>

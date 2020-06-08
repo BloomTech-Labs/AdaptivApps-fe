@@ -2,8 +2,8 @@ import gql from "graphql-tag";
 
 // Retrieve messages for a user
 export const GET_MESSAGES = gql`
-  query getMessages( $email: String! ) {
-    profile( where: { email: $email } ){
+  query getMessages($email: String!) {
+    profile(where: { email: $email }) {
       chats {
         id
         from {
@@ -22,38 +22,31 @@ export const GET_MESSAGES = gql`
         id
         label
         profile {
-          id 
+          id
           email
         }
-      } 
+      }
     }
   }
-`
+`;
 
 // Send a chat
 export const SEND_CHAT = gql`
-  mutation sendChat( $id: ID!, $email: String!, $message: String!, $recipient: String!) {
+  mutation sendChat(
+    $id: ID!
+    $email: String!
+    $message: String!
+    $recipient: String!
+  ) {
     createChat(
       data: {
-        from: {
-          connect: {
-            email: $email
-          }
-        }
+        from: { connect: { email: $email } }
         message: $message
-        room: {
-          connect: {
-            id: $id
-          }
-        }
+        room: { connect: { id: $id } }
         notification: {
           create: {
             label: $message
-            profile: {
-              connect: {
-                email: $recipient
-              }
-            }
+            profile: { connect: { email: $recipient } }
           }
         }
       }
@@ -74,11 +67,8 @@ export const SEND_CHAT = gql`
 
 // Update a sent chat
 export const UPDATE_CHAT = gql`
-  mutation updateChat( $id: ID!, $message: String! ) {
-    updateChat(
-      where: { id: $id }
-      data: { message: $message }
-    ) {
+  mutation updateChat($id: ID!, $message: String!) {
+    updateChat(where: { id: $id }, data: { message: $message }) {
       id
       from {
         email
@@ -97,8 +87,8 @@ export const UPDATE_CHAT = gql`
 
 // Delete a chat
 export const DELETE_CHAT = gql`
-  mutation deleteChat( $id: ID! ) {
-    deleteChat( where: { id: $id } ) {
+  mutation deleteChat($id: ID!) {
+    deleteChat(where: { id: $id }) {
       id
     }
   }
@@ -106,8 +96,8 @@ export const DELETE_CHAT = gql`
 
 // Retrieve a list of recent recipients the user has sent a chat to
 export const GET_RECENT_RECIPIENTS = gql`
-  query getRecentRecipients( $email: String! ) {
-    profile( where: { email: $email } ) {
+  query getRecentRecipients($email: String!) {
+    profile(where: { email: $email }) {
       chatRooms {
         id
         participants {
