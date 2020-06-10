@@ -1,9 +1,9 @@
 // React imports
 import React, { useEffect } from "react";
 // Component imports
-import ActivityDetails from "./ActivityDetails";
+import ActivityGroup from "./ActivityGroup";
 // Auth0 imports
-import { useAuth0, Auth0Context } from "../../config/react-auth0-spa";
+import { useAuth0 } from "../../config/react-auth0-spa";
 // GraphQL/Apollo imports
 import { useQuery } from "react-apollo";
 import { GET_USER_ACTIVITIES } from "./queries";
@@ -73,7 +73,7 @@ const useStyles = makeStyles({
       fontWeight: 550,
       fontSize: "1.6rem",
       width: "20rem",
-      padding: "1% 1% 2% 0",
+      padding: "1% 1% 0 0",
       textAlign: "left",
     },
   },
@@ -182,7 +182,7 @@ export default function EventDetails(props) {
         <Box className={classes.webinarBox}>
           <p>Hosted by: {activeEvent.host}</p>
           <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
-          <a href={activeEvent.link} target="_blank">
+          <a href={activeEvent.link} rel="noopener noreferrer" target="_blank">
             Click Here to Join Us!
           </a>
         </Box>
@@ -191,21 +191,12 @@ export default function EventDetails(props) {
         {currentActivities.length >= 1 ? (
           <Box className={classes.myActivitiesBox}>
             <p>My Activities</p>
-            <table className={classes.table}>
-              <tbody>
-                <tr className={classes.headerRow}>
-                  <th className={classes.tableH}>Name</th>
-                  <th className={classes.tableH}>Date</th>
-                  <th className={classes.tableH}>Location</th>
-                  <th className={classes.tableH}>Time</th>
-                  <th className={classes.tableH}>My Role</th>
-                </tr>
-                {currentActivities &&
-                  currentActivities.map((activity, id) => (
-                    <ActivityDetails key={id} activity={activity} />
-                  ))}
-              </tbody>
-            </table>
+            <ActivityGroup
+              data={data}
+              activeEvent={activeEvent}
+              currentActivities={currentActivities}
+              refetch={refetch}
+            />
           </Box>
         ) : null}
       </>

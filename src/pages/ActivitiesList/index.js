@@ -1,12 +1,12 @@
 import React from "react";
 import { useQuery } from "react-apollo";
-import Activities from "./Activities";
+import ActivityGroup from "./ActivityGroup";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 import { useParams } from "@reach/router";
 import { GET_EVENT_ACTIVITIES } from "./queries/getActivities";
 
-import { makeStyles, Box, Typography, Grid } from "@material-ui/core";
+import { makeStyles, Box, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
@@ -55,23 +55,23 @@ const useStyles = makeStyles({
     fontSize: "1.6rem",
   },
   activityC: {
-    "& p": {
-      fontWeight: "bold",
-      fontSize: "1.8rem",
-      margin: "3rem 0 2rem 3rem",
-    },
     "& tr": {
       display: "flex",
       alignItems: "center",
-    },
-    "& th": {
-      margin: "0 0 0 3rem",
-      fontWeight: 550,
-      fontSize: "1.6rem",
-      width: "20rem",
-      padding: "1% 1% 2% 0",
       textAlign: "left",
     },
+    "& th": {
+      fontWeight: 550,
+      fontSize: "1.6rem",
+      width: "19.6rem",
+      padding: "1% 0 2% 0",
+      textAlign: "left",
+    },
+  },
+  myActivities: {
+    fontWeight: "bold",
+    fontSize: "1.8rem",
+    margin: "3rem 0 2rem 3rem",
   },
   headerRow: {
     textAlign: "left",
@@ -104,7 +104,7 @@ const useStyles = makeStyles({
 export default function ActivityList() {
   const classes = useStyles();
   const { eventId } = useParams();
-  const { loading, error, data: activityData } = useQuery(
+  const { loading, error, data: activityData, refetch } = useQuery(
     GET_EVENT_ACTIVITIES,
     {
       variables: { id: eventId },
@@ -134,10 +134,10 @@ export default function ActivityList() {
             color="textSecondary"
             component="p"
           >
-            {activityData.event.startDate}-{activityData.event.endDate}
+            {activityData?.event?.startDate}-{activityData?.event?.endDate}
           </Typography>
           <Typography className={classes.title}>
-            {activityData.event.title}
+            {activityData?.event?.title}
           </Typography>
           <Typography
             className={classes.loc}
@@ -152,25 +152,10 @@ export default function ActivityList() {
       <Box className={classes.details}>{activityData.event.details}</Box>
       {activityData.event.activities.length >= 1 ? (
         <Box className={classes.activityC}>
-          <p>Activities Schedule</p>
+          <p className={classes.myActivities}>Activities Schedule</p>
           <table className={classes.table}>
             <tbody>
-              <tr className={classes.headerRow}>
-                <th className={classes.tableH}>Name</th>
-                <th className={classes.tableH}>Date</th>
-                {activityData.event.type === "In Person" ? (
-                  <th className={classes.tableH}>Location</th>
-                ) : null}
-                <th className={classes.tableH}>Time</th>
-              </tr>
-              {activityData &&
-                activityData?.event?.activities.map((activity, id) => (
-                  <Activities
-                    key={id}
-                    activity={activity}
-                    activityData={activityData}
-                  />
-                ))}
+              <ActivityGroup activityData={activityData} refetch={refetch} />
             </tbody>
           </table>
         </Box>

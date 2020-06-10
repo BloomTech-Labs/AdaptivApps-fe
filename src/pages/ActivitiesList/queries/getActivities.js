@@ -15,7 +15,7 @@ export const GET_EVENT_ACTIVITIES = gql`
       activities {
         id
         name
-        startDate
+        date
         location
         link
         startTime
@@ -24,7 +24,7 @@ export const GET_EVENT_ACTIVITIES = gql`
         details
         participants {
           id
-          profile {
+          activityProfile {
             id
             email
           }

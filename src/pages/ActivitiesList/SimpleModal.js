@@ -30,9 +30,13 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
   },
   btn: {
+    alignItems: "start",
     padding: "0",
     textTransform: "none",
     color: "#2962FF",
+    "& span": {
+      alignItems: "start",
+    },
   },
   img: {
     width: "100%",
@@ -64,10 +68,10 @@ const useStyles = makeStyles(theme => ({
     paddingRight: "1rem",
   },
   nameLink: {
-    fontSize: '1.8rem',
-    fontWeight: '500',
-    textDecoration: 'none',
-    color: '#2962FF'
+    fontSize: "1.8rem",
+    fontWeight: "500",
+    textDecoration: "none",
+    color: "#2962FF",
   },
   modalBottom: {
     display: "flex",
@@ -90,7 +94,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SimpleModal({ activity, activityData }) {
+export default function SimpleModal({ activity, activityData, activeEvent }) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
@@ -103,23 +107,24 @@ export default function SimpleModal({ activity, activityData }) {
   const handleClose = () => {
     setOpen(false);
   };
+  console.log(activity);
   const body = (
     <Container style={modalStyle} className={classes.paper}>
       <Box className={classes.imgBox}>
         <img
           className={classes.img}
           src={
-            (activity && activity?.event?.imgUrl) ||
-            (activityData && activityData?.event?.imgUrl)
+            (activityData && activityData?.event?.imgUrl) ||
+            (activeEvent && activeEvent?.imgUrl)
           }
           alt="Event"
         />
       </Box>
       <Box className={classes.modalMiddle}>
         <Typography className={classes.title} id="simple-modal-title">
-          {activity.name}
+          {activity?.name}
         </Typography>
-        <Typography className={classes.date}>{activity.startTime}</Typography>
+        <Typography className={classes.date}>{activity?.startTime}</Typography>
         <Typography className={classes.details} id="simple-modal-description">
           {activity?.details}
         </Typography>
@@ -133,11 +138,12 @@ export default function SimpleModal({ activity, activityData }) {
       </Box>
     </Container>
   );
-
+  console.log("activity ", activity);
+  console.log("activity Data", activeEvent);
   return (
     <div>
       <Button className={classes.btn} onClick={handleOpen}>
-        {activity.name}
+        {activity?.name}
       </Button>
       <Modal
         open={open}

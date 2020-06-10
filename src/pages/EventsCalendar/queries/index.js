@@ -9,6 +9,7 @@ export const GET_EVENT_LIST = gql`
       host
       speakers
       startTime
+      endTime
       title
       startDate
       endDate
@@ -17,6 +18,17 @@ export const GET_EVENT_LIST = gql`
       sponsors
       imgUrl
       details
+      attendees {
+        id
+      }
+    }
+  }
+`;
+
+export const DELETE_EVENT = gql`
+  mutation deleteEvent($id: ID!) {
+    deleteEvent(where: { id: $id }) {
+      id
     }
   }
 `;

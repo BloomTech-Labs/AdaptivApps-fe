@@ -5,8 +5,10 @@ import { useNavigate } from "@reach/router";
 // GraphQL/Apollo imports
 import { useMutation, useQuery } from "react-apollo";
 import {
+  UNREGISTER_FROM_EVENT,
   UNREGISTER_FROM_ALL,
-  GET_PARTICIPANT_IDS,
+  GET_ATTENDEES,
+  GET_PARTICIPANTS,
   UNREGISTER_FROM_EVENT_ACTIVITY,
 } from "./queries";
 // Auth0 imports
@@ -88,48 +90,56 @@ export default function MyEventCard({ event, refetch }) {
   const navigate = useNavigate();
   // Retrieves current user info from Auth0
   const { user } = useAuth0();
-  const { data } = useQuery(GET_PARTICIPANT_IDS, {
+  const { data } = useQuery(GET_PARTICIPANTS, {
     variables: { email: user.email, id: event.id },
     fetchPolicy: "no-cache",
   });
+  const { data: attendeeData } = useQuery(GET_ATTENDEES, {
+    variables: { email: user.email, id: event.id },
+    fetchPolicy: "no-cache",
+  });
+  const [unregisterFromEvent] = useMutation(UNREGISTER_FROM_EVENT);
   const [unregisterFromAll] = useMutation(UNREGISTER_FROM_ALL);
   const [unregisterFromEventActivity] = useMutation(
     UNREGISTER_FROM_EVENT_ACTIVITY
   );
+
   // Unregisters user from specified event and all it's activities
-  const unregisterFromEvent = async () => {
+  const eventUnregister = async () => {
     const participantIds = data?.participants?.map(participant => {
       return participant.id;
     });
 
-    const participantIdValue = data?.participants?.map(participant => {
+    const participantId = data?.participants?.map(participant => {
       return participant.id;
     });
-
-    const participantId = JSON.stringify(participantIdValue).replace(
+    const attendeeId = attendeeData?.participants?.map(attendee => {
+      return attendee.id;
+    });
+    const participantIdValue = JSON.stringify(participantId).replace(
       /[\[\]"]+/g,
       ""
     );
-
+    const attendeeIdValue = JSON.stringify(attendeeId).replace(/[\[\]"]+/g, "");
     data && data?.participants?.length === 1
       ? await unregisterFromEventActivity({
           variables: {
-            id: event.id,
-            email: user.email,
-            participantId: participantId,
+            attendeeId: attendeeIdValue,
+            email: user?.email,
+            participantId: participantIdValue,
           },
         })
       : data && data?.participants === null
       ? await unregisterFromEvent({
           variables: {
-            id: event.id,
-            email: user.email,
+            attendeeId: attendeeIdValue,
+            email: user?.email,
           },
         })
       : await unregisterFromAll({
           variables: {
-            id: event.id,
-            email: user.email,
+            attendeeId: attendeeIdValue,
+            email: user?.email,
             participantIds: participantIds,
           },
         });
@@ -139,6 +149,7 @@ export default function MyEventCard({ event, refetch }) {
     await navigate(`/myevents/${event?.id}`);
   };
 
+  console.log("event being passed down as props", event);
   return (
     <Card className={classes.root}>
       <CardActionArea className={classes.card}>
@@ -184,7 +195,7 @@ export default function MyEventCard({ event, refetch }) {
         <Button onClick={viewEventDetails} className={classes.btn}>
           View Details
         </Button>
-        <Button className={classes.btn} onClick={unregisterFromEvent}>
+        <Button className={classes.btn} onClick={eventUnregister}>
           Unregister
         </Button>
       </CardActions>
