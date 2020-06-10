@@ -1,3 +1,4 @@
+import gql from "graphql-tag";
 export const GET_USER_PROFILE = gql`
   query getUserProfile($userName: String!) {
     profile(where: { userName: $userName }) {
