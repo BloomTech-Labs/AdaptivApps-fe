@@ -47,18 +47,9 @@ export const GET_ANNOUNCEMENTS = gql`
       message
       createdAt
       isAnnouncementRoom
-      notification {
-        id
-        label
-        profile {
-          email
-          id
-        }
-      }
     }
   }
 `
-
 
 // Update an announcement
 export const UPDATE_ANNOUNCEMENT = gql`
@@ -108,46 +99,3 @@ export const ANNOUNCEMENT_SUBSCRIPTION = gql`
     }
   }
 `;
-
-
-
-
-// OLD --> Create an announcement
-// export const CREATE_ANNOUNCEMENT = gql`
-// 	mutation createAnnouncement ( 
-//     $title: String!, 
-//     $message: String!, 
-//     $recipients: [ProfileWhereUniqueInput!], 
-//     $isAnnouncementRoom: Boolean! ) {
-//     createAnnouncement(
-//       data: {
-//         title: $title
-//         message: $message
-//         isAnnouncementRoom: $isAnnouncementRoom
-//         participants: {
-//           connect: $recipients
-//         }
-//         notification: {
-//           create: {
-//             label: $title
-//             profile: {
-//               connect: $recipients
-//             }
-//           }
-//         }
-//       }
-//     ) {
-//       id
-//       message
-//       title
-//       createdAt
-//       notification {
-//         label
-//         profile {
-//           id
-//           email
-//         }
-//       }
-//     }
-//   }
-// `

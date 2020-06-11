@@ -28,6 +28,7 @@ const StyledBadge = withStyles((theme) => ({
     fontSize: '1.25rem'
   },
 }))(Badge);
+
 const useStyles = makeStyles(() => ({
   root: {   
     margin: ".5rem auto",
