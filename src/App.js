@@ -10,6 +10,7 @@ import PrivateRoute from "./routes/PrivateRoute";
 
 // Import page components
 import EventsCalendar from "./pages/EventsCalendar";
+import PublicProfile from "./pages/PublicProfile/PublicProfile";
 import UserProfile from "./pages/UserProfile";
 import Settings from "./pages/UserSettings/Settings";
 import AccountInfo from "./pages/UserSettings/AccountInfo/";
@@ -154,6 +155,7 @@ function App() {
             <EditEvent path="editEvent/:eventId" />
             <CreateActivity path="createEvent/:eventId" />
             <EditActivity path="editActivity/:activityId" />
+            <PublicProfile path="user/:userName" />
             <ManageUsers path="users" />
             <ChatFeature path="chats" />
           </PrivateRoute>
