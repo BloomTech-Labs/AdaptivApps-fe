@@ -13,8 +13,18 @@ export default function PublicProfile() {
   if (loading) return <CircularProgress />;
   if (error) return `Error! ${error.message}`;
   return (
-    <div>
-      <h1>Public profile is working!</h1>
-    </div>
+    <>
+      {data.profile.private === true || data.profile.userName === null ? (
+        <p>
+          {" "}
+          Sorry this user has not set up their account yet, or their profile is
+          set to private.
+        </p>
+      ) : (
+        <div>
+          <h1>Public profile is working!</h1>
+        </div>
+      )}
+    </>
   );
 }
