@@ -10,6 +10,11 @@ import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
+    wrapper: {
+        position: "relative",
+        width: "250px",
+        userSelect: "none",
+    },
     header: {
         display: "flex",
         alignItems: "center",
@@ -20,7 +25,8 @@ const useStyles = makeStyles({
         backgroundColor: "white",
         lineHeight: "38px",
         cursor: "default",
-        fontSize: "1.5rem"
+        width: "100%",
+        fontSize: "2.4rem"
     },
     title: {
         margin: "2px 20px",
@@ -49,7 +55,7 @@ const GlobalSearchBox = () => {
     }
 
     return (
-        <div>
+        <div className={classes.wrapper}>
             <button type="button" className={classes.header} onClick={() => toggleList()}>
                 <div className={classes.title}>{title}</div>
                 {listOpen
