@@ -86,6 +86,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
+
 export default function AnnouncementRoom({ user }) {
     const classes = useStyles();
 
@@ -107,7 +108,7 @@ export default function AnnouncementRoom({ user }) {
       e.preventDefault();
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
     }
-    
+
     const closeDrawer = e => {
       e.preventDefault();
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
