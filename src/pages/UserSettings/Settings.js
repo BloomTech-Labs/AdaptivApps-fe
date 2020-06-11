@@ -111,9 +111,9 @@ export default function Settings() {
   const { loading, error, data, refetch } = useQuery(PROFILE_INFO, {
     variables: { email: user?.email },
   });
- 
+
   const profile = data?.profile;
- 
+
   // Extract the profile from returning data of useQuery
   useEffect(() => {
     if (error) {
@@ -219,7 +219,7 @@ export default function Settings() {
               <Typography>{profile?.demographicProfile?.ethnicity}</Typography>
             </Box>
           </Box>
-            {/* Display option will be a feature in  */}
+          {/* Display option will be a feature in  */}
           {/* <Box className={classes.displayBox}>
             <Typography>Display this info publicly?</Typography>
             <Checkbox color="primary" size="medium" />
