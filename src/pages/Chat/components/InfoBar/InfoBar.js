@@ -6,13 +6,6 @@ import AnnouncementModal from "../Modals/AnnouncementModal";
 
 // Query / Mutation / Subscription Imports
 import { useQuery } from "react-apollo";
-import {
-  GET_CHAT_ROOMS,
-  CHAT_ROOM_SUBSCRIPTION,
-} from "../../queries/ChatRooms";
-import { GET_RECIPIENTS } from "../../queries/Chats";
-import { GET_ANNOUNCEMENTS } from "../../queries/Announcements";
-import { GET_USER_PROFILE } from "../../../MyEventDetails/queries/index";
 
 //Auth0 imports
 import config from "../../../../config/auth_config";
@@ -116,109 +109,36 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   const [searchRecipient, setSearchRecipient] = useState("");
   const [results, setResults] = useState([]);
 
-  const {
-    loading,
-    error,
-    data,
-    refetch,
-    subscribeToMore,
-  } = useQuery(GET_CHAT_ROOMS, 
-    { variables: { email: user.email },
-    fetchPolicy: "no-cache",
-   });
-  const { data: recipients } = useQuery(GET_RECIPIENTS);
-  const { data: announcements } = useQuery(GET_ANNOUNCEMENTS, {
-    variables: { isAnnouncementRoom: true },
-  });
-  const { data: chats, refetch: refetchProfile } = useQuery(GET_USER_PROFILE, {
-    variables: { email: user.email },
-  });
-
-  // Chat Room Subscription
-  const _subscribeToNewChatRoom = subscribeToMore => {
-    subscribeToMore({
-      document: CHAT_ROOM_SUBSCRIPTION,
-      updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data) return prev;
-        const chatRoom = subscriptionData.data.chatRoom;
-        refetch();
-        refetchProfile();
-        return Object.assign({}, prev, {
-          profile: {
-            chatRooms: [chatRoom, ...prev.profile.chatRooms],
-            __typename: prev.profile.__typename,
-          },
-        });
-      },
-    });
-  };
-
-  _subscribeToNewChatRoom(subscribeToMore);
-
-  // Convert announcement object to Array & filter out notifications
-  const announcementArray = announcements && Object.values(announcements);
-
-  const notifications =
-    announcementArray &&
-    announcementArray.map(ann => {
-      return ann.filter(
-        item => item.notification.length > 0 && item.notification
-      );
-    });
-
-  // Make sure no participants pass through with a null or empty name
-  const validParticipants = [];
-
-  recipients &&
-    recipients.profiles.map(user => {
-      if (
-        user.firstName !== null &&
-        user.lastName !== null &&
-        user.firstName !== "" &&
-        user.lastName !== ""
-      ) {
-        validParticipants.push(user);
-      }
-    });
-
-  if (loading) return <CircularProgress className={classes.loadingSpinner} />;
-  if (error) return `Error! ${error.message}`;
-
-  // Load a user's chat rooms via participant names
-  const participants =
-    data &&
-    data?.profile.chatRooms
-      .map(item => item !== null && item.participants)
-      .concat()
-      .flat();
+  // if (loading) return <CircularProgress className={classes.loadingSpinner} />;
+  // if (error) return `Error! ${error.message}`;
 
   // Search for a chat room
-  const searchRooms = e => {
-    e.preventDefault();
-    let filter =
-      data &&
-      data?.profile.chatRooms.map(room => {
-        let users = room.participants.map(user => {
-          if (
-            user.firstName !== null &&
-            user.lastName !== null &&
-            user.firstName !== "" &&
-            user.lastName !== ""
-          ) {
-            return `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`;
-          }
-        });
-        return users.filter(user => {
-          if (user.includes(searchRecipient.toLowerCase())) {
-            results.push(room);
-            return results;
-          } else if (searchRecipient === "all" || searchRecipient === "All") {
-            return participants;
-          }
-        });
-      });
-    setSearchRecipient("");
-  };
+  // const searchRooms = e => {
+  //   e.preventDefault();
+  //   let filter =
+  //     data &&
+  //     data?.profile.chatRooms.map(room => {
+  //       let users = room.participants.map(user => {
+  //         if (
+  //           user.firstName !== null &&
+  //           user.lastName !== null &&
+  //           user.firstName !== "" &&
+  //           user.lastName !== ""
+  //         ) {
+  //           return `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`;
+  //         }
+  //       });
+  //       return users.filter(user => {
+  //         if (user.includes(searchRecipient.toLowerCase())) {
+  //           results.push(room);
+  //           return results;
+  //         } else if (searchRecipient === "all" || searchRecipient === "All") {
+  //           return participants;
+  //         }
+  //       });
+  //     });
+  //   setSearchRecipient("");
+  // };
 
   const handleOpen = () => {
     setOpen(true);
@@ -250,8 +170,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
           className={classes.span}
           onClick={handleOpen}
           aria-label="New Message Button"
-        >
-          New Message
+        > New Message
         </span>
       </div>
       <Modal
@@ -266,13 +185,13 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
           timeout: 500,
         }}
       >
-        <RecipientModal
+        {/* <RecipientModal
           user={user}
           setOpen={setOpen}
           setNewRoom={setNewRoom}
           participants={participants}
           validParticipants={validParticipants}
-        />
+        /> */}
       </Modal>
       {user && user[config.roleUrl].includes("Admin") ? (
         <>
@@ -300,7 +219,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
           >
             <AnnouncementModal
               user={user}
-              validParticipants={validParticipants}
+              // validParticipants={validParticipants}
               setAnnouncementOpen={setAnnouncementOpen}
               setAlertOpen={setAlertOpen}
             />
@@ -308,13 +227,8 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
         </>
       ) : null}
       <div className={classes.chatRoomDiv}>
-        <AnnouncementRoom
-          notifications={notifications}
-          key="announcement_room"
-          user={user}
-          chats={chats}
-        />
-        <Divider variant="inset" className={classes.divider} />
+        <AnnouncementRoom user={user} />
+        {/* <Divider variant="inset" className={classes.divider} />
         {results.length > 0
           ? results.map((chatRoom, id) => (
               <div className={classes.chatroom} key={id}>
@@ -340,7 +254,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
                 />
                 <Divider variant="inset" className={classes.divider} />
               </div>
-            ))}
+            ))} */}
       </div>
       <Tooltip title="Type 'all' or 'All' to clear search results">
         <Box component="div" className={classes.box}>
@@ -357,7 +271,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    onClick={searchRooms}
+                    // onClick={searchRooms}
                     aria-label="Search Chatrooms"
                   >
                     <SearchIcon fontSize="large" />
