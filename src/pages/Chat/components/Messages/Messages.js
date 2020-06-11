@@ -180,7 +180,7 @@ export default function Messages({ user, chatRoom, messages, setUpdateChat, setD
   return (
     <div className={classes.root}>
       <div className={classes.messageDiv}>
-        {messages.map((message) => (
+        {/* {messages.map((message) => (
           <>
             <div key={message.id} className={message.sender !== user.email ? classes.messageBox : classes.messageBoxRight}>
               {message.sender === user.email ? (
@@ -211,7 +211,7 @@ export default function Messages({ user, chatRoom, messages, setUpdateChat, setD
           <EditInput chatRoom={chatRoom} messageToEdit={messageToEdit} setUpdateChat={setUpdateChat} setEditInput={setEditInput} />
         ) : (
           <Input chatRoom={chatRoom} user={user} />
-        )}
+        )} */}
       </div>
     </div>
   )

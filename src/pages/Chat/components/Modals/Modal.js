@@ -103,7 +103,8 @@ function RecipientModal({
   user,
   setOpen,
   allChatrooms,
-  setNewRoom
+  setNewRoom,
+  setMessageToggle
 }) {
   const classes = useStyles();
 
@@ -128,7 +129,6 @@ function RecipientModal({
       uniqueEmails.push(person);
     };
   });
-
 
   // Search for a recipient logic
   const searchContacts = e => {
@@ -164,6 +164,7 @@ function RecipientModal({
         recipientemail: item.email,
       },
     });
+    setMessageToggle(true);
     setDisableClick(true);
     setTimeout(() => setDisableClick(false), 5000);
 

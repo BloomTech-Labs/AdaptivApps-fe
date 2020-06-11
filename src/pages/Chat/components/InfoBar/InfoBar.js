@@ -104,7 +104,7 @@ const useStyles = makeStyles(theme => ({
 
 function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   const classes = useStyles();
-
+  const [messageToggle, setMessageToggle] = useState(false);
   const [open, setOpen] = useState(false);
   const [announcement, setAnnouncementOpen] = useState(false);
   const [searchRecipient, setSearchRecipient] = useState("");
@@ -192,6 +192,8 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
           setOpen={setOpen}
           setNewRoom={setNewRoom}
           allChatrooms={data}
+          messageToggle={messageToggle}
+          setMessageToggle={setMessageToggle}
         />
       </Modal>
       {user && user[config.roleUrl].includes("Admin") ? (
@@ -229,7 +231,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
       ) : null}
       <div className={classes.chatRoomDiv}>
         <AnnouncementRoom user={user} />
-        {/* <Divider variant="inset" className={classes.divider} />
+        <Divider variant="inset" className={classes.divider} />
         {results.length > 0
           ? results.map((chatRoom, id) => (
               <div className={classes.chatroom} key={id}>
@@ -237,25 +239,27 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
                   chatRoom={chatRoom}
                   user={user}
                   setDeleteRoom={setDeleteRoom}
-                  chats={chats}
+                  messageToggle={messageToggle}
+                  setMessageToggle={setMessageToggle}
                 />
                 <Divider variant="inset" className={classes.divider} />
               </div>
             ))
-          : data.profile.chatRooms === undefined
+          : data?.profile?.chatRooms === undefined
           ? null
           : data &&
             data?.profile.chatRooms?.map((chatRoom, id) => (
               <div className={classes.chatroom} key={id}>
                 <ChatRoom
+                  messageToggle={messageToggle}
+                  setMessageToggle={setMessageToggle}
                   chatRoom={chatRoom}
                   user={user}
                   setDeleteRoom={setDeleteRoom}
-                  chats={chats}
                 />
                 <Divider variant="inset" className={classes.divider} />
               </div>
-            ))} */}
+            ))}
       </div>
       <Tooltip title="Type 'all' or 'All' to clear search results">
         <Box component="div" className={classes.box}>
