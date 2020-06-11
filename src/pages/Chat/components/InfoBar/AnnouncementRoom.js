@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import Announcements from '../Messages/Announcements';
 
 import { useMutation } from 'react-apollo'
-import { DELETE_NOTIFICATION } from '../../queries/Notifications'
 
 // Style Imports
 import { withStyles } from '@material-ui/core/styles';
@@ -87,8 +86,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function AnnouncementRoom({ user, setAnnouncementOpen, chats }) {
-    const [deleteNotifications] = useMutation(DELETE_NOTIFICATION)
+export default function AnnouncementRoom({ user }) {
     const classes = useStyles();
 
     const [messageToggle, setMessageToggle] = useState(false);
@@ -105,42 +103,11 @@ export default function AnnouncementRoom({ user, setAnnouncementOpen, chats }) {
       }
     }, 3000);
 
-    const notificationArray = []
-
-    const notifications = () => {
-      if (chats !== undefined && (chats && chats.profile.notifications)) {
-        chats.profile.notifications.map(item => {
-          if (item.announcement) {
-            notificationArray.push(item)
-          } 
-        })}
-      return notificationArray;
-     }
-
-    notifications();
-
     const handleClick = e => {
       e.preventDefault();
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
     }
-
-    const handleNotifications = e => {
-      e.preventDefault();
-      messageToggle ? setMessageToggle(false) : setMessageToggle(true)
-      if (notificationArray !== null && notificationArray.length > 0) {
-      notificationArray.map(item => {
-        console.log('item', item)
-          deleteNotifications({
-            variables: {
-              id: item.id
-            }
-          })
-        })}
-        setDisableClick(true);
-        setTimeout(() => setDisableClick(false), 5000);
-        console.log(disableClick)
-    };
-
+    
     const closeDrawer = e => {
       e.preventDefault();
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
@@ -149,20 +116,12 @@ export default function AnnouncementRoom({ user, setAnnouncementOpen, chats }) {
     return (
       <>
         <div className={classes.root}>
-          {notificationArray !== undefined && notificationArray.length > 0 ?
-          <Tooltip title="You have a new announcement!">
-          <StyledBadge badgeContent={notificationArray.length}
-          overlap='circle'>
-          <BookmarksIcon 
-            className={classes.chatRoomIcon}/>
-            </StyledBadge>
-            </Tooltip> :
             <BookmarksIcon 
-            className={classes.chatRoomIcon}/>}           
+            className={classes.chatRoomIcon}/>           
           <Tooltip title="Click to expand messages">
             <button 
               className={classes.chatRoomButton} 
-              onClick={handleNotifications} 
+              onClick={handleClick} 
               aria-label="Open all announcements"
               disabled={disableClick}>Announcements</button>
           </Tooltip>
