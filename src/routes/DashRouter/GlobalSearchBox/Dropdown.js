@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import NavLink from '../SideNav/NavLink';
 // Import stylings
 import { makeStyles } from "@material-ui/core";
 
@@ -40,12 +41,11 @@ export default function Dropdown(props) {
         if (keyword.length) {
             setTempList(profilesData.filter(item => (
                 item.firstName.toLowerCase().includes(keyword)
-            )))
-            // .sort((a, b) => {
-            //     if (a.firstName < b.firstName) { return -1; }
-            //     if (a.firstName > b.firstName) { return 1; }
-            //     return 0;
-            // })
+            )).sort((a, b) => {
+                if (a.firstName < b.firstName) { return -1; }
+                if (a.firstName > b.firstName) { return 1; }
+                return 0;
+            }))
         }
     }
 
@@ -75,20 +75,22 @@ export default function Dropdown(props) {
             <div>
                 {
                     tempList.map(item =>
-                        <button
-                            type="button"
-                            key={item.id}
-                            className={classes.item}
-                            onClick={() => handleSelect(item)}
-                        >
-                            {item.firstName}
-                        </button>
+                        <NavLink to={`user/${item.firstName}`} className={classes.navLink} >
+                            <button
+                                type="button"
+                                key={item.id}
+                                className={classes.item}
+                                onClick={() => handleSelect(item)}
+                            >
+                                {item.firstName}
+                            </button>
+                        </NavLink>
                     )
                 }
                 {
                     tempList.length < 1 && <div className={`${classes.item} ${classes.empty}`}>No results</div>
                 }
             </div>
-        </div>
+        </div >
     )
 }
