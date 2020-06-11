@@ -4,8 +4,9 @@ import config from "../../../config/auth_config";
 // Auth0 imports
 import { useAuth0 } from "../../../config/react-auth0-spa";
 
-// Subscription Imports
+// Query Imports
 import { useQuery } from "react-apollo";
+import { GET_MY_PROFILE } from './queries/profile'
 
 
 import NavLink from "./NavLink";
@@ -28,6 +29,7 @@ import {
   Hidden,
   IconButton,
   Toolbar,
+  Tooltip,
   Button,
 } from "@material-ui/core";
 
@@ -147,6 +149,12 @@ function SideNav(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  const { data } = useQuery(GET_MY_PROFILE, { 
+    variables: {
+      email: user?.email
+  }} )
+    
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -173,10 +181,27 @@ function SideNav(props) {
           <SettingsIcon className={classes.navIcon} />
           <p>Settings</p>
         </NavLink>
-          <NavLink to="/chats" className={classes.navLink}>
+        <NavLink to="/chats" className={classes.navLink}>
             <ForumOutlinedIcon className={classes.navIcon} />
               <p>Chats</p>
-          </NavLink>
+            </NavLink>
+          
+          {/* Profile Validation */}
+          {/* { data && data?.profile?.firstName === null && data?.profile?.lastName === null ? (
+            <Tooltip title='Please complete your profile information to access Chats'>
+          <div className={classes.disabledNavLink}>
+            <ForumOutlinedIcon className={classes.navIcon} />
+            {console.log(data.profile)}
+              <p>Chats</p>
+          </div>
+          </Tooltip>
+          ) : (
+            <NavLink to="/chats" className={classes.navLink}>
+            <ForumOutlinedIcon className={classes.navIcon} />
+              <p>Chats</p>
+            </NavLink>
+          )} */}
+          
         {user && user[config.roleUrl].includes("Admin") ? (
           <>
             <NavLink to="createEvent" className={classes.navLink}>
