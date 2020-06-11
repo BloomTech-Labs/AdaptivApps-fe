@@ -8,6 +8,7 @@ export const GET_NOTIFICATIONS = gql`
       lastName
       email
       notifications {
+        id
         label
       }
     }

@@ -122,7 +122,10 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
     data,
     refetch,
     subscribeToMore,
-  } = useQuery(GET_CHAT_ROOMS, { variables: { email: user.email } });
+  } = useQuery(GET_CHAT_ROOMS, 
+    { variables: { email: user.email },
+    fetchPolicy: "no-cache",
+   });
   const { data: recipients } = useQuery(GET_RECIPIENTS);
   const { data: announcements } = useQuery(GET_ANNOUNCEMENTS, {
     variables: { isAnnouncementRoom: true },
