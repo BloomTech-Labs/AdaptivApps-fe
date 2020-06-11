@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useMutation } from "react-apollo";
+import { useMutation, useQuery } from "react-apollo";
 import { CREATE_CHAT_ROOM } from "../../queries/ChatRooms";
+import { GET_RECIPIENTS } from '../../queries/Chats'
 
 //Style imports
 import {
@@ -16,6 +17,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import { recip } from "prelude-ls";
 
 const useStyles = makeStyles(theme => ({
   span: {
@@ -100,9 +102,8 @@ const useStyles = makeStyles(theme => ({
 function RecipientModal({
   user,
   setOpen,
-  participants,
-  setNewRoom,
-  validParticipants,
+  allChatrooms,
+  setNewRoom
 }) {
   const classes = useStyles();
 
@@ -112,7 +113,22 @@ function RecipientModal({
   const [errorState, setErrorState] = useState(false);
   const [disableClick, setDisableClick] = useState(false);
 
+  const { data } = useQuery(GET_RECIPIENTS)
   const [createChatRoom] = useMutation(CREATE_CHAT_ROOM);
+
+  const participants = allChatrooms?.profile?.chatRooms?.map(chatroom => {
+    return chatroom.participants.filter((participant, index) => index > 0 && participant);
+  })
+
+  const uniqueEmails = [];
+
+  data && data.profiles.map(person => {
+    let unique = participants.find(item => item.email === person.email) 
+    if (unique === undefined && person.email !== user.email) {
+      uniqueEmails.push(person);
+    };
+  });
+
 
   // Search for a recipient logic
   const searchContacts = e => {
@@ -164,16 +180,6 @@ function RecipientModal({
     e.preventDefault();
     setOpen(false);
   };
-
-  // List of participants not currently chatting with for modal list - prevents duplicate chat rooms
-  const uniqueEmails = [];
-
-  validParticipants.map(person => {
-    let unique = participants.find(item => item.email === person.email);
-    if (unique === undefined && person.email !== user.email) {
-      uniqueEmails.push(person);
-    }
-  });
 
   // Return search results in list
   const searchResults =
@@ -241,7 +247,9 @@ function RecipientModal({
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton onClick={searchContacts}>
+                    <IconButton 
+                    onClick={searchContacts}
+                    >                    
                       <SearchIcon fontSize="large" />
                     </IconButton>
                   </InputAdornment>

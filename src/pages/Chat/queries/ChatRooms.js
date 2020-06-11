@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 export const GET_CHAT_ROOMS = gql`
   query getChatRooms($email: String!) {
     profile(where: { email: $email }) {
+      id
       chatRooms {
         id
         participants {
@@ -13,42 +14,16 @@ export const GET_CHAT_ROOMS = gql`
           email
           id
         }
-        chats(orderBy: createdAt_DESC) {
-          id
-          message
-          createdAt
-          notification {
-            label
-            id
-          }
-          room {
-            id
-          }
-          from {
-            id
-            firstName
-            lastName
-            email
-          }
-        }
-      }
-      notifications {
-        label
-        profile {
-          id
-          email
-          firstName
-          lastName
-        }
-      }
-    }
+     }
   }
+}
 `;
 
 // Retrieve messages for a user's chat room
 export const GET_CHAT_ROOM_MESSAGES = gql`
   query getChatRoomMessages($email: String!) {
     profile(where: { email: $email }) {
+      id
       chatRooms {
         id
         chats {
