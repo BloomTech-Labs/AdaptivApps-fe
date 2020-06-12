@@ -53,13 +53,13 @@ export default function MyEvents() {
   const { user } = useAuth0();
   // Retrieves all events a user is registered to
   const { error, loading, data, refetch } = useQuery(GET_USER_EVENTS, {
-    variables: { email: user.email },
+    variables: { email: "jonathanchen095@gmail.com" },
   });
 
   useEffect(() => {
     refetch();
   }, [refetch]);
-
+  console.log('What data,', data)
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
   return (
@@ -74,21 +74,21 @@ export default function MyEvents() {
           <EventList data={data} refetch={refetch} />
         </Grid>
       ) : (
-        <>
-          <Typography className={classes.noActiv}>
-            You haven't registered for any events yet!
+          <>
+            <Typography className={classes.noActiv}>
+              You haven't registered for any events yet!
           </Typography>
-          <Box className={classes.inlineNotice}>
-            <Typography className={classes.noActivBlue}>
-              Check out the Events Calendar
+            <Box className={classes.inlineNotice}>
+              <Typography className={classes.noActivBlue}>
+                Check out the Events Calendar
             </Typography>
-            <Typography>
-              , register for an event, then see all of your registered events
-              here!
+              <Typography>
+                , register for an event, then see all of your registered events
+                here!
             </Typography>
-          </Box>
-        </>
-      )}
+            </Box>
+          </>
+        )}
     </main>
   );
 }
