@@ -46,6 +46,7 @@ export default function EventForm({
     defaultValues: {
       type: currentEvent && currentEvent.type,
       sportType: currentEvent && currentEvent.sportType,
+      tags: currentEvent && currentEvent.tags,
       title: currentEvent && currentEvent.title,
       host: currentEvent && currentEvent.host,
       coaches: currentEvent && currentEvent.coaches,
@@ -68,6 +69,7 @@ export default function EventForm({
       setValue([
         { type: currentEvent && currentEvent.type },
         { sportType: currentEvent && currentEvent.sportType },
+        { tags: currentEvent && currentEvent.tags },
         { title: currentEvent && currentEvent.title },
         { host: currentEvent && currentEvent.host },
         { coaches: currentEvent && currentEvent.coaches },
@@ -91,6 +93,7 @@ export default function EventForm({
         variables: {
           type: formValues.type,
           sportType: formValues.sportType,
+          tags: formValues.tags,
           title: formValues.title,
           host: formValues.host,
           coaches: formValues.coaches,
@@ -114,6 +117,7 @@ export default function EventForm({
           id: eventId,
           type: formValues.type,
           sportType: formValues.sportType,
+          tags: formValues.tags,
           title: formValues.title,
           host: formValues.host,
           coaches: formValues.coaches,
@@ -168,6 +172,18 @@ export default function EventForm({
           </Select>
         }
         name="sportType"
+        variant="outlined"
+        control={control}
+        defaultValue=""
+      />
+      <InputLabel className={classes.inputLabel} htmlFor="tags">
+        Meta Tags
+      </InputLabel>
+      <Controller
+        as={<TextField />}
+        type="text"
+        placeholder="tags"
+        name="tags"
         variant="outlined"
         control={control}
         defaultValue=""
