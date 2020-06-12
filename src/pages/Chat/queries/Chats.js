@@ -2,29 +2,18 @@ import gql from "graphql-tag";
 
 // Retrieve messages for a user
 export const GET_MESSAGES = gql`
-  query getMessages($email: String!) {
-    profile(where: { email: $email }) {
-      chats {
+  query getMessages($id: ID!) {
+        chatRoom(where: { id: $id }) {
         id
-        from {
-          firstName
-          lastName
+        chats {
           id
-          email
-        }
-        message
-        createdAt
-        room {
-          id
-        }
-      }
-      notifications {
-        id
-        label
-        profile {
-          id
-          email
-        }
+          message
+          createdAt
+          from {
+            id
+            firstName
+            lastName
+          }
       }
     }
   }

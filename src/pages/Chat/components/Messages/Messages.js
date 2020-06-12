@@ -3,10 +3,11 @@ import Input from "../Input/Input";
 import EditInput from '../Input/EditInput';
 
 // Update / Delete Mutations
-import { useMutation } from 'react-apollo';
-import { DELETE_CHAT } from '../../queries/Chats';
+import { useMutation, useQuery, useSubscription } from 'react-apollo';
+import { DELETE_CHAT, CHAT_SUBSCRIPTION, GET_MESSAGES } from '../../queries/Chats';
 
 // Styling imports
+import CircularProgress from "@material-ui/core/CircularProgress";
 import PersonIcon from '@material-ui/icons/Person';
 import Tooltip from '@material-ui/core/Tooltip';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
@@ -152,14 +153,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Messages({ user, chatRoom, messages, setUpdateChat, setDeleteChat }) {
+export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat }) {
   const classes = useStyles();
-  
+  const { loading, error, data } = useSubscription(CHAT_SUBSCRIPTION, { variables: { email: user.email } });
+  const { loading: messagesLoading, data: message} = useQuery(GET_MESSAGES, { variables: { id: chatRoom?.id } });
   const [deleteChat] = useMutation(DELETE_CHAT);
 
   const [messageToEdit, setMessageToEdit] = useState();
   const [editInput, setEditInput] = useState(false);
 
+  const messages = message?.chatRoom.chats.map(chat => chat)
+  console.log('message', messages)
   // Sets up an auto-scroll to last message when new message received, or when a message is updated/deleted
   const messagesEndRef = useRef(null);
 
@@ -177,24 +181,35 @@ export default function Messages({ user, chatRoom, messages, setUpdateChat, setD
     setDeleteChat(true);
   };
 
+
   return (
     <div className={classes.root}>
       <div className={classes.messageDiv}>
-        {/* {messages.map((message) => (
+        <div>
+          
+          MESSAGE
+          {messages?.map((chat) => (
+            
+            <div key={chat.id}>
+              console.log(chat.message)
+              <p>{chat.message}</p>
+              </div>))}
+        </div>
+        {/* {messages?.map((message) => (
           <>
-            <div key={message.id} className={message.sender !== user.email ? classes.messageBox : classes.messageBoxRight}>
-              {message.sender === user.email ? (
+            <div key={message.id} className={message.from !== user.email ? classes.messageBox : classes.messageBoxRight}>
+              {message.from === user.email ? (
                 <Tooltip title="Delete Message">
                   <PersonIcon className={classes.deleteMessageIcon} onClick={() => deleteMessage(message)} />
                 </Tooltip>
               ) : (
                 <PersonIcon className={classes.messageIcon} />
               )}
-              <div className={message.sender !== user.email ?
+              <div className={message.from !== user.email ?
                   classes.messageSender : classes.userMessage}>
                 <div className={classes.messageHeader}>
-                  {message.sender === user.email ? <span className={classes.sender}>Me</span> : <span className={classes.sender}>{message.firstName} {message.lastName}</span> }
-                  {message.sender === user.email ? (
+                  {message.from === user.email ? <span className={classes.sender}>Me</span> : <span className={classes.sender}>{message?.from?.firstName} {message?.from?.lastName}</span> }
+                  {message.from === user.email ? (
                   <Tooltip title="Edit Message">
                     <EditOutlinedIcon className={classes.editIcon} onClick={() => {setEditInput(true); setMessageToEdit(message)}} />
                   </Tooltip>) : null}
@@ -204,14 +219,14 @@ export default function Messages({ user, chatRoom, messages, setUpdateChat, setD
               </div>
             </div>
           </>
-        ))}
+        ))} */}
       </div>
       <div className={classes.inputDiv}>
         {editInput ? (
           <EditInput chatRoom={chatRoom} messageToEdit={messageToEdit} setUpdateChat={setUpdateChat} setEditInput={setEditInput} />
         ) : (
           <Input chatRoom={chatRoom} user={user} />
-        )} */}
+        )}
       </div>
     </div>
   )

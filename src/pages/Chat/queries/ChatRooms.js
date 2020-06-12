@@ -14,10 +14,22 @@ export const GET_CHAT_ROOMS = gql`
           email
           id
         }
+        chats {
+          id
+          message
+          createdAt
+          from {
+            id
+            email
+            firstName
+            lastName
+          }
+        }
      }
   }
 }
 `;
+
 
 // Retrieve messages for a user's chat room
 export const GET_CHAT_ROOM_MESSAGES = gql`

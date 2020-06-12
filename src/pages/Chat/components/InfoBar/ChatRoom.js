@@ -307,7 +307,7 @@ export default function ChatRoom({ messageToggle, setMessageToggle, chatRoom, us
         open={messageToggle}
         onClose={handleClick}
         variant="temporary"
-        PaperProps={{ style: { width: "66%" } }}
+        PaperProps={{ style: { width: "66%", } }}
       >
         <div className={classes.alertDiv}>
           <Collapse in={updateChat}>
