@@ -53,7 +53,7 @@ export default function MyEvents() {
   const { user } = useAuth0();
   // Retrieves all events a user is registered to
   const { error, loading, data, refetch } = useQuery(GET_USER_EVENTS, {
-    variables: { email: "jonathanchen095@gmail.com" },
+    variables: { email: user.email },
   });
 
   useEffect(() => {
