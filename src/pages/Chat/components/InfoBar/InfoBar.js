@@ -104,7 +104,7 @@ const useStyles = makeStyles(theme => ({
 
 function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   const classes = useStyles();
-  const [messageToggle, setMessageToggle] = useState(false);
+
   const [open, setOpen] = useState(false);
   const [announcement, setAnnouncementOpen] = useState(false);
   const [searchRecipient, setSearchRecipient] = useState("");
@@ -192,8 +192,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
           setOpen={setOpen}
           setNewRoom={setNewRoom}
           allChatrooms={data}
-          messageToggle={messageToggle}
-          setMessageToggle={setMessageToggle}
+          
         />
       </Modal>
       {user && user[config.roleUrl].includes("Admin") ? (
@@ -234,25 +233,22 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
         <Divider variant="inset" className={classes.divider} />
         {results.length > 0
           ? results.map((chatRoom, id) => (
-              <div className={classes.chatroom} key={id}>
+              <div className={classes.chatroom} key={chatRoom.id}>
                 <ChatRoom
                   chatRoom={chatRoom}
                   user={user}
                   setDeleteRoom={setDeleteRoom}
-                  messageToggle={messageToggle}
-                  setMessageToggle={setMessageToggle}
                 />
                 <Divider variant="inset" className={classes.divider} />
               </div>
             ))
-          : data?.profile?.chatRooms === undefined
+            // : data?.profile?.chatRooms === undefined
+            : data?.profile?.chatRooms === undefined
           ? null
           : data &&
             data?.profile.chatRooms?.map((chatRoom, id) => (
-              <div className={classes.chatroom} key={id}>
+              <div className={classes.chatroom} key={chatRoom.id}>
                 <ChatRoom
-                  messageToggle={messageToggle}
-                  setMessageToggle={setMessageToggle}
                   chatRoom={chatRoom}
                   user={user}
                   setDeleteRoom={setDeleteRoom}

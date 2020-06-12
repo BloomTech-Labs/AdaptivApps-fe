@@ -138,13 +138,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ChatRoom({ messageToggle, setMessageToggle, chatRoom, user, setDeleteRoom, chats }) {
+export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
   const classes = useStyles();
 
   const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM);
   const [deleteNotifications] = useMutation(DELETE_NOTIFICATION);
+  const [messageToggle, setMessageToggle] = useState(false);
 
-  
   const [editChatRoom, setEditChatRoom] = useState(false);
   const [updateChat, setUpdateChat] = useState(false);
   const [deleteChat, setDeleteChat] = useState(false);
@@ -204,16 +204,16 @@ export default function ChatRoom({ messageToggle, setMessageToggle, chatRoom, us
     }
   });
 
-  // const messages = chatRoom.chats.map(chat => {
-  //   return {
-  //     id: chat.id,
-  //     message: chat.message,
-  //     createdAt: chat.createdAt,
-  //     firstName: chat.from.firstName,
-  //     lastName: chat.from.lastName,
-  //     sender: chat.from.email,
-  //   };
-  // });
+  const messages = chatRoom.chats.map(chat => {
+    return {
+      id: chat.id,
+      message: chat.message,
+      createdAt: chat.createdAt,
+      firstName: chat.from.firstName,
+      lastName: chat.from.lastName,
+      sender: chat.from.email,
+    };
+  });
 
   const handleClick = e => {
     e.preventDefault();
@@ -292,11 +292,11 @@ export default function ChatRoom({ messageToggle, setMessageToggle, chatRoom, us
             </div>
           ) : null}
         </Modal>
-
+            
         <button
           aria-label="Expand chat messages"
           className={classes.chatRoomButton}
-          onClick={() => setMessageToggle(true)}
+          onClick={handleClick}
           disabled={disableClick}
         >
           {chattingWith}
@@ -363,7 +363,7 @@ export default function ChatRoom({ messageToggle, setMessageToggle, chatRoom, us
           chatRoom={chatRoom}
           participants={participants}
           user={user}
-        
+          messages={messages}
           setUpdateChat={setUpdateChat}
           setDeleteChat={setDeleteChat}
         />

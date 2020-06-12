@@ -104,7 +104,7 @@ function RecipientModal({
   setOpen,
   allChatrooms,
   setNewRoom,
-  setMessageToggle
+  
 }) {
   const classes = useStyles();
 
@@ -164,7 +164,7 @@ function RecipientModal({
         recipientemail: item.email,
       },
     });
-    setMessageToggle(true);
+    
     setDisableClick(true);
     setTimeout(() => setDisableClick(false), 5000);
 
