@@ -107,38 +107,34 @@ function RecipientModal({
   
 }) {
   const classes = useStyles();
-
   const [searchRecipient, setSearchRecipient] = useState("");
   const [results, setResults] = useState([]);
   const [searchText, setSearchText] = useState(true);
-  const [errorState, setErrorState] = useState(false);
+  const [foundInRecipientSearch, setFoundInRecipientSearch] = useState(false);
   const [disableClick, setDisableClick] = useState(false);
 
-  const { data } = useQuery(GET_RECIPIENTS)
-  const [createChatRoom] = useMutation(CREATE_CHAT_ROOM);
+  const { data: allUsers } = useQuery(GET_RECIPIENTS);
+  const [ createChatRoom ] = useMutation(CREATE_CHAT_ROOM);
 
-  const participants = allChatrooms?.profile?.chatRooms?.map(chatroom => {
-    return chatroom.participants.filter((participant, index) => index > 0 && participant);
+  const currentChatRooms = allChatrooms?.profile?.chatRooms?.map(chatroom => {
+    const current = chatroom.participants.filter(participant => participant.email !== user.email && participant);
+    return current[0];
   })
 
-  const uniqueEmails = [];
-
-  data && data.profiles.map(person => {
-    let unique = participants.find(item => item.email === person.email) 
+  const availableToChat = [];
+  allUsers && allUsers.profiles.map(person => {
+    let unique = currentChatRooms.find(item => item.email === person.email) 
     if (unique === undefined && person.email !== user.email) {
-      uniqueEmails.push(person);
+      availableToChat.push(person);
     };
   });
 
-  // Search for a recipient logic
-  const searchContacts = e => {
+  console.log(availableToChat)
+
+  const searchAvailableRooms = e => {
     e.preventDefault();
-    let filter = uniqueEmails.map(user => {
-      setErrorState(false);
-      return [
-        `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`,
-        user,
-      ];
+    let filter = availableToChat.map(user => {
+      return [ `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user ];
     });
 
     filter.filter(user => {
@@ -147,8 +143,7 @@ function RecipientModal({
       }
       setTimeout(() => {
         if (results[0] == undefined || results.length === 0) {
-          console.log(results);
-          setErrorState(true);
+          setFoundInRecipientSearch(true);
           setSearchText(false);
         }
       }, 500);
@@ -156,23 +151,22 @@ function RecipientModal({
     setSearchRecipient("");
   };
 
-  // Creating a new chat room
-  const newChatRoom = async item => {
+  const createNewChatRoom = async recipient => {
     await createChatRoom({
       variables: {
         useremail: user.email,
-        recipientemail: item.email,
+        recipientemail: recipient.email,
       },
     });
     
     setDisableClick(true);
     setTimeout(() => setDisableClick(false), 5000);
-
     setOpen(false);
     setNewRoom(true);
   };
 
   const handleChange = e => {
+    setFoundInRecipientSearch(false);
     setResults([]);
     setSearchRecipient(e.target.value);
   };
@@ -185,25 +179,25 @@ function RecipientModal({
   // Return search results in list
   const searchResults =
     results.length > 0 &&
-    results.map(item => {
-      const filtered = uniqueEmails.filter(user => {
+    results.map(result => {
+      const filtered = availableToChat.filter(available => {
         if (
-          user.email === item.email &&
-          user.firstName !== "" &&
-          user.lastName !== ""
+          available.email === result.email &&
+          available.firstName !== "" &&
+          available.lastName !== ""
         ) {
-          return user;
+          return available;
         }
       });
-      if (filtered[0] !== item.email) {
+      if (filtered[0] !== result.email) {
         return (
           <ListItem
             className={classes.listItem}
-            value={`${item.firstName} ${item.lastName}`}
+            value={`${result.firstName} ${result.lastName}`}
             diabled={disableClick}
-            onClick={() => newChatRoom(item)}
+            onClick={() => createNewChatRoom(result)}
           >
-            <ListItemText primary={`${item.firstName} ${item.lastName}`} />
+            <ListItemText primary={`${result.firstName} ${result.lastName}`} />
           </ListItem>
         );
       }
@@ -212,14 +206,14 @@ function RecipientModal({
   // List of recipients available to chat with
   const chatResults =
     !results.length &&
-    uniqueEmails.map(item => {
+    availableToChat.map(available => {
       return (
         <ListItem
           className={classes.listItem}
-          value={`${item.firstName} ${item.lastName}`}
-          onClick={() => newChatRoom(item)}
+          value={`${available.firstName} ${available.lastName}`}
+          onClick={() => createNewChatRoom(available)}
         >
-          <ListItemText primary={`${item.firstName} ${item.lastName}`} />
+          <ListItemText primary={`${available.firstName} ${available.lastName}`} />
         </ListItem>
       );
     });
@@ -238,7 +232,6 @@ function RecipientModal({
         <div>
           <Box component="div">
             <TextField
-              onKeyPress={() => setSearchText(false)}
               variant="outlined"
               type="text"
               placeholder="Search for a Recipient"
@@ -249,7 +242,7 @@ function RecipientModal({
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton 
-                    onClick={searchContacts}
+                    onClick={searchAvailableRooms}
                     >                    
                       <SearchIcon fontSize="large" />
                     </IconButton>
@@ -263,7 +256,7 @@ function RecipientModal({
                   <List>
                     <div
                       className={
-                        errorState ? classes.errorState : classes.noError
+                        foundInRecipientSearch ? classes.errorState : classes.noError
                       }
                     >
                       <p>We couldn't find that user</p>

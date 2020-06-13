@@ -257,6 +257,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
             data?.profile.chatRooms?.map((chatRoom) => (
               <div className={classes.chatroom} key={chatRoom.id}>
                 <ChatRoom
+                  key={chatRoom.id}
                   chatRoom={chatRoom}
                   user={user}
                   setDeleteRoom={setDeleteRoom}
