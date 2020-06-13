@@ -67,7 +67,6 @@ const useStyles = makeStyles(() => ({
 const Input = ({ chatRoom, user }) => {
   const classes = useStyles();
   const [toggleEmoji, setToggleEmoji] = useState(false);
-  console.log('chatroom', chatRoom)
 
   const [sendChat] = useMutation(SEND_CHAT);
   const [message, setMessage] = useState("");
@@ -90,7 +89,6 @@ const Input = ({ chatRoom, user }) => {
   const recipient = chatRoom?.participants?.filter(participant => {
     return participant.email !== user.email;
   });
-  console.log(recipient[0].email)
 
   // Create message via text or speech message
   const newMessage = async () => {

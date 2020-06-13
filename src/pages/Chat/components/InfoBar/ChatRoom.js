@@ -209,6 +209,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
     messageToggle ? setMessageToggle(false) : setMessageToggle(true);
   };
 
+
   const closeDrawer = e => {
     e.preventDefault();
     messageToggle ? setMessageToggle(false) : setMessageToggle(true);
@@ -349,7 +350,6 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
         </div>
         <Messages
           chatRoom={chatRoom}
-          participants={participants}
           user={user}
           setUpdateChat={setUpdateChat}
           setDeleteChat={setDeleteChat}

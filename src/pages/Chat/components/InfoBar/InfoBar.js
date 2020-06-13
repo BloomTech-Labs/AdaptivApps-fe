@@ -7,6 +7,7 @@ import AnnouncementModal from "../Modals/AnnouncementModal";
 // Query / Mutation / Subscription Imports
 import { useQuery, useSubscription } from "react-apollo";
 import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms'
+import { CHAT_SUBSCRIPTION } from '../../queries/Chats'
 
 //Auth0 imports
 import config from "../../../../config/auth_config";
@@ -110,12 +111,10 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   const [searchRecipient, setSearchRecipient] = useState("");
   const [results, setResults] = useState([]);
 
-  const { data, refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email }})
-  const { error, loading, data: rooms } = useSubscription(CHAT_ROOM_SUBSCRIPTION)
-  
-  console.log(rooms)
-  // if (loading) return <CircularProgress className={classes.loadingSpinner} />;
-  // if (error) return `Error! ${error.message}`;
+  const { error: roomError, loading: roomsLoading } = useSubscription(CHAT_ROOM_SUBSCRIPTION)
+  const { error: chatError, loading: chatLoading } = useSubscription(CHAT_SUBSCRIPTION)
+  const { error, loading, data, refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email }})
+
 
   // Search for a chat room
   // const searchRooms = e => {
@@ -166,7 +165,11 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
     setAnnouncementOpen(false);
   };
 
-  !loading && refetch();
+  if (loading) return <CircularProgress className={classes.loadingSpinner} />;
+  if (error || roomError || chatError ) return `Error! ${error.message}`;
+
+  !roomsLoading && refetch();
+  !chatLoading && refetch();
 
   return (
     <div className={classes.root}>
@@ -251,7 +254,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
             : data?.profile?.chatRooms === undefined
           ? null
           : data &&
-            data?.profile.chatRooms?.map((chatRoom, id) => (
+            data?.profile.chatRooms?.map((chatRoom) => (
               <div className={classes.chatroom} key={chatRoom.id}>
                 <ChatRoom
                   chatRoom={chatRoom}
