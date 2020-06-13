@@ -204,22 +204,10 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
     }
   });
 
-  const messages = chatRoom.chats.map(chat => {
-    return {
-      id: chat.id,
-      message: chat.message,
-      createdAt: chat.createdAt,
-      firstName: chat.from.firstName,
-      lastName: chat.from.lastName,
-      sender: chat.from.email,
-    };
-  });
-
   const handleClick = e => {
     e.preventDefault();
     messageToggle ? setMessageToggle(false) : setMessageToggle(true);
   };
-
 
   const closeDrawer = e => {
     e.preventDefault();
@@ -363,7 +351,6 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
           chatRoom={chatRoom}
           participants={participants}
           user={user}
-          messages={messages}
           setUpdateChat={setUpdateChat}
           setDeleteChat={setDeleteChat}
         />

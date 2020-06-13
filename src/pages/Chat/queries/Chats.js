@@ -4,6 +4,8 @@ import gql from "graphql-tag";
 export const GET_MESSAGES = gql`
   query getMessages($email: String!) {
     profile(where: { email: $email }) {
+      id
+      email
       chats {
           id
           from {
@@ -116,6 +118,28 @@ export const GET_RECIPIENTS = gql`
       email
     }
   }
+`;
+
+export const GET_CHAT_ROOM_MESSAGES = gql`
+  query getChatRooms($email: String!) {
+    profile(where: { email: $email }) {
+      id
+      chatRooms {
+        id
+        chats {
+          id
+          message
+          createdAt
+          from {
+            id
+            email
+            firstName
+            lastName
+          }
+        }
+     }
+  }
+}
 `;
 
 // Chat subscription

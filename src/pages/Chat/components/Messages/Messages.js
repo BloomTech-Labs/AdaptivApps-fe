@@ -2,12 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Input from "../Input/Input";
 import EditInput from '../Input/EditInput';
 
-// Update / Delete Mutations
-import { useMutation } from 'react-apollo';
-import { DELETE_CHAT } from '../../queries/Chats';
-// NEW
-// import { useMutation, useQuery, useSubscription } from 'react-apollo';
-// import { DELETE_CHAT, CHAT_SUBSCRIPTION, GET_MESSAGES } from '../../queries/Chats';
+import { useMutation, useQuery, useSubscription } from 'react-apollo';
+import { DELETE_CHAT, CHAT_SUBSCRIPTION, GET_CHAT_ROOM_MESSAGES } from '../../queries/Chats';
 
 // Styling imports
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -156,22 +152,27 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Messages({ user, chatRoom, messages, setUpdateChat, setDeleteChat }) {
+export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat }) {
   const classes = useStyles();
 
-  // NEW
-  // const { loading, error, data } = useSubscription(CHAT_SUBSCRIPTION, { variables: { email: user.email } });
-  // const { loading: messagesLoading, data: message} = useQuery(GET_MESSAGES, { variables: { id: chatRoom?.id } });
-  
   const [deleteChat] = useMutation(DELETE_CHAT);
 
   const [messageToEdit, setMessageToEdit] = useState();
   const [editInput, setEditInput] = useState(false);
 
-  // NEW
-  // const messages = message?.chatRoom.chats.map(chat => chat)
-  // console.log('message', messages)
-  
+  const messages = chatRoom.chats.map(chat => {
+    return {
+      id: chat.id,
+      message: chat.message,
+      createdAt: chat.createdAt,
+      firstName: chat.from.firstName,
+      lastName: chat.from.lastName,
+      sender: chat.from.email
+    }
+  })
+
+  console.log(messages)
+
   // Sets up an auto-scroll to last message when new message received, or when a message is updated/deleted
   const messagesEndRef = useRef(null);
 
@@ -189,11 +190,10 @@ export default function Messages({ user, chatRoom, messages, setUpdateChat, setD
     setDeleteChat(true);
   };
 
-
   return (
     <div className={classes.root}>
       <div className={classes.messageDiv}>
-      {messages.map((message) => (
+      {messages?.map((message) => (
           <>
             <div key={message.id} className={message.sender !== user.email ? classes.messageBox : classes.messageBoxRight}>
               {message.sender === user.email ? (

@@ -5,8 +5,8 @@ import AnnouncementRoom from "./AnnouncementRoom";
 import AnnouncementModal from "../Modals/AnnouncementModal";
 
 // Query / Mutation / Subscription Imports
-import { useQuery } from "react-apollo";
-import { GET_CHAT_ROOMS } from '../../queries/ChatRooms'
+import { useQuery, useSubscription } from "react-apollo";
+import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms'
 
 //Auth0 imports
 import config from "../../../../config/auth_config";
@@ -110,7 +110,10 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   const [searchRecipient, setSearchRecipient] = useState("");
   const [results, setResults] = useState([]);
 
-  const { data } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email }})
+  const { data, refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email }})
+  const { error, loading, data: rooms } = useSubscription(CHAT_ROOM_SUBSCRIPTION)
+  
+  console.log(rooms)
   // if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   // if (error) return `Error! ${error.message}`;
 
@@ -162,6 +165,8 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   const handleAnnouncementClose = () => {
     setAnnouncementOpen(false);
   };
+
+  !loading && refetch();
 
   return (
     <div className={classes.root}>
