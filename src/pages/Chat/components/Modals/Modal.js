@@ -129,8 +129,6 @@ function RecipientModal({
     };
   });
 
-  console.log(availableToChat)
-
   const searchAvailableRooms = e => {
     e.preventDefault();
     let filter = availableToChat.map(user => {

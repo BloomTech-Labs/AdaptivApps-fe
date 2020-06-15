@@ -74,7 +74,6 @@ const useStyles = makeStyles(theme => ({
 function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipants, user }) {
   const classes = useStyles();
   const { data } = useQuery(GET_RECIPIENTS)
-  console.log('recipients', data)
   const [createAnnouncement] = useMutation(CREATE_ANNOUNCEMENT);
 
   const [newAnnouncement, setNewAnnouncement] = useState();

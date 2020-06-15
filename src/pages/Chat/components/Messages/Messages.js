@@ -2,11 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import Input from "../Input/Input";
 import EditInput from '../Input/EditInput';
 
-import { useMutation, useQuery, useSubscription } from 'react-apollo';
-import { DELETE_CHAT, CHAT_SUBSCRIPTION, GET_CHAT_ROOM_MESSAGES } from '../../queries/Chats';
+import { useMutation } from 'react-apollo';
+import { DELETE_CHAT } from '../../queries/Chats';
 
 // Styling imports
-import CircularProgress from "@material-ui/core/CircularProgress";
 import PersonIcon from '@material-ui/icons/Person';
 import Tooltip from '@material-ui/core/Tooltip';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
@@ -156,7 +155,6 @@ export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat 
   const classes = useStyles();
 
   const [deleteChat] = useMutation(DELETE_CHAT);
-
   const [messageToEdit, setMessageToEdit] = useState();
   const [editInput, setEditInput] = useState(false);
 
@@ -170,8 +168,6 @@ export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat 
       sender: chat.from.email
     }
   })
-
-  console.log(messages)
 
   // Sets up an auto-scroll to last message when new message received, or when a message is updated/deleted
   const messagesEndRef = useRef(null);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import RecipientModal from "../Modals/Modal";
 import ChatRoom from "./ChatRoom";
 import AnnouncementRoom from "./AnnouncementRoom";
@@ -110,55 +110,40 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   const [announcement, setAnnouncementOpen] = useState(false);
   const [searchRecipient, setSearchRecipient] = useState("");
   const [results, setResults] = useState([]);
-  const [chatNotifications, setChatNotifications] = useState([])
 
   const { error: roomError, loading: roomsLoading } = useSubscription(CHAT_ROOM_SUBSCRIPTION)
   const { error: chatError, loading: chatLoading, data: chats } = useSubscription(CHAT_SUBSCRIPTION)
   const { error, loading, data, refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email }})
-
-  useEffect(() => {
     
-    chats?.chat?.mutation === 'CREATED' && chats?.chat?.node.from.email !== user.email && chatNotifications.push(chats?.chat?.node?.room.id)
+  const participants = data && data?.profile.chatRooms.map(item => item.participants).concat().flat();
 
-
-  }, [chats])
-  
-  // const notifications = chatNotifications.map(chat => {
-  //   if (nodeID !== chat) {
-  //     chatNotifications.push(nodeID)
-  //   }
-  // })
-  console.log(chats?.chat)
-  console.log(chatNotifications)
-
-  
   // Search for a chat room
-  // const searchRooms = e => {
-  //   e.preventDefault();
-  //   let filter =
-  //     data &&
-  //     data?.profile.chatRooms.map(room => {
-  //       let users = room.participants.map(user => {
-  //         if (
-  //           user.firstName !== null &&
-  //           user.lastName !== null &&
-  //           user.firstName !== "" &&
-  //           user.lastName !== ""
-  //         ) {
-  //           return `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`;
-  //         }
-  //       });
-  //       return users.filter(user => {
-  //         if (user.includes(searchRecipient.toLowerCase())) {
-  //           results.push(room);
-  //           return results;
-  //         } else if (searchRecipient === "all" || searchRecipient === "All") {
-  //           return participants;
-  //         }
-  //       });
-  //     });
-  //   setSearchRecipient("");
-  // };
+  const searchRooms = e => {
+    e.preventDefault();
+    let filter =
+      data &&
+      data?.profile.chatRooms.map(room => {
+        let users = room.participants.map(user => {
+          if (
+            user.firstName !== null &&
+            user.lastName !== null &&
+            user.firstName !== "" &&
+            user.lastName !== ""
+          ) {
+            return `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`;
+          }
+        });
+        return users.filter(user => {
+          if (user.includes(searchRecipient.toLowerCase())) {
+            results.push(room);
+            return results;
+          } else if (searchRecipient === "all" || searchRecipient === "All") {
+            return participants;
+          }
+        });
+      });
+    setSearchRecipient("");
+  };
 
   const handleOpen = () => {
     setOpen(true);
@@ -275,10 +260,10 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
                 <ChatRoom
                   key={chatRoom.id}
                   chatRoom={chatRoom}
-                  chatNotifications={chatNotifications}
+                  chats={chats}
                   user={user}
                   setDeleteRoom={setDeleteRoom}
-                  setChatNotifications={setChatNotifications}
+                
                 />
                 <Divider variant="inset" className={classes.divider} />
               </div>
@@ -299,7 +284,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    // onClick={searchRooms}
+                    onClick={searchRooms}
                     aria-label="Search Chatrooms"
                   >
                     <SearchIcon fontSize="large" />

@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Messages from "../Messages/Messages";
 
 // Mutation Imports
 import { useMutation } from "react-apollo";
 import { DELETE_CHAT_ROOM } from "../../queries/ChatRooms";
-import { DELETE_NOTIFICATION } from "../../queries/Notifications";
 
 // Style Imports
 import { withStyles } from "@material-ui/core/styles";
@@ -138,21 +137,26 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatNotifications, setChatNotifications }) {
+export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
   const classes = useStyles();
 
   const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM);
-  const [deleteNotifications] = useMutation(DELETE_NOTIFICATION);
   const [messageToggle, setMessageToggle] = useState(false);
-
+  const [roomNotifications, setRoomNotifications] = useState([])
   const [editChatRoom, setEditChatRoom] = useState(false);
   const [updateChat, setUpdateChat] = useState(false);
   const [deleteChat, setDeleteChat] = useState(false);
   const [disableClick, setDisableClick] = useState(false);
 
-  //const roomNotifications = chatNotifications?.filter(notification => notification === chatRoom.id)
 
-  //console.log(roomNotifications)
+  useEffect(() => {
+    !messageToggle &&
+    chats?.chat?.mutation === 'CREATED' && 
+    chats?.chat?.node.from.email !== user.email && 
+    chats?.chat?.node.room.id === chatRoom.id &&
+    roomNotifications.push(chats?.chat?.node?.room.id)
+  }, [chats])
+  
 
   // Set timeout for automated alerts
   setTimeout(function() {
@@ -162,28 +166,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatNot
       setDeleteChat(false);
     }
   }, 3000);
-
-  // Identify notifications as they come in
-
-  // chatRoom.chats.length > 0 &&
-  // (chatRoom.chats.filter(item => item.notification.length > 0 && item.notification))
-  const notificationArray = [];
-
-  const notifications = () => {
-    if (
-      chats !== undefined &&
-      chats && chats.profile.notifications.length > 0
-    ) {
-      chats.profile.notifications.map(item => {
-        if (item.chat !== null && item.chat.room.id === chatRoom.id) {
-          notificationArray.push(item);
-        }
-      });
-    }
-    return notificationArray;
-  };
-  notifications();
-
+  
   // Remove participants with invalid first / last names
   const participants = [];
 
@@ -211,9 +194,8 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatNot
   const handleClick = e => {
     e.preventDefault();
     messageToggle ? setMessageToggle(false) : setMessageToggle(true);
-    chatNotifications?.length > 0 && chatNotifications.map(notification => notification !== chatRoom.id && setChatNotifications(notification))
+    setRoomNotifications([]);
   };
-
 
   const closeDrawer = e => {
     e.preventDefault();
@@ -235,12 +217,10 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatNot
     <>
       <div className={classes.root}>
         <Tooltip title="Click to Delete Chatroom">
-          {notificationArray !== null &&
-          notificationArray.length > 0 &&
-          user.email !== participants[0].email ? (
+          {roomNotifications?.length > 0 ? (
             <Tooltip title="New Message!">
               <StyledBadge
-                badgeContent={notificationArray.length}
+                badgeContent={roomNotifications.length}
                 overlap="circle"
               >
                 <PeopleAltIcon

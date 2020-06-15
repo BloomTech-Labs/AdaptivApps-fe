@@ -8,11 +8,10 @@ export const GET_CHAT_ROOMS = gql`
       chatRooms {
         id
         participants {
+          id
+          email
           firstName
           lastName
-          displayName
-          email
-          id
         }
         chats {
           id
@@ -31,31 +30,6 @@ export const GET_CHAT_ROOMS = gql`
 `;
 
 
-// Retrieve messages for a user's chat room
-export const GET_CHAT_ROOM_MESSAGES = gql`
-  query getChatRoomMessages($email: String!) {
-    profile(where: { email: $email }) {
-      id
-      chatRooms {
-        id
-        chats {
-          id
-          message
-          createdAt
-          room {
-            id
-          }
-          from {
-            id
-            firstName
-            lastName
-          }
-        }
-      }
-    }
-  }
-`;
-
 // Create a chat room
 export const CREATE_CHAT_ROOM = gql`
   mutation createChatRoom($useremail: String!, $recipientemail: String!) {
@@ -69,19 +43,20 @@ export const CREATE_CHAT_ROOM = gql`
       id
       participants {
         id
+        email
         firstName
         lastName
       }
       chats {
         id
+        message
+        createdAt
         from {
           id
           email
           firstName
           lastName
         }
-        message
-        createdAt
       }
     }
   }
@@ -92,60 +67,6 @@ export const DELETE_CHAT_ROOM = gql`
   mutation deleteChatRoom($id: ID!) {
     deleteChatRoom(where: { id: $id }) {
       id
-    }
-  }
-`;
-
-// Add users to a chat room
-export const ADD_CHAT_ROOM_PARTICIPANTS = gql`
-  mutation addChatRoomParticipants($id: ID!, $email: String!) {
-    updateChatRoom(
-      where: { id: $id }
-      data: { participants: { connect: { email: $email } } }
-    ) {
-      id
-      participants {
-        id
-        firstName
-        lastName
-      }
-      chats {
-        id
-        from {
-          id
-          firstName
-          lastName
-        }
-        message
-        createdAt
-      }
-    }
-  }
-`;
-
-// Delete users from a chat room
-export const DELETE_CHAT_ROOM_PARTICIPANTS = gql`
-  mutation deleteChatRoomParticipants($id: ID!, $email: String!) {
-    updateChatRoom(
-      where: { id: $id }
-      data: { participants: { disconnect: { email: $email } } }
-    ) {
-      id
-      participants {
-        id
-        firstName
-        lastName
-      }
-      chats {
-        id
-        from {
-          id
-          firstName
-          lastName
-        }
-        message
-        createdAt
-      }
     }
   }
 `;

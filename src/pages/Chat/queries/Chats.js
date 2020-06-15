@@ -1,29 +1,5 @@
 import gql from "graphql-tag";
 
-// Retrieve messages for a user
-export const GET_MESSAGES = gql`
-  query getMessages($email: String!) {
-    profile(where: { email: $email }) {
-      id
-      email
-      chats {
-          id
-          from {
-            id
-            firstName
-            lastName
-            email
-          }
-          message
-          createdAt
-          room {
-            id
-          }
-      }
-    }
-  }
-`;
-
 // Send a chat
 export const SEND_CHAT = gql`
   mutation sendChat(
@@ -72,6 +48,8 @@ export const UPDATE_CHAT = gql`
         from {
           firstName
           lastName
+          id
+          email
         }
     }
   }
@@ -86,26 +64,6 @@ export const DELETE_CHAT = gql`
   }
 `;
 
-// Retrieve a list of recent recipients the user has sent a chat to
-export const GET_RECENT_RECIPIENTS = gql`
-  query getRecentRecipients($email: String!) {
-    profile(where: { email: $email }) {
-      chatRooms {
-        id
-        participants {
-          id
-          firstName
-          lastName
-        }
-        chats {
-          id
-          createdAt
-        }
-      }
-    }
-  }
-`;
-
 // Retrieve a list of recipients
 export const GET_RECIPIENTS = gql`
   query getRecipients {
@@ -116,28 +74,6 @@ export const GET_RECIPIENTS = gql`
       email
     }
   }
-`;
-
-export const GET_CHAT_ROOM_MESSAGES = gql`
-  query getChatRooms($email: String!) {
-    profile(where: { email: $email }) {
-      id
-      chatRooms {
-        id
-        chats {
-          id
-          message
-          createdAt
-          from {
-            id
-            email
-            firstName
-            lastName
-          }
-        }
-     }
-  }
-}
 `;
 
 // Chat subscription

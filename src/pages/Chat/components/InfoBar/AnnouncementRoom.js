@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import Announcements from '../Messages/Announcements';
 
-import { useMutation } from 'react-apollo'
-
-
 // Style Imports
 import { withStyles } from '@material-ui/core/styles';
 
@@ -88,10 +85,8 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-
 export default function AnnouncementRoom({ user }) {
     const classes = useStyles();
-
     const [messageToggle, setMessageToggle] = useState(false);
     const [updateChat, setUpdateChat] = useState(false);
     const [deleteChat, setDeleteChat] = useState(false);
