@@ -71,13 +71,9 @@ const AdminTagsSearch = () => {
             {listOpen && (
                 <Dropdown
                     tagsData={data.tags}
-                    setTitle={setTitle}
                     keyword={keyword}
                     setKeyword={setKeyword}
-                    toggleList={toggleList}
-                    isSearching={isSearching}
                     setIsSearching={setIsSearching}
-                    numSelected={numSelected}
                     setNumSelected={setNumSelected}
                 />
             )}
