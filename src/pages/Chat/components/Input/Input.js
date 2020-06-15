@@ -6,6 +6,7 @@ import { useSpeechRecognition } from "react-speech-kit";
 
 // Query / Mutation Imports
 import { SEND_CHAT } from "../../queries/Chats";
+import { ADD_CHAT_ROOM_PARTICIPANTS } from '../../queries/ChatRooms'
 import { useMutation } from "react-apollo";
 
 //Emoji Picker Import
@@ -64,11 +65,12 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const Input = ({ chatRoom, user }) => {
+const Input = ({ chatRoom, user, messages, roomNotifications }) => {
   const classes = useStyles();
   const [toggleEmoji, setToggleEmoji] = useState(false);
 
   const [sendChat] = useMutation(SEND_CHAT);
+  const [updateChatRoom] = useMutation( ADD_CHAT_ROOM_PARTICIPANTS);
   const [message, setMessage] = useState("");
 
   const emojiClick = e => {
@@ -89,17 +91,27 @@ const Input = ({ chatRoom, user }) => {
   const recipient = chatRoom?.participants?.filter(participant => {
     return participant.email !== user.email;
   });
-
+  console.log(messages)
+  const senderEmail = messages?.filter(message => message.sender !== user.email && message.sender)
+  console.log(senderEmail)
   // Create message via text or speech message
   const newMessage = async () => {
+    recipient.length > 0 ? 
     await sendChat({
       variables: {
         id: chatRoom.id,
         email: user.email,
         message: message,
         recipient: recipient[0].email,
-      },
-    });
+      }}) &&
+      setMessage("") : 
+    await updateChatRoom({
+      variables: {
+        id: chatRoom.id,
+        email: senderEmail[0].sender
+      }
+    }) &&
+    //roomNotifications.push(chatRoom.id) &&    
     setMessage("");
   };
 

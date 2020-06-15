@@ -6,6 +6,10 @@ export const GET_MY_PROFILE = gql `
             id
             firstName
             lastName
+            type
+            extProfile {
+                orgName
+            }
     }
   }
   `;

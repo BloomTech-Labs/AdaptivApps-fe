@@ -111,7 +111,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   const [searchRecipient, setSearchRecipient] = useState("");
   const [results, setResults] = useState([]);
 
-  const { error: roomError, loading: roomsLoading } = useSubscription(CHAT_ROOM_SUBSCRIPTION)
+  const { error: roomError, loading: roomsLoading, data: chatRoomSub } = useSubscription(CHAT_ROOM_SUBSCRIPTION)
   const { error: chatError, loading: chatLoading, data: chats } = useSubscription(CHAT_SUBSCRIPTION)
   const { error, loading, data, refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email }})
     
@@ -244,7 +244,10 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
           ? results.map((chatRoom, id) => (
               <div className={classes.chatroom} key={chatRoom.id}>
                 <ChatRoom
+                  key={chatRoom.id}
                   chatRoom={chatRoom}
+                  chats={chats}
+                  chatRoomSub={chatRoomSub}
                   user={user}
                   setDeleteRoom={setDeleteRoom}
                 />
@@ -261,6 +264,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
                   key={chatRoom.id}
                   chatRoom={chatRoom}
                   chats={chats}
+                  chatRoomSub={chatRoomSub}
                   user={user}
                   setDeleteRoom={setDeleteRoom}
                 

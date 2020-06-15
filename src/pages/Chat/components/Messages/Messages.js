@@ -151,7 +151,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat }) {
+export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat, roomNotifications }) {
   const classes = useStyles();
 
   const [deleteChat] = useMutation(DELETE_CHAT);
@@ -217,9 +217,9 @@ export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat 
       </div>
       <div className={classes.inputDiv}>
         {editInput ? (
-          <EditInput chatRoom={chatRoom} messageToEdit={messageToEdit} setUpdateChat={setUpdateChat} setEditInput={setEditInput} />
+          <EditInput roomNotifications={roomNotifications} chatRoom={chatRoom} messageToEdit={messageToEdit} setUpdateChat={setUpdateChat} setEditInput={setEditInput} />
         ) : (
-          <Input chatRoom={chatRoom} user={user} />
+          <Input roomNotifications={roomNotifications} messages={messages} chatRoom={chatRoom} user={user} />
         )}
       </div>
     </div>

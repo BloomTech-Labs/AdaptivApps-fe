@@ -3,7 +3,7 @@ import Messages from "../Messages/Messages";
 
 // Mutation Imports
 import { useMutation } from "react-apollo";
-import { DELETE_CHAT_ROOM } from "../../queries/ChatRooms";
+import { DELETE_CHAT_ROOM_PARTICIPANTS } from "../../queries/ChatRooms";
 
 // Style Imports
 import { withStyles } from "@material-ui/core/styles";
@@ -137,10 +137,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
+export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoomSub }) {
   const classes = useStyles();
 
-  const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM);
+  const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM_PARTICIPANTS);
   const [messageToggle, setMessageToggle] = useState(false);
   const [roomNotifications, setRoomNotifications] = useState([])
   const [editChatRoom, setEditChatRoom] = useState(false);
@@ -148,15 +148,25 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
   const [deleteChat, setDeleteChat] = useState(false);
   const [disableClick, setDisableClick] = useState(false);
 
-
   useEffect(() => {
+    //if (
     !messageToggle &&
     chats?.chat?.mutation === 'CREATED' && 
-    chats?.chat?.node.from.email !== user.email && 
+    !chatRoomSub?.chatRoom?.mutation &&
+    chats?.chat?.node.from.email !== user.email &&
     chats?.chat?.node.room.id === chatRoom.id &&
-    roomNotifications.push(chats?.chat?.node?.room.id)
-  }, [chats])
+    roomNotifications.push(chats?.chat?.node?.room.id) 
+    // } else if (!messageToggle &&
+    // chats?.chat?.mutation === 'CREATED' &&
+    // chatRoomSub?.chatRoom?.mutation === 'UPDATED' &&
+    // chats?.chat?.node.from.email !== user.email &&
+    // chatRoomSub?.chatRoom?.node?.id === chatRoom.id ) {
+    // roomNotifications.push(chatRoomSub?.chatRoom?.node?.id)
+    // }
+
+  }, [chats, chatRoomSub, roomNotifications])
   
+console.log(chatRoomSub)
 
   // Set timeout for automated alerts
   setTimeout(function() {
@@ -166,30 +176,27 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
       setDeleteChat(false);
     }
   }, 3000);
-  
-  // Remove participants with invalid first / last names
-  const participants = [];
 
-  chatRoom.participants.map(participant => {
-    if (
-      participant.email !== user.email &&
-      participant.firstName !== null &&
-      participant.lastName !== null &&
-      participant.firstName !== "" &&
-      participant.lastName !== ""
-    ) {
-      participants.push(participant);
-    }
-  });
+  const senderName = chatRoom?.chats?.find(chat => chat?.from.email !== user?.email)
 
-  // Logic to set group chat rooms
-  const chattingWith = participants.map((participant, index) => {
-    if (participants.length === 1 || index === participants.length - 1) {
-      return `${participant.firstName} ${participant.lastName}`;
-    } else {
-      return `${participant.firstName} ${participant.lastName}, `;
-    }
-  });
+  const participants = []
+
+    chatRoom.participants.map((participant) => {
+      if (participant.email !== user.email &&
+          participant.firstName !== null && participant.lastName !== null &&
+          participant.firstName !== "" && participant.lastName !== "") {
+            participants.push(participant)
+      }
+    })   
+
+    // Logic to set group chat rooms
+    const chattingWith = participants.map((participant, index) => {
+      if (participants.length === 1 || index === participants.length - 1) {
+        return `${participant.firstName} ${participant.lastName}`
+      } else {
+        return `${participant.firstName} ${participant.lastName}, `
+      }
+    });
 
   const handleClick = e => {
     e.preventDefault();
@@ -206,7 +213,8 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
   const deleteRoom = async () => {
     await deleteChatRoom({
       variables: {
-        id: chatRoom.id,
+        email: user.email,
+        id: chatRoom.id
       },
     });
     setEditChatRoom(false);
@@ -239,7 +247,6 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
           )}
         </Tooltip>
         <Modal
-          participants={participants}
           position="relative"
           top="10%"
           left="13%"
@@ -255,7 +262,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
                   aria-label="Cancel Delete"
                 />
               </Tooltip>
-              <p className={classes.span}>Delete Chat with {chattingWith}?</p>
+              <p className={classes.span}>Delete Chat with {senderName?.from?.firstName || chattingWith} {senderName?.from?.lastName}?</p>
               <Tooltip title="Confirm Delete">
                 <CheckCircleOutlineIcon
                   className={classes.deleteChat}
@@ -273,7 +280,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
           onClick={handleClick}
           disabled={disableClick}
         >
-          {chattingWith}
+          {senderName?.from?.firstName || chattingWith} {senderName?.from?.lastName}
         </button>
       </div>
       <Drawer
@@ -324,7 +331,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
           </Collapse>
         </div>
         <div className={classes.titleDiv}>
-          <h1 className={classes.roomTitle}>{chattingWith}</h1>
+          <h1 className={classes.roomTitle}>{senderName?.from?.firstName || chattingWith} {senderName?.from?.lastName}</h1>
           <Tooltip title="Close Chatroom">
             <CloseIcon
               className={classes.closeModal}
@@ -338,6 +345,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
           user={user}
           setUpdateChat={setUpdateChat}
           setDeleteChat={setDeleteChat}
+          roomNotifications={roomNotifications}
         />
       </Drawer>
     </>
