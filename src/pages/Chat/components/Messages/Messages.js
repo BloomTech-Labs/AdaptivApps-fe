@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import Input from "../Input/Input";
 import EditInput from '../Input/EditInput';
 
-// Update / Delete Mutations
 import { useMutation } from 'react-apollo';
 import { DELETE_CHAT } from '../../queries/Chats';
 
@@ -152,13 +151,23 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Messages({ user, chatRoom, messages, setUpdateChat, setDeleteChat }) {
+export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat }) {
   const classes = useStyles();
-  
-  const [deleteChat] = useMutation(DELETE_CHAT);
 
+  const [deleteChat] = useMutation(DELETE_CHAT);
   const [messageToEdit, setMessageToEdit] = useState();
   const [editInput, setEditInput] = useState(false);
+
+  const messages = chatRoom.chats.map(chat => {
+    return {
+      id: chat.id,
+      message: chat.message,
+      createdAt: chat.createdAt,
+      firstName: chat.from.firstName,
+      lastName: chat.from.lastName,
+      sender: chat.from.email
+    }
+  })
 
   // Sets up an auto-scroll to last message when new message received, or when a message is updated/deleted
   const messagesEndRef = useRef(null);
@@ -180,7 +189,7 @@ export default function Messages({ user, chatRoom, messages, setUpdateChat, setD
   return (
     <div className={classes.root}>
       <div className={classes.messageDiv}>
-        {messages.map((message) => (
+      {messages?.map((message) => (
           <>
             <div key={message.id} className={message.sender !== user.email ? classes.messageBox : classes.messageBoxRight}>
               {message.sender === user.email ? (
@@ -204,7 +213,7 @@ export default function Messages({ user, chatRoom, messages, setUpdateChat, setD
               </div>
             </div>
           </>
-        ))}
+        ))} 
       </div>
       <div className={classes.inputDiv}>
         {editInput ? (

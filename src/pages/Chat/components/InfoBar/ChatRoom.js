@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Messages from "../Messages/Messages";
 
 // Mutation Imports
 import { useMutation } from "react-apollo";
 import { DELETE_CHAT_ROOM } from "../../queries/ChatRooms";
-import { DELETE_NOTIFICATION } from "../../queries/Notifications";
 
 // Style Imports
 import { withStyles } from "@material-ui/core/styles";
@@ -142,13 +141,22 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
   const classes = useStyles();
 
   const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM);
-  const [deleteNotifications] = useMutation(DELETE_NOTIFICATION);
-
   const [messageToggle, setMessageToggle] = useState(false);
+  const [roomNotifications, setRoomNotifications] = useState([])
   const [editChatRoom, setEditChatRoom] = useState(false);
   const [updateChat, setUpdateChat] = useState(false);
   const [deleteChat, setDeleteChat] = useState(false);
   const [disableClick, setDisableClick] = useState(false);
+
+
+  useEffect(() => {
+    !messageToggle &&
+    chats?.chat?.mutation === 'CREATED' && 
+    chats?.chat?.node.from.email !== user.email && 
+    chats?.chat?.node.room.id === chatRoom.id &&
+    roomNotifications.push(chats?.chat?.node?.room.id)
+  }, [chats])
+  
 
   // Set timeout for automated alerts
   setTimeout(function() {
@@ -158,28 +166,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
       setDeleteChat(false);
     }
   }, 3000);
-
-  // Identify notifications as they come in
-
-  // chatRoom.chats.length > 0 &&
-  // (chatRoom.chats.filter(item => item.notification.length > 0 && item.notification))
-  const notificationArray = [];
-
-  const notifications = () => {
-    if (
-      chats !== undefined &&
-      chats && chats.profile.notifications.length > 0
-    ) {
-      chats.profile.notifications.map(item => {
-        if (item.chat !== null && item.chat.room.id === chatRoom.id) {
-          notificationArray.push(item);
-        }
-      });
-    }
-    return notificationArray;
-  };
-  notifications();
-
+  
   // Remove participants with invalid first / last names
   const participants = [];
 
@@ -204,38 +191,10 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
     }
   });
 
-  const messages = chatRoom.chats.map(chat => {
-    return {
-      id: chat.id,
-      message: chat.message,
-      createdAt: chat.createdAt,
-      firstName: chat.from.firstName,
-      lastName: chat.from.lastName,
-      sender: chat.from.email,
-    };
-  });
-
   const handleClick = e => {
     e.preventDefault();
     messageToggle ? setMessageToggle(false) : setMessageToggle(true);
-  };
-
-  // When a chatRoom is clicked, delete all notifications attached to it to update # of notifications
-  // And disable button for 5 seconds to prevent app breaking
-  const handleNotifications = e => {
-    e.preventDefault();
-    messageToggle ? setMessageToggle(false) : setMessageToggle(true);
-    if (notificationArray !== null && notificationArray.length > 0) {
-      notificationArray.map(item => {
-        deleteNotifications({
-          variables: {
-            id: item.id,
-          },
-        });
-      });
-    }
-    setDisableClick(true);
-    setTimeout(() => setDisableClick(false), 5000);
+    setRoomNotifications([]);
   };
 
   const closeDrawer = e => {
@@ -258,12 +217,10 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
     <>
       <div className={classes.root}>
         <Tooltip title="Click to Delete Chatroom">
-          {notificationArray !== null &&
-          notificationArray.length > 0 &&
-          user.email !== participants[0].email ? (
+          {roomNotifications?.length > 0 ? (
             <Tooltip title="New Message!">
               <StyledBadge
-                badgeContent={notificationArray.length}
+                badgeContent={roomNotifications.length}
                 overlap="circle"
               >
                 <PeopleAltIcon
@@ -309,11 +266,11 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
             </div>
           ) : null}
         </Modal>
-
+            
         <button
           aria-label="Expand chat messages"
           className={classes.chatRoomButton}
-          onClick={handleNotifications}
+          onClick={handleClick}
           disabled={disableClick}
         >
           {chattingWith}
@@ -322,9 +279,9 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
       <Drawer
         anchor="right"
         open={messageToggle}
-        onClose={handleClick}
+        onClose={closeDrawer}
         variant="temporary"
-        PaperProps={{ style: { width: "66%" } }}
+        PaperProps={{ style: { width: "66%", } }}
       >
         <div className={classes.alertDiv}>
           <Collapse in={updateChat}>
@@ -378,9 +335,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
         </div>
         <Messages
           chatRoom={chatRoom}
-          participants={participants}
           user={user}
-          messages={messages}
           setUpdateChat={setUpdateChat}
           setDeleteChat={setDeleteChat}
         />
