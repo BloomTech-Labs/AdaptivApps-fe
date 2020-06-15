@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import NavLink from '../SideNav/NavLink';
 // Import stylings
 import { makeStyles } from "@material-ui/core";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 const useStyles = makeStyles({
     search: {
@@ -33,48 +34,55 @@ const useStyles = makeStyles({
 
 export default function Dropdown(props) {
     const classes = useStyles();
-    const { profilesData, setTitle, keyword, setKeyword, toggleList } = props;
-    const [tempList, setTempList] = useState(profilesData);
+    const { tagsData, keyword, setKeyword, setIsSearching, setNumSelected } = props;
+    const [tempList, setTempList] = useState(tagsData);
 
     const handleChange = e => {
         setKeyword(e.target.value.toLowerCase());
     }
 
     const handleSelect = item => {
-        setTitle(item.firstName);
+        setIsSearching(true);
+        if (item.selected) {
+            item.selected = false;
+        } else {
+            item.selected = true;
+        }
+        const length = tagsData.filter(item => item.selected).length;
+        setNumSelected(length);
     }
 
     useEffect(() => {
-        const results = profilesData?.filter(profile =>
-            profile.firstName.toLowerCase().includes(keyword)
+        const results = tagsData?.filter(tag =>
+            tag.name.toLowerCase().includes(keyword)
         ).sort((a, b) => {
-            if (a.firstName < b.firstName) { return -1; }
-            if (a.firstName > b.firstName) { return 1; }
+            if (a.name < b.name) { return -1; }
+            if (a.name > b.name) { return 1; }
             return 0;
         })
         setTempList(results)
-    }, [profilesData, keyword, setKeyword])
+    }, [tagsData, keyword, setKeyword])
 
     return (
         <div>
             <input
                 className={classes.search}
-                placeholder="Search users and organizations"
+                placeholder="Search by tags"
                 onChange={handleChange}
             />
             <div>
                 {
                     tempList.map(item =>
-                        <NavLink to={`user/${item.firstName}`} className={classes.navLink} >
-                            <button
-                                type="button"
-                                key={item.id}
-                                className={classes.item}
-                                onClick={() => handleSelect(item)}
-                            >
-                                {item.firstName}
-                            </button>
-                        </NavLink>
+                        <button
+                            type="button"
+                            key={item.id}
+                            className={classes.item}
+                            onClick={() => handleSelect(item)}
+                        >
+                            {item.name}
+                            {' '}
+                            {item.selected && <FontAwesomeIcon icon={faCheck} />}
+                        </button>
                     )
                 }
                 {
