@@ -110,12 +110,28 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   const [announcement, setAnnouncementOpen] = useState(false);
   const [searchRecipient, setSearchRecipient] = useState("");
   const [results, setResults] = useState([]);
+  const [chatNotifications, setChatNotifications] = useState([])
 
   const { error: roomError, loading: roomsLoading } = useSubscription(CHAT_ROOM_SUBSCRIPTION)
-  const { error: chatError, loading: chatLoading } = useSubscription(CHAT_SUBSCRIPTION)
+  const { error: chatError, loading: chatLoading, data: chats } = useSubscription(CHAT_SUBSCRIPTION)
   const { error, loading, data, refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email }})
 
+  useEffect(() => {
+    
+    chats?.chat?.mutation === 'CREATED' && chats?.chat?.node.from.email !== user.email && chatNotifications.push(chats?.chat?.node?.room.id)
 
+
+  }, [chats])
+  
+  // const notifications = chatNotifications.map(chat => {
+  //   if (nodeID !== chat) {
+  //     chatNotifications.push(nodeID)
+  //   }
+  // })
+  console.log(chats?.chat)
+  console.log(chatNotifications)
+
+  
   // Search for a chat room
   // const searchRooms = e => {
   //   e.preventDefault();
@@ -259,8 +275,10 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
                 <ChatRoom
                   key={chatRoom.id}
                   chatRoom={chatRoom}
+                  chatNotifications={chatNotifications}
                   user={user}
                   setDeleteRoom={setDeleteRoom}
+                  setChatNotifications={setChatNotifications}
                 />
                 <Divider variant="inset" className={classes.divider} />
               </div>

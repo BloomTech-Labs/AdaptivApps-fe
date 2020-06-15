@@ -138,7 +138,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
+export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatNotifications, setChatNotifications }) {
   const classes = useStyles();
 
   const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM);
@@ -149,6 +149,10 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
   const [updateChat, setUpdateChat] = useState(false);
   const [deleteChat, setDeleteChat] = useState(false);
   const [disableClick, setDisableClick] = useState(false);
+
+  //const roomNotifications = chatNotifications?.filter(notification => notification === chatRoom.id)
+
+  //console.log(roomNotifications)
 
   // Set timeout for automated alerts
   setTimeout(function() {
@@ -207,6 +211,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
   const handleClick = e => {
     e.preventDefault();
     messageToggle ? setMessageToggle(false) : setMessageToggle(true);
+    chatNotifications?.length > 0 && chatNotifications.map(notification => notification !== chatRoom.id && setChatNotifications(notification))
   };
 
 
@@ -294,7 +299,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
       <Drawer
         anchor="right"
         open={messageToggle}
-        onClose={handleClick}
+        onClose={closeDrawer}
         variant="temporary"
         PaperProps={{ style: { width: "66%", } }}
       >

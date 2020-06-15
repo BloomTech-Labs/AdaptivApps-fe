@@ -64,17 +64,15 @@ export const UPDATE_CHAT = gql`
   mutation updateChat($id: ID!, $message: String!) {
     updateChat(where: { id: $id }, data: { message: $message }) {
       id
-      from {
-        email
-        id
-        firstName
-        lastName
-      }
-      message
-      createdAt
-      room {
-        id
-      }
+        message
+        createdAt
+        room {
+          id
+        }
+        from {
+          firstName
+          lastName
+        }
     }
   }
 `;
@@ -157,6 +155,8 @@ export const CHAT_SUBSCRIPTION = gql`
         from {
           firstName
           lastName
+          id
+          email
         }
       }
     }
