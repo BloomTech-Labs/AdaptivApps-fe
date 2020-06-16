@@ -10,7 +10,6 @@ import PrivateRoute from "./routes/PrivateRoute";
 
 // Import page components
 import EventsCalendar from "./pages/EventsCalendar";
-import PublicProfile from "./pages/PublicProfile/PublicProfile";
 import UserProfile from "./pages/UserProfile";
 import Settings from "./pages/UserSettings/Settings";
 import AccountInfo from "./pages/UserSettings/AccountInfo/";
