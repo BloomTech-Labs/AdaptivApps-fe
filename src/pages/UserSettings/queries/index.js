@@ -97,6 +97,7 @@ export const UPDATE_ORG_PROFILE = gql`
     $city: String
     $state: String
     $bio: String
+    $userName: String
     $orgName: String
     $website: String
   ) {
@@ -107,6 +108,7 @@ export const UPDATE_ORG_PROFILE = gql`
         city: $city
         state: $state
         bio: $bio
+        userName: $userName
         extProfile: { create: { orgName: $orgName, website: $website } }
       }
     ) {

@@ -70,6 +70,7 @@ export default function OrgStep1({ updateOrgProfile }) {
         city: data.city,
         state: data.state,
         bio: data.bio,
+        userName: data.orgName,
         orgName: data.orgName,
         website: data.website
       },

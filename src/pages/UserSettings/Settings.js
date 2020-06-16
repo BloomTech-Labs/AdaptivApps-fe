@@ -161,7 +161,7 @@ export default function Settings() {
                 {profile?.firstName} {profile?.lastName} 
               </Typography>
               {/* <Typography>{profile?.userName ? profile?.userName : 'Please Add a Username'}</Typography> */}
-              <Typography>{profile?.userName || "Create a Username"}</Typography>
+              <Typography>{profile?.userName}</Typography>
               <Typography>{profile?.phoneNumber}</Typography>
               <Typography>{profile?.email}</Typography>
               <Typography>
