@@ -1,25 +1,16 @@
 import gql from "graphql-tag";
 
-// Retrieve announcements
-export const GET_ANNOUNCEMENTS = gql`
-  query getAnnouncements( $isAnnouncementRoom: Boolean! ) {
-    announcements( where: { isAnnouncementRoom: $isAnnouncementRoom } ) {
+// Get Announcement Recipients
+export const GET_RECIPIENTS = gql`
+  query getRecipients {
+    profiles {
       id
-      title
-      message
-      createdAt
-      isAnnouncementRoom
-      notification {
-        id
-        label
-        profile {
-          email
-          id
-        }
-      }
+      firstName
+      lastName
+      email
     }
   }
-`
+`;
 
 // Create an announcement
 export const CREATE_ANNOUNCEMENT = gql`
@@ -36,27 +27,26 @@ export const CREATE_ANNOUNCEMENT = gql`
         participants: {
           connect: $recipients
         }
-        notification: {
-          create: {
-            label: $title
-            profile: {
-              connect: $recipients
-            }
-          }
-        }
       }
     ) {
       id
       message
       title
       createdAt
-      notification {
-        label
-        profile {
-          id
-          email
-        }
-      }
+      isAnnouncementRoom
+    }
+  }
+`
+
+// Retrieve announcements
+export const GET_ANNOUNCEMENTS = gql`
+  query getAnnouncements( $isAnnouncementRoom: Boolean! ) {
+    announcements( where: { isAnnouncementRoom: $isAnnouncementRoom } ) {
+      id
+      title
+      message
+      createdAt
+      isAnnouncementRoom
     }
   }
 `

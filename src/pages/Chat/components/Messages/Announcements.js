@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 // Query / Mutations
-import { useQuery, useMutation } from "react-apollo";
-import { GET_ANNOUNCEMENTS, DELETE_ANNOUNCEMENT } from '../../queries/Announcements';
+import { useQuery, useMutation, useSubscription } from "react-apollo";
+import { GET_ANNOUNCEMENTS, DELETE_ANNOUNCEMENT, ANNOUNCEMENT_SUBSCRIPTION } from '../../queries/Announcements';
 import EditAnnouncementModal from '../Modals/EditAnnouncementModal';
 
 //Auth0 imports
@@ -101,17 +101,17 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
 
   const [deleteAnnouncement] = useMutation(DELETE_ANNOUNCEMENT);
 
-  const { loading, error, data } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
-
+  const { loading, error } = useSubscription(ANNOUNCEMENT_SUBSCRIPTION, { variables: { isAnnouncementRoom: true } });
+  const { loading: annloading, data, refetch } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
+  
   const announcements = data && data?.announcements?.map((announcement) => {return {
       id: announcement.id,
       title: announcement.title,
       message: announcement.message,
-      createdAt: announcement.createdAt,
-      notification: announcement.notification      
+      createdAt: announcement.createdAt,    
     }
   });
-
+  
   // Sets up an auto-scroll to last announcement when new announcement received, or when an announcement is updated/deleted
   const announcementsEndRef = useRef(null)
 
@@ -119,11 +119,7 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
     announcementsEndRef.current && announcementsEndRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
-
-  useEffect(() => {
-
-    scrollToBottom()
-  }, [announcements]);
+  useEffect(() => { scrollToBottom() }, [announcements]);
 
   const handleClose = () => {
     setAnnouncementOpen(false);
@@ -137,8 +133,10 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
     setDeleteChat(true);
   };
 
-  if (loading) return <CircularProgress className={classes.loadingSpinner} />;
+  if (annloading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
+
+  !loading && refetch();
 
   return (
     <div className={classes.root}>

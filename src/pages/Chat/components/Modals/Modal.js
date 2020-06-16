@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useMutation } from "react-apollo";
+import { useMutation, useQuery } from "react-apollo";
 import { CREATE_CHAT_ROOM } from "../../queries/ChatRooms";
+import { GET_RECIPIENTS } from '../../queries/Chats'
 
 //Style imports
 import {
@@ -16,6 +17,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
+import { recip } from "prelude-ls";
 
 const useStyles = makeStyles(theme => ({
   span: {
@@ -100,29 +102,39 @@ const useStyles = makeStyles(theme => ({
 function RecipientModal({
   user,
   setOpen,
-  participants,
+  allChatrooms,
   setNewRoom,
-  validParticipants,
+  
 }) {
   const classes = useStyles();
-
   const [searchRecipient, setSearchRecipient] = useState("");
   const [results, setResults] = useState([]);
   const [searchText, setSearchText] = useState(true);
-  const [errorState, setErrorState] = useState(false);
+  const [foundInRecipientSearch, setFoundInRecipientSearch] = useState(false);
   const [disableClick, setDisableClick] = useState(false);
 
-  const [createChatRoom] = useMutation(CREATE_CHAT_ROOM);
+  const { data: allUsers } = useQuery(GET_RECIPIENTS);
+  const [ createChatRoom ] = useMutation(CREATE_CHAT_ROOM);
 
-  // Search for a recipient logic
-  const searchContacts = e => {
+  const currentChatRooms = allChatrooms?.profile?.chatRooms?.map(chatroom => {
+    const current = chatroom.participants.filter(participant => participant.email !== user.email && participant);
+    return current[0];
+  })
+
+  console.log(currentChatRooms)
+
+  const availableToChat = [];
+  allUsers && allUsers.profiles.map(person => {
+    let unique = currentChatRooms.find(item => item.email === person.email) 
+    if (unique === undefined && person.email !== user.email) {
+      availableToChat.push(person);
+    };
+  });
+
+  const searchAvailableRooms = e => {
     e.preventDefault();
-    let filter = uniqueEmails.map(user => {
-      setErrorState(false);
-      return [
-        `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`,
-        user,
-      ];
+    let filter = availableToChat.map(user => {
+      return [ `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user ];
     });
 
     filter.filter(user => {
@@ -131,8 +143,7 @@ function RecipientModal({
       }
       setTimeout(() => {
         if (results[0] == undefined || results.length === 0) {
-          console.log(results);
-          setErrorState(true);
+          setFoundInRecipientSearch(true);
           setSearchText(false);
         }
       }, 500);
@@ -140,22 +151,22 @@ function RecipientModal({
     setSearchRecipient("");
   };
 
-  // Creating a new chat room
-  const newChatRoom = async item => {
+  const createNewChatRoom = async recipient => {
     await createChatRoom({
       variables: {
         useremail: user.email,
-        recipientemail: item.email,
+        recipientemail: recipient.email,
       },
     });
+    
     setDisableClick(true);
     setTimeout(() => setDisableClick(false), 5000);
-
     setOpen(false);
     setNewRoom(true);
   };
 
   const handleChange = e => {
+    setFoundInRecipientSearch(false);
     setResults([]);
     setSearchRecipient(e.target.value);
   };
@@ -165,38 +176,28 @@ function RecipientModal({
     setOpen(false);
   };
 
-  // List of participants not currently chatting with for modal list - prevents duplicate chat rooms
-  const uniqueEmails = [];
-
-  validParticipants.map(person => {
-    let unique = participants.find(item => item.email === person.email);
-    if (unique === undefined && person.email !== user.email) {
-      uniqueEmails.push(person);
-    }
-  });
-
   // Return search results in list
   const searchResults =
     results.length > 0 &&
-    results.map(item => {
-      const filtered = uniqueEmails.filter(user => {
+    results.map(result => {
+      const filtered = availableToChat.filter(available => {
         if (
-          user.email === item.email &&
-          user.firstName !== "" &&
-          user.lastName !== ""
+          available.email === result.email &&
+          available.firstName !== "" &&
+          available.lastName !== ""
         ) {
-          return user;
+          return available;
         }
       });
-      if (filtered[0] !== item.email) {
+      if (filtered[0] !== result.email) {
         return (
           <ListItem
             className={classes.listItem}
-            value={`${item.firstName} ${item.lastName}`}
+            value={`${result.firstName} ${result.lastName}`}
             diabled={disableClick}
-            onClick={() => newChatRoom(item)}
+            onClick={() => createNewChatRoom(result)}
           >
-            <ListItemText primary={`${item.firstName} ${item.lastName}`} />
+            <ListItemText primary={`${result.firstName} ${result.lastName}`} />
           </ListItem>
         );
       }
@@ -205,14 +206,14 @@ function RecipientModal({
   // List of recipients available to chat with
   const chatResults =
     !results.length &&
-    uniqueEmails.map(item => {
+    availableToChat.map(available => {
       return (
         <ListItem
           className={classes.listItem}
-          value={`${item.firstName} ${item.lastName}`}
-          onClick={() => newChatRoom(item)}
+          value={`${available.firstName} ${available.lastName}`}
+          onClick={() => createNewChatRoom(available)}
         >
-          <ListItemText primary={`${item.firstName} ${item.lastName}`} />
+          <ListItemText primary={`${available.firstName} ${available.lastName}`} />
         </ListItem>
       );
     });
@@ -231,7 +232,6 @@ function RecipientModal({
         <div>
           <Box component="div">
             <TextField
-              onKeyPress={() => setSearchText(false)}
               variant="outlined"
               type="text"
               placeholder="Search for a Recipient"
@@ -241,7 +241,9 @@ function RecipientModal({
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton onClick={searchContacts}>
+                    <IconButton 
+                    onClick={searchAvailableRooms}
+                    >                    
                       <SearchIcon fontSize="large" />
                     </IconButton>
                   </InputAdornment>
@@ -254,7 +256,7 @@ function RecipientModal({
                   <List>
                     <div
                       className={
-                        errorState ? classes.errorState : classes.noError
+                        foundInRecipientSearch ? classes.errorState : classes.noError
                       }
                     >
                       <p>We couldn't find that user</p>

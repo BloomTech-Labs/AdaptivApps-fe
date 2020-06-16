@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Messages from "../Messages/Messages";
 
 // Mutation Imports
 import { useMutation } from "react-apollo";
-import { DELETE_CHAT_ROOM } from "../../queries/ChatRooms";
-import { DELETE_NOTIFICATION } from "../../queries/Notifications";
+import { DELETE_CHAT_ROOM_PARTICIPANTS } from "../../queries/ChatRooms";
 
 // Style Imports
 import { withStyles } from "@material-ui/core/styles";
@@ -138,17 +137,36 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
+export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoomSub }) {
   const classes = useStyles();
 
-  const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM);
-  const [deleteNotifications] = useMutation(DELETE_NOTIFICATION);
-
+  const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM_PARTICIPANTS);
   const [messageToggle, setMessageToggle] = useState(false);
+  const [roomNotifications, setRoomNotifications] = useState([])
   const [editChatRoom, setEditChatRoom] = useState(false);
   const [updateChat, setUpdateChat] = useState(false);
   const [deleteChat, setDeleteChat] = useState(false);
   const [disableClick, setDisableClick] = useState(false);
+
+  useEffect(() => {
+    //if (
+    !messageToggle &&
+    chats?.chat?.mutation === 'CREATED' && 
+    !chatRoomSub?.chatRoom?.mutation &&
+    chats?.chat?.node.from.email !== user.email &&
+    chats?.chat?.node.room.id === chatRoom.id &&
+    roomNotifications.push(chats?.chat?.node?.room.id) 
+    // } else if (!messageToggle &&
+    // chats?.chat?.mutation === 'CREATED' &&
+    // chatRoomSub?.chatRoom?.mutation === 'UPDATED' &&
+    // chats?.chat?.node.from.email !== user.email &&
+    // chatRoomSub?.chatRoom?.node?.id === chatRoom.id ) {
+    // roomNotifications.push(chatRoomSub?.chatRoom?.node?.id)
+    // }
+
+  }, [chats, chatRoomSub, roomNotifications])
+  
+console.log(chatRoomSub)
 
   // Set timeout for automated alerts
   setTimeout(function() {
@@ -159,83 +177,31 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
     }
   }, 3000);
 
-  // Identify notifications as they come in
+  const senderName = chatRoom?.chats?.find(chat => chat?.from.email !== user?.email)
 
-  // chatRoom.chats.length > 0 &&
-  // (chatRoom.chats.filter(item => item.notification.length > 0 && item.notification))
-  const notificationArray = [];
+  const participants = []
 
-  const notifications = () => {
-    if (
-      chats !== undefined &&
-      chats && chats.profile.notifications.length > 0
-    ) {
-      chats.profile.notifications.map(item => {
-        if (item.chat !== null && item.chat.room.id === chatRoom.id) {
-          notificationArray.push(item);
-        }
-      });
-    }
-    return notificationArray;
-  };
-  notifications();
+    chatRoom.participants.map((participant) => {
+      if (participant.email !== user.email &&
+          participant.firstName !== null && participant.lastName !== null &&
+          participant.firstName !== "" && participant.lastName !== "") {
+            participants.push(participant)
+      }
+    })   
 
-  // Remove participants with invalid first / last names
-  const participants = [];
-
-  chatRoom.participants.map(participant => {
-    if (
-      participant.email !== user.email &&
-      participant.firstName !== null &&
-      participant.lastName !== null &&
-      participant.firstName !== "" &&
-      participant.lastName !== ""
-    ) {
-      participants.push(participant);
-    }
-  });
-
-  // Logic to set group chat rooms
-  const chattingWith = participants.map((participant, index) => {
-    if (participants.length === 1 || index === participants.length - 1) {
-      return `${participant.firstName} ${participant.lastName}`;
-    } else {
-      return `${participant.firstName} ${participant.lastName}, `;
-    }
-  });
-
-  const messages = chatRoom.chats.map(chat => {
-    return {
-      id: chat.id,
-      message: chat.message,
-      createdAt: chat.createdAt,
-      firstName: chat.from.firstName,
-      lastName: chat.from.lastName,
-      sender: chat.from.email,
-    };
-  });
+    // Logic to set group chat rooms
+    const chattingWith = participants.map((participant, index) => {
+      if (participants.length === 1 || index === participants.length - 1) {
+        return `${participant.firstName} ${participant.lastName}`
+      } else {
+        return `${participant.firstName} ${participant.lastName}, `
+      }
+    });
 
   const handleClick = e => {
     e.preventDefault();
     messageToggle ? setMessageToggle(false) : setMessageToggle(true);
-  };
-
-  // When a chatRoom is clicked, delete all notifications attached to it to update # of notifications
-  // And disable button for 5 seconds to prevent app breaking
-  const handleNotifications = e => {
-    e.preventDefault();
-    messageToggle ? setMessageToggle(false) : setMessageToggle(true);
-    if (notificationArray !== null && notificationArray.length > 0) {
-      notificationArray.map(item => {
-        deleteNotifications({
-          variables: {
-            id: item.id,
-          },
-        });
-      });
-    }
-    setDisableClick(true);
-    setTimeout(() => setDisableClick(false), 5000);
+    setRoomNotifications([]);
   };
 
   const closeDrawer = e => {
@@ -247,7 +213,8 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
   const deleteRoom = async () => {
     await deleteChatRoom({
       variables: {
-        id: chatRoom.id,
+        email: user.email,
+        id: chatRoom.id
       },
     });
     setEditChatRoom(false);
@@ -258,12 +225,10 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
     <>
       <div className={classes.root}>
         <Tooltip title="Click to Delete Chatroom">
-          {notificationArray !== null &&
-          notificationArray.length > 0 &&
-          user.email !== participants[0].email ? (
+          {roomNotifications?.length > 0 ? (
             <Tooltip title="New Message!">
               <StyledBadge
-                badgeContent={notificationArray.length}
+                badgeContent={roomNotifications.length}
                 overlap="circle"
               >
                 <PeopleAltIcon
@@ -282,7 +247,6 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
           )}
         </Tooltip>
         <Modal
-          participants={participants}
           position="relative"
           top="10%"
           left="13%"
@@ -298,7 +262,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
                   aria-label="Cancel Delete"
                 />
               </Tooltip>
-              <p className={classes.span}>Delete Chat with {chattingWith}?</p>
+              <p className={classes.span}>Delete Chat with {senderName?.from?.firstName || chattingWith} {senderName?.from?.lastName}?</p>
               <Tooltip title="Confirm Delete">
                 <CheckCircleOutlineIcon
                   className={classes.deleteChat}
@@ -309,22 +273,22 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
             </div>
           ) : null}
         </Modal>
-
+            
         <button
           aria-label="Expand chat messages"
           className={classes.chatRoomButton}
-          onClick={handleNotifications}
+          onClick={handleClick}
           disabled={disableClick}
         >
-          {chattingWith}
+          {senderName?.from?.firstName || chattingWith} {senderName?.from?.lastName}
         </button>
       </div>
       <Drawer
         anchor="right"
         open={messageToggle}
-        onClose={handleClick}
+        onClose={closeDrawer}
         variant="temporary"
-        PaperProps={{ style: { width: "66%" } }}
+        PaperProps={{ style: { width: "66%", } }}
       >
         <div className={classes.alertDiv}>
           <Collapse in={updateChat}>
@@ -367,7 +331,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
           </Collapse>
         </div>
         <div className={classes.titleDiv}>
-          <h1 className={classes.roomTitle}>{chattingWith}</h1>
+          <h1 className={classes.roomTitle}>{senderName?.from?.firstName || chattingWith} {senderName?.from?.lastName}</h1>
           <Tooltip title="Close Chatroom">
             <CloseIcon
               className={classes.closeModal}
@@ -378,11 +342,10 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats }) {
         </div>
         <Messages
           chatRoom={chatRoom}
-          participants={participants}
           user={user}
-          messages={messages}
           setUpdateChat={setUpdateChat}
           setDeleteChat={setDeleteChat}
+          roomNotifications={roomNotifications}
         />
       </Drawer>
     </>

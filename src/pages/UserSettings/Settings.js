@@ -158,9 +158,10 @@ export default function Settings() {
             </Box>
             <Box className={classes.data}>
               <Typography>
-                {profile?.firstName} {profile?.lastName}
+                {profile?.firstName} {profile?.lastName} 
               </Typography>
-              <Typography>{profile?.displayName}</Typography>
+              {/* <Typography>{profile?.userName ? profile?.userName : 'Please Add a Username'}</Typography> */}
+              <Typography>{profile?.userName || "Create a Username"}</Typography>
               <Typography>{profile?.phoneNumber}</Typography>
               <Typography>{profile?.email}</Typography>
               <Typography>
