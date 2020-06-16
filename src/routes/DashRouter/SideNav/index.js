@@ -273,7 +273,7 @@ function SideNav(props) {
           <BookmarkIcon className={classes.navIcon} />
           <p>My Events</p>
         </NavLink>
-        <NavLink to="/myprofile" className={classes.navLink}>
+        <NavLink to="user/:userName" className={classes.navLink}>
           <UserIcon className={classes.navIcon} />
           <p>My Profile</p>
         </NavLink>
@@ -285,7 +285,7 @@ function SideNav(props) {
         data?.profile === null ||
         (data &&
           data?.profile?.firstName === null &&
-            data?.profile?.lastName === null) ? (
+          data?.profile?.lastName === null) ? (
           <Tooltip title="Please complete your profile information to access Chats">
             <div className={classes.disabledNavLink}>
               {data &&

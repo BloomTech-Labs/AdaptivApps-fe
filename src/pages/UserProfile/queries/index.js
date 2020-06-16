@@ -1,6 +1,18 @@
 import gql from "graphql-tag";
 
-export const UPDATE_USER_PROFILE = gql`
+export const GET_USER_PROFILE = gql`
+  query getUserProfile($userName: String!) {
+    profile(where: { userName: $userName }) {
+      id
+      firstName
+      lastName
+      email
+      userName
+    }
+  }
+`;
+
+export const UPDATE_PROFILE_PICTURE = gql`
   mutation UpdateProfile(
     $email: String!
     $type: String!
