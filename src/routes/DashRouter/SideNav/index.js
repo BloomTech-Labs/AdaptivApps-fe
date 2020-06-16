@@ -199,7 +199,10 @@ function SideNav(props) {
               <p>Chats</p>
           </NavLink>
           )}
-          
+        <NavLink to="/newsfeed" className={classes.navLink}>
+            <HomeIcon className={classes.navIcon} />
+              <p>Newsfeed</p>
+          </NavLink>          
         {user && user[config.roleUrl].includes("Admin") ? (
           <>
             <NavLink to="createEvent" className={classes.navLink}>
