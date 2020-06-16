@@ -69,6 +69,7 @@ export default function Step1({ updateProfile }) {
       variables: {
         email: userEmail,
         firstName: data.firstName,
+        userName: data.userName,
         lastName: data.lastName,
         phoneNumber: data.phoneNumber,
         city: data.city,

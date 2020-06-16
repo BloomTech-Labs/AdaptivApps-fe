@@ -7,7 +7,7 @@ export const UPDATE_USER_PROFILE = gql`
     $private: Boolean
     $firstName: String
     $lastName: String
-    $displayName: String
+    $userName: String
     $phoneNumber: String
     $state: String
     $city: String
@@ -21,7 +21,7 @@ export const UPDATE_USER_PROFILE = gql`
         private: $private
         firstName: $firstName
         lastName: $lastName
-        displayName: $displayName
+        userName: $userName
         phoneNumber: $phoneNumber
         state: $state
         city: $city
@@ -33,7 +33,7 @@ export const UPDATE_USER_PROFILE = gql`
       private
       firstName
       lastName
-      displayName
+      userName
       phoneNumber
       state
       city
@@ -61,7 +61,7 @@ export const PROFILE_INFO = gql`
       email
       firstName
       lastName
-      displayName
+      userName
       phoneNumber
       state
       city
