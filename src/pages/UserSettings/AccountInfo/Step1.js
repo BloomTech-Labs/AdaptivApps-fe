@@ -24,7 +24,7 @@ const useStyles = makeStyles({
       height: 48,
     },
   },
-  nameBox: {
+  namePhoneBox: {
     display: "flex",
     marginBottom: "2.4rem",
     "& .MuiTextField-root": {
@@ -69,6 +69,7 @@ export default function Step1({ updateProfile }) {
       variables: {
         email: userEmail,
         firstName: data.firstName,
+        userName: data.userName,
         lastName: data.lastName,
         phoneNumber: data.phoneNumber,
         city: data.city,
@@ -84,7 +85,7 @@ export default function Step1({ updateProfile }) {
 
   return (
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
-      <Box className={classes.nameBox}>
+      <Box className={classes.namePhoneBox}>
         <Box>
           <InputLabel required htmlFor="firstName">
             First Name
@@ -111,17 +112,33 @@ export default function Step1({ updateProfile }) {
           />
         </Box>
       </Box>
-      <InputLabel htmlFor="phoneNumber">
-        Please enter your phone number
-      </InputLabel>
-      <Controller
-        as={<TextField />}
-        name="phoneNumber"
-        variant="outlined"
-        type="text"
-        control={control}
-        defaultValue=""
-      />
+      <Box className={classes.namePhoneBox}>
+        <Box>
+          <InputLabel htmlFor="userName">Username</InputLabel>
+          <Controller
+            as={<TextField />}
+            className={classes.firstInput}
+            name="userName"
+            variant="outlined"
+            type="text"
+            control={control}
+            defaultValue=""
+          />
+        </Box>
+        <Box>
+          <InputLabel htmlFor="phoneNumber">
+            Phone Number
+          </InputLabel>
+          <Controller
+            as={<TextField />}
+            name="phoneNumber"
+            variant="outlined"
+            type="text"
+            control={control}
+            defaultValue=""
+          />
+        </Box>
+      </Box>
       <Box className={classes.addressBox}>
         <Box>
           <InputLabel htmlFor="city">City*</InputLabel>

@@ -4,25 +4,9 @@ import config from "../../../config/auth_config";
 // Auth0 imports
 import { useAuth0 } from "../../../config/react-auth0-spa";
 
-// Subscription Imports
+// Query Imports
 import { useQuery } from "react-apollo";
-import {
-  CHAT_SUBSCRIPTION,
-  GET_MESSAGES,
-} from "../../../pages/Chat/queries/Chats";
-import {
-  ANNOUNCEMENT_SUBSCRIPTION,
-  GET_ANNOUNCEMENTS,
-} from "../../../pages/Chat/queries/Announcements";
-import { GET_CHAT_ROOMS } from "../../../pages/Chat/queries/ChatRooms";
-import { GET_USER_PROFILE } from "../../../pages/MyEventDetails/queries/index";
-import {
-  NOTIFICATION_SUBSCRIPTION,
-  GET_NOTIFICATIONS,
-} from "../../../pages/Chat/queries/Notifications";
-
-// Styling imports
-import { withStyles } from "@material-ui/core/styles";
+import { GET_MY_PROFILE } from "./queries/profile";
 
 import NavLink from "./NavLink";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
@@ -32,8 +16,6 @@ import UserIcon from "@material-ui/icons/PersonOutlineOutlined";
 import GroupIcon from "@material-ui/icons/GroupAddOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
 import ForumOutlinedIcon from "@material-ui/icons/ForumOutlined";
-import Tooltip from "@material-ui/core/Tooltip";
-import Badge from "@material-ui/core/Badge";
 import SettingsIcon from "@material-ui/icons/SettingsOutlined";
 import { IconContext } from "react-icons";
 import { FiLogOut } from "react-icons/fi";
@@ -46,21 +28,11 @@ import {
   Hidden,
   IconButton,
   Toolbar,
+  Tooltip,
   Button,
 } from "@material-ui/core";
 
 const drawerWidth = "25rem";
-
-const StyledBadge = withStyles(theme => ({
-  badge: {
-    left: 0,
-    top: 10,
-    width: "2%",
-    backgroundColor: "#052942",
-    color: "white",
-    fontSize: "1.25rem",
-  },
-}))(Badge);
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -176,84 +148,16 @@ function SideNav(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  // Setup Chat and Announcement Subscriptions
-  const { refetch } = useQuery(GET_CHAT_ROOMS, {
-    variables: { email: user.email },
+  const { data } = useQuery(GET_MY_PROFILE, {
+    variables: {
+      email: user?.email,
+    },
   });
-  const {
-    subscribeToMore: announcementSubscription,
-    refetch: refetchAnnouncements,
-  } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
-  const { subscribeToMore } = useQuery(GET_MESSAGES, {
-    variables: { email: user.email },
-  });
-  const { data, refetch: refetchProfile } = useQuery(GET_USER_PROFILE, {
-    variables: { email: user.email },
-  });
-  const {
-    subscribeToMore: notificationSubscription,
-  } = useQuery(GET_NOTIFICATIONS, { variables: { email: user.email } });
 
-  // Chat Subscription
-  const _subscribeToNewChats = subscribeToMore => {
-    subscribeToMore({
-      document: CHAT_SUBSCRIPTION,
-      updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data) return prev;
-        const chat = subscriptionData.data.chat;
-        refetch();
-        refetchProfile();
-        return Object.assign({}, prev, {
-          profile: {
-            chats: [chat, ...prev.profile.chats],
-            __typename: prev.profile.__typename,
-          },
-        });
-      },
-    });
-  };
+  console.log(data && data);
 
-  _subscribeToNewChats(subscribeToMore);
-
-  // Announcement Subscription
-  const _subscribeToNewAnnouncements = announcementSubscription => {
-    announcementSubscription({
-      document: ANNOUNCEMENT_SUBSCRIPTION,
-      updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data) return prev;
-        const announcement = subscriptionData.data.announcement;
-        refetchAnnouncements();
-        refetchProfile();
-        return Object.assign({}, prev, {
-          announcements: [announcement, ...prev.announcements],
-          __typename: prev.__typename,
-        });
-      },
-    });
-  };
-
-  _subscribeToNewAnnouncements(announcementSubscription);
-
-  // Notification Subscription
-  const _subscribeToNewNotifications = notificationSubscription => {
-    notificationSubscription({
-      document: NOTIFICATION_SUBSCRIPTION,
-      updateQuery: (prev, { subscriptionData }) => {
-        if (!subscriptionData.data) return prev;
-        const notification = subscriptionData.data.notification;
-        refetch();
-        refetchAnnouncements();
-        refetchProfile();
-        return Object.assign({}, prev, {
-          profile: {
-            notifications: [notification, ...prev.profile.notifications],
-            __typename: prev.profile.__typename,
-          },
-        });
-      },
-    });
-  };
-  _subscribeToNewNotifications(notificationSubscription);
+  const individual = data?.profile?.type === "individual";
+  const organization = data?.profile?.type === "organization";
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -281,44 +185,23 @@ function SideNav(props) {
           <SettingsIcon className={classes.navIcon} />
           <p>Settings</p>
         </NavLink>
-        {data === undefined ||
-        data?.profile === null ||
-        (data &&
-          data?.profile?.firstName === null &&
+        {/* Profile Validation */}
+        {data?.profile?.extProfile?.orgName === null ||
+        (data?.profile?.firstName === null &&
           data?.profile?.lastName === null) ? (
           <Tooltip title="Please complete your profile information to access Chats">
             <div className={classes.disabledNavLink}>
-              {data &&
-              data?.profile !== null &&
-              data &&
-              data?.profile?.notifications?.length > 0 ? (
-                <StyledBadge
-                  overlap="circle"
-                  badgeContent={data?.profile?.notifications?.length}
-                >
-                  <ForumOutlinedIcon className={classes.navIcon} />
-                </StyledBadge>
-              ) : (
-                <ForumOutlinedIcon className={classes.navIcon} />
-              )}
+              <ForumOutlinedIcon className={classes.navIcon} />
               <p>Chats</p>
             </div>
           </Tooltip>
         ) : (
           <NavLink to="/chats" className={classes.navLink}>
-            {data && data?.profile?.notifications?.length > 0 ? (
-              <StyledBadge
-                overlap="circle"
-                badgeContent={data?.profile?.notifications?.length}
-              >
-                <ForumOutlinedIcon className={classes.navIcon} />
-              </StyledBadge>
-            ) : (
-              <ForumOutlinedIcon className={classes.navIcon} />
-            )}
+            <ForumOutlinedIcon className={classes.navIcon} />
             <p>Chats</p>
           </NavLink>
         )}
+
         {user && user[config.roleUrl].includes("Admin") ? (
           <>
             <NavLink to="createEvent" className={classes.navLink}>

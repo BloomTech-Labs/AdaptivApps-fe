@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useMutation } from "react-apollo";
-import { CREATE_ANNOUNCEMENT } from '../../queries/Announcements';
+import { useMutation, useQuery } from "react-apollo";
+import { CREATE_ANNOUNCEMENT, GET_RECIPIENTS, GET_ANNOUNCEMENTS } from '../../queries/Announcements';
 
 //Style imports
 import CloseIcon from '@material-ui/icons/Close';
@@ -73,13 +73,11 @@ const useStyles = makeStyles(theme => ({
   
 function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipants, user }) {
   const classes = useStyles();
-
+  const { data } = useQuery(GET_RECIPIENTS)
   const [createAnnouncement] = useMutation(CREATE_ANNOUNCEMENT);
 
   const [newAnnouncement, setNewAnnouncement] = useState();
   const [newAnnouncementText, setNewAnnouncementText] = useState();
-
-  const [notification, setNotification] = useState(true)
   
   const handleTitleChange = e => {
     setNewAnnouncement(e.target.value);
@@ -89,11 +87,11 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
     setNewAnnouncementText(e.target.value);
   };
 
-  // Create array of emails to match BE data shape, exclude yourself
-  const allUserEmails = validParticipants.map(participant => user.email !== participant.email && 
+  //Create array of emails to match BE data shape, exclude yourself
+  const allUserEmails = data?.profiles?.map(participant => user.email !== participant.email && 
     { "email": participant.email }).filter(participant => participant !== false)
-
-  // Send announcement to BE & all
+  
+  // Send announcement to BE & all users
   const onSubmit = e => {
     e.preventDefault();
     createAnnouncement({
@@ -101,7 +99,6 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
         title: newAnnouncement,
         message: newAnnouncementText,
         isAnnouncementRoom: true,
-        recipients: allUserEmails,
         participants: allUserEmails,
       }
     })
