@@ -121,6 +121,8 @@ function RecipientModal({
     return current[0];
   })
 
+  console.log(currentChatRooms)
+
   const availableToChat = [];
   allUsers && allUsers.profiles.map(person => {
     let unique = currentChatRooms.find(item => item.email === person.email) 
