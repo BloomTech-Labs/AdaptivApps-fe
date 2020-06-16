@@ -34,7 +34,7 @@ const useStyles = makeStyles({
 
 export default function Dropdown(props) {
     const classes = useStyles();
-    const { tagsData, keyword, setKeyword, setIsSearching, setNumSelected } = props;
+    const { tagsData, keyword, setKeyword, setIsSearching, setNumSelected, selectedTags, setSelectedTags } = props;
     const [tempList, setTempList] = useState(tagsData);
 
     const handleChange = e => {
@@ -45,8 +45,16 @@ export default function Dropdown(props) {
         setIsSearching(true);
         if (item.selected) {
             item.selected = false;
+            let newTags = [];
+            for (let i = 0; i < selectedTags.length; i++) {
+                if (selectedTags[i].toLowerCase() !== item.name.toLowerCase()) {
+                    newTags.push(selectedTags[i]);
+                }
+            }
+            setSelectedTags(newTags);
         } else {
             item.selected = true;
+            setSelectedTags([...selectedTags, item.name]);
         }
         const length = tagsData.filter(item => item.selected).length;
         setNumSelected(length);

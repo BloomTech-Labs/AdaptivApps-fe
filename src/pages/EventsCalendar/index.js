@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "react-apollo";
 import { makeStyles, Grid, Box, Typography } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -35,6 +35,7 @@ export default function EventsCalendar() {
   const { user } = useAuth0();
   const classes = useStyles();
   const { loading, error, data, refetch } = useQuery(GET_EVENT_LIST);
+  const [isSearching, setIsSearching] = useState(false);
 
   // refetches EVENT_LIST without refreshing page
   useEffect(() => {
@@ -51,10 +52,16 @@ export default function EventsCalendar() {
         </Typography>
       </Box>
       {user && user[config.roleUrl].includes("Admin") ? (
-        <AdminTagsSearch />
+        <AdminTagsSearch
+          isSearching={isSearching}
+          setIsSearching={setIsSearching}
+        />
       ) : null}
       <Grid className={classes.grid}>
-        <EventList currentEvents={currentEvents} refetch={refetch} />
+        {!isSearching
+          ? <EventList currentEvents={currentEvents} refetch={refetch} />
+          : null
+        }
       </Grid>
     </main>
   );
