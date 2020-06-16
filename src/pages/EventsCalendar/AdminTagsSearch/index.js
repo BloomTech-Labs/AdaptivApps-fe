@@ -73,14 +73,19 @@ const AdminTagsSearch = props => {
 
     const filterEvents = events => {
         let tempEventsList = [];
+        let hasAdded = false;
         for (let i = 0; i < events.length; i++) {
             const tags = events[i].tags.split(", ");
             for (let j = 0; j < selectedTags.length; j++) {
-                if (tags.includes(selectedTags[j])) {
-                    tempEventsList.push(events[i]);
+                if (!tags.includes(selectedTags[j])) {
                     break;
                 }
+                if (!hasAdded) {
+                    tempEventsList.push(events[i]);
+                    hasAdded = true;
+                }
             }
+            hasAdded = false;
         }
         return tempEventsList;
     }

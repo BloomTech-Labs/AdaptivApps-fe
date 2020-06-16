@@ -137,7 +137,7 @@ export default function EventForm({
           id: eventId,
           type: formValues.type,
           sportType: formValues.sportType,
-          tags: tags,
+          tags: tags.join(', '),
           title: formValues.title,
           host: formValues.host,
           coaches: formValues.coaches,
