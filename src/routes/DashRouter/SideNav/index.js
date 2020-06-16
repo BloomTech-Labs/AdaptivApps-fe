@@ -154,7 +154,6 @@ function SideNav(props) {
     },
   });
 
-  console.log("data.userName in side nav", data);
   const userName = data?.profile?.userName;
   const individual = data?.profile?.type === "individual";
   const organization = data?.profile?.type === "organization";
@@ -162,7 +161,7 @@ function SideNav(props) {
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  console.log(userName);
+
   const drawer = (
     <>
       <Box className={classes.imgBox}>
