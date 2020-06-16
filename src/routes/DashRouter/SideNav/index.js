@@ -6,8 +6,7 @@ import { useAuth0 } from "../../../config/react-auth0-spa";
 
 // Query Imports
 import { useQuery } from "react-apollo";
-import { GET_MY_PROFILE } from './queries/profile'
-
+import { GET_MY_PROFILE } from "./queries/profile";
 
 import NavLink from "./NavLink";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
@@ -149,15 +148,11 @@ function SideNav(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const { data } = useQuery(GET_MY_PROFILE, { 
+  const { data } = useQuery(GET_MY_PROFILE, {
     variables: {
-      email: user?.email
-  }} )
-
-  console.log(data && data)
-
-  const individual = data?.profile?.type === 'individual';
-  const organization = data?.profile?.type === 'organization';
+      email: user?.email,
+    },
+  });
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -184,22 +179,24 @@ function SideNav(props) {
         <NavLink to="/" className={classes.navLink}>
           <SettingsIcon className={classes.navIcon} />
           <p>Settings</p>
-        </NavLink>         
+        </NavLink>
         {/* Profile Validation */}
-        {data?.profile?.extProfile?.orgName === null || data?.profile?.firstName === null && data?.profile?.lastName === null ? (
-            <Tooltip title='Please complete your profile information to access Chats'>
+        {data?.profile?.extProfile?.orgName === null ||
+        (data?.profile?.firstName === null &&
+          data?.profile?.lastName === null) ? (
+          <Tooltip title="Please complete your profile information to access Chats">
             <div className={classes.disabledNavLink}>
               <ForumOutlinedIcon className={classes.navIcon} />
-                <p>Chats</p>
+              <p>Chats</p>
             </div>
           </Tooltip>
-          ) : (
-            <NavLink to="/chats" className={classes.navLink}>
+        ) : (
+          <NavLink to="/chats" className={classes.navLink}>
             <ForumOutlinedIcon className={classes.navIcon} />
-              <p>Chats</p>
+            <p>Chats</p>
           </NavLink>
-          )}
-          
+        )}
+
         {user && user[config.roleUrl].includes("Admin") ? (
           <>
             <NavLink to="createEvent" className={classes.navLink}>

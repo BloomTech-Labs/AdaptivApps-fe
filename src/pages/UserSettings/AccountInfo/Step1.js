@@ -7,7 +7,7 @@ import NextButton from "../../../theme/FormButton";
 // Material-UI imports
 import {
   makeStyles,
-  Container,
+  Typography,
   Box,
   InputLabel,
   TextField,
@@ -87,9 +87,7 @@ export default function Step1({ updateProfile }) {
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
       <Box className={classes.namePhoneBox}>
         <Box>
-          <InputLabel required htmlFor="firstName">
-            First Name
-          </InputLabel>
+          <InputLabel htmlFor="firstName">First Name*</InputLabel>
           <Controller
             as={<TextField />}
             className={classes.firstInput}
@@ -114,7 +112,7 @@ export default function Step1({ updateProfile }) {
       </Box>
       <Box className={classes.namePhoneBox}>
         <Box>
-          <InputLabel htmlFor="userName">Username</InputLabel>
+          <InputLabel htmlFor="userName">Username*</InputLabel>
           <Controller
             as={<TextField />}
             className={classes.firstInput}
@@ -126,9 +124,7 @@ export default function Step1({ updateProfile }) {
           />
         </Box>
         <Box>
-          <InputLabel htmlFor="phoneNumber">
-            Phone Number
-          </InputLabel>
+          <InputLabel htmlFor="phoneNumber">Phone Number*</InputLabel>
           <Controller
             as={<TextField />}
             name="phoneNumber"
@@ -164,7 +160,7 @@ export default function Step1({ updateProfile }) {
           />
         </Box>
       </Box>
-      <InputLabel htmlFor="legal">Are you over 18 years old?</InputLabel>
+      <InputLabel htmlFor="legal">Are you over 18 years old?*</InputLabel>
       <Controller
         as={
           <Select className={classes.typeSelect}>
@@ -192,6 +188,7 @@ export default function Step1({ updateProfile }) {
         rows="8"
         defaultValue=""
       />
+      <Typography>* required field</Typography>
       <Box className={classes.btnBox}>
         <NextButton
           type="submit"
