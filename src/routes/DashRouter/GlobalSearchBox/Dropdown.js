@@ -46,7 +46,7 @@ export default function Dropdown(props) {
 
     useEffect(() => {
         const results = profilesData?.filter(profile =>
-            profile.firstName.toLowerCase().includes(keyword)
+            profile?.firstName.toLowerCase().includes(keyword)
         ).sort((a, b) => {
             if (a.firstName < b.firstName) { return -1; }
             if (a.firstName > b.firstName) { return 1; }

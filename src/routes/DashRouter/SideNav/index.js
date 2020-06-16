@@ -149,10 +149,11 @@ function SideNav(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const { data } = useQuery(GET_MY_PROFILE, { 
+  const { data } = useQuery(GET_MY_PROFILE, {
     variables: {
       email: user?.email
-  }} )
+    }
+  })
 
   console.log(data && data)
 
@@ -184,22 +185,21 @@ function SideNav(props) {
         <NavLink to="/" className={classes.navLink}>
           <SettingsIcon className={classes.navIcon} />
           <p>Settings</p>
-        </NavLink>         
+        </NavLink>
         {/* Profile Validation */}
-        {data?.profile?.extProfile?.orgName === null || data?.profile?.firstName === null && data?.profile?.lastName === null ? (
-            <Tooltip title='Please complete your profile information to access Chats'>
+        {(data?.profile?.extProfile === null || data?.profile?.extProfile?.orgName) || (data?.profile?.firstName === null && data?.profile?.lastName === null) ? (
+          <Tooltip title='Please complete your profile information to access Chats'>
             <div className={classes.disabledNavLink}>
               <ForumOutlinedIcon className={classes.navIcon} />
-                <p>Chats</p>
+              <p>Chats</p>
             </div>
           </Tooltip>
-          ) : (
+        ) : (
             <NavLink to="/chats" className={classes.navLink}>
-            <ForumOutlinedIcon className={classes.navIcon} />
+              <ForumOutlinedIcon className={classes.navIcon} />
               <p>Chats</p>
-          </NavLink>
+            </NavLink>
           )}
-          
         {user && user[config.roleUrl].includes("Admin") ? (
           <>
             <NavLink to="createEvent" className={classes.navLink}>
