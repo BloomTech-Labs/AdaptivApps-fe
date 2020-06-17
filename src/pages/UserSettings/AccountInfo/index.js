@@ -11,6 +11,7 @@ import { UPDATE_SPORTS_DEMO } from "../queries"
 import { UPDATE_DEMO_2 } from "../queries"
 import { UPDATE_DEMO_3 } from "../queries"
 // Component imports
+import ProgressBar from "../../../theme/ProgressBar"
 import AccountTypeForm from "./AccountTypeForm";
 import OrgStep1 from "./OrgStep1";
 import Step1 from "./Step1";
@@ -56,8 +57,9 @@ export default function AccountInfo() {
 
   return (
     <Container className={classes.root}>
-      <Box className={classes.headingBox} borderBottom={2}>
+      <Box className={classes.headingBox}>
         <Typography variant="h1">Update Account Information</Typography>
+        <ProgressBar />
       </Box>
     
       <Router className={classes.children}>
