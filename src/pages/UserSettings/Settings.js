@@ -1,10 +1,11 @@
 // React/Reach Router imports
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "@reach/router";
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
 // Apollo/GraphQL imports
 import { useQuery, useMutation } from "react-apollo";
+
 // import ProfileForm from "./ProfileForm";
 import { ADD_USER_PROFILE, PROFILE_INFO } from "./queries";
 // Material-UI imports
@@ -113,7 +114,6 @@ export default function Settings() {
   const classes = useStyles();
   const navigate = useNavigate();
   const userEmail = user.email;
-
   const [createProfile] = useMutation(ADD_USER_PROFILE);
 
   // Fetch profile for the user using the email associated with auth0 login
@@ -132,7 +132,6 @@ export default function Settings() {
     if (!loading && !profile?.id) {
       newProfile();
     }
-
     if (profile) {
       refetch();
     }

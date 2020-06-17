@@ -153,16 +153,16 @@ function SideNav(props) {
       email: user?.email,
     },
   });
-  const { data: subData, loading, error } = useSubscription(
+
+  const { data: subData } = useSubscription(
     PROFILE_SUBSCRIPTION
   );
-  console.log("Inside SideNav", subData);
+ 
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  console.log("Side nav", data?.profile?.userName);
 
   const drawer = (
     <>
@@ -178,7 +178,7 @@ function SideNav(props) {
           <BookmarkIcon className={classes.navIcon} />
           <p>My Events</p>
         </NavLink>
-        <NavLink to="/myprofile" className={classes.navLink}>
+        <NavLink to={`user/${userName}`} className={classes.navLink}>
           <UserIcon className={classes.navIcon} />
           <p>My Profile</p>
         </NavLink>

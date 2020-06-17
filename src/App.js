@@ -145,7 +145,7 @@ function App() {
           <PrivateRoute path="/" component={DashRouter}>
             <Settings path="/" />
             <AccountInfo path="updateaccount/:userEmail/*" />
-            <UserProfile path="/myprofile" />
+            <UserProfile path="user/:userName" />
             <EventsCalendar path="calendar" />
             <ActivityList path="calendar/:eventId" />
             <MyEvents path="myevents" />
