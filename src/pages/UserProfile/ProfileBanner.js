@@ -36,6 +36,7 @@ export default function ProfileBanner({ profileBanner }) {
         // className={classes.profilePic}
         src={usersProfileBanner}
         alt="Profile Banner"
+        style={{ "width": "800px" }}
       />
     </div>
   );

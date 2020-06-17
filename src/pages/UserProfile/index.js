@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from "react";
-// Material-UI imports
-import { Typography } from "@material-ui/core";
-import { UPDATE_PROFILE_PICTURE, GET_USER_PROFILE } from "./queries";
-
+// Component imports
 import ProfilePic from "./ProfilePic";
 import ProfileBanner from "./ProfileBanner";
-
+import UpcomingEventList from "./UpcomingEventList";
+// Material-UI imports
+import { makeStyles } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
+// Query Imports
+import { UPDATE_PROFILE_PICTURE, GET_USER_PROFILE } from "./queries";
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
-
 //s3 bucket imports
 import S3FileUpload from "react-s3";
-
 import { useParams } from "@reach/router";
 import { useQuery, useMutation } from "react-apollo";
 
-import CircularProgress from "@material-ui/core/CircularProgress";
-//upload profile picture functionality
+const useStyles = makeStyles({
+  pageContainer: {
+    display: "flex",
+    flexDirection: "row"
+  }
+});
 
 export default function UserProfile() {
+  const classes = useStyles();
   const { userName } = useParams();
   const [profilePicture, setProfilePicture] = useState(null);
   const [profileBanner, setProfileBanner] = useState(null);
@@ -77,32 +82,19 @@ export default function UserProfile() {
       });
   };
 
-  useEffect(() => {}, [userProfile, profilePicture, profileBanner]);
+  useEffect(() => { }, [userProfile, profilePicture, profileBanner]);
 
   if (loading) return <CircularProgress />;
   if (error) return `Error! ${error.message}`;
   return (
-    // <>
-    //   {data.profile.private === true || data.profile.userName === null ? (
-    //     <p>
-    //       {" "}
-    //       Sorry this user has not set up their account yet, or their profile is
-    //       set to private.
-    //     </p>
-    //   ) : (
-    <div>
-      {/*input for uploading profile banner */}
+    <div className={classes.pageContainer}>
       <div>
         <input type="file" onChange={uploadProfileBanner} />
-      </div>
-      <ProfileBanner profileBanner={profileBanner} />
-      {/*input for uploading profile picture */}
-      <div>
+        <ProfileBanner profileBanner={profileBanner} />
         <input type="file" onChange={uploadProfilePicture} />
+        <ProfilePic profilePicture={profilePicture} />
       </div>
-      <ProfilePic profilePicture={profilePicture} />
+      <UpcomingEventList />
     </div>
-    //   )}
-    // </>
   );
 }

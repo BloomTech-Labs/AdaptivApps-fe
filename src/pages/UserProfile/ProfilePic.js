@@ -35,6 +35,7 @@ export default function ProfilePicture({ profilePicture }) {
         // className={classes.profilePic}
         src={usersProfilePicture}
         alt="Profile Picture"
+        style={{ "width": "300px" }}
       />
     </div>
   );
