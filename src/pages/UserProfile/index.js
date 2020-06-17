@@ -3,6 +3,9 @@ import React, { useState, useEffect } from "react";
 import { Typography } from "@material-ui/core";
 import { UPDATE_PROFILE_PICTURE, GET_USER_PROFILE } from "./queries";
 
+import ProfilePic from "./ProfilePic";
+import ProfileBanner from "./ProfileBanner";
+
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
 
@@ -17,18 +20,15 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 export default function UserProfile() {
   const { userName } = useParams();
-  const { user } = useAuth0();
   const [profilePicture, setProfilePicture] = useState(null);
   const [profileBanner, setProfileBanner] = useState(null);
-  const [updateProfilePicture] = useMutation(UPDATE_PROFILE_PICTURE);
+
   const { data: userProfile, loading, error, refetch } = useQuery(
     GET_USER_PROFILE,
     {
       variables: { userName: userName },
     }
   );
-
-  const userEmail = user.email;
 
   //config options for uploading a profile picture
   const profilePictureConfig = {
@@ -51,15 +51,8 @@ export default function UserProfile() {
     console.log(e.target.files[0]);
     await S3FileUpload.uploadFile(e.target.files[0], profilePictureConfig)
       .then(async data => {
-        console.log(data.location);
         if (data && data?.location) {
           await setProfilePicture(data && data?.location);
-          // await updateProfilePicture({
-          //   variables: {
-          //     email: userEmail,
-          //     profilePicture: profilePicture,
-          //   },
-          // });
         } else {
           console.log("loading");
         }
@@ -68,25 +61,13 @@ export default function UserProfile() {
         console.log(err);
       });
   };
-
-  useEffect(() => {
-    refetch();
-  }, [refetch, profilePicture, profileBanner]);
-  console.log("profile picture", profilePicture);
 
   const uploadProfileBanner = async e => {
     console.log(e.target.files[0]);
     await S3FileUpload.uploadFile(e.target.files[0], profileBannerConfig)
       .then(async data => {
-        console.log(data.location);
         if (data && data?.location) {
-          await setProfileBanner();
-          // await updateProfilePicture({
-          //   variables: {
-          //     email: userEmail,
-          //     profilePicture: profilePicture,
-          //   },
-          // });
+          await setProfileBanner(data && data?.location);
         } else {
           console.log("loading");
         }
@@ -95,6 +76,8 @@ export default function UserProfile() {
         console.log(err);
       });
   };
+
+  useEffect(() => {}, [userProfile, profilePicture, profileBanner]);
 
   if (loading) return <CircularProgress />;
   if (error) return `Error! ${error.message}`;
@@ -108,14 +91,16 @@ export default function UserProfile() {
     //     </p>
     //   ) : (
     <div>
-      {/*input for uploading profile picture */}
-      <div>
-        <input type="file" onChange={uploadProfilePicture} />
-      </div>
       {/*input for uploading profile banner */}
       <div>
         <input type="file" onChange={uploadProfileBanner} />
       </div>
+      <ProfileBanner profileBanner={profileBanner} />
+      {/*input for uploading profile picture */}
+      <div>
+        <input type="file" onChange={uploadProfilePicture} />
+      </div>
+      <ProfilePic profilePicture={profilePicture} />
     </div>
     //   )}
     // </>
