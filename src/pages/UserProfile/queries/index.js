@@ -1,74 +1,126 @@
 import gql from "graphql-tag";
 
-export const UPDATE_USER_PROFILE = gql`
-  mutation UpdateProfile(
-    $email: String!
-    $type: String!
-    $private: Boolean
-    $firstName: String
-    $lastName: String
-    $userName: String
-    $phoneNumber: String
-    $state: String
-    $city: String
-    $bio: String
-    $legal: String
-  ) {
-    updateProfile(
-      where: { email: $email }
-      data: {
-        type: $type
-        private: $private
-        firstName: $firstName
-        lastName: $lastName
-        userName: $userName
-        phoneNumber: $phoneNumber
-        state: $state
-        city: $city
-        bio: $bio
-        legal: $legal
+export const GET_USER_PROFILE = gql`
+  query getUserProfile($userName: String!) {
+    profile(where: { userName: $userName }) {
+      id
+      firstName
+      lastName
+      email
+      userName
+      profilePicture
+      profileBanner
+      private
+      extProfile {
+        id
+        private
+        website
+        orgName
+        gender
+        disability {
+          id
+          private
+          physicalDisability
+          detailedDisabilities
+        }
       }
+      demographicProfile {
+        id
+        private
+        veteranStatus
+        militaryBranch
+        sportsParticipation {
+          id
+          airRifle
+          alpineSkiing
+          archery
+          badminton
+          baseball
+          biathlon
+          blindHockey
+          boccia
+          bowling
+          boxing
+          canoe
+          cheerleading
+          crossFit
+          crossCountrySkiing
+          curling
+          cycling
+          equestrian
+          esports
+          fishing
+          goalball
+          golf
+          hiking
+          hunting
+          judo
+          juJitsu
+          lacrosse
+          mixedMartialArts
+          motorsportsMotorcross
+          mountainBiking
+          powerlifting
+          rafting
+          rockClimbing
+          rowing
+          sailing
+          scuba
+          shooting
+          skateboarding
+          snowboarding
+          sledHockey
+          soccerBlindSoccerFiveaside
+          soccerAmputeeCrutchSoccer
+          soccerPowerSoccer
+          soccerCPSevenaside
+          standupWheelchairPaddling
+          swimming
+          surfing
+          tableTennis
+          taekwondo
+          taiChi
+          trackField
+          triathlon
+          volleyballBeachVolleyball
+          volleyballSittingVolleyball
+          waterSkiing
+          wheelchairSkateboarding
+          wheelchairBasketball
+          wheelchairCurling
+          wheelchairFencing
+          wheelchairFootball
+          wheelchairSoftball
+          wheelchairRugby
+          wheelchairTennis
+          wrestling
+          yoga
+        }
+      }
+    }
+  }
+`;
+
+export const UPDATE_PROFILE_PICTURE = gql`
+  mutation UpdateProfile($userName: String, $profilePicture: String) {
+    updateProfile(
+      where: { userName: $userName }
+      data: { profilePicture: $profilePicture }
     ) {
-      type
-      private
-      firstName
-      lastName
-      userName
-      phoneNumber
-      state
-      city
-      bio
-      legal
-      createdAt
-      updatedAt
+      id
+      profilePicture
     }
   }
 `;
 
-// Creating a profile, being used in UserDashboard
-export const ADD_USER_PROFILE = gql`
-  mutation createProfile($email: String!) {
-    createProfile(data: { email: $email }) {
-      email
-    }
-  }
-`;
-
-// Getting a profile, being used in UserDashboard
-export const PROFILE_INFO = gql`
-  query getProfile($email: String!) {
-    profile(where: { email: $email }) {
-      email
-      firstName
-      lastName
-      userName
-      phoneNumber
-      state
-      city
-      bio
-      legal
-      type
-      private
+export const UPDATE_PROFILE_BANNER = gql`
+  mutation UpdateProfile($userName: String, $profileBanner: String) {
+    updateProfile(
+      where: { userName: $userName }
+      data: { profileBanner: $profileBanner }
+    ) {
+      id
+      profileBanner
     }
   }
 `;

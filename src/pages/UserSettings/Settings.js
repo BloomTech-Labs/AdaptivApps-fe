@@ -1,10 +1,11 @@
 // React/Reach Router imports
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "@reach/router";
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
 // Apollo/GraphQL imports
 import { useQuery, useMutation } from "react-apollo";
+
 // import ProfileForm from "./ProfileForm";
 import { ADD_USER_PROFILE, PROFILE_INFO } from "./queries";
 // Material-UI imports
@@ -18,7 +19,7 @@ import {
 
 const useStyles = makeStyles({
   root: {
-    marginLeft: '3rem'
+    marginLeft: "3rem",
   },
   headingBox: {
     margin: "6rem 0 2rem",
@@ -66,11 +67,10 @@ const useStyles = makeStyles({
   },
   ctaBox: {
     marginLeft: "9.9rem",
-    marginTop: '4.8rem',
-    '& p': {
-
-      fontSize: '1.8rem'
-    }
+    marginTop: "4.8rem",
+    "& p": {
+      fontSize: "1.8rem",
+    },
   },
   ctaBtn: {
     textTransform: "none",
@@ -104,16 +104,15 @@ export default function Settings() {
   const classes = useStyles();
   const navigate = useNavigate();
   const userEmail = user.email;
-
   const [createProfile] = useMutation(ADD_USER_PROFILE);
 
   // Fetch profile for the user using the email associated with auth0 login
   const { loading, error, data, refetch } = useQuery(PROFILE_INFO, {
     variables: { email: user?.email },
   });
- 
+
   const profile = data?.profile;
- 
+
   // Extract the profile from returning data of useQuery
   useEffect(() => {
     if (error) {
@@ -123,7 +122,6 @@ export default function Settings() {
     if (!loading && !profile?.id) {
       newProfile();
     }
-
     if (profile) {
       refetch();
     }
@@ -220,7 +218,7 @@ export default function Settings() {
               <Typography>{profile?.demographicProfile?.ethnicity}</Typography>
             </Box>
           </Box>
-            {/* Display option will be a feature in  */}
+          {/* Display option will be a feature in  */}
           {/* <Box className={classes.displayBox}>
             <Typography>Display this info publicly?</Typography>
             <Checkbox color="primary" size="medium" />
