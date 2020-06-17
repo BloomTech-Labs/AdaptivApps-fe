@@ -59,15 +59,15 @@ export default function MyEvents() {
   const { user } = useAuth0();
   // Retrieves all events a user is registered to
   const { error, loading, data, refetch } = useQuery(GET_USER_EVENTS, {
-    variables: { email: "jonathanchen095@gmail.com" },
+    variables: { email: user.email },
   });
 
   useEffect(() => {
     refetch();
   }, [refetch]);
-  console.log('What data,', data)
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
+
   return (
     <div>
       <div className={classes.search}><GlobalSearchBox /></div>

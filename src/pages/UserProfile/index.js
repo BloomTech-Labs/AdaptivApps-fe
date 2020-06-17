@@ -18,7 +18,7 @@ import { useQuery, useMutation } from "react-apollo";
 const useStyles = makeStyles({
   pageContainer: {
     display: "flex",
-    flexDirection: "row"
+    flexDirection: "row",
   }
 });
 
@@ -53,7 +53,7 @@ export default function UserProfile() {
   };
 
   const uploadProfilePicture = async e => {
-    console.log(e.target.files[0]);
+    // console.log(e.target.files[0]);
     await S3FileUpload.uploadFile(e.target.files[0], profilePictureConfig)
       .then(async data => {
         if (data && data?.location) {
@@ -68,7 +68,7 @@ export default function UserProfile() {
   };
 
   const uploadProfileBanner = async e => {
-    console.log(e.target.files[0]);
+    // console.log(e.target.files[0]);
     await S3FileUpload.uploadFile(e.target.files[0], profileBannerConfig)
       .then(async data => {
         if (data && data?.location) {
@@ -94,7 +94,7 @@ export default function UserProfile() {
         <input type="file" onChange={uploadProfilePicture} />
         <ProfilePic profilePicture={profilePicture} />
       </div>
-      <UpcomingEventList />
+      <UpcomingEventList userName={userName} />
     </div>
   );
 }

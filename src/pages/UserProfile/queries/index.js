@@ -138,3 +138,22 @@ export const UPDATE_PROFILE_BANNER = gql`
     }
   }
 `;
+
+export const GET_UPCOMING_EVENTS = gql`
+  query getUpcomingEvents($userName: String!) {
+    profile(where: { userName: $userName }) {
+      id
+      userName
+      events {
+        event {
+          id
+          title
+          startDate
+          endDate
+          location
+          imgUrl
+        }
+      }
+    }
+  }
+`

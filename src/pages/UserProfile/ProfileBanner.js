@@ -27,9 +27,9 @@ export default function ProfileBanner({ profileBanner }) {
     refetch();
   }, [refetch, profileBanner, usersProfileBanner]);
 
-  console.log("profile banner in Profile Banner", profileBanner);
-  console.log("data in Profile Banner", data);
-  console.log("users profile Banner", usersProfileBanner);
+  // console.log("profile banner in Profile Banner", profileBanner);
+  // console.log("data in Profile Banner", data);
+  // console.log("users profile Banner", usersProfileBanner);
   return (
     <div>
       <img
