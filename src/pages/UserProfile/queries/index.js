@@ -101,25 +101,39 @@ export const GET_USER_PROFILE = gql`
   }
 `;
 
+export const GET_PROFILE_IMAGES = gql`
+  query GetProfileImages($email: String!) {
+    profile(where: { email: $email }) {
+      id
+      email
+      userName
+      profilePicture
+      profileBanner
+    }
+  }
+`;
+
 export const UPDATE_PROFILE_PICTURE = gql`
-  mutation UpdateProfile($userName: String, $profilePicture: String) {
+  mutation UpdateProfile($email: String!, $profilePicture: String!) {
     updateProfile(
-      where: { userName: $userName }
+      where: { email: $email }
       data: { profilePicture: $profilePicture }
     ) {
       id
+      email
       profilePicture
     }
   }
 `;
 
 export const UPDATE_PROFILE_BANNER = gql`
-  mutation UpdateProfile($userName: String, $profileBanner: String) {
+  mutation UpdateProfile($email: String, $profileBanner: String) {
     updateProfile(
-      where: { userName: $userName }
+      where: { email: $email }
       data: { profileBanner: $profileBanner }
     ) {
       id
+      email
       profileBanner
     }
   }

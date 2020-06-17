@@ -195,7 +195,7 @@ export default function EventCard({ event, refetch }) {
       </Box>
     </>
   );
-
+  console.log(event?.imgUrl);
   return (
     <>
       <Card className={classes.root}>
