@@ -8,19 +8,22 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles({
   eventsContainer: {
-    marginLeft: "10px"
+    marginLeft: "10px",
+    backgroundColor: "#EEEEEE",
+    maxHeight: "100vh",
   },
   title: {
     fontSize: "2rem"
   },
   eventsList: {
     display: "flex",
-    flexDirection: "column"
+    flexDirection: "column",
+    maxHeight: "90%",
+    overflow: "scroll"
   },
   eventCard: {
     display: "flex",
     flexDirection: "column",
-    border: "1px solid black"
   },
   img: {
     width: "200px",
