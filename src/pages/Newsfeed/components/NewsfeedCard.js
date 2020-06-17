@@ -23,8 +23,7 @@ import {
 
 const useStyles = makeStyles(theme => ({
     root: {
-      width: '45%',
-      marginTop: '5%',
+      width: '50%',
       display: "flex",
       flexDirection: "column",
       overflow: "hidden",
@@ -89,6 +88,7 @@ export default function Newsfeed() {
             <p>Flannel palo santo fashion axe vape migas, fixie narwhal. Irony seitan street art art party keytar. Photo booth fashion axe bitters, gochujang pork belly shabby chic tote bag portland sartorial chicharrones tumblr salvia. Pinterest shaman schlitz coloring book flexitarian selvage leggings normcore scenester kale chips four dollar toast offal. Ennui four dollar toast thundercats taiyaki listicle selvage air plant +1 forage pork belly meh chicharrones paleo seitan fixie. Hot chicken distillery kombucha, viral unicorn locavore hashtag. Stumptown cornhole XOXO, tacos schlitz quinoa church-key la croix helvetica fanny pack mumblecore godard.</p>
           </CardContent>
       </CardActionArea>
+      
       <Divider variant='middle'/>
         <CardActions className={classes.cardActions}>
           <Button color="primary" className={classes.button}>
