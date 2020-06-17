@@ -67,16 +67,16 @@ export default function EventForm({
     if (!loading && !currentEvent) setCurrentEvent(event);
     if (!loading && currentEvent) {
       setValue([
-        //{ type: currentEvent && currentEvent.type },
-        //{ sportType: currentEvent && currentEvent.sportType },
+        { type: currentEvent && currentEvent.type },
+        { sportType: currentEvent && currentEvent.sportType },
         { title: currentEvent && currentEvent.title },
         { host: currentEvent && currentEvent.host },
         { coaches: currentEvent && currentEvent.coaches },
         { speakers: currentEvent && currentEvent.speakers },
-        //{ startDate: currentEvent && currentEvent.startDate },
-        //{ endDate: currentEvent && currentEvent.endDate },
-        //{ startTime: currentEvent && currentEvent.startTime },
-        //{ endTime: currentEvent && currentEvent.endTime },
+        { startDate: currentEvent && currentEvent.startDate },
+        { endDate: currentEvent && currentEvent.endDate },
+        { startTime: currentEvent && currentEvent.startTime },
+        { endTime: currentEvent && currentEvent.endTime },
         { location: currentEvent && currentEvent.location },
         { link: currentEvent && currentEvent.link },
         { sponsors: currentEvent && currentEvent.sponsors },

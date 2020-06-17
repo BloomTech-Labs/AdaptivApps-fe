@@ -53,7 +53,7 @@ const GlobalSearchBox = () => {
         setListOpen(!listOpen);
         setKeyword("")
     }
-
+    console.log(data.profiles)
     return (
         <div className={classes.wrapper}>
             <button type="button" className={classes.header} onClick={() => toggleList()}>
