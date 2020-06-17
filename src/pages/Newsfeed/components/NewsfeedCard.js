@@ -23,8 +23,7 @@ import {
 
 const useStyles = makeStyles(theme => ({
     root: {
-      
-      width: '90%',
+      width: '45%',
       marginTop: '5%',
       display: "flex",
       flexDirection: "column",
