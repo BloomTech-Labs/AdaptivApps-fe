@@ -178,7 +178,7 @@ function SideNav(props) {
           <BookmarkIcon className={classes.navIcon} />
           <p>My Events</p>
         </NavLink>
-        <NavLink to={`user/${userName}`} className={classes.navLink}>
+        <NavLink to={`user/${data?.profile?.userName}`} className={classes.navLink}>
           <UserIcon className={classes.navIcon} />
           <p>My Profile</p>
         </NavLink>
