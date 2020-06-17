@@ -39,7 +39,7 @@ export default function EventForm({
 }) {
   const { data: tagsData } = useQuery(GET_TAGS);
   const [CreateTag] = useMutation(CREATE_TAG);
-  const [currentEvent, setCurrentEvent] = useState([]);
+  const [currentEvent, setCurrentEvent] = useState(event);
   const classes = useStyles();
   const navigate = useNavigate();
   const [tags, setTags] = useState([]);
