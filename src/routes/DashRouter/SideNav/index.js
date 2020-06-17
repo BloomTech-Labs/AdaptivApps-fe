@@ -186,24 +186,24 @@ function SideNav(props) {
         </NavLink>
         {/* Profile Validation */}
         {data?.profile?.extProfile?.orgName === null ||
-        (data?.profile?.firstName === null &&
-          data?.profile?.lastName === null) ? (
-          <Tooltip title="Please complete your profile information to access Chats">
-            <div className={classes.disabledNavLink}>
+          (data?.profile?.firstName === null &&
+            data?.profile?.lastName === null) ? (
+            <Tooltip title="Please complete your profile information to access Chats">
+              <div className={classes.disabledNavLink}>
+                <ForumOutlinedIcon className={classes.navIcon} />
+                <p>Chats</p>
+              </div>
+            </Tooltip>
+          ) : (
+            <NavLink to="/chats" className={classes.navLink}>
               <ForumOutlinedIcon className={classes.navIcon} />
               <p>Chats</p>
-            </div>
-          </Tooltip>
-        ) : (
-          <NavLink to="/chats" className={classes.navLink}>
-            <ForumOutlinedIcon className={classes.navIcon} />
-            <p>Chats</p>
-          </NavLink>
+            </NavLink>
           )}
         <NavLink to="/newsfeed" className={classes.navLink}>
-            <HomeIcon className={classes.navIcon} />
-              <p>Newsfeed</p>
-          </NavLink>    
+          <HomeIcon className={classes.navIcon} />
+          <p>Newsfeed</p>
+        </NavLink>
         {user && user[config.roleUrl].includes("Admin") ? (
           <>
             <NavLink to="createEvent" className={classes.navLink}>

@@ -31,7 +31,7 @@ const useStyles = makeStyles({
 
 export default function CreateEvent() {
   const classes = useStyles();
-  const [createEvent, { data, error, loading }] = useMutation(CREATE_EVENT);
+  const [createEvent, { data }] = useMutation(CREATE_EVENT);
 
   return (
     <main className={classes.root}>

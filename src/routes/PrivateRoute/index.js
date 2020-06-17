@@ -24,10 +24,10 @@ const PrivateRoute = ({ component: Component, path, ...rest }) => {
     ) : !loading && !user ? (
       <LandingPage />
     ) : (
-      <div>
-        <CircularProgress className={classes.loadingSpinner} />
-      </div>
-    );
+          <div>
+            <CircularProgress className={classes.loadingSpinner} />
+          </div>
+        );
 
   // We return the Render function that returns the right component
   return <Render path={path} {...rest} />;

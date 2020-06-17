@@ -27,7 +27,9 @@ const DashRouter = ({ children }) => {
   return (
     <div className={classes.root}>
       <SideNav user={user} />
-      <Box className={classes.box}>{children}</Box>
+      <div>
+        <Box className={classes.box} style={{ "position": "absolute" }}>{children}</Box>
+      </div>
     </div>
   );
 };

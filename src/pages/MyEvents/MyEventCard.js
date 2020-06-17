@@ -26,14 +26,14 @@ import {
   Box,
 } from "@material-ui/core";
 
-import { 
-  FacebookShareButton, 
+import {
+  FacebookShareButton,
   FacebookIcon,
   TwitterShareButton,
   TwitterIcon,
   LinkedinShareButton,
   LinkedinIcon,
- } from 'react-share';
+} from 'react-share';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -132,20 +132,20 @@ export default function MyEventCard({ event, refetch }) {
     const attendeeIdValue = JSON.stringify(attendeeId).replace(/[\[\]"]+/g, "");
     data && data?.participants?.length === 1
       ? await unregisterFromEventActivity({
-          variables: {
-            attendeeId: attendeeIdValue,
-            email: user?.email,
-            participantId: participantIdValue,
-          },
-        })
+        variables: {
+          attendeeId: attendeeIdValue,
+          email: user?.email,
+          participantId: participantIdValue,
+        },
+      })
       : data && data?.participants === null
-      ? await unregisterFromEvent({
+        ? await unregisterFromEvent({
           variables: {
             attendeeId: attendeeIdValue,
             email: user?.email,
           },
         })
-      : await unregisterFromAll({
+        : await unregisterFromAll({
           variables: {
             attendeeId: attendeeIdValue,
             email: user?.email,
@@ -212,22 +212,22 @@ export default function MyEventCard({ event, refetch }) {
         <FacebookShareButton
           url={'http://angelcitysports.org/'}
           quote={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}`}
-          >
-            <FacebookIcon size={32} round={true} />
+        >
+          <FacebookIcon size={32} round={true} />
         </FacebookShareButton>
         <TwitterShareButton
           title={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}\n`}
           url={'http://angelcitysports.org/'}
           via={'angelcitysports'}
-          >
-            <TwitterIcon size={32} round={true} />
+        >
+          <TwitterIcon size={32} round={true} />
         </TwitterShareButton>
         <LinkedinShareButton
           title={'Angel City Sports Event'}
           summary={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}`}
           url={'http://angelcitysports.org/'}
-          >
-            <LinkedinIcon size={32} round={true} />
+        >
+          <LinkedinIcon size={32} round={true} />
         </LinkedinShareButton>
       </div>
     </Card>
