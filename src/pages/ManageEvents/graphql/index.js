@@ -291,3 +291,27 @@ export const UPDATE_ACTIVITY = gql`
     }
   }
 `;
+
+export const GET_TAGS = gql`
+  query GetTags {
+    tags {
+      id
+      name
+    }
+  }
+`;
+
+export const CREATE_TAG = gql`
+  mutation CreateTag(
+    $name: String!
+  ) {
+    createTag(
+      data: {
+        name: $name
+      }
+    ) {
+      id
+      name
+    }
+  }
+`

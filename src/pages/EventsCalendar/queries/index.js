@@ -7,6 +7,7 @@ export const GET_EVENT_LIST = gql`
       id
       type
       host
+      tags
       speakers
       startTime
       endTime
