@@ -54,7 +54,7 @@ export default function ProgressBar({ activeStep, userEmail, stepNumber }) {
     <Box className={classes.root}>
       <MobileStepper
         variant="progress"
-        steps={6}
+        steps={7}
         position="static"
         activeStep={activeStep}
         className={classes.stepper}

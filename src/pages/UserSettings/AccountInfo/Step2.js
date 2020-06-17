@@ -73,7 +73,7 @@ export default function Step2({ updateExtProfile }) {
 
   return (
     <>
-    <ProgressBar activeStep={2} />
+    <ProgressBar activeStep={2} stepNumber={2} userEmail={userEmail} />
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
       <Box className={classes.genderBirthBox}>
         <Box>
