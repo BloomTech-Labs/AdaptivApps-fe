@@ -46,10 +46,10 @@ export default function Dropdown(props) {
 
     useEffect(() => {
         const results = profilesData?.filter(profile =>
-            profile?.firstName.toLowerCase().includes(keyword)
+            profile?.name.toLowerCase().includes(keyword)
         ).sort((a, b) => {
-            if (a.firstName < b.firstName) { return -1; }
-            if (a.firstName > b.firstName) { return 1; }
+            if (a.name < b.name) { return -1; }
+            if (a.name > b.name) { return 1; }
             return 0;
         })
         setTempList(results)
@@ -65,14 +65,14 @@ export default function Dropdown(props) {
             <div>
                 {
                     tempList.map(item =>
-                        <NavLink to={`user/${item.firstName}`} className={classes.navLink} >
+                        <NavLink to={`user/${item.username}`} className={classes.navLink} key={item.id}>
                             <button
                                 type="button"
                                 key={item.id}
                                 className={classes.item}
                                 onClick={() => handleSelect(item)}
                             >
-                                {item.firstName}
+                                {item.name}
                             </button>
                         </NavLink>
                     )

@@ -7,6 +7,7 @@ import EventList from "./EventList";
 import { GET_EVENT_LIST } from "./queries";
 import { useAuth0 } from "../../config/react-auth0-spa";
 import config from "../../config/auth_config";
+import GlobalSearchBox from '../../routes/DashRouter/GlobalSearchBox';
 
 const useStyles = makeStyles({
   root: {
@@ -29,6 +30,11 @@ const useStyles = makeStyles({
     right: "50%",
     color: "#2763FF",
   },
+  search: {
+    zIndex: 100,
+    position: "absolute",
+    marginLeft: "550px"
+  }
 });
 
 export default function EventsCalendar() {
@@ -45,24 +51,28 @@ export default function EventsCalendar() {
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
   return (
-    <main className={classes.root}>
-      <Box className={classes.headingBox} borderBottom={2}>
-        <Typography className={classes.heading} variant="h1" gutterBottom>
-          Upcoming Events
+    <div>
+      <div className={classes.search}><GlobalSearchBox /></div>
+      <main className={classes.root}>
+        <Box className={classes.headingBox} borderBottom={2}>
+          <Typography className={classes.heading} variant="h1" gutterBottom>
+            Upcoming Events
         </Typography>
-      </Box>
-      {user && user[config.roleUrl].includes("Admin") ? (
-        <AdminTagsSearch
-          isSearching={isSearching}
-          setIsSearching={setIsSearching}
-        />
-      ) : null}
-      <Grid className={classes.grid}>
-        {!isSearching
-          ? <EventList currentEvents={currentEvents} refetch={refetch} />
-          : null
-        }
-      </Grid>
-    </main>
+        </Box>
+        {user && user[config.roleUrl].includes("Admin") ? (
+          <AdminTagsSearch
+            isSearching={isSearching}
+            setIsSearching={setIsSearching}
+          />
+        ) : null}
+        <Grid className={classes.grid}>
+          {!isSearching
+            ? <EventList currentEvents={currentEvents} refetch={refetch} />
+            : null
+          }
+        </Grid>
+      </main>
+    </div>
+
   );
 }

@@ -53,7 +53,25 @@ const GlobalSearchBox = () => {
         setListOpen(!listOpen);
         setKeyword("")
     }
-    console.log(data.profiles)
+
+    let searchData = [];
+
+    if (data) {
+        for (let i = 0; i < data.profiles.length; i++) {
+            if (data.profiles[i].firstName !== null && data.profiles[i].lastName !== null) {
+                let currData = { id: data.profiles[i].id, name: `${data.profiles[i].firstName} ${data.profiles[i].lastName}`, username: data.profiles[i].userName };
+                searchData.push(currData);
+            }
+            else if (data.profiles[i].extProfile && data.profiles[i].extProfile.orgName !== null) {
+                let currData = { id: data.profiles[i].id, name: data.profiles[i].extProfile.orgName, username: data.profiles[i].userName }
+                searchData.push(currData);
+            }
+            else {
+                break;
+            }
+        }
+    }
+
     return (
         <div className={classes.wrapper}>
             <button type="button" className={classes.header} onClick={() => toggleList()}>
@@ -63,7 +81,7 @@ const GlobalSearchBox = () => {
                     : <FontAwesomeIcon icon={faAngleDown} className={classes.icons} />}
             </button>
             {listOpen && (
-                <DropDown profilesData={data.profiles} setTitle={setTitle} keyword={keyword} setKeyword={setKeyword} toggleList={toggleList} />
+                <DropDown profilesData={searchData} setTitle={setTitle} keyword={keyword} setKeyword={setKeyword} toggleList={toggleList} />
             )}
         </div>
     )

@@ -7,6 +7,10 @@ export const GET_PROFILES = gql`
       userName
       firstName
       lastName
+      extProfile {
+        id
+        orgName
+      }
     }
   }
 `;
