@@ -24,6 +24,7 @@ import {
   Typography,
   Button,
   Box,
+  Tooltip
 } from "@material-ui/core";
 
 import {
@@ -209,26 +210,32 @@ export default function MyEventCard({ event, refetch }) {
         </Button>
       </CardActions>
       <div className={classes.btnContainer}>
-        <FacebookShareButton
-          url={'http://angelcitysports.org/'}
-          quote={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}`}
-        >
-          <FacebookIcon size={32} round={true} />
-        </FacebookShareButton>
-        <TwitterShareButton
-          title={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}\n`}
-          url={'http://angelcitysports.org/'}
-          via={'angelcitysports'}
-        >
-          <TwitterIcon size={32} round={true} />
-        </TwitterShareButton>
-        <LinkedinShareButton
-          title={'Angel City Sports Event'}
-          summary={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}`}
-          url={'http://angelcitysports.org/'}
-        >
-          <LinkedinIcon size={32} round={true} />
-        </LinkedinShareButton>
+        <Tooltip title='Share this event on Facebook'>
+          <FacebookShareButton
+            url={'http://angelcitysports.org/'}
+            quote={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}`}
+            >
+            <FacebookIcon size={32} round={true} />
+          </FacebookShareButton>
+        </Tooltip>
+        <Tooltip title='Share this event on Twitter'>
+          <TwitterShareButton
+            title={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}\n`}
+            url={'http://angelcitysports.org/'}
+            via={'angelcitysports'}
+            >
+            <TwitterIcon size={32} round={true} />
+          </TwitterShareButton>
+        </Tooltip>
+        <Tooltip title='Share this event on Linkedin'>
+          <LinkedinShareButton
+            title={'Angel City Sports Event'}
+            summary={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}`}
+            url={'http://angelcitysports.org/'}
+            >
+            <LinkedinIcon size={32} round={true} />
+          </LinkedinShareButton>
+        </Tooltip>
       </div>
     </Card>
   );
