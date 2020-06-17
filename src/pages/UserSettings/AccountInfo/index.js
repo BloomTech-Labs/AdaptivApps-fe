@@ -1,5 +1,5 @@
 // React/Reach Router imports
-import React from "react";
+import React, { useState } from "react";
 import { Router } from "@reach/router";
 // Apollo/GraphQL imports
 import { useMutation } from "react-apollo";
@@ -54,23 +54,34 @@ export default function AccountInfo() {
   const [UpdateSportsDemo] = useMutation(UPDATE_SPORTS_DEMO);
   const [UpdateDemo2] = useMutation(UPDATE_DEMO_2);
   const [UpdateDemo3] = useMutation(UPDATE_DEMO_3);
+  const [activeStep, setActiveStep] = useState(0);
 
+ 
+
+  const handleBack = () => {
+    setActiveStep(prevActiveStep => prevActiveStep - 1);
+  };
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+console.log(activeStep)
   return (
     <Container className={classes.root}>
       <Box className={classes.headingBox}>
         <Typography variant="h1">Update Account Information</Typography>
-        <ProgressBar />
       </Box>
     
       <Router className={classes.children}>
-        <AccountTypeForm path="/" updateProfile={UpdateProfile} />
+        <AccountTypeForm path="/" updateProfile={UpdateProfile} handleNext={handleNext} activeStep={activeStep}/>
         <OrgStep1 path="orginfo" updateOrgProfile={UpdateOrgProfile} />
-        <Step1 path="step1of6" updateProfile={UpdateProfile} />
-        <Step2 path="step2of6" updateExtProfile={UpdateExtProfile}/>
-        <Step3 path="step3of6" updateDemoProfile={UpdateDemoProfile}/>
-        <Step4 path="step4of6" updateSportsDemo={UpdateSportsDemo}/>
-        <Step5 path="step5of6" updateDemo2={UpdateDemo2}/>
-        <Step6 path="step6of6" updateDemo3={UpdateDemo3}/>
+        <Step1 path="step1of6" updateProfile={UpdateProfile} handleNext={handleNext} activeStep={activeStep}/>
+        <Step2 path="step2of6" updateExtProfile={UpdateExtProfile} handleNext={handleNext} handleBack={handleBack} activeStep={activeStep}/>
+        <Step3 path="step3of6" updateDemoProfile={UpdateDemoProfile} handleNext={handleNext} handleBack={handleBack} activeStep={activeStep}/>
+        <Step4 path="step4of6" updateSportsDemo={UpdateSportsDemo} handleNext={handleNext} handleBack={handleBack} activeStep={activeStep}/>
+        <Step5 path="step5of6" updateDemo2={UpdateDemo2} handleNext={handleNext} handleBack={handleBack} activeStep={activeStep}/>
+        <Step6 path="step6of6" updateDemo3={UpdateDemo3}handleBack={handleBack}/>
       </Router>
     </Container>
   );

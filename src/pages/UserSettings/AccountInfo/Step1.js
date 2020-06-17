@@ -1,9 +1,10 @@
 // React/Reach Router imports
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Component imports
 import NextButton from "../../../theme/FormButton";
+import ProgressBar from "../../../theme/ProgressBar"
 // Material-UI imports
 import {
   makeStyles,
@@ -58,11 +59,13 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Step1({ updateProfile }) {
+export default function Step1({ updateProfile, handleNext, activeStep }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
   const { handleSubmit, errors, control } = useForm();
+  console.log("Inside step1", activeStep);
+  
 
   const onSubmit = async data => {
     await updateProfile({
@@ -84,6 +87,8 @@ export default function Step1({ updateProfile }) {
   };
 
   return (
+    <>
+    <ProgressBar activeStep={1} stepNumber={2}/>
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
       <Box className={classes.namePhoneBox}>
         <Box>
@@ -195,8 +200,10 @@ export default function Step1({ updateProfile }) {
           label={"Next"}
           ariaLabel="Click here to complete step 1 and move onto step 2."
           onClick={handleSubmit}
+          handleNext={handleNext}
         />
       </Box>
     </form>
+    </>
   );
 }

@@ -4,6 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Component imports
 import NextButton from "../../../theme/FormButton";
+import ProgressBar from '../../../theme/ProgressBar'
 // Material-UI imports
 import {
   makeStyles,
@@ -51,7 +52,7 @@ export default function Step2({ updateExtProfile }) {
   const navigate = useNavigate();
   const { userEmail } = useParams();
   const { handleSubmit, errors, control } = useForm();
-
+ 
   const onSubmit = async data => {
    await updateExtProfile({
       variables: {
@@ -71,6 +72,8 @@ export default function Step2({ updateExtProfile }) {
   };
 
   return (
+    <>
+    <ProgressBar activeStep={2} />
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
       <Box className={classes.genderBirthBox}>
         <Box>
@@ -264,5 +267,6 @@ export default function Step2({ updateExtProfile }) {
         />
       </Box>
     </form>
+    </>
   );
 }

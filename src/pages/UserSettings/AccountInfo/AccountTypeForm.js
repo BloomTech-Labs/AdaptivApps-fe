@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "@reach/router";
 import { useForm, Controller } from "react-hook-form";
 // Component imports
 import NextButton from "../../../theme/FormButton";
+import ProgressBar from "../../../theme/ProgressBar"
 // Material-UI imports
 import {
   makeStyles,
@@ -40,14 +41,17 @@ const useStyles = makeStyles({
   },
 });
 
-export default function AccountTypeForm({ updateProfile }) {
+export default function AccountTypeForm({
+  updateProfile,
+ 
+}) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
   const { handleSubmit, errors, control } = useForm();
-
+  
   const onSubmit = async data => {
-   await updateProfile({
+    await updateProfile({
       variables: {
         type: data.type,
         email: userEmail,
@@ -61,6 +65,8 @@ export default function AccountTypeForm({ updateProfile }) {
   };
 
   return (
+    <>
+    <ProgressBar activeStep={0}  userEmail={userEmail}/>
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
       <InputLabel htmlFor="account type">
         Are you registering as an individual or an organization?
@@ -93,5 +99,6 @@ export default function AccountTypeForm({ updateProfile }) {
         />
       </Box>
     </form>
+    </>
   );
 }
