@@ -257,7 +257,7 @@ export default function Settings() {
                   <Typography>{profile?.phoneNumber}</Typography>
                   <Typography>{profile?.email}</Typography>
                   <Typography>
-                    {profile?.city, profile?.state}
+                    {profile?.city}, {profile?.state}
                   </Typography>
                 </Box>
               </Box>
