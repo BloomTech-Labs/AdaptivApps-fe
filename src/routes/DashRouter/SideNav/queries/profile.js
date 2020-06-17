@@ -6,11 +6,26 @@ export const GET_MY_PROFILE = gql`
       id
       firstName
       lastName
-      email
       userName
-      type
-      extProfile {
-        orgName
+      email
+    }
+  }
+`;
+
+export const PROFILE_SUBSCRIPTION = gql`
+  subscription {
+    profile {
+      mutation
+      node {
+        id
+        firstName
+        lastName
+        type
+        email
+        extProfile {
+          id
+          orgName
+        }
       }
     }
   }

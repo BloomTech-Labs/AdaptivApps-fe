@@ -59,6 +59,7 @@ export const PROFILE_INFO = gql`
   query getProfile($email: String!) {
     profile(where: { email: $email }) {
       id
+      type
       email
       firstName
       lastName
@@ -77,6 +78,8 @@ export const PROFILE_INFO = gql`
           id
           physicalDisability
         }
+        orgName
+        website
       }
       demographicProfile {
         id
@@ -97,6 +100,7 @@ export const UPDATE_ORG_PROFILE = gql`
     $city: String
     $state: String
     $bio: String
+    $userName: String
     $orgName: String
     $website: String
   ) {
@@ -107,6 +111,7 @@ export const UPDATE_ORG_PROFILE = gql`
         city: $city
         state: $state
         bio: $bio
+        userName: $userName
         extProfile: { create: { orgName: $orgName, website: $website } }
       }
     ) {

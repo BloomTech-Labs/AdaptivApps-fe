@@ -6,7 +6,7 @@ import FinishButton from "../../../theme/FormButton";
 // Material-UI imports
 import {
   makeStyles,
-  Container,
+  Typography,
   Box,
   InputLabel,
   TextField,
@@ -70,6 +70,7 @@ export default function OrgStep1({ updateOrgProfile }) {
         city: data.city,
         state: data.state,
         bio: data.bio,
+        userName: data.orgName,
         orgName: data.orgName,
         website: data.website
       },
@@ -153,6 +154,7 @@ export default function OrgStep1({ updateOrgProfile }) {
           control={control}
         />
       </Box>
+      <Typography>* required field</Typography>
       <Box className={classes.btnBox}>
         <FinishButton
           label="Finish"

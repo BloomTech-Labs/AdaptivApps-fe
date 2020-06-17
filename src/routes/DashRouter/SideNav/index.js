@@ -5,8 +5,8 @@ import config from "../../../config/auth_config";
 import { useAuth0 } from "../../../config/react-auth0-spa";
 
 // Query Imports
-import { useQuery } from "react-apollo";
-import { GET_MY_PROFILE } from "./queries/profile";
+import { useQuery, useSubscription } from "react-apollo";
+import { GET_MY_PROFILE, PROFILE_SUBSCRIPTION } from "./queries/profile";
 
 import NavLink from "./NavLink";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
@@ -148,15 +148,13 @@ function SideNav(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const { data } = useQuery(GET_MY_PROFILE, {
+  const { data, refetch } = useQuery(GET_MY_PROFILE, {
     variables: {
       email: user?.email,
     },
   });
 
-  const userName = data?.profile?.userName;
-  const individual = data?.profile?.type === "individual";
-  const organization = data?.profile?.type === "organization";
+  const { data: subData } = useSubscription(PROFILE_SUBSCRIPTION);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -176,7 +174,10 @@ function SideNav(props) {
           <BookmarkIcon className={classes.navIcon} />
           <p>My Events</p>
         </NavLink>
-        <NavLink to={`user/${userName}`} className={classes.navLink}>
+        <NavLink
+          to={`user/${data?.profile?.userName}`}
+          className={classes.navLink}
+        >
           <UserIcon className={classes.navIcon} />
           <p>My Profile</p>
         </NavLink>
@@ -185,21 +186,20 @@ function SideNav(props) {
           <p>Settings</p>
         </NavLink>
         {/* Profile Validation */}
-        {data?.profile?.extProfile?.orgName === null ||
-          (data?.profile?.firstName === null &&
-            data?.profile?.lastName === null) ? (
-            <Tooltip title="Please complete your profile information to access Chats">
-              <div className={classes.disabledNavLink}>
-                <ForumOutlinedIcon className={classes.navIcon} />
-                <p>Chats</p>
-              </div>
-            </Tooltip>
-          ) : (
-            <NavLink to="/chats" className={classes.navLink}>
+
+        {data?.profile?.userName === null ? (
+          <Tooltip title="Please complete your profile information to access Chats">
+            <div className={classes.disabledNavLink}>
               <ForumOutlinedIcon className={classes.navIcon} />
               <p>Chats</p>
-            </NavLink>
-          )}
+            </div>
+          </Tooltip>
+        ) : (
+          <NavLink to="/chats" className={classes.navLink}>
+            <ForumOutlinedIcon className={classes.navIcon} />
+            <p>Chats</p>
+          </NavLink>
+        )}
         <NavLink to="/newsfeed" className={classes.navLink}>
           <HomeIcon className={classes.navIcon} />
           <p>Newsfeed</p>
@@ -230,6 +230,7 @@ function SideNav(props) {
     </>
   );
 
+  !subData && refetch();
   return (
     <div className={classes.root}>
       <Toolbar position="fixed">
