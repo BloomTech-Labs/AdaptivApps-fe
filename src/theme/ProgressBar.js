@@ -14,15 +14,17 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
 const useStyles = makeStyles({
   root: {
     display: "flex",
+    padding: 0,
     flexDirection: "column",
-    width: 744,
+    width: 754,
     "& .MuiPaper-root": {
       background: "#FFFFFF",
     },
+    marginBottom: '3.2rem',
   },
   stepper: {
     width: "100%",
-    marginLeft: -4,
+    marginLeft: -5,
     "& .MuiLinearProgress-root": {
       width: "100%",
     },
