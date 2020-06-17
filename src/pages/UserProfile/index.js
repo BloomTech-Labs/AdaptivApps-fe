@@ -1,24 +1,40 @@
 import React, { useState, useEffect } from "react";
-// Material-UI imports
-import { Typography } from "@material-ui/core";
-import { UPDATE_PROFILE_PICTURE, GET_USER_PROFILE } from "./queries";
-
-import ProfilePic from "./ProfilePic";
-import ProfileBanner from "./ProfileBanner";
 
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
 
+//Reach Router imports
+import { useParams } from "@reach/router";
+
 //s3 bucket imports
 import S3FileUpload from "react-s3";
 
-import { useParams } from "@reach/router";
+// Material-UI imports
+import { Typography, makeStyles } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import CircularProgress from "@material-ui/core/CircularProgress";
+
 import { useQuery, useMutation } from "react-apollo";
 
-import CircularProgress from "@material-ui/core/CircularProgress";
-//upload profile picture functionality
+import { UPDATE_PROFILE_PICTURE, GET_USER_PROFILE } from "./queries";
+import ProfilePic from "./ProfilePic";
+import ProfileBanner from "./ProfileBanner";
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  input: {
+    display: "none",
+  },
+}));
 
 export default function UserProfile() {
+  const classes = useStyles();
   const { userName } = useParams();
   const [profilePicture, setProfilePicture] = useState(null);
   const [profileBanner, setProfileBanner] = useState(null);
@@ -93,15 +109,46 @@ export default function UserProfile() {
     <div>
       {/*input for uploading profile banner */}
       <div>
-        <input type="file" onChange={uploadProfileBanner} />
+        <label htmlFor="uploadBanner">
+          <IconButton
+            color="primary"
+            aria-label="Upload Profile Picture"
+            component="span"
+          >
+            <PhotoCamera />
+          </IconButton>
+        </label>
+        <input
+          className={classes.input}
+          accept="image/*"
+          type="file"
+          onChange={uploadProfileBanner}
+          id="uploadBanner"
+        />
       </div>
       <ProfileBanner profileBanner={profileBanner} />
       {/*input for uploading profile picture */}
       <div>
-        <input type="file" onChange={uploadProfilePicture} />
+        <label htmlFor="uploadPicture">
+          <IconButton
+            color="primary"
+            aria-label="Upload Profile Banner Image"
+            component="span"
+          >
+            <PhotoCamera />
+          </IconButton>
+        </label>
+        <input
+          className={classes.input}
+          accept="image/*"
+          type="file"
+          onChange={uploadProfilePicture}
+          id="uploadPicture"
+        />
       </div>
       <ProfilePic profilePicture={profilePicture} />
     </div>
+
     //   )}
     // </>
   );
