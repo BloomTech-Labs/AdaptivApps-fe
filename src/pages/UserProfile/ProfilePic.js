@@ -56,9 +56,9 @@ export default function ProfilePicture({ profilePicture }) {
     refetch();
   }, [refetch, profilePicture, usersProfilePicture]);
 
-  console.log("profile picture in Profile picture", profilePicture);
-  console.log("user profile in Profile picture", data);
-  console.log("users profile picture", usersProfilePicture);
+  // console.log("profile picture in Profile picture", profilePicture);
+  // console.log("user profile in Profile picture", data);
+  // console.log("users profile picture", usersProfilePicture);
   return (
     <div className={classes.pictureWrapper}>
       <img

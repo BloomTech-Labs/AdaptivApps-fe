@@ -142,3 +142,16 @@ export const UPDATE_PROFILE_BANNER = gql`
     }
   }
 `;
+
+export const GET_UPCOMING_EVENTS = gql`
+  query getUpcomingEvents($userName: String!) {
+    events(where: { attendees_some: { eventProfile: { userName: $userName } } }, orderBy: startDate_ASC) {
+      id
+      title
+      startDate
+      endDate
+      location
+      imgUrl
+    }
+  }
+`;

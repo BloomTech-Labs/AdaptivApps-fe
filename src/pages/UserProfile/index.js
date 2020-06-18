@@ -27,6 +27,7 @@ import { useQuery } from "react-apollo";
 import { GET_USER_PROFILE } from "./queries";
 import ProfilePic from "./ProfilePic";
 import ProfileBanner from "./ProfileBanner";
+import UpcomingEventList from "./UpcomingEventList";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -100,7 +101,7 @@ export default function UserProfile() {
   };
 
   const uploadProfilePicture = async e => {
-    console.log(e.target.files[0]);
+    // console.log(e.target.files[0]);
     await S3FileUpload.uploadFile(e.target.files[0], profilePictureConfig)
       .then(async data => {
         if (data && data?.location) {
@@ -115,7 +116,7 @@ export default function UserProfile() {
   };
 
   const uploadProfileBanner = async e => {
-    console.log(e.target.files[0]);
+    // console.log(e.target.files[0]);
     await S3FileUpload.uploadFile(e.target.files[0], profileBannerConfig)
       .then(async data => {
         if (data && data?.location) {
@@ -236,8 +237,7 @@ export default function UserProfile() {
           </div>
         ) : null}
       </div>
+      <UpcomingEventList userName={userName} />
     </div>
-    //   )}
-    // </>
   );
 }

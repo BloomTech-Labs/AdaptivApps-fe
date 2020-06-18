@@ -67,6 +67,7 @@ export default function MyEvents() {
   }, [refetch]);
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
+
   return (
     <div>
       <div className={classes.search}>
