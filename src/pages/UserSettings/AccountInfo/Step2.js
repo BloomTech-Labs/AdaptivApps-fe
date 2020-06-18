@@ -49,7 +49,7 @@ const useStyles = makeStyles({
   btnBox: {
     display: "flex",
     justifyContent: "space-between",
-    marginTop: "5rem",
+    marginTop: "8.8rem",
   },
 });
 

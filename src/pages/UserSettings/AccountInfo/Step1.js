@@ -56,12 +56,12 @@ const useStyles = makeStyles({
     },
   },
   bioBox: {
-    marginBottom: 150,
+    marginBottom: '15rem',
   },
   btnBox: {
     display: "flex",
     justifyContent: "space-between",
-    marginTop: "1rem"
+    marginTop: "10rem"
   },
 });
 
