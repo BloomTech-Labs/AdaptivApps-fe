@@ -39,9 +39,6 @@ const useStyles = makeStyles({
   },
   btnWrapper: {
     display: "flex",
-    // alignSelf: "flex-end",
-    // alignItems: "flex-end",
-    // alignContent: "flex-end",
     justifyContent: "flex-end",
   },
 });

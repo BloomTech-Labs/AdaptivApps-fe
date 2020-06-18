@@ -19,6 +19,11 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
+    width: "67.5%",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
     "& .MuiTextField-root": {
       width: 744,
       height: 48,
@@ -57,9 +62,9 @@ export default function Step3({ updateDemoProfile }) {
   };
 
   return (
-    <>
+    <Box className={classes.root}>
       <ProgressBar activeStep={3} stepNumber={3} userEmail={userEmail} />
-      <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
+      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <InputLabel htmlFor="adaptivSportsParticipation">
           Have you ever participated in adaptive sports before?
         </InputLabel>
@@ -135,6 +140,6 @@ export default function Step3({ updateDemoProfile }) {
           />
         </Box>
       </form>
-    </>
+    </Box>
   );
 }
