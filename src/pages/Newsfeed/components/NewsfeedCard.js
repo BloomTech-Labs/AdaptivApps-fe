@@ -6,7 +6,6 @@ import ModeCommentIcon from '@material-ui/icons/ModeComment';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { 
     makeStyles, 
-    Box, 
     TextField,
     Card,
     CardActionArea,
@@ -14,7 +13,6 @@ import {
     CardContent,
     CardMedia,
     Button,
-    Input,
     Divider,
     Typography
 } from "@material-ui/core";
@@ -25,23 +23,22 @@ const useStyles = makeStyles(theme => ({
     root: {
       display: "flex",
       flexDirection: "column",
-      overflow: "hidden",
       margin: '3% auto',
       border: '1px solid black'
     },
     postBody: {
       display: 'flex',
+      flexWrap: 'wrap',
       height: '50%',
-      overflow: 'hidden',
       padding: '3%',
-      justifyContent: 'center'
+      justifyContent: 'center',
     },
     img: {
       maxWidth: '40%',
     },
     post: {
       width: '45%',
-      fontSize: '2rem',
+      fontSize: '2.15rem',
     },
     soloPost: {
       width: '90%',
@@ -49,11 +46,14 @@ const useStyles = makeStyles(theme => ({
       margin: 'auto'
     },
     postHeader: {
-      margin: '5% 0 0 5%',
+      display: 'flex',
+      alignItems: 'baseline',
+      justifyContent: 'flex-start',
+      marginLeft: '5%',
       fontSize: '1rem',
     },
     icon: {
-      marginRight: '5%'
+      margin: '4% 2% 0 0'
     },
     cardActions: {
       display: 'flex',
@@ -92,8 +92,8 @@ export default function NewsfeedCard(post) {
     {post.post.postImg ? (
       <>
       <CardActionArea className={classes.postHeader}>
+      <AccountCircleIcon fontSize={'large'} className={classes.icon}/>
         <Typography gutterBottom >
-        <AccountCircleIcon fontSize={'large'} />
         {post.post.postedBy}
         </Typography>
       </CardActionArea>
@@ -111,8 +111,8 @@ export default function NewsfeedCard(post) {
       ) : (
         <>
       <CardActionArea className={classes.postHeader}>
+      <AccountCircleIcon fontSize={'large'} className={classes.icon}/>
         <Typography gutterBottom >
-        <AccountCircleIcon fontSize={'large'} />
         {post.post.postedBy}
         </Typography>
       </CardActionArea>

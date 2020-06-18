@@ -1,5 +1,6 @@
-import React from 'react';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import React, { useState } from 'react';
+import EditIcon from '@material-ui/icons/Edit';
+import CloseIcon from '@material-ui/icons/Close';
 
 import { 
   makeStyles, 
@@ -22,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     margin: '3%',
     display: "flex",
     flexDirection: "column",
-    border: '6px groove lightgrey',
+    border: '6px double lightgrey',
     position: 'fixed'
     
   },
@@ -58,12 +59,33 @@ const spotlight =  {
 
 export default function SpotlightBar() {
   const classes = useStyles();
-
+  const [toggleEdit, setToggleEdit] = useState(false);
 
   return (
     <Card className={classes.root}>
-    
-    <CardActionArea className={classes.title}>
+      {!toggleEdit ? (
+        <>
+        <CardActionArea className={classes.title}>
+        Sponsor Spotlight
+      </CardActionArea>
+      <CardActionArea className={classes.postBody}>
+      <CardMedia
+        component='img'
+        className={classes.img}
+        alt='Sponsor Picture'
+        image={spotlight.img} />
+        <CardContent className={classes.postTitle}>
+          {spotlight.title}
+          <EditIcon onClick={() => setToggleEdit(true)}/>
+        </CardContent>
+      <CardContent className={classes.body}>
+        <p>{spotlight.body}</p>
+      </CardContent>
+      </CardActionArea>
+      </>
+      ) : (
+        <>
+        <CardActionArea className={classes.title}>
       Sponsor Spotlight
     </CardActionArea>
     <CardActionArea className={classes.postBody}>
@@ -72,51 +94,28 @@ export default function SpotlightBar() {
       className={classes.img}
       alt='Sponsor Picture'
       image={spotlight.img} />
-      <CardContent className={classes.postTitle}>
-        {spotlight.title}
-      </CardContent>
-    <CardContent className={classes.body}>
-      <p>{spotlight.body}</p>
-    </CardContent>
+              <TextField 
+            variant='outlined'
+            type='text'
+            className={classes.postTitle}
+            value={spotlight.title} />
+            <TextField 
+          variant='outlined'
+          type='text'
+          className={classes.body}
+          value={spotlight.body} />
+          <div onClick={() => setToggleEdit(false)}>
+          <CloseIcon  />
+          Cancel
+          </div>
+    
     </CardActionArea>
+    </>
+      )}
     </Card>
     
   )
 }
-
-
-// import React, { useState } from 'react';
-
-// import EditIcon from '@material-ui/icons/Edit';
-// import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-// import CloseIcon from '@material-ui/icons/Close';
-
-// import { 
-//   makeStyles, 
-//   Box, 
-//   TextField,
-//   Card,
-//   CardActionArea,
-//   CardActions,
-//   CardContent,
-//   CardMedia,
-//   Button,
-//   Input,
-//   Divider,
-//   Typography
-// } from "@material-ui/core";
-// import e from 'express';
-
-
-
-
-
-
-
-
-// export default function SpotlightBar() {
-//   const classes = useStyles();
-//   const [toggleEdit, setToggleEdit] = useState(false);
 
 
 //   return (
@@ -149,16 +148,8 @@ export default function SpotlightBar() {
 //           className={classes.img}
 //           alt='Sponsor Picture'
 //           image={spotlight.img} />
-//         <TextField 
-//             variant='outlined'
-//             type='text'
-//             className={classes.postTitle}
-//             value={spotlight.title} />
-//         <TextField 
-//           variant='outlined'
-//           type='text'
-//           className={classes.body}
-//           value={spotlight.body} />
+
+
 //           <CloseIcon onClick={() => setToggleEdit(false)}/>
 //       </CardActionArea>
 //     </>
