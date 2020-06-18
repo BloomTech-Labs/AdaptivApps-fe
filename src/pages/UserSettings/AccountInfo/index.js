@@ -11,6 +11,7 @@ import { UPDATE_SPORTS_DEMO } from "../queries"
 import { UPDATE_DEMO_2 } from "../queries"
 import { UPDATE_DEMO_3 } from "../queries"
 // Component imports
+import ProgressBar from "../../../theme/ProgressBar"
 import AccountTypeForm from "./AccountTypeForm";
 import OrgStep1 from "./OrgStep1";
 import Step1 from "./Step1";
@@ -33,7 +34,7 @@ const useStyles = makeStyles({
     height: "100%"
   },
   headingBox: {
-    margin: "6rem 0 2rem",
+    margin: "6rem 0 0.7rem",
     fontWeight: "400",
     borderColor: "#D3D3D3",
   },
@@ -56,7 +57,7 @@ export default function AccountInfo() {
 
   return (
     <Container className={classes.root}>
-      <Box className={classes.headingBox} borderBottom={2}>
+      <Box className={classes.headingBox}>
         <Typography variant="h1">Update Account Information</Typography>
       </Box>
     
@@ -64,10 +65,10 @@ export default function AccountInfo() {
         <AccountTypeForm path="/" updateProfile={UpdateProfile} />
         <OrgStep1 path="orginfo" updateOrgProfile={UpdateOrgProfile} />
         <Step1 path="step1of6" updateProfile={UpdateProfile} />
-        <Step2 path="step2of6" updateExtProfile={UpdateExtProfile}/>
-        <Step3 path="step3of6" updateDemoProfile={UpdateDemoProfile}/>
-        <Step4 path="step4of6" updateSportsDemo={UpdateSportsDemo}/>
-        <Step5 path="step5of6" updateDemo2={UpdateDemo2}/>
+        <Step2 path="step2of6" updateExtProfile={UpdateExtProfile} />
+        <Step3 path="step3of6" updateDemoProfile={UpdateDemoProfile} />
+        <Step4 path="step4of6" updateSportsDemo={UpdateSportsDemo} />
+        <Step5 path="step5of6" updateDemo2={UpdateDemo2} />
         <Step6 path="step6of6" updateDemo3={UpdateDemo3}/>
       </Router>
     </Container>
