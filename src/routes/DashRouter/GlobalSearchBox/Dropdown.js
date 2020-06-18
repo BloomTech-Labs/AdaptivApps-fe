@@ -28,7 +28,7 @@ const useStyles = makeStyles({
   },
   empty: {
     backgroundColor: "orange"
-  }
+  },
 });
 
 export default function Dropdown(props) {
@@ -65,7 +65,7 @@ export default function Dropdown(props) {
       <div>
         {
           tempList.map(item =>
-            <NavLink to={`/user/${item.username}`} className={classes.navLink} key={item.id}>
+            <NavLink to={`/user/${item.username}`} key={item.id}>
               <button
                 type="button"
                 key={item.id}

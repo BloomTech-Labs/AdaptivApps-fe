@@ -1,16 +1,17 @@
 import React, { useEffect } from "react";
+import NavLink from "../../routes/DashRouter/SideNav/NavLink";
 // Import queries
 import { useQuery } from "react-apollo";
 import { GET_UPCOMING_EVENTS } from "./queries";
 // Import stylings
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, colors } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles({
   eventsContainer: {
     marginLeft: "10px",
-    backgroundColor: "#EEEEEE",
     maxHeight: "100vh",
+    maxWidth: "300px",
   },
   title: {
     fontSize: "2rem"
@@ -18,23 +19,37 @@ const useStyles = makeStyles({
   eventsList: {
     display: "flex",
     flexDirection: "column",
+    alignItems: "center",
     maxHeight: "90%",
-    overflow: "scroll"
+    overflow: "scroll",
+    direction: "rtl",
   },
   eventCard: {
     display: "flex",
     flexDirection: "column",
+    direction: "ltr",
+    backgroundColor: "#EEEEEE",
+    width: "90%",
+    marginBottom: "20px",
+  },
+  textContainer: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start",
+    marginLeft: "10px",
   },
   img: {
-    width: "200px",
-    height: "150px"
+    width: "100%",
+    height: "150px",
   },
   text: {
-    fontSize: "1.6rem"
+    margin: "0",
+    fontSize: "1.4rem",
   },
   subtitle: {
+    margin: "0",
     fontSize: "1.8rem"
-  }
+  },
 });
 
 export default function UpcomingEventList({ userName }) {
@@ -68,10 +83,14 @@ export default function UpcomingEventList({ userName }) {
           <div className={classes.eventsList}>
             {upcomingEvents.map(event =>
               <div key={event.id} className={classes.eventCard}>
-                <img src={event.imgUrl} alt="Upcoming event" className={classes.img} />
-                <p className={classes.text}>{event.startDate} - {event.endDate}</p>
-                <h1 className={classes.subtitle}>{event.title}</h1>
-                <p className={classes.text}>{event.location}</p>
+                <NavLink to={`/myevents/${event.id}`} key={event.id} className={classes.navLink}>
+                  <img src={event.imgUrl} alt="Upcoming event" className={classes.img} />
+                </NavLink>
+                <div className={classes.textContainer}>
+                  <p className={classes.text}>{event.startDate} - {event.endDate}</p>
+                  <h1 className={classes.subtitle}>{event.title}</h1>
+                  <p className={classes.text}>{event.location}</p>
+                </div>
               </div>
             )}
           </div>
