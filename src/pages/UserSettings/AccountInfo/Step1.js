@@ -1,9 +1,10 @@
 // React/Reach Router imports
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Component imports
 import NextButton from "../../../theme/FormButton";
+import ProgressBar from "../../../theme/ProgressBar";
 // Material-UI imports
 import {
   makeStyles,
@@ -17,6 +18,11 @@ import {
 
 const useStyles = makeStyles({
   root: {
+    display: "flex",
+    flexDirection: "column",
+    width: '67.5%'
+  },
+  form: {
     display: "flex",
     flexDirection: "column",
     "& .MuiTextField-root": {
@@ -58,7 +64,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Step1({ updateProfile }) {
+export default function Step1({ updateProfile, handleNext, activeStep }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
@@ -84,119 +90,122 @@ export default function Step1({ updateProfile }) {
   };
 
   return (
-    <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
-      <Box className={classes.namePhoneBox}>
-        <Box>
-          <InputLabel htmlFor="firstName">First Name*</InputLabel>
-          <Controller
-            as={<TextField />}
-            className={classes.firstInput}
-            name="firstName"
-            type="text"
-            variant="outlined"
-            control={control}
-            defaultValue=""
-          />
+    <Box className={classes.root}>
+      <ProgressBar activeStep={1} stepNumber={1} userEmail={userEmail} />
+      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+        <Box className={classes.namePhoneBox}>
+          <Box>
+            <InputLabel htmlFor="firstName">First Name*</InputLabel>
+            <Controller
+              as={<TextField />}
+              className={classes.firstInput}
+              name="firstName"
+              type="text"
+              variant="outlined"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
+          <Box>
+            <InputLabel htmlFor="lastName">Last Name*</InputLabel>
+            <Controller
+              as={<TextField />}
+              name="lastName"
+              type="text"
+              variant="outlined"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
         </Box>
-        <Box>
-          <InputLabel htmlFor="lastName">Last Name*</InputLabel>
-          <Controller
-            as={<TextField />}
-            name="lastName"
-            type="text"
-            variant="outlined"
-            control={control}
-            defaultValue=""
-          />
+        <Box className={classes.namePhoneBox}>
+          <Box>
+            <InputLabel htmlFor="userName">Username*</InputLabel>
+            <Controller
+              as={<TextField />}
+              className={classes.firstInput}
+              name="userName"
+              variant="outlined"
+              type="text"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
+          <Box>
+            <InputLabel htmlFor="phoneNumber">Phone Number*</InputLabel>
+            <Controller
+              as={<TextField />}
+              name="phoneNumber"
+              variant="outlined"
+              type="text"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
         </Box>
-      </Box>
-      <Box className={classes.namePhoneBox}>
-        <Box>
-          <InputLabel htmlFor="userName">Username*</InputLabel>
-          <Controller
-            as={<TextField />}
-            className={classes.firstInput}
-            name="userName"
-            variant="outlined"
-            type="text"
-            control={control}
-            defaultValue=""
-          />
+        <Box className={classes.addressBox}>
+          <Box>
+            <InputLabel htmlFor="city">City*</InputLabel>
+            <Controller
+              as={<TextField />}
+              name="city"
+              type="text"
+              className={classes.firstInput}
+              variant="outlined"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
+          <Box>
+            <InputLabel htmlFor="state">State*</InputLabel>
+            <Controller
+              as={<TextField />}
+              name="state"
+              type="text"
+              variant="outlined"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
         </Box>
-        <Box>
-          <InputLabel htmlFor="phoneNumber">Phone Number*</InputLabel>
-          <Controller
-            as={<TextField />}
-            name="phoneNumber"
-            variant="outlined"
-            type="text"
-            control={control}
-            defaultValue=""
-          />
-        </Box>
-      </Box>
-      <Box className={classes.addressBox}>
-        <Box>
-          <InputLabel htmlFor="city">City*</InputLabel>
-          <Controller
-            as={<TextField />}
-            name="city"
-            type="text"
-            className={classes.firstInput}
-            variant="outlined"
-            control={control}
-            defaultValue=""
-          />
-        </Box>
-        <Box>
-          <InputLabel htmlFor="state">State*</InputLabel>
-          <Controller
-            as={<TextField />}
-            name="state"
-            type="text"
-            variant="outlined"
-            control={control}
-            defaultValue=""
-          />
-        </Box>
-      </Box>
-      <InputLabel htmlFor="legal">Are you over 18 years old?*</InputLabel>
-      <Controller
-        as={
-          <Select className={classes.typeSelect}>
-            <MenuItem value="Yes">Yes</MenuItem>
-            <MenuItem value="No">No</MenuItem>
-          </Select>
-        }
-        name="legal"
-        type="select"
-        variant="outlined"
-        control={control}
-        defaultValue=""
-      />
-      <InputLabel htmlFor="bio">
-        If you're comfortable sharing, tell us your story
-      </InputLabel>
-      <Controller
-        as={<TextField />}
-        name="bio"
-        type="text"
-        variant="outlined"
-        className={classes.bioBox}
-        control={control}
-        multiline
-        rows="8"
-        defaultValue=""
-      />
-      <Typography>* required field</Typography>
-      <Box className={classes.btnBox}>
-        <NextButton
-          type="submit"
-          label={"Next"}
-          ariaLabel="Click here to complete step 1 and move onto step 2."
-          onClick={handleSubmit}
+        <InputLabel htmlFor="legal">Are you over 18 years old?*</InputLabel>
+        <Controller
+          as={
+            <Select className={classes.typeSelect}>
+              <MenuItem value="Yes">Yes</MenuItem>
+              <MenuItem value="No">No</MenuItem>
+            </Select>
+          }
+          name="legal"
+          type="select"
+          variant="outlined"
+          control={control}
+          defaultValue=""
         />
-      </Box>
-    </form>
+        <InputLabel htmlFor="bio">
+          If you're comfortable sharing, tell us your story
+        </InputLabel>
+        <Controller
+          as={<TextField />}
+          name="bio"
+          type="text"
+          variant="outlined"
+          className={classes.bioBox}
+          control={control}
+          multiline
+          rows="8"
+          defaultValue=""
+        />
+        <Typography>* required field</Typography>
+        <Box className={classes.btnBox}>
+          <NextButton
+            type="submit"
+            label={"Next"}
+            ariaLabel="Click here to complete step 1 and move onto step 2."
+            onClick={handleSubmit}
+          />
+        </Box>
+      </form>
+    </Box>
   );
 }
