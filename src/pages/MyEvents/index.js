@@ -65,7 +65,6 @@ export default function MyEvents() {
   useEffect(() => {
     refetch();
   }, [refetch]);
-  console.log("What data,", data);
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
   return (

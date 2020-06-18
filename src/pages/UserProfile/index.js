@@ -38,7 +38,28 @@ const useStyles = makeStyles(theme => ({
     display: "none",
   },
   icons: {
-    fontSize: "2rem",
+    fontSize: "3rem",
+  },
+  profileWrapper: {},
+  bannerWrapper: {
+    "& label": {
+      position: "absolute",
+      top: "14rem",
+      left: "90%",
+    },
+  },
+  photoIcon: {
+    fontSize: "3rem",
+    position: "absolute",
+    color: "black",
+    background: "white",
+    borderRadius: "50%",
+  },
+  pictureWrapper: {
+    "& label": {
+      position: "absolute",
+      left: "50%",
+    },
   },
 }));
 
@@ -108,7 +129,6 @@ export default function UserProfile() {
       });
   };
 
-  let sportsKeys = null;
   const filteredKeys = [];
 
   const filtered =
@@ -138,11 +158,13 @@ export default function UserProfile() {
         <div className={classes.bannerWrapper}>
           <label htmlFor="uploadBanner">
             <IconButton
+              className={classes.photoButton}
               color="primary"
+              size="medium"
               aria-label="Upload Profile Picture"
               component="span"
             >
-              <PhotoCamera />
+              <PhotoCamera className={classes.photoIcon} />
             </IconButton>
           </label>
           <input
@@ -159,11 +181,12 @@ export default function UserProfile() {
           <ProfilePic profilePicture={profilePicture} />
           <label htmlFor="uploadPicture">
             <IconButton
+              size="medium"
               color="primary"
               aria-label="Upload Profile Banner Image"
               component="span"
             >
-              <PhotoCamera />
+              <PhotoCamera className={classes.photoIcon} />
             </IconButton>
           </label>
           <input
@@ -200,13 +223,13 @@ export default function UserProfile() {
               <p>{disability?.detailedDisabilities}</p>
             </div>
             <div className={classes.demographicWrapper}>
-              <p>{demographicProfile?.militaryBranch}</p>
               <p>{demographicProfile?.veteranStatus}</p>
+              <p>{demographicProfile?.militaryBranch}</p>
             </div>
             <div className={classes.sportsWrapper}>
-              <ul>
+              <ul className={classes.sportsList}>
                 {filteredKeys.map(sport => (
-                  <li>{sport}</li>
+                  <li className={classes.sportItem}>{sport}</li>
                 ))}
               </ul>
             </div>
