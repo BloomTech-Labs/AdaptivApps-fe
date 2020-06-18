@@ -4,13 +4,17 @@ export const GET_USER_PROFILE = gql`
   query getUserProfile($userName: String!) {
     profile(where: { userName: $userName }) {
       id
+      type
+      private
       firstName
       lastName
       email
       userName
       profilePicture
       profileBanner
-      private
+      bio
+      city
+      state
       extProfile {
         id
         private

@@ -16,9 +16,15 @@ import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-import { useQuery, useMutation } from "react-apollo";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faFacebookSquare,
+  faTwitterSquare,
+  faInstagram,
+} from "@fortawesome/free-brands-svg-icons";
+import { useQuery } from "react-apollo";
 
-import { UPDATE_PROFILE_PICTURE, GET_USER_PROFILE } from "./queries";
+import { GET_USER_PROFILE } from "./queries";
 import ProfilePic from "./ProfilePic";
 import ProfileBanner from "./ProfileBanner";
 
@@ -30,6 +36,9 @@ const useStyles = makeStyles(theme => ({
   },
   input: {
     display: "none",
+  },
+  icons: {
+    fontSize: "2rem",
   },
 }));
 
@@ -45,6 +54,12 @@ export default function UserProfile() {
       variables: { userName: userName },
     }
   );
+
+  const extendedProfile = userProfile?.profile?.extProfile;
+  const disability = userProfile?.profile?.extProfile?.disability;
+  const demographicProfile = userProfile?.profile?.demographicProfile;
+  const sportsParticipation =
+    userProfile?.profile?.demographicProfile?.sportsParticipation;
 
   //config options for uploading a profile picture
   const profilePictureConfig = {
@@ -93,6 +108,17 @@ export default function UserProfile() {
       });
   };
 
+  let sportsKeys = null;
+  const filteredKeys = [];
+
+  const filtered =
+    userProfile &&
+    sportsParticipation &&
+    Object.entries(sportsParticipation).filter(
+      filteredKey =>
+        filteredKey.includes(true) && filteredKeys.push(filteredKey[0])
+    );
+
   useEffect(() => {}, [userProfile, profilePicture, profileBanner]);
 
   if (loading) return <CircularProgress />;
@@ -106,49 +132,88 @@ export default function UserProfile() {
     //       set to private.
     //     </p>
     //   ) : (
-    <div>
-      {/*input for uploading profile banner */}
-      <div>
-        <label htmlFor="uploadBanner">
-          <IconButton
-            color="primary"
-            aria-label="Upload Profile Picture"
-            component="span"
-          >
-            <PhotoCamera />
-          </IconButton>
-        </label>
-        <input
-          className={classes.input}
-          accept="image/*"
-          type="file"
-          onChange={uploadProfileBanner}
-          id="uploadBanner"
-        />
+    <div className={classes.ProfileWrapper}>
+      <div className={classes.topProfileWrapper}>
+        {/*input for uploading profile banner */}
+        <div className={classes.bannerWrapper}>
+          <label htmlFor="uploadBanner">
+            <IconButton
+              color="primary"
+              aria-label="Upload Profile Picture"
+              component="span"
+            >
+              <PhotoCamera />
+            </IconButton>
+          </label>
+          <input
+            className={classes.input}
+            accept="image/*"
+            type="file"
+            onChange={uploadProfileBanner}
+            id="uploadBanner"
+          />
+          <ProfileBanner profileBanner={profileBanner} />
+        </div>
+        {/*input for uploading profile picture */}
+        <div className={classes.pictureWrapper}>
+          <ProfilePic profilePicture={profilePicture} />
+          <label htmlFor="uploadPicture">
+            <IconButton
+              color="primary"
+              aria-label="Upload Profile Banner Image"
+              component="span"
+            >
+              <PhotoCamera />
+            </IconButton>
+          </label>
+          <input
+            className={classes.input}
+            accept="image/*"
+            type="file"
+            onChange={uploadProfilePicture}
+            id="uploadPicture"
+          />
+        </div>
+        <div className={classes.basicInfo}>
+          <p>{userProfile?.profile?.userName}</p>
+          <p>
+            {userProfile?.profile?.city}, {userProfile?.profile?.state}
+          </p>
+          {userProfile?.profile?.type === "Organization" ? (
+            <p>{extendedProfile?.website}</p>
+          ) : null}
+        </div>
+        <div className={classes.socialHandles}>
+          <FontAwesomeIcon icon={faFacebookSquare} className={classes.icons} />
+          <FontAwesomeIcon icon={faTwitterSquare} className={classes.icons} />
+          <FontAwesomeIcon icon={faInstagram} className={classes.icons} />
+        </div>
       </div>
-      <ProfileBanner profileBanner={profileBanner} />
-      {/*input for uploading profile picture */}
-      <div>
-        <label htmlFor="uploadPicture">
-          <IconButton
-            color="primary"
-            aria-label="Upload Profile Banner Image"
-            component="span"
-          >
-            <PhotoCamera />
-          </IconButton>
-        </label>
-        <input
-          className={classes.input}
-          accept="image/*"
-          type="file"
-          onChange={uploadProfilePicture}
-          id="uploadPicture"
-        />
+      <div className={classes.middleProfileWrapper}>
+        <div className={classes.bioWrapper}>
+          <div>{userProfile?.profile?.bio}</div>
+        </div>
+        {userProfile?.profile?.type === "Individual" ? (
+          <div className={classes.infoWrapper}>
+            <div className={classes.extendedWrapper}>
+              <p>{disability?.physicalDisability}</p>
+              <p>{disability?.detailedDisabilities}</p>
+            </div>
+            <div className={classes.demographicWrapper}>
+              <p>{demographicProfile?.militaryBranch}</p>
+              <p>{demographicProfile?.veteranStatus}</p>
+            </div>
+            <div className={classes.sportsWrapper}>
+              <ul>
+                {filteredKeys.map(sport => (
+                  <li>{sport}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        ) : null}
       </div>
-      <ProfilePic profilePicture={profilePicture} />
     </div>
-
     //   )}
     // </>
   );
