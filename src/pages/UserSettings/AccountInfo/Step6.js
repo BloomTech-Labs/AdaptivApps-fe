@@ -16,7 +16,12 @@ import {
 
 const useStyles = makeStyles({
   root: {
-    width: 744,
+    display: "flex",
+    flexDirection: "column",
+    width: "67.5%",
+  },
+  form: {
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     "& .MuiSelect-root": {
@@ -57,9 +62,9 @@ export default function Step6({ updateDemo3 }) {
     await navigate(`/`);
   };
   return (
-    <>
+    <Box className={classes.root}>
       <ProgressBar activeStep={6} stepNumber={6} userEmail={userEmail} />
-      <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
+      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <InputLabel htmlFor="becomeAthleteMentor">
           Are you interested in becoming an Athlete Mentor?
         </InputLabel>
@@ -317,6 +322,6 @@ export default function Step6({ updateDemo3 }) {
           />
         </Box>
       </form>
-    </>
+    </Box>
   );
 }

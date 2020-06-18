@@ -17,7 +17,12 @@ import {
 
 const useStyles = makeStyles({
   root: {
-    width: 744,
+    display: "flex",
+    flexDirection: "column",
+    width: "67.5%",
+  },
+  form: {
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     "& .MuiTextField-root": {
@@ -64,9 +69,9 @@ export default function Step5({ updateDemo2 }) {
   };
 
   return (
-    <>
+    <Box className={classes.root}>
       <ProgressBar activeStep={5} stepNumber={5} userEmail={userEmail} />
-      <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
+      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <InputLabel htmlFor="veteranStatus">Are you a Veteran?</InputLabel>
         <Controller
           as={
@@ -192,6 +197,6 @@ export default function Step5({ updateDemo2 }) {
           />
         </Box>
       </form>
-    </>
+    </Box>
   );
 }

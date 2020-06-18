@@ -18,6 +18,12 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
+    width: "67.5%",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    width: '100%'
   },
   checkBoxContainer: {
     display: "flex",
@@ -129,9 +135,9 @@ export default function Step4({ updateSportsDemo }) {
   };
 
   return (
-    <>
+    <Box className={classes.root}>
       <ProgressBar activeStep={4} stepNumber={4} userEmail={userEmail} />
-      <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
+      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <Typography>
           Which of the following sports have you participated in? (Please select
           all that apply)
@@ -1118,6 +1124,6 @@ export default function Step4({ updateSportsDemo }) {
           />
         </Box>
       </form>
-    </>
+    </Box>
   );
 }
