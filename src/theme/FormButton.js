@@ -25,7 +25,7 @@ export default function FormButton({type, ariaLabel, label, onClick}) {
   const classes = useStyles();
 
   return (
-  <Button className={classes.button} type={type} aria-label={ariaLabel} onClick={onClick}>
+  <Button className={classes.button} type={type} aria-label={ariaLabel} onClick={onClick} >
    {label}
   </Button>
   )

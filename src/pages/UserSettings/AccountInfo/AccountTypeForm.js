@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "@reach/router";
 import { useForm, Controller } from "react-hook-form";
 // Component imports
 import NextButton from "../../../theme/FormButton";
+import ProgressBar from "../../../theme/ProgressBar"
 // Material-UI imports
 import {
   makeStyles,
@@ -15,6 +16,11 @@ import {
 
 const useStyles = makeStyles({
   root: {
+    display: "flex",
+    flexDirection: "column",
+    width: '67.5%'
+  },
+  form: {
     height: "80vh",
     maxwidth: "100%",
     width: "100%",
@@ -33,21 +39,21 @@ const useStyles = makeStyles({
   },
   btnWrapper: {
     display: "flex",
-    alignSelf: "flex-end",
-    alignItems: "flex-end",
-    alignContent: "flex-end",
     justifyContent: "flex-end",
   },
 });
 
-export default function AccountTypeForm({ updateProfile }) {
+export default function AccountTypeForm({
+  updateProfile,
+ 
+}) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
   const { handleSubmit, errors, control } = useForm();
-
+  
   const onSubmit = async data => {
-   await updateProfile({
+    await updateProfile({
       variables: {
         type: data.type,
         email: userEmail,
@@ -61,7 +67,9 @@ export default function AccountTypeForm({ updateProfile }) {
   };
 
   return (
-    <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
+    <Box className={classes.root}>
+    <ProgressBar activeStep={0}  userEmail={userEmail}/>
+    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
       <InputLabel htmlFor="account type">
         Are you registering as an individual or an organization?
       </InputLabel>
@@ -93,5 +101,6 @@ export default function AccountTypeForm({ updateProfile }) {
         />
       </Box>
     </form>
+    </Box>
   );
 }
