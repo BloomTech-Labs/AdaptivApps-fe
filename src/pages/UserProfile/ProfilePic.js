@@ -26,15 +26,16 @@ export default function ProfilePicture({ profilePicture }) {
     refetch();
   }, [refetch, profilePicture, usersProfilePicture]);
 
-  console.log("profile picture in Profile picture", profilePicture);
-  console.log("user profile in Profile picture", data);
-  console.log("users profile picture", usersProfilePicture);
+  // console.log("profile picture in Profile picture", profilePicture);
+  // console.log("user profile in Profile picture", data);
+  // console.log("users profile picture", usersProfilePicture);
   return (
     <div>
       <img
         // className={classes.profilePic}
         src={usersProfilePicture}
         alt="Profile Picture"
+        style={{ "width": "300px" }}
       />
     </div>
   );

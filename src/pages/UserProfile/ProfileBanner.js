@@ -27,15 +27,16 @@ export default function ProfileBanner({ profileBanner }) {
     refetch();
   }, [refetch, profileBanner, usersProfileBanner]);
 
-  console.log("profile banner in Profile Banner", profileBanner);
-  console.log("data in Profile Banner", data);
-  console.log("users profile Banner", usersProfileBanner);
+  // console.log("profile banner in Profile Banner", profileBanner);
+  // console.log("data in Profile Banner", data);
+  // console.log("users profile Banner", usersProfileBanner);
   return (
     <div>
       <img
         // className={classes.profilePic}
         src={usersProfileBanner}
         alt="Profile Banner"
+        style={{ "width": "800px" }}
       />
     </div>
   );
