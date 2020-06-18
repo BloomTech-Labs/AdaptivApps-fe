@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     },
   }
 })
-export default function FormButton({type, ariaLabel, label, onClick}) {
+export default function SmallFormButton({type, ariaLabel, label, onClick}) {
   const classes = useStyles();
 
   return (

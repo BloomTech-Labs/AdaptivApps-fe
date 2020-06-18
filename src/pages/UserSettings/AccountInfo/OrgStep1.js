@@ -2,7 +2,7 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Component imports
-import FinishButton from "../../../theme/FormButton";
+import FinishButton from "../../../theme/SmallFormButton";
 // Material-UI imports
 import {
   makeStyles,

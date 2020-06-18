@@ -3,7 +3,8 @@ import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Component imports
-import NextButton from "../../../theme/FormButton";
+import NextButton from "../../../theme/SmallFormButton";
+import SaveButton from "../../../theme/LargeFormButton";
 import ProgressBar from "../../../theme/ProgressBar";
 // Material-UI imports
 import {
@@ -47,8 +48,8 @@ const useStyles = makeStyles({
   },
   btnBox: {
     display: "flex",
-    justifyContent: "flex-end",
-    marginTop: "11.2rem",
+    justifyContent: "space-between",
+    marginTop: "5rem",
   },
 });
 
@@ -74,6 +75,10 @@ export default function Step2({ updateExtProfile }) {
     });
     alert("Succesfully completed step 2 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step3of6`);
+  };
+
+  const onSave = () => {
+    navigate(`/`);
   };
 
   return (
@@ -268,6 +273,11 @@ export default function Step2({ updateExtProfile }) {
           defaultValue=""
         />
         <Box className={classes.btnBox}>
+          <SaveButton
+            label={"Save & Quit"}
+            ariaLabel="Click to save and continue later and return to settings page."
+            onClick={onSave}
+          />
           <NextButton
             label="Next"
             type="submit"

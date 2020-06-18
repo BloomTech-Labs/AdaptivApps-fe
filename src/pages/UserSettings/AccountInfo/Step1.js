@@ -3,7 +3,8 @@ import React, { useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Component imports
-import NextButton from "../../../theme/FormButton";
+import NextButton from "../../../theme/SmallFormButton";
+import SaveButton from "../../../theme/LargeFormButton";
 import ProgressBar from "../../../theme/ProgressBar";
 // Material-UI imports
 import {
@@ -59,7 +60,8 @@ const useStyles = makeStyles({
   },
   btnBox: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
+    marginTop: "1rem"
   },
 });
 
@@ -87,6 +89,10 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
     alert("Successfully updated account info!");
     await navigate(`/updateaccount/${userEmail}/step2of6`);
   };
+
+  const onSave = () => {
+    navigate(`/`)
+  }
 
   return (
     <Box className={classes.root}>
@@ -197,6 +203,7 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
         />
         <Typography>* required field</Typography>
         <Box className={classes.btnBox}>
+          <SaveButton label={"Save & Quit"} ariaLabel="Click to save and continue later." onClick={onSave}/>
           <NextButton
             type="submit"
             label={"Next"}

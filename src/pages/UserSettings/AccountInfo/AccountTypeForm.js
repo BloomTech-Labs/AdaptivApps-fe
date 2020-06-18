@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate, useParams } from "@reach/router";
 import { useForm, Controller } from "react-hook-form";
 // Component imports
-import NextButton from "../../../theme/FormButton";
+import NextButton from "../../../theme/SmallFormButton";
 import ProgressBar from "../../../theme/ProgressBar"
 // Material-UI imports
 import {
