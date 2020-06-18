@@ -19,24 +19,41 @@ import {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: '45%',
+    margin: '3%',
     display: "flex",
     flexDirection: "column",
-    overflow: "hidden",
+    border: '6px groove lightgrey',
+    position: 'fixed'
+    
   },
   postBody: {
     padding: '0 3% 3% 3%'
   },
-  post: {
+  postTitle: {
+    textAlign: 'center',
     fontSize: '2rem',
+    marginTop: '5%'
+  },  
+  body: {
+    fontSize: '2.5rem',
+  },
+  img: {
+    maxWidth: '50%',
+    margin: 'auto'
   },
   title: {
-    margin: '5%',
+    margin: '2%',
     textAlign: 'center',
-    fontSize: '3rem'
+    fontSize: '2.5rem'
   },
 
 }))
+
+const spotlight =  {
+  img: 'https://s0.hfdstatic.com/sites/the_hartford/pubimgs/1444645466363.png',
+  body: "I'm baby offal palo santo tumeric, cold-pressed you probably haven't heard of them tote bag ennui. Craft beer truffaut hammock put a bird on it artisan jean shorts messenger bag bicycle rights godard gentrify. Migas bicycle rights kale chips brooklyn. Air plant semiotics pug yr fashion axe photo booth polaroid vape. Gastropub cred flannel tofu, la croix single-origin coffee blue bottle gentrify artisan green juice edison bulb. Thundercats viral brunch jean shorts cronut fam. Tilde umami bespoke art party franzen migas, prism poke brooklyn kitsch roof party.",
+  title: 'The Hartford'
+};
 
 
 export default function SpotlightBar() {
@@ -45,19 +62,107 @@ export default function SpotlightBar() {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea className={classes.title}>
+    
+    <CardActionArea className={classes.title}>
       Sponsor Spotlight
-      </CardActionArea>
-      <CardActionArea className={classes.postBody}>
-      <CardMedia
-        component='img'
-        className={classes.post}
-        alt='Sponsor Picture'
-        image='https://s0.hfdstatic.com/sites/the_hartford/pubimgs/1444645466363.png' />
-      <CardContent className={classes.post}>
-        <p>I'm baby offal palo santo tumeric, cold-pressed you probably haven't heard of them tote bag ennui. Craft beer truffaut hammock put a bird on it artisan jean shorts messenger bag bicycle rights godard gentrify. Migas bicycle rights kale chips brooklyn. Air plant semiotics pug yr fashion axe photo booth polaroid vape. Gastropub cred flannel tofu, la croix single-origin coffee blue bottle gentrify artisan green juice edison bulb. Thundercats viral brunch jean shorts cronut fam. Tilde umami bespoke art party franzen migas, prism poke brooklyn kitsch roof party.</p>
+    </CardActionArea>
+    <CardActionArea className={classes.postBody}>
+    <CardMedia
+      component='img'
+      className={classes.img}
+      alt='Sponsor Picture'
+      image={spotlight.img} />
+      <CardContent className={classes.postTitle}>
+        {spotlight.title}
       </CardContent>
-      </CardActionArea>
+    <CardContent className={classes.body}>
+      <p>{spotlight.body}</p>
+    </CardContent>
+    </CardActionArea>
     </Card>
+    
   )
 }
+
+
+// import React, { useState } from 'react';
+
+// import EditIcon from '@material-ui/icons/Edit';
+// import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+// import CloseIcon from '@material-ui/icons/Close';
+
+// import { 
+//   makeStyles, 
+//   Box, 
+//   TextField,
+//   Card,
+//   CardActionArea,
+//   CardActions,
+//   CardContent,
+//   CardMedia,
+//   Button,
+//   Input,
+//   Divider,
+//   Typography
+// } from "@material-ui/core";
+// import e from 'express';
+
+
+
+
+
+
+
+
+// export default function SpotlightBar() {
+//   const classes = useStyles();
+//   const [toggleEdit, setToggleEdit] = useState(false);
+
+
+//   return (
+    // <Card className={classes.root}>
+    //   {!toggleEdit ? (
+    //     <>
+    //   <CardActionArea className={classes.title}>
+    //     Sponsor Spotlight
+    //     <EditIcon onClick={() => setToggleEdit(true)}/>
+    //   </CardActionArea>
+    //   <CardActionArea className={classes.postBody}>
+    //   <CardMedia
+    //     component='img'
+    //     className={classes.img}
+    //     alt='Sponsor Picture'
+    //     image={spotlight.img} />
+    //     <CardContent className={classes.postTitle}>
+    //       {spotlight.title}
+    //     </CardContent>
+    //   <CardContent className={classes.body}>
+    //     <p>{spotlight.body}</p>
+    //   </CardContent>
+    //   </CardActionArea>
+//         </>
+//       ) : (
+//         <>
+//       <CardActionArea className={classes.postBody}>
+//         <CardMedia
+//           component='img'
+//           className={classes.img}
+//           alt='Sponsor Picture'
+//           image={spotlight.img} />
+//         <TextField 
+//             variant='outlined'
+//             type='text'
+//             className={classes.postTitle}
+//             value={spotlight.title} />
+//         <TextField 
+//           variant='outlined'
+//           type='text'
+//           className={classes.body}
+//           value={spotlight.body} />
+//           <CloseIcon onClick={() => setToggleEdit(false)}/>
+//       </CardActionArea>
+//     </>
+//       )}
+//   </Card>
+//   )
+// }

@@ -23,22 +23,34 @@ import {
 
 const useStyles = makeStyles(theme => ({
     root: {
-      width: '50%',
       display: "flex",
       flexDirection: "column",
       overflow: "hidden",
+      margin: '3% auto',
+      border: '1px solid black'
     },
     postBody: {
       display: 'flex',
-      padding: '0 3% 3% 3%'
+      height: '50%',
+      overflow: 'hidden',
+      padding: '3%',
+      justifyContent: 'center'
+    },
+    img: {
+      maxWidth: '40%',
     },
     post: {
-      width: '50%',
-      fontSize: '2rem'
+      width: '45%',
+      fontSize: '2rem',
+    },
+    soloPost: {
+      width: '90%',
+      fontSize: '2.25rem',
+      margin: 'auto'
     },
     postHeader: {
-      margin: '3%',
-      fontSize: '1rem'
+      margin: '5% 0 0 5%',
+      fontSize: '1rem',
     },
     icon: {
       marginRight: '5%'
@@ -60,35 +72,56 @@ const useStyles = makeStyles(theme => ({
       marginBottom: '3%',
       backgroundColor: 'rgba(211, 211, 211, 0.296)',
       borderRadius: '5px',
-      
+      fontSize: '.25rem',
+      '& MuiInputBase-input': {
+        fontSize: '.5rem'
+      }
     },
     button: {
-      fontSize: '2rem'
+      fontSize: '1rem'
     }
 }))
 
-export default function Newsfeed() {
+export default function NewsfeedCard(post) {
+  console.log(post)
   const classes = useStyles();
     //const { user } = useAuth0();
 
   return ( 
     <Card className={classes.root}>
+    {post.post.postImg ? (
+      <>
       <CardActionArea className={classes.postHeader}>
         <Typography gutterBottom >
         <AccountCircleIcon fontSize={'large'} />
-        Username</Typography>
+        {post.post.postedBy}
+        </Typography>
       </CardActionArea>
       <CardActionArea className={classes.postBody}>
         <CardMedia
           component='img'
-          className={classes.post}
+          className={classes.img}
           alt='description of post image'
-          image='https://picsum.photos/100' />
+          image={'https://picsum.photos/100'} />
           <CardContent className={classes.post}>
-            <p>Flannel palo santo fashion axe vape migas, fixie narwhal. Irony seitan street art art party keytar. Photo booth fashion axe bitters, gochujang pork belly shabby chic tote bag portland sartorial chicharrones tumblr salvia. Pinterest shaman schlitz coloring book flexitarian selvage leggings normcore scenester kale chips four dollar toast offal. Ennui four dollar toast thundercats taiyaki listicle selvage air plant +1 forage pork belly meh chicharrones paleo seitan fixie. Hot chicken distillery kombucha, viral unicorn locavore hashtag. Stumptown cornhole XOXO, tacos schlitz quinoa church-key la croix helvetica fanny pack mumblecore godard.</p>
+            <p>{post.post.postBody}</p>
           </CardContent>
       </CardActionArea>
-      
+      </>
+      ) : (
+        <>
+      <CardActionArea className={classes.postHeader}>
+        <Typography gutterBottom >
+        <AccountCircleIcon fontSize={'large'} />
+        {post.post.postedBy}
+        </Typography>
+      </CardActionArea>
+          <CardContent className={classes.soloPost}>
+            <p>{post.post.postBody}</p>
+          </CardContent>
+      </>
+      )}
+
       <Divider variant='middle'/>
         <CardActions className={classes.cardActions}>
           <Button color="primary" className={classes.button}>
@@ -104,9 +137,10 @@ export default function Newsfeed() {
         <CardActionArea className={classes.comment}>
           <AccountCircleIcon fontSize={'large'} className={classes.icon} />
           <TextField
+            size='small'
             variant="outlined"
             className={classes.input}
-            defaultValue='    Write a comment...' />
+            placeholder='Write a comment...' />
           </CardActionArea>
     </Card>
     )
