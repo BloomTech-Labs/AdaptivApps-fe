@@ -22,6 +22,7 @@ export const GET_NEWSFEED_POSTS = gql`
         email
       }
       createdAt
+      updatedAt
     }
   }
 `
