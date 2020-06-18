@@ -48,7 +48,6 @@ const useStyles = makeStyles({
   },
   addressBox: {
     display: "flex",
-    marginTop: "2.4rem",
     marginBottom: "2.4rem",
     "& .MuiTextField-root": {
       width: 360,
@@ -56,7 +55,7 @@ const useStyles = makeStyles({
     },
   },
   bioBox: {
-    marginBottom: 200,
+    marginBottom: 150,
   },
   btnBox: {
     display: "flex",
