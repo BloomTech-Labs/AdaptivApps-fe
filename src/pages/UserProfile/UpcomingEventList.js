@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     maxWidth: "300px",
   },
   title: {
-    fontSize: "2rem"
+    fontSize: "2rem",
   },
   eventsList: {
     display: "flex",
@@ -48,23 +48,32 @@ const useStyles = makeStyles({
   },
   subtitle: {
     margin: "0",
-    fontSize: "1.8rem"
+    fontSize: "1.8rem",
   },
 });
 
 export default function UpcomingEventList({ userName }) {
   const classes = useStyles();
   var todayDate = new Date();
-  let today = todayDate.getFullYear() + "-" + (todayDate.getMonth() + 1 < 10 ? "0" : "") + (todayDate.getMonth() + 1) + "-" + (todayDate.getDate() < 10 ? "0" : "") + todayDate.getDate()
+  let today =
+    todayDate.getFullYear() +
+    "-" +
+    (todayDate.getMonth() + 1 < 10 ? "0" : "") +
+    (todayDate.getMonth() + 1) +
+    "-" +
+    (todayDate.getDate() < 10 ? "0" : "") +
+    todayDate.getDate();
 
-  const { data, loading, error, refetch } = useQuery(GET_UPCOMING_EVENTS, { variables: { userName: userName } });
+  const { data, loading, error, refetch } = useQuery(GET_UPCOMING_EVENTS, {
+    variables: { userName: userName },
+  });
   useEffect(() => {
     refetch();
   }, [refetch]);
 
   if (loading) return <CircularProgress />;
   if (error) return `Error! ${error.message}`;
-
+  console.log("data in upcoming event list", data);
   const upcomingEvents = [];
   if (data) {
     for (let i = 0; i < data.events.length; i++) {
@@ -77,26 +86,34 @@ export default function UpcomingEventList({ userName }) {
   return (
     <div className={classes.eventsContainer}>
       <h3 className={classes.title}>My Upcoming Events</h3>
-      {
-        upcomingEvents.length > 0
-          ?
-          <div className={classes.eventsList}>
-            {upcomingEvents.map(event =>
-              <div key={event.id} className={classes.eventCard}>
-                <NavLink to={`/myevents/${event.id}`} key={event.id} className={classes.navLink}>
-                  <img src={event.imgUrl} alt="Upcoming event" className={classes.img} />
-                </NavLink>
-                <div className={classes.textContainer}>
-                  <p className={classes.text}>{event.startDate} - {event.endDate}</p>
-                  <h1 className={classes.subtitle}>{event.title}</h1>
-                  <p className={classes.text}>{event.location}</p>
-                </div>
+      {upcomingEvents.length > 0 ? (
+        <div className={classes.eventsList}>
+          {upcomingEvents.map(event => (
+            <div key={event.id} className={classes.eventCard}>
+              <NavLink
+                to={`/myevents/${event.id}`}
+                key={event.id}
+                className={classes.navLink}
+              >
+                <img
+                  src={event.imgUrl}
+                  alt="Upcoming event"
+                  className={classes.img}
+                />
+              </NavLink>
+              <div className={classes.textContainer}>
+                <p className={classes.text}>
+                  {event.startDate} - {event.endDate}
+                </p>
+                <h1 className={classes.subtitle}>{event.title}</h1>
+                <p className={classes.text}>{event.location}</p>
               </div>
-            )}
-          </div>
-          :
-          <h3>You have no upcoming events.</h3>
-      }
+            </div>
+          ))}
+        </div>
+      ) : (
+        <h3>You have no upcoming events.</h3>
+      )}
     </div>
   );
 }
