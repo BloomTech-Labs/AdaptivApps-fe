@@ -34,7 +34,7 @@ const useStyles = makeStyles({
     height: "100%"
   },
   headingBox: {
-    margin: "6rem 0 2rem",
+    margin: "6rem 0 0.7rem",
     fontWeight: "400",
     borderColor: "#D3D3D3",
   },

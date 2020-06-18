@@ -16,6 +16,11 @@ import {
 
 const useStyles = makeStyles({
   root: {
+    display: "flex",
+    flexDirection: "column",
+    width: '67.5%'
+  },
+  form: {
     height: "80vh",
     maxwidth: "100%",
     width: "100%",
@@ -34,9 +39,9 @@ const useStyles = makeStyles({
   },
   btnWrapper: {
     display: "flex",
-    alignSelf: "flex-end",
-    alignItems: "flex-end",
-    alignContent: "flex-end",
+    // alignSelf: "flex-end",
+    // alignItems: "flex-end",
+    // alignContent: "flex-end",
     justifyContent: "flex-end",
   },
 });
@@ -65,9 +70,9 @@ export default function AccountTypeForm({
   };
 
   return (
-    <>
+    <Box className={classes.root}>
     <ProgressBar activeStep={0}  userEmail={userEmail}/>
-    <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
+    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
       <InputLabel htmlFor="account type">
         Are you registering as an individual or an organization?
       </InputLabel>
@@ -99,6 +104,6 @@ export default function AccountTypeForm({
         />
       </Box>
     </form>
-    </>
+    </Box>
   );
 }

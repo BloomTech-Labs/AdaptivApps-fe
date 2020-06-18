@@ -3,7 +3,6 @@ import React from "react";
 // Material-UI imports
 import {
   makeStyles,
-  useTheme,
   MobileStepper,
   Box,
   Button,
