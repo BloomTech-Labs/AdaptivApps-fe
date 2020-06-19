@@ -10,13 +10,12 @@ import { Box, makeStyles } from "@material-ui/core";
 const useStyles = makeStyles({
   root: {
     maxWidth: "100vw",
-    height: "100vh",
     display: "flex",
     backgroundColor: "#FFFFFF",
   },
   box: {
-    marginLeft: "2rem",
     width: "80%",
+    margin: "0",
     backgroundColor: "#FFFFFF",
   },
 });
@@ -28,10 +27,8 @@ const DashRouter = ({ children }) => {
   return (
     <div className={classes.root}>
       <SideNav user={user} />
-      <div>
-        <Box className={classes.box} style={{ position: "absolute" }}>
-          {children}
-        </Box>
+      <div className={classes.box}>
+        {children}
       </div>
     </div>
   );

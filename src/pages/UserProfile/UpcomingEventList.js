@@ -112,8 +112,8 @@ export default function UpcomingEventList({ userName }) {
           ))}
         </div>
       ) : (
-        <h3>You have no upcoming events.</h3>
-      )}
+          <h3>You have no upcoming events.</h3>
+        )}
     </div>
   );
 }
