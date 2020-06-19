@@ -311,7 +311,7 @@ export default function Settings() {
             aria-label="Click here to update account information."
             onClick={() => navigate(`/updateaccount/${userEmail}`)}
           >
-            Add my info
+            {profile?.firstName === null ? 'Add my info' : 'Edit my info'}
           </Button>
         </Box>
       </Box>
