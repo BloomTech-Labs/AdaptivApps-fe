@@ -86,7 +86,6 @@ export default function NewsfeedCard(props) {
   const classes = useStyles();
   const { post } = props;
   const comments = post.comments;
-  console.log(comments);
   const [commenting, setCommenting] = useState(false);
   const [displayComments, setDisplayComments] = useState(false);
 

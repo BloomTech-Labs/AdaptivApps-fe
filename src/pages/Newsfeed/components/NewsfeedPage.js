@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 // import { useAuth0 } from "../../config/react-auth0-spa";
-import { useQuery } from "react-apollo";
-import { GET_NEWSFEED_POSTS } from '../queries';
+import { useQuery, useSubscription } from "react-apollo";
+import { GET_NEWSFEED_POSTS, NEWSFEED_POST_SUBSCRIPTION } from '../queries';
 // Import components
 import NewsfeedCard from './NewsfeedCard';
 import SpotlightBar from './SpotlightBar';
@@ -36,15 +36,13 @@ const useStyles = makeStyles(theme => ({
 export default function NewsfeedPage() {
   const classes = useStyles();
   const { data, loading, error, refetch } = useQuery(GET_NEWSFEED_POSTS);
-  const posts = data?.feedPosts;
-  console.log(posts);
-
-  useEffect(() => {
-    refetch();
-  }, [refetch]);
+  const { data: newsFeedSubsData, loading: newsFeedSubsLoading, error: newsFeedSubsError } = useSubscription(NEWSFEED_POST_SUBSCRIPTION);
+  let posts = data?.feedPosts;
 
   if (loading) return <CircularProgress />;
   if (error) return `Error! ${error.message}`;
+  if (newsFeedSubsError) return `newsFeedSubsError! ${error.newsFeedSubsError}`;
+  !newsFeedSubsLoading && refetch();
 
   return (
     <div className={classes.root}>

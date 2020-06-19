@@ -26,4 +26,25 @@ export const GET_NEWSFEED_POSTS = gql`
       createdAt
     }
   }
-`
+`;
+
+// Newsfeed Post Subscription
+export const NEWSFEED_POST_SUBSCRIPTION = gql`
+  subscription {
+  feedPost {
+    mutation
+    node {
+      id
+      body
+      imgUrl
+      postedBy {
+        id
+        userName
+        firstName
+        lastName
+      }
+      createdAt
+    }
+  }
+}
+`;
