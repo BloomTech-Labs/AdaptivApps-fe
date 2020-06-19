@@ -77,7 +77,7 @@ export default function Step1({ updateProfile }) {
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
   const { handleSubmit, setValue, control } = useForm();
-
+   // Sets default values in input fields with current user's info
   useEffect(() => {
     !loading && !currentUserInfo
       ? setCurrentUserInfo(defaultInfo)

@@ -1,7 +1,10 @@
 // React/Reach Router imports
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
+// Apollo/GraphQL imports
+import { useQuery } from "react-apollo";
+import { PROFILE_STEP_3 } from "../queries";
 // Component imports
 import NextButton from "../../../theme/SmallFormButton";
 import SaveButton from "../../../theme/LargeFormButton";
@@ -46,8 +49,36 @@ export default function Step3({ updateDemoProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { handleSubmit, errors, control } = useForm();
-  
+  const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_3, {
+    variables: { email: userEmail },
+  });
+  const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
+  const { handleSubmit, setValue, control } = useForm();
+  // Sets default values in input fields with current user's info
+  useEffect(() => {
+    !loading && !currentUserInfo
+      ? setCurrentUserInfo(defaultInfo)
+      : setValue([
+          {
+            adaptivSportsParticipation:
+              currentUserInfo?.profile?.demographicProfile
+                ?.adaptivSportsParticipation,
+          },
+          {
+            acsParticipation:
+              currentUserInfo?.profile?.demographicProfile?.acsParticipation,
+          },
+          {
+            notParticipating:
+              currentUserInfo?.profile?.demographicProfile?.notParticipating,
+          },
+          {
+            angelCityParticipation:
+              currentUserInfo?.profile?.demographicProfile
+                ?.angelCityParticipation,
+          },
+        ]);
+  }, [loading, currentUserInfo, defaultInfo, setValue]);
   // Will update profile and route user to next step in profile wizard
   const onNext = handleSubmit(async data => {
     await updateDemoProfile({
