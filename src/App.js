@@ -155,7 +155,6 @@ function App() {
             <EditEvent path="editEvent/:eventId" />
             <CreateActivity path="createEvent/:eventId" />
             <EditActivity path="editActivity/:activityId" />
-            <ManageUsers path="users" />
             <ChatFeature path="chats" />
             <NewsfeedPage path="/newsfeed" />
           </PrivateRoute>
