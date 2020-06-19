@@ -1,5 +1,5 @@
 // React/Reach Router imports
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Component imports
@@ -24,7 +24,12 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: '67.5%'
+    width: '67.5%',
+    "& .MuiInputLabel-asterisk": {
+      fontSize: '2rem',
+      color: 'red',
+      fontWeight: 'bolder'
+    },
   },
   form: {
     display: "flex",
@@ -43,7 +48,7 @@ const useStyles = makeStyles({
     },
   },
   firstInput: {
-    marginRight: "2.4rem",
+    marginRight: "2.4rem"
   },
   typeSelect: {
     width: 744,
@@ -52,7 +57,6 @@ const useStyles = makeStyles({
   },
   addressBox: {
     display: "flex",
-    marginTop: "2.4rem",
     marginBottom: "2.4rem",
     "& .MuiTextField-root": {
       width: 360,
@@ -64,7 +68,26 @@ const useStyles = makeStyles({
   },
   btnBox: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
+    alignItems: 'center'
+  },
+  error: {
+    color: 'red',
+    fontSize: '2rem',    
+    fontVariant: 'all-small-caps',
+    fontWeight: 'bold',
+    '&:last-child': {
+      fontSize: '1.65rem',
+      color: 'red',
+      marginTop: '1rem',
+    }
+  },
+  errorLabel: {
+    marginLeft: '1rem',
+    fontSize: '1.65rem',
+    color: 'red',
+    fontVariant: 'all-small-caps',
+    fontWeight: 'bold'
   }
 });
 
@@ -112,7 +135,7 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.namePhoneBox}>
           <Box>
-            <InputLabel htmlFor="firstName">First Name*</InputLabel>
+            <InputLabel required htmlFor="firstName">First Name</InputLabel>
             <Controller
               as={<TextField />}
               className={classes.firstInput}
@@ -121,11 +144,12 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
               variant="outlined"
               control={control}
               defaultValue=""
-              
+              rules={{ required: true }}
             />
+            {errors.firstName && <Typography className={classes.error}>first name is a required field</Typography>}
           </Box>
           <Box>
-            <InputLabel htmlFor="lastName">Last Name*</InputLabel>
+            <InputLabel required htmlFor="lastName">Last Name</InputLabel>
             <Controller
               as={<TextField />}
               name="lastName"
@@ -133,12 +157,14 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
+            {errors.lastName && <Typography className={classes.error}>last name is a required field</Typography>}
           </Box>
         </Box>
         <Box className={classes.namePhoneBox}>
           <Box>
-            <InputLabel htmlFor="userName">Username*</InputLabel>
+            <InputLabel required htmlFor="userName">Username</InputLabel>
             <Controller
               as={<TextField />}
               className={classes.firstInput}
@@ -148,11 +174,13 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
               control={control}
               defaultValue=""
               onBlur={validateUsername}
+              rules={{ required: true }}
             />
-            {errorState && <Typography>Button is disabled until an unique username is chosen</Typography>}
+            {errors.userName && <Typography className={classes.error}>username is a required field</Typography>}
+            {errorState && <Typography className={classes.error}>Button is disabled until a unique username is chosen</Typography>}
           </Box>
           <Box>
-            <InputLabel htmlFor="phoneNumber">Phone Number*</InputLabel>
+            <InputLabel required htmlFor="phoneNumber">Phone Number</InputLabel>
             <Controller
               as={<TextField />}
               name="phoneNumber"
@@ -160,12 +188,14 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
               type="text"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
+            {errors.phoneNumber && <Typography className={classes.error}>phone number is a required field</Typography>}
           </Box>
         </Box>
         <Box className={classes.addressBox}>
           <Box>
-            <InputLabel htmlFor="city">City*</InputLabel>
+            <InputLabel required htmlFor="city">City</InputLabel>
             <Controller
               as={<TextField />}
               name="city"
@@ -174,10 +204,12 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
+            {errors.city && <Typography className={classes.error}>city is a required field</Typography>}
           </Box>
           <Box>
-            <InputLabel htmlFor="state">State*</InputLabel>
+            <InputLabel required htmlFor="state">State</InputLabel>
             <Controller
               as={<TextField />}
               name="state"
@@ -185,10 +217,15 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
+            {errors.state && <Typography className={classes.error}>state is a required field</Typography>}
           </Box>
         </Box>
-        <InputLabel htmlFor="legal">Are you over 18 years old?*</InputLabel>
+        <InputLabel required htmlFor="legal">
+          Are you over 18 years old?
+          {errors.lastName && <span className={classes.errorLabel}>This field is required</span>}
+          </InputLabel>
         <Controller
           as={
             <Select className={classes.typeSelect}>
@@ -201,6 +238,7 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
           variant="outlined"
           control={control}
           defaultValue=""
+          rules={{ required: true }}
         />
         <InputLabel htmlFor="bio">
           If you're comfortable sharing, tell us your story
@@ -216,14 +254,14 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
           rows="8"
           defaultValue=""
         />
-        <Typography>* required field</Typography>
         <Box className={classes.btnBox}>
+        <Typography className={classes.error}>* required field</Typography>
           <NextButton
             type="submit"
             label={"Next"}
             ariaLabel="Click here to complete step 1 and move onto step 2."
             onClick={handleSubmit}
-            disabled={errorState}
+            
           />
         </Box>
       </form>
