@@ -4,13 +4,17 @@ export const GET_USER_PROFILE = gql`
   query getUserProfile($userName: String!) {
     profile(where: { userName: $userName }) {
       id
+      type
+      private
       firstName
       lastName
       email
       userName
       profilePicture
       profileBanner
-      private
+      bio
+      city
+      state
       extProfile {
         id
         private
@@ -135,6 +139,19 @@ export const UPDATE_PROFILE_BANNER = gql`
       id
       email
       profileBanner
+    }
+  }
+`;
+
+export const GET_UPCOMING_EVENTS = gql`
+  query getUpcomingEvents($userName: String!) {
+    events(where: { attendees_some: { eventProfile: { userName: $userName } } }, orderBy: startDate_ASC) {
+      id
+      title
+      startDate
+      endDate
+      location
+      imgUrl
     }
   }
 `;

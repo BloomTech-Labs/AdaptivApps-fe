@@ -35,10 +35,24 @@ import {
 const drawerWidth = "25rem";
 
 const useStyles = makeStyles(theme => ({
+  // Root is mobile only
   root: {
     display: "flex",
     flexDirection: "column",
-    border: "none",
+  },
+  sideContainer: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    margin: "0",
+    maxWidth: "100%",
+    height: "100%"
+  },
+  anotherContainer: {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
   },
   navPaper: {
     border: "none",
@@ -50,7 +64,8 @@ const useStyles = makeStyles(theme => ({
     },
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    margin: "0",
+    padding: "0",
     [theme.breakpoints.up("sm")]: {
       display: "none",
     },
@@ -65,11 +80,15 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  imgBoxAndNavItems: {
+    marginTop: "4rem",
+    display: "flex",
+    flexDirection: "column",
+  },
   imgBox: {
-    width: drawerWidth,
-    marginTop: "5rem",
+    width: "25rem",
     "& img": {
-      width: drawerWidth,
+      width: "25rem",
     },
   },
   navContainer: {
@@ -77,7 +96,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     justifyContent: "center",
     margin: "0 auto",
-    width: "98%",
+    width: "100%",
   },
   navLink: {
     textDecoration: "none",
@@ -107,11 +126,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   logoutContainer: {
-    display: "flex",
-    alignSelf: "flex-start",
-    alignItems: "flex-end",
     width: "100%",
-    height: "100%",
     "& p": {
       fontSize: "1.6rem",
     },
@@ -119,7 +134,7 @@ const useStyles = makeStyles(theme => ({
   logoutBtn: {
     display: "flex",
     justifyContent: "flex-start",
-    margin: "0 0 2rem 0",
+    margin: "0",
     textTransform: "none",
     width: "100%",
   },
@@ -161,87 +176,88 @@ function SideNav(props) {
   };
 
   const drawer = (
-    <>
-      <Box className={classes.imgBox}>
-        <img src={acsLogo} alt="ACS Logo" />
-      </Box>
-      <Box className={classes.navContainer}>
-        <NavLink to="calendar" className={classes.navLink}>
-          <CalendarTodayIcon className={classes.navIcon} />
-          <p>Events Calendar</p>
-        </NavLink>
-        <NavLink to="myevents" className={classes.navLink}>
-          <BookmarkIcon className={classes.navIcon} />
-          <p>My Events</p>
-        </NavLink>
-        <NavLink
-          to={`user/${data?.profile?.userName}`}
-          className={classes.navLink}
-        >
-          <UserIcon className={classes.navIcon} />
-          <p>My Profile</p>
-        </NavLink>
-        <NavLink to="/" className={classes.navLink}>
-          <SettingsIcon className={classes.navIcon} />
-          <p>Settings</p>
-        </NavLink>
-        {/* Profile Validation */}
+    <div className={classes.sideContainer}>
+      <div className={classes.anotherContainer}>
+        <div className={classes.imgBoxAndNavItems}>
+          <Box className={classes.imgBox}>
+            <img src={acsLogo} alt="ACS Logo" />
+          </Box>
+          <Box className={classes.navContainer}>
+            <NavLink to="calendar" className={classes.navLink}>
+              <CalendarTodayIcon className={classes.navIcon} />
+              <p>Events Calendar</p>
+            </NavLink>
+            <NavLink to="myevents" className={classes.navLink}>
+              <BookmarkIcon className={classes.navIcon} />
+              <p>My Events</p>
+            </NavLink>
+            <NavLink
+              to={`user/${data?.profile?.userName}`}
+              className={classes.navLink}
+            >
+              <UserIcon className={classes.navIcon} />
+              <p>My Profile</p>
+            </NavLink>
+            <NavLink to="/" className={classes.navLink}>
+              <SettingsIcon className={classes.navIcon} />
+              <p>Settings</p>
+            </NavLink>
+            {/* Profile Validation */}
 
-        {data?.profile?.userName === null ? (
-          <Tooltip title="Please complete your profile information to access Chats">
-            <div className={classes.disabledNavLink}>
-              <ForumOutlinedIcon className={classes.navIcon} />
-              <p>Chats</p>
-            </div>
-          </Tooltip>
-        ) : (
-          <NavLink to="/chats" className={classes.navLink}>
-            <ForumOutlinedIcon className={classes.navIcon} />
-            <p>Chats</p>
-          </NavLink>
-        )}
-        <NavLink to="/newsfeed" className={classes.navLink}>
-          <HomeIcon className={classes.navIcon} />
-          <p>Newsfeed</p>
-        </NavLink>
-        {user && user[config.roleUrl].includes("Admin") ? (
-          <>
-            <NavLink to="createEvent" className={classes.navLink}>
+            {data?.profile?.userName === null ? (
+              <Tooltip title="Please complete your profile information to access Chats">
+                <div className={classes.disabledNavLink}>
+                  <ForumOutlinedIcon className={classes.navIcon} />
+                  <p>Chats</p>
+                </div>
+              </Tooltip>
+            ) : (
+                <NavLink to="/chats" className={classes.navLink}>
+                  <ForumOutlinedIcon className={classes.navIcon} />
+                  <p>Chats</p>
+                </NavLink>
+              )}
+            <NavLink to="/newsfeed" className={classes.navLink}>
               <HomeIcon className={classes.navIcon} />
-              <p>Manage Events</p>
+              <p>Newsfeed</p>
             </NavLink>
-            <NavLink to="users" className={classes.navLink}>
-              <GroupIcon className={classes.navIcon} />
-              <p>Manage Users</p>
-            </NavLink>
-          </>
-        ) : null}
-      </Box>
-      <Box className={classes.logoutContainer}>
-        <Button className={classes.logoutBtn} onClick={() => logout()}>
-          <IconContext.Provider
-            value={{ style: { transform: "rotate(180deg)" } }}
-          >
-            <FiLogOut className={classes.logoutIcon} />
-            <p className={classes.logoutP}>Log Out</p>
-          </IconContext.Provider>
-        </Button>
-      </Box>
-    </>
+            {user && user[config.roleUrl].includes("Admin") ? (
+              <>
+                <NavLink to="createEvent" className={classes.navLink}>
+                  <HomeIcon className={classes.navIcon} />
+                  <p>Manage Events</p>
+                </NavLink>
+              </>
+            ) : null}
+          </Box>
+        </div>
+        <Box className={classes.logoutContainer}>
+          <Button className={classes.logoutBtn} onClick={() => logout()}>
+            <IconContext.Provider
+              value={{ style: { transform: "rotate(180deg)" } }}
+            >
+              <FiLogOut className={classes.logoutIcon} />
+              <p className={classes.logoutP}>Log Out</p>
+            </IconContext.Provider>
+          </Button>
+        </Box>
+      </div>
+    </div>
   );
 
   !subData && refetch();
   return (
     <div className={classes.root}>
-      <Toolbar position="fixed">
+      <Toolbar position="fixed" style={{ "margin": "0" }}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
           edge="start"
           onClick={handleDrawerToggle}
           className={classes.menuButton}
+          style={{ "margin": "0" }}
         >
-          <MenuIcon className={classes.navIcon} />
+          <MenuIcon className={classes.navIcon} style={{ "margin": "0" }} />
         </IconButton>
       </Toolbar>
       <nav className={classes.drawer} aria-label="mailbox folders">
