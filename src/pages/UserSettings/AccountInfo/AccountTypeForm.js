@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: '67.5%',
+    width: '80%',
     "& .MuiInputLabel-asterisk": {
       fontSize: '2rem',
       color: 'red',
@@ -45,7 +45,7 @@ const useStyles = makeStyles({
   },
   btnWrapper: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
   },
   error: {
     color: 'red',
@@ -107,6 +107,7 @@ export default function AccountTypeForm({
         />
       </Box>
       <Box className={classes.btnWrapper}>
+      <Typography className={classes.error}>* required field</Typography>
         <NextButton
           type="submit"
           label={"Next"}

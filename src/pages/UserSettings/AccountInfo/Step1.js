@@ -24,7 +24,7 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: '67.5%',
+    width: '80%',
     "& .MuiInputLabel-asterisk": {
       fontSize: '2rem',
       color: 'red',

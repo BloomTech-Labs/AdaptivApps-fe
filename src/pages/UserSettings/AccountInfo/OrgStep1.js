@@ -57,7 +57,7 @@ const useStyles = makeStyles({
   },
   btnBox: {
     marginTop: '3rem',
-    maxWidth: '71%',
+    maxWidth: '90%',
     display: "flex",
     justifyContent: "space-between",
     alignItems: 'center'
