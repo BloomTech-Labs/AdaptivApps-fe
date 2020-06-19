@@ -11,6 +11,7 @@ import ProgressBar from "../../../theme/ProgressBar";
 // Material-UI imports
 import {
   makeStyles,
+  Typography,
   Box,
   InputLabel,
   Select,
@@ -21,7 +22,12 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "67.5%",
+    width: '90%',
+    "& .MuiInputLabel-asterisk": {
+      fontSize: '2rem',
+      color: 'red',
+      fontWeight: 'bolder'
+    }
   },
   form: {
     height: "80vh",
@@ -42,7 +48,14 @@ const useStyles = makeStyles({
   },
   btnWrapper: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
+  },
+  error: {
+    color: 'red',
+    fontSize: '1.75rem',    
+    fontVariant: 'all-small-caps',
+    fontWeight: 'bold',
+    marginTop: '1rem'
   },
 });
 
@@ -50,7 +63,7 @@ export default function AccountTypeForm({ updateProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { handleSubmit, setValue, control } = useForm();
+  const { handleSubmit, setValue, control, errors } = useForm();
   const { data: defaultInfo, loading } = useQuery(PROFILE_TYPE, {
     variables: { email: userEmail },
   });
@@ -83,9 +96,10 @@ export default function AccountTypeForm({ updateProfile }) {
     <Box className={classes.root}>
       <ProgressBar activeStep={0} userEmail={userEmail} />
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        <InputLabel htmlFor="account type">
+        <InputLabel required htmlFor="account type">
           Are you registering as an individual or an organization?
         </InputLabel>
+        {errors.type && <Typography className={classes.error}>Please make a selection</Typography>}
         <Box className={classes.box}>
           <Controller
             as={
@@ -102,9 +116,11 @@ export default function AccountTypeForm({ updateProfile }) {
             variant="outlined"
             control={control}
             defaultValue=""
+            rules={{ required: true }}
           />
         </Box>
         <Box className={classes.btnWrapper}>
+        <Typography className={classes.error}>* required field</Typography>
           <NextButton
             type="submit"
             label={"Next"}

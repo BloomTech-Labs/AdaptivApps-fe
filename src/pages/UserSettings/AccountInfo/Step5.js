@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "67.5%",
+    width: "85%",
   },
   form: {
     width: "100%",
