@@ -4,7 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Apollo/GraphQL imports
 import { useQuery } from "react-apollo";
-import { PROFILE_STEP_2 } from "../queries"
+import { PROFILE_STEP_2 } from "../queries";
 // Component imports
 import NextButton from "../../../theme/SmallFormButton";
 import SaveButton from "../../../theme/LargeFormButton";
@@ -70,17 +70,26 @@ export default function Step2({ updateExtProfile }) {
     !loading && !currentUserInfo
       ? setCurrentUserInfo(defaultInfo)
       : setValue([
-          // { firstName: currentUserInfo?.profile?.firstName },
-          // { lastName: currentUserInfo?.profile?.lastName },
-          // { userName: currentUserInfo?.profile?.userName },
-          // { phoneNumber: currentUserInfo?.profile?.phoneNumber },
-          // { city: currentUserInfo?.profile?.city },
-          // { state: currentUserInfo?.profile?.state },
-          // { legal: currentUserInfo?.profile?.legal },
-          // { bio: currentUserInfo?.profile?.bio },
+          { gender: currentUserInfo?.profile?.extProfile?.gender },
+          { birthday: currentUserInfo?.profile?.extProfile?.birthday },
+          { eC1Name: currentUserInfo?.profile?.extProfile?.eC1Name },
+          { eC1Phone: currentUserInfo?.profile?.extProfile?.eC1Phone },
+          { eC1Relation: currentUserInfo?.profile?.extProfile?.eC1Relation },
+          {
+            physicalDisability:
+              currentUserInfo?.profile?.extProfile?.physicalDisability,
+          },
+          {
+            detailedDisabilities:
+              currentUserInfo?.profile?.extProfile?.detailedDisabilities,
+          },
+          {
+            mobilityStatus:
+              currentUserInfo?.profile?.extProfile?.mobilityStatus,
+          },
         ]);
   }, [loading, currentUserInfo, defaultInfo, setValue]);
-  
+
   // Will update profile and route user to next step in profile wizard
   const onNext = handleSubmit(async data => {
     await updateExtProfile({
