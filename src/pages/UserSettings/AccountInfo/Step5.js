@@ -1,7 +1,10 @@
 // React/Reach Router imports
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
+// Apollo/GraphQL imports
+import { useQuery } from "react-apollo";
+import { PROFILE_STEP_5 } from "../queries";
 // Component imports
 import NextButton from "../../../theme/SmallFormButton";
 import SaveButton from "../../../theme/LargeFormButton";
@@ -48,8 +51,48 @@ export default function Step5({ updateDemo2 }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { handleSubmit, errors, control } = useForm();
-
+  const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_5, {
+    variables: { email: userEmail },
+  });
+  const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
+  const { handleSubmit, setValue, control } = useForm();
+  // Sets default values in input fields with current user's info
+  useEffect(() => {
+    !loading && !currentUserInfo
+      ? setCurrentUserInfo(defaultInfo)
+      : setValue([
+          {
+            veteranStatus:
+              currentUserInfo?.profile?.demographicProfile?.veteranStatus,
+          },
+          {
+            militaryBranch:
+              currentUserInfo?.profile?.demographicProfile?.militaryBranch,
+          },
+          {
+            yearsServed:
+              currentUserInfo?.profile?.demographicProfile?.yearsServed,
+          },
+          {
+            ethnicity: currentUserInfo?.profile?.demographicProfile?.ethnicity,
+          },
+          {
+            householdIncome:
+              currentUserInfo?.profile?.demographicProfile?.householdIncome,
+          },
+          {
+            employment:
+              currentUserInfo?.profile?.demographicProfile?.employment,
+          },
+          {
+            favProAthletes:
+              currentUserInfo?.profile?.demographicProfile?.favProAthletes,
+          },
+          {
+            favCelebs: currentUserInfo?.profile?.demographicProfile?.favCelebs,
+          },
+        ]);
+  }, [loading, currentUserInfo, defaultInfo, setValue]);
   const onNext = handleSubmit(async data => {
     await updateDemo2({
       variables: {
