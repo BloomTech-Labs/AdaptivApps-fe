@@ -17,11 +17,7 @@ const useStyles = makeStyles(theme => ({
   input: {
     display: "none",
   },
-  bannerWrapper: {
-    maxWidth: "80vw",
-    width: "100%",
-    height: "20vh",
-  },
+
   profileBanner: {
     width: "100%",
     height: "100%",
@@ -55,12 +51,12 @@ export default function ProfileBanner({ profileBanner }) {
   // console.log("data in Profile Banner", data);
   // console.log("users profile Banner", usersProfileBanner);
   return (
-    <div className={classes.bannerWrapper}>
+    <>
       <img
         className={classes.profileBanner}
         src={usersProfileBanner}
         alt="Profile Banner"
       />
-    </div>
+    </>
   );
 }

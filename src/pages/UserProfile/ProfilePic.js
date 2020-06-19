@@ -18,14 +18,7 @@ const useStyles = makeStyles(theme => ({
   input: {
     display: "none",
   },
-  pictureWrapper: {
-    position: "absolute",
-    width: "17rem",
-    height: "17rem",
-    top: "4rem",
-    left: "40%",
-    margin: "0 auto",
-  },
+
   profilePicture: {
     border: "2px solid white",
     borderRadius: "50%",
@@ -60,12 +53,12 @@ export default function ProfilePicture({ profilePicture }) {
   // console.log("user profile in Profile picture", data);
   // console.log("users profile picture", usersProfilePicture);
   return (
-    <div className={classes.pictureWrapper}>
+    <>
       <img
         className={classes.profilePicture}
         src={usersProfilePicture}
         alt="Profile Picture"
       />
-    </div>
+    </>
   );
 }
