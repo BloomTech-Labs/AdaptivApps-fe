@@ -1,10 +1,14 @@
 // React/Reach Router imports
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Component imports
 import NextButton from "../../../theme/FormButton";
 import ProgressBar from "../../../theme/ProgressBar";
+// Query imports
+import { GET_RECIPIENTS } from '../../Chat/queries/Chats'
+import { useQuery } from "react-apollo";
+
 // Material-UI imports
 import {
   makeStyles,
@@ -61,7 +65,7 @@ const useStyles = makeStyles({
   btnBox: {
     display: "flex",
     justifyContent: "flex-end",
-  },
+  }
 });
 
 export default function Step1({ updateProfile, handleNext, activeStep }) {
@@ -69,6 +73,8 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
   const navigate = useNavigate();
   const { userEmail } = useParams();
   const { handleSubmit, errors, control } = useForm();
+  const [errorState, setErrorState] = useState(false);
+  const { data } = useQuery(GET_RECIPIENTS, { variables: { email: userEmail }});
 
   const onSubmit = async data => {
     await updateProfile({
@@ -88,6 +94,17 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
     alert("Successfully updated account info!");
     await navigate(`/updateaccount/${userEmail}/step2of6`);
   };
+  
+  const userNames = []
+  data && data.profiles.filter(user => user.userName !== null && user.userName !== '' && userNames.push(user.userName.toLowerCase()));
+
+  const validateUsername = () => {
+    const userName = control.getValues().userName.toLowerCase();
+    if (userNames.includes(userName)) {
+      setErrorState(true);
+      alert('That username is already taken. Please choose another one!');
+  } else setErrorState(false)  ;
+};
 
   return (
     <Box className={classes.root}>
@@ -104,6 +121,7 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              
             />
           </Box>
           <Box>
@@ -129,7 +147,9 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
               type="text"
               control={control}
               defaultValue=""
+              onBlur={validateUsername}
             />
+            {errorState && <Typography>Button is disabled until an unique username is chosen</Typography>}
           </Box>
           <Box>
             <InputLabel htmlFor="phoneNumber">Phone Number*</InputLabel>
@@ -203,6 +223,7 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
             label={"Next"}
             ariaLabel="Click here to complete step 1 and move onto step 2."
             onClick={handleSubmit}
+            disabled={errorState}
           />
         </Box>
       </form>
