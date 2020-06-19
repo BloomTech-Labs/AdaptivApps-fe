@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: '67.5%'
+    width: "67.5%",
   },
   form: {
     display: "flex",
@@ -56,12 +56,12 @@ const useStyles = makeStyles({
     },
   },
   bioBox: {
-    marginBottom: '15rem',
+    marginBottom: "15rem",
   },
   btnBox: {
     display: "flex",
     justifyContent: "space-between",
-    marginTop: "10rem"
+    marginTop: "10rem",
   },
 });
 
@@ -71,7 +71,7 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
   const { userEmail } = useParams();
   const { handleSubmit, errors, control } = useForm();
 
-  const onSubmit = async data => {
+  const onNext = handleSubmit(async data => {
     await updateProfile({
       variables: {
         email: userEmail,
@@ -87,17 +87,32 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
     });
 
     alert("Successfully updated account info!");
-    await navigate(`/updateaccount/${userEmail}/step2of6`);
-  };
+    navigate(`/updateaccount/${userEmail}/step2of6`);
+  });
 
-  const onSave = () => {
-    navigate(`/`)
-  }
+  const onSave = handleSubmit(async data => {
+    await updateProfile({
+      variables: {
+        email: userEmail,
+        firstName: data.firstName,
+        userName: data.userName,
+        lastName: data.lastName,
+        phoneNumber: data.phoneNumber,
+        city: data.city,
+        state: data.state,
+        legal: data.legal,
+        bio: data.bio,
+      },
+    });
+
+    alert("Successfully updated account info!");
+    navigate(`/`);
+  });
 
   return (
     <Box className={classes.root}>
       <ProgressBar activeStep={1} stepNumber={1} userEmail={userEmail} />
-      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={classes.form}>
         <Box className={classes.namePhoneBox}>
           <Box>
             <InputLabel htmlFor="firstName">First Name*</InputLabel>
@@ -203,12 +218,15 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
         />
         <Typography>* required field</Typography>
         <Box className={classes.btnBox}>
-          <SaveButton label={"Save & Quit"} ariaLabel="Click to save and continue later." onClick={onSave}/>
+          <SaveButton
+            label={"Save & Quit"}
+            ariaLabel="Click to save and continue later."
+            onClick={onSave}
+          />
           <NextButton
-            type="submit"
             label={"Next"}
             ariaLabel="Click here to complete step 1 and move onto step 2."
-            onClick={handleSubmit}
+            onClick={onNext}
           />
         </Box>
       </form>

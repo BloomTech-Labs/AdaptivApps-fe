@@ -4,6 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Component imports
 import NextButton from "../../../theme/SmallFormButton";
+import SaveButton from "../../../theme/LargeFormButton";
 import ProgressBar from "../../../theme/ProgressBar";
 // Material-UI imports
 import {
@@ -23,7 +24,7 @@ const useStyles = makeStyles({
   form: {
     display: "flex",
     flexDirection: "column",
-    width: '100%'
+    width: "100%",
   },
   checkBoxContainer: {
     display: "flex",
@@ -132,6 +133,10 @@ export default function Step4({ updateSportsDemo }) {
     });
     alert("Successfully completed step 4 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step5of6`);
+  };
+
+  const onSave = () => {
+    navigate(`/`);
   };
 
   return (
@@ -1116,6 +1121,11 @@ export default function Step4({ updateSportsDemo }) {
           </Box>
         </Box>
         <Box className={classes.btnBox}>
+          <SaveButton
+            label={"Save & Quit"}
+            ariaLabel="Click to save and continue later and return to settings page."
+            onClick={onSave}
+          />
           <NextButton
             type="submit"
             label="Next"
