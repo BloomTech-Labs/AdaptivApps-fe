@@ -48,7 +48,7 @@ const useStyles = makeStyles({
   },
   btnBox: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     marginTop: "6.9rem",
   },
 });
@@ -58,8 +58,8 @@ export default function Step4({ updateSportsDemo }) {
   const navigate = useNavigate();
   const { userEmail } = useParams();
   const { handleSubmit, errors, control } = useForm();
-
-  const onSubmit = async data => {
+  // Will update profile and route user to next step in profile wizard
+  const onNext = handleSubmit(async data => {
     await updateSportsDemo({
       variables: {
         email: userEmail,
@@ -133,16 +133,88 @@ export default function Step4({ updateSportsDemo }) {
     });
     alert("Successfully completed step 4 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step5of6`);
-  };
+  });
 
-  const onSave = () => {
+  const onSave = handleSubmit(async data => {
+    await updateSportsDemo({
+      variables: {
+        email: userEmail,
+        airRifle: data.airRifle,
+        alpineSkiing: data.alpineSkiing,
+        archery: data.archery,
+        badminton: data.badminton,
+        baseball: data.baseball,
+        beepBaseball: data.beepBaseball,
+        biathlon: data.biathlon,
+        blindHockey: data.blindHockey,
+        boccia: data.boccia,
+        bowling: data.bowling,
+        boxing: data.boxing,
+        canoe: data.canoe,
+        cheerleading: data.cheerleading,
+        crossFit: data.crossFit,
+        crossCountrySkiing: data.crossCountrySkiing,
+        curling: data.curling,
+        cycling: data.cycling,
+        equestrian: data.equestrian,
+        esports: data.esports,
+        fishing: data.fishing,
+        goalball: data.goalball,
+        golf: data.golf,
+        hiking: data.hiking,
+        hunting: data.hunting,
+        judo: data.judo,
+        juJitsu: data.juJitsu,
+        lacrosse: data.lacrosse,
+        mixedMartialArts: data.mixedMartialArts,
+        motorsportsMotorcross: data.motorsportsMotorcross,
+        mountainBiking: data.mountainBiking,
+        powerlifting: data.powerlifting,
+        rafting: data.rafting,
+        rockClimbing: data.rockClimbing,
+        rowing: data.rowing,
+        sailing: data.sailing,
+        scuba: data.scuba,
+        shooting: data.shooting,
+        skateboarding: data.skateboarding,
+        snowboarding: data.snowboarding,
+        sledHockey: data.sledHockey,
+        soccerBlindSoccerFiveaside: data.soccerBlindSoccerFiveaside,
+        soccerAmputeeCrutchSoccer: data.soccerAmputeeCrutchSoccer,
+        soccerPowerSoccer: data.soccerPowerSoccer,
+        soccerCPSevenaside: data.soccerCPSevenaside,
+        standupWheelchairPaddling: data.standupWheelchairPaddling,
+        swimming: data.swimming,
+        surfing: data.surfing,
+        tableTennis: data.tableTennis,
+        taekwondo: data.taekwondo,
+        taiChi: data.taiChi,
+        trackField: data.trackField,
+        triathlon: data.triathlon,
+        volleyballBeachVolleyball: data.volleyballBeachVolleyball,
+        volleyballSittingVolleyball: data.volleyballSittingVolleyball,
+        waterSkiing: data.waterSkiing,
+        wheelchairSkateboarding: data.wheelchairSkateboarding,
+        wheelchairBasketball: data.wheelchairBasketball,
+        wheelchairCurling: data.wheelchairCurling,
+        wheelchairFencing: data.wheelchairFencing,
+        wheelchairFootball: data.wheelchairFootball,
+        wheelchairSoftball: data.wheelchairSoftball,
+        wheelchairRugby: data.wheelchairRugby,
+        wheelchairTennis: data.wheelchairTennis,
+        wrestling: data.wrestling,
+        yoga: data.yoga,
+        other: data.other,
+      },
+    });
+    alert("Successfully saved account info!");
     navigate(`/`);
-  };
+  });
 
   return (
     <Box className={classes.root}>
       <ProgressBar activeStep={4} stepNumber={4} userEmail={userEmail} />
-      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={classes.form}>
         <Typography>
           Which of the following sports have you participated in? (Please select
           all that apply)
@@ -1127,9 +1199,8 @@ export default function Step4({ updateSportsDemo }) {
             onClick={onSave}
           />
           <NextButton
-            type="submit"
-            label="Next"
-            onClick={handleSubmit}
+            label={"Next"}
+            onClick={onNext}
             ariaLabel="Click here to complete step 4 and move onto step 5 of account information update."
           />
         </Box>
