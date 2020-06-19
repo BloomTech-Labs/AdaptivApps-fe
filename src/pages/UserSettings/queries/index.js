@@ -1,4 +1,13 @@
 import gql from "graphql-tag";
+// Retrieves user profile type
+export const PROFILE_TYPE = gql`
+  query($email: String!) {
+    profile(where: { email: $email }) {
+      id
+      type
+    }
+  }
+`;
 // Updates user profile used in Step 1 of Profile Wizard
 export const UPDATE_USER_PROFILE = gql`
   mutation UpdateProfile(
@@ -585,7 +594,8 @@ export const PROFILE_STEP_6 = gql`
         athleteMentorHelp
         athleteMentorSport
         acsDiscovery
-        acsOrgSpecificDiscovery: amplaEmail
+        acsOrgSpecificDiscovery
+        amplaEmail
         hangerClinic
         challengeMagazine
       }
