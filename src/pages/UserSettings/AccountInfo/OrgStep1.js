@@ -20,6 +20,11 @@ const useStyles = makeStyles({
       width: 744,
       height: 48,
     },
+    "& .MuiInputLabel-asterisk": {
+      fontSize: '2rem',
+      color: 'red',
+      fontWeight: 'bolder'
+    },
   },
   nameBox: {
     display: "flex",
@@ -33,7 +38,7 @@ const useStyles = makeStyles({
     marginRight: "2.4rem",
   },
   boxSpacing: {
-    marginBottom: "2.4rem",
+    margin: "1.2rem 0",
   },
   addressBox: {
     display: "flex",
@@ -51,8 +56,18 @@ const useStyles = makeStyles({
     marginBottom: 200
   },
   btnBox: {
+    marginTop: '3rem',
+    maxWidth: '71%',
     display: "flex",
-    justifyContent: "flex-end"
+    justifyContent: "space-between",
+    alignItems: 'center'
+  },
+  error: {
+    color: 'red',
+    fontSize: '1.75rem',    
+    fontVariant: 'all-small-caps',
+    fontWeight: 'bold',
+    marginTop: '1rem'
   }
 });
 
@@ -82,7 +97,7 @@ export default function OrgStep1({ updateOrgProfile }) {
   return (
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
       <Box className={classes.boxSpacing}>
-        <InputLabel htmlFor="orgName">Organization Name*</InputLabel>
+        <InputLabel required htmlFor="orgName">Organization Name</InputLabel>
         <Controller
           as={<TextField />}
           name="orgName"
@@ -90,10 +105,12 @@ export default function OrgStep1({ updateOrgProfile }) {
           variant="outlined"
           control={control}
           defaultValue=""
+          rules={{ required: true }}
         />
+        {errors.orgName && <Typography className={classes.error}>organization name is a required field</Typography>}
       </Box>
       <Box className={classes.boxSpacing}>
-        <InputLabel htmlFor="website">Organization Website*</InputLabel>
+        <InputLabel required htmlFor="website">Organization Website</InputLabel>
         <Controller
           as={<TextField />}
           name="website"
@@ -101,7 +118,9 @@ export default function OrgStep1({ updateOrgProfile }) {
           variant="outlined"
           control={control}
           defaultValue=""
+          rules={{ required: true }}
         />
+        {errors.website && <Typography className={classes.error}>organization website is a required field</Typography>}
       </Box>
       <Box className={classes.boxSpacing}>
         <InputLabel htmlFor="phoneNumber">
@@ -118,7 +137,7 @@ export default function OrgStep1({ updateOrgProfile }) {
       </Box>
       <Box className={classes.addressBox}>
         <Box className={classes.firstInput}>
-          <InputLabel htmlFor="city">City*</InputLabel>
+          <InputLabel required htmlFor="city">City</InputLabel>
           <Controller
             as={<TextField />}
             name="city"
@@ -126,10 +145,12 @@ export default function OrgStep1({ updateOrgProfile }) {
             variant="outlined"
             control={control}
             defaultValue=""
+            rules={{ required: true }}
           />
+          {errors.city && <Typography className={classes.error}>city is a required field</Typography>}
         </Box>
         <Box>
-          <InputLabel htmlFor="state">State*</InputLabel>
+          <InputLabel required htmlFor="state">State</InputLabel>
           <Controller
             as={<TextField />}
             name="state"
@@ -137,7 +158,9 @@ export default function OrgStep1({ updateOrgProfile }) {
             variant="outlined"
             control={control}
             defaultValue=""
+            rules={{ required: true }}
           />
+          {errors.state && <Typography className={classes.error}>state is a required field</Typography>}
         </Box>
       </Box>
       <Box className={classes.bioBox}>
@@ -154,8 +177,8 @@ export default function OrgStep1({ updateOrgProfile }) {
           control={control}
         />
       </Box>
-      <Typography>* required field</Typography>
       <Box className={classes.btnBox}>
+      <Typography className={classes.error}>* required field</Typography>
         <FinishButton
           label="Finish"
           type="submit"
