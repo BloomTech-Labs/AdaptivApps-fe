@@ -47,8 +47,9 @@ export default function Step3({ updateDemoProfile }) {
   const navigate = useNavigate();
   const { userEmail } = useParams();
   const { handleSubmit, errors, control } = useForm();
-
-  const onSubmit = async data => {
+  
+  // Will update profile and route user to next step in profile wizard
+  const onNext = handleSubmit(async data => {
     await updateDemoProfile({
       variables: {
         email: userEmail,
@@ -60,16 +61,26 @@ export default function Step3({ updateDemoProfile }) {
     });
     alert("Successfully completed step 3 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step4of6`);
-  };
-
-  const onSave = () => {
+  });
+  // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
+  const onSave = handleSubmit(async data => {
+    await updateDemoProfile({
+      variables: {
+        email: userEmail,
+        adaptivSportsParticipation: data.adaptivSportsParticipation,
+        acsParticipation: data.acsParticipation,
+        notParticipating: data.notParticipating,
+        angelCityParticipation: data.angelCityParticipation,
+      },
+    });
+    alert("Successfully saved account info!");
     navigate(`/`);
-  };
+  });
 
   return (
     <Box className={classes.root}>
       <ProgressBar activeStep={3} stepNumber={3} userEmail={userEmail} />
-      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={classes.form}>
         <InputLabel htmlFor="adaptivSportsParticipation">
           Have you ever participated in adaptive sports before?
         </InputLabel>
@@ -144,8 +155,7 @@ export default function Step3({ updateDemoProfile }) {
           />
           <NextButton
             label="Next"
-            type="submit"
-            onClick={handleSubmit}
+            onClick={onNext}
             ariaLabel="Click here to complete step 3 and move onto step 4 of account information update."
           />
         </Box>
