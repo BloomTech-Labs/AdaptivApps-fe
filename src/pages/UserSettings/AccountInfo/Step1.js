@@ -1,7 +1,10 @@
 // React/Reach Router imports
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
+// Apollo/GraphQL imports
+import { useQuery } from "react-apollo";
+import { PROFILE_STEP_1 } from "../queries";
 // Component imports
 import NextButton from "../../../theme/SmallFormButton";
 import SaveButton from "../../../theme/LargeFormButton";
@@ -69,8 +72,31 @@ export default function Step1({ updateProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { handleSubmit, errors, control } = useForm();
-  
+  const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_1, {
+    variables: { email: userEmail },
+  });
+  const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
+  const { handleSubmit, setValue, control } = useForm({
+    defaultValues: {
+      firstName: defaultInfo?.profile?.firstName,
+    },
+  });
+
+  useEffect(() => {
+    !loading && !currentUserInfo
+      ? setCurrentUserInfo(defaultInfo)
+      : setValue([
+          { firstName: currentUserInfo?.profile?.firstName },
+          { lastName: currentUserInfo?.profile?.lastName },
+          { userName: currentUserInfo?.profile?.userName },
+          { phoneNumber: currentUserInfo?.profile?.phoneNumber },
+          { city: currentUserInfo?.profile?.city },
+          { state: currentUserInfo?.profile?.state },
+          { legal: currentUserInfo?.profile?.legal },
+          { bio: currentUserInfo?.profile?.bio },
+        ]);
+  }, [loading, currentUserInfo, defaultInfo, setValue]);
+
   // Will update profile and route user to next step in profile wizard
   const onNext = handleSubmit(async data => {
     await updateProfile({
@@ -125,6 +151,7 @@ export default function Step1({ updateProfile }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              placeholder="First Name"
             />
           </Box>
           <Box>
