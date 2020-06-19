@@ -4,6 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Component imports
 import NextButton from "../../../theme/SmallFormButton";
+import SaveButton from "../../../theme/LargeFormButton";
 import ProgressBar from "../../../theme/ProgressBar";
 // Material-UI imports
 import {
@@ -38,7 +39,7 @@ const useStyles = makeStyles({
   },
   btnBox: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     marginTop: "2.9rem",
   },
 });
@@ -49,7 +50,7 @@ export default function Step5({ updateDemo2 }) {
   const { userEmail } = useParams();
   const { handleSubmit, errors, control } = useForm();
 
-  const onSubmit = async data => {
+  const onSave = handleSubmit(async data => {
     await updateDemo2({
       variables: {
         email: userEmail,
@@ -66,12 +67,30 @@ export default function Step5({ updateDemo2 }) {
 
     alert("Successfully completed step 5 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step6of6`);
-  };
+  });
+  const onNext = handleSubmit(async data => {
+    await updateDemo2({
+      variables: {
+        email: userEmail,
+        veteranStatus: data.veteranStatus,
+        militaryBranch: data.militaryBranch,
+        yearsServed: data.yearsServed,
+        ethnicity: data.ethnicity,
+        householdIncome: data.householdIncome,
+        employment: data.employment,
+        favProAthletes: data.favProAthletes,
+        favCelebs: data.favCelebs,
+      },
+    });
+
+    alert("Successfully saved account info!");
+    await navigate(`/`);
+  });
 
   return (
     <Box className={classes.root}>
       <ProgressBar activeStep={5} stepNumber={5} userEmail={userEmail} />
-      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={classes.form}>
         <InputLabel htmlFor="veteranStatus">Are you a Veteran?</InputLabel>
         <Controller
           as={
@@ -189,10 +208,14 @@ export default function Step5({ updateDemo2 }) {
           defaultValue=""
         />
         <Box className={classes.btnBox}>
+          <SaveButton
+            label={"Save & Quit"}
+            onClick={onSave}
+            ariaLabel="Click to save and continue later and return to settings page."
+          />
           <NextButton
             label="Next"
-            type="submit"
-            onClick={handleSubmit}
+            onClick={onNext}
             ariaLabel="Click here to complete step 5 and move onto step 6 of account info update."
           />
         </Box>
