@@ -8,27 +8,27 @@ import { makeStyles, colors } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles({
-  eventsContainer: {
-    marginLeft: "10px",
-    maxHeight: "100vh",
-    maxWidth: "300px",
-  },
   title: {
+    marginLeft: "1rem",
     fontSize: "2rem",
   },
   eventsList: {
+    border: "none",
+    boxShadow: "none",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     maxHeight: "90%",
-    overflow: "scroll",
     direction: "rtl",
+    backgroundColor: "white",
   },
   eventCard: {
+    border: "none",
+    boxShadow: "none",
     display: "flex",
     flexDirection: "column",
     direction: "ltr",
-    backgroundColor: "#EEEEEE",
+    backgroundColor: "white",
     width: "90%",
     marginBottom: "20px",
   },
@@ -84,7 +84,7 @@ export default function UpcomingEventList({ userName }) {
   }
 
   return (
-    <div className={classes.eventsContainer}>
+    <>
       <h3 className={classes.title}>My Upcoming Events</h3>
       {upcomingEvents.length > 0 ? (
         <div className={classes.eventsList}>
@@ -112,8 +112,8 @@ export default function UpcomingEventList({ userName }) {
           ))}
         </div>
       ) : (
-          <h3>You have no upcoming events.</h3>
-        )}
-    </div>
+        <h3>You have no upcoming events.</h3>
+      )}
+    </>
   );
 }
