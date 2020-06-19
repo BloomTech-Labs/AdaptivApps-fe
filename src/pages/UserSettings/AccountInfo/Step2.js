@@ -58,8 +58,9 @@ export default function Step2({ updateExtProfile }) {
   const navigate = useNavigate();
   const { userEmail } = useParams();
   const { handleSubmit, errors, control } = useForm();
-
-  const onSubmit = async data => {
+  
+  // Will update profile and route user to next step in profile wizard
+  const onNext = handleSubmit(async data => {
     await updateExtProfile({
       variables: {
         email: userEmail,
@@ -75,16 +76,32 @@ export default function Step2({ updateExtProfile }) {
     });
     alert("Succesfully completed step 2 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step3of6`);
-  };
+  });
 
-  const onSave = () => {
+  // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
+  const onSave = handleSubmit(async data => {
+    await updateExtProfile({
+      variables: {
+        email: userEmail,
+        gender: data.gender,
+        birthday: data.birthday,
+        eC1Name: data.eC1Name,
+        eC1Phone: data.eC1Phone,
+        eC1Relation: data.eC1Relation,
+        physicalDisability: data.physicalDisability,
+        detailedDisabilities: data.detailedDisabilities,
+        mobilityStatus: data.mobilityStatus,
+      },
+    });
+
+    alert("Succesfully saved account info!");
     navigate(`/`);
-  };
+  });
 
   return (
     <Box className={classes.root}>
       <ProgressBar activeStep={2} stepNumber={2} userEmail={userEmail} />
-      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={classes.form}>
         <Box className={classes.genderBirthBox}>
           <Box>
             <InputLabel required htmlFor="gender">
@@ -280,8 +297,7 @@ export default function Step2({ updateExtProfile }) {
           />
           <NextButton
             label="Next"
-            type="submit"
-            onClick={handleSubmit}
+            onClick={onNext}
             ariaLabel="Click here to complete step 2 and move onto step 3 of account information update."
           />
         </Box>

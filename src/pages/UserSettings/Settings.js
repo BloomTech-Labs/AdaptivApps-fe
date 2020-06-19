@@ -20,6 +20,7 @@ import {
 const useStyles = makeStyles({
   root: {
     marginLeft: "3rem",
+    height: '100vh'
   },
   headingBox: {
     margin: "6rem 0 2rem",

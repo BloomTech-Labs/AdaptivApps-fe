@@ -65,12 +65,13 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Step1({ updateProfile, handleNext, activeStep }) {
+export default function Step1({ updateProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
   const { handleSubmit, errors, control } = useForm();
-
+  
+  // Will update profile and route user to next step in profile wizard
   const onNext = handleSubmit(async data => {
     await updateProfile({
       variables: {
@@ -89,7 +90,7 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
     alert("Successfully updated account info!");
     navigate(`/updateaccount/${userEmail}/step2of6`);
   });
-
+  // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
   const onSave = handleSubmit(async data => {
     await updateProfile({
       variables: {
@@ -105,7 +106,7 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
       },
     });
 
-    alert("Successfully updated account info!");
+    alert("Successfully saved account info!");
     navigate(`/`);
   });
 
