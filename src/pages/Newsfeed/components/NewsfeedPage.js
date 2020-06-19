@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 // import { useAuth0 } from "../../config/react-auth0-spa";
 import { useQuery } from "react-apollo";
-import { GET_NEWSFEED_POSTS } from '../queries/FeedPost';
+import { GET_NEWSFEED_POSTS } from '../queries';
 // Import components
 import NewsfeedCard from './NewsfeedCard';
 import SpotlightBar from './SpotlightBar';

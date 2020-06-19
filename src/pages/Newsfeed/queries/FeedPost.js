@@ -126,19 +126,11 @@ export const NEWSFEED_POST_SUBSCRIPTION = gql`
       id
       body
       imgUrl
-      likes {
-        id
-        likedBy {
-          id
-          email
-        }
-        post {
-          id
-        }
-      }
       postedBy {
         id
-        email
+        userName
+        firstName
+        lastName
       }
       createdAt
     }

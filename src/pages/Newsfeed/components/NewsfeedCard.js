@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
+// Import graphql
 // Style Imports
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ModeCommentIcon from '@material-ui/icons/ModeComment';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import KeyboardReturnIcon from '@material-ui/icons/KeyboardReturn';
 import {
   makeStyles,
   TextField,
@@ -50,7 +52,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: '1rem',
   },
   icon: {
-    margin: '4% 2% 0 0'
+    margin: '4% 2% 0 0',
   },
   cardActions: {
     display: 'flex',
@@ -60,7 +62,8 @@ const useStyles = makeStyles(theme => ({
   comment: {
     width: '80%',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
+    alignItems: 'baseline',
     margin: '3% auto',
   },
   input: {
@@ -75,14 +78,26 @@ const useStyles = makeStyles(theme => ({
     }
   },
   button: {
-    fontSize: '1rem'
+    fontSize: '1rem',
   }
 }))
 
 export default function NewsfeedCard(props) {
   const classes = useStyles();
   const { post } = props;
-  console.log(post)
+  const comments = post.comments;
+  console.log(comments);
+  const [commenting, setCommenting] = useState(false);
+  const [displayComments, setDisplayComments] = useState(false);
+
+  const toggleComment = () => {
+    setCommenting(!commenting);
+  }
+
+  const showComments = () => {
+    setDisplayComments(!displayComments);
+  }
+
   return (
     <Card className={classes.root}>
       {post.imgUrl
@@ -119,26 +134,53 @@ export default function NewsfeedCard(props) {
         </div>
         )
       }
+
       <Divider variant='middle' />
+
       <CardActions className={classes.cardActions}>
         <Button color="primary" className={classes.button}>
           <ThumbUpAltIcon fontSize={'large'} className={classes.icon} />
             Like
-          </Button>
-        <Button color="primary" className={classes.button}>
+        </Button>
+        <Button color="primary" className={classes.button} onClick={toggleComment}>
           <ModeCommentIcon fontSize={'large'} className={classes.icon} />
             Comment
-          </Button>
+        </Button>
       </CardActions>
+
       <Divider variant='middle' />
-      <CardActionArea className={classes.comment}>
-        <AccountCircleIcon fontSize={'large'} className={classes.icon} />
-        <TextField
-          size='small'
-          variant="outlined"
-          className={classes.input}
-          placeholder='Write a comment...' />
+
+      <CardActionArea className={classes.postHeader}>
+        <button onClick={showComments}><p>{comments.length === 0 ? `No` : `${comments.length}`} comments</p></button>
       </CardActionArea>
+
+      <Divider variant='middle' />
+
+      {commenting ?
+        <div className={classes.comment}>
+          <AccountCircleIcon fontSize={'large'} className={classes.icon} />
+          <TextField
+            size='small'
+            variant="outlined"
+            multiline
+            className={classes.input}
+            placeholder='Write a comment...' />
+          <Button color="primary" className={classes.button}>
+            <KeyboardReturnIcon fontSize={'large'} className={classes.icon} />
+            Submit
+          </Button>
+        </div> : null}
+
+      <Divider variant='middle' />
+
+      {displayComments ?
+        comments.map(comment => (
+          <div key={comment.id}>
+            <p>{`${comment.postedBy.firstName} says: ${comment.body}`}</p>
+          </div>
+        ))
+        : null}
+
     </Card>
   )
 }
