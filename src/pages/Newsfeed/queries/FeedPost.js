@@ -7,22 +7,13 @@ export const GET_NEWSFEED_POSTS = gql`
       id
       body
       imgUrl
-      likes {
-        id
-        likedBy {
-          id
-          email
-        }
-        post {
-          id
-        }
-      }
       postedBy {
         id
-        email
+        userName
+        firstName
+        lastName
       }
       createdAt
-      updatedAt
     }
   }
 `
@@ -73,7 +64,7 @@ export const CREATE_NEWSFEED_POST_WITH_IMAGE = gql`
 `
 
 // Update Newsfeed Post w/ no image
-export const UPDATE_NEWSFEED_POST_NO_IMAGE = gql `
+export const UPDATE_NEWSFEED_POST_NO_IMAGE = gql`
   mutation updateFeedPost($body: String!, $id: ID!) {
     updateFeedPost(
       data: {
@@ -95,7 +86,7 @@ export const UPDATE_NEWSFEED_POST_NO_IMAGE = gql `
 `
 
 // Update Newsfeed Post w/ image
-export const UPDATE_NEWSFEED_POST_WITH_IMAGE = gql `
+export const UPDATE_NEWSFEED_POST_WITH_IMAGE = gql`
   mutation updateFeedPost($body: String!, $imgUrl: String!, $id: ID!) {
     updateFeedPost(
       data: {
@@ -127,7 +118,7 @@ export const DELETE_NEWSFEED_POST = gql`
 `
 
 // Newsfeed Post Subscription
-export const NEWSFEED_POST_SUBSCRIPTION = gql `
+export const NEWSFEED_POST_SUBSCRIPTION = gql`
   subscription {
   feedPost {
     mutation
@@ -135,19 +126,11 @@ export const NEWSFEED_POST_SUBSCRIPTION = gql `
       id
       body
       imgUrl
-      likes {
-        id
-        likedBy {
-          id
-          email
-        }
-        post {
-          id
-        }
-      }
       postedBy {
         id
-        email
+        userName
+        firstName
+        lastName
       }
       createdAt
     }
