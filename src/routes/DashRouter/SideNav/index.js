@@ -227,10 +227,6 @@ function SideNav(props) {
                   <HomeIcon className={classes.navIcon} />
                   <p>Manage Events</p>
                 </NavLink>
-                <NavLink to="users" className={classes.navLink}>
-                  <GroupIcon className={classes.navIcon} />
-                  <p>Manage Users</p>
-                </NavLink>
               </>
             ) : null}
           </Box>

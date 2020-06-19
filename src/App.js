@@ -22,9 +22,8 @@ import EditActivity from "./pages/ManageEvents/EditActivity";
 import CreateActivity from "./pages/ManageEvents/CreateActivity";
 import Accessibility from "./pages/Landing/Legal/Accessibility";
 import PrivacyPolicy from "./pages/Landing/Legal/PrivacyPolicy";
-import ManageUsers from "./pages/ManageUsers";
 import ChatFeature from "./pages/Chat/index";
-import Newsfeed from './pages/Newsfeed/components/Newsfeed'
+import NewsfeedPage from './pages/Newsfeed/components/NewsfeedPage'
 
 // Import apollo server
 import { ApolloProvider } from "@apollo/react-hooks";
@@ -155,9 +154,8 @@ function App() {
             <EditEvent path="editEvent/:eventId" />
             <CreateActivity path="createEvent/:eventId" />
             <EditActivity path="editActivity/:activityId" />
-            <ManageUsers path="users" />
             <ChatFeature path="chats" />
-            <Newsfeed path="/newsfeed" />
+            <NewsfeedPage path="/newsfeed" />
           </PrivateRoute>
         </Router>
       </div>
