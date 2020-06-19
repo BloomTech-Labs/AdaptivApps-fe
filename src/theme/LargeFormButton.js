@@ -8,7 +8,7 @@ const useStyles = makeStyles({
     // marginTop: "2.4rem",
     background: "#2962FF",
     color: "#FFFFFF",
-    width: 96,
+    width: 144,
     height: 48,
     "& .MuiButton-label": {
       fontSize: "2.1rem",
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
     },
   }
 })
-export default function FormButton({type, ariaLabel, label, onClick}) {
+export default function LargeFormButton({type, ariaLabel, label, onClick}) {
   const classes = useStyles();
 
   return (

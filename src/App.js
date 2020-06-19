@@ -22,7 +22,6 @@ import EditActivity from "./pages/ManageEvents/EditActivity";
 import CreateActivity from "./pages/ManageEvents/CreateActivity";
 import Accessibility from "./pages/Landing/Legal/Accessibility";
 import PrivacyPolicy from "./pages/Landing/Legal/PrivacyPolicy";
-import ManageUsers from "./pages/ManageUsers";
 import ChatFeature from "./pages/Chat/index";
 import NewsfeedPage from './pages/Newsfeed/components/NewsfeedPage'
 

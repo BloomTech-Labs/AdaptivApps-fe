@@ -1,10 +1,13 @@
 // React/Reach Router imports
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "@reach/router";
 import { useForm, Controller } from "react-hook-form";
+// Apollo/GraphQL imports
+import { useQuery } from "react-apollo";
+import { PROFILE_TYPE } from "../queries";
 // Component imports
-import NextButton from "../../../theme/FormButton";
-import ProgressBar from "../../../theme/ProgressBar"
+import NextButton from "../../../theme/SmallFormButton";
+import ProgressBar from "../../../theme/ProgressBar";
 // Material-UI imports
 import {
   makeStyles,
@@ -18,7 +21,7 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: '67.5%'
+    width: "67.5%",
   },
   form: {
     height: "80vh",
@@ -43,15 +46,25 @@ const useStyles = makeStyles({
   },
 });
 
-export default function AccountTypeForm({
-  updateProfile,
- 
-}) {
+export default function AccountTypeForm({ updateProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { handleSubmit, errors, control } = useForm();
-  
+  const { handleSubmit, setValue, control } = useForm();
+  const { data: defaultInfo, loading } = useQuery(PROFILE_TYPE, {
+    variables: { email: userEmail },
+  });
+  const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
+  // Sets default values in input fields with current user's info
+  useEffect(() => {
+    !loading && !currentUserInfo
+      ? setCurrentUserInfo(defaultInfo)
+      : setValue([
+          {
+            type: currentUserInfo?.profile?.type,
+          },
+        ]);
+  }, [loading, currentUserInfo, defaultInfo, setValue]);
   const onSubmit = async data => {
     await updateProfile({
       variables: {
@@ -68,39 +81,39 @@ export default function AccountTypeForm({
 
   return (
     <Box className={classes.root}>
-    <ProgressBar activeStep={0}  userEmail={userEmail}/>
-    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-      <InputLabel htmlFor="account type">
-        Are you registering as an individual or an organization?
-      </InputLabel>
-      <Box className={classes.box}>
-        <Controller
-          as={
-            <Select className={classes.typeSelect}>
-              <MenuItem value="Individual">
-                I'm registering as an individual
-              </MenuItem>
-              <MenuItem value="Organization">
-                I'm registering as an organization
-              </MenuItem>
-            </Select>
-          }
-          name="type"
-          variant="outlined"
-          control={control}
-          defaultValue=""
-        />
-      </Box>
-      <Box className={classes.btnWrapper}>
-        <NextButton
-          type="submit"
-          label={"Next"}
-          ariaLabel="Click here to complete step 1 of update account information and move to step 2."
-          onClick={handleSubmit}
-          className={classes.btn}
-        />
-      </Box>
-    </form>
+      <ProgressBar activeStep={0} userEmail={userEmail} />
+      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+        <InputLabel htmlFor="account type">
+          Are you registering as an individual or an organization?
+        </InputLabel>
+        <Box className={classes.box}>
+          <Controller
+            as={
+              <Select className={classes.typeSelect}>
+                <MenuItem value="Individual">
+                  I'm registering as an individual
+                </MenuItem>
+                <MenuItem value="Organization">
+                  I'm registering as an organization
+                </MenuItem>
+              </Select>
+            }
+            name="type"
+            variant="outlined"
+            control={control}
+            defaultValue=""
+          />
+        </Box>
+        <Box className={classes.btnWrapper}>
+          <NextButton
+            type="submit"
+            label={"Next"}
+            ariaLabel="Click here to complete step 1 of update account information and move to step 2."
+            onClick={handleSubmit}
+            className={classes.btn}
+          />
+        </Box>
+      </form>
     </Box>
   );
 }

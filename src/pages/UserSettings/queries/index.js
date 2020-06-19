@@ -1,5 +1,15 @@
 import gql from "graphql-tag";
+// Retrieves user profile type
+export const PROFILE_TYPE = gql`
+  query($email: String!) {
+    profile(where: { email: $email }) {
+      id
+      type
+    }
+  }
+`;
 
+// Updates user profile used in Step 1 of Profile Wizard
 export const UPDATE_USER_PROFILE = gql`
   mutation UpdateProfile(
     $email: String!
@@ -41,6 +51,22 @@ export const UPDATE_USER_PROFILE = gql`
       legal
       createdAt
       updatedAt
+    }
+  }
+`;
+// retrieves user profile to set default values in Step 1 of Profile Wizard
+export const PROFILE_STEP_1 = gql`
+  query($email: String!) {
+    profile(where: { email: $email }) {
+      id
+      firstName
+      lastName
+      userName
+      phoneNumber
+      state
+      city
+      bio
+      legal
     }
   }
 `;
@@ -119,8 +145,25 @@ export const UPDATE_ORG_PROFILE = gql`
     }
   }
 `;
+// retrieves organization profile to set default values in org form of Profile Wizard
+export const ORG_PROFILE = gql`
+  query($email: String!) {
+    profile(where: { email: $email }) {
+      id
+      phoneNumber
+      userName
+      state
+      city
+      bio
+      extProfile {
+        orgName
+        website
+      }
+    }
+  }
+`;
 
-// Update User Extended Profile
+// Update User Extended Profile used in Step 2 of Profile Wizard
 export const UPDATE_EXT_PROFILE = gql`
   mutation UpdateExtProfile(
     $email: String!
@@ -159,7 +202,28 @@ export const UPDATE_EXT_PROFILE = gql`
   }
 `;
 
-// Update Demographic Profile
+// retrieves user profile to set default values in Step 2 of Profile Wizard
+export const PROFILE_STEP_2 = gql`
+  query($email: String!) {
+    profile(where: { email: $email }) {
+      id
+      extProfile {
+        gender
+        birthday
+        eC1Name
+        eC1Relation
+        eC1Phone
+        disability {
+          physicalDisability
+          detailedDisabilities
+        }
+        mobilityStatus
+      }
+    }
+  }
+`;
+
+// Update Demographic Profile used in step 3 of Profile Wizard
 export const UPDATE_DEMO_PROFILE = gql`
   mutation UpdateDemoProfile(
     $email: String!
@@ -186,7 +250,21 @@ export const UPDATE_DEMO_PROFILE = gql`
   }
 `;
 
-// Update Sports Demo Profile
+export const PROFILE_STEP_3 = gql`
+  query($email: String!) {
+    profile(where: { email: $email }) {
+      id
+      demographicProfile {
+        adaptivSportsParticipation
+        acsParticipation
+        notParticipating
+        angelCityParticipation
+      }
+    }
+  }
+`;
+
+// Update Sports Demo Profile used in step 4 of Profile Wizard
 export const UPDATE_SPORTS_DEMO = gql`
   mutation UpdateSportsDemo(
     $email: String!
@@ -340,8 +418,86 @@ export const UPDATE_SPORTS_DEMO = gql`
     }
   }
 `;
+// Retrieves user profile info to set default values in Step 4 of Profile Wizard
+export const PROFILE_STEP_4 = gql`
+  query($email: String!) {
+    profile(where: { email: $email }) {
+      id
+      demographicProfile {
+        sportsParticipation {
+          alpineSkiing
+          airRifle
+          archery
+          badminton
+          baseball
+          beepBaseball
+          biathlon
+          blindHockey
+          boccia
+          bowling
+          boxing
+          canoe
+          cheerleading
+          crossFit
+          crossCountrySkiing
+          curling
+          cycling
+          equestrian
+          esports
+          fishing
+          goalball
+          golf
+          hiking
+          hunting
+          judo
+          juJitsu
+          lacrosse
+          mixedMartialArts
+          motorsportsMotorcross
+          mountainBiking
+          powerlifting
+          rafting
+          rockClimbing
+          rowing
+          sailing
+          scuba
+          shooting
+          skateboarding
+          snowboarding
+          sledHockey
+          soccerBlindSoccerFiveaside
+          soccerAmputeeCrutchSoccer
+          soccerPowerSoccer
+          soccerCPSevenaside
+          standupWheelchairPaddling
+          swimming
+          surfing
+          tableTennis
+          taekwondo
+          taiChi
+          trackField
+          triathlon
+          volleyballBeachVolleyball
+          volleyballSittingVolleyball
+          waterSkiing
+          wheelchairSkateboarding
+          wheelchairBasketball
+          wheelchairCurling
+          wheelchairFencing
+          wheelchairFootball
+          wheelchairSoftball
+          wheelchairRugby
+          wheelchairTennis
+          wrestling
+          yoga
+          other
+        }
+      }
+    }
+  }
+`;
 
-// Updates Demo Profile part 2
+// Updates Demo Profile part 2 used in step 5 of Profile Wizard
 export const UPDATE_DEMO_2 = gql`
   mutation UpdateDemo2(
     $email: String!
@@ -375,8 +531,26 @@ export const UPDATE_DEMO_2 = gql`
     }
   }
 `;
+// Retrieves user profile info to set default values in Step 5 of Profile Wizard
+export const PROFILE_STEP_5 = gql`
+  query($email: String!) {
+    profile(where: { email: $email }) {
+      id
+      demographicProfile {
+        veteranStatus
+        militaryBranch
+        yearsServed
+        ethnicity
+        householdIncome
+        employment
+        favProAthletes
+        favCelebs
+      }
+    }
+  }
+`;
 
-// Updates Demo Profile part 3
+// Updates Demo Profile part 3 used in Step 6 of Profile Wizard
 export const UPDATE_DEMO_3 = gql`
   mutation UpdateDemo3(
     $email: String!
@@ -407,6 +581,25 @@ export const UPDATE_DEMO_3 = gql`
       }
     ) {
       id
+    }
+  }
+`;
+
+// Retrieves user profile info to set default values in Step 6 of Profile Wizard
+export const PROFILE_STEP_6 = gql`
+  query($email: String!) {
+    profile(where: { email: $email }) {
+      id
+      demographicProfile {
+        becomeAthleteMentor
+        athleteMentorHelp
+        athleteMentorSport
+        acsDiscovery
+        acsOrgSpecificDiscovery
+        amplaEmail
+        hangerClinic
+        challengeMagazine
+      }
     }
   }
 `;
