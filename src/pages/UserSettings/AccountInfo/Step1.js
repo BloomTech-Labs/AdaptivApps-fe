@@ -76,11 +76,7 @@ export default function Step1({ updateProfile }) {
     variables: { email: userEmail },
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
-  const { handleSubmit, setValue, control } = useForm({
-    defaultValues: {
-      firstName: defaultInfo?.profile?.firstName,
-    },
-  });
+  const { handleSubmit, setValue, control } = useForm();
 
   useEffect(() => {
     !loading && !currentUserInfo
@@ -163,6 +159,7 @@ export default function Step1({ updateProfile }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              placeholder="Last Name"
             />
           </Box>
         </Box>
@@ -177,6 +174,7 @@ export default function Step1({ updateProfile }) {
               type="text"
               control={control}
               defaultValue=""
+              placeholder="Username"
             />
           </Box>
           <Box>
@@ -188,6 +186,7 @@ export default function Step1({ updateProfile }) {
               type="text"
               control={control}
               defaultValue=""
+              placeholder="(999)999-9999"
             />
           </Box>
         </Box>
@@ -202,6 +201,7 @@ export default function Step1({ updateProfile }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              placeholder="City"
             />
           </Box>
           <Box>
@@ -213,6 +213,7 @@ export default function Step1({ updateProfile }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              placeholder="State"
             />
           </Box>
         </Box>
@@ -243,6 +244,7 @@ export default function Step1({ updateProfile }) {
           multiline
           rows="8"
           defaultValue=""
+          placeholder="Some awesome bio!"
         />
         <Typography>* required field</Typography>
         <Box className={classes.btnBox}>
