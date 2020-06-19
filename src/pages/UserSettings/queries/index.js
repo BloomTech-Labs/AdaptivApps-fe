@@ -8,6 +8,7 @@ export const PROFILE_TYPE = gql`
     }
   }
 `;
+
 // Updates user profile used in Step 1 of Profile Wizard
 export const UPDATE_USER_PROFILE = gql`
   mutation UpdateProfile(
