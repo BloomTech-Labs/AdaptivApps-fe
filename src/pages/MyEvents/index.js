@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 // Component imports
 import EventList from "./EventList";
-import GlobalSearchBox from '../../routes/DashRouter/GlobalSearchBox';
+import GlobalSearchBox from "../../routes/DashRouter/GlobalSearchBox";
 // GraphQL/Apollo imports
 import { useQuery } from "react-apollo";
 import { GET_USER_EVENTS } from "./queries";
@@ -49,8 +49,8 @@ const useStyles = makeStyles({
   search: {
     zIndex: 100,
     position: "absolute",
-    marginLeft: "550px"
-  }
+    marginLeft: "550px",
+  },
 });
 
 export default function MyEvents() {
@@ -59,46 +59,47 @@ export default function MyEvents() {
   const { user } = useAuth0();
   // Retrieves all events a user is registered to
   const { error, loading, data, refetch } = useQuery(GET_USER_EVENTS, {
-    variables: { email: "jonathanchen095@gmail.com" },
+    variables: { email: user.email },
   });
 
   useEffect(() => {
     refetch();
   }, [refetch]);
-  console.log('What data,', data)
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
+
   return (
     <div>
-      <div className={classes.search}><GlobalSearchBox /></div>
+      <div className={classes.search}>
+        <GlobalSearchBox />
+      </div>
       <main className={classes.root}>
         <Box className={classes.headingBox} borderBottom={2}>
           <Typography className={classes.heading} variant="h1" gutterBottom>
             My Events
-        </Typography>
+          </Typography>
         </Box>
         {data.events.length >= 1 ? (
           <Grid className={classes.grid}>
             <EventList data={data} refetch={refetch} />
           </Grid>
         ) : (
-            <>
-              <Typography className={classes.noActiv}>
-                You haven't registered for any events yet!
-          </Typography>
-              <Box className={classes.inlineNotice}>
-                <Typography className={classes.noActivBlue}>
-                  Check out the Events Calendar
+          <>
+            <Typography className={classes.noActiv}>
+              You haven't registered for any events yet!
             </Typography>
-                <Typography>
-                  , register for an event, then see all of your registered events
-                  here!
-            </Typography>
-              </Box>
-            </>
-          )}
+            <Box className={classes.inlineNotice}>
+              <Typography className={classes.noActivBlue}>
+                Check out the Events Calendar
+              </Typography>
+              <Typography>
+                , register for an event, then see all of your registered events
+                here!
+              </Typography>
+            </Box>
+          </>
+        )}
       </main>
     </div>
-
   );
 }

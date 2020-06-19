@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "react-apollo";
 import { makeStyles, Grid, Box, Typography } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import AdminTagsSearch from './AdminTagsSearch';
+import AdminTagsSearch from "./AdminTagsSearch";
 import EventList from "./EventList";
 import { GET_EVENT_LIST } from "./queries";
 import { useAuth0 } from "../../config/react-auth0-spa";
 import config from "../../config/auth_config";
-import GlobalSearchBox from '../../routes/DashRouter/GlobalSearchBox';
+import GlobalSearchBox from "../../routes/DashRouter/GlobalSearchBox";
 
 const useStyles = makeStyles({
   root: {
@@ -33,8 +33,8 @@ const useStyles = makeStyles({
   search: {
     zIndex: 100,
     position: "absolute",
-    marginLeft: "550px"
-  }
+    marginLeft: "550px",
+  },
 });
 
 export default function EventsCalendar() {
@@ -52,12 +52,14 @@ export default function EventsCalendar() {
   if (error) return `Error! ${error.message}`;
   return (
     <div>
-      <div className={classes.search}><GlobalSearchBox /></div>
+      <div className={classes.search}>
+        <GlobalSearchBox />
+      </div>
       <main className={classes.root}>
         <Box className={classes.headingBox} borderBottom={2}>
           <Typography className={classes.heading} variant="h1" gutterBottom>
             Upcoming Events
-        </Typography>
+          </Typography>
         </Box>
         {user && user[config.roleUrl].includes("Admin") ? (
           <AdminTagsSearch
@@ -66,13 +68,11 @@ export default function EventsCalendar() {
           />
         ) : null}
         <Grid className={classes.grid}>
-          {!isSearching
-            ? <EventList currentEvents={currentEvents} refetch={refetch} />
-            : null
-          }
+          {!isSearching ? (
+            <EventList currentEvents={currentEvents} refetch={refetch} />
+          ) : null}
         </Grid>
       </main>
     </div>
-
   );
 }
