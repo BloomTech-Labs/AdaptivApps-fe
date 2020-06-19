@@ -1,9 +1,12 @@
 // React/Reach Router imports
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
+// Apollo/GraphQL imports
+import { useQuery } from "react-apollo";
+import { PROFILE_STEP_6 } from "../queries";
 // Component imports
-import FinishButton from "../../../theme/FormButton";
+import FinishButton from "../../../theme/SmallFormButton";
 import ProgressBar from "../../../theme/ProgressBar";
 // Material-UI imports
 import {
@@ -18,7 +21,7 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "80%",
+    width: "85%",
   },
   form: {
     width: "100%",
@@ -42,8 +45,51 @@ export default function Step6({ updateDemo3 }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { handleSubmit, errors, control } = useForm();
-
+  const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_6, {
+    variables: { email: userEmail },
+  });
+  const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
+  const { handleSubmit, setValue, control } = useForm();
+  // Sets default values in input fields with current user's info
+  useEffect(() => {
+    !loading && !currentUserInfo
+      ? setCurrentUserInfo(defaultInfo)
+      : setValue([
+          {
+            becomeAthleteMentor:
+              currentUserInfo?.profile?.demographicProfile?.becomeAthleteMentor,
+          },
+          {
+            athleteMentorHelp:
+              currentUserInfo?.profile?.demographicProfile?.athleteMentorHelp,
+          },
+          {
+            athleteMentorSport:
+              currentUserInfo?.profile?.demographicProfile?.athleteMentorSport,
+          },
+          {
+            acsDiscovery:
+              currentUserInfo?.profile?.demographicProfile?.acsDiscovery,
+          },
+          {
+            acsOrgSpecificDiscovery:
+              currentUserInfo?.profile?.demographicProfile
+                ?.acsOrgSpecificDiscovery,
+          },
+          {
+            amplaEmail:
+              currentUserInfo?.profile?.demographicProfile?.amplaEmail,
+          },
+          {
+            hangerClinic:
+              currentUserInfo?.profile?.demographicProfile?.hangerClinic,
+          },
+          {
+            challengeMagazine:
+              currentUserInfo?.profile?.demographicProfile?.challengeMagazine,
+          },
+        ]);
+  }, [loading, currentUserInfo, defaultInfo, setValue]);
   const onSubmit = async data => {
     await updateDemo3({
       variables: {

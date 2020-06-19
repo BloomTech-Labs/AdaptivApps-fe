@@ -2,12 +2,15 @@
 import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
+// Apollo/GraphQL imports
+import { useQuery } from "react-apollo";
+import { PROFILE_STEP_1 } from "../queries";
 // Component imports
-import NextButton from "../../../theme/FormButton";
+import NextButton from "../../../theme/SmallFormButton";
+import SaveButton from "../../../theme/LargeFormButton";
 import ProgressBar from "../../../theme/ProgressBar";
 // Query imports
 import { GET_RECIPIENTS } from '../../Chat/queries/Chats'
-import { useQuery } from "react-apollo";
 
 // Material-UI imports
 import {
@@ -24,7 +27,7 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: '80%',
+    width: '85%',
     "& .MuiInputLabel-asterisk": {
       fontSize: '2rem',
       color: 'red',
@@ -64,7 +67,7 @@ const useStyles = makeStyles({
     },
   },
   bioBox: {
-    marginBottom: 200,
+    marginBottom: "15rem",
   },
   btnBox: {
     display: "flex",
@@ -91,15 +94,37 @@ const useStyles = makeStyles({
   }
 });
 
-export default function Step1({ updateProfile, handleNext, activeStep }) {
+export default function Step1({ updateProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { handleSubmit, errors, control } = useForm();
+  const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_1, {
+    variables: { email: userEmail },
+  });
+  const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
   const [errorState, setErrorState] = useState(false);
+  const { handleSubmit, setValue, errors, control } = useForm();
   const { data } = useQuery(GET_RECIPIENTS, { variables: { email: userEmail }});
 
-  const onSubmit = async data => {
+   // Sets default values in input fields with current user's info
+  useEffect(() => {
+    !loading && !currentUserInfo
+      ? setCurrentUserInfo(defaultInfo)
+      : setValue([
+          { firstName: currentUserInfo?.profile?.firstName },
+          { lastName: currentUserInfo?.profile?.lastName },
+          { userName: currentUserInfo?.profile?.userName },
+          { phoneNumber: currentUserInfo?.profile?.phoneNumber },
+          { city: currentUserInfo?.profile?.city },
+          { state: currentUserInfo?.profile?.state },
+          { legal: currentUserInfo?.profile?.legal },
+          { bio: currentUserInfo?.profile?.bio },
+        ]);
+  }, [loading, currentUserInfo, defaultInfo, setValue]);
+
+
+  // Will update profile and route user to next step in profile wizard
+  const onNext = handleSubmit(async data => {
     await updateProfile({
       variables: {
         email: userEmail,
@@ -115,9 +140,9 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
     });
 
     alert("Successfully updated account info!");
-    await navigate(`/updateaccount/${userEmail}/step2of6`);
-  };
-  
+    navigate(`/updateaccount/${userEmail}/step2of6`);
+  });
+
   const userNames = []
   data && data.profiles.filter(user => user.userName !== null && user.userName !== '' && userNames.push(user.userName.toLowerCase()));
 
@@ -129,10 +154,30 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
   } else setErrorState(false)  ;
 };
 
+  // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
+  const onSave = handleSubmit(async data => {
+    await updateProfile({
+      variables: {
+        email: userEmail,
+        firstName: data.firstName,
+        userName: data.userName,
+        lastName: data.lastName,
+        phoneNumber: data.phoneNumber,
+        city: data.city,
+        state: data.state,
+        legal: data.legal,
+        bio: data.bio,
+      },
+    });
+
+    alert("Successfully saved account info!");
+    navigate(`/`);
+  });
+
   return (
     <Box className={classes.root}>
       <ProgressBar activeStep={1} stepNumber={1} userEmail={userEmail} />
-      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={classes.form}>
         <Box className={classes.namePhoneBox}>
           <Box>
             <InputLabel required htmlFor="firstName">First Name</InputLabel>
@@ -256,12 +301,15 @@ export default function Step1({ updateProfile, handleNext, activeStep }) {
         />
         <Box className={classes.btnBox}>
         <Typography className={classes.error}>* required field</Typography>
+          <SaveButton
+            label={"Save & Quit"}
+            ariaLabel="Click to save and continue later."
+            onClick={onSave}
+          />
           <NextButton
-            type="submit"
             label={"Next"}
             ariaLabel="Click here to complete step 1 and move onto step 2."
-            onClick={handleSubmit}
-            
+            onClick={onNext}
           />
         </Box>
       </form>

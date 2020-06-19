@@ -1,9 +1,13 @@
 // React/Reach Router imports
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
+// Apollo/GraphQL imports
+import { useQuery } from "react-apollo";
+import { PROFILE_STEP_2 } from "../queries";
 // Component imports
-import NextButton from "../../../theme/FormButton";
+import NextButton from "../../../theme/SmallFormButton";
+import SaveButton from "../../../theme/LargeFormButton";
 import ProgressBar from "../../../theme/ProgressBar";
 // Material-UI imports
 import {
@@ -20,7 +24,7 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "80%",
+    width: "85%",
     "& .MuiInputLabel-asterisk": {
       fontSize: '2rem',
       color: 'red',
@@ -57,7 +61,7 @@ const useStyles = makeStyles({
     display: "flex",
     justifyContent: "space-between",
     alignItems: 'center',
-    marginTop: "11.2rem",
+    marginTop: "8.8rem",
   },
   error: {
     color: 'red',
@@ -72,9 +76,38 @@ export default function Step2({ updateExtProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { handleSubmit, errors, control } = useForm();
+  const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_2, {
+    variables: { email: userEmail },
+  });
+  const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
+  const { handleSubmit, setValue, control, errors } = useForm();
+   // Sets default values in input fields with current user's info
+  useEffect(() => {
+    !loading && !currentUserInfo
+      ? setCurrentUserInfo(defaultInfo)
+      : setValue([
+          { gender: currentUserInfo?.profile?.extProfile?.gender },
+          { birthday: currentUserInfo?.profile?.extProfile?.birthday },
+          { eC1Name: currentUserInfo?.profile?.extProfile?.eC1Name },
+          { eC1Phone: currentUserInfo?.profile?.extProfile?.eC1Phone },
+          { eC1Relation: currentUserInfo?.profile?.extProfile?.eC1Relation },
+          {
+            physicalDisability:
+              currentUserInfo?.profile?.extProfile?.physicalDisability,
+          },
+          {
+            detailedDisabilities:
+              currentUserInfo?.profile?.extProfile?.detailedDisabilities,
+          },
+          {
+            mobilityStatus:
+              currentUserInfo?.profile?.extProfile?.mobilityStatus,
+          },
+        ]);
+  }, [loading, currentUserInfo, defaultInfo, setValue]);
 
-  const onSubmit = async data => {
+  // Will update profile and route user to next step in profile wizard
+  const onNext = handleSubmit(async data => {
     await updateExtProfile({
       variables: {
         email: userEmail,
@@ -90,12 +123,32 @@ export default function Step2({ updateExtProfile }) {
     });
     alert("Succesfully completed step 2 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step3of6`);
-  };
+  });
+
+  // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
+  const onSave = handleSubmit(async data => {
+    await updateExtProfile({
+      variables: {
+        email: userEmail,
+        gender: data.gender,
+        birthday: data.birthday,
+        eC1Name: data.eC1Name,
+        eC1Phone: data.eC1Phone,
+        eC1Relation: data.eC1Relation,
+        physicalDisability: data.physicalDisability,
+        detailedDisabilities: data.detailedDisabilities,
+        mobilityStatus: data.mobilityStatus,
+      },
+    });
+
+    alert("Succesfully saved account info!");
+    navigate(`/`);
+  });
 
   return (
     <Box className={classes.root}>
       <ProgressBar activeStep={2} stepNumber={2} userEmail={userEmail} />
-      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={classes.form}>
         <Box className={classes.genderBirthBox}>
           <Box>
             <InputLabel required htmlFor="gender">
@@ -301,10 +354,14 @@ export default function Step2({ updateExtProfile }) {
         />
         <Box className={classes.btnBox}>
         <Typography className={classes.error}>* required field</Typography>
+          <SaveButton
+            label={"Save & Quit"}
+            ariaLabel="Click to save and continue later and return to settings page."
+            onClick={onSave}
+          />
           <NextButton
             label="Next"
-            type="submit"
-            onClick={handleSubmit}
+            onClick={onNext}
             ariaLabel="Click here to complete step 2 and move onto step 3 of account information update."
           />
         </Box>

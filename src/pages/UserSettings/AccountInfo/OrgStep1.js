@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
+// Apollo/GraphQL imports
+import { useQuery } from "react-apollo";
+import { ORG_PROFILE } from "../queries";
 // Component imports
-import FinishButton from "../../../theme/FormButton";
+import FinishButton from "../../../theme/SmallFormButton";
 // Material-UI imports
 import {
   makeStyles,
@@ -53,7 +56,7 @@ const useStyles = makeStyles({
     height: 48,
   },
   bioBox: {
-    marginBottom: 200
+    marginBottom: 200,
   },
   btnBox: {
     marginTop: '3rem',
@@ -75,10 +78,28 @@ export default function OrgStep1({ updateOrgProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { handleSubmit, setValue, errors, control } = useForm();
+  const { data: defaultInfo, loading } = useQuery(ORG_PROFILE, {
+    variables: { email: userEmail },
+  });
+  const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
+  const { handleSubmit, setValue, control, errors } = useForm();
+  // Sets default values in input fields with current user's info
+  useEffect(() => {
+    !loading && !currentUserInfo
+      ? setCurrentUserInfo(defaultInfo)
+      : setValue([
+          { phoneNumber: currentUserInfo?.profile?.phoneNumber },
+          { userName: currentUserInfo?.profile?.userName },
+          { city: currentUserInfo?.profile?.city },
+          { state: currentUserInfo?.profile?.state },
+          { bio: currentUserInfo?.profile?.bio },
+          { orgName: currentUserInfo?.profile?.extProfile?.orgName },
+          { website: currentUserInfo?.profile?.extProfile?.website },
+        ]);
+  }, [loading, currentUserInfo, defaultInfo, setValue]);
 
   const onSubmit = async data => {
-   await updateOrgProfile({
+    await updateOrgProfile({
       variables: {
         email: userEmail,
         phoneNumber: data.phoneNumber,
@@ -87,7 +108,7 @@ export default function OrgStep1({ updateOrgProfile }) {
         bio: data.bio,
         userName: data.orgName,
         orgName: data.orgName,
-        website: data.website
+        website: data.website,
       },
     });
 
