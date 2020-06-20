@@ -424,7 +424,9 @@ export const PROFILE_STEP_4 = gql`
     profile(where: { email: $email }) {
       id
       demographicProfile {
+        id
         sportsParticipation {
+          id
           alpineSkiing
           airRifle
           archery

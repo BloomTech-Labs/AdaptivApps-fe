@@ -65,6 +65,7 @@ export default function Step2({ updateExtProfile }) {
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
   const { handleSubmit, setValue, control } = useForm();
+
    // Sets default values in input fields with current user's info
   useEffect(() => {
     !loading && !currentUserInfo
@@ -88,6 +89,7 @@ export default function Step2({ updateExtProfile }) {
               currentUserInfo?.profile?.extProfile?.mobilityStatus,
           },
         ]);
+        
   }, [loading, currentUserInfo, defaultInfo, setValue]);
 
   // Will update profile and route user to next step in profile wizard
