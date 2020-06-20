@@ -55,41 +55,52 @@ export default function Step5({ updateDemo2 }) {
     variables: { email: userEmail },
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
-  const { handleSubmit, setValue, control } = useForm();
+  const { handleSubmit, setValue, control } = useForm({
+    defaultValues: {
+      veteranStatus: currentUserInfo && currentUserInfo.profile.demographicProfile.veteranStatus,
+      militaryBranch: currentUserInfo && currentUserInfo.profile.demographicProfile.militaryBranch,
+      yearsServed: currentUserInfo && currentUserInfo.profile.demographicProfile.yearsServed,
+      ethnicity: currentUserInfo && currentUserInfo.profile.demographicProfile.ethnicity,
+      householdIncome: currentUserInfo && currentUserInfo.profile.demographicProfile.householdIncome,
+      employment: currentUserInfo && currentUserInfo.profile.demographicProfile.employment,
+      favProAthletes: currentUserInfo && currentUserInfo.profile.demographicProfile.favProAthletes,
+      favCelebs: currentUserInfo && currentUserInfo.profile.demographicProfile.favCelebs,
+    }
+  });
   // Sets default values in input fields with current user's info
   useEffect(() => {
     !loading && !currentUserInfo
       ? setCurrentUserInfo(defaultInfo)
       : setValue([
           {
-            veteranStatus:
-              currentUserInfo?.profile?.demographicProfile?.veteranStatus,
+            veteranStatus: currentUserInfo && 
+              currentUserInfo.profile.demographicProfile.veteranStatus,
           },
           {
-            militaryBranch:
-              currentUserInfo?.profile?.demographicProfile?.militaryBranch,
+            militaryBranch: currentUserInfo && 
+              currentUserInfo.profile.demographicProfile.militaryBranch,
           },
           {
-            yearsServed:
-              currentUserInfo?.profile?.demographicProfile?.yearsServed,
+            yearsServed: currentUserInfo && 
+              currentUserInfo.profile.demographicProfile.yearsServed,
           },
           {
-            ethnicity: currentUserInfo?.profile?.demographicProfile?.ethnicity,
+            ethnicity: currentUserInfo && currentUserInfo.profile.demographicProfile.ethnicity,
           },
           {
-            householdIncome:
-              currentUserInfo?.profile?.demographicProfile?.householdIncome,
+            householdIncome: currentUserInfo && 
+              currentUserInfo.profile.demographicProfile.householdIncome,
           },
           {
-            employment:
-              currentUserInfo?.profile?.demographicProfile?.employment,
+            employment: currentUserInfo && 
+              currentUserInfo.profile.demographicProfile.employment,
           },
           {
-            favProAthletes:
-              currentUserInfo?.profile?.demographicProfile?.favProAthletes,
+            favProAthletes: currentUserInfo && 
+              currentUserInfo.profile.demographicProfile.favProAthletes,
           },
           {
-            favCelebs: currentUserInfo?.profile?.demographicProfile?.favCelebs,
+            favCelebs: currentUserInfo && currentUserInfo.profile.demographicProfile.favCelebs,
           },
         ]);
   }, [loading, currentUserInfo, defaultInfo, setValue]);

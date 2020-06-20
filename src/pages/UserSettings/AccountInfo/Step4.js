@@ -75,12 +75,12 @@ export default function Step4({ updateSportsDemo }) {
     },
   });
 
+  console.log(defaultInfo)
   // Sets default values in input fields with current user's info
   useEffect(() => {
-    !loading && !currentUserInfo
-      ? setCurrentUserInfo(defaultInfo)
-      : !loading && currentUserInfo
-      ? setValue([
+    if (!loading && !currentUserInfo) setCurrentUserInfo(defaultInfo)
+     if (!loading && currentUserInfo) {
+    setValue([
           // { alpineSkiing: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.alpineSkiing },
           // { airRifle: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.airRifle },
           // { archery: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.archery },
@@ -158,7 +158,7 @@ export default function Step4({ updateSportsDemo }) {
                 .other,
           },
         ])
-      : refetch();
+      }
   }, [loading, currentUserInfo, defaultInfo, setValue]);
 
   // Will update profile and route user to next step in profile wizard

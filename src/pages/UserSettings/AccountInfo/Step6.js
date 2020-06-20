@@ -49,7 +49,34 @@ export default function Step6({ updateDemo3 }) {
     variables: { email: userEmail },
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
-  const { handleSubmit, setValue, control } = useForm();
+  const { handleSubmit, setValue, control } = useForm({
+    defaultValues: {
+      becomeAthleteMentor:
+        currentUserInfo &&
+        currentUserInfo.profile.demographicProfile.becomeAthleteMentor,
+      athleteMentorHelp:
+        currentUserInfo &&
+        currentUserInfo.profile.demographicProfile.athleteMentorHelp,
+      athleteMentorSport:
+        currentUserInfo &&
+        currentUserInfo.profile.demographicProfile.athleteMentorSport,
+      acsDiscovery:
+        currentUserInfo &&
+        currentUserInfo.profile.demographicProfile.acsDiscovery,
+      acsOrgSpecificDiscovery:
+        currentUserInfo &&
+        currentUserInfo.profile.demographicProfile.acsOrgSpecificDiscovery,
+      amplaEmail:
+        currentUserInfo &&
+        currentUserInfo.profile.demographicProfile.amplaEmail,
+      hangerClinic:
+        currentUserInfo &&
+        currentUserInfo.profile.demographicProfile.hangerClinic,
+      challengeMagazine:
+        currentUserInfo &&
+        currentUserInfo.profile.demographicProfile.challengeMagazine,
+    },
+  });
   // Sets default values in input fields with current user's info
   useEffect(() => {
     !loading && !currentUserInfo
@@ -57,36 +84,44 @@ export default function Step6({ updateDemo3 }) {
       : setValue([
           {
             becomeAthleteMentor:
-              currentUserInfo?.profile?.demographicProfile?.becomeAthleteMentor,
+              currentUserInfo &&
+              currentUserInfo.profile.demographicProfile.becomeAthleteMentor,
           },
           {
             athleteMentorHelp:
-              currentUserInfo?.profile?.demographicProfile?.athleteMentorHelp,
+              currentUserInfo &&
+              currentUserInfo.profile.demographicProfile.athleteMentorHelp,
           },
           {
             athleteMentorSport:
-              currentUserInfo?.profile?.demographicProfile?.athleteMentorSport,
+              currentUserInfo &&
+              currentUserInfo.profile.demographicProfile.athleteMentorSport,
           },
           {
             acsDiscovery:
-              currentUserInfo?.profile?.demographicProfile?.acsDiscovery,
+              currentUserInfo &&
+              currentUserInfo.profile.demographicProfile.acsDiscovery,
           },
           {
             acsOrgSpecificDiscovery:
-              currentUserInfo?.profile?.demographicProfile
-                ?.acsOrgSpecificDiscovery,
+              currentUserInfo &&
+              currentUserInfo.profile.demographicProfile
+                .acsOrgSpecificDiscovery,
           },
           {
             amplaEmail:
-              currentUserInfo?.profile?.demographicProfile?.amplaEmail,
+              currentUserInfo &&
+              currentUserInfo.profile.demographicProfile.amplaEmail,
           },
           {
             hangerClinic:
-              currentUserInfo?.profile?.demographicProfile?.hangerClinic,
+              currentUserInfo &&
+              currentUserInfo.profile.demographicProfile.hangerClinic,
           },
           {
             challengeMagazine:
-              currentUserInfo?.profile?.demographicProfile?.challengeMagazine,
+              currentUserInfo &&
+              currentUserInfo.profile.demographicProfile.challengeMagazine,
           },
         ]);
   }, [loading, currentUserInfo, defaultInfo, setValue]);

@@ -53,7 +53,9 @@ export default function Step3({ updateDemoProfile }) {
     variables: { email: userEmail },
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
-  const { handleSubmit, setValue, control } = useForm();
+  const { handleSubmit, setValue, control } = useForm({
+    defaultValues: {},
+  });
   // Sets default values in input fields with current user's info
   useEffect(() => {
     !loading && !currentUserInfo
@@ -61,21 +63,24 @@ export default function Step3({ updateDemoProfile }) {
       : setValue([
           {
             adaptivSportsParticipation:
-              currentUserInfo?.profile?.demographicProfile
-                ?.adaptivSportsParticipation,
+              currentUserInfo &&
+              currentUserInfo.profile.demographicProfile
+                .adaptivSportsParticipation,
           },
           {
             acsParticipation:
-              currentUserInfo?.profile?.demographicProfile?.acsParticipation,
+              currentUserInfo &&
+              currentUserInfo.profile.demographicProfile.acsParticipation,
           },
           {
             notParticipating:
-              currentUserInfo?.profile?.demographicProfile?.notParticipating,
+              currentUserInfo &&
+              currentUserInfo.profile.demographicProfile.notParticipating,
           },
           {
             angelCityParticipation:
-              currentUserInfo?.profile?.demographicProfile
-                ?.angelCityParticipation,
+              currentUserInfo &&
+              currentUserInfo.profile.demographicProfile.angelCityParticipation,
           },
         ]);
   }, [loading, currentUserInfo, defaultInfo, setValue]);

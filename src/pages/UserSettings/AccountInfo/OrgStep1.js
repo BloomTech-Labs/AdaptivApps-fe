@@ -67,19 +67,23 @@ export default function OrgStep1({ updateOrgProfile }) {
     variables: { email: userEmail },
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
-  const { handleSubmit, setValue, control } = useForm();
+  const { handleSubmit, setValue, control } = useForm({
+    defaultValues: {
+
+    }
+  });
   // Sets default values in input fields with current user's info
   useEffect(() => {
     !loading && !currentUserInfo
       ? setCurrentUserInfo(defaultInfo)
       : setValue([
-          { phoneNumber: currentUserInfo?.profile?.phoneNumber },
-          { userName: currentUserInfo?.profile?.userName },
-          { city: currentUserInfo?.profile?.city },
-          { state: currentUserInfo?.profile?.state },
-          { bio: currentUserInfo?.profile?.bio },
-          { orgName: currentUserInfo?.profile?.extProfile?.orgName },
-          { website: currentUserInfo?.profile?.extProfile?.website },
+          { phoneNumber: currentUserInfo && currentUserInfo.profile.phoneNumber },
+          { userName: currentUserInfo && currentUserInfo.profile.userName },
+          { city: currentUserInfo && currentUserInfo.profile.city },
+          { state: currentUserInfo && currentUserInfo.profile.state },
+          { bio: currentUserInfo && currentUserInfo.profile.bio },
+          { orgName: currentUserInfo && currentUserInfo.profile.extProfile.orgName },
+          { website: currentUserInfo && currentUserInfo.profile.extProfile.website },
         ]);
   }, [loading, currentUserInfo, defaultInfo, setValue]);
 
