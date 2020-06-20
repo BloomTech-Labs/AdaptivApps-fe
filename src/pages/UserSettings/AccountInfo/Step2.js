@@ -64,32 +64,67 @@ export default function Step2({ updateExtProfile }) {
     variables: { email: userEmail },
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
-  const { handleSubmit, setValue, control } = useForm();
+  const { handleSubmit, setValue, control } = useForm({
+    defaultValues: {
+      gender: currentUserInfo && currentUserInfo.profile.extProfile.gender,
+      birthday: currentUserInfo && currentUserInfo.profile.extProfile.birthday,
+      eC1Name: currentUserInfo && currentUserInfo.profile.extProfile.eC1Name,
+      eC1Phone: currentUserInfo && currentUserInfo.profile.extProfile.eC1Phone,
+      eC1Relation:
+        currentUserInfo && currentUserInfo.profile.extProfile.eC1Relation,
+      physicalDisability:
+        currentUserInfo &&
+        currentUserInfo.profile.extProfile.disability.physicalDisability,
+      detailedDisabilities:
+        currentUserInfo &&
+        currentUserInfo.profile.extProfile.disability.detailedDisabilities,
+      mobilityStatus:
+        currentUserInfo && currentUserInfo.profile.extProfile.mobilityStatus,
+    },
+  });
 
-   // Sets default values in input fields with current user's info
+  // Sets default values in input fields with current user's info
   useEffect(() => {
     !loading && !currentUserInfo
       ? setCurrentUserInfo(defaultInfo)
       : setValue([
-          { gender: currentUserInfo?.profile?.extProfile?.gender },
-          { birthday: currentUserInfo?.profile?.extProfile?.birthday },
-          { eC1Name: currentUserInfo?.profile?.extProfile?.eC1Name },
-          { eC1Phone: currentUserInfo?.profile?.extProfile?.eC1Phone },
-          { eC1Relation: currentUserInfo?.profile?.extProfile?.eC1Relation },
+          {
+            gender:
+              currentUserInfo && currentUserInfo.profile.extProfile.gender,
+          },
+          {
+            birthday:
+              currentUserInfo && currentUserInfo.profile.extProfile.birthday,
+          },
+          {
+            eC1Name:
+              currentUserInfo && currentUserInfo.profile.extProfile.eC1Name,
+          },
+          {
+            eC1Phone:
+              currentUserInfo && currentUserInfo.profile.extProfile.eC1Phone,
+          },
+          {
+            eC1Relation:
+              currentUserInfo && currentUserInfo.profile.extProfile.eC1Relation,
+          },
           {
             physicalDisability:
-              currentUserInfo?.profile?.extProfile?.physicalDisability,
+              currentUserInfo &&
+              currentUserInfo.profile.extProfile.disability.physicalDisability,
           },
           {
             detailedDisabilities:
-              currentUserInfo?.profile?.extProfile?.detailedDisabilities,
+              currentUserInfo &&
+              currentUserInfo.profile.extProfile.disability
+                .detailedDisabilities,
           },
           {
             mobilityStatus:
-              currentUserInfo?.profile?.extProfile?.mobilityStatus,
+              currentUserInfo &&
+              currentUserInfo.profile.extProfile.mobilityStatus,
           },
         ]);
-        
   }, [loading, currentUserInfo, defaultInfo, setValue]);
 
   // Will update profile and route user to next step in profile wizard
@@ -165,7 +200,6 @@ export default function Step2({ updateExtProfile }) {
               type="date"
               variant="outlined"
               control={control}
-              defaultValue=""
             />
           </Box>
         </Box>
@@ -178,7 +212,6 @@ export default function Step2({ updateExtProfile }) {
           type="text"
           variant="outlined"
           control={control}
-          defaultValue=""
         />
         <InputLabel required htmlFor="eC1Relation">
           Please tell us how your emergency contact is related to you
@@ -189,7 +222,6 @@ export default function Step2({ updateExtProfile }) {
           type="text"
           variant="outlined"
           control={control}
-          defaultValue=""
         />
         <InputLabel required htmlFor="eC1Phone">
           Please enter the best phone number for your emergency contact
@@ -200,7 +232,6 @@ export default function Step2({ updateExtProfile }) {
           type="text"
           variant="outlined"
           control={control}
-          defaultValue=""
         />
         <InputLabel htmlFor="physicalDisability">
           Please select the category of physical disability that is most

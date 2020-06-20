@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Apollo/GraphQL imports
-import { useQuery } from "react-apollo"
-import { PROFILE_STEP_4} from "../queries"
+import { useQuery } from "react-apollo";
+import { PROFILE_STEP_4 } from "../queries";
 // Component imports
 import NextButton from "../../../theme/SmallFormButton";
 import SaveButton from "../../../theme/LargeFormButton";
@@ -63,17 +63,24 @@ export default function Step4({ updateSportsDemo }) {
   const { data: defaultInfo, loading, refetch } = useQuery(PROFILE_STEP_4, {
     variables: { email: userEmail },
   });
-
-  console.log('Inside step4', defaultInfo?.profile?.demographicProfile?.sportsParticipation?.other)
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
-  const { handleSubmit, setValue, control } = useForm();
+  const { handleSubmit, setValue, control } = useForm({
+    defaultValue: {
+      yoga:
+        currentUserInfo &&
+        currentUserInfo.profile.demographicProfile.sportsParticipation.yoga,
+      other:
+        currentUserInfo &&
+        currentUserInfo.profile.demographicProfile.sportsParticipation.other,
+    },
+  });
 
   // Sets default values in input fields with current user's info
   useEffect(() => {
     !loading && !currentUserInfo
       ? setCurrentUserInfo(defaultInfo)
-      : (!loading && currentUserInfo) ? setValue([
-         
+      : !loading && currentUserInfo
+      ? setValue([
           // { alpineSkiing: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.alpineSkiing },
           // { airRifle: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.airRifle },
           // { archery: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.archery },
@@ -138,12 +145,21 @@ export default function Step4({ updateSportsDemo }) {
           // { wheelchairRugby: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.wheelchairRugby },
           // { wheelchairTennis: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.wheelchairTennis },
           // { wrestling: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.wrestling },
-          // { yoga: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.yoga },
-          { other: currentUserInfo && currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.other },
-        ]) : refetch();
+          {
+            yoga:
+              currentUserInfo &&
+              currentUserInfo.profile.demographicProfile.sportsParticipation
+                .yoga,
+          },
+          {
+            other:
+              currentUserInfo &&
+              currentUserInfo.profile.demographicProfile.sportsParticipation
+                .other,
+          },
+        ])
+      : refetch();
   }, [loading, currentUserInfo, defaultInfo, setValue]);
-  // console.log('Inside step4.js', defaultInfo)
-  // console.log('Step4', currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.other)
 
   // Will update profile and route user to next step in profile wizard
   const onNext = handleSubmit(async data => {
@@ -1259,7 +1275,7 @@ export default function Step4({ updateSportsDemo }) {
                 type="checkbox"
                 control={control}
                 color="primary"
-                // defaultValue={false}
+                defaultValue={false}
                 value={true}
               />
             </Box>
@@ -1273,7 +1289,7 @@ export default function Step4({ updateSportsDemo }) {
                 type="checkbox"
                 control={control}
                 color="primary"
-                // defaultValue={false}
+                defaultValue={false}
                 value={true}
               />
             </Box>
