@@ -48,18 +48,22 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     display: "flex",
     justifyContent: "space-between",
+    margin: "0",
   },
   profileWrapper: {
     width: "100%",
   },
-  topProfileWrapper: {},
+  topProfileWrapper: { border: "2px solid red" },
   bannerWrapper: {
     width: "100%",
     height: "20vh",
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    alignContent: "flex-end",
     "& label": {
+      padding: "0 2rem 1rem 0",
       position: "absolute",
-      top: "17rem",
-      left: "28rem",
     },
   },
   photoIcon: {
@@ -70,6 +74,7 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "50%",
   },
   pictureWrapper: {
+    border: "2px solid blue",
     display: "flex",
     justifyContent: "center",
     position: "absolute",
