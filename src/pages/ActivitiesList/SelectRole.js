@@ -64,19 +64,34 @@ export default function SimplePopover({ activity, activityData }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const participant = activity?.participants.map(participant => {
-    if (participant) {
-      if (participant.activityProfile.email === user.email) {
-        return participant?.id;
-      } else {
-        return "";
+
+  // const participant = activity?.participants.map(participant => {
+  //   if (participant) {
+  //     if (participant.activityProfile.email === user.email) {
+  //       //console.log('Found participant, id is: ', participant.id)
+  //       return participant?.id;
+  //     } else {
+  //       //console.log('Did not find participant, id is: "')
+  //       return "";
+  //     }
+  //   }
+  // });
+
+  const processParticipantID = () => {
+    if (activity && activity.participants) {
+      for (let i = 0; i < activity.participants.length; i++) {
+        if (activity.participants[i].activityProfile.email === user.email) {
+          return activity.participants[i].id;
+        }
       }
     }
-  });
-
-  const participantIdValue = JSON.stringify(participant).replace(/[\[\]"]+/g, "");
+    else {
+      return false;
+    }
+  }
 
   const athleteRegister = async () => {
+    const participantIdValue = !processParticipantID() ? "" : processParticipantID();
     await registerAsAthlete({
       variables: {
         participantId: participantIdValue,
@@ -89,6 +104,7 @@ export default function SimplePopover({ activity, activityData }) {
   };
 
   const coachRegister = async () => {
+    const participantIdValue = !processParticipantID() ? "" : processParticipantID();
     await registerAsCoach({
       variables: {
         participantId: participantIdValue,
@@ -101,6 +117,7 @@ export default function SimplePopover({ activity, activityData }) {
   };
 
   const volunteerRegister = async () => {
+    const participantIdValue = !processParticipantID() ? "" : processParticipantID();
     await registerAsVolunteer({
       variables: {
         participantId: participantIdValue,
@@ -113,6 +130,7 @@ export default function SimplePopover({ activity, activityData }) {
   };
 
   const spectatorRegister = async () => {
+    const participantIdValue = !processParticipantID() ? "" : processParticipantID();
     await registerAsSpectator({
       variables: {
         participantId: participantIdValue,
