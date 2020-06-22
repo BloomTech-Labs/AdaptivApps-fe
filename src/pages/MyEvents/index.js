@@ -62,6 +62,8 @@ export default function MyEvents() {
     variables: { email: user.email },
   });
 
+  console.log("data in my events", data);
+
   useEffect(() => {
     refetch();
   }, [refetch]);

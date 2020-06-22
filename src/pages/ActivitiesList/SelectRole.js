@@ -148,7 +148,7 @@ export default function SimplePopover({ activity, activityData }) {
             }
       }
     >
-      {activityData && activityData?.event?.type === "Webinar" ? (
+      {activityData && activityData?.event?.type === "Virtual" ? (
         <LightTooltip title="Register for Activity" placement="right">
           <Button
             className={classes.btn}

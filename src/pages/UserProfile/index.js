@@ -348,7 +348,7 @@ export default function UserProfile() {
                   <p>{demographicProfile?.militaryBranch}</p>
                 </div> */}
                 <div className={classes.sportsWrapper}>
-                  <h3>playing these sports</h3>
+                  <h3>Playing these sports</h3>
                   <div className={classes.sportsList}>
                     {filteredKeys.map(sport => (
                       <p className={classes.sportItem}>
