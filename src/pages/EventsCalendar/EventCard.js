@@ -131,9 +131,10 @@ const useStyles = makeStyles(theme => ({
 export default function EventCard({ event, refetch, user }) {
   const classes = useStyles();
   const navigate = useNavigate();
-  const [registerForEvent, { data }] = useMutation(REGISTER_FOR_EVENT);
+  const [registerForEvent] = useMutation(REGISTER_FOR_EVENT);
   const [deleteEvent] = useMutation(DELETE_EVENT);
   const [open, setOpen] = useState(false);
+  const [currAttendeeID, setCurrAttendeeID] = useState("");
   // will open DeleteModal when invoked
   const handleOpen = () => {
     setOpen(true);
@@ -143,29 +144,21 @@ export default function EventCard({ event, refetch, user }) {
     setOpen(false);
   };
 
-
-  // grab the event
-  // check the event attendees: is the user in it? 
-  //   if not: create a new attendee object
-  //   else: update the attendee object
-
-  // grab the activity
-  // check the event participant: is the user in it?
-  //   if not: create a new participant object
-  //   else: update the participant object
-
-  const attendee = event?.attendees.map(attendee => {
-    if (attendee) {
-      if (attendee.eventProfile.email === user.email) {
-        return attendee?.id;
+  const processAttendeeID = () => {
+    if (event && event.attendees) {
+      for (let i = 0; i < event.attendees.length; i++) {
+        if (event.attendees[i].eventProfile.email === user.email) {
+          return event.attendees[i].id;
+        }
       }
-    } else {
-      return "";
     }
-  });
-  const attendeeIdValue = JSON.stringify(attendee).replace(/[\[\]"]+/g, "");
+    else {
+      return false;
+    }
+  }
 
   const registerEvent = async () => {
+    const attendeeIdValue = !processAttendeeID() ? "" : processAttendeeID();
     await registerForEvent({
       variables: {
         attendeeId: attendeeIdValue,
