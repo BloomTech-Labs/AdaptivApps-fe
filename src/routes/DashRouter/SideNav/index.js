@@ -274,6 +274,8 @@ function SideNav(props) {
   );
 
   !subData && refetch();
+  !notificationLoading && refetchNotifications();
+  
   return (
     <div className={classes.root}>
       <Toolbar position="fixed" style={{ "margin": "0" }}>

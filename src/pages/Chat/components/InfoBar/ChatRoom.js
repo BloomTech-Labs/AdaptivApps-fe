@@ -170,7 +170,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoo
   }, 3000);
 
   const roomNotifications = [];
-  notifications && notifications.map(notification => notification.chatroom.id === chatRoom.id && roomNotifications.push(notification.id));
+  notifications !== null && notifications.length > 0 && notifications.map(notification => notification.chatroom !== null && notification.chatroom.id === chatRoom.id && roomNotifications.push(notification.id));
 
   const senderName = chatRoom?.chats?.find(chat => chat?.from.email !== user?.email)
 
