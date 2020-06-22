@@ -37,7 +37,7 @@ export default function EventForm({
   loading,
   eventId,
 }) {
-  const { data: tagsData } = useQuery(GET_TAGS);
+  const { data: tagsData, refetch: refetchTags } = useQuery(GET_TAGS);
   const [CreateTag] = useMutation(CREATE_TAG);
   const [currentEvent, setCurrentEvent] = useState(event);
   const classes = useStyles();
@@ -157,6 +157,11 @@ export default function EventForm({
       alert("Successfully updated an event!");
     }
   };
+
+  useEffect(() => {
+    refetchTags();
+  }, [refetchTags])
+
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>

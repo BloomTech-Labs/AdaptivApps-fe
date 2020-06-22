@@ -21,6 +21,9 @@ export const GET_EVENT_LIST = gql`
       details
       attendees {
         id
+        eventProfile {
+          email
+        }
       }
     }
   }

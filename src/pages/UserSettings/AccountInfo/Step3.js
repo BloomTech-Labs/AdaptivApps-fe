@@ -1,9 +1,13 @@
 // React/Reach Router imports
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
+// Apollo/GraphQL imports
+import { useQuery } from "react-apollo";
+import { PROFILE_STEP_3 } from "../queries";
 // Component imports
-import NextButton from "../../../theme/FormButton";
+import NextButton from "../../../theme/SmallFormButton";
+import SaveButton from "../../../theme/LargeFormButton";
 import ProgressBar from "../../../theme/ProgressBar";
 // Material-UI imports
 import {
@@ -19,7 +23,7 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "67.5%",
+    width: "85%",
   },
   form: {
     display: "flex",
@@ -33,11 +37,11 @@ const useStyles = makeStyles({
     marginTop: "2.4rem",
   },
   textBox: {
-    marginBottom: 240,
+    marginBottom: "35rem",
   },
   btnBox: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
   },
 });
 
@@ -45,9 +49,38 @@ export default function Step3({ updateDemoProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { handleSubmit, errors, control } = useForm();
-
-  const onSubmit = async data => {
+  const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_3, {
+    variables: { email: userEmail },
+  });
+  const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
+  const { handleSubmit, setValue, control } = useForm();
+  // Sets default values in input fields with current user's info
+  useEffect(() => {
+    !loading && !currentUserInfo
+      ? setCurrentUserInfo(defaultInfo)
+      : setValue([
+          {
+            adaptivSportsParticipation:
+              currentUserInfo?.profile?.demographicProfile
+                ?.adaptivSportsParticipation,
+          },
+          {
+            acsParticipation:
+              currentUserInfo?.profile?.demographicProfile?.acsParticipation,
+          },
+          {
+            notParticipating:
+              currentUserInfo?.profile?.demographicProfile?.notParticipating,
+          },
+          {
+            angelCityParticipation:
+              currentUserInfo?.profile?.demographicProfile
+                ?.angelCityParticipation,
+          },
+        ]);
+  }, [loading, currentUserInfo, defaultInfo, setValue]);
+  // Will update profile and route user to next step in profile wizard
+  const onNext = handleSubmit(async data => {
     await updateDemoProfile({
       variables: {
         email: userEmail,
@@ -59,12 +92,26 @@ export default function Step3({ updateDemoProfile }) {
     });
     alert("Successfully completed step 3 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step4of6`);
-  };
+  });
+  // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
+  const onSave = handleSubmit(async data => {
+    await updateDemoProfile({
+      variables: {
+        email: userEmail,
+        adaptivSportsParticipation: data.adaptivSportsParticipation,
+        acsParticipation: data.acsParticipation,
+        notParticipating: data.notParticipating,
+        angelCityParticipation: data.angelCityParticipation,
+      },
+    });
+    alert("Successfully saved account info!");
+    navigate(`/`);
+  });
 
   return (
     <Box className={classes.root}>
       <ProgressBar activeStep={3} stepNumber={3} userEmail={userEmail} />
-      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={classes.form}>
         <InputLabel htmlFor="adaptivSportsParticipation">
           Have you ever participated in adaptive sports before?
         </InputLabel>
@@ -132,10 +179,14 @@ export default function Step3({ updateDemoProfile }) {
           defaultValue=""
         />
         <Box className={classes.btnBox}>
+          <SaveButton
+            label={"Save & Quit"}
+            ariaLabel="Click to save and continue later and return to settings page."
+            onClick={onSave}
+          />
           <NextButton
             label="Next"
-            type="submit"
-            onClick={handleSubmit}
+            onClick={onNext}
             ariaLabel="Click here to complete step 3 and move onto step 4 of account information update."
           />
         </Box>

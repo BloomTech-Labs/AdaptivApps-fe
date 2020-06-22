@@ -65,16 +65,16 @@ export default function SimplePopover({ activity, activityData }) {
     setAnchorEl(null);
   };
   const participant = activity?.participants.map(participant => {
-    return participant?.id;
+    if (participant) {
+      if (participant.activityProfile.email === user.email) {
+        return participant?.id;
+      } else {
+        return "";
+      }
+    }
   });
-  const participantIdValue = JSON.stringify(participant).replace(
-    /[\[\]"]+/g,
-    ""
-  );
-  console.log("participant", participant);
-  console.log("participant ID VALUE", participantIdValue);
-  console.log("activity", activity);
-  console.log("activityData", activityData);
+
+  const participantIdValue = JSON.stringify(participant).replace(/[\[\]"]+/g, "");
 
   const athleteRegister = async () => {
     await registerAsAthlete({
@@ -133,19 +133,19 @@ export default function SimplePopover({ activity, activityData }) {
       value={
         anchorEl
           ? {
-              style: {
-                background: "white",
-                color: "#FFC629",
-                fontSize: "3rem",
-              },
-            }
+            style: {
+              background: "white",
+              color: "#FFC629",
+              fontSize: "3rem",
+            },
+          }
           : {
-              style: {
-                background: "white",
-                color: "#2962FF",
-                fontSize: "3rem",
-              },
-            }
+            style: {
+              background: "white",
+              color: "#2962FF",
+              fontSize: "3rem",
+            },
+          }
       }
     >
       {activityData && activityData?.event?.type === "Virtual" ? (
@@ -160,50 +160,50 @@ export default function SimplePopover({ activity, activityData }) {
           </Button>
         </LightTooltip>
       ) : (
-        <>
-          <LightTooltip title="Register for Activity" placement="right">
-            <Button
-              className={classes.btn}
-              aria-describedby={id}
-              variant="contained"
-              onClick={handleClick}
+          <>
+            <LightTooltip title="Register for Activity" placement="right">
+              <Button
+                className={classes.btn}
+                aria-describedby={id}
+                variant="contained"
+                onClick={handleClick}
+              >
+                <IoIosAddCircle />
+              </Button>
+            </LightTooltip>
+            <Popover
+              className={classes.popover}
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "center",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "center",
+                horizontal: "left",
+              }}
+              classes={{ paper: classes.dialogPaper }}
             >
-              <IoIosAddCircle />
-            </Button>
-          </LightTooltip>
-          <Popover
-            className={classes.popover}
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: "center",
-              horizontal: "right",
-            }}
-            transformOrigin={{
-              vertical: "center",
-              horizontal: "left",
-            }}
-            classes={{ paper: classes.dialogPaper }}
-          >
-            <Box className={classes.box}>
-              <Button className={classes.role} onClick={athleteRegister}>
-                I'm Competing
+              <Box className={classes.box}>
+                <Button className={classes.role} onClick={athleteRegister}>
+                  I'm Competing
               </Button>
-              <Button className={classes.role} onClick={coachRegister}>
-                I'm Coaching
+                <Button className={classes.role} onClick={coachRegister}>
+                  I'm Coaching
               </Button>
-              <Button className={classes.role} onClick={volunteerRegister}>
-                I'm Volunteering
+                <Button className={classes.role} onClick={volunteerRegister}>
+                  I'm Volunteering
               </Button>
-              <Button className={classes.role} onClick={spectatorRegister}>
-                I'm Spectating
+                <Button className={classes.role} onClick={spectatorRegister}>
+                  I'm Spectating
               </Button>
-            </Box>
-          </Popover>
-        </>
-      )}
+              </Box>
+            </Popover>
+          </>
+        )}
     </IconContext.Provider>
   );
 }

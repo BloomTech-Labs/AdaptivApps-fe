@@ -1,13 +1,18 @@
 // React/Reach Router imports
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
+// Apollo/GraphQL imports
+import { useQuery } from "react-apollo";
+import { PROFILE_STEP_2 } from "../queries";
 // Component imports
-import NextButton from "../../../theme/FormButton";
+import NextButton from "../../../theme/SmallFormButton";
+import SaveButton from "../../../theme/LargeFormButton";
 import ProgressBar from "../../../theme/ProgressBar";
 // Material-UI imports
 import {
   makeStyles,
+  Typography,
   Box,
   InputLabel,
   TextField,
@@ -19,7 +24,12 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "67.5%",
+    width: "85%",
+    "& .MuiInputLabel-asterisk": {
+      fontSize: '2rem',
+      color: 'red',
+      fontWeight: 'bolder'
+    }
   },
   form: {
     display: "flex",
@@ -27,7 +37,6 @@ const useStyles = makeStyles({
     "& .MuiTextField-root": {
       width: 744,
       height: 48,
-      marginBottom: "2.4rem",
     },
   },
   genderBirthBox: {
@@ -36,29 +45,69 @@ const useStyles = makeStyles({
       width: 360,
       height: 48,
     },
+    marginBottom: "1.2rem",
   },
   shortSelect: {
     width: 360,
     marginRight: "2.4rem",
-    marginBottom: "2.4rem",
   },
   longSelect: {
     marginBottom: "2.4rem",
   },
+  ecfield: {
+    margin: "1.2rem 0",
+  },
   btnBox: {
     display: "flex",
-    justifyContent: "flex-end",
-    marginTop: "11.2rem",
+    justifyContent: "space-between",
+    alignItems: 'center',
+    marginTop: "8.8rem",
   },
+  error: {
+    color: 'red',
+    fontSize: '1.75rem',    
+    fontVariant: 'all-small-caps',
+    fontWeight: 'bold',
+    marginTop: '1rem'
+  }
 });
 
 export default function Step2({ updateExtProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { handleSubmit, errors, control } = useForm();
+  const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_2, {
+    variables: { email: userEmail },
+  });
+  const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
+  const { handleSubmit, setValue, control, errors } = useForm();
+   // Sets default values in input fields with current user's info
+  useEffect(() => {
+    !loading && !currentUserInfo
+      ? setCurrentUserInfo(defaultInfo)
+      : setValue([
+          { gender: currentUserInfo?.profile?.extProfile?.gender },
+          { birthday: currentUserInfo?.profile?.extProfile?.birthday },
+          { eC1Name: currentUserInfo?.profile?.extProfile?.eC1Name },
+          { eC1Phone: currentUserInfo?.profile?.extProfile?.eC1Phone },
+          { eC1Relation: currentUserInfo?.profile?.extProfile?.eC1Relation },
+          {
+            physicalDisability:
+              currentUserInfo?.profile?.extProfile?.physicalDisability,
+          },
+          {
+            detailedDisabilities:
+              currentUserInfo?.profile?.extProfile?.detailedDisabilities,
+          },
+          {
+            mobilityStatus:
+              currentUserInfo?.profile?.extProfile?.mobilityStatus,
+          },
+        ]);
+  }, [loading, currentUserInfo, defaultInfo, setValue]);
 
-  const onSubmit = async data => {
+  // Will update profile and route user to next step in profile wizard
+  const onNext = handleSubmit(async data => {
     await updateExtProfile({
       variables: {
         email: userEmail,
@@ -74,12 +123,32 @@ export default function Step2({ updateExtProfile }) {
     });
     alert("Succesfully completed step 2 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step3of6`);
-  };
+  });
+
+  // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
+  const onSave = handleSubmit(async data => {
+    await updateExtProfile({
+      variables: {
+        email: userEmail,
+        gender: data.gender,
+        birthday: data.birthday,
+        eC1Name: data.eC1Name,
+        eC1Phone: data.eC1Phone,
+        eC1Relation: data.eC1Relation,
+        physicalDisability: data.physicalDisability,
+        detailedDisabilities: data.detailedDisabilities,
+        mobilityStatus: data.mobilityStatus,
+      },
+    });
+
+    alert("Succesfully saved account info!");
+    navigate(`/`);
+  });
 
   return (
     <Box className={classes.root}>
       <ProgressBar activeStep={2} stepNumber={2} userEmail={userEmail} />
-      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={classes.form}>
         <Box className={classes.genderBirthBox}>
           <Box>
             <InputLabel required htmlFor="gender">
@@ -98,7 +167,9 @@ export default function Step2({ updateExtProfile }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
+            {errors.gender && <Typography className={classes.error}>gender is a required field</Typography>}
           </Box>
           <Box>
             <InputLabel required htmlFor="birthday">
@@ -111,9 +182,12 @@ export default function Step2({ updateExtProfile }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
+            {errors.birthday && <Typography className={classes.error}>birthday is a required field</Typography>}
           </Box>
         </Box>
+        <Box className={classes.ecfield}>
         <InputLabel required htmlFor="eC1Name">
           Please enter the name of your emergency contact
         </InputLabel>
@@ -124,7 +198,11 @@ export default function Step2({ updateExtProfile }) {
           variant="outlined"
           control={control}
           defaultValue=""
+          rules={{ required: true }}
         />
+        {errors.eC1Name && <Typography className={classes.error}>emergency contact is a required field</Typography>}
+        </Box>
+        <Box className={classes.ecfield}>
         <InputLabel required htmlFor="eC1Relation">
           Please tell us how your emergency contact is related to you
         </InputLabel>
@@ -135,7 +213,11 @@ export default function Step2({ updateExtProfile }) {
           variant="outlined"
           control={control}
           defaultValue=""
+          rules={{ required: true }}
         />
+        {errors.eC1Relation && <Typography className={classes.error}>emergency contact relation is a required field</Typography>}
+        </Box>
+        <Box className={classes.ecfield}>
         <InputLabel required htmlFor="eC1Phone">
           Please enter the best phone number for your emergency contact
         </InputLabel>
@@ -146,7 +228,10 @@ export default function Step2({ updateExtProfile }) {
           variant="outlined"
           control={control}
           defaultValue=""
+          rules={{ required: true }}
         />
+        {errors.eC1Phone && <Typography className={classes.error}>emergency contact phone number is a required field</Typography>}
+        </Box>
         <InputLabel htmlFor="physicalDisability">
           Please select the category of physical disability that is most
           accurate for you
@@ -268,10 +353,15 @@ export default function Step2({ updateExtProfile }) {
           defaultValue=""
         />
         <Box className={classes.btnBox}>
+        <Typography className={classes.error}>* required field</Typography>
+          <SaveButton
+            label={"Save & Quit"}
+            ariaLabel="Click to save and continue later and return to settings page."
+            onClick={onSave}
+          />
           <NextButton
             label="Next"
-            type="submit"
-            onClick={handleSubmit}
+            onClick={onNext}
             ariaLabel="Click here to complete step 2 and move onto step 3 of account information update."
           />
         </Box>

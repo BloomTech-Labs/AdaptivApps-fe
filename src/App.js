@@ -22,7 +22,6 @@ import EditActivity from "./pages/ManageEvents/EditActivity";
 import CreateActivity from "./pages/ManageEvents/CreateActivity";
 import Accessibility from "./pages/Landing/Legal/Accessibility";
 import PrivacyPolicy from "./pages/Landing/Legal/PrivacyPolicy";
-import ManageUsers from "./pages/ManageUsers";
 import ChatFeature from "./pages/Chat/index";
 import NewsfeedPage from './pages/Newsfeed/components/NewsfeedPage'
 
@@ -155,7 +154,6 @@ function App() {
             <EditEvent path="editEvent/:eventId" />
             <CreateActivity path="createEvent/:eventId" />
             <EditActivity path="editActivity/:activityId" />
-            <ManageUsers path="users" />
             <ChatFeature path="chats" />
             <NewsfeedPage path="/newsfeed" />
           </PrivateRoute>

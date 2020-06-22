@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "@reach/router";
-import { useAuth0 } from "../../config/react-auth0-spa";
 import moment from "moment";
 // Component imports
 import SimpleModal from "./SimpleModal";
@@ -129,11 +128,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function EventCard({ event, refetch }) {
+export default function EventCard({ event, refetch, user }) {
   const classes = useStyles();
-  const { user } = useAuth0();
   const navigate = useNavigate();
-  const [registerForEvent] = useMutation(REGISTER_FOR_EVENT);
+  const [registerForEvent, { data }] = useMutation(REGISTER_FOR_EVENT);
   const [deleteEvent] = useMutation(DELETE_EVENT);
   const [open, setOpen] = useState(false);
   // will open DeleteModal when invoked
@@ -145,8 +143,25 @@ export default function EventCard({ event, refetch }) {
     setOpen(false);
   };
 
+
+  // grab the event
+  // check the event attendees: is the user in it? 
+  //   if not: create a new attendee object
+  //   else: update the attendee object
+
+  // grab the activity
+  // check the event participant: is the user in it?
+  //   if not: create a new participant object
+  //   else: update the participant object
+
   const attendee = event?.attendees.map(attendee => {
-    return attendee?.id;
+    if (attendee) {
+      if (attendee.eventProfile.email === user.email) {
+        return attendee?.id;
+      }
+    } else {
+      return "";
+    }
   });
   const attendeeIdValue = JSON.stringify(attendee).replace(/[\[\]"]+/g, "");
 
@@ -195,7 +210,6 @@ export default function EventCard({ event, refetch }) {
       </Box>
     </>
   );
-  console.log(event?.imgUrl);
   return (
     <>
       <Card className={classes.root}>
