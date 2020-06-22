@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Tabs, Tab, Typography, Box, Paper, Button } from "@material-ui/core";
+import { Tabs, Tab, Typography, Box, Paper } from "@material-ui/core";
 import moment from "moment";
 import Activities from "./Activities";
 
@@ -64,7 +64,7 @@ export default function ActivityGroup({ data, refetch }) {
   const endDate = moment(data?.event?.endDate);
   console.log(data);
 
-  const getDatesRangeArray = function(startDate, endDate, interval) {
+  const getDatesRangeArray = function (startDate, endDate, interval) {
     console.log(startDate, endDate, interval);
     let cfg = { interval: interval || "days" };
     let dateArray = [];

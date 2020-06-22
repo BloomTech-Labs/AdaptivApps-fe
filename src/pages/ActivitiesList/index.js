@@ -112,6 +112,7 @@ export default function ActivityList() {
   );
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
+  console.log('what on earth ', activityData)
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
