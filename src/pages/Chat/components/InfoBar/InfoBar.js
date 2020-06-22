@@ -112,16 +112,18 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   const [searchRecipient, setSearchRecipient] = useState("");
   const [results, setResults] = useState([]);
 
+  // Chatroom/Chat messages Subscription
   const { error: roomError, loading: roomsLoading, data: chatRoomSub } = useSubscription(CHAT_ROOM_SUBSCRIPTION)
   const { error: chatError, loading: chatLoading, data: chatsData } = useSubscription(CHAT_SUBSCRIPTION)
   const { error, loading, data: chatRoomData, refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email }})
-    
-  const participants = chatRoomData && chatRoomData?.profile.chatRooms.map(item => item.participants).concat().flat();
-
+  
+  // Notification Subscription
   const { data: notifications, refetch: refetchNotifications } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email }})
-  const { error: notificationError, loading: notificationLoading, data: notification } = useSubscription(NOTIFICATION_SUBSCRIPTION)
+  const { error: notificationError, loading: notificationLoading } = useSubscription(NOTIFICATION_SUBSCRIPTION)
 
   // Search for a chat room
+  const participants = chatRoomData && chatRoomData?.profile.chatRooms.map(item => item.participants).concat().flat();
+  
   const searchRooms = e => {
     e.preventDefault();
     let filter =

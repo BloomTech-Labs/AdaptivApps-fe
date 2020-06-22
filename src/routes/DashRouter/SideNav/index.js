@@ -7,6 +7,10 @@ import { useAuth0 } from "../../../config/react-auth0-spa";
 // Query Imports
 import { useQuery, useSubscription } from "react-apollo";
 import { GET_MY_PROFILE, PROFILE_SUBSCRIPTION } from "./queries/profile";
+import { GET_NOTIFICATIONS, NOTIFICATION_SUBSCRIPTION } from '../../../pages/Chat/queries/Notifications'
+
+// Styling imports
+import { withStyles } from '@material-ui/core/styles';
 
 import NavLink from "./NavLink";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
@@ -20,6 +24,7 @@ import SettingsIcon from "@material-ui/icons/SettingsOutlined";
 import { IconContext } from "react-icons";
 import { FiLogOut } from "react-icons/fi";
 import acsLogo from "../../../assets/images/acsLogo.png";
+import Badge from '@material-ui/core/Badge';
 import {
   makeStyles,
   useTheme,
@@ -33,6 +38,17 @@ import {
 } from "@material-ui/core";
 
 const drawerWidth = "25rem";
+
+const StyledBadge = withStyles((theme) => ({
+  badge: {
+    left: 0,
+    top: 10,
+    width: '2%', 
+    backgroundColor: '#052942',
+    color: 'white',
+    fontSize: '1.25rem'
+  },
+}))(Badge);
 
 const useStyles = makeStyles(theme => ({
   // Root is mobile only
@@ -163,6 +179,7 @@ function SideNav(props) {
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
+  // Refetch profile when updated
   const { data, refetch } = useQuery(GET_MY_PROFILE, {
     variables: {
       email: user?.email,
@@ -170,6 +187,13 @@ function SideNav(props) {
   });
 
   const { data: subData } = useSubscription(PROFILE_SUBSCRIPTION);
+
+  // Update notifications in real time
+  const { data: notifications, refetch: refetchNotifications } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email }})
+  const { error: notificationError, loading: notificationLoading } = useSubscription(NOTIFICATION_SUBSCRIPTION)
+
+  console.log(notifications)
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -213,8 +237,12 @@ function SideNav(props) {
               </Tooltip>
             ) : (
                 <NavLink to="/chats" className={classes.navLink}>
-                  <ForumOutlinedIcon className={classes.navIcon} />
-                  <p>Chats</p>
+                  <StyledBadge
+                    overlap='circle'
+                    badgeContent={notifications?.profile?.notifications?.length}>
+                      <ForumOutlinedIcon className={classes.navIcon} />
+                  </StyledBadge>
+                    <p>Chats</p>
                 </NavLink>
               )}
             <NavLink to="/newsfeed" className={classes.navLink}>

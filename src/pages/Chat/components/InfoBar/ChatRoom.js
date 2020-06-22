@@ -228,7 +228,7 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoo
     <>
       <div className={classes.root}>
         <Tooltip title="Click to Delete Chatroom">
-          {notifications?.length > 0 ? (
+          {notifications?.length > 0 && !messageToggle ? (
             <Tooltip title="New Message!">
               <StyledBadge
                 badgeContent={roomNotifications.length}
