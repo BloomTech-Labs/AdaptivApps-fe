@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 export default function EventsCalendar() {
   const { user } = useAuth0();
   const classes = useStyles();
-  const { loading, error, data, refetch } = useQuery(GET_EVENT_LIST);
+  const { loading, error, data, refetch } = useQuery(GET_EVENT_LIST, { fetchPolicy: "no-cache" });
   const [isSearching, setIsSearching] = useState(false);
 
   // refetches EVENT_LIST without refreshing page
@@ -69,7 +69,7 @@ export default function EventsCalendar() {
         ) : null}
         <Grid className={classes.grid}>
           {!isSearching ? (
-            <EventList currentEvents={currentEvents} refetch={refetch} />
+            <EventList currentEvents={currentEvents} refetch={refetch} user={user} />
           ) : null}
         </Grid>
       </main>

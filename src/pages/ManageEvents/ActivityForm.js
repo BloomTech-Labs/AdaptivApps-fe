@@ -285,7 +285,20 @@ export default function ActivityForm({
             Save
           </Button>
         </LightTooltip>
+        {window.location.pathname !== `/editActivity/${activityId}` &&
+          <LightTooltip title="Finish Event Creation">
+            <Button
+              className={classes.button}
+              variant="outlined"
+              aria-label="Click here to finish event creation"
+              onClick={() => navigate(`/calendar/${eventId}`)}
+            >
+              Finish
+          </Button>
+          </LightTooltip>
+        }
       </Box>
     </form>
   );
 }
+
