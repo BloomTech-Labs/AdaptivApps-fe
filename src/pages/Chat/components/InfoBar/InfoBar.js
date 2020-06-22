@@ -8,6 +8,7 @@ import AnnouncementModal from "../Modals/AnnouncementModal";
 import { useQuery, useSubscription } from "react-apollo";
 import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms'
 import { CHAT_SUBSCRIPTION } from '../../queries/Chats'
+import { GET_NOTIFICATIONS, NOTIFICATION_SUBSCRIPTION } from '../../queries/Notifications'
 
 //Auth0 imports
 import config from "../../../../config/auth_config";
@@ -112,17 +113,20 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   const [results, setResults] = useState([]);
 
   const { error: roomError, loading: roomsLoading, data: chatRoomSub } = useSubscription(CHAT_ROOM_SUBSCRIPTION)
-  const { error: chatError, loading: chatLoading, data: chats } = useSubscription(CHAT_SUBSCRIPTION)
-  const { error, loading, data, refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email }})
+  const { error: chatError, loading: chatLoading, data: chatsData } = useSubscription(CHAT_SUBSCRIPTION)
+  const { error, loading, data: chatRoomData, refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email }})
     
-  const participants = data && data?.profile.chatRooms.map(item => item.participants).concat().flat();
+  const participants = chatRoomData && chatRoomData?.profile.chatRooms.map(item => item.participants).concat().flat();
+
+  const { data: notifications, refetch: refetchNotifications } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email }})
+  const { error: notificationError, loading: notificationLoading, data: notification } = useSubscription(NOTIFICATION_SUBSCRIPTION)
 
   // Search for a chat room
   const searchRooms = e => {
     e.preventDefault();
     let filter =
-      data &&
-      data?.profile.chatRooms.map(room => {
+    chatRoomData &&
+    chatRoomData?.profile.chatRooms.map(room => {
         let users = room.participants.map(user => {
           if (
             user.firstName !== null &&
@@ -167,10 +171,14 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   };
 
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
-  if (error || roomError || chatError ) return `Error! ${error.message}`;
+  if (error || roomError || chatError || notificationError ) return `Error! ${error.message}` || `Error! ${roomError.message}` || `Error! ${chatError.message}` || `Error! ${notificationError.message}`;
 
   !roomsLoading && refetch();
   !chatLoading && refetch();
+  !notificationLoading && refetchNotifications();
+
+  console.log('sub', notification)
+  console.log('query', notifications)
 
   return (
     <div className={classes.root}>
@@ -200,8 +208,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
           user={user}
           setOpen={setOpen}
           setNewRoom={setNewRoom}
-          allChatrooms={data}
-          
+          allChatrooms={chatRoomData}
         />
       </Modal>
       {user && user[config.roleUrl].includes("Admin") ? (
@@ -246,28 +253,28 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
                 <ChatRoom
                   key={chatRoom.id}
                   chatRoom={chatRoom}
-                  chats={chats}
+                  chats={chatsData}
                   chatRoomSub={chatRoomSub}
                   user={user}
                   setDeleteRoom={setDeleteRoom}
+                  notifications={notifications?.profile?.notifications}
                 />
                 <Divider variant="inset" className={classes.divider} />
               </div>
             ))
-            // : data?.profile?.chatRooms === undefined
-            : data?.profile?.chatRooms === undefined
+            : chatRoomData?.profile?.chatRooms === undefined
           ? null
-          : data &&
-            data?.profile.chatRooms?.map((chatRoom) => (
+          : chatRoomData &&
+          chatRoomData?.profile.chatRooms?.map((chatRoom) => (
               <div className={classes.chatroom} key={chatRoom.id}>
                 <ChatRoom
                   key={chatRoom.id}
                   chatRoom={chatRoom}
-                  chats={chats}
+                  chats={chatsData}
                   chatRoomSub={chatRoomSub}
                   user={user}
                   setDeleteRoom={setDeleteRoom}
-                
+                  notifications={notifications?.profile?.notifications}
                 />
                 <Divider variant="inset" className={classes.divider} />
               </div>
