@@ -116,15 +116,27 @@ export default function MyEventCard({ event, refetch }) {
 
   // Unregisters user from specified event and all it's activities
   const eventUnregister = async () => {
-    const participantIds = data?.participants?.map(participant => {
-      return participant.id;
-    });
+    // const participantIds = data?.participants?.map(participant => {
+    //   return participant.id;
+    // });
 
     const participantId = data?.participants?.map(participant => {
-      return participant.id;
+      if (participant) {
+        if (participant.activityProfile.email === user.email) {
+          return participant?.id;
+        } else {
+          return "";
+        }
+      }
     });
     const attendeeId = attendeeData?.participants?.map(attendee => {
-      return attendee.id;
+      if (attendee) {
+        if (attendee.eventProfile.email === user.email) {
+          return attendee?.id;
+        }
+      } else {
+        return "";
+      }
     });
     const participantIdValue = JSON.stringify(participantId).replace(
       /[\[\]"]+/g,
@@ -150,7 +162,7 @@ export default function MyEventCard({ event, refetch }) {
           variables: {
             attendeeId: attendeeIdValue,
             email: user?.email,
-            participantIds: participantIds,
+            participantId: participantId,
           },
         });
     await refetch();
@@ -214,7 +226,7 @@ export default function MyEventCard({ event, refetch }) {
           <FacebookShareButton
             url={'http://angelcitysports.org/'}
             quote={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}`}
-            >
+          >
             <FacebookIcon size={32} round={true} />
           </FacebookShareButton>
         </Tooltip>
@@ -223,7 +235,7 @@ export default function MyEventCard({ event, refetch }) {
             title={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}\n`}
             url={'http://angelcitysports.org/'}
             via={'angelcitysports'}
-            >
+          >
             <TwitterIcon size={32} round={true} />
           </TwitterShareButton>
         </Tooltip>
@@ -232,7 +244,7 @@ export default function MyEventCard({ event, refetch }) {
             title={'Angel City Sports Event'}
             summary={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}`}
             url={'http://angelcitysports.org/'}
-            >
+          >
             <LinkedinIcon size={32} round={true} />
           </LinkedinShareButton>
         </Tooltip>
