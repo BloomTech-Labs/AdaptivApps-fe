@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import RecipientModal from "../Modals/Modal";
 import ChatRoom from "./ChatRoom";
+
 import AnnouncementRoom from "./AnnouncementRoom";
 import AnnouncementModal from "../Modals/AnnouncementModal";
 
@@ -8,6 +9,7 @@ import AnnouncementModal from "../Modals/AnnouncementModal";
 import { useQuery, useSubscription } from "react-apollo";
 import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms'
 import { CHAT_SUBSCRIPTION } from '../../queries/Chats'
+import { GET_ANNOUNCEMENTS, ANNOUNCEMENT_SUBSCRIPTION } from '../../queries/Announcements';
 import { GET_NOTIFICATIONS, NOTIFICATION_SUBSCRIPTION } from '../../queries/Notifications'
 
 //Auth0 imports
@@ -121,9 +123,13 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   const { data: notifications, refetch: refetchNotifications } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email }})
   const { error: notificationError, loading: notificationLoading } = useSubscription(NOTIFICATION_SUBSCRIPTION)
 
+  // Announcement Subscription
+  const { error: announcementError, loading: announcementLoading, data: announcementData } = useSubscription(ANNOUNCEMENT_SUBSCRIPTION, { variables: { isAnnouncementRoom: true } });
+  const { data: announcements, refetch: refetchAnnouncements } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
+
   // Search for a chat room
   const participants = chatRoomData && chatRoomData?.profile.chatRooms.map(item => item.participants).concat().flat();
-  
+
   const searchRooms = e => {
     e.preventDefault();
     let filter =
@@ -173,10 +179,14 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   };
 
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
-  if (error || roomError || chatError || notificationError ) return `Error! ${error.message}` || `Error! ${roomError.message}` || `Error! ${chatError.message}` || `Error! ${notificationError.message}`;
+  if (error || roomError || chatError || announcementError || notificationError ) return `Error! ${error.message}` || `Error! ${roomError.message}` || `Error! ${chatError.message}` || `Error! ${notificationError.message}`;
+
+  console.log(announcementData)
+  console.log(announcements)
 
   !roomsLoading && refetch();
   !chatLoading && refetch();
+  !announcementLoading && refetchAnnouncements();
   !notificationLoading && refetchNotifications();
 
   return (
@@ -244,7 +254,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
         </>
       ) : null}
       <div className={classes.chatRoomDiv}>
-        <AnnouncementRoom user={user} />
+        <AnnouncementRoom user={user} announcements={announcements}/>
         <Divider variant="inset" className={classes.divider} />
         {results.length > 0
           ? results.map((chatRoom, id) => (

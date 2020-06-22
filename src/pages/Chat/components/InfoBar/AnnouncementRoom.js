@@ -85,7 +85,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function AnnouncementRoom({ user }) {
+export default function AnnouncementRoom({ user, announcements }) {
     const classes = useStyles();
     const [messageToggle, setMessageToggle] = useState(false);
     const [updateChat, setUpdateChat] = useState(false);
@@ -117,11 +117,18 @@ export default function AnnouncementRoom({ user }) {
             <BookmarksIcon 
             className={classes.chatRoomIcon}/>           
           <Tooltip title="Click to expand messages">
+            <StyledBadge
+            badgeContent={4}
+            overlap='circle'
+            >
             <button 
               className={classes.chatRoomButton} 
               onClick={handleClick} 
               aria-label="Open all announcements"
-              disabled={disableClick}>Announcements</button>
+              disabled={disableClick}>
+                Announcements
+                </button>
+              </StyledBadge>
           </Tooltip>
         </div>
         <Drawer
@@ -170,7 +177,7 @@ export default function AnnouncementRoom({ user }) {
             <h1 className={classes.roomTitle}>ACS Announcements</h1>
             <CloseIcon className={classes.closeModal} onClick={closeDrawer} aria-label="Close Announcements"/>
           </div>
-          <Announcements user={user} setUpdateChat={setUpdateChat} setDeleteChat={setDeleteChat} />
+          <Announcements user={user} setUpdateChat={setUpdateChat} setDeleteChat={setDeleteChat} data={announcements}/>
         </Drawer>
       </>
     )
