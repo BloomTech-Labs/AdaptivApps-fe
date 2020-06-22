@@ -88,7 +88,7 @@ const useStyles = makeStyles({
       fontWeight: 500,
     },
   },
-  webinarBox: {
+  virtualBox: {
     display: "flex",
     flexDirection: "column",
     "& p": {
@@ -146,7 +146,7 @@ export default function EventDetails(props) {
         <Box>
           <img src={activeEvent.imgUrl} alt="Event" />
         </Box>
-        {activeEvent.type === "Webinar" ? (
+        {activeEvent.type === "Virtual" ? (
           <Box className={classes.topContentText} m="2.4rem">
             <p>{activeEvent.startDate}</p>
             <h2>{activeEvent.title}</h2>
@@ -178,8 +178,8 @@ export default function EventDetails(props) {
         </Typography>
       </Box>
 
-      {activeEvent.type === "Webinar" ? (
-        <Box className={classes.webinarBox}>
+      {activeEvent.type === "Virtual" ? (
+        <Box className={classes.virtualBox}>
           <p>Hosted by: {activeEvent.host}</p>
           <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
           <a href={activeEvent.link} rel="noopener noreferrer" target="_blank">

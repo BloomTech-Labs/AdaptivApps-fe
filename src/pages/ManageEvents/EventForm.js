@@ -172,7 +172,7 @@ export default function EventForm({
           as={
             <Select>
               <MenuItem value="In Person">In Person</MenuItem>
-              <MenuItem value="Webinar">Webinar</MenuItem>
+              <MenuItem value="Virtual">Virtual</MenuItem>
             </Select>
           }
           name="type"
