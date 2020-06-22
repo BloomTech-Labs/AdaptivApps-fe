@@ -139,8 +139,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoomSub, notifications }) {
-  console.log('notifications', notifications)
-  console.log('chatroom', chatRoom)
   const classes = useStyles();
 
   const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM_PARTICIPANTS);
@@ -152,25 +150,15 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoo
   const [disableClick, setDisableClick] = useState(false);
 
   useEffect(() => {
-    //if (
-    // !messageToggle &&
-    // chats?.chat?.mutation === 'CREATED' && 
-    // !chatRoomSub?.chatRoom?.mutation &&
-    // chats?.chat?.node.from.email !== user.email &&
-    // chats?.chat?.node.room.id === chatRoom.id &&
-    // roomNotifications.push(chats?.chat?.node?.room.id) 
-
-
-
-    // } else if (!messageToggle &&
-    // chats?.chat?.mutation === 'CREATED' &&
-    // chatRoomSub?.chatRoom?.mutation === 'UPDATED' &&
-    // chats?.chat?.node.from.email !== user.email &&
-    // chatRoomSub?.chatRoom?.node?.id === chatRoom.id ) {
-    // roomNotifications.push(chatRoomSub?.chatRoom?.node?.id)
-    // }
-
-  }, [chats, chatRoomSub])
+    messageToggle && roomNotifications &&
+    roomNotifications.map(notification => {
+      deleteNotification({
+        variables: {
+          id: notification
+        }
+      })
+    })
+  }, [chats, chatRoomSub, notifications])
 
   // Set timeout for automated alerts
   setTimeout(function() {
@@ -183,7 +171,6 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoo
 
   const roomNotifications = [];
   notifications && notifications.map(notification => notification.chatroom.id === chatRoom.id && roomNotifications.push(notification.id));
-  console.log(roomNotifications && roomNotifications)
 
   const senderName = chatRoom?.chats?.find(chat => chat?.from.email !== user?.email)
 

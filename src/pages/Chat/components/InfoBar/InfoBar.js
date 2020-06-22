@@ -177,9 +177,6 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   !chatLoading && refetch();
   !notificationLoading && refetchNotifications();
 
-  console.log('sub', notification)
-  console.log('query', notifications)
-
   return (
     <div className={classes.root}>
       <h1 className={classes.header}>Messages</h1>
