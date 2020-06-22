@@ -29,6 +29,9 @@ export const REGISTER_FOR_EVENT = gql`
       }
     ) {
       id
+      eventProfile {
+        id
+      }
     }
   }
 `;
