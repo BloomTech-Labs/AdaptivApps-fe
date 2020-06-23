@@ -12,7 +12,7 @@ export const PROFILE_TYPE = gql`
     }
   }
 `;
-
+// Updates type and roleIdentity in user profile. Used in Account Type.js of Profile Wizard
 export const UPDATE_TYPE_ROLE = gql`
   mutation UpdateTypeRole(
     $email: String!
@@ -32,6 +32,7 @@ export const UPDATE_TYPE_ROLE = gql`
       }
     ) {
       id
+      type
       extProfile {
         id
         roleIdentity
@@ -152,8 +153,12 @@ export const UPDATE_ORG_PROFILE = gql`
   mutation UpdateOrgProfile(
     $email: String!
     $phoneNumber: String
+    $address1: String
+    $address2: String
     $city: String
     $state: String
+    $country: String
+    $postalCode: String
     $bio: String
     $userName: String
     $orgName: String
@@ -163,8 +168,12 @@ export const UPDATE_ORG_PROFILE = gql`
       where: { email: $email }
       data: {
         phoneNumber: $phoneNumber
+        address1: $address1
+        address2: $address2
         city: $city
         state: $state
+        country: $country
+        postalCode: $postalCode
         bio: $bio
         userName: $userName
         extProfile: {
@@ -189,8 +198,12 @@ export const ORG_PROFILE = gql`
       id
       phoneNumber
       userName
+      address1
+      address2
       state
       city
+      postalCode
+      country
       bio
       extProfile {
         id

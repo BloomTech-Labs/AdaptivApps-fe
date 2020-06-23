@@ -68,9 +68,9 @@ export default function AccountInfo() {
       </Box>
 
       <Router className={classes.children}>
-        <AccountTypeForm path="/" updateProfile={UpdateProfile} />
+        <AccountTypeForm path="/" updateProfile={UpdateTypeRole} />
         <OrgStep1 path="orginfo" updateOrgProfile={UpdateOrgProfile} />
-        <Step1 path="step1of6" updateProfile={UpdateTypeRole} />
+        <Step1 path="step1of6" updateProfile={UpdateProfile} />
         <Step2 path="step2of6" updateExtProfile={UpdateExtProfile} />
         <Step3 path="step3of6" updateDemoProfile={UpdateDemoProfile} />
         <Step4 path="step4of6" updateSportsDemo={UpdateSportsDemo} />

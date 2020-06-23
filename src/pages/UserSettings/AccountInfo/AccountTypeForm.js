@@ -76,6 +76,7 @@ export default function AccountTypeForm({ updateProfile }) {
     await updateProfile({
       variables: {
         type: data.type,
+        roleIdentity: data.roleIdentity,
         email: userEmail,
       },
     });
@@ -136,7 +137,7 @@ export default function AccountTypeForm({ updateProfile }) {
                   </MenuItem>
                 </Select>
               }
-              name="type"
+              name="roleIdentity"
               variant="outlined"
               control={control}
               defaultValue=""
