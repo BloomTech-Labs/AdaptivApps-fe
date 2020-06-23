@@ -64,6 +64,15 @@ const useStyles = makeStyles(theme => ({
     padding: "0",
     margin: "1.6rem 0",
   },
+  socialBtnContainer: {
+    display: "flex",
+    justifyContent: "center",
+    padding: "0",
+    margin: "1.6rem 0",
+  },
+  socialMediaBtn: {
+    margin: "-10px 10px 0 10px",
+  },
   btn: {
     padding: "0",
     fontWeight: "400",
@@ -116,10 +125,6 @@ export default function MyEventCard({ event, refetch }) {
 
   // Unregisters user from specified event and all it's activities
   const eventUnregister = async () => {
-    // const participantIds = data?.participants?.map(participant => {
-    //   return participant.id;
-    // });
-
     const participantId = data?.participants?.map(participant => {
       if (participant) {
         if (participant.activityProfile.email === user.email) {
@@ -171,9 +176,8 @@ export default function MyEventCard({ event, refetch }) {
     await navigate(`/myevents/${event?.id}`);
   };
 
-  console.log("event being passed down as props", event);
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} >
       <CardActionArea className={classes.card}>
         <Box>
           <div className={classes.banner}>{event.type}</div>
@@ -221,11 +225,12 @@ export default function MyEventCard({ event, refetch }) {
           Unregister
         </Button>
       </CardActions>
-      <div className={classes.btnContainer}>
+      <div className={classes.socialBtnContainer}>
         <Tooltip title='Share this event on Facebook'>
           <FacebookShareButton
             url={'http://angelcitysports.org/'}
             quote={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}`}
+            className={classes.socialMediaBtn}
           >
             <FacebookIcon size={32} round={true} />
           </FacebookShareButton>
@@ -235,6 +240,7 @@ export default function MyEventCard({ event, refetch }) {
             title={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}\n`}
             url={'http://angelcitysports.org/'}
             via={'angelcitysports'}
+            className={classes.socialMediaBtn}
           >
             <TwitterIcon size={32} round={true} />
           </TwitterShareButton>
@@ -244,6 +250,7 @@ export default function MyEventCard({ event, refetch }) {
             title={'Angel City Sports Event'}
             summary={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}`}
             url={'http://angelcitysports.org/'}
+            className={classes.socialMediaBtn}
           >
             <LinkedinIcon size={32} round={true} />
           </LinkedinShareButton>

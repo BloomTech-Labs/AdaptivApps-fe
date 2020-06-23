@@ -23,7 +23,7 @@ const useStyles = makeStyles({
     border: "1px solid rgb(223, 223, 223)",
     borderRadius: "3px",
     backgroundColor: "white",
-    lineHeight: "38px",
+    lineHeight: "30px",
     cursor: "default",
     width: "100%",
     fontSize: "2.4rem"

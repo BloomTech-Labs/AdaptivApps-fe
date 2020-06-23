@@ -43,7 +43,7 @@ export default function EventList({ currentEvents, refetch, user }) {
   };
 
   const eventsGroupedByMonth = groupBy(eventsByMonth, "startDate");
-  console.log("Events grouped by month", eventsGroupedByMonth);
+
   return (
     <>
       {eventsGroupedByMonth?.January === undefined ||
