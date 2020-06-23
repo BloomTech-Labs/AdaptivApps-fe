@@ -7,7 +7,7 @@ import { useSpeechRecognition } from "react-speech-kit";
 // Query / Mutation Imports
 import { SEND_CHAT } from "../../queries/Chats";
 import { ADD_CHAT_ROOM_PARTICIPANTS } from '../../queries/ChatRooms'
-import { CREATE_NOTIFICATION } from '../../queries/Notifications'
+import { CREATE_CHAT_NOTIFICATION } from '../../queries/Notifications'
 import { useMutation } from "react-apollo";
 
 //Emoji Picker Import
@@ -72,7 +72,7 @@ const Input = ({ chatRoom, user, messages }) => {
 
   const [sendChat] = useMutation(SEND_CHAT);
   const [updateChatRoom] = useMutation(ADD_CHAT_ROOM_PARTICIPANTS);
-  const [createChatRoomNotification] = useMutation(CREATE_NOTIFICATION);
+  const [createChatRoomNotification] = useMutation(CREATE_CHAT_NOTIFICATION);
   const [message, setMessage] = useState("");
 
   const emojiClick = e => {

@@ -21,7 +21,7 @@ export const GET_NOTIFICATIONS = gql`
   }
 `;
 
-export const CREATE_NOTIFICATION = gql`
+export const CREATE_CHAT_NOTIFICATION = gql`
   mutation createChatRoomNotification($email: String!, $id: ID!) {
     createNotification(data: {
       profile: {
@@ -39,6 +39,26 @@ export const CREATE_NOTIFICATION = gql`
       chatroom {
         id
       }
+      profile {
+        id
+        email
+        firstName
+        lastName
+      }
+    }
+  }
+`
+
+export const CREATE_ANNOUNCEMENT_NOTIFICATION = gql`
+  mutation createAnnouncementNotification($recipients: [ProfileWhereUniqueInput!], $label: String!) {
+    createNotification(data: {
+      profile: {
+        connect: $recipients
+      }
+      label: $label
+    }) {
+      id
+      label
       profile {
         id
         email

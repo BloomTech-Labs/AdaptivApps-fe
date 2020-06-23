@@ -13,70 +13,70 @@ export const GET_RECIPIENTS = gql`
 `;
 
 // Create an announcement
-export const CREATE_ANNOUNCEMENT = gql`
-	mutation createNotification ( 
-    $title: String!, 
-    $message: String!, 
-    $recipients: [ProfileWhereUniqueInput!], 
-    $isAnnouncementRoom: Boolean! ) {
-      createNotification(data: {
-      announcement:{
-        create: {
-          title: $title
-          message: $message
-          isAnnouncementRoom: $isAnnouncementRoom
-          participants: {
-            connect: $recipients
-          }
-        }
-      }
-      profile: {
-        connect: $recipients
-      }
-    }) {
-      id
-      profile {
-        id
-        email
-        firstName
-        lastName
-      }
-      announcement {
-        id
-        message
-        title
-        createdAt
-        isAnnouncementRoom
-      }
-    }
-  }
-`
-
-// Create an announcement
 // export const CREATE_ANNOUNCEMENT = gql`
-// 	mutation createAnnouncement ( 
+// 	mutation createNotification ( 
 //     $title: String!, 
 //     $message: String!, 
 //     $recipients: [ProfileWhereUniqueInput!], 
 //     $isAnnouncementRoom: Boolean! ) {
-//     createAnnouncement(
-//       data: {
-//         title: $title
-//         message: $message
-//         isAnnouncementRoom: $isAnnouncementRoom
-//         participants: {
-//           connect: $recipients
+//       createNotification(data: {
+//       announcement:{
+//         create: {
+//           title: $title
+//           message: $message
+//           isAnnouncementRoom: $isAnnouncementRoom
+//           participants: {
+//             connect: $recipients
+//           }
 //         }
 //       }
-//     ) {
+//       profile: {
+//         connect: $recipients
+//       }
+//     }) {
 //       id
-//       message
-//       title
-//       createdAt
-//       isAnnouncementRoom
+//       profile {
+//         id
+//         email
+//         firstName
+//         lastName
+//       }
+//       announcement {
+//         id
+//         message
+//         title
+//         createdAt
+//         isAnnouncementRoom
+//       }
 //     }
 //   }
 // `
+
+// Create an announcement
+export const CREATE_ANNOUNCEMENT = gql`
+	mutation createAnnouncement ( 
+    $title: String!, 
+    $message: String!, 
+    $participants: [ProfileWhereUniqueInput!], 
+    $isAnnouncementRoom: Boolean! ) {
+    createAnnouncement(
+      data: {
+        title: $title
+        message: $message
+        isAnnouncementRoom: $isAnnouncementRoom
+        participants: {
+          connect: $participants
+        }
+      }
+    ) {
+      id
+      message
+      title
+      createdAt
+      isAnnouncementRoom
+    }
+  }
+`
 
 // Retrieve announcements
 export const GET_ANNOUNCEMENTS = gql`
