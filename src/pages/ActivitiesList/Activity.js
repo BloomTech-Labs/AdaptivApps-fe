@@ -45,7 +45,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Activity({ activity, activityData, value }) {
+export default function Activity({ activity, activityData, value, refetch }) {
   const classes = useStyles();
   console.log("activityData in Activity.js", activityData);
   return (
@@ -61,14 +61,15 @@ export default function Activity({ activity, activityData, value }) {
             {activityData?.event?.type === "In Person" ? (
               <td className={classes.tableData}>{activity.location}</td>
             ) : (
-              <td className={classes.tableData}>{activity.link}</td>
-            )}
+                <td className={classes.tableData}>{activity.link}</td>
+              )}
             <td className={classes.time}>{activity?.startTime}</td>
             <td>
               <RolesDialog
                 className={classes.rolesDialog}
                 activity={activity}
                 activityData={activityData}
+                refetch={refetch}
               />
             </td>
           </tr>
