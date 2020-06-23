@@ -242,6 +242,7 @@ export const UPDATE_EXT_PROFILE = gql`
     $physicalDisability: String
     $detailedDisabilities: String
     $mobilityStatus: String
+    $tShirtSize: String
   ) {
     updateProfile(
       where: { email: $email }
@@ -261,6 +262,7 @@ export const UPDATE_EXT_PROFILE = gql`
                 }
               }
               mobilityStatus: $mobilityStatus
+              tShirtSize: $tShirtSize
             }
             create: {
               gender: $gender
@@ -275,6 +277,7 @@ export const UPDATE_EXT_PROFILE = gql`
                 }
               }
               mobilityStatus: $mobilityStatus
+              tShirtSize: $tShirtSize
             }
           }
         }
@@ -310,6 +313,7 @@ export const PROFILE_STEP_2 = gql`
           detailedDisabilities
         }
         mobilityStatus
+        tShirtSize
       }
     }
   }

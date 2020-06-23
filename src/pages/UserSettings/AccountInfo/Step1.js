@@ -64,7 +64,7 @@ const useStyles = makeStyles({
   btnBox: {
     display: "flex",
     justifyContent: "space-between",
-    marginTop: "10rem",
+    marginTop: "5rem",
   },
 });
 
@@ -72,39 +72,47 @@ export default function Step1({ updateProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  // const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_1, {
-  //   variables: { email: userEmail },
-  // });
-  // const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
-  const { handleSubmit, setValue, control } = useForm({
-    // defaultValues: {
-    //   firstName: currentUserInfo && currentUserInfo?.profile?.firstName,
-    //   lastName: currentUserInfo && currentUserInfo?.profile?.lastName,
-    //   userName: currentUserInfo && currentUserInfo?.profile?.userName,
-    //   phoneNumber: currentUserInfo && currentUserInfo?.profile?.phoneNumber,
-    //   city: currentUserInfo && currentUserInfo?.profile?.city,
-    //   state: currentUserInfo && currentUserInfo?.profile?.state,
-    //   legal: currentUserInfo && currentUserInfo?.profile?.legal,
-    //   bio: currentUserInfo && currentUserInfo?.profile?.bio,
-    // },
+  const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_1, {
+    variables: { email: userEmail },
   });
-  // useEffect(() => {
-  //   if (!loading && !currentUserInfo) setCurrentUserInfo(defaultInfo);
-  //   if (!loading && currentUserInfo) {
-  //     setValue([
-  //       { firstName: currentUserInfo && currentUserInfo?.profile?.firstName },
-  //       { lastName: currentUserInfo && currentUserInfo?.profile?.lastName },
-  //       { userName: currentUserInfo && currentUserInfo?.profile?.userName },
-  //       { phoneNumber: currentUserInfo && currentUserInfo?.profile?.phoneNumber },
-  //       { city: currentUserInfo && currentUserInfo?.profile?.city },
-  //       { state: currentUserInfo && currentUserInfo?.profile?.state },
-  //       { legal: currentUserInfo && currentUserInfo?.profile?.legal },
-  //       { bio: currentUserInfo && currentUserInfo?.profile?.bio },
-  //     ]);
-  //   }
-  // }, [loading, currentUserInfo, defaultInfo, setValue]);
-  // Sets default values in input fields with current user's info
-  // console.log(currentUserInfo?.profile?.firstName);
+  const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
+  const { handleSubmit, setValue, control } = useForm({
+    defaultValues: {
+      firstName: currentUserInfo && currentUserInfo?.profile?.firstName,
+      lastName: currentUserInfo && currentUserInfo?.profile?.lastName,
+      userName: currentUserInfo && currentUserInfo?.profile?.userName,
+      phoneNumber: currentUserInfo && currentUserInfo?.profile?.phoneNumber,
+      address1: currentUserInfo && currentUserInfo?.profile?.address1,
+      address2: currentUserInfo && currentUserInfo?.profile?.address2,
+      city: currentUserInfo && currentUserInfo?.profile?.city,
+      state: currentUserInfo && currentUserInfo?.profile?.state,
+      postalCode: currentUserInfo && currentUserInfo?.profile?.postalCode,
+      country: currentUserInfo && currentUserInfo?.profile?.country,
+      legal: currentUserInfo && currentUserInfo?.profile?.legal,
+      bio: currentUserInfo && currentUserInfo?.profile?.bio,
+    },
+  });
+    // Sets default values in input fields with current user's info
+  useEffect(() => {
+    if (!loading && !currentUserInfo) setCurrentUserInfo(defaultInfo);
+    if (!loading && currentUserInfo) {
+      setValue([
+        { firstName: currentUserInfo && currentUserInfo?.profile?.firstName },
+        { lastName: currentUserInfo && currentUserInfo?.profile?.lastName },
+        { userName: currentUserInfo && currentUserInfo?.profile?.userName },
+        { phoneNumber: currentUserInfo && currentUserInfo?.profile?.phoneNumber },
+        { address1: currentUserInfo && currentUserInfo?.profile?.address1 },
+        { address2: currentUserInfo && currentUserInfo?.profile?.address2 },
+        { city: currentUserInfo && currentUserInfo?.profile?.city },
+        { state: currentUserInfo && currentUserInfo?.profile?.state },
+        { postalCode: currentUserInfo && currentUserInfo?.profile?.postalCode },
+        { country: currentUserInfo && currentUserInfo?.profile?.country },
+        { legal: currentUserInfo && currentUserInfo?.profile?.legal },
+        { bio: currentUserInfo && currentUserInfo?.profile?.bio },
+      ]);
+    }
+  }, [loading, currentUserInfo, defaultInfo, setValue]);
+
   // Will update profile and route user to next step in profile wizard
   const onNext = handleSubmit(async data => {
     await updateProfile({

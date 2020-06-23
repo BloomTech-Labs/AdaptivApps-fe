@@ -68,7 +68,6 @@ export default function AccountTypeForm({ updateProfile }) {
     }
   });
 
-  console.log('Inside AccountType', defaultInfo)
   // Sets default values in input fields with current user's info
   useEffect(() => {
     !loading && !currentUserInfo
