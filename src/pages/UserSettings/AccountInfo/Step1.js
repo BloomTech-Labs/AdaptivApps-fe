@@ -72,39 +72,39 @@ export default function Step1({ updateProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_1, {
-    variables: { email: userEmail },
-  });
-  const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
+  // const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_1, {
+  //   variables: { email: userEmail },
+  // });
+  // const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
   const { handleSubmit, setValue, control } = useForm({
-    defaultValues: {
-      firstName: currentUserInfo && currentUserInfo?.profile?.firstName,
-      lastName: currentUserInfo && currentUserInfo?.profile?.lastName,
-      userName: currentUserInfo && currentUserInfo?.profile?.userName,
-      phoneNumber: currentUserInfo && currentUserInfo?.profile?.phoneNumber,
-      city: currentUserInfo && currentUserInfo?.profile?.city,
-      state: currentUserInfo && currentUserInfo?.profile?.state,
-      legal: currentUserInfo && currentUserInfo?.profile?.legal,
-      bio: currentUserInfo && currentUserInfo?.profile?.bio,
-    },
+    // defaultValues: {
+    //   firstName: currentUserInfo && currentUserInfo?.profile?.firstName,
+    //   lastName: currentUserInfo && currentUserInfo?.profile?.lastName,
+    //   userName: currentUserInfo && currentUserInfo?.profile?.userName,
+    //   phoneNumber: currentUserInfo && currentUserInfo?.profile?.phoneNumber,
+    //   city: currentUserInfo && currentUserInfo?.profile?.city,
+    //   state: currentUserInfo && currentUserInfo?.profile?.state,
+    //   legal: currentUserInfo && currentUserInfo?.profile?.legal,
+    //   bio: currentUserInfo && currentUserInfo?.profile?.bio,
+    // },
   });
-  useEffect(() => {
-    if (!loading && !currentUserInfo) setCurrentUserInfo(defaultInfo);
-    if (!loading && currentUserInfo) {
-      setValue([
-        { firstName: currentUserInfo && currentUserInfo?.profile?.firstName },
-        { lastName: currentUserInfo && currentUserInfo?.profile?.lastName },
-        { userName: currentUserInfo && currentUserInfo?.profile?.userName },
-        { phoneNumber: currentUserInfo && currentUserInfo?.profile?.phoneNumber },
-        { city: currentUserInfo && currentUserInfo?.profile?.city },
-        { state: currentUserInfo && currentUserInfo?.profile?.state },
-        { legal: currentUserInfo && currentUserInfo?.profile?.legal },
-        { bio: currentUserInfo && currentUserInfo?.profile?.bio },
-      ]);
-    }
-  }, [loading, currentUserInfo, defaultInfo, setValue]);
+  // useEffect(() => {
+  //   if (!loading && !currentUserInfo) setCurrentUserInfo(defaultInfo);
+  //   if (!loading && currentUserInfo) {
+  //     setValue([
+  //       { firstName: currentUserInfo && currentUserInfo?.profile?.firstName },
+  //       { lastName: currentUserInfo && currentUserInfo?.profile?.lastName },
+  //       { userName: currentUserInfo && currentUserInfo?.profile?.userName },
+  //       { phoneNumber: currentUserInfo && currentUserInfo?.profile?.phoneNumber },
+  //       { city: currentUserInfo && currentUserInfo?.profile?.city },
+  //       { state: currentUserInfo && currentUserInfo?.profile?.state },
+  //       { legal: currentUserInfo && currentUserInfo?.profile?.legal },
+  //       { bio: currentUserInfo && currentUserInfo?.profile?.bio },
+  //     ]);
+  //   }
+  // }, [loading, currentUserInfo, defaultInfo, setValue]);
   // Sets default values in input fields with current user's info
-  console.log(currentUserInfo?.profile?.firstName);
+  // console.log(currentUserInfo?.profile?.firstName);
   // Will update profile and route user to next step in profile wizard
   const onNext = handleSubmit(async data => {
     await updateProfile({
@@ -144,8 +144,6 @@ export default function Step1({ updateProfile }) {
     navigate(`/`);
   });
 
-  console.log("Inside Step1", defaultInfo);
-
   return (
     <Box className={classes.root}>
       <ProgressBar activeStep={1} stepNumber={1} userEmail={userEmail} />
@@ -160,6 +158,7 @@ export default function Step1({ updateProfile }) {
               type="text"
               variant="outlined"
               control={control}
+              defaultValue=""
             />
           </Box>
           <Box>
@@ -170,6 +169,7 @@ export default function Step1({ updateProfile }) {
               type="text"
               variant="outlined"
               control={control}
+              defaultValue=""
             />
           </Box>
         </Box>
@@ -183,6 +183,7 @@ export default function Step1({ updateProfile }) {
               variant="outlined"
               type="text"
               control={control}
+              defaultValue=""
             />
           </Box>
           <Box>
@@ -193,6 +194,7 @@ export default function Step1({ updateProfile }) {
               variant="outlined"
               type="text"
               control={control}
+              defaultValue=""
             />
           </Box>
         </Box>
@@ -206,6 +208,7 @@ export default function Step1({ updateProfile }) {
               className={classes.firstInput}
               variant="outlined"
               control={control}
+              defaultValue=""
             />
           </Box>
           <Box>
@@ -216,6 +219,7 @@ export default function Step1({ updateProfile }) {
               type="text"
               variant="outlined"
               control={control}
+              defaultValue=""
             />
           </Box>
         </Box>
@@ -243,6 +247,7 @@ export default function Step1({ updateProfile }) {
           variant="outlined"
           className={classes.bioBox}
           control={control}
+          defaultValue=""
           multiline
           rows="8"
         />
