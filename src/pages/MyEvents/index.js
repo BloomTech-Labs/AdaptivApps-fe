@@ -62,7 +62,7 @@ export default function MyEvents() {
     variables: { email: user.email },
   });
 
-  console.log('Debugging user events', data)
+  console.log("data in my events", data);
 
   useEffect(() => {
     refetch();
@@ -86,21 +86,21 @@ export default function MyEvents() {
             <EventList data={data} refetch={refetch} />
           </Grid>
         ) : (
-            <>
-              <Typography className={classes.noActiv}>
-                You haven't registered for any events yet!
+          <>
+            <Typography className={classes.noActiv}>
+              You haven't registered for any events yet!
             </Typography>
-              <Box className={classes.inlineNotice}>
-                <Typography className={classes.noActivBlue}>
-                  Check out the Events Calendar
+            <Box className={classes.inlineNotice}>
+              <Typography className={classes.noActivBlue}>
+                Check out the Events Calendar
               </Typography>
-                <Typography>
-                  , register for an event, then see all of your registered events
-                  here!
+              <Typography>
+                , register for an event, then see all of your registered events
+                here!
               </Typography>
-              </Box>
-            </>
-          )}
+            </Box>
+          </>
+        )}
       </main>
     </div>
   );

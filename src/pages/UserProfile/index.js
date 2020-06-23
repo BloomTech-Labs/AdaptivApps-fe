@@ -48,6 +48,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     display: "flex",
     justifyContent: "space-between",
+    margin: "0",
   },
   profileWrapper: {
     width: "100%",
@@ -56,10 +57,13 @@ const useStyles = makeStyles(theme => ({
   bannerWrapper: {
     width: "100%",
     height: "20vh",
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    alignContent: "flex-end",
     "& label": {
+      padding: "0 2rem 1rem 0",
       position: "absolute",
-      top: "17rem",
-      left: "28rem",
     },
   },
   photoIcon: {
@@ -348,7 +352,7 @@ export default function UserProfile() {
                   <p>{demographicProfile?.militaryBranch}</p>
                 </div> */}
                 <div className={classes.sportsWrapper}>
-                  <h3>playing these sports</h3>
+                  <h3>Playing these sports</h3>
                   <div className={classes.sportsList}>
                     {filteredKeys.map(sport => (
                       <p className={classes.sportItem}>
