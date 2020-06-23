@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useMutation, useQuery } from "react-apollo";
-import { CREATE_ANNOUNCEMENT, GET_RECIPIENTS, GET_ANNOUNCEMENTS } from '../../queries/Announcements';
+import { CREATE_ANNOUNCEMENT, GET_RECIPIENTS } from '../../queries/Announcements';
+import { CREATE_ANNOUNCEMENT_NOTIFICATION } from '../../queries/Notifications'
 
 //Style imports
 import CloseIcon from '@material-ui/icons/Close';
@@ -75,6 +76,7 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
   const classes = useStyles();
   const { data } = useQuery(GET_RECIPIENTS)
   const [createAnnouncement] = useMutation(CREATE_ANNOUNCEMENT);
+  const [createAnnouncementNotification] = useMutation(CREATE_ANNOUNCEMENT_NOTIFICATION);
 
   const [newAnnouncement, setNewAnnouncement] = useState();
   const [newAnnouncementText, setNewAnnouncementText] = useState();
@@ -90,6 +92,8 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
   //Create array of emails to match BE data shape, exclude yourself
   const allUserEmails = data?.profiles?.map(participant => user.email !== participant.email && 
     { "email": participant.email }).filter(participant => participant !== false)
+
+    allUserEmails && allUserEmails.forEach(user => console.log(user.email))
   
   // Send announcement to BE & all users
   const onSubmit = e => {
@@ -100,8 +104,14 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
         message: newAnnouncementText,
         isAnnouncementRoom: true,
         participants: allUserEmails,
-      }
-    })
+      }}) &&
+      allUserEmails.forEach(user => {
+        createAnnouncementNotification({
+          variables: {
+            email: user.email,
+            label: 'Announcement'
+          }});
+      })
     setAnnouncementOpen(false);
     setAlertOpen(true);
   };
