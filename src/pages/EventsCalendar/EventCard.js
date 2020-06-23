@@ -9,7 +9,6 @@ import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import { DELETE_EVENT } from "./queries";
 import { REGISTER_FOR_EVENT } from "./queries/joinEvent";
-import NavLink from '../../routes/DashRouter/SideNav/NavLink';
 // IMport stylings
 import {
   makeStyles,
@@ -146,9 +145,8 @@ export default function EventCard({ event, refetch, user }) {
   const processAttendeeID = () => {
     if (event && event.attendees) {
       for (let i = 0; i < event.attendees.length; i++) {
-        if (event.attendees[i].eventProfile.email === user.email) {
+        if (event.attendees[i].eventProfile.email === user.email)
           return event.attendees[i].id;
-        }
       }
     }
     else {
@@ -204,7 +202,7 @@ export default function EventCard({ event, refetch, user }) {
   );
   return (
     <>
-      <Card className={classes.root} onClick={() => { navigate(`calendar/${event.id}`) }}>
+      <Card className={classes.root}>
         <CardActionArea className={classes.card}>
           <Box>
             <div className={classes.banner}>{event.type}</div>
@@ -215,6 +213,7 @@ export default function EventCard({ event, refetch, user }) {
               width="15rem"
               image={event?.imgUrl}
               title="Angel City Event"
+              onClick={() => { navigate(`calendar/${event.id}`) }}
             />
           </Box>
           <Box className={classes.contentWrapper}>
@@ -235,6 +234,7 @@ export default function EventCard({ event, refetch, user }) {
                 gutterBottom
                 variant="h5"
                 component="h2"
+                onClick={() => { navigate(`calendar/${event.id}`) }}
               >
                 {event.title}
               </Typography>
