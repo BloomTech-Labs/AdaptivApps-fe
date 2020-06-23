@@ -34,17 +34,19 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
   },
   paper: {
-    position: "relative",
-    right: "1.6rem",
     padding: "0",
     width: "70rem",
     boxShadow: "none",
   },
+  tabs: {
+    marginLeft: "-2.5rem",
+  },
   tab: {
     padding: "0",
     "& span": {
-      alignItems: "start",
+      alignItems: "center",
     },
+    fontSize: "2.5rem"
   },
   tabPanel: {
     "& div": {
@@ -76,19 +78,18 @@ export default function ActivityGroup({
 
   const startDate = moment(activeEvent?.startDate);
   const endDate = moment(activeEvent?.endDate);
-  console.log("activeEvent", activeEvent);
-  const getDatesRangeArray = function(startDate, endDate, interval) {
-    console.log(startDate, endDate, interval);
+  const getDatesRangeArray = function (startDate, endDate, interval) {
+    // console.log(startDate, endDate, interval);
     let cfg = { interval: interval || "days" };
     let dateArray = [];
     let currentDate = moment(startDate);
-    console.log(
-      "-->",
-      currentDate._i,
-      "<=",
-      endDate._i,
-      currentDate <= endDate
-    );
+    // console.log(
+    //   "-->",
+    //   currentDate._i,
+    //   "<=",
+    //   endDate._i,
+    //   currentDate <= endDate
+    // );
     while (currentDate <= endDate) {
       dateArray.push(currentDate.format("ddd MM/DD/YY"));
       currentDate = currentDate.add(1, cfg.interval);
@@ -119,9 +120,7 @@ export default function ActivityGroup({
   };
 
   const activitiesGroupedByDate = groupBy(activityByDates, "date");
-  console.log("activities grouped by date", activitiesGroupedByDate);
-  console.log("days", days);
-  console.log("Activity Data in ActivityGroup.js", activityData);
+
   return (
     <div className={classes.root}>
       <Paper position="static" color="default" className={classes.paper}>
