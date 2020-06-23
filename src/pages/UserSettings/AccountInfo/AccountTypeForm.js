@@ -57,21 +57,35 @@ export default function AccountTypeForm({ updateProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { handleSubmit, setValue, control } = useForm();
   const { data: defaultInfo, loading } = useQuery(PROFILE_TYPE, {
     variables: { email: userEmail },
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
+  const { handleSubmit, setValue, control } = useForm({
+    defaultValues: {
+      type: currentUserInfo && currentUserInfo?.profile?.type,
+      roleIdentity: currentUserInfo && currentUserInfo?.profile?.roleIdentity
+    }
+  });
+
+  console.log('Inside AccountType', defaultInfo)
   // Sets default values in input fields with current user's info
   useEffect(() => {
     !loading && !currentUserInfo
       ? setCurrentUserInfo(defaultInfo)
       : setValue([
           {
-            type: currentUserInfo?.profile?.type,
+            type: currentUserInfo && currentUserInfo?.profile?.type,
+            
+          },
+          {
+            roleIdentity: currentUserInfo && currentUserInfo?.profile?.extProfile?.roleIdentity
+            
           },
         ]);
   }, [loading, currentUserInfo, defaultInfo, setValue]);
+
+  console.log('Inside AccountType', currentUserInfo)
   const onSubmit = async data => {
     await updateProfile({
       variables: {
