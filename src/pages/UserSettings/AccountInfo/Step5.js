@@ -133,8 +133,8 @@ export default function Step4({ updateSportsDemo }) {
         other: data.other,
       },
     });
-    alert("Successfully completed step 4 of account info update!");
-    await navigate(`/updateaccount/${userEmail}/step5of6`);
+    alert("Successfully completed step 5 of account info update!");
+    await navigate(`/updateaccount/${userEmail}/step6of6`);
   });
 
   const onSave = handleSubmit(async data => {
@@ -1203,7 +1203,7 @@ export default function Step4({ updateSportsDemo }) {
           <NextButton
             label={"Next"}
             onClick={onNext}
-            ariaLabel="Click here to complete step 4 and move onto step 5 of account information update."
+            ariaLabel="Click here to complete step 5 and move onto step 6 of account information update."
           />
         </Box>
       </form>

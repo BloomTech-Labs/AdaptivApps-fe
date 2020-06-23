@@ -112,8 +112,8 @@ export default function Step3({ updateDemoProfile }) {
       },
     });
 
-    alert("Successfully completed step 3 of account info update!");
-    await navigate(`/updateaccount/${userEmail}/step4of6`);
+    alert("Successfully completed step 4 of account info update!");
+    await navigate(`/updateaccount/${userEmail}/step5of6`);
   });
   // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
   const onSave = handleSubmit(async data => {
@@ -209,7 +209,7 @@ export default function Step3({ updateDemoProfile }) {
           <NextButton
             label="Next"
             onClick={onNext}
-            ariaLabel="Click here to complete step 3 and move onto step 4 of account information update."
+            ariaLabel="Click here to complete step 4 and move onto step 5 of account information update."
           />
         </Box>
       </form>
