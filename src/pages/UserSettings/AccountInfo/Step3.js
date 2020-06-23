@@ -54,35 +54,51 @@ export default function Step3({ updateDemoProfile }) {
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
   const { handleSubmit, setValue, control } = useForm({
-    defaultValues: {},
+    defaultValues: {
+      adaptivSportsParticipation:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile
+          ?.adaptivSportsParticipation,
+      acsParticipation:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.acsParticipation,
+      notParticipating:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.notParticipating,
+      angelCityParticipation:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.angelCityParticipation,
+    },
   });
   // Sets default values in input fields with current user's info
   useEffect(() => {
-    !loading && !currentUserInfo
-      ? setCurrentUserInfo(defaultInfo)
-      : setValue([
-          {
-            adaptivSportsParticipation:
-              currentUserInfo &&
-              currentUserInfo.profile.demographicProfile
-                .adaptivSportsParticipation,
-          },
-          {
-            acsParticipation:
-              currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.acsParticipation,
-          },
-          {
-            notParticipating:
-              currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.notParticipating,
-          },
-          {
-            angelCityParticipation:
-              currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.angelCityParticipation,
-          },
-        ]);
+    if (!loading && !currentUserInfo) setCurrentUserInfo(defaultInfo);
+    if (!loading && currentUserInfo) {
+      setValue([
+        {
+          adaptivSportsParticipation:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile
+              ?.adaptivSportsParticipation,
+        },
+        {
+          acsParticipation:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.acsParticipation,
+        },
+        {
+          notParticipating:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.notParticipating,
+        },
+        {
+          angelCityParticipation:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile
+              ?.angelCityParticipation,
+        },
+      ]);
+    }
   }, [loading, currentUserInfo, defaultInfo, setValue]);
   // Will update profile and route user to next step in profile wizard
   const onNext = handleSubmit(async data => {
@@ -95,6 +111,7 @@ export default function Step3({ updateDemoProfile }) {
         angelCityParticipation: data.angelCityParticipation,
       },
     });
+
     alert("Successfully completed step 3 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step4of6`);
   });

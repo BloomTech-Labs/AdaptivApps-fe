@@ -1,10 +1,8 @@
 // React/Reach Router imports
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
-// Apollo/GraphQL imports
-import { useQuery } from "react-apollo";
-import { PROFILE_STEP_4 } from "../queries";
+
 // Component imports
 import NextButton from "../../../theme/SmallFormButton";
 import SaveButton from "../../../theme/LargeFormButton";
@@ -60,106 +58,7 @@ export default function Step4({ updateSportsDemo }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { data: defaultInfo, loading, refetch } = useQuery(PROFILE_STEP_4, {
-    variables: { email: userEmail },
-  });
-  const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
-  const { handleSubmit, setValue, control } = useForm({
-    defaultValue: {
-      yoga:
-        currentUserInfo &&
-        currentUserInfo.profile.demographicProfile.sportsParticipation.yoga,
-      other:
-        currentUserInfo &&
-        currentUserInfo.profile.demographicProfile.sportsParticipation.other,
-    },
-  });
-
-  console.log(defaultInfo)
-  // Sets default values in input fields with current user's info
-  useEffect(() => {
-    if (!loading && !currentUserInfo) setCurrentUserInfo(defaultInfo)
-     if (!loading && currentUserInfo) {
-    setValue([
-          // { alpineSkiing: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.alpineSkiing },
-          // { airRifle: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.airRifle },
-          // { archery: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.archery },
-          // { badminton: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.badminton },
-          // { baseball: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.baseball },
-          // { beepBaseball: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.beepBaseball },
-          // { biathlon: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.biathlon },
-          // { blindHockey: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.blindHockey },
-          // { boccia: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.boccia },
-          // { bowling: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.bowling },
-          // { boxing: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.boxing },
-          // { canoe: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.canoe },
-          // { cheerleading: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.cheerleading },
-          // { crossFit: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.crossFit },
-          // { crossCountrySkiing: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.crossCountrySkiing },
-          // { curling: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.curling },
-          // { cycling: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.cycling },
-          // { equestrian: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.equestrian },
-          // { esports: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.esports },
-          // { fishing: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.fishing },
-          // { goalball: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.goalball },
-          // { golf: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.golf },
-          // { hiking: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.hiking },
-          // { hunting: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.hunting },
-          // { judo: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.judo },
-          // { juJitsu: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.juJitsu },
-          // { lacrosse: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.lacrosse },
-          // { mixedMartialArts: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.mixedMartialArts },
-          // { motorsportsMotorcross: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.motorsportsMotorcross },
-          // { mountainBiking: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.mountainBiking },
-          // { powerlifting: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.powerlifting },
-          // { rafting: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.rafting },
-          // { rockClimbing: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.rockClimbing },
-          // { rowing: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.rowing },
-          // { sailing: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.sailing },
-          // { scuba: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.scuba },
-          // { shooting: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.shooting },
-          // { skateboarding: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.skateboarding },
-          // { snowboarding: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.snowboarding },
-          // { sledHockey: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.sledHockey },
-          // { soccerBlindSoccerFiveaside: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.soccerBlindSoccerFiveaside },
-          // { soccerAmputeeCrutchSoccer: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.soccerAmputeeCrutchSoccer },
-          // { soccerPowerSoccer: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.soccerPowerSoccer },
-          // { soccerCPSevenaside: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.soccerCPSevenaside },
-          // { standupWheelchairPaddling: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.standupWheelchairPaddling },
-          // { swimming: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.swimming },
-          // { surfing: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.surfing },
-          // { tableTennis: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.tableTennis },
-          // { taekwondo: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.taekwondo },
-          // { taiChi: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.taiChi },
-          // { trackField: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.trackField },
-          // { triathlon: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.triathlon },
-          // { volleyballBeachVolleyball: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.volleyballBeachVolleyball },
-          // { volleyballSittingVolleyball: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.volleyballSittingVolleyball },
-          // { waterSkiing: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.waterSkiing },
-          // { wheelchairSkateboarding: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.wheelchairSkateboarding },
-          // { wheelchairBasketball: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.wheelchairBasketball },
-          // { wheelchairCurling: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.wheelchairCurling },
-          // { wheelchairFencing: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.wheelchairFencing },
-          // { wheelchairFootball: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.wheelchairFootball },
-          // { wheelchairSoftball: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.wheelchairSoftball },
-          // { wheelchairRugby: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.wheelchairRugby },
-          // { wheelchairTennis: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.wheelchairTennis },
-          // { wrestling: currentUserInfo?.profile?.demographicProfile?.sportsParticipation?.wrestling },
-          {
-            yoga:
-              currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.sportsParticipation
-                .yoga,
-          },
-          {
-            other:
-              currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.sportsParticipation
-                .other,
-          },
-        ])
-      }
-  }, [loading, currentUserInfo, defaultInfo, setValue]);
+  const { handleSubmit, control } = useForm();
 
   // Will update profile and route user to next step in profile wizard
   const onNext = handleSubmit(async data => {

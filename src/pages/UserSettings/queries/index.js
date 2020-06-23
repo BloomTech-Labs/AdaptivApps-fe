@@ -39,6 +39,7 @@ export const UPDATE_USER_PROFILE = gql`
         legal: $legal
       }
     ) {
+      id
       type
       private
       firstName
@@ -138,10 +139,18 @@ export const UPDATE_ORG_PROFILE = gql`
         state: $state
         bio: $bio
         userName: $userName
-        extProfile: { create: { orgName: $orgName, website: $website } }
+        extProfile: {
+          upsert: {
+            update: { orgName: $orgName, website: $website }
+            create: { orgName: $orgName, website: $website }
+          }
+        }
       }
     ) {
       id
+      extProfile {
+        id
+      }
     }
   }
 `;
@@ -156,6 +165,7 @@ export const ORG_PROFILE = gql`
       city
       bio
       extProfile {
+        id
         orgName
         website
       }
@@ -180,24 +190,47 @@ export const UPDATE_EXT_PROFILE = gql`
       where: { email: $email }
       data: {
         extProfile: {
-          create: {
-            gender: $gender
-            birthday: $birthday
-            eC1Name: $eC1Name
-            eC1Relation: $eC1Relation
-            eC1Phone: $eC1Phone
-            disability: {
-              create: {
-                physicalDisability: $physicalDisability
-                detailedDisabilities: $detailedDisabilities
+          upsert: {
+            update: {
+              gender: $gender
+              birthday: $birthday
+              eC1Name: $eC1Name
+              eC1Relation: $eC1Relation
+              eC1Phone: $eC1Phone
+              disability: {
+                create: {
+                  physicalDisability: $physicalDisability
+                  detailedDisabilities: $detailedDisabilities
+                }
               }
+              mobilityStatus: $mobilityStatus
             }
-            mobilityStatus: $mobilityStatus
+            create: {
+              gender: $gender
+              birthday: $birthday
+              eC1Name: $eC1Name
+              eC1Relation: $eC1Relation
+              eC1Phone: $eC1Phone
+              disability: {
+                create: {
+                  physicalDisability: $physicalDisability
+                  detailedDisabilities: $detailedDisabilities
+                }
+              }
+              mobilityStatus: $mobilityStatus
+            }
           }
         }
       }
     ) {
       id
+      extProfile {
+        id
+        website
+        disability {
+          id
+        }
+      }
     }
   }
 `;
@@ -208,12 +241,14 @@ export const PROFILE_STEP_2 = gql`
     profile(where: { email: $email }) {
       id
       extProfile {
+        id
         gender
         birthday
         eC1Name
         eC1Relation
         eC1Phone
         disability {
+          id
           physicalDisability
           detailedDisabilities
         }
@@ -236,16 +271,27 @@ export const UPDATE_DEMO_PROFILE = gql`
       where: { email: $email }
       data: {
         demographicProfile: {
-          create: {
-            adaptivSportsParticipation: $adaptivSportsParticipation
-            acsParticipation: $acsParticipation
-            notParticipating: $notParticipating
-            angelCityParticipation: $angelCityParticipation
+          upsert: {
+            update: {
+              adaptivSportsParticipation: $adaptivSportsParticipation
+              acsParticipation: $acsParticipation
+              notParticipating: $notParticipating
+              angelCityParticipation: $angelCityParticipation
+            }
+            create: {
+              adaptivSportsParticipation: $adaptivSportsParticipation
+              acsParticipation: $acsParticipation
+              notParticipating: $notParticipating
+              angelCityParticipation: $angelCityParticipation
+            }
           }
         }
       }
     ) {
       id
+      demographicProfile {
+        id
+      }
     }
   }
 `;
@@ -255,6 +301,7 @@ export const PROFILE_STEP_3 = gql`
     profile(where: { email: $email }) {
       id
       demographicProfile {
+        id
         adaptivSportsParticipation
         acsParticipation
         notParticipating
@@ -539,6 +586,7 @@ export const PROFILE_STEP_5 = gql`
     profile(where: { email: $email }) {
       id
       demographicProfile {
+        id
         veteranStatus
         militaryBranch
         yearsServed
@@ -593,6 +641,7 @@ export const PROFILE_STEP_6 = gql`
     profile(where: { email: $email }) {
       id
       demographicProfile {
+        id
         becomeAthleteMentor
         athleteMentorHelp
         athleteMentorSport

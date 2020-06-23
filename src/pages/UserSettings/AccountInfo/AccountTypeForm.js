@@ -30,16 +30,18 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
   },
+  selectContainer: {
+    marginBottom: "11rem"
+  },  
   typeSelect: {
-    width: 744,
-    height: 48,
+    width: "74.4rem",
+    height: "4.8rem",
   },
   box: {
-    height: "100%",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
-  },
+    marginBottom: "1.6rem"
+  }, 
   btnWrapper: {
     display: "flex",
     justifyContent: "flex-end",
@@ -83,6 +85,8 @@ export default function AccountTypeForm({ updateProfile }) {
     <Box className={classes.root}>
       <ProgressBar activeStep={0} userEmail={userEmail} />
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+        <Box className={classes.selectContainer}>
+
         <InputLabel htmlFor="account type">
           Are you registering as an individual or an organization?
         </InputLabel>
@@ -103,6 +107,31 @@ export default function AccountTypeForm({ updateProfile }) {
             control={control}
             defaultValue=""
           />
+        </Box>
+        <InputLabel htmlFor="role identity">
+          Which role do you best identify with?
+        </InputLabel>
+        <Box className={classes.roleBox}>
+          <Controller
+            as={
+              <Select className={classes.typeSelect}>
+                <MenuItem value="Athlete">
+                  Adaptive Athlete
+                </MenuItem>
+                <MenuItem value="Ally/Volunteer">
+                  Ally/Volunteer - I want to participate and will volunteer to help promote.
+                </MenuItem>
+                <MenuItem value="Donor/Supporter">
+                Donor/Supporter - I want to participate and will donate or help fundraise.
+                </MenuItem>
+              </Select>
+            }
+            name="type"
+            variant="outlined"
+            control={control}
+            defaultValue=""
+          />
+        </Box>
         </Box>
         <Box className={classes.btnWrapper}>
           <NextButton

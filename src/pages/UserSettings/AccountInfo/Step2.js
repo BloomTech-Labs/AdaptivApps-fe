@@ -63,70 +63,71 @@ export default function Step2({ updateExtProfile }) {
   const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_2, {
     variables: { email: userEmail },
   });
+
+  console.log('Query inside step2', defaultInfo)
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
   const { handleSubmit, setValue, control } = useForm({
     defaultValues: {
-      gender: currentUserInfo && currentUserInfo.profile.extProfile.gender,
-      birthday: currentUserInfo && currentUserInfo.profile.extProfile.birthday,
-      eC1Name: currentUserInfo && currentUserInfo.profile.extProfile.eC1Name,
-      eC1Phone: currentUserInfo && currentUserInfo.profile.extProfile.eC1Phone,
+      gender: currentUserInfo && currentUserInfo?.profile?.extProfile?.gender,
+      birthday: currentUserInfo && currentUserInfo?.profile?.extProfile?.birthday,
+      eC1Name: currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Name,
+      eC1Phone: currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Phone,
       eC1Relation:
-        currentUserInfo && currentUserInfo.profile.extProfile.eC1Relation,
+        currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Relation,
       physicalDisability:
         currentUserInfo &&
-        currentUserInfo.profile.extProfile.disability.physicalDisability,
+        currentUserInfo?.profile?.extProfile?.disability?.physicalDisability,
       detailedDisabilities:
         currentUserInfo &&
-        currentUserInfo.profile.extProfile.disability.detailedDisabilities,
+        currentUserInfo?.profile?.extProfile?.disability?.detailedDisabilities,
       mobilityStatus:
-        currentUserInfo && currentUserInfo.profile.extProfile.mobilityStatus,
+        currentUserInfo && currentUserInfo?.profile?.extProfile?.mobilityStatus,
     },
   });
 
   // Sets default values in input fields with current user's info
   useEffect(() => {
-    !loading && !currentUserInfo
-      ? setCurrentUserInfo(defaultInfo)
-      : setValue([
-          {
-            gender:
-              currentUserInfo && currentUserInfo.profile.extProfile.gender,
-          },
-          {
-            birthday:
-              currentUserInfo && currentUserInfo.profile.extProfile.birthday,
-          },
-          {
-            eC1Name:
-              currentUserInfo && currentUserInfo.profile.extProfile.eC1Name,
-          },
-          {
-            eC1Phone:
-              currentUserInfo && currentUserInfo.profile.extProfile.eC1Phone,
-          },
-          {
-            eC1Relation:
-              currentUserInfo && currentUserInfo.profile.extProfile.eC1Relation,
-          },
-          {
-            physicalDisability:
-              currentUserInfo &&
-              currentUserInfo.profile.extProfile.disability.physicalDisability,
-          },
-          {
-            detailedDisabilities:
-              currentUserInfo &&
-              currentUserInfo.profile.extProfile.disability
-                .detailedDisabilities,
-          },
-          {
-            mobilityStatus:
-              currentUserInfo &&
-              currentUserInfo.profile.extProfile.mobilityStatus,
-          },
-        ]);
+    if (!loading && !currentUserInfo) setCurrentUserInfo(defaultInfo);
+    if (!loading && currentUserInfo) {
+      setValue([
+        {
+          gender: currentUserInfo && currentUserInfo?.profile?.extProfile?.gender,
+        },
+        {
+          birthday:
+            currentUserInfo && currentUserInfo?.profile?.extProfile?.birthday,
+        },
+        {
+          eC1Name:
+            currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Name,
+        },
+        {
+          eC1Phone:
+            currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Phone,
+        },
+        {
+          eC1Relation:
+            currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Relation,
+        },
+        {
+          physicalDisability:
+            currentUserInfo &&
+            currentUserInfo?.profile?.extProfile?.disability?.physicalDisability,
+        },
+        {
+          detailedDisabilities:
+            currentUserInfo &&
+            currentUserInfo?.profile?.extProfile?.disability?.detailedDisabilities,
+        },
+        {
+          mobilityStatus:
+            currentUserInfo &&
+            currentUserInfo?.profile?.extProfile?.mobilityStatus,
+        },
+      ]);
+    }
   }, [loading, currentUserInfo, defaultInfo, setValue]);
-
+console.log('Inside step2', currentUserInfo)
   // Will update profile and route user to next step in profile wizard
   const onNext = handleSubmit(async data => {
     await updateExtProfile({
