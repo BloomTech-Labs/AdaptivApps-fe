@@ -87,9 +87,6 @@ export const GET_ANNOUNCEMENTS = gql`
       message
       createdAt
       isAnnouncementRoom
-      notification {
-        id
-      }
     }
   }
 `

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMutation, useQuery } from "react-apollo";
-import { CREATE_ANNOUNCEMENT, GET_RECIPIENTS, GET_ANNOUNCEMENTS } from '../../queries/Announcements';
+import { CREATE_ANNOUNCEMENT, GET_RECIPIENTS } from '../../queries/Announcements';
 import { CREATE_ANNOUNCEMENT_NOTIFICATION } from '../../queries/Notifications'
 
 //Style imports
@@ -92,8 +92,6 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
   //Create array of emails to match BE data shape, exclude yourself
   const allUserEmails = data?.profiles?.map(participant => user.email !== participant.email && 
     { "email": participant.email }).filter(participant => participant !== false)
-
-    console.log(allUserEmails)
   
   // Send announcement to BE & all users
   const onSubmit = e => {

@@ -103,7 +103,6 @@ const Input = ({ chatRoom, user, messages }) => {
         id: chatRoom.id,
         email: user.email,
         message: message,
-        //recipient: recipient[0].email,
       }}) &&
       await createChatRoomNotification({
         variables: {

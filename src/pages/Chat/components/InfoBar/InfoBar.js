@@ -120,8 +120,8 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   const { error, loading, data: chatRoomData, refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email }})
   
   // Notification Subscription
+  const { error: notificationError, loading: notificationLoading, data: notsub } = useSubscription(NOTIFICATION_SUBSCRIPTION)
   const { data: notifications, refetch: refetchNotifications } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email }})
-  const { error: notificationError, loading: notificationLoading } = useSubscription(NOTIFICATION_SUBSCRIPTION)
 
   // Announcement Subscription
   const { error: announcementError, loading: announcementLoading, data: announcementData } = useSubscription(ANNOUNCEMENT_SUBSCRIPTION, { variables: { isAnnouncementRoom: true } });
@@ -183,6 +183,8 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
 
   console.log(announcementData)
   console.log(announcements)
+  console.log('notification query', notifications)
+  console.log('notsub', notsub)
 
   !roomsLoading && refetch();
   !chatLoading && refetch();
@@ -246,7 +248,6 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
           >
             <AnnouncementModal
               user={user}
-              // validParticipants={validParticipants}
               setAnnouncementOpen={setAnnouncementOpen}
               setAlertOpen={setAlertOpen}
             />
@@ -254,7 +255,11 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
         </>
       ) : null}
       <div className={classes.chatRoomDiv}>
-        <AnnouncementRoom user={user} announcements={announcements}/>
+        <AnnouncementRoom 
+          user={user} 
+          announcements={announcements}
+          notifications={notifications?.profile?.notifications}
+          />
         <Divider variant="inset" className={classes.divider} />
         {results.length > 0
           ? results.map((chatRoom, id) => (

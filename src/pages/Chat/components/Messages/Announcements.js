@@ -93,7 +93,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Announcements({ data, user, setUpdateChat, setDeleteChat }) {
+export default function Announcements({ announcements, user, setUpdateChat, setDeleteChat }) {
   const classes = useStyles();
 
   const [announcementOpen, setAnnouncementOpen] = useState(false);
@@ -101,10 +101,8 @@ export default function Announcements({ data, user, setUpdateChat, setDeleteChat
 
   const [deleteAnnouncement] = useMutation(DELETE_ANNOUNCEMENT);
 
-  //const { loading, error, data: anndata } = useSubscription(ANNOUNCEMENT_SUBSCRIPTION, { variables: { isAnnouncementRoom: true } });
-  //const { loading: annloading, data, refetch } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
-
-  const announcements = data && data?.announcements?.map((announcement) => {return {
+  const announcementArray = announcements && announcements?.announcements?.map((announcement) => {
+    return {
       id: announcement.id,
       title: announcement.title,
       message: announcement.message,
@@ -119,7 +117,7 @@ export default function Announcements({ data, user, setUpdateChat, setDeleteChat
     announcementsEndRef.current && announcementsEndRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => { scrollToBottom() }, [announcements]);
+  useEffect(() => { scrollToBottom() }, [announcementArray]);
 
   const handleClose = () => {
     setAnnouncementOpen(false);
@@ -136,7 +134,7 @@ export default function Announcements({ data, user, setUpdateChat, setDeleteChat
   return (
     <div className={classes.root}>
       <div className={classes.messageDiv}>
-        {announcements.map((announcement) => (
+        {announcementArray.map((announcement) => (
           <>
             <div key={announcement.id} className={classes.messageBox}>
               <div className={classes.userMessage}>

@@ -184,14 +184,14 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoo
       }
     })   
 
-    // Logic to set group chat rooms
-    const chattingWith = participants.map((participant, index) => {
-      if (participants.length === 1 || index === participants.length - 1) {
-        return `${participant.firstName} ${participant.lastName}`
-      } else {
-        return `${participant.firstName} ${participant.lastName}, `
-      }
-    });
+  // Logic to set group chat rooms
+  const chattingWith = participants.map((participant, index) => {
+    if (participants.length === 1 || index === participants.length - 1) {
+      return `${participant.firstName} ${participant.lastName}`
+    } else {
+      return `${participant.firstName} ${participant.lastName}, `
+    }
+  });
 
   const handleClick = e => {
     e.preventDefault();
