@@ -163,9 +163,10 @@ export default function ActivityForm({
       <Controller
         as={
           <Select>
-            <MenuItem value="Clinic">Clinic</MenuItem>
-            <MenuItem value="Competition">Competition</MenuItem>
-            <MenuItem value="Tournament">Tournament</MenuItem>
+            <MenuItem value="Special Event">Special Event</MenuItem>
+            <MenuItem value="Sport Clinic">Sport Clinic</MenuItem>
+            <MenuItem value="Sport Challenge">Sport Challenge</MenuItem>
+            <MenuItem value="Workout">Workout</MenuItem>
           </Select>
         }
         name="type"
@@ -180,15 +181,19 @@ export default function ActivityForm({
         as={
           <Select>
             <MenuItem value="Archery">Archery</MenuItem>
+            <MenuItem value="Blind Judo">Blind Judo</MenuItem>
+            <MenuItem value="Cheerleading">Cheerleading</MenuItem>
             <MenuItem value="E-Sport">E-Sport</MenuItem>
+            <MenuItem value="Goalball">Goalball</MenuItem>
+            <MenuItem value="Powerlifting">Powerlifting</MenuItem>
+            <MenuItem value="Swimming">Swimming</MenuItem>
             <MenuItem value="Table Tennis">Table Tennis</MenuItem>
-            <MenuItem value="Track Field">Track Field</MenuItem>
-            <MenuItem value="Wheel Chair Basketball">
-              Wheel Chair Basketball
+            <MenuItem value="Track and Field">Track and Field</MenuItem>
+            <MenuItem value="Wheelchair Basketball">
+              Wheelchair Basketball
             </MenuItem>
             <MenuItem value="Wheelchair Tennis">Wheelchair Tennis</MenuItem>
-            <MenuItem value="Swimming">Swimming</MenuItem>
-            <MenuItem value="Sitting Volleyball">Sitting Volleyball</MenuItem>
+            <MenuItem value="Workout">Workout</MenuItem>
           </Select>
         }
         name="sportType"

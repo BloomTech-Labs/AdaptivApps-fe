@@ -114,7 +114,7 @@ export default function ActivityGroup({ activityData, refetch }) {
           <tr className={classes.trow}>
             <th>Name</th>
             <th>Date</th>
-            {activityData.event.type === "Webinar" ? (
+            {activityData.event.type === "Virtual" ? (
               <th>Link</th>
             ) : (
               <th>Location</th>
