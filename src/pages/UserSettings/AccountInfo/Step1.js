@@ -50,6 +50,10 @@ const useStyles = makeStyles({
     height: 48,
     marginBottom: "2.4rem",
   },
+  em: {
+    fontStyle: "italic",
+    fontSize: "1.6rem"
+  },
   addressBox: {
     display: "flex",
     marginBottom: "2.4rem",
@@ -92,7 +96,7 @@ export default function Step1({ updateProfile }) {
       bio: currentUserInfo && currentUserInfo?.profile?.bio,
     },
   });
-    // Sets default values in input fields with current user's info
+  // Sets default values in input fields with current user's info
   useEffect(() => {
     if (!loading && !currentUserInfo) setCurrentUserInfo(defaultInfo);
     if (!loading && currentUserInfo) {
@@ -100,7 +104,9 @@ export default function Step1({ updateProfile }) {
         { firstName: currentUserInfo && currentUserInfo?.profile?.firstName },
         { lastName: currentUserInfo && currentUserInfo?.profile?.lastName },
         { userName: currentUserInfo && currentUserInfo?.profile?.userName },
-        { phoneNumber: currentUserInfo && currentUserInfo?.profile?.phoneNumber },
+        {
+          phoneNumber: currentUserInfo && currentUserInfo?.profile?.phoneNumber,
+        },
         { address1: currentUserInfo && currentUserInfo?.profile?.address1 },
         { address2: currentUserInfo && currentUserInfo?.profile?.address2 },
         { city: currentUserInfo && currentUserInfo?.profile?.city },
@@ -293,6 +299,9 @@ export default function Step1({ updateProfile }) {
         <Controller
           as={
             <Select className={classes.typeSelect}>
+              <MenuItem value="">
+                <em className={classes.em}>Please choose one</em>
+              </MenuItem>
               <MenuItem value="Yes">Yes</MenuItem>
               <MenuItem value="No">No</MenuItem>
             </Select>

@@ -137,7 +137,7 @@ export default function AccountTypeForm({ updateProfile }) {
               as={
                 <Select className={classes.typeSelect}>
                   <MenuItem value="">
-                    <em className={classes.em}>Please choose one.</em>
+                    <em className={classes.em}>Please choose one</em>
                   </MenuItem>
                   <MenuItem value="Athlete">Adaptive Athlete</MenuItem>
                   <MenuItem value="Ally/Volunteer">

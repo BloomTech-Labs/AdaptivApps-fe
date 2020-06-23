@@ -255,19 +255,20 @@ export default function Step2({ updateExtProfile }) {
                 <em className={classes.em}>Please choose one</em>
               </MenuItem>
               <MenuItem value="Ataxia">Ataxia</MenuItem>
+              <MenuItem value="Athetosis">Athetosis</MenuItem>
               <MenuItem value="Hearing Impairment">Hearing Impairment</MenuItem>
               <MenuItem value="Hypertonia">Hypertonia</MenuItem>
               <MenuItem value="Impaired Muscle Power">
                 Impaired Muscle Power
               </MenuItem>
-              <MenuItem value="Impaired Passive Range">
-                Impaired Passive Range
+              <MenuItem value="Impaired Passive Range of Movement">
+                Impaired Passive Range of Movement
               </MenuItem>
               <MenuItem value="Intellectual Impairment">
                 Intellectual Impairment
               </MenuItem>
-              <MenuItem value="Leg Length Discrepancy">
-                Leg Length Discrepancy
+              <MenuItem value="Leg Length Difference">
+                Leg Length Difference
               </MenuItem>
               <MenuItem value="Limb Deficiency">Limb Deficiency</MenuItem>
               <MenuItem value="Short Stature">Short Stature</MenuItem>
