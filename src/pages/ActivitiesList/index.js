@@ -108,10 +108,12 @@ export default function ActivityList() {
     GET_EVENT_ACTIVITIES,
     {
       variables: { id: eventId },
+      fetchPolicy: 'no-cache'
     }
   );
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
+
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>

@@ -55,13 +55,13 @@ export default function ActivityForm({
   const navigate = useNavigate();
   const [currentActivity, setCurrentActivity] = useState(data);
   const activity = currentActivity?.activity;
-  const { register, handleSubmit, setValue, errors, control } = useForm({
+  const { handleSubmit, setValue, control } = useForm({
     defaultValues: {
       name: activity && activity.name,
       type: activity && activity.type,
       sportType: activity && activity.sportType,
       coaches: activity && activity.coaches,
-      date: activity && moment(activity.date).format("ddd MM/DD/YY"),
+      date: activity && moment(activity.date).format("yyyy-MM-DD"),
       startTime: activity && activity.startTime,
       endTime: activity && activity.endTime,
       location: activity && activity.location,
@@ -78,7 +78,7 @@ export default function ActivityForm({
         { type: activity.type },
         { sportType: activity.sportType },
         { coaches: activity.coaches },
-        { date: moment(activity.date).format("ddd MM/DD/YY") },
+        { date: moment(activity.date).format("yyyy-MM-DD") },
         { startTime: activity.startTime },
         { endTime: activity.endTime },
         { location: activity.location },
@@ -92,43 +92,55 @@ export default function ActivityForm({
   const onSubmit = async (formValues, e) => {
     e.preventDefault();
     if (window.location.pathname !== `/editActivity/${activityId}`) {
-      const { data } = await createActivity({
-        variables: {
-          name: formValues.name,
-          type: formValues.type,
-          sportType: formValues.sportType,
-          coaches: formValues.coaches,
-          date: moment(formValues.date).format("ddd MM/DD/YY"),
-          startTime: formValues.startTime,
-          endTime: formValues.endTime,
-          location: formValues.location,
-          link: formValues.link,
-          sponsors: formValues.sponsors,
-          details: formValues.details,
-          eventId: eventId,
-        },
-      });
-      alert("Successfully created an activity!");
-      await refetch();
+      if (!formValues.name || !formValues.type || !formValues.sportType || !formValues.coaches || !formValues.startTime || !formValues.endTime ||
+        !formValues.date || !formValues.location || !formValues.link || !formValues.details) {
+        alert("Please fill out all required fields!");
+      }
+      else {
+        const { data } = await createActivity({
+          variables: {
+            name: formValues.name,
+            type: formValues.type,
+            sportType: formValues.sportType,
+            coaches: formValues.coaches,
+            date: moment(formValues.date).format("ddd MM/DD/YY"),
+            startTime: formValues.startTime,
+            endTime: formValues.endTime,
+            location: formValues.location,
+            link: formValues.link,
+            sponsors: formValues.sponsors,
+            details: formValues.details,
+            eventId: eventId,
+          },
+        });
+        alert("Successfully created an activity!");
+        await refetch();
+      }
     } else {
-      await updateActivity({
-        variables: {
-          name: formValues.name,
-          type: formValues.type,
-          sportType: formValues.sportType,
-          coaches: formValues.coaches,
-          date: moment(formValues.date).format("ddd MM/DD/YY"),
-          startTime: formValues.startTime,
-          endTime: formValues.endTime,
-          location: formValues.location,
-          link: formValues.link,
-          sponsors: formValues.sponsors,
-          details: formValues.details,
-          activityId: activityId,
-        },
-      });
-      alert("Successfully updated an activity!");
-      await navigate(`/createEvent/${data?.activity?.event?.id}`);
+      if (!formValues.name || !formValues.type || !formValues.sportType || !formValues.coaches || !formValues.startTime || !formValues.endTime ||
+        !formValues.date || !formValues.location || !formValues.link || !formValues.details) {
+        alert("Please fill out all required fields!");
+      }
+      else {
+        await updateActivity({
+          variables: {
+            name: formValues.name,
+            type: formValues.type,
+            sportType: formValues.sportType,
+            coaches: formValues.coaches,
+            date: moment(formValues.date).format("ddd MM/DD/YY"),
+            startTime: formValues.startTime,
+            endTime: formValues.endTime,
+            location: formValues.location,
+            link: formValues.link,
+            sponsors: formValues.sponsors,
+            details: formValues.details,
+            activityId: activityId,
+          },
+        });
+        alert("Successfully updated an activity!");
+        await navigate(`/createEvent/${data?.activity?.event?.id}`);
+      }
     }
   };
 
@@ -144,7 +156,6 @@ export default function ActivityForm({
         name="date"
         variant="outlined"
         control={control}
-        ref={register({ required: true })}
       />
       <InputLabel className={classes.inputLabel} htmlFor="type">
         Activity Type
@@ -152,15 +163,16 @@ export default function ActivityForm({
       <Controller
         as={
           <Select>
-            <MenuItem value="Clinic">Clinic</MenuItem>
-            <MenuItem value="Competition">Competition</MenuItem>
-            <MenuItem value="Tournament">Tournament</MenuItem>
+            <MenuItem value="Special Event">Special Event</MenuItem>
+            <MenuItem value="Sport Clinic">Sport Clinic</MenuItem>
+            <MenuItem value="Sport Challenge">Sport Challenge</MenuItem>
+            <MenuItem value="Workout">Workout</MenuItem>
           </Select>
         }
         name="type"
         variant="outlined"
         control={control}
-        ref={register({ required: true })}
+        defaultValue=""
       />
       <InputLabel className={classes.inputLabel} htmlFor="sportType">
         Sport Type
@@ -169,21 +181,25 @@ export default function ActivityForm({
         as={
           <Select>
             <MenuItem value="Archery">Archery</MenuItem>
+            <MenuItem value="Blind Judo">Blind Judo</MenuItem>
+            <MenuItem value="Cheerleading">Cheerleading</MenuItem>
             <MenuItem value="E-Sport">E-Sport</MenuItem>
+            <MenuItem value="Goalball">Goalball</MenuItem>
+            <MenuItem value="Powerlifting">Powerlifting</MenuItem>
+            <MenuItem value="Swimming">Swimming</MenuItem>
             <MenuItem value="Table Tennis">Table Tennis</MenuItem>
-            <MenuItem value="Track Field">Track Field</MenuItem>
-            <MenuItem value="Wheel Chair Basketball">
-              Wheel Chair Basketball
+            <MenuItem value="Track and Field">Track and Field</MenuItem>
+            <MenuItem value="Wheelchair Basketball">
+              Wheelchair Basketball
             </MenuItem>
             <MenuItem value="Wheelchair Tennis">Wheelchair Tennis</MenuItem>
-            <MenuItem value="Swimming">Swimming</MenuItem>
-            <MenuItem value="Sitting Volleyball">Sitting Volleyball</MenuItem>
+            <MenuItem value="Workout">Workout</MenuItem>
           </Select>
         }
         name="sportType"
         variant="outlined"
         control={control}
-        ref={register({ required: true })}
+        defaultValue=""
       />
       <InputLabel className={classes.inputLabel} htmlFor="name">
         Activity Name
@@ -195,7 +211,6 @@ export default function ActivityForm({
         name="name"
         variant="outlined"
         control={control}
-        ref={register({ required: true, maxLength: 255 })}
       />
       <InputLabel className={classes.inputLabel} htmlFor="coaches">
         Coaches
@@ -207,7 +222,6 @@ export default function ActivityForm({
         name="coaches"
         variant="outlined"
         control={control}
-        ref={register({ required: true, maxLength: 255 })}
       />
       <InputLabel className={classes.inputLabel} htmlFor="startTime">
         Start Time
@@ -219,7 +233,6 @@ export default function ActivityForm({
         name="startTime"
         variant="outlined"
         control={control}
-        ref={register({ required: true })}
       />
       <InputLabel className={classes.inputLabel} htmlFor="endTime">
         End Time
@@ -231,7 +244,6 @@ export default function ActivityForm({
         name="endTime"
         variant="outlined"
         control={control}
-        ref={register({ required: true })}
       />
       <InputLabel className={classes.inputLabel} htmlFor="location">
         Location
@@ -243,7 +255,6 @@ export default function ActivityForm({
         name="location"
         variant="outlined"
         control={control}
-        ref={register({ required: true, maxLength: 255 })}
       />
       <InputLabel className={classes.inputLabel} htmlFor="link">
         Zoom Link
@@ -255,7 +266,6 @@ export default function ActivityForm({
         name="link"
         variant="outlined"
         control={control}
-        ref={register}
       />
       <InputLabel className={classes.inputLabel} htmlFor="details">
         Activity Details
@@ -267,7 +277,6 @@ export default function ActivityForm({
         multiline
         rows="8"
         control={control}
-        ref={register({ required: true, maxLength: 510 })}
       />
       <Box>
         <LightTooltip title="Add Activity">
@@ -281,17 +290,20 @@ export default function ActivityForm({
             Save
           </Button>
         </LightTooltip>
-        <LightTooltip title="Finish Event Creation">
-          <Button
-            className={classes.button}
-            variant="outlined"
-            aria-label="Click here to finish event creation"
-            onClick={() => navigate(`/calendar/${eventId}`)}
-          >
-            Finish
+        {window.location.pathname !== `/editActivity/${activityId}` &&
+          <LightTooltip title="Finish Event Creation">
+            <Button
+              className={classes.button}
+              variant="outlined"
+              aria-label="Click here to finish event creation"
+              onClick={() => navigate(`/calendar/${eventId}`)}
+            >
+              Finish
           </Button>
-        </LightTooltip>
+          </LightTooltip>
+        }
       </Box>
     </form>
   );
 }
+
