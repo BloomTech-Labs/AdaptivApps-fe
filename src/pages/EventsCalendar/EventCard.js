@@ -134,7 +134,6 @@ export default function EventCard({ event, refetch, user }) {
   const [registerForEvent] = useMutation(REGISTER_FOR_EVENT);
   const [deleteEvent] = useMutation(DELETE_EVENT);
   const [open, setOpen] = useState(false);
-  const [currAttendeeID, setCurrAttendeeID] = useState("");
   // will open DeleteModal when invoked
   const handleOpen = () => {
     setOpen(true);
