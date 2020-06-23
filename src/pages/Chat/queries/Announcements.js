@@ -13,51 +13,11 @@ export const GET_RECIPIENTS = gql`
 `;
 
 // Create an announcement
-// export const CREATE_ANNOUNCEMENT = gql`
-// 	mutation createNotification ( 
-//     $title: String!, 
-//     $message: String!, 
-//     $recipients: [ProfileWhereUniqueInput!], 
-//     $isAnnouncementRoom: Boolean! ) {
-//       createNotification(data: {
-//       announcement:{
-//         create: {
-//           title: $title
-//           message: $message
-//           isAnnouncementRoom: $isAnnouncementRoom
-//           participants: {
-//             connect: $recipients
-//           }
-//         }
-//       }
-//       profile: {
-//         connect: $recipients
-//       }
-//     }) {
-//       id
-//       profile {
-//         id
-//         email
-//         firstName
-//         lastName
-//       }
-//       announcement {
-//         id
-//         message
-//         title
-//         createdAt
-//         isAnnouncementRoom
-//       }
-//     }
-//   }
-// `
-
-// Create an announcement
 export const CREATE_ANNOUNCEMENT = gql`
 	mutation createAnnouncement ( 
     $title: String!, 
     $message: String!, 
-    $email: String!, 
+    $recipients: [ProfileWhereUniqueInput!], 
     $isAnnouncementRoom: Boolean! ) {
     createAnnouncement(
       data: {
@@ -65,9 +25,7 @@ export const CREATE_ANNOUNCEMENT = gql`
         message: $message
         isAnnouncementRoom: $isAnnouncementRoom
         participants: {
-          connect: {
-            email: $email
-          }
+          connect: $recipients
         }
       }
     ) {

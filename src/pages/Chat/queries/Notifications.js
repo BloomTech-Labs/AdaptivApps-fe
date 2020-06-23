@@ -50,10 +50,13 @@ export const CREATE_CHAT_NOTIFICATION = gql`
 `
 
 export const CREATE_ANNOUNCEMENT_NOTIFICATION = gql`
-  mutation createAnnouncementNotification($recipients: [ProfileWhereUniqueInput!], $label: String!) {
+  mutation createAnnouncementNotification(
+    $email: String!, $label: String!) {
     createNotification(data: {
       profile: {
-        connect: $recipients
+        connect: {
+          email: $email
+        }
       }
       label: $label
     }) {

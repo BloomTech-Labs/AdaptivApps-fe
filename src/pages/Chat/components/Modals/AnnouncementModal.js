@@ -93,7 +93,7 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
   const allUserEmails = data?.profiles?.map(participant => user.email !== participant.email && 
     { "email": participant.email }).filter(participant => participant !== false)
 
-    console.log('emails', allUserEmails)
+    allUserEmails && allUserEmails.forEach(user => console.log(user.email))
   
   // Send announcement to BE & all users
   const onSubmit = e => {
@@ -105,13 +105,13 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
         isAnnouncementRoom: true,
         participants: allUserEmails,
       }}) &&
-
-      
-    createAnnouncementNotification({
-      variables: {
-        recipients: allUserEmails,
-        label: 'Announcement'
-      }});
+      allUserEmails.forEach(user => {
+        createAnnouncementNotification({
+          variables: {
+            email: user.email,
+            label: 'Announcement'
+          }});
+      })
     setAnnouncementOpen(false);
     setAlertOpen(true);
   };
