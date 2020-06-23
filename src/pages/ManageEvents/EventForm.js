@@ -187,14 +187,19 @@ export default function EventForm({
           as={
             <Select>
               <MenuItem value="Archery">Archery</MenuItem>
+              <MenuItem value="Blind Judo">Blind Judo</MenuItem>
+              <MenuItem value="Cheerleading">Cheerleading</MenuItem>
+              <MenuItem value="E-Sport">E-Sport</MenuItem>
+              <MenuItem value="Goalball">Goalball</MenuItem>
+              <MenuItem value="Powerlifting">Powerlifting</MenuItem>
+              <MenuItem value="Swimming">Swimming</MenuItem>
               <MenuItem value="Table Tennis">Table Tennis</MenuItem>
-              <MenuItem value="Track Field">Track Field</MenuItem>
-              <MenuItem value="Wheel Chair Basketball">
-                Wheel Chair Basketball
+              <MenuItem value="Track and Field">Track and Field</MenuItem>
+              <MenuItem value="Wheelchair Basketball">
+                Wheelchair Basketball
               </MenuItem>
               <MenuItem value="Wheelchair Tennis">Wheelchair Tennis</MenuItem>
-              <MenuItem value="Swimming">Swimming</MenuItem>
-              <MenuItem value="Sitting Volleyball">Sitting Volleyball</MenuItem>
+              <MenuItem value="Workout">Workout</MenuItem>
             </Select>
           }
           name="sportType"
