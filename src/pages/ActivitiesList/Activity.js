@@ -47,7 +47,7 @@ const useStyles = makeStyles({
 
 export default function Activity({ activity, activityData, value, refetch }) {
   const classes = useStyles();
-  console.log("activityData in Activity.js", activityData);
+  console.log("activityData in Activity.js", activityData, activity);
   return (
     <>
       {value === activity?.date ? (
@@ -61,7 +61,15 @@ export default function Activity({ activity, activityData, value, refetch }) {
             {activityData?.event?.type === "In Person" ? (
               <td className={classes.tableData}>{activity.location}</td>
             ) : (
-                <td className={classes.tableData}>{activity.link}</td>
+                <td>
+                  <a
+                    className={classes.tableData}
+                    href={activity?.link}
+                    target="_blank"
+                  >
+                    Join!
+                </a>
+                </td>
               )}
             <td className={classes.time}>{activity?.startTime}</td>
             <td>

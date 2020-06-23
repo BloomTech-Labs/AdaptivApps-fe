@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "@reach/router";
-import TagInput from './TagInput';
+import TagInput from "./TagInput";
 import { useQuery, useMutation } from "react-apollo";
-import { GET_TAGS, CREATE_TAG } from './graphql';
+import { GET_TAGS, CREATE_TAG } from "./graphql";
 
 import {
   makeStyles,
@@ -99,12 +99,12 @@ export default function EventForm({
       if (!tagsInServer.includes(tags[j])) {
         CreateTag({
           variables: {
-            name: tags[j]
-          }
-        })
+            name: tags[j],
+          },
+        });
       }
     }
-  }
+  };
 
   const onSubmit = async (formValues, e) => {
     await createNewTags();
@@ -113,7 +113,7 @@ export default function EventForm({
         variables: {
           type: formValues.type,
           sportType: formValues.sportType,
-          tags: tags.join(', '),
+          tags: tags.join(", "),
           title: formValues.title,
           host: formValues.host,
           coaches: formValues.coaches,
@@ -137,7 +137,7 @@ export default function EventForm({
           id: eventId,
           type: formValues.type,
           sportType: formValues.sportType,
-          tags: tags.join(', '),
+          tags: tags.join(", "),
           title: formValues.title,
           host: formValues.host,
           coaches: formValues.coaches,
@@ -167,12 +167,12 @@ export default function EventForm({
       <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
         <InputLabel className={classes.inputLabel} htmlFor="type">
           Event Type
-      </InputLabel>
+        </InputLabel>
         <Controller
           as={
             <Select>
               <MenuItem value="In Person">In Person</MenuItem>
-              <MenuItem value="Webinar">Webinar</MenuItem>
+              <MenuItem value="Virtual">Virtual</MenuItem>
             </Select>
           }
           name="type"
@@ -182,19 +182,24 @@ export default function EventForm({
         />
         <InputLabel className={classes.inputLabel} htmlFor="sportType">
           Sport Type
-      </InputLabel>
+        </InputLabel>
         <Controller
           as={
             <Select>
               <MenuItem value="Archery">Archery</MenuItem>
+              <MenuItem value="Blind Judo">Blind Judo</MenuItem>
+              <MenuItem value="Cheerleading">Cheerleading</MenuItem>
+              <MenuItem value="E-Sport">E-Sport</MenuItem>
+              <MenuItem value="Goalball">Goalball</MenuItem>
+              <MenuItem value="Powerlifting">Powerlifting</MenuItem>
+              <MenuItem value="Swimming">Swimming</MenuItem>
               <MenuItem value="Table Tennis">Table Tennis</MenuItem>
-              <MenuItem value="Track Field">Track Field</MenuItem>
-              <MenuItem value="Wheel Chair Basketball">
-                Wheel Chair Basketball
+              <MenuItem value="Track and Field">Track and Field</MenuItem>
+              <MenuItem value="Wheelchair Basketball">
+                Wheelchair Basketball
               </MenuItem>
               <MenuItem value="Wheelchair Tennis">Wheelchair Tennis</MenuItem>
-              <MenuItem value="Swimming">Swimming</MenuItem>
-              <MenuItem value="Sitting Volleyball">Sitting Volleyball</MenuItem>
+              <MenuItem value="Workout">Workout</MenuItem>
             </Select>
           }
           name="sportType"
@@ -357,10 +362,7 @@ export default function EventForm({
           rows="8"
           control={control}
         />
-        <TagInput
-          tags={tags}
-          setTags={setTags}
-        />
+        <TagInput tags={tags} setTags={setTags} />
         <Button
           className={classes.button}
           variant="outlined"
@@ -370,7 +372,7 @@ export default function EventForm({
           onClick={handleSubmit}
         >
           Save
-      </Button>
+        </Button>
       </form>
     </div>
   );

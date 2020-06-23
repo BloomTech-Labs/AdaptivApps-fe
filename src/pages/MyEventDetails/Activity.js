@@ -52,7 +52,7 @@ export default function Activities({
               <SimpleModal activity={activity} activeEvent={activeEvent} />
             </td>
             <td>{activity?.date}</td>
-            {activeEvent?.type === "Webinar" ? (
+            {activeEvent?.type === "Virtual" ? (
               <td>
                 <a
                   className={classes.nameLink}
