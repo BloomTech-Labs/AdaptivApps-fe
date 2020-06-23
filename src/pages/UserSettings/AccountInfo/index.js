@@ -5,6 +5,7 @@ import { Router } from "@reach/router";
 import { useAuth0 } from "../../../config/react-auth0-spa"
 // Apollo/GraphQL imports
 import { useMutation } from "react-apollo";
+import { UPDATE_TYPE_ROLE } from "../queries";
 import { UPDATE_USER_PROFILE } from "../queries";
 import { UPDATE_ORG_PROFILE } from "../queries";
 import { UPDATE_EXT_PROFILE } from "../queries";
@@ -44,6 +45,7 @@ const useStyles = makeStyles({
 export default function AccountInfo() {
   const classes = useStyles();
   const { user } = useAuth0();
+  const [UpdateTypeRole] = useMutation(UPDATE_TYPE_ROLE);
   const [UpdateProfile] = useMutation(UPDATE_USER_PROFILE);
   const [UpdateOrgProfile] = useMutation(UPDATE_ORG_PROFILE);
   const [UpdateExtProfile] = useMutation(UPDATE_EXT_PROFILE);
@@ -68,7 +70,7 @@ export default function AccountInfo() {
       <Router className={classes.children}>
         <AccountTypeForm path="/" updateProfile={UpdateProfile} />
         <OrgStep1 path="orginfo" updateOrgProfile={UpdateOrgProfile} />
-        <Step1 path="step1of6" updateProfile={UpdateProfile} />
+        <Step1 path="step1of6" updateProfile={UpdateTypeRole} />
         <Step2 path="step2of6" updateExtProfile={UpdateExtProfile} />
         <Step3 path="step3of6" updateDemoProfile={UpdateDemoProfile} />
         <Step4 path="step4of6" updateSportsDemo={UpdateSportsDemo} />

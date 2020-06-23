@@ -5,6 +5,37 @@ export const PROFILE_TYPE = gql`
     profile(where: { email: $email }) {
       id
       type
+      extProfile {
+        id
+        roleIdentity
+      }
+    }
+  }
+`;
+
+export const UPDATE_TYPE_ROLE = gql`
+  mutation UpdateTypeRole(
+    $email: String!
+    $type: String
+    $roleIdentity: String
+  ) {
+    updateProfile(
+      where: { email: $email }
+      data: {
+        type: $type
+        extProfile: {
+          upsert: {
+            update: { roleIdentity: $roleIdentity }
+            create: { roleIdentity: $roleIdentity }
+          }
+        }
+      }
+    ) {
+      id
+      extProfile {
+        id
+        roleIdentity
+      }
     }
   }
 `;
@@ -13,7 +44,6 @@ export const PROFILE_TYPE = gql`
 export const UPDATE_USER_PROFILE = gql`
   mutation UpdateProfile(
     $email: String!
-    $type: String
     $private: Boolean
     $firstName: String
     $lastName: String
@@ -27,7 +57,6 @@ export const UPDATE_USER_PROFILE = gql`
     updateProfile(
       where: { email: $email }
       data: {
-        type: $type
         private: $private
         firstName: $firstName
         lastName: $lastName
@@ -40,7 +69,6 @@ export const UPDATE_USER_PROFILE = gql`
       }
     ) {
       id
-      type
       private
       firstName
       lastName
