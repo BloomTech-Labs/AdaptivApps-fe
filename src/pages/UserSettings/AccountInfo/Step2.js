@@ -295,8 +295,9 @@ export default function Step2({ updateExtProfile }) {
                 <em className={classes.em}>Please choose one</em>
               </MenuItem>
               <MenuItem value="ALS">ALS</MenuItem>
-              <MenuItem value="Amputation">Amputation</MenuItem>
+              <MenuItem value="Amputation / Limb Difference">Amputation / Limb Difference</MenuItem>
               <MenuItem value="Arthogyposis">Arthogyposis</MenuItem>
+              <MenuItem value="Ataxia">Ataxia</MenuItem>
               <MenuItem value="Brachial Plexus Injury">
                 Brachial Plexus Injury
               </MenuItem>
@@ -304,7 +305,7 @@ export default function Step2({ updateExtProfile }) {
                 Cauda Equina Syndrome
               </MenuItem>
               <MenuItem value="Cerebral Palsy">Cerebral Palsy</MenuItem>
-              <MenuItem value="Arthritis">Arthritis</MenuItem>
+              <MenuItem value="Chronic joint immobilization / Arthritis">Chronic joint immobilization / Arthritis</MenuItem>
               <MenuItem value="Charcot Marie Tooth">
                 Charcot Marie Tooth
               </MenuItem>
@@ -317,6 +318,7 @@ export default function Step2({ updateExtProfile }) {
               <MenuItem value="Guillain-Barre Syndrome">
                 Guillain-Barre Syndrome
               </MenuItem>
+              <MenuItem value="Leg Length Difference">Leg Length Difference</MenuItem>
               <MenuItem value="Multiple Sclerosis">Multiple Sclerosis</MenuItem>
               <MenuItem value="Muscular Dystrophy">Muscular Dystrophy</MenuItem>
               <MenuItem value="Osteogenesis Imperfecta">
@@ -331,6 +333,7 @@ export default function Step2({ updateExtProfile }) {
               <MenuItem value="Spina Bifida">Spina Bifida</MenuItem>
               <MenuItem value="Paraplegia">Paraplegia</MenuItem>
               <MenuItem value="Quadraplegia">Quadraplegia</MenuItem>
+              <MenuItem value="Stroke">Stroke</MenuItem>
               <MenuItem value="TBI">TBI</MenuItem>
               <MenuItem value="Other">Other</MenuItem>
               <MenuItem value="None">None</MenuItem>
