@@ -12,7 +12,8 @@ import GlobalSearchBox from "../../routes/DashRouter/GlobalSearchBox";
 const useStyles = makeStyles({
   root: {
     maxWidth: "100%",
-    width: "90%",
+    // Changed from 90 to 100, JC6/23
+    width: "100%",
   },
   headingBox: {
     margin: "6rem 0 2rem 3rem",
@@ -33,7 +34,7 @@ const useStyles = makeStyles({
   search: {
     zIndex: 100,
     position: "absolute",
-    marginLeft: "550px",
+    marginLeft: "350px",
   },
 });
 

@@ -17,6 +17,7 @@ const useStyles = makeStyles({
     position: "relative",
     width: "250px",
     userSelect: "none",
+    margin: "0 0 1rem 3rem",
   },
   header: {
     display: "flex",
