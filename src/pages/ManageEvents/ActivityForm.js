@@ -40,6 +40,12 @@ const useStyles = makeStyles(theme => ({
     },
   },
   form: { display: "flex", flexDirection: "column", width: "400px" },
+  inputLabel: {
+    marginBottom: "7px",
+  },
+  inputField: {
+    marginBottom: "10px",
+  },
 }));
 
 export default function ActivityForm({
@@ -156,6 +162,7 @@ export default function ActivityForm({
         name="date"
         variant="outlined"
         control={control}
+        className={classes.inputField}
       />
       <InputLabel className={classes.inputLabel} htmlFor="type">
         Activity Type
@@ -173,6 +180,7 @@ export default function ActivityForm({
         variant="outlined"
         control={control}
         defaultValue=""
+        className={classes.inputField}
       />
       <InputLabel className={classes.inputLabel} htmlFor="sportType">
         Sport Type
@@ -200,6 +208,7 @@ export default function ActivityForm({
         variant="outlined"
         control={control}
         defaultValue=""
+        className={classes.inputField}
       />
       <InputLabel className={classes.inputLabel} htmlFor="name">
         Activity Name
@@ -211,6 +220,7 @@ export default function ActivityForm({
         name="name"
         variant="outlined"
         control={control}
+        className={classes.inputField}
       />
       <InputLabel className={classes.inputLabel} htmlFor="coaches">
         Coaches
@@ -222,6 +232,7 @@ export default function ActivityForm({
         name="coaches"
         variant="outlined"
         control={control}
+        className={classes.inputField}
       />
       <InputLabel className={classes.inputLabel} htmlFor="startTime">
         Start Time
@@ -233,6 +244,7 @@ export default function ActivityForm({
         name="startTime"
         variant="outlined"
         control={control}
+        className={classes.inputField}
       />
       <InputLabel className={classes.inputLabel} htmlFor="endTime">
         End Time
@@ -244,6 +256,7 @@ export default function ActivityForm({
         name="endTime"
         variant="outlined"
         control={control}
+        className={classes.inputField}
       />
       <InputLabel className={classes.inputLabel} htmlFor="location">
         Location
@@ -255,6 +268,7 @@ export default function ActivityForm({
         name="location"
         variant="outlined"
         control={control}
+        className={classes.inputField}
       />
       <InputLabel className={classes.inputLabel} htmlFor="link">
         Zoom Link
@@ -266,6 +280,7 @@ export default function ActivityForm({
         name="link"
         variant="outlined"
         control={control}
+        className={classes.inputField}
       />
       <InputLabel className={classes.inputLabel} htmlFor="details">
         Activity Details
