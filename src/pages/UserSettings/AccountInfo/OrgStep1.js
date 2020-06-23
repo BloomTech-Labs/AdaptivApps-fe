@@ -63,24 +63,54 @@ export default function OrgStep1({ updateOrgProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  //
-
-  // const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
-  const { handleSubmit, control } = useForm();
+  const { data: defaultInfo, loading } = useQuery(ORG_PROFILE, {
+    variables: { email: userEmail },
+  });
+  const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
+  const { handleSubmit, setValue, control } = useForm({
+    defaultValues: {
+      phoneNumber: currentUserInfo && currentUserInfo?.profile?.phoneNumber,
+      userName: currentUserInfo && currentUserInfo?.profile?.userName,
+      address1: currentUserInfo && currentUserInfo?.profile?.address1,
+      address2: currentUserInfo && currentUserInfo?.profile?.address2,
+      city: currentUserInfo && currentUserInfo?.profile?.city,
+      state: currentUserInfo && currentUserInfo?.profile?.state,
+      postalCode: currentUserInfo && currentUserInfo?.profile?.postalCode,
+      country: currentUserInfo && currentUserInfo?.profile?.country,
+      bio: currentUserInfo && currentUserInfo?.profile?.bio,
+      orgName: currentUserInfo && currentUserInfo?.profile?.extProfile?.orgName,
+      website: currentUserInfo && currentUserInfo?.profile?.extProfile?.website,
+    },
+  });
   // Sets default values in input fields with current user's info
-  // useEffect(() => {
-  //   !loading && !currentUserInfo
-  //     ? setCurrentUserInfo(defaultInfo)
-  //     : setValue([
-  //         { phoneNumber: currentUserInfo && currentUserInfo.profile.phoneNumber },
-  //         { userName: currentUserInfo && currentUserInfo.profile.userName },
-  //         { city: currentUserInfo && currentUserInfo.profile.city },
-  //         { state: currentUserInfo && currentUserInfo.profile.state },
-  //         { bio: currentUserInfo && currentUserInfo.profile.bio },
-  //         { orgName: currentUserInfo && currentUserInfo.profile.extProfile.orgName },
-  //         { website: currentUserInfo && currentUserInfo.profile.extProfile.website },
-  //       ]);
-  // }, [loading, currentUserInfo, defaultInfo, setValue]);
+  useEffect(() => {
+    !loading && !currentUserInfo
+      ? setCurrentUserInfo(defaultInfo)
+      : setValue([
+          {
+            phoneNumber:
+              currentUserInfo && currentUserInfo?.profile?.phoneNumber,
+          },
+          { userName: currentUserInfo && currentUserInfo?.profile?.userName },
+          { address1: currentUserInfo && currentUserInfo?.profile?.address1 },
+          { address2: currentUserInfo && currentUserInfo?.profile?.address2 },
+          { city: currentUserInfo && currentUserInfo?.profile?.city },
+          { state: currentUserInfo && currentUserInfo?.profile?.state },
+          {
+            postalCode: currentUserInfo && currentUserInfo?.profile?.postalCode,
+          },
+          { country: currentUserInfo && currentUserInfo?.profile?.country },
+          { bio: currentUserInfo && currentUserInfo?.profile?.bio },
+          {
+            orgName:
+              currentUserInfo && currentUserInfo?.profile?.extProfile?.orgName,
+          },
+          {
+            website:
+              currentUserInfo && currentUserInfo?.profile?.extProfile?.website,
+          },
+        ]);
+  }, [loading, currentUserInfo, defaultInfo, setValue]);
 
   const onSubmit = async data => {
     await updateOrgProfile({
@@ -124,7 +154,7 @@ export default function OrgStep1({ updateOrgProfile }) {
           type="text"
           variant="outlined"
           control={control}
-          // defaultValue=""
+          defaultValue=""
         />
       </Box>
       <Box className={classes.boxSpacing}>
@@ -160,7 +190,7 @@ export default function OrgStep1({ updateOrgProfile }) {
             type="text"
             variant="outlined"
             control={control}
-            // defaultValue=""
+            defaultValue=""
           />
         </Box>
       </Box>
@@ -185,7 +215,7 @@ export default function OrgStep1({ updateOrgProfile }) {
             type="text"
             variant="outlined"
             control={control}
-            // defaultValue=""
+            defaultValue=""
           />
         </Box>
       </Box>
@@ -198,7 +228,7 @@ export default function OrgStep1({ updateOrgProfile }) {
             type="text"
             variant="outlined"
             control={control}
-            // defaultValue=""
+            defaultValue=""
           />
         </Box>
         <Box>
@@ -209,7 +239,7 @@ export default function OrgStep1({ updateOrgProfile }) {
             type="text"
             variant="outlined"
             control={control}
-            // defaultValue=""
+            defaultValue=""
           />
         </Box>
       </Box>
@@ -225,6 +255,7 @@ export default function OrgStep1({ updateOrgProfile }) {
           multiline
           rows="8"
           control={control}
+          defaultValue=""
         />
       </Box>
       <Typography>* required field</Typography>
