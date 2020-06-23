@@ -113,7 +113,7 @@ export default function AccountTypeForm({ updateProfile }) {
               as={
                 <Select className={classes.typeSelect}>
                   <MenuItem value="">
-                    <em className={classes.em}>Please choose one.</em>
+                    <em className={classes.em}>Please choose one</em>
                   </MenuItem>
                   <MenuItem value="Individual">
                     I'm registering as an individual

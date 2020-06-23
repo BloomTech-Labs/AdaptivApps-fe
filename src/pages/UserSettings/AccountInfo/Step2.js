@@ -49,10 +49,14 @@ const useStyles = makeStyles({
   longSelect: {
     marginBottom: "2.4rem",
   },
+  em: {
+    fontStyle: "italic",
+    fontSize: "1.6rem",
+  },
   btnBox: {
     display: "flex",
     justifyContent: "space-between",
-    marginTop: "8.8rem",
+    marginTop: "7rem",
   },
 });
 
@@ -60,74 +64,74 @@ export default function Step2({ updateExtProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_2, {
-    variables: { email: userEmail },
-  });
+  // const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_2, {
+  //   variables: { email: userEmail },
+  // });
 
-  console.log('Query inside step2', defaultInfo)
-  const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
+  // console.log('Query inside step2', defaultInfo)
+  // const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
   const { handleSubmit, setValue, control } = useForm({
-    defaultValues: {
-      gender: currentUserInfo && currentUserInfo?.profile?.extProfile?.gender,
-      birthday: currentUserInfo && currentUserInfo?.profile?.extProfile?.birthday,
-      eC1Name: currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Name,
-      eC1Phone: currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Phone,
-      eC1Relation:
-        currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Relation,
-      physicalDisability:
-        currentUserInfo &&
-        currentUserInfo?.profile?.extProfile?.disability?.physicalDisability,
-      detailedDisabilities:
-        currentUserInfo &&
-        currentUserInfo?.profile?.extProfile?.disability?.detailedDisabilities,
-      mobilityStatus:
-        currentUserInfo && currentUserInfo?.profile?.extProfile?.mobilityStatus,
-    },
+    // defaultValues: {
+    //   gender: currentUserInfo && currentUserInfo?.profile?.extProfile?.gender,
+    //   birthday: currentUserInfo && currentUserInfo?.profile?.extProfile?.birthday,
+    //   eC1Name: currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Name,
+    //   eC1Phone: currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Phone,
+    //   eC1Relation:
+    //     currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Relation,
+    //   physicalDisability:
+    //     currentUserInfo &&
+    //     currentUserInfo?.profile?.extProfile?.disability?.physicalDisability,
+    //   detailedDisabilities:
+    //     currentUserInfo &&
+    //     currentUserInfo?.profile?.extProfile?.disability?.detailedDisabilities,
+    //   mobilityStatus:
+    //     currentUserInfo && currentUserInfo?.profile?.extProfile?.mobilityStatus,
+    // },
   });
 
   // Sets default values in input fields with current user's info
-  useEffect(() => {
-    if (!loading && !currentUserInfo) setCurrentUserInfo(defaultInfo);
-    if (!loading && currentUserInfo) {
-      setValue([
-        {
-          gender: currentUserInfo && currentUserInfo?.profile?.extProfile?.gender,
-        },
-        {
-          birthday:
-            currentUserInfo && currentUserInfo?.profile?.extProfile?.birthday,
-        },
-        {
-          eC1Name:
-            currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Name,
-        },
-        {
-          eC1Phone:
-            currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Phone,
-        },
-        {
-          eC1Relation:
-            currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Relation,
-        },
-        {
-          physicalDisability:
-            currentUserInfo &&
-            currentUserInfo?.profile?.extProfile?.disability?.physicalDisability,
-        },
-        {
-          detailedDisabilities:
-            currentUserInfo &&
-            currentUserInfo?.profile?.extProfile?.disability?.detailedDisabilities,
-        },
-        {
-          mobilityStatus:
-            currentUserInfo &&
-            currentUserInfo?.profile?.extProfile?.mobilityStatus,
-        },
-      ]);
-    }
-  }, [loading, currentUserInfo, defaultInfo, setValue]);
-console.log('Inside step2', currentUserInfo)
+  // useEffect(() => {
+  //   if (!loading && !currentUserInfo) setCurrentUserInfo(defaultInfo);
+  //   if (!loading && currentUserInfo) {
+  //     setValue([
+  //       {
+  //         gender: currentUserInfo && currentUserInfo?.profile?.extProfile?.gender,
+  //       },
+  //       {
+  //         birthday:
+  //           currentUserInfo && currentUserInfo?.profile?.extProfile?.birthday,
+  //       },
+  //       {
+  //         eC1Name:
+  //           currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Name,
+  //       },
+  //       {
+  //         eC1Phone:
+  //           currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Phone,
+  //       },
+  //       {
+  //         eC1Relation:
+  //           currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Relation,
+  //       },
+  //       {
+  //         physicalDisability:
+  //           currentUserInfo &&
+  //           currentUserInfo?.profile?.extProfile?.disability?.physicalDisability,
+  //       },
+  //       {
+  //         detailedDisabilities:
+  //           currentUserInfo &&
+  //           currentUserInfo?.profile?.extProfile?.disability?.detailedDisabilities,
+  //       },
+  //       {
+  //         mobilityStatus:
+  //           currentUserInfo &&
+  //           currentUserInfo?.profile?.extProfile?.mobilityStatus,
+  //       },
+  //     ]);
+  //   }
+  // }, [loading, currentUserInfo, defaultInfo, setValue]);
+
   // Will update profile and route user to next step in profile wizard
   const onNext = handleSubmit(async data => {
     await updateExtProfile({
@@ -141,6 +145,7 @@ console.log('Inside step2', currentUserInfo)
         physicalDisability: data.physicalDisability,
         detailedDisabilities: data.detailedDisabilities,
         mobilityStatus: data.mobilityStatus,
+        tShirtSize: data.tShirtSize,
       },
     });
     alert("Succesfully completed step 2 of account info update!");
@@ -160,6 +165,7 @@ console.log('Inside step2', currentUserInfo)
         physicalDisability: data.physicalDisability,
         detailedDisabilities: data.detailedDisabilities,
         mobilityStatus: data.mobilityStatus,
+        tShirtSize: data.tShirtSize,
       },
     });
 
@@ -179,9 +185,13 @@ console.log('Inside step2', currentUserInfo)
             <Controller
               as={
                 <Select className={classes.shortSelect}>
+                  <MenuItem value="">
+                    <em className={classes.em}>Please choose one</em>
+                  </MenuItem>
                   <MenuItem value="Male">Male</MenuItem>
                   <MenuItem value="Female">Female</MenuItem>
-                  <MenuItem value="Other">Other</MenuItem>
+                  <MenuItem value="Genderqueer">Genderqueer</MenuItem>
+                  <MenuItem value="Prefer not to say">Prefer not to say</MenuItem>
                 </Select>
               }
               name="gender"
@@ -241,6 +251,9 @@ console.log('Inside step2', currentUserInfo)
         <Controller
           as={
             <Select className={classes.longSelect}>
+              <MenuItem value="">
+                <em className={classes.em}>Please choose one</em>
+              </MenuItem>
               <MenuItem value="Ataxia">Ataxia</MenuItem>
               <MenuItem value="Hearing Impairment">Hearing Impairment</MenuItem>
               <MenuItem value="Hypertonia">Hypertonia</MenuItem>
@@ -277,6 +290,9 @@ console.log('Inside step2', currentUserInfo)
         <Controller
           as={
             <Select className={classes.longSelect}>
+              <MenuItem value="">
+                <em className={classes.em}>Please choose one</em>
+              </MenuItem>
               <MenuItem value="ALS">ALS</MenuItem>
               <MenuItem value="Amputation">Amputation</MenuItem>
               <MenuItem value="Arthogyposis">Arthogyposis</MenuItem>
@@ -333,7 +349,10 @@ console.log('Inside step2', currentUserInfo)
         </InputLabel>
         <Controller
           as={
-            <Select>
+            <Select className={classes.longSelect}>
+              <MenuItem value="">
+                <em className={classes.em}>Please choose one</em>
+              </MenuItem>
               <MenuItem value="I walk independently">
                 I walk independently
               </MenuItem>
@@ -349,6 +368,33 @@ console.log('Inside step2', currentUserInfo)
             </Select>
           }
           name="mobilityStatus"
+          type="select"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+        <InputLabel required htmlFor="T-shirt size">
+          Please select a T-shirt size
+        </InputLabel>
+        <Controller
+          as={
+            <Select>
+              <MenuItem value="">
+                <em className={classes.em}>Please choose one</em>
+              </MenuItem>
+              <MenuItem value="Youth Small">Youth Small</MenuItem>
+              <MenuItem value="Youth Medium">Youth Medium</MenuItem>
+              <MenuItem value="Adult Small (Youth Large)">
+                Adult Small (Youth Large)
+              </MenuItem>
+              <MenuItem value="Adult Medium">Adult Medium</MenuItem>
+              <MenuItem value="Adult Large">Adult Large</MenuItem>
+              <MenuItem value="Adult XL">Adult XL</MenuItem>
+              <MenuItem value="Adult 2XL">Adult 2XL</MenuItem>
+              <MenuItem value="Adult 3XL">Adult 3XL</MenuItem>
+            </Select>
+          }
+          name="tShirtSize"
           type="select"
           variant="outlined"
           control={control}
