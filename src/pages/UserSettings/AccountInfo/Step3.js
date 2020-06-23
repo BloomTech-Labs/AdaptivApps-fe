@@ -4,7 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Apollo/GraphQL imports
 import { useQuery } from "react-apollo";
-import { PROFILE_STEP_3 } from "../queries";
+import { PROFILE_STEP_5 } from "../queries";
 // Component imports
 import NextButton from "../../../theme/SmallFormButton";
 import SaveButton from "../../../theme/LargeFormButton";
@@ -14,9 +14,9 @@ import {
   makeStyles,
   Box,
   InputLabel,
-  TextField,
   Select,
   MenuItem,
+  TextField,
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -26,6 +26,7 @@ const useStyles = makeStyles({
     width: "67.5%",
   },
   form: {
+    width: "100%",
     display: "flex",
     flexDirection: "column",
     "& .MuiTextField-root": {
@@ -36,107 +37,115 @@ const useStyles = makeStyles({
   spacing: {
     marginTop: "2.4rem",
   },
-  textBox: {
-    marginBottom: "35rem",
+  select: {
+    width: 744,
   },
   btnBox: {
     display: "flex",
     justifyContent: "space-between",
+    marginTop: "2.9rem",
   },
 });
 
-export default function Step3({ updateDemoProfile }) {
+export default function Step5({ updateDemo2 }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_3, {
+  const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_5, {
     variables: { email: userEmail },
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
   const { handleSubmit, setValue, control } = useForm({
     defaultValues: {
-      adaptivSportsParticipation:
-        currentUserInfo &&
-        currentUserInfo?.profile?.demographicProfile
-          ?.adaptivSportsParticipation,
-      acsParticipation:
-        currentUserInfo &&
-        currentUserInfo?.profile?.demographicProfile?.acsParticipation,
-      notParticipating:
-        currentUserInfo &&
-        currentUserInfo?.profile?.demographicProfile?.notParticipating,
-      angelCityParticipation:
-        currentUserInfo &&
-        currentUserInfo?.profile?.demographicProfile?.angelCityParticipation,
-    },
+      veteranStatus: currentUserInfo && currentUserInfo.profile.demographicProfile.veteranStatus,
+      militaryBranch: currentUserInfo && currentUserInfo.profile.demographicProfile.militaryBranch,
+      yearsServed: currentUserInfo && currentUserInfo.profile.demographicProfile.yearsServed,
+      ethnicity: currentUserInfo && currentUserInfo.profile.demographicProfile.ethnicity,
+      householdIncome: currentUserInfo && currentUserInfo.profile.demographicProfile.householdIncome,
+      employment: currentUserInfo && currentUserInfo.profile.demographicProfile.employment,
+      favProAthletes: currentUserInfo && currentUserInfo.profile.demographicProfile.favProAthletes,
+      favCelebs: currentUserInfo && currentUserInfo.profile.demographicProfile.favCelebs,
+    }
   });
   // Sets default values in input fields with current user's info
   useEffect(() => {
-    if (!loading && !currentUserInfo) setCurrentUserInfo(defaultInfo);
-    if (!loading && currentUserInfo) {
-      setValue([
-        {
-          adaptivSportsParticipation:
-            currentUserInfo &&
-            currentUserInfo?.profile?.demographicProfile
-              ?.adaptivSportsParticipation,
-        },
-        {
-          acsParticipation:
-            currentUserInfo &&
-            currentUserInfo?.profile?.demographicProfile?.acsParticipation,
-        },
-        {
-          notParticipating:
-            currentUserInfo &&
-            currentUserInfo?.profile?.demographicProfile?.notParticipating,
-        },
-        {
-          angelCityParticipation:
-            currentUserInfo &&
-            currentUserInfo?.profile?.demographicProfile
-              ?.angelCityParticipation,
-        },
-      ]);
-    }
+    !loading && !currentUserInfo
+      ? setCurrentUserInfo(defaultInfo)
+      : setValue([
+          {
+            veteranStatus: currentUserInfo && 
+              currentUserInfo.profile.demographicProfile.veteranStatus,
+          },
+          {
+            militaryBranch: currentUserInfo && 
+              currentUserInfo.profile.demographicProfile.militaryBranch,
+          },
+          {
+            yearsServed: currentUserInfo && 
+              currentUserInfo.profile.demographicProfile.yearsServed,
+          },
+          {
+            ethnicity: currentUserInfo && currentUserInfo.profile.demographicProfile.ethnicity,
+          },
+          {
+            householdIncome: currentUserInfo && 
+              currentUserInfo.profile.demographicProfile.householdIncome,
+          },
+          {
+            employment: currentUserInfo && 
+              currentUserInfo.profile.demographicProfile.employment,
+          },
+          {
+            favProAthletes: currentUserInfo && 
+              currentUserInfo.profile.demographicProfile.favProAthletes,
+          },
+          {
+            favCelebs: currentUserInfo && currentUserInfo.profile.demographicProfile.favCelebs,
+          },
+        ]);
   }, [loading, currentUserInfo, defaultInfo, setValue]);
-  // Will update profile and route user to next step in profile wizard
   const onNext = handleSubmit(async data => {
-    await updateDemoProfile({
+    await updateDemo2({
       variables: {
         email: userEmail,
-        adaptivSportsParticipation: data.adaptivSportsParticipation,
-        acsParticipation: data.acsParticipation,
-        notParticipating: data.notParticipating,
-        angelCityParticipation: data.angelCityParticipation,
+        veteranStatus: data.veteranStatus,
+        militaryBranch: data.militaryBranch,
+        yearsServed: data.yearsServed,
+        ethnicity: data.ethnicity,
+        householdIncome: data.householdIncome,
+        employment: data.employment,
+        favProAthletes: data.favProAthletes,
+        favCelebs: data.favCelebs,
       },
     });
 
-    alert("Successfully completed step 3 of account info update!");
-    await navigate(`/updateaccount/${userEmail}/step4of6`);
+    alert("Successfully completed step 5 of account info update!");
+    await navigate(`/updateaccount/${userEmail}/step6of6`);
   });
-  // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
   const onSave = handleSubmit(async data => {
-    await updateDemoProfile({
+    await updateDemo2({
       variables: {
         email: userEmail,
-        adaptivSportsParticipation: data.adaptivSportsParticipation,
-        acsParticipation: data.acsParticipation,
-        notParticipating: data.notParticipating,
-        angelCityParticipation: data.angelCityParticipation,
+        veteranStatus: data.veteranStatus,
+        militaryBranch: data.militaryBranch,
+        yearsServed: data.yearsServed,
+        ethnicity: data.ethnicity,
+        householdIncome: data.householdIncome,
+        employment: data.employment,
+        favProAthletes: data.favProAthletes,
+        favCelebs: data.favCelebs,
       },
     });
+
     alert("Successfully saved account info!");
-    navigate(`/`);
+    await navigate(`/`);
   });
 
   return (
     <Box className={classes.root}>
       <ProgressBar activeStep={3} stepNumber={3} userEmail={userEmail} />
       <form className={classes.form}>
-        <InputLabel htmlFor="adaptivSportsParticipation">
-          Have you ever participated in adaptive sports before?
-        </InputLabel>
+        <InputLabel htmlFor="veteranStatus">Are you a Veteran?</InputLabel>
         <Controller
           as={
             <Select>
@@ -144,72 +153,124 @@ export default function Step3({ updateDemoProfile }) {
               <MenuItem value="No">No</MenuItem>
             </Select>
           }
-          name="adaptivSportsParticipation"
+          name="veteranStatus"
           type="select"
+          className={classes.select}
           variant="outlined"
           control={control}
           defaultValue=""
         />
-        <InputLabel className={classes.spacing} htmlFor="acsParticipation">
-          Have you participated in Angel City Clinics before?
+        <InputLabel htmlFor="militaryBranch" className={classes.spacing}>
+          Which branch of the military did you serve in?
         </InputLabel>
         <Controller
           as={
             <Select>
-              <MenuItem value="Yes">Yes</MenuItem>
-              <MenuItem value="No">No</MenuItem>
+              <MenuItem value="Army">Army</MenuItem>
+              <MenuItem value="Navy">Navy</MenuItem>
+              <MenuItem value="Air Force">Air Force</MenuItem>
+              <MenuItem value="Marine Corps">Marine Corps</MenuItem>
+              <MenuItem value="Coast Guard">Coast Guard</MenuItem>
+              <MenuItem value="Foreign Military">Foreign Military</MenuItem>
+              <MenuItem value="N/A">N/A</MenuItem>
             </Select>
           }
-          name="acsParticipation"
+          name="militaryBranch"
           type="select"
+          className={classes.select}
           variant="outlined"
           control={control}
           defaultValue=""
         />
-        <InputLabel
-          className={classes.spacing}
-          htmlFor="angelCityParticipation"
-        >
-          Please select all Angel City Games you have participated in?
-        </InputLabel>
-        <Controller
-          as={
-            <Select>
-              <MenuItem value="Game 1">Game 1</MenuItem>
-              <MenuItem value="Game 2">Game 2</MenuItem>
-              <MenuItem value="Game 3">Game 3</MenuItem>
-            </Select>
-          }
-          name="angelCityParticipation"
-          type="select"
-          variant="outlined"
-          control={control}
-          defaultValue=""
-        />
-        <InputLabel className={classes.spacing} htmlFor="notParticipating">
-          If you are not participating in as many adaptive sports as you'd like,
-          can you please share why?
+        <InputLabel htmlFor="yearsServed" className={classes.spacing}>
+          How many years did you serve?
         </InputLabel>
         <Controller
           as={<TextField />}
-          name="notParticipating"
+          name="yearsServed"
           variant="outlined"
           control={control}
-          className={classes.textBox}
-          multiline
-          rows="8"
+          defaultValue=""
+        />
+        <InputLabel htmlFor="ethnicity" className={classes.spacing}>
+          Please enter your ethnicity
+        </InputLabel>
+        <Controller
+          as={<TextField />}
+          name="ethnicity"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+        <InputLabel htmlFor="householdIncome" className={classes.spacing}>
+          Please select your annual household income
+        </InputLabel>
+        <Controller
+          as={
+            <Select>
+              <MenuItem value="Less than $25,000">Less than $25,000</MenuItem>
+              <MenuItem value="$25,000 to $49,999">$25,000 to $49,999</MenuItem>
+              <MenuItem value="$50,000 to $99,999">$50,000 to $99,999</MenuItem>
+              <MenuItem value="$100,000 to $199,999">
+                $100,000 to $199,999
+              </MenuItem>
+              <MenuItem value="$200,000 or more">$200,000 or more</MenuItem>
+            </Select>
+          }
+          name="householdIncome"
+          type="select"
+          className={classes.select}
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+        <InputLabel htmlFor="employment" className={classes.spacing}>
+          Are you currently employed?
+        </InputLabel>
+        <Controller
+          as={
+            <Select>
+              <MenuItem value="Yes">Yes</MenuItem>
+              <MenuItem value="No">No</MenuItem>
+            </Select>
+          }
+          name="employment"
+          type="select"
+          className={classes.select}
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+        <InputLabel htmlFor="favProAthletes" className={classes.spacing}>
+          Who are your favorite professional athletes?
+        </InputLabel>
+        <Controller
+          as={<TextField />}
+          name="favProAthletes"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+        <InputLabel htmlFor="favCelebs" className={classes.spacing}>
+          Who are your favorite celebrities?
+        </InputLabel>
+        <Controller
+          as={<TextField />}
+          name="favCelebs"
+          variant="outlined"
+          control={control}
           defaultValue=""
         />
         <Box className={classes.btnBox}>
           <SaveButton
             label={"Save & Quit"}
-            ariaLabel="Click to save and continue later and return to settings page."
             onClick={onSave}
+            ariaLabel="Click to save and continue later and return to settings page."
           />
           <NextButton
             label="Next"
             onClick={onNext}
-            ariaLabel="Click here to complete step 3 and move onto step 4 of account information update."
+            ariaLabel="Click here to complete step 5 and move onto step 6 of account info update."
           />
         </Box>
       </form>

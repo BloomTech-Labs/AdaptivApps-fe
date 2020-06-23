@@ -29,20 +29,20 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     "& .MuiTextField-root": {
-      width: 744,
-      height: 48,
+      width: "74.4rem",
+      height: "4.8rem",
       marginBottom: "2.4rem",
     },
   },
   genderBirthBox: {
     display: "flex",
     "& .MuiTextField-root": {
-      width: 360,
-      height: 48,
+      width: "36rem",
+      height: "4.8rem",
     },
   },
   shortSelect: {
-    width: 360,
+    width: "36rem",
     marginRight: "2.4rem",
     marginBottom: "2.4rem",
   },
@@ -64,73 +64,78 @@ export default function Step2({ updateExtProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  // const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_2, {
-  //   variables: { email: userEmail },
-  // });
-
-  // console.log('Query inside step2', defaultInfo)
-  // const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
+  const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_2, {
+    variables: { email: userEmail },
+  });
+  const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
   const { handleSubmit, setValue, control } = useForm({
-    // defaultValues: {
-    //   gender: currentUserInfo && currentUserInfo?.profile?.extProfile?.gender,
-    //   birthday: currentUserInfo && currentUserInfo?.profile?.extProfile?.birthday,
-    //   eC1Name: currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Name,
-    //   eC1Phone: currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Phone,
-    //   eC1Relation:
-    //     currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Relation,
-    //   physicalDisability:
-    //     currentUserInfo &&
-    //     currentUserInfo?.profile?.extProfile?.disability?.physicalDisability,
-    //   detailedDisabilities:
-    //     currentUserInfo &&
-    //     currentUserInfo?.profile?.extProfile?.disability?.detailedDisabilities,
-    //   mobilityStatus:
-    //     currentUserInfo && currentUserInfo?.profile?.extProfile?.mobilityStatus,
-    // },
+    defaultValues: {
+      gender: currentUserInfo && currentUserInfo?.profile?.extProfile?.gender,
+      birthday: currentUserInfo && currentUserInfo?.profile?.extProfile?.birthday,
+      eC1Name: currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Name,
+      eC1Phone: currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Phone,
+      eC1Relation:
+        currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Relation,
+      physicalDisability:
+        currentUserInfo &&
+        currentUserInfo?.profile?.extProfile?.disability?.physicalDisability,
+      detailedDisabilities:
+        currentUserInfo &&
+        currentUserInfo?.profile?.extProfile?.disability?.detailedDisabilities,
+      mobilityStatus:
+        currentUserInfo && currentUserInfo?.profile?.extProfile?.mobilityStatus,
+      tShirtSize:
+        currentUserInfo && currentUserInfo?.profile?.extProfile?.tShirtSize,
+    },
   });
 
   // Sets default values in input fields with current user's info
-  // useEffect(() => {
-  //   if (!loading && !currentUserInfo) setCurrentUserInfo(defaultInfo);
-  //   if (!loading && currentUserInfo) {
-  //     setValue([
-  //       {
-  //         gender: currentUserInfo && currentUserInfo?.profile?.extProfile?.gender,
-  //       },
-  //       {
-  //         birthday:
-  //           currentUserInfo && currentUserInfo?.profile?.extProfile?.birthday,
-  //       },
-  //       {
-  //         eC1Name:
-  //           currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Name,
-  //       },
-  //       {
-  //         eC1Phone:
-  //           currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Phone,
-  //       },
-  //       {
-  //         eC1Relation:
-  //           currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Relation,
-  //       },
-  //       {
-  //         physicalDisability:
-  //           currentUserInfo &&
-  //           currentUserInfo?.profile?.extProfile?.disability?.physicalDisability,
-  //       },
-  //       {
-  //         detailedDisabilities:
-  //           currentUserInfo &&
-  //           currentUserInfo?.profile?.extProfile?.disability?.detailedDisabilities,
-  //       },
-  //       {
-  //         mobilityStatus:
-  //           currentUserInfo &&
-  //           currentUserInfo?.profile?.extProfile?.mobilityStatus,
-  //       },
-  //     ]);
-  //   }
-  // }, [loading, currentUserInfo, defaultInfo, setValue]);
+  useEffect(() => {
+    if (!loading && !currentUserInfo) setCurrentUserInfo(defaultInfo);
+    if (!loading && currentUserInfo) {
+      setValue([
+        {
+          gender: currentUserInfo && currentUserInfo?.profile?.extProfile?.gender,
+        },
+        {
+          birthday:
+            currentUserInfo && currentUserInfo?.profile?.extProfile?.birthday,
+        },
+        {
+          eC1Name:
+            currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Name,
+        },
+        {
+          eC1Phone:
+            currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Phone,
+        },
+        {
+          eC1Relation:
+            currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Relation,
+        },
+        {
+          physicalDisability:
+            currentUserInfo &&
+            currentUserInfo?.profile?.extProfile?.disability?.physicalDisability,
+        },
+        {
+          detailedDisabilities:
+            currentUserInfo &&
+            currentUserInfo?.profile?.extProfile?.disability?.detailedDisabilities,
+        },
+        {
+          mobilityStatus:
+            currentUserInfo &&
+            currentUserInfo?.profile?.extProfile?.mobilityStatus,
+        },
+        {
+          tShirtSize:
+            currentUserInfo &&
+            currentUserInfo?.profile?.extProfile?.tShirtSize,
+        },
+      ]);
+    }
+  }, [loading, currentUserInfo, defaultInfo, setValue]);
 
   // Will update profile and route user to next step in profile wizard
   const onNext = handleSubmit(async data => {
@@ -211,6 +216,7 @@ export default function Step2({ updateExtProfile }) {
               type="date"
               variant="outlined"
               control={control}
+              defaultValue=""
             />
           </Box>
         </Box>
@@ -223,6 +229,7 @@ export default function Step2({ updateExtProfile }) {
           type="text"
           variant="outlined"
           control={control}
+          defaultValue=""
         />
         <InputLabel required htmlFor="eC1Relation">
           Please tell us how your emergency contact is related to you
@@ -233,6 +240,7 @@ export default function Step2({ updateExtProfile }) {
           type="text"
           variant="outlined"
           control={control}
+          defaultValue=""
         />
         <InputLabel required htmlFor="eC1Phone">
           Please enter the best phone number for your emergency contact
@@ -243,6 +251,7 @@ export default function Step2({ updateExtProfile }) {
           type="text"
           variant="outlined"
           control={control}
+          defaultValue=""
         />
         <InputLabel htmlFor="physicalDisability">
           Please select the category of physical disability that is most
@@ -377,7 +386,7 @@ export default function Step2({ updateExtProfile }) {
           control={control}
           defaultValue=""
         />
-        <InputLabel required htmlFor="T-shirt size">
+        <InputLabel required htmlFor="tShirtSize">
           Please select a T-shirt size
         </InputLabel>
         <Controller

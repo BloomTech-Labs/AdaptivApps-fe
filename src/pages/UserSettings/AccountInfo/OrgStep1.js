@@ -179,7 +179,7 @@ export default function OrgStep1({ updateOrgProfile }) {
             type="text"
             variant="outlined"
             control={control}
-            // defaultValue=""
+            defaultValue=""
           />
         </Box>
         <Box>
@@ -204,7 +204,7 @@ export default function OrgStep1({ updateOrgProfile }) {
             type="text"
             variant="outlined"
             control={control}
-            // defaultValue=""
+            defaultValue=""
           />
         </Box>
         <Box>
