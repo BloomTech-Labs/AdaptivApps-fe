@@ -180,7 +180,6 @@ export default function EventCard({ event, refetch, user }) {
     await handleClose();
     refetch();
   };
-  console.log("event Image", eventImg);
 
   const body = (
     <>
