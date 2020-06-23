@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SimplePopover({ activity, activityData }) {
+export default function SimplePopover({ activity, activityData, refetch }) {
   const { user } = useAuth0();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -64,18 +64,6 @@ export default function SimplePopover({ activity, activityData }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
-  // const participant = activity?.participants.map(participant => {
-  //   if (participant) {
-  //     if (participant.activityProfile.email === user.email) {
-  //       //console.log('Found participant, id is: ', participant.id)
-  //       return participant?.id;
-  //     } else {
-  //       //console.log('Did not find participant, id is: "')
-  //       return "";
-  //     }
-  //   }
-  // });
 
   const processParticipantID = () => {
     if (activity && activity.participants) {
@@ -101,6 +89,7 @@ export default function SimplePopover({ activity, activityData }) {
     });
     alert("Successfully registered to compete in this event!");
     handleClose();
+    refetch();
   };
 
   const coachRegister = async () => {
@@ -114,6 +103,7 @@ export default function SimplePopover({ activity, activityData }) {
     });
     alert("Successfully registered as a Coach!");
     handleClose();
+    refetch();
   };
 
   const volunteerRegister = async () => {
@@ -127,6 +117,7 @@ export default function SimplePopover({ activity, activityData }) {
     });
     alert("Successfully registered as a Volunteer");
     handleClose();
+    refetch();
   };
 
   const spectatorRegister = async () => {
@@ -140,6 +131,7 @@ export default function SimplePopover({ activity, activityData }) {
     });
     alert("Successfully registered as a Spectator");
     handleClose();
+    refetch();
   };
 
   const open = Boolean(anchorEl);
