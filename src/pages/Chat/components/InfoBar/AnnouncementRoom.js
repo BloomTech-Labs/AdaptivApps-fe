@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import Announcements from '../Messages/Announcements';
+import { useMutation } from "react-apollo";
+import { DELETE_NOTIFICATION } from '../../queries/Notifications'
 
 // Style Imports
 import { withStyles } from '@material-ui/core/styles';
@@ -18,7 +20,7 @@ import {
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
-    left: -10,
+    left: -5,
     top: 10,
     width: '2%', 
     backgroundColor: '#052942',
@@ -85,12 +87,13 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function AnnouncementRoom({ user }) {
+export default function AnnouncementRoom({ user, announcements, notifications }) {
     const classes = useStyles();
     const [messageToggle, setMessageToggle] = useState(false);
     const [updateChat, setUpdateChat] = useState(false);
     const [deleteChat, setDeleteChat] = useState(false);
     const [disableClick, setDisableClick] = useState(false);
+    const [deleteNotification] = useMutation(DELETE_NOTIFICATION);
 
     // Set timeout for automated alerts
     setTimeout(function () {
@@ -104,6 +107,15 @@ export default function AnnouncementRoom({ user }) {
     const handleClick = e => {
       e.preventDefault();
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
+
+      announcementNotifications && announcementNotifications.length > 0 &&
+      announcementNotifications.map(notification => {
+        deleteNotification({
+          variables: {
+            id: notification
+          }
+        })
+      })
     }
 
     const closeDrawer = e => {
@@ -111,17 +123,28 @@ export default function AnnouncementRoom({ user }) {
       messageToggle ? setMessageToggle(false) : setMessageToggle(true)
     };
 
+    const announcementNotifications = [];
+    notifications !== null && notifications.length > 0 && notifications.map(notification => notification.label !== null && announcementNotifications.push(notification.id))
+    console.log('ann', announcementNotifications)
+
     return (
       <>
-        <div className={classes.root}>
-            <BookmarksIcon 
-            className={classes.chatRoomIcon}/>           
+        <div className={classes.root}>         
           <Tooltip title="Click to expand messages">
+            <StyledBadge
+            badgeContent={announcementNotifications.length}
+            overlap='circle'
+            >
+            <BookmarksIcon 
+            className={classes.chatRoomIcon}/>  
             <button 
               className={classes.chatRoomButton} 
               onClick={handleClick} 
               aria-label="Open all announcements"
-              disabled={disableClick}>Announcements</button>
+              disabled={disableClick}>
+                Announcements
+                </button>
+              </StyledBadge>
           </Tooltip>
         </div>
         <Drawer
@@ -170,7 +193,7 @@ export default function AnnouncementRoom({ user }) {
             <h1 className={classes.roomTitle}>ACS Announcements</h1>
             <CloseIcon className={classes.closeModal} onClick={closeDrawer} aria-label="Close Announcements"/>
           </div>
-          <Announcements user={user} setUpdateChat={setUpdateChat} setDeleteChat={setDeleteChat} />
+          <Announcements user={user} setUpdateChat={setUpdateChat} setDeleteChat={setDeleteChat} announcements={announcements}/>
         </Drawer>
       </>
     )

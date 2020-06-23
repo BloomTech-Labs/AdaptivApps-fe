@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 // Query / Mutations
 import { useQuery, useMutation, useSubscription } from "react-apollo";
-import { GET_ANNOUNCEMENTS, DELETE_ANNOUNCEMENT, ANNOUNCEMENT_SUBSCRIPTION } from '../../queries/Announcements';
+import { DELETE_ANNOUNCEMENT, } from '../../queries/Announcements';
 import EditAnnouncementModal from '../Modals/EditAnnouncementModal';
 
 //Auth0 imports
@@ -93,7 +93,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
+export default function Announcements({ announcements, user, setUpdateChat, setDeleteChat }) {
   const classes = useStyles();
 
   const [announcementOpen, setAnnouncementOpen] = useState(false);
@@ -101,10 +101,8 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
 
   const [deleteAnnouncement] = useMutation(DELETE_ANNOUNCEMENT);
 
-  const { loading, error } = useSubscription(ANNOUNCEMENT_SUBSCRIPTION, { variables: { isAnnouncementRoom: true } });
-  const { loading: annloading, data, refetch } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
-  
-  const announcements = data && data?.announcements?.map((announcement) => {return {
+  const announcementArray = announcements && announcements?.announcements?.map((announcement) => {
+    return {
       id: announcement.id,
       title: announcement.title,
       message: announcement.message,
@@ -119,7 +117,7 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
     announcementsEndRef.current && announcementsEndRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
-  useEffect(() => { scrollToBottom() }, [announcements]);
+  useEffect(() => { scrollToBottom() }, [announcementArray]);
 
   const handleClose = () => {
     setAnnouncementOpen(false);
@@ -133,15 +131,10 @@ export default function Announcements({ user, setUpdateChat, setDeleteChat }) {
     setDeleteChat(true);
   };
 
-  if (annloading) return <CircularProgress className={classes.loadingSpinner} />;
-  if (error) return `Error! ${error.message}`;
-
-  !loading && refetch();
-
   return (
     <div className={classes.root}>
       <div className={classes.messageDiv}>
-        {announcements.map((announcement) => (
+        {announcementArray.map((announcement) => (
           <>
             <div key={announcement.id} className={classes.messageBox}>
               <div className={classes.userMessage}>
