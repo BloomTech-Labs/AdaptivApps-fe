@@ -30,9 +30,13 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
   },
+  em: {
+    fontStyle: "italic",
+    fontSize: "1.6rem"
+  },
   selectContainer: {
-    marginBottom: "11rem"
-  },  
+    marginBottom: "11rem",
+  },
   typeSelect: {
     width: "74.4rem",
     height: "4.8rem",
@@ -40,8 +44,9 @@ const useStyles = makeStyles({
   box: {
     display: "flex",
     flexDirection: "column",
-    marginBottom: "1.6rem"
-  }, 
+    marginBottom: "1.6rem",
+    
+  },
   btnWrapper: {
     display: "flex",
     justifyContent: "flex-end",
@@ -86,52 +91,57 @@ export default function AccountTypeForm({ updateProfile }) {
       <ProgressBar activeStep={0} userEmail={userEmail} />
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.selectContainer}>
-
-        <InputLabel htmlFor="account type">
-          Are you registering as an individual or an organization?
-        </InputLabel>
-        <Box className={classes.box}>
-          <Controller
-            as={
-              <Select className={classes.typeSelect}>
-                <MenuItem value="Individual">
-                  I'm registering as an individual
-                </MenuItem>
-                <MenuItem value="Organization">
-                  I'm registering as an organization
-                </MenuItem>
-              </Select>
-            }
-            name="type"
-            variant="outlined"
-            control={control}
-            defaultValue=""
-          />
-        </Box>
-        <InputLabel htmlFor="role identity">
-          Which role do you best identify with?
-        </InputLabel>
-        <Box className={classes.roleBox}>
-          <Controller
-            as={
-              <Select className={classes.typeSelect}>
-                <MenuItem value="Athlete">
-                  Adaptive Athlete
-                </MenuItem>
-                <MenuItem value="Ally/Volunteer">
-                  Ally/Volunteer - I want to participate and will volunteer to help promote.
-                </MenuItem>
-                <MenuItem value="Donor/Supporter">
-                Donor/Supporter - I want to participate and will donate or help fundraise.
-                </MenuItem>
-              </Select>
-            }
-            name="type"
-            variant="outlined"
-            control={control}
-            defaultValue=""
-          />
-        </Box>
+          <InputLabel htmlFor="account type">
+            Are you registering as an individual or an organization?
+          </InputLabel>
+          <Box className={classes.box}>
+            <Controller
+              as={
+                <Select className={classes.typeSelect}>
+                  <MenuItem value="">
+                    <em className={classes.em}>Please choose one.</em>
+                  </MenuItem>
+                  <MenuItem value="Individual">
+                    I'm registering as an individual
+                  </MenuItem>
+                  <MenuItem value="Organization">
+                    I'm registering as an organization
+                  </MenuItem>
+                </Select>
+              }
+              name="type"
+              variant="outlined"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
+          <InputLabel htmlFor="role identity">
+            Which role do you best identify with?
+          </InputLabel>
+          <Box className={classes.roleBox}>
+            <Controller
+              as={
+                <Select className={classes.typeSelect}>
+                  <MenuItem value="">
+                    <em className={classes.em}>Please choose one.</em>
+                  </MenuItem>
+                  <MenuItem value="Athlete">Adaptive Athlete</MenuItem>
+                  <MenuItem value="Ally/Volunteer">
+                    Ally/Volunteer - I want to participate and will volunteer to
+                    help promote.
+                  </MenuItem>
+                  <MenuItem value="Donor/Supporter">
+                    Donor/Supporter - I want to participate and will donate or
+                    help fundraise.
+                  </MenuItem>
+                </Select>
+              }
+              name="type"
+              variant="outlined"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
         </Box>
         <Box className={classes.btnWrapper}>
           <NextButton
