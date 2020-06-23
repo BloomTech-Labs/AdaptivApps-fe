@@ -57,7 +57,7 @@ export const CREATE_ANNOUNCEMENT = gql`
 	mutation createAnnouncement ( 
     $title: String!, 
     $message: String!, 
-    $participants: [ProfileWhereUniqueInput!], 
+    $email: String!, 
     $isAnnouncementRoom: Boolean! ) {
     createAnnouncement(
       data: {
@@ -65,7 +65,9 @@ export const CREATE_ANNOUNCEMENT = gql`
         message: $message
         isAnnouncementRoom: $isAnnouncementRoom
         participants: {
-          connect: $participants
+          connect: {
+            email: $email
+          }
         }
       }
     ) {

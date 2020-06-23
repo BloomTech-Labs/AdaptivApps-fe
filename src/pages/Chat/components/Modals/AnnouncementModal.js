@@ -92,6 +92,8 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
   //Create array of emails to match BE data shape, exclude yourself
   const allUserEmails = data?.profiles?.map(participant => user.email !== participant.email && 
     { "email": participant.email }).filter(participant => participant !== false)
+
+    console.log('emails', allUserEmails)
   
   // Send announcement to BE & all users
   const onSubmit = e => {
@@ -103,6 +105,8 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
         isAnnouncementRoom: true,
         participants: allUserEmails,
       }}) &&
+
+      
     createAnnouncementNotification({
       variables: {
         recipients: allUserEmails,
