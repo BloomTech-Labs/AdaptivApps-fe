@@ -114,8 +114,12 @@ export default function Step1({ updateProfile }) {
         userName: data.userName,
         lastName: data.lastName,
         phoneNumber: data.phoneNumber,
+        address1: data.address1,
+        address2: data.address2,
         city: data.city,
         state: data.state,
+        postalCode: data.postalCode,
+        country: data.country,
         legal: data.legal,
         bio: data.bio,
       },
@@ -133,8 +137,12 @@ export default function Step1({ updateProfile }) {
         userName: data.userName,
         lastName: data.lastName,
         phoneNumber: data.phoneNumber,
+        address1: data.address1,
+        address2: data.address2,
         city: data.city,
         state: data.state,
+        postalCode: data.postalCode,
+        country: data.country,
         legal: data.legal,
         bio: data.bio,
       },
@@ -200,6 +208,31 @@ export default function Step1({ updateProfile }) {
         </Box>
         <Box className={classes.addressBox}>
           <Box>
+            <InputLabel htmlFor="address1">Address 1*</InputLabel>
+            <Controller
+              as={<TextField />}
+              name="address1"
+              type="text"
+              className={classes.firstInput}
+              variant="outlined"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
+          <Box>
+            <InputLabel htmlFor="address2">Address 2*</InputLabel>
+            <Controller
+              as={<TextField />}
+              name="address2"
+              type="text"
+              variant="outlined"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
+        </Box>
+        <Box className={classes.addressBox}>
+          <Box>
             <InputLabel htmlFor="city">City*</InputLabel>
             <Controller
               as={<TextField />}
@@ -216,6 +249,31 @@ export default function Step1({ updateProfile }) {
             <Controller
               as={<TextField />}
               name="state"
+              type="text"
+              variant="outlined"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
+        </Box>
+        <Box className={classes.addressBox}>
+          <Box>
+            <InputLabel htmlFor="postal code">Postal Code*</InputLabel>
+            <Controller
+              as={<TextField />}
+              name="postalCode"
+              type="text"
+              className={classes.firstInput}
+              variant="outlined"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
+          <Box>
+            <InputLabel htmlFor="country">Country*</InputLabel>
+            <Controller
+              as={<TextField />}
+              name="country"
               type="text"
               variant="outlined"
               control={control}
