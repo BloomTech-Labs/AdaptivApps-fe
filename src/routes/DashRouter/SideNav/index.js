@@ -13,7 +13,6 @@ import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import BookmarkIcon from "@material-ui/icons/BookmarkBorder";
 import HomeIcon from "@material-ui/icons/HomeOutlined";
 import UserIcon from "@material-ui/icons/PersonOutlineOutlined";
-import GroupIcon from "@material-ui/icons/GroupAddOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
 import ForumOutlinedIcon from "@material-ui/icons/ForumOutlined";
 import SettingsIcon from "@material-ui/icons/SettingsOutlined";

@@ -4,7 +4,7 @@ import NavLink from "../../routes/DashRouter/SideNav/NavLink";
 import { useQuery } from "react-apollo";
 import { GET_UPCOMING_EVENTS } from "./queries";
 // Import stylings
-import { makeStyles, colors } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles({
@@ -112,8 +112,8 @@ export default function UpcomingEventList({ userName }) {
           ))}
         </div>
       ) : (
-        <h3>You have no upcoming events.</h3>
-      )}
+          <h3>You have no upcoming events.</h3>
+        )}
     </>
   );
 }

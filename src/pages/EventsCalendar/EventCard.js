@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "@reach/router";
 import moment from "moment";
+import { useMutation } from "react-apollo";
 // Component imports
 import SimpleModal from "./SimpleModal";
 import DeleteModal from "../../theme/DeleteModal";
@@ -8,7 +9,8 @@ import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import { DELETE_EVENT } from "./queries";
 import { REGISTER_FOR_EVENT } from "./queries/joinEvent";
-
+import NavLink from '../../routes/DashRouter/SideNav/NavLink';
+// IMport stylings
 import {
   makeStyles,
   Card,
@@ -20,8 +22,6 @@ import {
   Box,
   Button,
 } from "@material-ui/core";
-
-import { useMutation } from "react-apollo";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -204,7 +204,7 @@ export default function EventCard({ event, refetch, user }) {
   );
   return (
     <>
-      <Card className={classes.root}>
+      <Card className={classes.root} onClick={() => { navigate(`calendar/${event.id}`) }}>
         <CardActionArea className={classes.card}>
           <Box>
             <div className={classes.banner}>{event.type}</div>

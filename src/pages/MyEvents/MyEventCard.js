@@ -177,7 +177,7 @@ export default function MyEventCard({ event, refetch }) {
   };
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} >
       <CardActionArea className={classes.card}>
         <Box>
           <div className={classes.banner}>{event.type}</div>
