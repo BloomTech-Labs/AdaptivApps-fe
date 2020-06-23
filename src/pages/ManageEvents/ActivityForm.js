@@ -163,9 +163,10 @@ export default function ActivityForm({
       <Controller
         as={
           <Select>
-            <MenuItem value="Clinic">Clinic</MenuItem>
-            <MenuItem value="Competition">Competition</MenuItem>
-            <MenuItem value="Tournament">Tournament</MenuItem>
+            <MenuItem value="Special Event">Special Event</MenuItem>
+            <MenuItem value="Sport Clinic">Sport Clinic</MenuItem>
+            <MenuItem value="Sport Challenge">Sport Challenge</MenuItem>
+            <MenuItem value="Workout">Workout</MenuItem>
           </Select>
         }
         name="type"
