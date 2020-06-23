@@ -16,18 +16,18 @@ import {
 
 const useStyles = makeStyles(theme => ({
   button: {
-    marginTop: "3rem",
+    margin: "3rem auto",
     border: "1px solid #2962FF",
     color: "#2962FF",
     height: "4rem",
     width: "8rem",
-    fontSize: "1.2rem",
+    fontSize: "2.5rem",
     textTransform: "none",
     [theme.breakpoints.down("sm")]: {
       width: "100%",
     },
   },
-  form: { display: "flex", flexDirection: "column", width: "400px" },
+  form: { display: "flex", flexDirection: "column", width: "50%" },
 }));
 
 export default function EventForm({
