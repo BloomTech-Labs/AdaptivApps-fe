@@ -323,6 +323,59 @@ export const PROFILE_STEP_2 = gql`
 export const UPDATE_DEMO_PROFILE = gql`
   mutation UpdateDemoProfile(
     $email: String!
+    $veteranStatus: String
+    $militaryBranch: String
+    $yearsServed: String
+    $ethnicity: String
+    $householdIncome: String
+    $employment: String
+    $covid: String
+    $citizen: String
+  ) {
+    updateProfile(
+      where: { email: $email }
+      data: {
+        demographicProfile: {
+          update: {
+            veteranStatus: $veteranStatus
+            militaryBranch: $militaryBranch
+            yearsServed: $yearsServed
+            ethnicity: $ethnicity
+            householdIncome: $householdIncome
+            employment: $employment
+            covid: $covid
+            citizen: $citizen
+
+          }
+        }
+      }
+    ) {
+      id
+    }
+  }
+`;
+// Retrieves user profile info to set default values in Step 3 of Profile Wizard
+export const PROFILE_STEP_3 = gql`
+  query($email: String!) {
+    profile(where: { email: $email }) {
+      id
+      demographicProfile {
+        id
+        veteranStatus
+        militaryBranch
+        yearsServed
+        ethnicity
+        householdIncome
+        employment
+        covid
+        citizen
+      }
+    }
+  }
+`;
+export const UPDATE_DEMO_2 = gql`
+  mutation UpdateDemo2(
+    $email: String!
     $adaptivSportsParticipation: String
     $acsParticipation: String
     $notParticipating: String
@@ -357,7 +410,7 @@ export const UPDATE_DEMO_PROFILE = gql`
   }
 `;
 
-export const PROFILE_STEP_3 = gql`
+export const PROFILE_STEP_5 = gql`
   query($email: String!) {
     profile(where: { email: $email }) {
       id
@@ -608,58 +661,7 @@ export const PROFILE_STEP_4 = gql`
 `;
 
 // Updates Demo Profile part 2 used in step 5 of Profile Wizard
-export const UPDATE_DEMO_2 = gql`
-  mutation UpdateDemo2(
-    $email: String!
-    $veteranStatus: String
-    $militaryBranch: String
-    $yearsServed: String
-    $ethnicity: String
-    $householdIncome: String
-    $employment: String
-    $favProAthletes: String
-    $favCelebs: String
-  ) {
-    updateProfile(
-      where: { email: $email }
-      data: {
-        demographicProfile: {
-          update: {
-            veteranStatus: $veteranStatus
-            militaryBranch: $militaryBranch
-            yearsServed: $yearsServed
-            ethnicity: $ethnicity
-            householdIncome: $householdIncome
-            employment: $employment
-            favProAthletes: $favProAthletes
-            favCelebs: $favCelebs
-          }
-        }
-      }
-    ) {
-      id
-    }
-  }
-`;
-// Retrieves user profile info to set default values in Step 5 of Profile Wizard
-export const PROFILE_STEP_5 = gql`
-  query($email: String!) {
-    profile(where: { email: $email }) {
-      id
-      demographicProfile {
-        id
-        veteranStatus
-        militaryBranch
-        yearsServed
-        ethnicity
-        householdIncome
-        employment
-        favProAthletes
-        favCelebs
-      }
-    }
-  }
-`;
+
 
 // Updates Demo Profile part 3 used in Step 6 of Profile Wizard
 export const UPDATE_DEMO_3 = gql`

@@ -63,8 +63,8 @@ export default function Step5({ updateDemo2 }) {
       ethnicity: currentUserInfo && currentUserInfo.profile.demographicProfile.ethnicity,
       householdIncome: currentUserInfo && currentUserInfo.profile.demographicProfile.householdIncome,
       employment: currentUserInfo && currentUserInfo.profile.demographicProfile.employment,
-      favProAthletes: currentUserInfo && currentUserInfo.profile.demographicProfile.favProAthletes,
-      favCelebs: currentUserInfo && currentUserInfo.profile.demographicProfile.favCelebs,
+      covid: currentUserInfo && currentUserInfo.profile.demographicProfile.covid,
+      citizen: currentUserInfo && currentUserInfo.profile.demographicProfile.citizen,
     }
   });
   // Sets default values in input fields with current user's info
@@ -96,11 +96,11 @@ export default function Step5({ updateDemo2 }) {
               currentUserInfo.profile.demographicProfile.employment,
           },
           {
-            favProAthletes: currentUserInfo && 
-              currentUserInfo.profile.demographicProfile.favProAthletes,
+            covid: currentUserInfo && 
+              currentUserInfo.profile.demographicProfile.covid,
           },
           {
-            favCelebs: currentUserInfo && currentUserInfo.profile.demographicProfile.favCelebs,
+            citizen: currentUserInfo && currentUserInfo.profile.demographicProfile.citizen,
           },
         ]);
   }, [loading, currentUserInfo, defaultInfo, setValue]);
