@@ -85,8 +85,12 @@ export default function EventForm({
       ]);
     }
     if (event) {
-      let eventTags = event.tags.split(", ");
-      setTags(eventTags);
+      if (event.tags) {
+        let eventTags = event.tags.split(", ");
+        setTags(eventTags);
+      } else {
+        setTags(null)
+      }
     }
   }, [loading, currentEvent, setValue, event]);
 
@@ -113,7 +117,7 @@ export default function EventForm({
         variables: {
           type: formValues.type,
           sportType: formValues.sportType,
-          tags: tags.join(", "),
+          tags: tags.length > 0 ? tags.join(", ") : null,
           title: formValues.title,
           host: formValues.host,
           coaches: formValues.coaches,
