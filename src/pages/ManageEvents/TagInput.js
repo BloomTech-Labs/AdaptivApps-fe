@@ -20,14 +20,19 @@ const useStyles = makeStyles(theme => ({
         margin: 0,
     },
     tagContainer: {
-      margin: '5% auto 0',
+      margin: '3% auto 0',
     },
     inputLabel: {
       margin: '5% auto',
       textAlign: 'center'
     },
+    search: {
+      width: '100%',
+      marginTop: '5%'
+    },
     chip: {
         margin: theme.spacing(0.5),
+        fontSize: '2.5rem',
     },
     btn: {
         display: "flex",
