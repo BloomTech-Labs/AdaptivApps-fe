@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
   profileWrapper: {
     width: "100%",
   },
-  topProfileWrapper: { border: "2px solid red" },
+  topProfileWrapper: {},
   bannerWrapper: {
     width: "100%",
     height: "20vh",
@@ -74,7 +74,6 @@ const useStyles = makeStyles(theme => ({
     borderRadius: "50%",
   },
   pictureWrapper: {
-    border: "2px solid blue",
     display: "flex",
     justifyContent: "center",
     position: "absolute",
