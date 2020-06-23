@@ -4,6 +4,7 @@ import Messages from "../Messages/Messages";
 // Mutation Imports
 import { useMutation } from "react-apollo";
 import { DELETE_CHAT_ROOM_PARTICIPANTS } from "../../queries/ChatRooms";
+import { DELETE_NOTIFICATION } from '../../queries/Notifications'
 
 // Style Imports
 import { withStyles } from "@material-ui/core/styles";
@@ -137,36 +138,27 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoomSub }) {
+export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoomSub, notifications }) {
   const classes = useStyles();
 
   const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM_PARTICIPANTS);
+  const [deleteNotification] = useMutation(DELETE_NOTIFICATION);
   const [messageToggle, setMessageToggle] = useState(false);
-  const [roomNotifications, setRoomNotifications] = useState([])
   const [editChatRoom, setEditChatRoom] = useState(false);
   const [updateChat, setUpdateChat] = useState(false);
   const [deleteChat, setDeleteChat] = useState(false);
   const [disableClick, setDisableClick] = useState(false);
 
   useEffect(() => {
-    //if (
-    !messageToggle &&
-    chats?.chat?.mutation === 'CREATED' && 
-    !chatRoomSub?.chatRoom?.mutation &&
-    chats?.chat?.node.from.email !== user.email &&
-    chats?.chat?.node.room.id === chatRoom.id &&
-    roomNotifications.push(chats?.chat?.node?.room.id) 
-    // } else if (!messageToggle &&
-    // chats?.chat?.mutation === 'CREATED' &&
-    // chatRoomSub?.chatRoom?.mutation === 'UPDATED' &&
-    // chats?.chat?.node.from.email !== user.email &&
-    // chatRoomSub?.chatRoom?.node?.id === chatRoom.id ) {
-    // roomNotifications.push(chatRoomSub?.chatRoom?.node?.id)
-    // }
-
-  }, [chats, chatRoomSub, roomNotifications])
-  
-console.log(chatRoomSub)
+    messageToggle && roomNotifications &&
+    roomNotifications.map(notification => {
+      deleteNotification({
+        variables: {
+          id: notification
+        }
+      })
+    })
+  }, [chats, chatRoomSub, notifications])
 
   // Set timeout for automated alerts
   setTimeout(function() {
@@ -176,6 +168,9 @@ console.log(chatRoomSub)
       setDeleteChat(false);
     }
   }, 3000);
+
+  const roomNotifications = [];
+  notifications !== null && notifications.length > 0 && notifications.map(notification => notification.chatroom !== null && notification.chatroom.id === chatRoom.id && roomNotifications.push(notification.id));
 
   const senderName = chatRoom?.chats?.find(chat => chat?.from.email !== user?.email)
 
@@ -189,19 +184,27 @@ console.log(chatRoomSub)
       }
     })   
 
-    // Logic to set group chat rooms
-    const chattingWith = participants.map((participant, index) => {
-      if (participants.length === 1 || index === participants.length - 1) {
-        return `${participant.firstName} ${participant.lastName}`
-      } else {
-        return `${participant.firstName} ${participant.lastName}, `
-      }
-    });
+  // Logic to set group chat rooms
+  const chattingWith = participants.map((participant, index) => {
+    if (participants.length === 1 || index === participants.length - 1) {
+      return `${participant.firstName} ${participant.lastName}`
+    } else {
+      return `${participant.firstName} ${participant.lastName}, `
+    }
+  });
 
   const handleClick = e => {
     e.preventDefault();
     messageToggle ? setMessageToggle(false) : setMessageToggle(true);
-    setRoomNotifications([]);
+
+    roomNotifications && roomNotifications.length > 0 && 
+    roomNotifications.map(notification => {
+      deleteNotification({
+        variables: {
+          id: notification
+        }
+      })
+    })
   };
 
   const closeDrawer = e => {
@@ -225,7 +228,7 @@ console.log(chatRoomSub)
     <>
       <div className={classes.root}>
         <Tooltip title="Click to Delete Chatroom">
-          {roomNotifications?.length > 0 ? (
+          {notifications?.length > 0 && !messageToggle ? (
             <Tooltip title="New Message!">
               <StyledBadge
                 badgeContent={roomNotifications.length}
@@ -345,7 +348,6 @@ console.log(chatRoomSub)
           user={user}
           setUpdateChat={setUpdateChat}
           setDeleteChat={setDeleteChat}
-          roomNotifications={roomNotifications}
         />
       </Drawer>
     </>
