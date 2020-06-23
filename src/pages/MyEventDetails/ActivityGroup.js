@@ -146,6 +146,7 @@ export default function ActivityGroup({
             <th>Date</th>
             <th>Location</th>
             <th>Time</th>
+            <th>I'm attending as...</th>
           </tr>
         </thead>
         <TabPanel value={value} index={value} className={classes.tabPanel}>

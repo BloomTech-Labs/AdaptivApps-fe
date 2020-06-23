@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
-  form: { display: "flex", flexDirection: "column", width: "400px" },
   paper: {
     display: 'flex',
     justifyContent: 'center',
@@ -20,18 +19,29 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(0.5),
     margin: 0,
   },
+  tagContainer: {
+    margin: '3% auto 0',
+  },
+  inputLabel: {
+    margin: '5% auto',
+    textAlign: 'center'
+  },
+  search: {
+    width: '100%',
+    marginTop: '5%'
+  },
   chip: {
     margin: theme.spacing(0.5),
+    fontSize: '2.5rem',
   },
   btn: {
     display: "flex",
-    height: "100%",
     width: "30px",
     background: "transparent",
     boxShadow: "none",
     border: "none",
-    margin: "0",
-    padding: "0",
+    margin: 'auto',
+    padding: "3%",
     "&:hover": {
       background: "none",
       boxShadow: "none",
@@ -63,10 +73,10 @@ export default function TagInput(props) {
   }
 
   return (
-    <div>
+    <div className={classes.tagContainer}>
       <InputLabel className={classes.inputLabel} htmlFor="tags">
         Meta Tags
-            </InputLabel>
+        </InputLabel>
       {tags && tags.length > 0 ? <Paper component="ul" className={classes.paper}>
         {tags && tags.map(tag => {
           return (
