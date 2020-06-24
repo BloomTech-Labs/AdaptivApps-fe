@@ -55,17 +55,18 @@ const useStyles = makeStyles((theme) => ({
   },
   presented: {
   },
+  header: {
+    fontSize: '2rem',
+    color: '#2962FF',
+    fontWeight: 'bold',
+  },
   sponsorText: {
     textAlign: 'left',
-    fontSize: '2.4rem',
+    fontSize: '2rem',
     fontWeight: 'bold',
     color: '#2962FF'
   },
-  header: {
-    fontSize: '3rem',
-    color: '#2962FF',
-    fontWeight: 'bold',
-  }
+  
 }));
 
 export default function SponsorSpotlight() {

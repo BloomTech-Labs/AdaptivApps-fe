@@ -23,7 +23,6 @@ import CreateActivity from "./pages/ManageEvents/CreateActivity";
 import Accessibility from "./pages/Landing/Legal/Accessibility";
 import PrivacyPolicy from "./pages/Landing/Legal/PrivacyPolicy";
 import ChatFeature from "./pages/Chat/index";
-import NewsfeedPage from './pages/Newsfeed/components/NewsfeedPage'
 import SponsorSpotlight from './pages/SponsorSpotlight/SponsorSpotlight'
 // import NewsfeedPage from './pages/Newsfeed/components/NewsfeedPage'
 
@@ -157,7 +156,6 @@ function App() {
             <CreateActivity path="createEvent/:eventId" />
             <EditActivity path="editActivity/:activityId" />
             <ChatFeature path="chats" />
-            <NewsfeedPage path="/newsfeed" />
             <SponsorSpotlight path='/sponsorspotlight' />
             {/*<NewsfeedPage path="/newsfeed" />*/}
           </PrivateRoute>
