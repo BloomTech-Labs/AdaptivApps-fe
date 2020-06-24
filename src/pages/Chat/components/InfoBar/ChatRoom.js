@@ -196,7 +196,6 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoo
       return `${participant.firstName} ${participant.lastName}, `
     }
   });
-  console.log('Chatting icon is, ', chattingIcon)
 
   const handleClick = e => {
     e.preventDefault();
@@ -258,7 +257,6 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoo
                   className={classes.chatRoomIcon}
                   chattingIcon={chattingIcon}
                   setEditChatRoom={setEditChatRoom}
-                  aria-label="Delete selected Chatroom"
                 /> :
                 <PeopleAltIcon
                   className={classes.chatRoomIcon}
