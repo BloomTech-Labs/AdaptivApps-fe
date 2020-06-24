@@ -112,11 +112,11 @@ export default function MyEventCard({ event, refetch }) {
   const { user } = useAuth0();
   const { data } = useQuery(GET_PARTICIPANTS, {
     variables: { email: user.email, id: event.id },
-    fetchPolicy: "no-cache",
+    fetchPolicy: "network-only",
   });
   const { data: attendeeData } = useQuery(GET_ATTENDEES, {
     variables: { email: user.email, id: event.id },
-    fetchPolicy: "no-cache",
+    fetchPolicy: "network-only",
   });
   const [unregisterFromEvent] = useMutation(UNREGISTER_FROM_EVENT);
   const [unregisterFromAll] = useMutation(UNREGISTER_FROM_ALL);

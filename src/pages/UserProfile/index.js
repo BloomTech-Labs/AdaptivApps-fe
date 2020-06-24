@@ -81,7 +81,7 @@ const useStyles = makeStyles(theme => ({
     width: "17rem",
     height: "17rem",
     top: "6rem",
-    left: "42.5%",
+    left: "40%",
     "& label": {
       position: "absolute",
       left: "70%",
