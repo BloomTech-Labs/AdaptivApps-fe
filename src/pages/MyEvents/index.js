@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 // Component imports
 import EventList from "./EventList";
 import GlobalSearchBox from "../../routes/DashRouter/GlobalSearchBox";
+import SponsorBanner from '../SponsorSpotlight/SponsorBanner'
 // GraphQL/Apollo imports
 import { useQuery } from "react-apollo";
 import { GET_USER_EVENTS } from "./queries";
@@ -70,6 +71,10 @@ export default function MyEvents() {
   if (error) return `Error! ${error.message}`;
 
   return (
+    <>
+    <div>
+      <SponsorBanner />
+    </div>
     <div>
       <div className={classes.search}>
         <GlobalSearchBox />
@@ -102,5 +107,6 @@ export default function MyEvents() {
           )}
       </main>
     </div>
+    </>
   );
 }
