@@ -3,6 +3,8 @@ import React, { useEffect } from "react";
 import { UPDATE_PROFILE_BANNER, GET_PROFILE_IMAGES } from "./queries";
 import { useQuery, useMutation } from "react-apollo";
 
+import BannerDefault from "../../assets/images/acs_games_2020.png";
+
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
 // Material-UI imports
@@ -54,7 +56,13 @@ export default function ProfileBanner({ profileBanner }) {
     <>
       <img
         className={classes.profileBanner}
-        src={usersProfileBanner}
+        src={
+          usersProfileBanner === null ||
+          usersProfileBanner === undefined ||
+          usersProfileBanner === ""
+            ? BannerDefault
+            : usersProfileBanner
+        }
         alt="Profile Banner"
       />
     </>
