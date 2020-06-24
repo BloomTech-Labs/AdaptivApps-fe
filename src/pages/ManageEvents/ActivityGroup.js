@@ -30,24 +30,24 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     width: "100%",
-    backgroundColor: theme.palette.background.paper,
   },
   activityGroup: {
     marginTop: "1.6rem",
     boxShadow: "none",
   },
-  tabs: {
-    width: "70rem",
+  tab: {
+    width: "40%",
+    fontSize: '2.25rem',
   },
   table: {
-    margin: "2.5rem 0 0 3.8rem",
+    margin: "2.5rem 0 0 1.8rem",
   },
   tableRow: {
     textAlign: "left",
     "& th": {
       width: "14.8rem",
-      fontSize: "1.4rem",
-      textAlgin: "left",
+      fontSize: "1.5rem",
+      textAlign: "left",
     },
   },
 }));

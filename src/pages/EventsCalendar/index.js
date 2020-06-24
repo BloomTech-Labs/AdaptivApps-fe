@@ -34,7 +34,7 @@ const useStyles = makeStyles({
   search: {
     zIndex: 100,
     position: "absolute",
-    marginLeft: "350px",
+    marginLeft: "450px",
   },
 });
 

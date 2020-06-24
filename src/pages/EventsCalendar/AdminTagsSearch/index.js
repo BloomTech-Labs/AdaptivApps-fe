@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 // Components import
 import Dropdown from './Dropdown';
 import SearchEventList from './SearchEventList';

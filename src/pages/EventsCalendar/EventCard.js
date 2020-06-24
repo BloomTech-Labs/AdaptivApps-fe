@@ -4,6 +4,7 @@ import moment from "moment";
 
 import config from "../../config/auth_config";
 import eventImg from "../../assets/images/acs_hartford.png";
+import { useMutation } from "react-apollo";
 // Component imports
 import SimpleModal from "./SimpleModal";
 import DeleteModal from "../../theme/DeleteModal";
@@ -11,7 +12,7 @@ import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import { DELETE_EVENT } from "./queries";
 import { REGISTER_FOR_EVENT } from "./queries/joinEvent";
-
+// IMport stylings
 import {
   makeStyles,
   Card,
@@ -23,8 +24,6 @@ import {
   Box,
   Button,
 } from "@material-ui/core";
-
-import { useMutation } from "react-apollo";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -149,9 +148,8 @@ export default function EventCard({ event, refetch, user }) {
   const processAttendeeID = () => {
     if (event && event.attendees) {
       for (let i = 0; i < event.attendees.length; i++) {
-        if (event.attendees[i].eventProfile.email === user.email) {
+        if (event.attendees[i].eventProfile.email === user.email)
           return event.attendees[i].id;
-        }
       }
     } else {
       return false;
@@ -233,6 +231,9 @@ export default function EventCard({ event, refetch, user }) {
                   : event?.imgUrl
               }
               title="Angel City Event"
+              onClick={() => {
+                navigate(`calendar/${event.id}`);
+              }}
             />
           </Box>
           <Box className={classes.contentWrapper}>
@@ -253,6 +254,9 @@ export default function EventCard({ event, refetch, user }) {
                 gutterBottom
                 variant="h5"
                 component="h2"
+                onClick={() => {
+                  navigate(`calendar/${event.id}`);
+                }}
               >
                 {event.title}
               </Typography>

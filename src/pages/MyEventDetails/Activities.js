@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
-import moment from "moment";
+import React, { useEffect } from "react";
 // Component imports
 import Activity from "./Activity";
 // Material-UI imports
-import { makeStyles, Box, Typography, Link } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Activities({ refetch, value, data, activeEvent }) {
+export default function Activities({ refetch, value, activeEvent }) {
   const classes = useStyles();
 
   useEffect(() => {

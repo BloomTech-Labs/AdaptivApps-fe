@@ -101,7 +101,6 @@ const useStyles = makeStyles({
     },
   },
   disabilityBox: {
-    border: "1px solid red",
     display: "flex",
     flexDirection: "column",
     "& :nth-child(1)": {
