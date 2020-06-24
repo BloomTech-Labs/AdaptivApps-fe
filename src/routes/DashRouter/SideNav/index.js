@@ -125,6 +125,18 @@ const useStyles = makeStyles(theme => ({
       fontSize: "1.6rem",
     },
   },
+  sponsor: {
+    marginTop: '5.6rem',
+    textDecoration: 'none',
+    height: "10rem",
+    textAlign: 'center',
+    padding: '2% 0',
+    "& p": {
+      fontSize: "1.8rem",
+      fontWeight: 'bold',
+      lineHeight: '1.5rem',
+    },
+  },
   disabledNavLink: {
     textDecoration: "none",
     height: "5rem",
@@ -256,6 +268,9 @@ function SideNav(props) {
                 </NavLink>
               </>
             ) : null}
+             <NavLink to='/sponsorspotlight' className={classes.sponsor}>
+                <p>Thank you to</p><p>our sponsors</p>
+              </NavLink>
           </Box>
         </div>
         <Box className={classes.logoutContainer}>
