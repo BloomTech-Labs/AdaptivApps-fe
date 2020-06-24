@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Messages from "../Messages/Messages";
+import CustomPeopleIcon from "./CustomPeopleIcon";
 
 // Mutation Imports
 import { useMutation } from "react-apollo";
@@ -174,7 +175,6 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoo
   notifications !== null && notifications.length > 0 && notifications.map(notification => notification.chatroom !== null && notification.chatroom.id === chatRoom.id && roomNotifications.push(notification.id));
 
   const senderName = chatRoom?.chats?.find(chat => chat?.from.email !== user?.email)
-
   const participants = []
 
   chatRoom.participants.map((participant) => {
@@ -186,10 +186,13 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoo
   })
 
   // Logic to set group chat rooms
+  let chattingIcon = null;
   const chattingWith = participants.map((participant, index) => {
     if (participants.length === 1 || index === participants.length - 1) {
+      chattingIcon = participant.profilePicture;
       return `${participant.firstName} ${participant.lastName}`
     } else {
+      chattingIcon = participant.profilePicture;
       return `${participant.firstName} ${participant.lastName}, `
     }
   });
@@ -235,19 +238,31 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoo
                 badgeContent={roomNotifications.length}
                 overlap="circle"
               >
+                {chattingIcon ?
+                  <CustomPeopleIcon
+                    className={classes.chatRoomIcon}
+                    chattingIcon={chattingIcon}
+                    setEditChatRoom={setEditChatRoom}
+                  /> :
+                  <PeopleAltIcon
+                    className={classes.chatRoomIcon}
+                    onClick={() => setEditChatRoom(true)}
+                    aria-label="Delete selected Chatroom"
+                  />}
+              </StyledBadge>
+            </Tooltip>
+          ) : (
+              chattingIcon ?
+                <CustomPeopleIcon
+                  className={classes.chatRoomIcon}
+                  chattingIcon={chattingIcon}
+                  setEditChatRoom={setEditChatRoom}
+                /> :
                 <PeopleAltIcon
                   className={classes.chatRoomIcon}
                   onClick={() => setEditChatRoom(true)}
                   aria-label="Delete selected Chatroom"
                 />
-              </StyledBadge>
-            </Tooltip>
-          ) : (
-              <PeopleAltIcon
-                className={classes.chatRoomIcon}
-                onClick={() => setEditChatRoom(true)}
-                aria-label="Delete selected Chatroom"
-              />
             )}
         </Tooltip>
         <Modal

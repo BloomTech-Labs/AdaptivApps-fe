@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
       width: "100%",
     },
   },
-  form: { display: "flex", flexDirection: "column", width: "400px" },
+  form: { display: "flex", flexDirection: "column", width: "500px" },
   inputLabel: {
     marginBottom: "7px",
     marginLeft: "5px",
