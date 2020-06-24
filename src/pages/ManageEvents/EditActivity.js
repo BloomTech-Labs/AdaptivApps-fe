@@ -39,6 +39,7 @@ const useStyles = makeStyles({
     color: "#2763FF",
   },
   activityCreation: {
+    marginLeft: ".5rem",
     display: "flex",
   },
 });
