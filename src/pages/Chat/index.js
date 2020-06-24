@@ -36,7 +36,7 @@ function ChatFeature() {
   const [deleteRoom, setDeleteRoom] = useState(false);
 
   // Timeout for automated alerts
-  setTimeout(function() {
+  setTimeout(function () {
     if (alert) {
       setAlertOpen(false);
     } else if (newRoom) {
