@@ -3,6 +3,8 @@ import React, { useEffect } from "react";
 import { UPDATE_PROFILE_PICTURE, GET_PROFILE_IMAGES } from "./queries";
 import { useQuery, useMutation } from "react-apollo";
 
+import ProfilePicDefault from "../../assets/images/acs_virtual_logo.png";
+
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
 
@@ -25,6 +27,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     height: "100%",
     objectFit: "cover",
+    background: "#282C4E",
   },
 }));
 
@@ -56,7 +59,13 @@ export default function ProfilePicture({ profilePicture }) {
     <>
       <img
         className={classes.profilePicture}
-        src={usersProfilePicture}
+        src={
+          usersProfilePicture === null ||
+          usersProfilePicture === undefined ||
+          usersProfilePicture === ""
+            ? ProfilePicDefault
+            : usersProfilePicture
+        }
         alt="Profile Picture"
       />
     </>

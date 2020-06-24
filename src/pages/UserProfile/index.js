@@ -29,6 +29,7 @@ import ProfilePic from "./ProfilePic";
 import ProfileBanner from "./ProfileBanner";
 import UpcomingEventList from "./UpcomingEventList";
 
+const CameraIcon = require("../../assets/images/camera.svg");
 const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: "100vw",
@@ -69,9 +70,9 @@ const useStyles = makeStyles(theme => ({
   photoIcon: {
     fontSize: "3rem",
     position: "absolute",
-    color: "black",
-    background: "white",
+    color: "gold",
     borderRadius: "50%",
+    background: "black",
   },
   pictureWrapper: {
     display: "flex",
@@ -80,7 +81,7 @@ const useStyles = makeStyles(theme => ({
     width: "17rem",
     height: "17rem",
     top: "6rem",
-    left: "39%",
+    left: "42.5%",
     "& label": {
       position: "absolute",
       left: "70%",
@@ -238,15 +239,15 @@ export default function UserProfile() {
       });
   };
 
-  const filteredKeys = [];
+  // const filteredKeys = [];
 
-  const filtered =
-    userProfile &&
-    sportsParticipation &&
-    Object.entries(sportsParticipation).filter(
-      filteredKey =>
-        filteredKey.includes(true) && filteredKeys.push(filteredKey[0])
-    );
+  // const filtered =
+  //   userProfile &&
+  //   sportsParticipation &&
+  //   Object.entries(sportsParticipation).filter(
+  //     filteredKey =>
+  //       filteredKey.includes(true) && filteredKeys.push(filteredKey[0])
+  //   );
 
   useEffect(() => {}, [userProfile, profilePicture, profileBanner]);
 
@@ -297,7 +298,7 @@ export default function UserProfile() {
                   aria-label="Upload Profile Banner Image"
                   component="span"
                 >
-                  <PhotoCamera className={classes.photoIcon} />
+                  <PhotoCamera src={CameraIcon} className={classes.photoIcon} />
                 </IconButton>
               </label>
               <input
@@ -340,17 +341,17 @@ export default function UserProfile() {
                 <p>{userProfile?.profile?.bio}</p>
               </div>
             </div>
-            {userProfile?.profile?.type === "Individual" ? (
+            {/* {userProfile?.profile?.type === "Individual" ? (
               <div className={classes.infoWrapper}>
                 <h1>You'll find me...</h1>
-                {/* <div className={classes.extendedWrapper}>
+                <div className={classes.extendedWrapper}>
                   <p>{disability?.physicalDisability}</p>
                   <p>{disability?.detailedDisabilities}</p>
                 </div>
                 <div className={classes.demographicWrapper}>
                   <p>{demographicProfile?.veteranStatus}</p>
                   <p>{demographicProfile?.militaryBranch}</p>
-                </div> */}
+                </div>
                 <div className={classes.sportsWrapper}>
                   <h3>Playing these sports</h3>
                   <div className={classes.sportsList}>
@@ -367,7 +368,7 @@ export default function UserProfile() {
                   </div>
                 </div>
               </div>
-            ) : null}
+            ) : null} */}
           </div>
         </div>
         <div className={classes.eventsContainer}>
