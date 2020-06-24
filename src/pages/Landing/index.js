@@ -75,17 +75,17 @@ const useStyles = makeStyles(theme => ({
       margin: "1.5rem 0",
     },
     [theme.breakpoints.down("md")]: {
-      width: "55%",
+      width: "40%",
       "& h6": {
         margin: "0.5rem 0",
         fontSize: "4.0rem",
       },
     },
     [theme.breakpoints.down("sm")]: {
-      width: "85%",
+      width: "60%",
       "& h6": {
         margin: "0.5rem 0",
-        fontSize: "3.0rem",
+        // fontSize: "3.0rem",
       },
     },
   },

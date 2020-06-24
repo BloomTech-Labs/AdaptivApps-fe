@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "@reach/router";
 import moment from "moment";
+
+import config from "../../config/auth_config";
+import eventImg from "../../assets/images/acs_hartford.png";
 import { useMutation } from "react-apollo";
 // Component imports
 import SimpleModal from "./SimpleModal";
@@ -148,11 +151,10 @@ export default function EventCard({ event, refetch, user }) {
         if (event.attendees[i].eventProfile.email === user.email)
           return event.attendees[i].id;
       }
-    }
-    else {
+    } else {
       return false;
     }
-  }
+  };
 
   const registerEvent = async () => {
     const attendeeIdValue = !processAttendeeID() ? "" : processAttendeeID();
@@ -180,7 +182,17 @@ export default function EventCard({ event, refetch, user }) {
   const body = (
     <>
       <Box className={classes.imgBox}>
-        <img className={classes.img} src={event.imgUrl} alt="Event" />
+        <img
+          className={classes.img}
+          src={
+            event?.imgUrl === null ||
+            event?.imgUrl === undefined ||
+            event?.imgUrl === ""
+              ? eventImg
+              : event?.imgUrl
+          }
+          alt="Event"
+        />
       </Box>
       <Box className={classes.modalMiddle}>
         <Typography className={classes.date}>
@@ -211,9 +223,17 @@ export default function EventCard({ event, refetch, user }) {
               component="img"
               alt="Event"
               width="15rem"
-              image={event?.imgUrl}
+              image={
+                event?.imgUrl === null ||
+                event?.imgUrl === undefined ||
+                event?.imgUrl === ""
+                  ? eventImg
+                  : event?.imgUrl
+              }
               title="Angel City Event"
-              onClick={() => { navigate(`calendar/${event.id}`) }}
+              onClick={() => {
+                navigate(`calendar/${event.id}`);
+              }}
             />
           </Box>
           <Box className={classes.contentWrapper}>
@@ -234,7 +254,9 @@ export default function EventCard({ event, refetch, user }) {
                 gutterBottom
                 variant="h5"
                 component="h2"
-                onClick={() => { navigate(`calendar/${event.id}`) }}
+                onClick={() => {
+                  navigate(`calendar/${event.id}`);
+                }}
               >
                 {event.title}
               </Typography>
@@ -247,22 +269,24 @@ export default function EventCard({ event, refetch, user }) {
                 {event.location}
               </Typography>
             </CardContent>
-            <Box className={classes.editDeleteBtn}>
-              <Button onClick={editEvent}>
-                <EditOutlinedIcon
-                  className={classes.icon}
-                  color="primary"
-                  fontSize="large"
-                />
-              </Button>
-              <Button onClick={handleOpen}>
-                <DeleteOutlineIcon
-                  className={classes.icon}
-                  color="primary"
-                  fontSize="large"
-                />
-              </Button>
-            </Box>
+            {user && user[config.roleUrl].includes("Admin") ? (
+              <Box className={classes.editDeleteBtn}>
+                <Button onClick={editEvent}>
+                  <EditOutlinedIcon
+                    className={classes.icon}
+                    color="primary"
+                    fontSize="large"
+                  />
+                </Button>
+                <Button onClick={handleOpen}>
+                  <DeleteOutlineIcon
+                    className={classes.icon}
+                    color="primary"
+                    fontSize="large"
+                  />
+                </Button>
+              </Box>
+            ) : null}
           </Box>
         </CardActionArea>
         <CardActions className={classes.btnContainer}>

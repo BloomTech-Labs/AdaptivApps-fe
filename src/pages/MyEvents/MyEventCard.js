@@ -1,6 +1,7 @@
 //React imports
 import React from "react";
 //Component imports
+import eventImg from "../../assets/images/acs_hartford.png";
 import { useNavigate } from "@reach/router";
 // GraphQL/Apollo imports
 import { useMutation, useQuery } from "react-apollo";
@@ -24,7 +25,7 @@ import {
   Typography,
   Button,
   Box,
-  Tooltip
+  Tooltip,
 } from "@material-ui/core";
 
 import {
@@ -34,7 +35,7 @@ import {
   TwitterIcon,
   LinkedinShareButton,
   LinkedinIcon,
-} from 'react-share';
+} from "react-share";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -150,20 +151,20 @@ export default function MyEventCard({ event, refetch }) {
     const attendeeIdValue = JSON.stringify(attendeeId).replace(/[\[\]"]+/g, "");
     data && data?.participants?.length === 1
       ? await unregisterFromEventActivity({
-        variables: {
-          attendeeId: attendeeIdValue,
-          email: user?.email,
-          participantId: participantIdValue,
-        },
-      })
+          variables: {
+            attendeeId: attendeeIdValue,
+            email: user?.email,
+            participantId: participantIdValue,
+          },
+        })
       : data && data?.participants === null
-        ? await unregisterFromEvent({
+      ? await unregisterFromEvent({
           variables: {
             attendeeId: attendeeIdValue,
             email: user?.email,
           },
         })
-        : await unregisterFromAll({
+      : await unregisterFromAll({
           variables: {
             attendeeId: attendeeIdValue,
             email: user?.email,
@@ -177,7 +178,7 @@ export default function MyEventCard({ event, refetch }) {
   };
 
   return (
-    <Card className={classes.root} >
+    <Card className={classes.root}>
       <CardActionArea className={classes.card}>
         <Box>
           <div className={classes.banner}>{event.type}</div>
@@ -186,7 +187,13 @@ export default function MyEventCard({ event, refetch }) {
             component="img"
             alt="Event"
             width="15rem"
-            image={event?.imgUrl}
+            image={
+              event?.imgUrl === null ||
+              event?.imgUrl === undefined ||
+              event?.imgUrl === ""
+                ? eventImg
+                : event?.imgUrl
+            }
             title="Angel City Event"
           />
         </Box>
@@ -226,30 +233,30 @@ export default function MyEventCard({ event, refetch }) {
         </Button>
       </CardActions>
       <div className={classes.socialBtnContainer}>
-        <Tooltip title='Share this event on Facebook'>
+        <Tooltip title="Share this event on Facebook">
           <FacebookShareButton
-            url={'http://angelcitysports.org/'}
+            url={"http://angelcitysports.org/"}
             quote={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}`}
             className={classes.socialMediaBtn}
           >
             <FacebookIcon size={32} round={true} />
           </FacebookShareButton>
         </Tooltip>
-        <Tooltip title='Share this event on Twitter'>
+        <Tooltip title="Share this event on Twitter">
           <TwitterShareButton
             title={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}\n`}
-            url={'http://angelcitysports.org/'}
-            via={'angelcitysports'}
+            url={"http://angelcitysports.org/"}
+            via={"angelcitysports"}
             className={classes.socialMediaBtn}
           >
             <TwitterIcon size={32} round={true} />
           </TwitterShareButton>
         </Tooltip>
-        <Tooltip title='Share this event on Linkedin'>
+        <Tooltip title="Share this event on Linkedin">
           <LinkedinShareButton
-            title={'Angel City Sports Event'}
+            title={"Angel City Sports Event"}
             summary={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}`}
-            url={'http://angelcitysports.org/'}
+            url={"http://angelcitysports.org/"}
             className={classes.socialMediaBtn}
           >
             <LinkedinIcon size={32} round={true} />
