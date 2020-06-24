@@ -243,7 +243,7 @@ function SideNav(props) {
               <Tooltip title="Please complete your profile information to access Chats">
                 <div className={classes.disabledNavLink}>
                   <ForumOutlinedIcon className={classes.navIcon} />
-                  <p>Chats</p>
+                  <p>Chat</p>
                 </div>
               </Tooltip>
             ) : (
@@ -253,7 +253,7 @@ function SideNav(props) {
                     badgeContent={notifications?.profile?.notifications?.length}>
                     <ForumOutlinedIcon className={classes.navIcon} />
                   </StyledBadge>
-                  <p>Chats</p>
+                  <p>Chat</p>
                 </NavLink>
               )}
             {/*<NavLink to="/newsfeed" className={classes.navLink}>

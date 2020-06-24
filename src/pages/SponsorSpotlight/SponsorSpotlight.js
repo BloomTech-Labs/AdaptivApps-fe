@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, Link } from '@material-ui/core';
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 const ACS_Logo = require('../../assets/images/01-ACS_Logo.png');
 const Hartford_Logo = require('../../assets/images/02-Hartford.png');
@@ -35,47 +36,184 @@ const LA_Parks_Logo = require('../../assets/images/30-LA Dept of Rec&Parks.png')
 const LA84_Logo = require('../../assets/images/31-LA84.png');
 const Momo_Logo = require('../../assets/images/32-MoMo.png');
 
+// [theme.breakpoints.up("lg")]: {
+//   fontSize: "7.2rem",
+// },
+// [theme.breakpoints.down("md")]: {
+//   fontSize: "5.2rem",
+// },
+// [theme.breakpoints.down("sm")]: {
+//   fontSize: "3.2rem",
+// },
+// [theme.breakpoints.down("xs")]: {
+//   fontSize: "3.2rem",
+// },
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    border: '1px solid red',
     width: '95%',
-    margin: '5% auto',
+    margin: 'auto',
     textAlign: 'center',
+    display: 'flex-column',
   },
   paper: {
     // height: 140,
     // width: 100,
   },
   img: {
-    border: '1px solid red',
-    maxWidth: '90%'
+    maxWidth: '90%',
+    [theme.breakpoints.down("sm")]: {
+      margin: '10% auto'
+    },
+    [theme.breakpoints.down("xs")]: {
+      margin: '10% auto'
+    },
   },
   logo: {
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: '70%',
+      margin: 'auto'
+    },
+    [theme.breakpoints.down("xs")]: {
+      maxWidth: '70%',
+      margin: 'auto'
+    },
   },
   presented: {
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: 'column',
+      maxWidth: '70%',
+      margin: 'auto'
+    },
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: 'column',
+      maxWidth: '70%',
+      margin: 'auto'
+    },
+  },
+  gold: {
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: 'column',
+      maxWidth: '60%',
+      margin: 'auto'
+    },
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: 'column',
+      maxWidth: '60%',
+      margin: 'auto'
+    },
+  },
+  silver: {
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: 'column',
+    },
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: 'column',
+    },
+  },
+  bronze: {
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: 'column',
+    },
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: 'column',
+    },
+  },
+  friends: {
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: 'column',
+    },
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: 'column',
+    },
+  },
+  partners: {
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: 'column',
+    },
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: 'column',
+    },
   },
   header: {
     fontSize: '2rem',
     color: '#2962FF',
     fontWeight: 'bold',
+    margin: '5% auto 3%',
+    '&:nth-child(3)': {
+      margin: '3% auto'
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: '1.75rem',
+      margin: '3% auto'
+    },
+    [theme.breakpoints.down("xs")]: {
+      fontSize: '1.75rem',
+      margin: '2% auto',
+    },
   },
   sponsorText: {
     textAlign: 'left',
-    fontSize: '2rem',
+    fontSize: '1.75rem',
     fontWeight: 'bold',
-    color: '#2962FF'
+    color: '#2962FF',
+    marginTop: '3%',
+    '&:nth-child(4)': {
+      marginBottom: '1%',
+    },
+    '&:nth-child(6)': {
+      marginBottom: '1%',
+    },
+    '&:nth-child(8)': {
+      marginBottom: '2%',
+    },
+    '&:nth-child(10)': {
+      marginBottom: '0',
+    },
+    '&:nth-child(12)': {
+      marginTop: '2%',
+      marginBottom: '1%',
+    },
+    [theme.breakpoints.down("sm")]: {
+      fontSize: '1.5rem',
+      textAlign: 'center',
+      marginTop: '15%'
+    },
+    [theme.breakpoints.down("xs")]: {
+      fontSize: '1.5rem',
+      textAlign: 'center',
+      marginTop: '15%'
+    },
   },
+  back: {
+    display: 'flex',
+    alignItems: 'center',
+    color: '#2962FF',
+    margin: '2% 0 0 2%',
+    fontSize: '.25rem',
+    [theme.breakpoints.down("sm")]: {
+      fontSize: '.25rem',
+    },
+    [theme.breakpoints.down("xs")]: {
+      fontSize: '.25rem',
+    },
+  }
   
 }));
 
 export default function SponsorSpotlight() {
   const classes = useStyles();
-  
   return (
+    <>
+      <Link href="/calendar" className={classes.back} >
+        <ArrowBackIosIcon color="primary" fontSize="large" />
+        <Typography>Back to my events</Typography>
+      </Link>    
     <div className={classes.root}>
       <Grid container className={classes.logo}>
-        <Grid item  xs>
+        <Grid item xs>
           <img className={classes.img} alt='' src={ACS_Logo} />
         </Grid>
       </Grid>
@@ -199,5 +337,6 @@ export default function SponsorSpotlight() {
         </Grid>
       </Grid>
     </div>
+    </>
   )
 }
