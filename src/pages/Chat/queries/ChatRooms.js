@@ -12,6 +12,7 @@ export const GET_CHAT_ROOMS = gql`
           email
           firstName
           lastName
+          profilePicture
         }
         chats {
           id
