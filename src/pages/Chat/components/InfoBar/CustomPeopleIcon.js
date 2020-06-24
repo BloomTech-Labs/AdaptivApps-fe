@@ -1,10 +1,13 @@
 import React from 'react';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const CustomPeopleIcon = ({ chattingIcon, setEditChatRoom }) => {
   return (
-    <div onClick={() => setEditChatRoom(true)} aria-label="Delete selected Chatroom">
-      <img src={chattingIcon} alt="icon for user" style={{ marginRight: "8px", marginLeft: "12px", width: "22px", height: "22px", borderRadius: "50%" }} />
-    </div>
+    <Tooltip title="Delete selected Chatroom">
+      <div onClick={() => setEditChatRoom(true)}>
+        <img src={chattingIcon} alt="icon for user" style={{ marginRight: "8px", marginLeft: "12px", width: "22px", height: "22px", borderRadius: "50%" }} />
+      </div>
+    </Tooltip>
   )
 }
 
