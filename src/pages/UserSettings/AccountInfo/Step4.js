@@ -33,6 +33,10 @@ const useStyles = makeStyles({
       height: 48,
     },
   },
+  em: {
+    fontStyle: "italic",
+    fontSize: "1.6rem"
+  },
   spacing: {
     marginTop: "2.4rem",
   },
@@ -200,7 +204,7 @@ export default function Step3({ updateDemo2 }) {
           <Controller
             as={
               <Select>
-                <MenuItem ><em>Please choose one</em></MenuItem>
+                <MenuItem ><em className={classes.em}>Please choose one</em></MenuItem>
                 <MenuItem value="Yes">Yes</MenuItem>
                 <MenuItem value="No">No</MenuItem>
               </Select>
@@ -220,7 +224,7 @@ export default function Step3({ updateDemo2 }) {
           <Controller
             as={
               <Select>
-                <MenuItem ><em>Please choose on</em></MenuItem>
+                <MenuItem ><em className={classes.em}>Please choose one</em></MenuItem>
                 <MenuItem value="Yes">Yes</MenuItem>
                 <MenuItem value="No">No</MenuItem>
               </Select>
@@ -238,7 +242,7 @@ export default function Step3({ updateDemo2 }) {
         </InputLabel>
         <Controller
           as={<Select>
-            <MenuItem ><em>Please choose on</em></MenuItem>
+            <MenuItem ><em className={classes.em}>Please choose one</em></MenuItem>
             <MenuItem value="Cost to participate">Cost to participate</MenuItem>
             <MenuItem value="Family/safety concerns">Family/safety concerns</MenuItem>
             <MenuItem value="Transportation">Transportation</MenuItem>
