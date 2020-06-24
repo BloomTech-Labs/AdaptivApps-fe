@@ -73,7 +73,7 @@ export default function AccountInfo() {
         <Step1 path="step1of6" updateProfile={UpdateProfile} />
         <Step2 path="step2of6" updateExtProfile={UpdateExtProfile} />
         <Step3 path="step3of6" updateDemoProfile={UpdateDemoProfile} />
-        <Step4 path="step4of6" updateSportsDemo={UpdateSportsDemo} />
+        <Step4 path="step4of6" updateDemo2={UpdateDemo2} />
         <Step5 path="step5of6" updateDemo2={UpdateDemo2} />
         <Step6 path="step6of6" updateDemo3={UpdateDemo3} />
       </Router>

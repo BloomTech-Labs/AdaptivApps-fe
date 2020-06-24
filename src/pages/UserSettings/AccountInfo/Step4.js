@@ -4,7 +4,7 @@ import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Apollo/GraphQL imports
 import { useQuery } from "react-apollo";
-import { PROFILE_STEP_3 } from "../queries";
+import { PROFILE_STEP_4 } from "../queries";
 // Component imports
 import NextButton from "../../../theme/SmallFormButton";
 import SaveButton from "../../../theme/LargeFormButton";
@@ -45,29 +45,37 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Step3({ updateDemoProfile }) {
+export default function Step3({ updateDemo2 }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_3, {
+  const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_4, {
     variables: { email: userEmail },
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
   const { handleSubmit, setValue, control } = useForm({
     defaultValues: {
+      favProAthletes:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.favProAthletes,
+      favCelebs:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.favCelebs,
+      goals:
+        currentUserInfo && currentUserInfo?.profile?.demographicProfile?.goals,
+      specialTalents:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.specialTalents,
       adaptivSportsParticipation:
         currentUserInfo &&
         currentUserInfo?.profile?.demographicProfile
           ?.adaptivSportsParticipation,
-      acsParticipation:
-        currentUserInfo &&
-        currentUserInfo?.profile?.demographicProfile?.acsParticipation,
       notParticipating:
         currentUserInfo &&
         currentUserInfo?.profile?.demographicProfile?.notParticipating,
-      angelCityParticipation:
+      sportEquipmentNeed:
         currentUserInfo &&
-        currentUserInfo?.profile?.demographicProfile?.angelCityParticipation,
+        currentUserInfo?.profile?.demographicProfile?.sportEquipmentNeed,
     },
   });
   // Sets default values in input fields with current user's info
@@ -76,15 +84,30 @@ export default function Step3({ updateDemoProfile }) {
     if (!loading && currentUserInfo) {
       setValue([
         {
+          favProAthletes:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.favProAthletes,
+        },
+        {
+          favCelebs:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.favCelebs,
+        },
+        {
+          goals:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.goals,
+        },
+        {
+          specialTalents:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.specialTalents,
+        },
+        {
           adaptivSportsParticipation:
             currentUserInfo &&
             currentUserInfo?.profile?.demographicProfile
               ?.adaptivSportsParticipation,
-        },
-        {
-          acsParticipation:
-            currentUserInfo &&
-            currentUserInfo?.profile?.demographicProfile?.acsParticipation,
         },
         {
           notParticipating:
@@ -92,23 +115,25 @@ export default function Step3({ updateDemoProfile }) {
             currentUserInfo?.profile?.demographicProfile?.notParticipating,
         },
         {
-          angelCityParticipation:
+          sportEquipmentNeed:
             currentUserInfo &&
-            currentUserInfo?.profile?.demographicProfile
-              ?.angelCityParticipation,
+            currentUserInfo?.profile?.demographicProfile?.sportEquipmentNeed,
         },
       ]);
     }
   }, [loading, currentUserInfo, defaultInfo, setValue]);
   // Will update profile and route user to next step in profile wizard
   const onNext = handleSubmit(async data => {
-    await updateDemoProfile({
+    await updateDemo2({
       variables: {
         email: userEmail,
+        favProAthletes: data.favProAthletes,
+        favCelebs: data.favCelebs,
+        goals: data.goals,
+        specialTalents: data.specialTalents,
         adaptivSportsParticipation: data.adaptivSportsParticipation,
-        acsParticipation: data.acsParticipation,
         notParticipating: data.notParticipating,
-        angelCityParticipation: data.angelCityParticipation,
+        sportEquipmentNeed: data.sportEquipmentNeed,
       },
     });
 
@@ -117,13 +142,16 @@ export default function Step3({ updateDemoProfile }) {
   });
   // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
   const onSave = handleSubmit(async data => {
-    await updateDemoProfile({
+    await updateDemo2({
       variables: {
         email: userEmail,
+        favProAthletes: data.favProAthletes,
+        favCelebs: data.favCelebs,
+        goals: data.goals,
+        specialTalents: data.specialTalents,
         adaptivSportsParticipation: data.adaptivSportsParticipation,
-        acsParticipation: data.acsParticipation,
         notParticipating: data.notParticipating,
-        angelCityParticipation: data.angelCityParticipation,
+        sportEquipmentNeed: data.sportEquipmentNeed,
       },
     });
     alert("Successfully saved account info!");

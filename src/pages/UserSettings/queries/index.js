@@ -345,7 +345,6 @@ export const UPDATE_DEMO_PROFILE = gql`
             employment: $employment
             covid: $covid
             citizen: $citizen
-
           }
         }
       }
@@ -376,28 +375,26 @@ export const PROFILE_STEP_3 = gql`
 export const UPDATE_DEMO_2 = gql`
   mutation UpdateDemo2(
     $email: String!
+    $favProAthletes: String
+    $favCelebs: String
+    $goals: String
+    $specialTalents: String
     $adaptivSportsParticipation: String
-    $acsParticipation: String
     $notParticipating: String
-    $angelCityParticipation: String
+    $sportEquipmentNeed: String
   ) {
     updateProfile(
       where: { email: $email }
       data: {
         demographicProfile: {
-          upsert: {
-            update: {
-              adaptivSportsParticipation: $adaptivSportsParticipation
-              acsParticipation: $acsParticipation
-              notParticipating: $notParticipating
-              angelCityParticipation: $angelCityParticipation
-            }
-            create: {
-              adaptivSportsParticipation: $adaptivSportsParticipation
-              acsParticipation: $acsParticipation
-              notParticipating: $notParticipating
-              angelCityParticipation: $angelCityParticipation
-            }
+          update: {
+            favProAthletes: $favProAthletes
+            favCelebs: $acsParticipation
+            goals: $goals
+            specialTalents: $specialTalents
+            adaptivSportsParticipation: $adaptivSportsParticipation
+            notParticipating: $notParticipating
+            sportEquipmentNeed: $sportEquipmentNeed
           }
         }
       }
@@ -405,21 +402,31 @@ export const UPDATE_DEMO_2 = gql`
       id
       demographicProfile {
         id
+        favProAthletes
+        favCelebs
+        goals
+        specialTalents
+        adaptivSportsParticipation
+        notParticipating
+        sportEquipmentNeed
       }
     }
   }
 `;
 
-export const PROFILE_STEP_5 = gql`
+export const PROFILE_STEP_4 = gql`
   query($email: String!) {
     profile(where: { email: $email }) {
       id
       demographicProfile {
         id
+        favProAthletes
+        favCelebs
+        goals
+        specialTalents
         adaptivSportsParticipation
-        acsParticipation
         notParticipating
-        angelCityParticipation
+        sportEquipmentNeed
       }
     }
   }
@@ -580,7 +587,7 @@ export const UPDATE_SPORTS_DEMO = gql`
   }
 `;
 // Retrieves user profile info to set default values in Step 4 of Profile Wizard
-export const PROFILE_STEP_4 = gql`
+export const PROFILE_STEP_5 = gql`
   query($email: String!) {
     profile(where: { email: $email }) {
       id
@@ -661,7 +668,6 @@ export const PROFILE_STEP_4 = gql`
 `;
 
 // Updates Demo Profile part 2 used in step 5 of Profile Wizard
-
 
 // Updates Demo Profile part 3 used in Step 6 of Profile Wizard
 export const UPDATE_DEMO_3 = gql`
