@@ -8,6 +8,7 @@ import { GET_EVENT_LIST } from "./queries";
 import { useAuth0 } from "../../config/react-auth0-spa";
 import config from "../../config/auth_config";
 import GlobalSearchBox from "../../routes/DashRouter/GlobalSearchBox";
+import SponsorBanner from '../SponsorSpotlight/SponsorBanner'
 
 const useStyles = makeStyles({
   root: {
@@ -52,6 +53,10 @@ export default function EventsCalendar() {
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
   return (
+    <>
+    <div>
+      <SponsorBanner />
+      </div>
     <div>
       <div className={classes.search}>
         <GlobalSearchBox />
@@ -75,5 +80,6 @@ export default function EventsCalendar() {
         </Grid>
       </main>
     </div>
+    </>
   );
 }
