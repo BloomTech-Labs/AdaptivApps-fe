@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import SearchEventCard from "./SearchEventCard";
-import moment from "moment";
 import { Typography, makeStyles } from "@material-ui/core";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(theme => ({
   eventGroup: {
@@ -13,6 +11,7 @@ const useStyles = makeStyles(theme => ({
       fontWeight: "600",
       color: "#808080",
     },
+    marginLeft: "3rem",
   },
   eventCard: {
     display: "flex",

@@ -21,85 +21,6 @@ export const GET_USER_PROFILE = gql`
         website
         orgName
         gender
-        disability {
-          id
-          private
-          physicalDisability
-          detailedDisabilities
-        }
-      }
-      demographicProfile {
-        id
-        private
-        veteranStatus
-        militaryBranch
-        sportsParticipation {
-          id
-          airRifle
-          alpineSkiing
-          archery
-          badminton
-          baseball
-          biathlon
-          blindHockey
-          boccia
-          bowling
-          boxing
-          canoe
-          cheerleading
-          crossFit
-          crossCountrySkiing
-          curling
-          cycling
-          equestrian
-          esports
-          fishing
-          goalball
-          golf
-          hiking
-          hunting
-          judo
-          juJitsu
-          lacrosse
-          mixedMartialArts
-          motorsportsMotorcross
-          mountainBiking
-          powerlifting
-          rafting
-          rockClimbing
-          rowing
-          sailing
-          scuba
-          shooting
-          skateboarding
-          snowboarding
-          sledHockey
-          soccerBlindSoccerFiveaside
-          soccerAmputeeCrutchSoccer
-          soccerPowerSoccer
-          soccerCPSevenaside
-          standupWheelchairPaddling
-          swimming
-          surfing
-          tableTennis
-          taekwondo
-          taiChi
-          trackField
-          triathlon
-          volleyballBeachVolleyball
-          volleyballSittingVolleyball
-          waterSkiing
-          wheelchairSkateboarding
-          wheelchairBasketball
-          wheelchairCurling
-          wheelchairFencing
-          wheelchairFootball
-          wheelchairSoftball
-          wheelchairRugby
-          wheelchairTennis
-          wrestling
-          yoga
-        }
       }
     }
   }
@@ -145,7 +66,10 @@ export const UPDATE_PROFILE_BANNER = gql`
 
 export const GET_UPCOMING_EVENTS = gql`
   query getUpcomingEvents($userName: String!) {
-    events(where: { attendees_some: { eventProfile: { userName: $userName } } }, orderBy: startDate_ASC) {
+    events(
+      where: { attendees_some: { eventProfile: { userName: $userName } } }
+      orderBy: startDate_ASC
+    ) {
       id
       title
       startDate

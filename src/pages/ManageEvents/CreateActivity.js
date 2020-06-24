@@ -58,6 +58,10 @@ const useStyles = makeStyles({
       color: "blue",
     },
   },
+  activityGroup: {
+    width: '60%',
+    marginLeft: '4rem',
+  }
 });
 
 export default function CreateActivity() {
@@ -83,7 +87,7 @@ export default function CreateActivity() {
         </Typography>
       </Box>
       <Container className={classes.activityCreation}>
-        <Box>
+        <Box className={classes.form}>
           <ActivityForm
             data={data}
             createActivity={createActivity}
@@ -113,7 +117,7 @@ export default function CreateActivity() {
               </Typography>
             </Box>
           ) : (
-            <Box>
+            <Box className={classes.activityGroup}>
               <ActivityGroup data={data} refetch={refetch} />
             </Box>
           )}

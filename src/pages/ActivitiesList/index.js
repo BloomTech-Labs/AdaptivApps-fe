@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "react-apollo";
 import ActivityGroup from "./ActivityGroup";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
+import eventImg from "../../assets/images/acs_hartford.png";
 import { useParams } from "@reach/router";
 import { GET_EVENT_ACTIVITIES } from "./queries/getActivities";
 
@@ -108,7 +108,7 @@ export default function ActivityList() {
     GET_EVENT_ACTIVITIES,
     {
       variables: { id: eventId },
-      fetchPolicy: 'no-cache'
+      fetchPolicy: "no-cache",
     }
   );
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
@@ -125,7 +125,14 @@ export default function ActivityList() {
         <Box className={classes.imgContainer}>
           <img
             className={classes.eventImg}
-            src={activityData && activityData?.event?.imgUrl}
+            src={
+              (activityData && activityData?.event?.imgUrl === null) ||
+              activityData?.event?.imgUrlactivityData?.event?.imgUrl ===
+                undefined ||
+              activityData?.event?.imgUrl === ""
+                ? eventImg
+                : activityData?.event?.imgUrl
+            }
             alt="Event"
           />
         </Box>

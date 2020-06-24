@@ -25,6 +25,7 @@ import PrivacyPolicy from "./pages/Landing/Legal/PrivacyPolicy";
 import ChatFeature from "./pages/Chat/index";
 import NewsfeedPage from './pages/Newsfeed/components/NewsfeedPage'
 import SponsorSpotlight from './pages/SponsorSpotlight/SponsorSpotlight'
+// import NewsfeedPage from './pages/Newsfeed/components/NewsfeedPage'
 
 // Import apollo server
 import { ApolloProvider } from "@apollo/react-hooks";
@@ -158,6 +159,7 @@ function App() {
             <ChatFeature path="chats" />
             <NewsfeedPage path="/newsfeed" />
             <SponsorSpotlight path='/sponsorspotlight' />
+            {/*<NewsfeedPage path="/newsfeed" />*/}
           </PrivateRoute>
         </Router>
       </div>

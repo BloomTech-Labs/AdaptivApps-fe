@@ -17,7 +17,6 @@ import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import BookmarkIcon from "@material-ui/icons/BookmarkBorder";
 import HomeIcon from "@material-ui/icons/HomeOutlined";
 import UserIcon from "@material-ui/icons/PersonOutlineOutlined";
-import GroupIcon from "@material-ui/icons/GroupAddOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
 import ForumOutlinedIcon from "@material-ui/icons/ForumOutlined";
 import SettingsIcon from "@material-ui/icons/SettingsOutlined";
@@ -43,7 +42,7 @@ const StyledBadge = withStyles((theme) => ({
   badge: {
     left: 0,
     top: 10,
-    width: '2%', 
+    width: '2%',
     backgroundColor: '#052942',
     color: 'white',
     fontSize: '1.25rem'
@@ -201,7 +200,7 @@ function SideNav(props) {
   const { data: subData } = useSubscription(PROFILE_SUBSCRIPTION);
 
   // Update notifications in real time
-  const { data: notifications, refetch: refetchNotifications } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email }})
+  const { data: notifications, refetch: refetchNotifications } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email } })
   const { error: notificationError, loading: notificationLoading } = useSubscription(NOTIFICATION_SUBSCRIPTION)
 
   console.log(notifications)
@@ -252,15 +251,15 @@ function SideNav(props) {
                   <StyledBadge
                     overlap='circle'
                     badgeContent={notifications?.profile?.notifications?.length}>
-                      <ForumOutlinedIcon className={classes.navIcon} />
+                    <ForumOutlinedIcon className={classes.navIcon} />
                   </StyledBadge>
-                    <p>Chats</p>
+                  <p>Chats</p>
                 </NavLink>
               )}
-            <NavLink to="/newsfeed" className={classes.navLink}>
+            {/*<NavLink to="/newsfeed" className={classes.navLink}>
               <HomeIcon className={classes.navIcon} />
               <p>Newsfeed</p>
-            </NavLink>
+            </NavLink>*/}
             {user && user[config.roleUrl].includes("Admin") ? (
               <>
                 <NavLink to="createEvent" className={classes.navLink}>
@@ -290,7 +289,7 @@ function SideNav(props) {
 
   !subData && refetch();
   !notificationLoading && refetchNotifications();
-  
+
   return (
     <div className={classes.root}>
       <Toolbar position="fixed" style={{ "margin": "0" }}>

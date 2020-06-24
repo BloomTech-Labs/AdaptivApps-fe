@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Tabs, Tab, Typography, Box, Paper, Button } from "@material-ui/core";
+import { Tabs, Tab, Typography, Box, Paper } from "@material-ui/core";
 import moment from "moment";
 import Activities from "./Activities";
 
@@ -37,13 +37,14 @@ const useStyles = makeStyles(theme => ({
     boxShadow: "none",
   },
   tabs: {
-    marginLeft: "1.2rem",
+    marginLeft: "0.2rem",
   },
   tab: {
     padding: "0",
     "& span": {
-      alignItems: "start",
+      alignItems: "center",
     },
+    fontSize: "2.5rem"
   },
   trow: {
     marginLeft: "3rem",
@@ -68,18 +69,20 @@ export default function ActivityGroup({ activityData, refetch }) {
   const startDate = moment(activityData?.event?.startDate);
   const endDate = moment(activityData?.event?.endDate);
 
-  const getDatesRangeArray = function(startDate, endDate, interval) {
-    console.log(startDate, endDate, interval);
+  const getDatesRangeArray = function (startDate, endDate, interval) {
+    // console.log(startDate, endDate, interval);
+
     let cfg = { interval: interval || "days" };
     let dateArray = [];
     let currentDate = moment(startDate);
-    console.log(
-      "-->",
-      currentDate._i,
-      "<=",
-      endDate._i,
-      currentDate <= endDate
-    );
+
+    // console.log(
+    //   "-->",
+    //   currentDate._i,
+    //   "<=",
+    //   endDate._i,
+    //   currentDate <= endDate
+    // );
     while (currentDate <= endDate) {
       dateArray.push(currentDate.format("ddd MM/DD/YY"));
       currentDate = currentDate.add(1, cfg.interval);
@@ -89,8 +92,6 @@ export default function ActivityGroup({ activityData, refetch }) {
   const days = getDatesRangeArray(startDate, endDate);
   const [value, setValue] = React.useState(days[0]);
 
-  console.log("days", days);
-  console.log("Activity Data in ActivityGroup.js", activityData);
   return (
     <div className={classes.root}>
       <Paper position="static" color="default" className={classes.paper}>
@@ -117,8 +118,8 @@ export default function ActivityGroup({ activityData, refetch }) {
             {activityData.event.type === "Virtual" ? (
               <th>Link</th>
             ) : (
-              <th>Location</th>
-            )}
+                <th>Location</th>
+              )}
 
             <th>Time</th>
           </tr>
