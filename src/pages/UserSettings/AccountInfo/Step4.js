@@ -163,14 +163,11 @@ export default function Step3({ updateDemo2 }) {
       <ProgressBar activeStep={4} stepNumber={4} userEmail={userEmail} />
       <form className={classes.form}>
         <InputLabel htmlFor="adaptivSportsParticipation">
-          Have you ever participated in adaptive sports before?
+          Who are your favorite pro athletes?
         </InputLabel>
         <Controller
           as={
-            <Select>
-              <MenuItem value="Yes">Yes</MenuItem>
-              <MenuItem value="No">No</MenuItem>
-            </Select>
+            <TextField />
           }
           name="adaptivSportsParticipation"
           type="select"
