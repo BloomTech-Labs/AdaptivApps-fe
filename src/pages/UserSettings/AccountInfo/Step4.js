@@ -162,67 +162,107 @@ export default function Step3({ updateDemo2 }) {
     <Box className={classes.root}>
       <ProgressBar activeStep={4} stepNumber={4} userEmail={userEmail} />
       <form className={classes.form}>
-        <InputLabel htmlFor="adaptivSportsParticipation">
+        <InputLabel htmlFor="favProAthletes">
           Who are your favorite pro athletes?
         </InputLabel>
         <Controller
-          as={
-            <TextField />
-          }
-          name="adaptivSportsParticipation"
-          type="select"
+          as={<TextField />}
+          name="favProAthletes"
+          type="text"
           variant="outlined"
           control={control}
           defaultValue=""
         />
-        <InputLabel className={classes.spacing} htmlFor="acsParticipation">
-          Have you participated in Angel City Clinics before?
+        <InputLabel htmlFor="favCelebs">
+          Who are your favorite celebrities?
         </InputLabel>
         <Controller
-          as={
-            <Select>
-              <MenuItem value="Yes">Yes</MenuItem>
-              <MenuItem value="No">No</MenuItem>
-            </Select>
-          }
-          name="acsParticipation"
-          type="select"
+          as={<TextField />}
+          name="favCelebs"
+          type="text"
           variant="outlined"
           control={control}
           defaultValue=""
         />
-        <InputLabel
-          className={classes.spacing}
-          htmlFor="angelCityParticipation"
-        >
-          Please select all Angel City Games you have participated in?
-        </InputLabel>
+        <InputLabel htmlFor="goals">What are your goals?</InputLabel>
         <Controller
-          as={
-            <Select>
-              <MenuItem value="Game 1">Game 1</MenuItem>
-              <MenuItem value="Game 2">Game 2</MenuItem>
-              <MenuItem value="Game 3">Game 3</MenuItem>
-            </Select>
-          }
-          name="angelCityParticipation"
-          type="select"
+          as={<TextField />}
+          name="goals"
+          type="text"
           variant="outlined"
           control={control}
           defaultValue=""
         />
+        <Box>
+          <InputLabel className={classes.spacing} htmlFor="specialTalents">
+            Do you have any special talents?
+          </InputLabel>
+          <Controller
+            as={
+              <Select>
+                <MenuItem ><em>Please choose one</em></MenuItem>
+                <MenuItem value="Yes">Yes</MenuItem>
+                <MenuItem value="No">No</MenuItem>
+              </Select>
+            }
+            name="specialTalents"
+            type="select"
+            variant="outlined"
+            control={control}
+            defaultValue=""
+          />
+          <InputLabel
+            className={classes.spacing}
+            htmlFor="adaptivSportsParticipation"
+          >
+            Have you participated in Adaptive Sports before?
+          </InputLabel>
+          <Controller
+            as={
+              <Select>
+                <MenuItem ><em>Please choose on</em></MenuItem>
+                <MenuItem value="Yes">Yes</MenuItem>
+                <MenuItem value="No">No</MenuItem>
+              </Select>
+            }
+            name="adaptivSportsParticipation"
+            type="select"
+            variant="outlined"
+            control={control}
+            defaultValue=""
+          />
+        </Box>
         <InputLabel className={classes.spacing} htmlFor="notParticipating">
           If you are not participating in as many adaptive sports as you'd like,
           can you please share why?
         </InputLabel>
         <Controller
-          as={<TextField />}
+          as={<Select>
+            <MenuItem ><em>Please choose on</em></MenuItem>
+            <MenuItem value="Cost to participate">Cost to participate</MenuItem>
+            <MenuItem value="Family/safety concerns">Family/safety concerns</MenuItem>
+            <MenuItem value="Transportation">Transportation</MenuItem>
+            <MenuItem value="Fear">Fear</MenuItem>
+            <MenuItem value="Lack of motivation">Lack of motivation</MenuItem>
+            <MenuItem value="Personal care needs">Personal care needs</MenuItem>
+            <MenuItem value="Access to equipment">Access to equipment</MenuItem>
+            <MenuItem value="I haven't found a sport I enjoy">I haven't found a sport I enjoy</MenuItem>
+            <MenuItem value="Other">Other</MenuItem>
+          </Select>}
           name="notParticipating"
+          type="select"
           variant="outlined"
           control={control}
-          className={classes.textBox}
-          multiline
-          rows="8"
+          // className={classes.textBox}
+          defaultValue=""
+        />
+        <InputLabel htmlFor="goals">If you selected access to equipment, what adaptive sports equipment do you need to participate in sports?</InputLabel>
+        <Controller
+          as={<TextField />}
+          name="goals"
+          type="text"
+          variant="outlined"
+          control={control}
           defaultValue=""
         />
         <Box className={classes.btnBox}>
