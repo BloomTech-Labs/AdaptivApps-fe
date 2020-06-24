@@ -23,6 +23,7 @@ import CreateActivity from "./pages/ManageEvents/CreateActivity";
 import Accessibility from "./pages/Landing/Legal/Accessibility";
 import PrivacyPolicy from "./pages/Landing/Legal/PrivacyPolicy";
 import ChatFeature from "./pages/Chat/index";
+import SponsorSpotlight from './pages/SponsorSpotlight/SponsorSpotlight'
 // import NewsfeedPage from './pages/Newsfeed/components/NewsfeedPage'
 
 // Import apollo server
@@ -155,6 +156,7 @@ function App() {
             <CreateActivity path="createEvent/:eventId" />
             <EditActivity path="editActivity/:activityId" />
             <ChatFeature path="chats" />
+            <SponsorSpotlight path='/sponsorspotlight' />
             {/*<NewsfeedPage path="/newsfeed" />*/}
           </PrivateRoute>
         </Router>
