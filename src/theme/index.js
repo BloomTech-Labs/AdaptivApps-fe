@@ -9,7 +9,7 @@ const xl = 1920;
 const lg = 1280;
 const md = 960;
 const sm = 600;
-const xs = 0;
+const xs = 350;
 
 const theme = createMuiTheme({
   palette: {
