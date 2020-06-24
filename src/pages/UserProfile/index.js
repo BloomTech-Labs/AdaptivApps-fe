@@ -9,13 +9,12 @@ import { useParams } from "@reach/router";
 //s3 bucket imports
 import S3FileUpload from "react-s3";
 
-// Material-UI imports
+// Material-UI and styling imports
 import { Typography, makeStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebookSquare,
@@ -70,9 +69,10 @@ const useStyles = makeStyles(theme => ({
   photoIcon: {
     fontSize: "3rem",
     position: "absolute",
-    color: "gold",
+    color: "black",
     borderRadius: "50%",
-    background: "black",
+    background: "white",
+    padding: "2px",
   },
   pictureWrapper: {
     display: "flex",
