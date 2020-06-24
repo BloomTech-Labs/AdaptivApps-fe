@@ -389,7 +389,7 @@ export const UPDATE_DEMO_2 = gql`
         demographicProfile: {
           update: {
             favProAthletes: $favProAthletes
-            favCelebs: $acsParticipation
+            favCelebs: $favCelebs
             goals: $goals
             specialTalents: $specialTalents
             adaptivSportsParticipation: $adaptivSportsParticipation
