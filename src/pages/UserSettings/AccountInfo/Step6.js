@@ -23,6 +23,10 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     width: "67.5%",
+    '& .MuiInputLabel-root': {
+      color: "black",
+
+    }
   },
   form: {
     width: "100%",
@@ -32,18 +36,22 @@ const useStyles = makeStyles({
   spacing: {
     marginTop: "1.6rem",
   },
-  checkBox: {
+  checkBoxContainer: {
     display: "flex",
+    marginTop: "1.6rem"
+  },
+  checkBoxLabel: {
+    paddingTop: ".8rem",
+    
   },
   waiverContainer: {
     border: "0.5px solid #C4C4C4",
     borderRadius: ".5rem",
     height: "20rem",
-    overflowY: "auto"
+    overflowY: "auto",
   },
   waiverText: {
     margin: "1.6rem 3.2rem 1.6rem 1.6rem",
-
   },
   btnBox: {
     display: "flex",
@@ -62,30 +70,21 @@ export default function Step6({ updateDemo4 }) {
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
   const { handleSubmit, setValue, control } = useForm({
     defaultValues: {
-      becomeAthleteMentor:
+      additionalInfo:
         currentUserInfo &&
-        currentUserInfo.profile.demographicProfile.becomeAthleteMentor,
-      athleteMentorHelp:
+        currentUserInfo?.profile?.demographicProfile?.additionalInfo,
+      guardianSignature:
         currentUserInfo &&
-        currentUserInfo.profile.demographicProfile.athleteMentorHelp,
-      athleteMentorSport:
+        currentUserInfo?.profile?.demographicProfile?.guardianSignature,
+      waiverSignature:
         currentUserInfo &&
-        currentUserInfo.profile.demographicProfile.athleteMentorSport,
-      acsDiscovery:
+        currentUserInfo?.profile?.demographicProfile?.waiverSignature,
+      isMinor:
         currentUserInfo &&
-        currentUserInfo.profile.demographicProfile.acsDiscovery,
-      acsOrgSpecificDiscovery:
+        currentUserInfo?.profile?.demographicProfile?.isMinor,
+      minorName:
         currentUserInfo &&
-        currentUserInfo.profile.demographicProfile.acsOrgSpecificDiscovery,
-      amplaEmail:
-        currentUserInfo &&
-        currentUserInfo.profile.demographicProfile.amplaEmail,
-      hangerClinic:
-        currentUserInfo &&
-        currentUserInfo.profile.demographicProfile.hangerClinic,
-      challengeMagazine:
-        currentUserInfo &&
-        currentUserInfo.profile.demographicProfile.challengeMagazine,
+        currentUserInfo?.profile?.demographicProfile?.minorName,
     },
   });
   // Sets default values in input fields with current user's info
@@ -94,45 +93,29 @@ export default function Step6({ updateDemo4 }) {
       ? setCurrentUserInfo(defaultInfo)
       : setValue([
           {
-            becomeAthleteMentor:
+            additionalInfo:
               currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.becomeAthleteMentor,
+              currentUserInfo?.profile?.demographicProfile?.additionalInfo,
           },
           {
-            athleteMentorHelp:
+            guardianSignature:
               currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.athleteMentorHelp,
+              currentUserInfo?.profile?.demographicProfile?.guardianSignature,
           },
           {
-            athleteMentorSport:
+            waiverSignature:
               currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.athleteMentorSport,
+              currentUserInfo?.profile?.demographicProfile?.waiverSignature,
           },
           {
-            acsDiscovery:
+            isMinor:
               currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.acsDiscovery,
+              currentUserInfo?.profile?.demographicProfile?.isMinor,
           },
           {
-            acsOrgSpecificDiscovery:
+            minorName:
               currentUserInfo &&
-              currentUserInfo.profile.demographicProfile
-                .acsOrgSpecificDiscovery,
-          },
-          {
-            amplaEmail:
-              currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.amplaEmail,
-          },
-          {
-            hangerClinic:
-              currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.hangerClinic,
-          },
-          {
-            challengeMagazine:
-              currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.challengeMagazine,
+              currentUserInfo?.profile?.demographicProfile?.minorName,
           },
         ]);
   }, [loading, currentUserInfo, defaultInfo, setValue]);
@@ -140,14 +123,11 @@ export default function Step6({ updateDemo4 }) {
     await updateDemo4({
       variables: {
         email: userEmail,
-        becomeAthleteMentor: data.becomeAthleteMentor,
-        athleteMentorHelp: data.athleteMentorHelp,
-        athleteMentorSport: data.athleteMentorSport,
-        acsDiscovery: data.acsDiscovery,
-        acsOrgSpecificDiscovery: data.acsOrgSpecificDiscovery,
-        amplaEmail: data.amplaEmail,
-        hangerClinic: data.hangerClinic,
-        challengeMagazine: data.challengeMagazine,
+        additionalInfo: data.additionalInfo,
+        guardianSignature: data.guardianSignature,
+        waiverSignature: data.waiverSignature,
+        isMinor: data.isMinor,
+        minorName: data.minorName,
       },
     });
     alert("Successfully updated all required account information!");
@@ -170,7 +150,7 @@ export default function Step6({ updateDemo4 }) {
           control={control}
           defaultValue=""
         />
-        <Typography>
+        <Typography className={classes.spacing}>
           Please read and acknowledge this Virtual Games Waiver of Liability
         </Typography>
         <Box className={classes.waiverContainer}>
@@ -279,7 +259,7 @@ export default function Step6({ updateDemo4 }) {
           control={control}
           defaultValue=""
         />
-        <Box className={classes.checkBox}>
+        <Box className={classes.checkBoxContainer}>
           <Controller
             as={<Checkbox />}
             name="isMinor"
@@ -289,7 +269,7 @@ export default function Step6({ updateDemo4 }) {
             defaultValue={false}
             value={true}
           />
-          <InputLabel className={classes.spacing} htmlFor="isMinor">
+          <InputLabel className={classes.checkBoxLabel} htmlFor="isMinor">
             Participant is a minor (if so, please sign below)
           </InputLabel>
         </Box>
