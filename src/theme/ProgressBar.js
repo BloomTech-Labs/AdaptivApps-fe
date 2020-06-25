@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     padding: 0,
     flexDirection: "column",
-    width: 754,
+    width: '100%',
     "& .MuiPaper-root": {
       background: "#FFFFFF",
     },

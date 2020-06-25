@@ -173,7 +173,7 @@ export default function AccountTypeForm({ updateProfile }) {
             Which role do you best identify with?
           </InputLabel>
           {errors.roleIdentity && <Typography className={classes.error}>Please make a selection</Typography>}
-          <Box className={classes.roleBox}>
+          <Box className={classes.box}>
             <Controller
               as={
                 <Select className={classes.typeSelect}>
