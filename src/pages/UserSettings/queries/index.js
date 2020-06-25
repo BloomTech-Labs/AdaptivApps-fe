@@ -466,6 +466,7 @@ export const UPDATE_DEMO_3 = gql`
     ) {
       id
       demographicProfile {
+        id
         acsDiscovery
         acsOrgSpecificDiscovery
         acsParticipation

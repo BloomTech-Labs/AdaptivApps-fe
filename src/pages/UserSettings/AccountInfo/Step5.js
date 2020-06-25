@@ -1,8 +1,10 @@
 // React/Reach Router imports
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
-
+// Apollo/GraphQL imports
+import { useQuery } from "react-apollo";
+import { PROFILE_STEP_5 } from "../queries";
 // Component imports
 import NextButton from "../../../theme/SmallFormButton";
 import SaveButton from "../../../theme/LargeFormButton";
@@ -37,7 +39,7 @@ const useStyles = makeStyles({
   btnBox: {
     display: "flex",
     justifyContent: "space-between",
-    marginTop: "1.7rem"
+    marginTop: "1.7rem",
   },
 });
 
@@ -45,7 +47,87 @@ export default function Step4({ updateDemo3 }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { handleSubmit, control } = useForm();
+  const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_5, {
+    variables: { email: userEmail },
+  });
+  const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
+  const { handleSubmit, setValue, control } = useForm({
+    defaultValues: {
+      acsDiscovery:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.acsDiscovery,
+      acsOrgSpecificDiscovery:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.acsOrgSpecificDiscovery,
+      acsParticipation:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.acsParticipation,
+      amplaEmail:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.amplaEmail,
+      virtualRide:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.virtualRide,
+      virtualRidePlatforms:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.virtualRidePlatforms,
+      xBoxGamePass:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.xBoxGamePass,
+      videoGameFamiliarity:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.videoGameFamiliarity,
+    },
+  });
+  // Sets state with current user's profile info
+  useEffect(() => {
+    if (!loading && !currentUserInfo) setCurrentUserInfo(defaultInfo);
+    if (!loading && currentUserInfo) {
+      setValue([
+        {
+          acsDiscovery:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.acsDiscovery,
+        },
+        {
+          acsOrgSpecificDiscovery:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile
+              ?.acsOrgSpecificDiscovery,
+        },
+        {
+          acsParticipation:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.acsParticipation,
+        },
+        {
+          amplaEmail:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.amplaEmail,
+        },
+        {
+          virtualRide:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.virtualRide,
+        },
+        {
+          virtualRidePlatforms:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.virtualRidePlatforms,
+        },
+        {
+          xBoxGamePass:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.xBoxGamePass,
+        },
+        {
+          videoGameFamiliarity:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.videoGameFamiliarity,
+        },
+      ]);
+    }
+  }, [loading, currentUserInfo, defaultInfo, setValue]);
 
   // Will update profile and route user to next step in profile wizard
   const onNext = handleSubmit(async data => {
