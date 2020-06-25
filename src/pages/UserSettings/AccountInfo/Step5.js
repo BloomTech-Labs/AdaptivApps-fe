@@ -23,6 +23,9 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     width: "67.5%",
+    '& .MuiInputLabel': {
+      color: "black"
+    }
   },
   form: {
     display: "flex",
@@ -306,7 +309,7 @@ export default function Step4({ updateDemo3 }) {
           control={control}
           defaultValue=""
         />
-        <InputLabel htmlFor="virtualRide" className={classes.spacing}>
+        <InputLabel htmlFor="virtualRide" variant="default" className={classes.spacing}>
           Are you interested in participating in the Virtual Ride on 8/9/2020?
         </InputLabel>
         <Controller
