@@ -106,7 +106,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
+function InfoBar({ user, setAlertOpen, setNewRoom }) {
   const classes = useStyles();
 
   const [open, setOpen] = useState(false);
@@ -117,11 +117,11 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   // Chatroom/Chat messages Subscription
   const { error: roomError, loading: roomsLoading, data: chatRoomSub } = useSubscription(CHAT_ROOM_SUBSCRIPTION)
   const { error: chatError, loading: chatLoading, data: chatsData } = useSubscription(CHAT_SUBSCRIPTION)
-  const { error, loading, data: chatRoomData, refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email }})
-  
+  const { error, loading, data: chatRoomData, refetch } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email } })
+
   // Notification Subscription
   const { error: notificationError, loading: notificationLoading, data: notsub } = useSubscription(NOTIFICATION_SUBSCRIPTION)
-  const { data: notifications, refetch: refetchNotifications } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email }})
+  const { data: notifications, refetch: refetchNotifications } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email } })
 
   // Announcement Subscription
   const { error: announcementError, loading: announcementLoading, data: announcementData } = useSubscription(ANNOUNCEMENT_SUBSCRIPTION, { variables: { isAnnouncementRoom: true } });
@@ -133,8 +133,8 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   const searchRooms = e => {
     e.preventDefault();
     let filter =
-    chatRoomData &&
-    chatRoomData?.profile.chatRooms.map(room => {
+      chatRoomData &&
+      chatRoomData?.profile.chatRooms.map(room => {
         let users = room.participants.map(user => {
           if (
             user.firstName !== null &&
@@ -179,12 +179,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
   };
 
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
-  if (error || roomError || chatError || announcementError || notificationError ) return `Error! ${error.message}` || `Error! ${roomError.message}` || `Error! ${chatError.message}` || `Error! ${notificationError.message}`;
-
-  console.log(announcementData)
-  console.log(announcements)
-  console.log('notification query', notifications)
-  console.log('notsub', notsub)
+  if (error || roomError || chatError || announcementError || notificationError) return `Error! ${error.message}` || `Error! ${roomError.message}` || `Error! ${chatError.message}` || `Error! ${notificationError.message}`;
 
   !roomsLoading && refetch();
   !chatLoading && refetch();
@@ -255,14 +250,30 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
         </>
       ) : null}
       <div className={classes.chatRoomDiv}>
-        <AnnouncementRoom 
-          user={user} 
+        <AnnouncementRoom
+          user={user}
           announcements={announcements}
           notifications={notifications?.profile?.notifications}
-          />
+        />
         <Divider variant="inset" className={classes.divider} />
         {results.length > 0
           ? results.map((chatRoom, id) => (
+            <div className={classes.chatroom} key={chatRoom.id}>
+              <ChatRoom
+                key={chatRoom.id}
+                chatRoom={chatRoom}
+                chats={chatsData}
+                chatRoomSub={chatRoomSub}
+                user={user}
+                notifications={notifications?.profile?.notifications}
+              />
+              <Divider variant="inset" className={classes.divider} />
+            </div>
+          ))
+          : chatRoomData?.profile?.chatRooms === undefined
+            ? null
+            : chatRoomData &&
+            chatRoomData?.profile.chatRooms?.map((chatRoom) => (
               <div className={classes.chatroom} key={chatRoom.id}>
                 <ChatRoom
                   key={chatRoom.id}
@@ -270,24 +281,6 @@ function InfoBar({ user, setAlertOpen, setNewRoom, setDeleteRoom }) {
                   chats={chatsData}
                   chatRoomSub={chatRoomSub}
                   user={user}
-                  setDeleteRoom={setDeleteRoom}
-                  notifications={notifications?.profile?.notifications}
-                />
-                <Divider variant="inset" className={classes.divider} />
-              </div>
-            ))
-            : chatRoomData?.profile?.chatRooms === undefined
-          ? null
-          : chatRoomData &&
-          chatRoomData?.profile.chatRooms?.map((chatRoom) => (
-              <div className={classes.chatroom} key={chatRoom.id}>
-                <ChatRoom
-                  key={chatRoom.id}
-                  chatRoom={chatRoom}
-                  chats={chatsData}
-                  chatRoomSub={chatRoomSub}
-                  user={user}
-                  setDeleteRoom={setDeleteRoom}
                   notifications={notifications?.profile?.notifications}
                 />
                 <Divider variant="inset" className={classes.divider} />

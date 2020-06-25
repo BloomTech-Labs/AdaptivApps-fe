@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "@reach/router";
 import Messages from "../Messages/Messages";
 import CustomPeopleIcon from "./CustomPeopleIcon";
 
 // Mutation Imports
 import { useMutation } from "react-apollo";
-import { DELETE_CHAT_ROOM_PARTICIPANTS } from "../../queries/ChatRooms";
+import { HIDE_CHATROOM_SENDER, HIDE_CHATROOM_RECEIVER } from "../../queries/ChatRooms";
 import { DELETE_NOTIFICATION } from '../../queries/Notifications'
 
 // Style Imports
@@ -12,10 +13,8 @@ import { withStyles } from "@material-ui/core/styles";
 
 import Tooltip from "@material-ui/core/Tooltip";
 import PeopleAltIcon from "@material-ui/icons/PeopleAlt";
-import CheckCircleOutlineIcon from "@material-ui/icons/CheckCircleOutline";
 import CloseIcon from "@material-ui/icons/Close";
 import Drawer from "@material-ui/core/Drawer";
-import Modal from "@material-ui/core/Modal";
 import IconButton from "@material-ui/core/IconButton";
 import Collapse from "@material-ui/core/Collapse";
 import Alert from "@material-ui/lab/Alert";
@@ -140,13 +139,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoomSub, notifications }) {
+export default function ChatRoom({ chatRoom, user, chats, chatRoomSub, notifications }) {
   const classes = useStyles();
+  const navigate = useNavigate();
 
-  const [deleteChatRoom] = useMutation(DELETE_CHAT_ROOM_PARTICIPANTS);
+  const [hideChatroomSender] = useMutation(HIDE_CHATROOM_SENDER);
+  const [hideChatroomReceiver] = useMutation(HIDE_CHATROOM_RECEIVER);
   const [deleteNotification] = useMutation(DELETE_NOTIFICATION);
   const [messageToggle, setMessageToggle] = useState(false);
-  const [editChatRoom, setEditChatRoom] = useState(false);
   const [updateChat, setUpdateChat] = useState(false);
   const [deleteChat, setDeleteChat] = useState(false);
   const [disableClick, setDisableClick] = useState(false);
@@ -187,8 +187,10 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoo
 
   // Logic to set group chat rooms
   let chattingIcon = null;
+  let chattingUsername = null;
   const chattingWith = participants.map((participant, index) => {
     if (participants.length === 1 || index === participants.length - 1) {
+      chattingUsername = participant.userName;
       chattingIcon = participant.profilePicture;
       return `${participant.firstName} ${participant.lastName}`
     } else {
@@ -216,18 +218,6 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoo
     messageToggle ? setMessageToggle(false) : setMessageToggle(true);
   };
 
-  // Delete a chat room
-  const deleteRoom = async () => {
-    await deleteChatRoom({
-      variables: {
-        email: user.email,
-        id: chatRoom.id
-      },
-    });
-    setEditChatRoom(false);
-    setDeleteRoom(true);
-  };
-
   return (
     <>
       <div className={classes.root}>
@@ -242,12 +232,12 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoo
                   <CustomPeopleIcon
                     className={classes.chatRoomIcon}
                     chattingIcon={chattingIcon}
-                    setEditChatRoom={setEditChatRoom}
+                    chattingUsername={chattingUsername}
                   /> :
                   <PeopleAltIcon
                     className={classes.chatRoomIcon}
-                    onClick={() => setEditChatRoom(true)}
-                    aria-label="Delete selected Chatroom"
+                    aria-label="Visit profile"
+                    onClick={() => navigate(`/user/${chattingUsername}`)}
                   />}
               </StyledBadge>
             </Tooltip>
@@ -256,42 +246,15 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoo
                 <CustomPeopleIcon
                   className={classes.chatRoomIcon}
                   chattingIcon={chattingIcon}
-                  setEditChatRoom={setEditChatRoom}
+                  chattingUsername={chattingUsername}
                 /> :
                 <PeopleAltIcon
                   className={classes.chatRoomIcon}
-                  onClick={() => setEditChatRoom(true)}
-                  aria-label="Delete selected Chatroom"
+                  aria-label="Visit profile"
+                  onClick={() => navigate(`/user/${chattingUsername}`)}
                 />
             )}
         </Tooltip>
-        <Modal
-          position="relative"
-          top="10%"
-          left="13%"
-          open={editChatRoom}
-          onClose={() => setEditChatRoom(false)}
-        >
-          {editChatRoom ? (
-            <div className={classes.paper}>
-              <Tooltip title="Cancel">
-                <CloseIcon
-                  className={classes.cancelChatDelete}
-                  onClick={() => setEditChatRoom(false)}
-                  aria-label="Cancel Delete"
-                />
-              </Tooltip>
-              <p className={classes.span}>Delete Chat with {senderName?.from?.firstName || chattingWith} {senderName?.from?.lastName}?</p>
-              <Tooltip title="Confirm Delete">
-                <CheckCircleOutlineIcon
-                  className={classes.deleteChat}
-                  onClick={deleteRoom}
-                  aria-label="Confirm Delete"
-                />
-              </Tooltip>
-            </div>
-          ) : null}
-        </Modal>
 
         <button
           aria-label="Expand chat messages"
@@ -327,25 +290,6 @@ export default function ChatRoom({ chatRoom, user, setDeleteRoom, chats, chatRoo
               }
             >
               Successfully updated
-            </Alert>
-          </Collapse>
-          <Collapse in={deleteChat}>
-            <Alert
-              severity="success"
-              color="info"
-              action={
-                <IconButton
-                  aria-label="close"
-                  size="small"
-                  onClick={() => {
-                    setDeleteChat(false);
-                  }}
-                >
-                  <CloseIcon fontSize="large" />
-                </IconButton>
-              }
-            >
-              Successfully deleted
             </Alert>
           </Collapse>
         </div>
