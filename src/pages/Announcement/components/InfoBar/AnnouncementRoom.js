@@ -195,4 +195,4 @@ export default function AnnouncementRoom({ user, announcements, notifications })
       </Drawer>
     </>
   )
-};
+}
