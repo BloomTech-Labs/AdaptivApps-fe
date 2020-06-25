@@ -56,7 +56,7 @@ const useStyles = makeStyles({
     height: 48,
   },
   bioBox: {
-    marginBottom: 200,
+    marginBottom: "15rem",
   },
   btnBox: {
     marginTop: '3rem',
@@ -82,19 +82,48 @@ export default function OrgStep1({ updateOrgProfile }) {
     variables: { email: userEmail },
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
-  const { handleSubmit, setValue, control, errors } = useForm();
+  const { handleSubmit, setValue, control, errors } = useForm({
+    defaultValues: {
+      phoneNumber: currentUserInfo && currentUserInfo?.profile?.phoneNumber,
+      userName: currentUserInfo && currentUserInfo?.profile?.userName,
+      address1: currentUserInfo && currentUserInfo?.profile?.address1,
+      address2: currentUserInfo && currentUserInfo?.profile?.address2,
+      city: currentUserInfo && currentUserInfo?.profile?.city,
+      state: currentUserInfo && currentUserInfo?.profile?.state,
+      postalCode: currentUserInfo && currentUserInfo?.profile?.postalCode,
+      country: currentUserInfo && currentUserInfo?.profile?.country,
+      bio: currentUserInfo && currentUserInfo?.profile?.bio,
+      orgName: currentUserInfo && currentUserInfo?.profile?.extProfile?.orgName,
+      website: currentUserInfo && currentUserInfo?.profile?.extProfile?.website,
+    },
+  });
   // Sets default values in input fields with current user's info
   useEffect(() => {
     !loading && !currentUserInfo
       ? setCurrentUserInfo(defaultInfo)
       : setValue([
-          { phoneNumber: currentUserInfo?.profile?.phoneNumber },
-          { userName: currentUserInfo?.profile?.userName },
-          { city: currentUserInfo?.profile?.city },
-          { state: currentUserInfo?.profile?.state },
-          { bio: currentUserInfo?.profile?.bio },
-          { orgName: currentUserInfo?.profile?.extProfile?.orgName },
-          { website: currentUserInfo?.profile?.extProfile?.website },
+          {
+            phoneNumber:
+              currentUserInfo && currentUserInfo?.profile?.phoneNumber,
+          },
+          { userName: currentUserInfo && currentUserInfo?.profile?.userName },
+          { address1: currentUserInfo && currentUserInfo?.profile?.address1 },
+          { address2: currentUserInfo && currentUserInfo?.profile?.address2 },
+          { city: currentUserInfo && currentUserInfo?.profile?.city },
+          { state: currentUserInfo && currentUserInfo?.profile?.state },
+          {
+            postalCode: currentUserInfo && currentUserInfo?.profile?.postalCode,
+          },
+          { country: currentUserInfo && currentUserInfo?.profile?.country },
+          { bio: currentUserInfo && currentUserInfo?.profile?.bio },
+          {
+            orgName:
+              currentUserInfo && currentUserInfo?.profile?.extProfile?.orgName,
+          },
+          {
+            website:
+              currentUserInfo && currentUserInfo?.profile?.extProfile?.website,
+          },
         ]);
   }, [loading, currentUserInfo, defaultInfo, setValue]);
 
@@ -103,8 +132,12 @@ export default function OrgStep1({ updateOrgProfile }) {
       variables: {
         email: userEmail,
         phoneNumber: data.phoneNumber,
+        address1: data.address1,
+        address2: data.address2,
         city: data.city,
         state: data.state,
+        postalCode: data.postalCode,
+        country: data.country,
         bio: data.bio,
         userName: data.orgName,
         orgName: data.orgName,
@@ -158,7 +191,32 @@ export default function OrgStep1({ updateOrgProfile }) {
       </Box>
       <Box className={classes.addressBox}>
         <Box className={classes.firstInput}>
-          <InputLabel required htmlFor="city">City</InputLabel>
+          <InputLabel htmlFor="address1">Address 1*</InputLabel>
+          <Controller
+            as={<TextField />}
+            name="address1"
+            type="text"
+            variant="outlined"
+            control={control}
+            defaultValue=""
+          />
+        </Box>
+        <Box>
+          <InputLabel htmlFor="address2">Address 2*</InputLabel>
+          <Controller
+            as={<TextField />}
+            name="address2"
+            type="text"
+            variant="outlined"
+            control={control}
+            defaultValue=""
+          />
+        </Box>
+      </Box>
+
+      <Box className={classes.addressBox}>
+        <Box className={classes.firstInput}>
+          <InputLabel htmlFor="city">City*</InputLabel>
           <Controller
             as={<TextField />}
             name="city"
@@ -184,6 +242,30 @@ export default function OrgStep1({ updateOrgProfile }) {
           {errors.state && <Typography className={classes.error}>state is a required field</Typography>}
         </Box>
       </Box>
+      <Box className={classes.addressBox}>
+        <Box className={classes.firstInput}>
+          <InputLabel htmlFor="postalCode">Postal Code*</InputLabel>
+          <Controller
+            as={<TextField />}
+            name="postalCode"
+            type="text"
+            variant="outlined"
+            control={control}
+            defaultValue=""
+          />
+        </Box>
+        <Box>
+          <InputLabel htmlFor="country">Country*</InputLabel>
+          <Controller
+            as={<TextField />}
+            name="country"
+            type="text"
+            variant="outlined"
+            control={control}
+            defaultValue=""
+          />
+        </Box>
+      </Box>
       <Box className={classes.bioBox}>
         <InputLabel className={classes.inputLabel} htmlFor="bio">
           Tell us about your organization
@@ -196,6 +278,7 @@ export default function OrgStep1({ updateOrgProfile }) {
           multiline
           rows="8"
           control={control}
+          defaultValue=""
         />
       </Box>
       <Box className={classes.btnBox}>

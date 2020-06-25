@@ -58,6 +58,10 @@ const useStyles = makeStyles({
     height: 48,
     marginBottom: "2.4rem",
   },
+  em: {
+    fontStyle: "italic",
+    fontSize: "1.6rem"
+  },
   addressBox: {
     display: "flex",
     marginBottom: "2.4rem",
@@ -72,7 +76,7 @@ const useStyles = makeStyles({
   btnBox: {
     display: "flex",
     justifyContent: "space-between",
-    alignItems: 'center'
+    marginTop: "5rem",
   },
   error: {
     color: 'red',
@@ -102,24 +106,44 @@ export default function Step1({ updateProfile }) {
     variables: { email: userEmail },
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
-  const [errorState, setErrorState] = useState(false);
-  const { handleSubmit, setValue, errors, control } = useForm();
-  const { data } = useQuery(GET_RECIPIENTS, { variables: { email: userEmail }});
-
-   // Sets default values in input fields with current user's info
+  const [errorState, setErrorState] = useState();
+  const { handleSubmit, setValue, control, errors } = useForm({
+    defaultValues: {
+      firstName: currentUserInfo && currentUserInfo?.profile?.firstName,
+      lastName: currentUserInfo && currentUserInfo?.profile?.lastName,
+      userName: currentUserInfo && currentUserInfo?.profile?.userName,
+      phoneNumber: currentUserInfo && currentUserInfo?.profile?.phoneNumber,
+      address1: currentUserInfo && currentUserInfo?.profile?.address1,
+      address2: currentUserInfo && currentUserInfo?.profile?.address2,
+      city: currentUserInfo && currentUserInfo?.profile?.city,
+      state: currentUserInfo && currentUserInfo?.profile?.state,
+      postalCode: currentUserInfo && currentUserInfo?.profile?.postalCode,
+      country: currentUserInfo && currentUserInfo?.profile?.country,
+      legal: currentUserInfo && currentUserInfo?.profile?.legal,
+      bio: currentUserInfo && currentUserInfo?.profile?.bio,
+    },
+  });
+  // Sets default values in input fields with current user's info
   useEffect(() => {
-    !loading && !currentUserInfo
-      ? setCurrentUserInfo(defaultInfo)
-      : setValue([
-          { firstName: currentUserInfo?.profile?.firstName },
-          { lastName: currentUserInfo?.profile?.lastName },
-          { userName: currentUserInfo?.profile?.userName },
-          { phoneNumber: currentUserInfo?.profile?.phoneNumber },
-          { city: currentUserInfo?.profile?.city },
-          { state: currentUserInfo?.profile?.state },
-          { legal: currentUserInfo?.profile?.legal },
-          { bio: currentUserInfo?.profile?.bio },
-        ]);
+    if (!loading && !currentUserInfo) setCurrentUserInfo(defaultInfo);
+    if (!loading && currentUserInfo) {
+      setValue([
+        { firstName: currentUserInfo && currentUserInfo?.profile?.firstName },
+        { lastName: currentUserInfo && currentUserInfo?.profile?.lastName },
+        { userName: currentUserInfo && currentUserInfo?.profile?.userName },
+        {
+          phoneNumber: currentUserInfo && currentUserInfo?.profile?.phoneNumber,
+        },
+        { address1: currentUserInfo && currentUserInfo?.profile?.address1 },
+        { address2: currentUserInfo && currentUserInfo?.profile?.address2 },
+        { city: currentUserInfo && currentUserInfo?.profile?.city },
+        { state: currentUserInfo && currentUserInfo?.profile?.state },
+        { postalCode: currentUserInfo && currentUserInfo?.profile?.postalCode },
+        { country: currentUserInfo && currentUserInfo?.profile?.country },
+        { legal: currentUserInfo && currentUserInfo?.profile?.legal },
+        { bio: currentUserInfo && currentUserInfo?.profile?.bio },
+      ]);
+    }
   }, [loading, currentUserInfo, defaultInfo, setValue]);
 
 
@@ -132,8 +156,12 @@ export default function Step1({ updateProfile }) {
         userName: data.userName,
         lastName: data.lastName,
         phoneNumber: data.phoneNumber,
+        address1: data.address1,
+        address2: data.address2,
         city: data.city,
         state: data.state,
+        postalCode: data.postalCode,
+        country: data.country,
         legal: data.legal,
         bio: data.bio,
       },
@@ -143,16 +171,16 @@ export default function Step1({ updateProfile }) {
     navigate(`/updateaccount/${userEmail}/step2of6`);
   });
 
-  const userNames = []
-  data && data.profiles.filter(user => user.userName !== null && user.userName !== '' && userNames.push(user.userName.toLowerCase()));
+//   const userNames = []
+//   data && data.profiles.filter(user => user.userName !== null && user.userName !== '' && userNames.push(user.userName.toLowerCase()));
 
-  const validateUsername = () => {
-    const userName = control.getValues().userName.toLowerCase();
-    if (userNames.includes(userName)) {
-      setErrorState(true);
-      alert('That username is already taken. Please choose another one!');
-  } else setErrorState(false)  ;
-};
+//   const validateUsername = () => {
+//     const userName = control.getValues().userName.toLowerCase();
+//     if (userNames.includes(userName)) {
+//       setErrorState(true);
+//       alert('That username is already taken. Please choose another one!');
+//   } else setErrorState(false)  ;
+// };
 
   // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
   const onSave = handleSubmit(async data => {
@@ -163,8 +191,12 @@ export default function Step1({ updateProfile }) {
         userName: data.userName,
         lastName: data.lastName,
         phoneNumber: data.phoneNumber,
+        address1: data.address1,
+        address2: data.address2,
         city: data.city,
         state: data.state,
+        postalCode: data.postalCode,
+        country: data.country,
         legal: data.legal,
         bio: data.bio,
       },
@@ -191,7 +223,7 @@ export default function Step1({ updateProfile }) {
               defaultValue=""
               rules={{ required: true }}
             />
-            {errors.firstName && <Typography className={classes.error}>first name is a required field</Typography>}
+            {/* {errors.firstName && <Typography className={classes.error}>first name is a required field</Typography>} */}
           </Box>
           <Box>
             <InputLabel required htmlFor="lastName">Last Name</InputLabel>
@@ -204,7 +236,7 @@ export default function Step1({ updateProfile }) {
               defaultValue=""
               rules={{ required: true }}
             />
-            {errors.lastName && <Typography className={classes.error}>last name is a required field</Typography>}
+            {/* {errors.lastName && <Typography className={classes.error}>last name is a required field</Typography>} */}
           </Box>
         </Box>
         <Box className={classes.namePhoneBox}>
@@ -218,11 +250,11 @@ export default function Step1({ updateProfile }) {
               type="text"
               control={control}
               defaultValue=""
-              onBlur={validateUsername}
+              // onBlur={validateUsername}
               rules={{ required: true }}
             />
-            {errors.userName && <Typography className={classes.error}>username is a required field</Typography>}
-            {errorState && <Typography className={classes.error}>Button is disabled until a unique username is chosen</Typography>}
+            {/* {errors.userName && <Typography className={classes.error}>username is a required field</Typography>}
+            {errorState && <Typography className={classes.error}>Button is disabled until a unique username is chosen</Typography>} */}
           </Box>
           <Box>
             <InputLabel required htmlFor="phoneNumber">Phone Number</InputLabel>
@@ -235,12 +267,37 @@ export default function Step1({ updateProfile }) {
               defaultValue=""
               rules={{ required: true }}
             />
-            {errors.phoneNumber && <Typography className={classes.error}>phone number is a required field</Typography>}
+            {/* {errors.phoneNumber && <Typography className={classes.error}>phone number is a required field</Typography>} */}
           </Box>
         </Box>
         <Box className={classes.addressBox}>
           <Box>
-            <InputLabel required htmlFor="city">City</InputLabel>
+            <InputLabel htmlFor="address1">Address 1*</InputLabel>
+            <Controller
+              as={<TextField />}
+              name="address1"
+              type="text"
+              className={classes.firstInput}
+              variant="outlined"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
+          <Box>
+            <InputLabel htmlFor="address2">Address 2*</InputLabel>
+            <Controller
+              as={<TextField />}
+              name="address2"
+              type="text"
+              variant="outlined"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
+        </Box>
+        <Box className={classes.addressBox}>
+          <Box>
+            <InputLabel htmlFor="city">City*</InputLabel>
             <Controller
               as={<TextField />}
               name="city"
@@ -251,7 +308,7 @@ export default function Step1({ updateProfile }) {
               defaultValue=""
               rules={{ required: true }}
             />
-            {errors.city && <Typography className={classes.error}>city is a required field</Typography>}
+            {/* {errors.city && <Typography className={classes.error}>city is a required field</Typography>} */}
           </Box>
           <Box>
             <InputLabel required htmlFor="state">State</InputLabel>
@@ -264,16 +321,41 @@ export default function Step1({ updateProfile }) {
               defaultValue=""
               rules={{ required: true }}
             />
-            {errors.state && <Typography className={classes.error}>state is a required field</Typography>}
+            {/* {errors.state && <Typography className={classes.error}>state is a required field</Typography>} */}
           </Box>
         </Box>
-        <InputLabel required htmlFor="legal">
-          Are you over 18 years old?
-          {errors.lastName && <span className={classes.errorLabel}>This field is required</span>}
-          </InputLabel>
+        <Box className={classes.addressBox}>
+          <Box>
+            <InputLabel htmlFor="postal code">Postal Code*</InputLabel>
+            <Controller
+              as={<TextField />}
+              name="postalCode"
+              type="text"
+              className={classes.firstInput}
+              variant="outlined"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
+          <Box>
+            <InputLabel htmlFor="country">Country*</InputLabel>
+            <Controller
+              as={<TextField />}
+              name="country"
+              type="text"
+              variant="outlined"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
+        </Box>
+        <InputLabel htmlFor="legal">Are you over 18 years old?*</InputLabel>
         <Controller
           as={
             <Select className={classes.typeSelect}>
+              <MenuItem value="">
+                <em className={classes.em}>Please choose one</em>
+              </MenuItem>
               <MenuItem value="Yes">Yes</MenuItem>
               <MenuItem value="No">No</MenuItem>
             </Select>
@@ -295,9 +377,9 @@ export default function Step1({ updateProfile }) {
           variant="outlined"
           className={classes.bioBox}
           control={control}
+          defaultValue=""
           multiline
           rows="8"
-          defaultValue=""
         />
         <Box className={classes.btnBox}>
         <Typography className={classes.error}>* required field</Typography>

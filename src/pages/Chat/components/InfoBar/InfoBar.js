@@ -61,7 +61,7 @@ const useStyles = makeStyles(theme => ({
     cursor: "pointer",
     marginRight: "10%",
   },
-  span: {
+  button2: {
     fontSize: "1.5rem",
     color: "grey",
     cursor: "pointer",
@@ -192,12 +192,12 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
       <h1 className={classes.header}>Messages</h1>
       <div className={classes.messageIcons}>
         <CreateIcon className={classes.icons} onClick={handleOpen} />
-        <span
-          className={classes.span}
+        <button
+          className={classes.button2}
           onClick={handleOpen}
           aria-label="New Message Button"
         > New Message
-        </span>
+        </button>
       </div>
       <Modal
         aria-labelledby="transition-modal-title"

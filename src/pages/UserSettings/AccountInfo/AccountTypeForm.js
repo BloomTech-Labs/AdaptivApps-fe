@@ -36,15 +36,22 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
   },
+  em: {
+    fontStyle: "italic",
+    fontSize: "1.6rem"
+  },
+  selectContainer: {
+    marginBottom: "11rem",
+  },
   typeSelect: {
-    width: 744,
-    height: 48,
+    width: "74.4rem",
+    height: "4.8rem",
   },
   box: {
-    height: "100%",
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
+    marginBottom: "1.6rem",
+    
   },
   btnWrapper: {
     display: "flex",
@@ -63,25 +70,39 @@ export default function AccountTypeForm({ updateProfile }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
-  const { handleSubmit, setValue, control, errors } = useForm();
   const { data: defaultInfo, loading } = useQuery(PROFILE_TYPE, {
     variables: { email: userEmail },
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
+  const { handleSubmit, setValue, control } = useForm({
+    defaultValues: {
+      type: currentUserInfo && currentUserInfo?.profile?.type,
+      roleIdentity: currentUserInfo && currentUserInfo?.profile?.roleIdentity
+    }
+  });
+
   // Sets default values in input fields with current user's info
   useEffect(() => {
     !loading && !currentUserInfo
       ? setCurrentUserInfo(defaultInfo)
       : setValue([
           {
-            type: currentUserInfo?.profile?.type,
+            type: currentUserInfo && currentUserInfo?.profile?.type,
+            
+          },
+          {
+            roleIdentity: currentUserInfo && currentUserInfo?.profile?.extProfile?.roleIdentity
+            
           },
         ]);
   }, [loading, currentUserInfo, defaultInfo, setValue]);
+
+  console.log('Inside AccountType', currentUserInfo)
   const onSubmit = async data => {
     await updateProfile({
       variables: {
         type: data.type,
+        roleIdentity: data.roleIdentity,
         email: userEmail,
       },
     });
@@ -96,28 +117,58 @@ export default function AccountTypeForm({ updateProfile }) {
     <Box className={classes.root}>
       <ProgressBar activeStep={0} userEmail={userEmail} />
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        <InputLabel required htmlFor="account type">
-          Are you registering as an individual or an organization?
-        </InputLabel>
-        {errors.type && <Typography className={classes.error}>Please make a selection</Typography>}
-        <Box className={classes.box}>
-          <Controller
-            as={
-              <Select className={classes.typeSelect}>
-                <MenuItem value="Individual">
-                  I'm registering as an individual
-                </MenuItem>
-                <MenuItem value="Organization">
-                  I'm registering as an organization
-                </MenuItem>
-              </Select>
-            }
-            name="type"
-            variant="outlined"
-            control={control}
-            defaultValue=""
-            rules={{ required: true }}
-          />
+        <Box className={classes.selectContainer}>
+          <InputLabel htmlFor="account type">
+            Are you registering as an individual or an organization?
+          </InputLabel>
+          <Box className={classes.box}>
+            <Controller
+              as={
+                <Select className={classes.typeSelect}>
+                  <MenuItem value="">
+                    <em className={classes.em}>Please choose one</em>
+                  </MenuItem>
+                  <MenuItem value="Individual">
+                    I'm registering as an individual
+                  </MenuItem>
+                  <MenuItem value="Organization">
+                    I'm registering as an organization
+                  </MenuItem>
+                </Select>
+              }
+              name="type"
+              variant="outlined"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
+          <InputLabel htmlFor="role identity">
+            Which role do you best identify with?
+          </InputLabel>
+          <Box className={classes.roleBox}>
+            <Controller
+              as={
+                <Select className={classes.typeSelect}>
+                  <MenuItem value="">
+                    <em className={classes.em}>Please choose one</em>
+                  </MenuItem>
+                  <MenuItem value="Athlete">Adaptive Athlete</MenuItem>
+                  <MenuItem value="Ally/Volunteer">
+                    Ally/Volunteer - I want to participate and will volunteer to
+                    help promote.
+                  </MenuItem>
+                  <MenuItem value="Donor/Supporter">
+                    Donor/Supporter - I want to participate and will donate or
+                    help fundraise.
+                  </MenuItem>
+                </Select>
+              }
+              name="roleIdentity"
+              variant="outlined"
+              control={control}
+              defaultValue=""
+            />
+          </Box>
         </Box>
         <Box className={classes.btnWrapper}>
         <Typography className={classes.error}>* required field</Typography>
