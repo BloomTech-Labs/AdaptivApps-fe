@@ -16,6 +16,7 @@ const theme = createMuiTheme({
     primary: { main: primary },
     secondary: { main: secondary },
   },
+ 
   typography: {
     // fontSize: 10,
     h1: { fontSize: "3rem", fontWeight: 400 },

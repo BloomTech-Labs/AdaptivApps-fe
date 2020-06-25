@@ -13,41 +13,40 @@ import ProgressBar from "../../../theme/ProgressBar";
 import {
   makeStyles,
   Box,
-  InputLabel,
   Select,
   MenuItem,
-  TextField,
+  InputLabel,
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "85%",
+    width: "67.5%",
+    '& .MuiInputLabel': {
+      color: "black"
+    }
   },
   form: {
-    width: "100%",
     display: "flex",
     flexDirection: "column",
-    "& .MuiTextField-root": {
-      width: 744,
-      height: 48,
-    },
+    width: "100%",
+  },
+  em: {
+    fontStyle: "italic",
+    fontSize: "1.6rem",
   },
   spacing: {
-    marginTop: "2.4rem",
-  },
-  select: {
-    width: 744,
+    marginTop: "1.6rem",
   },
   btnBox: {
     display: "flex",
     justifyContent: "space-between",
-    marginTop: "2.9rem",
+    marginTop: "1.7rem",
   },
 });
 
-export default function Step5({ updateDemo2 }) {
+export default function Step4({ updateDemo3 }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
@@ -55,211 +54,354 @@ export default function Step5({ updateDemo2 }) {
     variables: { email: userEmail },
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
-  const { handleSubmit, setValue, control } = useForm();
-  // Sets default values in input fields with current user's info
+  const { handleSubmit, setValue, control } = useForm({
+    defaultValues: {
+      acsDiscovery:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.acsDiscovery,
+      acsOrgSpecificDiscovery:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.acsOrgSpecificDiscovery,
+      acsParticipation:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.acsParticipation,
+      amplaEmail:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.amplaEmail,
+      virtualRide:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.virtualRide,
+      virtualRidePlatforms:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.virtualRidePlatforms,
+      xBoxGamePass:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.xBoxGamePass,
+      videoGameFamiliarity:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.videoGameFamiliarity,
+    },
+  });
+  // Sets state with current user's profile info
   useEffect(() => {
-    !loading && !currentUserInfo
-      ? setCurrentUserInfo(defaultInfo)
-      : setValue([
-          {
-            veteranStatus:
-              currentUserInfo?.profile?.demographicProfile?.veteranStatus,
-          },
-          {
-            militaryBranch:
-              currentUserInfo?.profile?.demographicProfile?.militaryBranch,
-          },
-          {
-            yearsServed:
-              currentUserInfo?.profile?.demographicProfile?.yearsServed,
-          },
-          {
-            ethnicity: currentUserInfo?.profile?.demographicProfile?.ethnicity,
-          },
-          {
-            householdIncome:
-              currentUserInfo?.profile?.demographicProfile?.householdIncome,
-          },
-          {
-            employment:
-              currentUserInfo?.profile?.demographicProfile?.employment,
-          },
-          {
-            favProAthletes:
-              currentUserInfo?.profile?.demographicProfile?.favProAthletes,
-          },
-          {
-            favCelebs: currentUserInfo?.profile?.demographicProfile?.favCelebs,
-          },
-        ]);
+    if (!loading && !currentUserInfo) setCurrentUserInfo(defaultInfo);
+    if (!loading && currentUserInfo) {
+      setValue([
+        {
+          acsDiscovery:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.acsDiscovery,
+        },
+        {
+          acsOrgSpecificDiscovery:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile
+              ?.acsOrgSpecificDiscovery,
+        },
+        {
+          acsParticipation:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.acsParticipation,
+        },
+        {
+          amplaEmail:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.amplaEmail,
+        },
+        {
+          virtualRide:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.virtualRide,
+        },
+        {
+          virtualRidePlatforms:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.virtualRidePlatforms,
+        },
+        {
+          xBoxGamePass:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.xBoxGamePass,
+        },
+        {
+          videoGameFamiliarity:
+            currentUserInfo &&
+            currentUserInfo?.profile?.demographicProfile?.videoGameFamiliarity,
+        },
+      ]);
+    }
   }, [loading, currentUserInfo, defaultInfo, setValue]);
+
+  // Will update profile and route user to next step in profile wizard
   const onNext = handleSubmit(async data => {
-    await updateDemo2({
+    await updateDemo3({
       variables: {
         email: userEmail,
-        veteranStatus: data.veteranStatus,
-        militaryBranch: data.militaryBranch,
-        yearsServed: data.yearsServed,
-        ethnicity: data.ethnicity,
-        householdIncome: data.householdIncome,
-        employment: data.employment,
-        favProAthletes: data.favProAthletes,
-        favCelebs: data.favCelebs,
+        acsDiscovery: data.acsDiscovery,
+        acsOrgSpecificDiscovery: data.acsOrgSpecificDiscovery,
+        acsParticipation: data.acsParticipation,
+        amplaEmail: data.amplaEmail,
+        virtualRide: data.virtualRide,
+        virtualRidePlatforms: data.virtualRidePlatforms,
+        xBoxGamePass: data.xBoxGamePass,
+        videoGameFamiliarity: data.videoGameFamiliarity,
       },
     });
-
     alert("Successfully completed step 5 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step6of6`);
   });
+
   const onSave = handleSubmit(async data => {
-    await updateDemo2({
+    await updateDemo3({
       variables: {
         email: userEmail,
-        veteranStatus: data.veteranStatus,
-        militaryBranch: data.militaryBranch,
-        yearsServed: data.yearsServed,
-        ethnicity: data.ethnicity,
-        householdIncome: data.householdIncome,
-        employment: data.employment,
-        favProAthletes: data.favProAthletes,
-        favCelebs: data.favCelebs,
+        acsDiscovery: data.acsDiscovery,
+        acsOrgSpecificDiscovery: data.acsOrgSpecificDiscovery,
+        acsParticipation: data.acsParticipation,
+        amplaEmail: data.amplaEmail,
+        virtualRide: data.virtualRide,
+        virtualRidePlatforms: data.virtualRidePlatforms,
+        xBoxGamePass: data.xBoxGamePass,
+        videoGameFamiliarity: data.videoGameFamiliarity,
       },
     });
-
     alert("Successfully saved account info!");
-    await navigate(`/`);
+    navigate(`/`);
   });
 
   return (
     <Box className={classes.root}>
       <ProgressBar activeStep={5} stepNumber={5} userEmail={userEmail} />
       <form className={classes.form}>
-        <InputLabel htmlFor="veteranStatus">Are you a Veteran?</InputLabel>
-        <Controller
-          as={
-            <Select>
-              <MenuItem value="Yes">Yes</MenuItem>
-              <MenuItem value="No">No</MenuItem>
-            </Select>
-          }
-          name="veteranStatus"
-          type="select"
-          className={classes.select}
-          variant="outlined"
-          control={control}
-          defaultValue=""
-        />
-        <InputLabel htmlFor="militaryBranch" className={classes.spacing}>
-          Which branch of the military did you serve in?
+        <InputLabel htmlFor="acsDiscovery">
+          How did you hear about Angel City Sports?
         </InputLabel>
         <Controller
           as={
             <Select>
-              <MenuItem value="Army">Army</MenuItem>
-              <MenuItem value="Navy">Navy</MenuItem>
-              <MenuItem value="Air Force">Air Force</MenuItem>
-              <MenuItem value="Marine Corps">Marine Corps</MenuItem>
-              <MenuItem value="Coast Guard">Coast Guard</MenuItem>
-              <MenuItem value="Foreign Military">Foreign Military</MenuItem>
-              <MenuItem value="N/A">N/A</MenuItem>
-            </Select>
-          }
-          name="militaryBranch"
-          type="select"
-          className={classes.select}
-          variant="outlined"
-          control={control}
-          defaultValue=""
-        />
-        <InputLabel htmlFor="yearsServed" className={classes.spacing}>
-          How many years did you serve?
-        </InputLabel>
-        <Controller
-          as={<TextField />}
-          name="yearsServed"
-          variant="outlined"
-          control={control}
-          defaultValue=""
-        />
-        <InputLabel htmlFor="ethnicity" className={classes.spacing}>
-          Please enter your ethnicity
-        </InputLabel>
-        <Controller
-          as={<TextField />}
-          name="ethnicity"
-          variant="outlined"
-          control={control}
-          defaultValue=""
-        />
-        <InputLabel htmlFor="householdIncome" className={classes.spacing}>
-          Please select your annual household income
-        </InputLabel>
-        <Controller
-          as={
-            <Select>
-              <MenuItem value="Less than $25,000">Less than $25,000</MenuItem>
-              <MenuItem value="$25,000 to $49,999">$25,000 to $49,999</MenuItem>
-              <MenuItem value="$50,000 to $99,999">$50,000 to $99,999</MenuItem>
-              <MenuItem value="$100,000 to $199,999">
-                $100,000 to $199,999
+              <MenuItem>
+                <em className={classes.em}>Please choose one</em>
               </MenuItem>
-              <MenuItem value="$200,000 or more">$200,000 or more</MenuItem>
+              <MenuItem value="Community Event">Community Event</MenuItem>
+              <MenuItem value="Radio">Radio</MenuItem>
+              <MenuItem value="TV">TV</MenuItem>
+              <MenuItem value="Website">Website</MenuItem>
+              <MenuItem value="Existing Angel City athlete/volunteer">
+                Existing Angel City athlete/volunteer
+              </MenuItem>
+              <MenuItem value="Like-minded organization">
+                Like-minded organization
+              </MenuItem>
+              <MenuItem value="Social Media">Social Media</MenuItem>
+              <MenuItem value="Other">Other</MenuItem>
             </Select>
           }
-          name="householdIncome"
+          name="acsDiscovery"
           type="select"
-          className={classes.select}
           variant="outlined"
           control={control}
           defaultValue=""
         />
-        <InputLabel htmlFor="employment" className={classes.spacing}>
-          Are you currently employed?
+        <InputLabel
+          htmlFor="acsOrgSpecificDiscovery"
+          className={classes.spacing}
+        >
+          Did you hear about Angel City Sports through any of the following
+          organizations or entities?
         </InputLabel>
         <Controller
           as={
             <Select>
+              <MenuItem>
+                <em className={classes.em}>Please choose one</em>
+              </MenuItem>
+              <MenuItem value="The Hartford">The Hartford</MenuItem>
+              <MenuItem value="Adaptive Apps/C-Hear">
+                Adaptive Apps/C-Hear
+              </MenuItem>
+              <MenuItem value="Shannon Fabrics">Shannon Fabrics</MenuItem>
+              <MenuItem value="Citi Bank">Citi Bank</MenuItem>
+              <MenuItem value="Microsoft">Microsoft</MenuItem>
+              <MenuItem value="Capital Group">Capital Group</MenuItem>
+              <MenuItem value="IMAX">IMAX</MenuItem>
+              <MenuItem value="Hanson Bridgett LLP">
+                Hanson Bridgett LLP
+              </MenuItem>
+              <MenuItem value="Banc of California">Banc of California</MenuItem>
+              <MenuItem value="Fillauer">Fillauer</MenuItem>
+              <MenuItem value="Michelman and Robinson LLP">
+                Michelman and Robinson LLP
+              </MenuItem>
+              <MenuItem value="Conal Doyle LLP">Conal Doyle LLP</MenuItem>
+              <MenuItem value="Shamrock Capital">Shamrock Capital</MenuItem>
+              <MenuItem value="PER4MAX">PER4MAX</MenuItem>
+              <MenuItem value="Metz & Harrison, LLP">
+                Metz & Harrison, LLP
+              </MenuItem>
+              <MenuItem value="MyGym Foundation">MyGym Foundation</MenuItem>
+              <MenuItem value="Broadvoice">Broadvoice</MenuItem>
+              <MenuItem value="Global Sports Development">
+                Global Sports Development
+              </MenuItem>
+              <MenuItem value="Triumph Foundaton">Triumph Foundaton</MenuItem>
+              <MenuItem value="Move United (formerly DSUSA & ASUSA)">
+                Move United (formerly DSUSA & ASUSA)
+              </MenuItem>
+              <MenuItem value="Wayfinder Family Services (formerly Junior Blind)">
+                Wayfinder Family Services (formerly Junior Blind)
+              </MenuItem>
+              <MenuItem value="Never Say Never">Never Say Never</MenuItem>
+              <MenuItem value="Challenged Athletes Foundaton">
+                Challenged Athletes Foundaton
+              </MenuItem>
+              <MenuItem value="Angel City Sports Oregon">
+                Angel City Sports Oregon
+              </MenuItem>
+              <MenuItem value="Abilities Expo">Abilities Expo</MenuItem>
+              <MenuItem value="Hanger Clinic">Hanger Clinic</MenuItem>
+              <MenuItem value="Hanger Foundation">Hanger Foundation</MenuItem>
+              <MenuItem value="Other">Other</MenuItem>
+            </Select>
+          }
+          name="acsOrgSpecificDiscovery"
+          type="select"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+        <InputLabel htmlFor="acsParticipation" className={classes.spacing}>
+          Have you participated in Angel City Sports' Clinics? (either in-person
+          or virtual)
+        </InputLabel>
+        <Controller
+          as={
+            <Select>
+              <MenuItem>
+                <em className={classes.em}>Please choose one</em>
+              </MenuItem>
               <MenuItem value="Yes">Yes</MenuItem>
               <MenuItem value="No">No</MenuItem>
             </Select>
           }
-          name="employment"
+          name="acsParticipation"
           type="select"
-          className={classes.select}
           variant="outlined"
           control={control}
           defaultValue=""
         />
-        <InputLabel htmlFor="favProAthletes" className={classes.spacing}>
-          Who are your favorite professional athletes?
+        <InputLabel htmlFor="amplaEmail" className={classes.spacing}>
+          Are you interested in emails from Ampla Partners about career
+          opportunities for people with physical disabilities?
         </InputLabel>
         <Controller
-          as={<TextField />}
-          name="favProAthletes"
+          as={
+            <Select>
+              <MenuItem>
+                <em className={classes.em}>Please choose one</em>
+              </MenuItem>
+              <MenuItem value="Yes">Yes</MenuItem>
+              <MenuItem value="No">No</MenuItem>
+            </Select>
+          }
+          name="amplaEmail"
+          type="select"
           variant="outlined"
           control={control}
           defaultValue=""
         />
-        <InputLabel htmlFor="favCelebs" className={classes.spacing}>
-          Who are your favorite celebrities?
+        <InputLabel htmlFor="virtualRide" variant="default" className={classes.spacing}>
+          Are you interested in participating in the Virtual Ride on 8/9/2020?
         </InputLabel>
         <Controller
-          as={<TextField />}
-          name="favCelebs"
+          as={
+            <Select>
+              <MenuItem>
+                <em className={classes.em}>Please choose one</em>
+              </MenuItem>
+              <MenuItem value="Yes">Yes</MenuItem>
+              <MenuItem value="No">No</MenuItem>
+            </Select>
+          }
+          name="virtualRide"
+          type="select"
           variant="outlined"
           control={control}
           defaultValue=""
         />
+        <InputLabel htmlFor="virtualRidePlatforms" className={classes.spacing}>
+          Do you currently have an account with any of the following virtual
+          ride platforms?
+        </InputLabel>
+        <Controller
+          as={
+            <Select>
+              <MenuItem>
+                <em className={classes.em}>Please choose one</em>
+              </MenuItem>
+              <MenuItem value="Zwift">Zwift</MenuItem>
+              <MenuItem value="BKool">BKool</MenuItem>
+              <MenuItem value="Other">Other</MenuItem>
+            </Select>
+          }
+          name="virtualRidePlatforms"
+          type="select"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+        <InputLabel htmlFor="xBoxGamePass" className={classes.spacing}>
+          Do you have an Xbox Game Pass?
+        </InputLabel>
+        <Controller
+          as={
+            <Select>
+              <MenuItem>
+                <em className={classes.em}>Please choose one</em>
+              </MenuItem>
+              <MenuItem value="Yes">Yes</MenuItem>
+              <MenuItem value="No">No</MenuItem>
+              <MenuItem value="Other">Other</MenuItem>
+            </Select>
+          }
+          name="xBoxGamePass"
+          type="select"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+        <InputLabel htmlFor="videoGameFamiliarity" className={classes.spacing}>
+          Which of these games are you familiar with?
+        </InputLabel>
+        <Controller
+          as={
+            <Select>
+              <MenuItem>
+                <em className={classes.em}>Please choose one</em>
+              </MenuItem>
+              <MenuItem value="Minecraft">Minecraft</MenuItem>
+              <MenuItem value="Fortnite">Fortnite</MenuItem>
+              <MenuItem value="Call of Duty">Call of Duty</MenuItem>
+              <MenuItem value="Rocket League">Rocket League</MenuItem>
+              <MenuItem value="None">None</MenuItem>
+            </Select>
+          }
+          name="videoGameFamiliarity"
+          type="select"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+
         <Box className={classes.btnBox}>
           <SaveButton
             label={"Save & Quit"}
-            onClick={onSave}
             ariaLabel="Click to save and continue later and return to settings page."
+            onClick={onSave}
           />
           <NextButton
-            label="Next"
+            label={"Next"}
             onClick={onNext}
-            ariaLabel="Click here to complete step 5 and move onto step 6 of account info update."
+            ariaLabel="Click here to complete step 5 and move onto step 6 of account information update."
           />
         </Box>
       </form>

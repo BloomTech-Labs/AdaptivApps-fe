@@ -1,10 +1,27 @@
 import React from 'react';
+import { useNavigate } from "@reach/router";
+import Tooltip from '@material-ui/core/Tooltip';
+import { makeStyles } from "@material-ui/core/styles";
 
-const CustomPeopleIcon = ({ chattingIcon, setEditChatRoom }) => {
+const useStyles = makeStyles(theme => ({
+  img: {
+    marginLeft: "5px",
+    width: "26px",
+    height: "26px",
+    borderRadius: "50%",
+  },
+}));
+
+const CustomPeopleIcon = ({ chattingIcon, chattingUsername }) => {
+  const navigate = useNavigate();
+  const classes = useStyles();
+
   return (
-    <div onClick={() => setEditChatRoom(true)} aria-label="Delete selected Chatroom">
-      <img src={chattingIcon} alt="icon for user" style={{ marginRight: "8px", marginLeft: "12px", width: "22px", height: "22px", borderRadius: "50%" }} />
-    </div>
+    <Tooltip title="Visit profile" onClick={() => navigate(`/user/${chattingUsername}`)}>
+      <div>
+        <img src={chattingIcon} alt="icon for user" className={classes.img} />
+      </div>
+    </Tooltip>
   )
 }
 

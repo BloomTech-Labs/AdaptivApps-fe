@@ -33,7 +33,6 @@ function ChatFeature() {
   const classes = useStyles();
   const [alert, setAlertOpen] = useState(false);
   const [newRoom, setNewRoom] = useState(false);
-  const [deleteRoom, setDeleteRoom] = useState(false);
 
   // Timeout for automated alerts
   setTimeout(function () {
@@ -41,8 +40,6 @@ function ChatFeature() {
       setAlertOpen(false);
     } else if (newRoom) {
       setNewRoom(false);
-    } else if (deleteRoom) {
-      setDeleteRoom(false);
     }
   }, 3000);
 
@@ -88,33 +85,12 @@ function ChatFeature() {
             Successfully created chat room
           </Alert>
         </Collapse>
-
-        <Collapse in={deleteRoom}>
-          <Alert
-            severity="success"
-            color="info"
-            action={
-              <IconButton
-                aria-label="close"
-                size="small"
-                onClick={() => {
-                  setDeleteRoom(false);
-                }}
-              >
-                <CloseIcon fontSize="large" />
-              </IconButton>
-            }
-          >
-            Successfully deleted chat room
-          </Alert>
-        </Collapse>
       </div>
       <div className={classes.root}>
         <InfoBar
           user={user}
           setAlertOpen={setAlertOpen}
           setNewRoom={setNewRoom}
-          setDeleteRoom={setDeleteRoom}
         />
       </div>
     </>
