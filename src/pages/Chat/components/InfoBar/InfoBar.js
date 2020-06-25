@@ -267,8 +267,9 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
                 chatRoomSub={chatRoomSub}
                 user={user}
                 notifications={notifications?.profile?.notifications}
+                results={results}
+                setResults={setResults}
               />
-              <Divider variant="inset" className={classes.divider} />
             </div>
           ))
           : chatRoomData?.profile?.chatRooms === undefined
@@ -283,8 +284,9 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
                   chatRoomSub={chatRoomSub}
                   user={user}
                   notifications={notifications?.profile?.notifications}
+                  results={results}
+                  setResults={setResults}
                 />
-                <Divider variant="inset" className={classes.divider} />
               </div>
             ))}
       </div>
