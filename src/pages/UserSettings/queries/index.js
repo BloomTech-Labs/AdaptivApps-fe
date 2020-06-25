@@ -506,7 +506,7 @@ export const UPDATE_DEMO_4 = gql`
     $additionalInfo: String
     $guardianSignature: String
     $waiverSignature: String
-    $isMinor: String
+    $isMinor: Boolean
     $minorName: String
   ) {
     updateProfile(

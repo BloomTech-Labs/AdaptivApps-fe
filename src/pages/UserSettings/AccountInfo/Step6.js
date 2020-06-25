@@ -15,7 +15,7 @@ import {
   InputLabel,
   TextField,
   Typography,
-  Checkbox
+  Checkbox,
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -28,10 +28,12 @@ const useStyles = makeStyles({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    
   },
   spacing: {
     marginTop: "1.6rem",
+  },
+  checkBox: {
+    display: "flex",
   },
   btnBox: {
     display: "flex",
@@ -146,12 +148,11 @@ export default function Step6({ updateDemo4 }) {
       <ProgressBar activeStep={6} stepNumber={6} userEmail={userEmail} />
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <InputLabel htmlFor="additionalInfo">
-          Is there anything you would like the Angel City team to know in preparation for the 2020 Angel City Virtual Games?
+          Is there anything you would like the Angel City team to know in
+          preparation for the 2020 Angel City Virtual Games?
         </InputLabel>
         <Controller
-          as={
-            <TextField />
-          }
+          as={<TextField />}
           name="additionalInfo"
           type="select"
           className={classes.select}
@@ -159,13 +160,11 @@ export default function Step6({ updateDemo4 }) {
           control={control}
           defaultValue=""
         />
-        <InputLabel htmlFor="waiverSignature">
+        <InputLabel htmlFor="waiverSignature" className={classes.spacing}>
           Please sign by typing your name below
         </InputLabel>
         <Controller
-          as={
-            <TextField />
-          }
+          as={<TextField />}
           name="waiverSignature"
           type="select"
           className={classes.select}
@@ -173,13 +172,35 @@ export default function Step6({ updateDemo4 }) {
           control={control}
           defaultValue=""
         />
-        <InputLabel htmlFor="minorName">
-          Minor participant's name
+        <Box className={classes.checkBox}>
+          <Controller
+            as={<Checkbox />}
+            name="isMinor"
+            type="checkbox"
+            control={control}
+            color="primary"
+            defaultValue={false}
+            value={true}
+          />
+          <InputLabel className={classes.spacing} htmlFor="isMinor">
+            Participant is a minor (if so, please sign below)
+          </InputLabel>
+        </Box>
+        <InputLabel htmlFor="guardianSignature" className={classes.spacing}>
+          Parent/Guardian Signature
         </InputLabel>
         <Controller
-          as={
-            <TextField />
-          }
+          as={<TextField />}
+          name="guardianSignature"
+          type="select"
+          className={classes.select}
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+        <InputLabel className={classes.spacing} htmlFor="minorName">Minor participant's name</InputLabel>
+        <Controller
+          as={<TextField />}
           name="minorName"
           type="select"
           className={classes.select}
@@ -187,7 +208,7 @@ export default function Step6({ updateDemo4 }) {
           control={control}
           defaultValue=""
         />
-      
+
         <Box className={classes.btnBox}>
           <FinishButton
             type="submit"
