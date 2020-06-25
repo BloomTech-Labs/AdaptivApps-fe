@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation, useQuery } from "react-apollo";
 import { CREATE_CHAT_ROOM } from "../../queries/ChatRooms";
-import { GET_RECIPIENTS } from '../../queries/Chats'
+import { GET_RECIPIENTS, SHOW_CHATROOM_SENDER, SHOW_CHATROOM_RECEIVER } from '../../queries/Chats'
 
 //Style imports
 import {
@@ -104,7 +104,7 @@ function RecipientModal({
   setOpen,
   allChatrooms,
   setNewRoom,
-  
+
 }) {
   const classes = useStyles();
   const [searchRecipient, setSearchRecipient] = useState("");
@@ -114,16 +114,29 @@ function RecipientModal({
   const [disableClick, setDisableClick] = useState(false);
 
   const { data: allUsers } = useQuery(GET_RECIPIENTS);
-  const [ createChatRoom ] = useMutation(CREATE_CHAT_ROOM);
+  const [createChatRoom] = useMutation(CREATE_CHAT_ROOM);
+  const [showChatroomSender] = useMutation(SHOW_CHATROOM_SENDER);
+  const [showChatroomReceiver] = useMutation(SHOW_CHATROOM_RECEIVER);
 
-  const currentChatRooms = allChatrooms?.profile?.chatRooms?.map(chatroom => {
-    const current = chatroom.participants.filter(participant => participant.email !== user.email && participant);
-    return current[0];
-  })
+  // Return a list of all currently available chatrooms in term of users
+  const hiddenChatRooms = [];
+  const currentChatRooms = [];
+  for (let i = 0; i < allChatrooms?.profile.chatRooms.length; i++) {
+    if (allChatrooms.profile.chatRooms[i].senderEmail === user.email && !allChatrooms.profile.chatRooms[i].displayForSender) {
+      hiddenChatRooms.push(allChatrooms.profile.chatRooms[i]);
+    }
+    else if (allChatrooms.profile.chatRooms[i].senderEmail !== user.email && !allChatrooms.profile.chatRooms[i].displayForReceiver) {
+      hiddenChatRooms.push(allChatrooms.profile.chatRooms[i]);
+    }
+    else {
+      const current = allChatrooms.profile.chatRooms[i].participants.filter(participant => participant.email !== user.email)
+      currentChatRooms.push(current[0])
+    }
+  }
 
   const availableToChat = [];
   allUsers && allUsers.profiles.map(person => {
-    let unique = currentChatRooms.find(item => item.email === person.email) 
+    let unique = currentChatRooms.find(item => item.email === person.email)
     if (unique === undefined && person.email !== user.email) {
       availableToChat.push(person);
     };
@@ -132,7 +145,7 @@ function RecipientModal({
   const searchAvailableRooms = e => {
     e.preventDefault();
     let filter = availableToChat.map(user => {
-      return [ `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user ];
+      return [`${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user];
     });
 
     filter.filter(user => {
@@ -149,14 +162,57 @@ function RecipientModal({
     setSearchRecipient("");
   };
 
+  const checkHiddenChats = (hiddenChatRooms, recipient) => {
+    for (let i = 0; i < hiddenChatRooms.length; i++) {
+      const email1 = hiddenChatRooms[i].participants[0].email;
+      const email2 = hiddenChatRooms[i].participants[1].email;
+      if (recipient.email === email1 || recipient.email === email2) {
+        if (hiddenChatRooms[i].senderEmail === user.email && !hiddenChatRooms[i].displayForSender) {
+          return hiddenChatRooms[i].id;
+        }
+        else if (hiddenChatRooms[i].senderEmail === recipient.email && !hiddenChatRooms[i].displayForReceiver) {
+          return hiddenChatRooms[i].id;
+        }
+      }
+    }
+    return false;
+  }
+
+  const checkAmISender = roomID => {
+    for (let i = 0; i < allChatrooms?.profile.chatRooms.length; i++) {
+      if (allChatrooms.profile.chatRooms[i].id === roomID) {
+        return allChatrooms.profile.chatRooms[i].senderEmail === user.email;
+      }
+    }
+    return false;
+  }
+
   const createNewChatRoom = async recipient => {
-    await createChatRoom({
-      variables: {
-        useremail: user.email,
-        recipientemail: recipient.email,
-      },
-    });
-    
+    const roomID = checkHiddenChats(hiddenChatRooms, recipient);
+    if (!roomID) {
+      await createChatRoom({
+        variables: {
+          useremail: user.email,
+          recipientemail: recipient.email,
+        },
+      });
+    } else {
+      if (checkAmISender(roomID)) {
+        await showChatroomSender({
+          variables: {
+            id: roomID
+          }
+        })
+      }
+      else {
+        await showChatroomReceiver({
+          variables: {
+            id: roomID
+          }
+        })
+      }
+    }
+
     setDisableClick(true);
     setTimeout(() => setDisableClick(false), 5000);
     setOpen(false);
@@ -239,9 +295,9 @@ function RecipientModal({
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton 
-                    onClick={searchAvailableRooms}
-                    >                    
+                    <IconButton
+                      onClick={searchAvailableRooms}
+                    >
                       <SearchIcon fontSize="large" />
                     </IconButton>
                   </InputAdornment>
