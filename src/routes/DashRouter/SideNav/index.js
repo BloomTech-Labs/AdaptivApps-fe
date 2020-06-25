@@ -129,18 +129,6 @@ const useStyles = makeStyles(theme => ({
       fontSize: "1.6rem",
     },
   },
-  sponsor: {
-    marginTop: "5.6rem",
-    textDecoration: "none",
-    height: "10rem",
-    textAlign: "center",
-    padding: "2% 0",
-    "& p": {
-      fontSize: "1.8rem",
-      fontWeight: "bold",
-      lineHeight: "1.5rem",
-    },
-  },
   disabledNavLink: {
     textDecoration: "none",
     height: "5rem",
@@ -256,16 +244,16 @@ function SideNav(props) {
                 </div>
               </Tooltip>
             ) : (
-              <NavLink to="/chats" className={classes.navLink}>
-                <StyledBadge
-                  overlap="circle"
-                  badgeContent={notifications?.profile?.notifications?.length}
-                >
-                  <ForumOutlinedIcon className={classes.navIcon} />
-                </StyledBadge>
-                <p>Chat</p>
-              </NavLink>
-            )}
+                <NavLink to="/chats" className={classes.navLink}>
+                  <StyledBadge
+                    overlap="circle"
+                    badgeContent={notifications?.profile?.notifications?.length}
+                  >
+                    <ForumOutlinedIcon className={classes.navIcon} />
+                  </StyledBadge>
+                  <p>Chat</p>
+                </NavLink>
+              )}
             {/*<NavLink to="/newsfeed" className={classes.navLink}>
               <HomeIcon className={classes.navIcon} />
               <p>Newsfeed</p>
@@ -282,10 +270,6 @@ function SideNav(props) {
                 </NavLink>
               </>
             ) : null}
-            <NavLink to="/sponsorspotlight" className={classes.sponsor}>
-              <p>Thank you to</p>
-              <p>our sponsors</p>
-            </NavLink>
           </Box>
         </div>
         <Box className={classes.logoutContainer}>
