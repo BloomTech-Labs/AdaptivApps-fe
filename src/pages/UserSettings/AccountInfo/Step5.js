@@ -65,7 +65,14 @@ export default function Step4({ updateDemo3 }) {
     await updateDemo3({
       variables: {
         email: userEmail,
-       
+        acsDiscovery: data.acsDiscovery,
+        acsOrgSpecificDiscovery: data.acsOrgSpecificDiscovery,
+        acsParticipation: data.acsParticipation,
+        amplaEmail: data.amplaEmail,
+        virtualRide: data.virtualRide,
+        virtualRidePlatforms: data.virtualRidePlatforms,
+        xBoxGamePass: data.xBoxGamePass,
+        videoGameFamiliarity: data.videoGameFamiliarity,
       },
     });
     alert("Successfully completed step 5 of account info update!");
@@ -76,6 +83,14 @@ export default function Step4({ updateDemo3 }) {
     await updateDemo3({
       variables: {
         email: userEmail,
+        acsDiscovery: data.acsDiscovery,
+        acsOrgSpecificDiscovery: data.acsOrgSpecificDiscovery,
+        acsParticipation: data.acsParticipation,
+        amplaEmail: data.amplaEmail,
+        virtualRide: data.virtualRide,
+        virtualRidePlatforms: data.virtualRidePlatforms,
+        xBoxGamePass: data.xBoxGamePass,
+        videoGameFamiliarity: data.videoGameFamiliarity,
         
       },
     });
