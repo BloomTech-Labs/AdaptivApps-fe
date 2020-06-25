@@ -92,3 +92,39 @@ export const CHAT_SUBSCRIPTION = gql`
     }
   }
 `;
+
+// Stop displaying a specific chatroom
+export const SHOW_CHATROOM_SENDER = gql`
+  mutation showChatroomSender($id: ID!) {
+    updateChatRoom( 
+      where: { id: $id } 
+      data: { displayForSender: true }
+      ) {
+      id
+    }
+  }
+`;
+
+export const SHOW_CHATROOM_RECEIVER = gql`
+  mutation showChatroomReceiver($id: ID!) {
+    updateChatRoom( 
+      where: { id: $id } 
+      data: { displayForReceiver: true }
+      ) {
+      id
+    }
+  }
+`;
+
+export const SHOW_CHATROOM_All = gql`
+  mutation showChatroomAll($id: ID!) {
+    updateChatRoom( 
+      where: { id: $id } 
+      data: { 
+        displayForReceiver: true
+        displayForSender: true
+      }) {
+      id
+    }
+  }
+`;
