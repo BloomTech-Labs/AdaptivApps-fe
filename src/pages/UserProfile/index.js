@@ -187,10 +187,6 @@ export default function UserProfile() {
   );
 
   const extendedProfile = userProfile?.profile?.extProfile;
-  // const disability = userProfile?.profile?.extProfile?.disability;
-  // const demographicProfile = userProfile?.profile?.demographicProfile;
-  const sportsParticipation =
-    userProfile?.profile?.demographicProfile?.sportsParticipation;
 
   //config options for uploading a profile picture
   const profilePictureConfig = {
@@ -286,11 +282,14 @@ export default function UserProfile() {
                 onChange={uploadProfileBanner}
                 id="uploadBanner"
               />
-              <ProfileBanner profileBanner={profileBanner} />
+              <ProfileBanner
+                profileBanner={profileBanner}
+                userName={userName}
+              />
             </div>
             {/*input for uploading profile picture */}
             <div className={classes.pictureWrapper}>
-              <ProfilePic profilePicture={profilePicture} />
+              <ProfilePic profilePicture={profilePicture} userName={userName} />
               <label htmlFor="uploadPicture">
                 <IconButton
                   size="medium"
