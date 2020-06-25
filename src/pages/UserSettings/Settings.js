@@ -33,8 +33,9 @@ const useStyles = makeStyles({
     //height: '100vh',
     wordWrap: 'normal',
     '& .MuiTableCell-root': {
-       border: '1px solid green',
        width: '50%',
+       height: '10px',
+       border: 'none'
     },
     '& .MuiTableRow-root': {
       lineHeight: '1%'
@@ -50,22 +51,6 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
   },
-  // acctInfoBox: {
-  //   width: "60%",
-  // },
-  // dataContainer: {
-  //   display: "flex",
-  // },
-  // dataBox: {
-  //   display: "flex",
-  //   minWidth: "45%",
-  //   flexDirection: "column",
-
-  //   "& p": {
-  //     fontWeight: 550,
-  //     lineHeight: "3rem",
-  //   },
-  // },
   data: {
     textAlign: "left",
     display: "flex",
@@ -112,24 +97,12 @@ const useStyles = makeStyles({
       color: "#2962FF",
     },
   },
-  // disabilityBox: {
-  //   display: "flex",
-  //   flexDirection: "column",
-  //   "& :nth-child(1)": {
-  //     fontWeight: 500,
-  //   },
-  // },
-  // row: {
-  //   display: 'flex',
-  //   flexDirection: 'column'
-  // },
-
   subHeading: {
     marginBottom: "2.4rem",
     fontWeight: 550,
   },
   infoBox: {
-    width: '45%'
+    width: '55%'
   },
   flex: {
     width: '80%',
@@ -138,7 +111,6 @@ const useStyles = makeStyles({
   },
   table: {
     marginTop: '5%',
-    border: '1px solid red'
   },
 });
 
@@ -197,7 +169,7 @@ export default function Settings() {
         {profile?.type === "Individual" ? (
           <>
           <TableContainer className={classes.table}>
-          <Table aria-label='account information table'>
+          <Table aria-label='account information table' size='small'>
           <TableBody className={classes.tableBody}>
           <TableRow>
               <TableCell component="th" scope="row">
@@ -239,16 +211,6 @@ export default function Settings() {
                 <Typography>{profile?.city}, {profile?.state}</Typography>
               </TableCell>
             </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
-    {/* <Box className={classes.displayBox}>
-    <Typography>Display this info publicly?</Typography>
-    <Checkbox color="primary" size="medium" />
-    </Box> */}
-      <TableContainer className={classes.table}>
-          <Table aria-label='account information table'>
-          <TableBody>
           <TableRow>
               <TableCell component="th" scope="row">
               <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Birthday</Typography>
@@ -297,16 +259,6 @@ export default function Settings() {
                 <Typography>{profile?.extProfile?.disability?.physicalDisability}</Typography>
               </TableCell>
             </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
-      {/* <Box className={classes.displayBox}>
-    <Typography>Display this info publicly?</Typography>
-    <Checkbox color="primary" size="medium" />
-    </Box> */}
-    <TableContainer className={classes.table}>
-          <Table aria-label='account information table'>
-          <TableBody>
           <TableRow>
               <TableCell component="th" scope="row">
               <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Veteran Status</Typography>
@@ -350,7 +302,7 @@ export default function Settings() {
         ) : profile?.type === "Organization" ? (
           <>
           <TableContainer className={classes.orgTable}>
-          <Table aria-label='account information table'>
+          <Table aria-label='account information table' size='small'>
           <TableBody>
           <TableRow>
               <TableCell component="th" scope="row">
@@ -420,4 +372,10 @@ export default function Settings() {
       </>  
   );
 }
+
+//Privacy toggle button for future use
+{/* <Box className={classes.displayBox}>
+    <Typography>Display this info publicly?</Typography>
+    <Checkbox color="primary" size="medium" />
+    </Box> */}
 
