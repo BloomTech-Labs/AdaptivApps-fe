@@ -17,6 +17,8 @@ import {
   Button,
 } from "@material-ui/core";
 
+import SponsorBanner from '../SponsorSpotlight/SponsorBanner'
+
 const useStyles = makeStyles({
   root: {
     marginLeft: "3rem",
@@ -145,6 +147,10 @@ export default function Settings() {
   };
 
   return (
+    <>
+    <div>
+      <SponsorBanner />
+    </div>
     <Box className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
         <Typography variant="h1" gutterBottom>
@@ -315,5 +321,6 @@ export default function Settings() {
         </Box>
       </Box>
     </Box>
+    </>
   );
 }

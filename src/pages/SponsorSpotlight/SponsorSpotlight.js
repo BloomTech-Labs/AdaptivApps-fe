@@ -199,8 +199,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down("xs")]: {
       fontSize: '.25rem',
     },
-  }
-  
+  },
 }));
 
 export default function SponsorSpotlight() {
@@ -208,8 +207,8 @@ export default function SponsorSpotlight() {
   return (
     <>
       <Link href="/calendar" className={classes.back} >
-        <ArrowBackIosIcon color="primary" fontSize="large" />
-        <Typography>Back to my events</Typography>
+        <ArrowBackIosIcon color="primary" aria-label='Back to Events Calendar' fontSize="large" />
+        <Typography>Back to Events Calendar</Typography>
       </Link>    
     <div className={classes.root}>
       <Grid container className={classes.logo}>
