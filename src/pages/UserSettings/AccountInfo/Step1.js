@@ -223,7 +223,7 @@ export default function Step1({ updateProfile }) {
               defaultValue=""
               rules={{ required: true }}
             />
-            {/* {errors.firstName && <Typography className={classes.error}>first name is a required field</Typography>} */}
+            {errors.firstName && <Typography className={classes.error}>first name is a required field</Typography>}
           </Box>
           <Box>
             <InputLabel required htmlFor="lastName">Last Name</InputLabel>
@@ -236,7 +236,7 @@ export default function Step1({ updateProfile }) {
               defaultValue=""
               rules={{ required: true }}
             />
-            {/* {errors.lastName && <Typography className={classes.error}>last name is a required field</Typography>} */}
+            {errors.lastName && <Typography className={classes.error}>last name is a required field</Typography>}
           </Box>
         </Box>
         <Box className={classes.namePhoneBox}>
@@ -253,8 +253,8 @@ export default function Step1({ updateProfile }) {
               // onBlur={validateUsername}
               rules={{ required: true }}
             />
-            {/* {errors.userName && <Typography className={classes.error}>username is a required field</Typography>}
-            {errorState && <Typography className={classes.error}>Button is disabled until a unique username is chosen</Typography>} */}
+            {errors.userName && <Typography className={classes.error}>username is a required field</Typography>}
+            {errorState && <Typography className={classes.error}>Button is disabled until a unique username is chosen</Typography>}
           </Box>
           <Box>
             <InputLabel required htmlFor="phoneNumber">Phone Number</InputLabel>
@@ -267,12 +267,12 @@ export default function Step1({ updateProfile }) {
               defaultValue=""
               rules={{ required: true }}
             />
-            {/* {errors.phoneNumber && <Typography className={classes.error}>phone number is a required field</Typography>} */}
+            {errors.phoneNumber && <Typography className={classes.error}>phone number is a required field</Typography>}
           </Box>
         </Box>
         <Box className={classes.addressBox}>
           <Box>
-            <InputLabel htmlFor="address1">Address 1*</InputLabel>
+            <InputLabel required htmlFor="address1">Address 1</InputLabel>
             <Controller
               as={<TextField />}
               name="address1"
@@ -281,10 +281,12 @@ export default function Step1({ updateProfile }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
+            {errors.address1 && <Typography className={classes.error}>phone number is a required field</Typography>}
           </Box>
           <Box>
-            <InputLabel htmlFor="address2">Address 2*</InputLabel>
+            <InputLabel htmlFor="address2">Address 2</InputLabel>
             <Controller
               as={<TextField />}
               name="address2"
@@ -297,7 +299,7 @@ export default function Step1({ updateProfile }) {
         </Box>
         <Box className={classes.addressBox}>
           <Box>
-            <InputLabel htmlFor="city">City*</InputLabel>
+            <InputLabel required htmlFor="city">City</InputLabel>
             <Controller
               as={<TextField />}
               name="city"
@@ -308,7 +310,7 @@ export default function Step1({ updateProfile }) {
               defaultValue=""
               rules={{ required: true }}
             />
-            {/* {errors.city && <Typography className={classes.error}>city is a required field</Typography>} */}
+            {errors.city && <Typography className={classes.error}>city is a required field</Typography>}
           </Box>
           <Box>
             <InputLabel required htmlFor="state">State</InputLabel>
@@ -321,12 +323,12 @@ export default function Step1({ updateProfile }) {
               defaultValue=""
               rules={{ required: true }}
             />
-            {/* {errors.state && <Typography className={classes.error}>state is a required field</Typography>} */}
+            {errors.state && <Typography className={classes.error}>state is a required field</Typography>}
           </Box>
         </Box>
         <Box className={classes.addressBox}>
           <Box>
-            <InputLabel htmlFor="postal code">Postal Code*</InputLabel>
+            <InputLabel required htmlFor="postal code">Postal Code</InputLabel>
             <Controller
               as={<TextField />}
               name="postalCode"
@@ -335,10 +337,11 @@ export default function Step1({ updateProfile }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
           </Box>
           <Box>
-            <InputLabel htmlFor="country">Country*</InputLabel>
+            <InputLabel required htmlFor="country">Country</InputLabel>
             <Controller
               as={<TextField />}
               name="country"

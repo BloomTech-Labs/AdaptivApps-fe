@@ -21,12 +21,12 @@ const useStyles = makeStyles((theme) => ({
     },
     marginBottom: '3.2rem',
     [theme.breakpoints.down("sm")]: {
-      width: '100%',
+      width: '90%',
       margin: 'auto',
       margin: '1rem auto 3rem auto'
     },
     [theme.breakpoints.down("xs")]: {
-      width: '100%',
+      width: '90%',
       margin: '1rem auto 3rem auto'
     },
   },

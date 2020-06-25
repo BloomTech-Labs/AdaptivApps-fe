@@ -49,19 +49,17 @@ const useStyles = makeStyles((theme) => ({
     height: "80vh",
   },
   typeSelect: {
-    width: "74.4rem",
+    width: "100%",
     height: "4.8rem",
     [theme.breakpoints.down("sm")]: {
       width: '90%',
       height: 48,
       margin: '3% auto',
-      fontSize: '1rem'
     },
     [theme.breakpoints.down("xs")]: {
       width: '90%',
       height: 35,
-      margin: '3%  auto',
-      fontSize: '1rem'
+      margin: '3%  auto'
     },
   },
   inputLabel: {
@@ -78,7 +76,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     marginBottom: "1.6rem",
-    
   },
   btnWrapper: {
     width: '100%',
