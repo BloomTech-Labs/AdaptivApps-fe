@@ -7,10 +7,14 @@ import { useAuth0 } from "../../../config/react-auth0-spa";
 // Query Imports
 import { useQuery, useSubscription } from "react-apollo";
 import { GET_MY_PROFILE, PROFILE_SUBSCRIPTION } from "./queries/profile";
-import { GET_NOTIFICATIONS, NOTIFICATION_SUBSCRIPTION } from '../../../pages/Chat/queries/Notifications'
+import {
+  GET_NOTIFICATIONS,
+  NOTIFICATION_SUBSCRIPTION,
+} from "../../../pages/Chat/queries/Notifications";
+import GroupIcon from "@material-ui/icons/GroupAddOutlined";
 
 // Styling imports
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from "@material-ui/core/styles";
 
 import NavLink from "./NavLink";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
@@ -23,7 +27,7 @@ import SettingsIcon from "@material-ui/icons/SettingsOutlined";
 import { IconContext } from "react-icons";
 import { FiLogOut } from "react-icons/fi";
 import acsLogo from "../../../assets/images/acsLogo.png";
-import Badge from '@material-ui/core/Badge';
+import Badge from "@material-ui/core/Badge";
 import {
   makeStyles,
   useTheme,
@@ -38,14 +42,14 @@ import {
 
 const drawerWidth = "25rem";
 
-const StyledBadge = withStyles((theme) => ({
+const StyledBadge = withStyles(theme => ({
   badge: {
     left: 0,
     top: 10,
-    width: '2%',
-    backgroundColor: '#052942',
-    color: 'white',
-    fontSize: '1.25rem'
+    width: "2%",
+    backgroundColor: "#052942",
+    color: "white",
+    fontSize: "1.25rem",
   },
 }))(Badge);
 
@@ -61,7 +65,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-between",
     margin: "0",
     maxWidth: "100%",
-    height: "100%"
+    height: "100%",
   },
   anotherContainer: {
     height: "100%",
@@ -126,15 +130,15 @@ const useStyles = makeStyles(theme => ({
     },
   },
   sponsor: {
-    marginTop: '5.6rem',
-    textDecoration: 'none',
+    marginTop: "5.6rem",
+    textDecoration: "none",
     height: "10rem",
-    textAlign: 'center',
-    padding: '2% 0',
+    textAlign: "center",
+    padding: "2% 0",
     "& p": {
       fontSize: "1.8rem",
-      fontWeight: 'bold',
-      lineHeight: '1.5rem',
+      fontWeight: "bold",
+      lineHeight: "1.5rem",
     },
   },
   disabledNavLink: {
@@ -200,11 +204,16 @@ function SideNav(props) {
   const { data: subData } = useSubscription(PROFILE_SUBSCRIPTION);
 
   // Update notifications in real time
-  const { data: notifications, refetch: refetchNotifications } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email } })
-  const { error: notificationError, loading: notificationLoading } = useSubscription(NOTIFICATION_SUBSCRIPTION)
+  const {
+    data: notifications,
+    refetch: refetchNotifications,
+  } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email } });
+  const {
+    error: notificationError,
+    loading: notificationLoading,
+  } = useSubscription(NOTIFICATION_SUBSCRIPTION);
 
-  console.log(notifications)
-
+  console.log(notifications);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -247,15 +256,16 @@ function SideNav(props) {
                 </div>
               </Tooltip>
             ) : (
-                <NavLink to="/chats" className={classes.navLink}>
-                  <StyledBadge
-                    overlap='circle'
-                    badgeContent={notifications?.profile?.notifications?.length}>
-                    <ForumOutlinedIcon className={classes.navIcon} />
-                  </StyledBadge>
-                  <p>Chat</p>
-                </NavLink>
-              )}
+              <NavLink to="/chats" className={classes.navLink}>
+                <StyledBadge
+                  overlap="circle"
+                  badgeContent={notifications?.profile?.notifications?.length}
+                >
+                  <ForumOutlinedIcon className={classes.navIcon} />
+                </StyledBadge>
+                <p>Chat</p>
+              </NavLink>
+            )}
             {/*<NavLink to="/newsfeed" className={classes.navLink}>
               <HomeIcon className={classes.navIcon} />
               <p>Newsfeed</p>
@@ -266,11 +276,16 @@ function SideNav(props) {
                   <HomeIcon className={classes.navIcon} />
                   <p>Manage Events</p>
                 </NavLink>
+                <NavLink to="manageUsers" className={classes.navLink}>
+                  <GroupIcon className={classes.navIcon} />
+                  <p>Manage Users</p>
+                </NavLink>
               </>
             ) : null}
-             <NavLink to='/sponsorspotlight' className={classes.sponsor}>
-                <p>Thank you to</p><p>our sponsors</p>
-              </NavLink>
+            <NavLink to="/sponsorspotlight" className={classes.sponsor}>
+              <p>Thank you to</p>
+              <p>our sponsors</p>
+            </NavLink>
           </Box>
         </div>
         <Box className={classes.logoutContainer}>
@@ -292,16 +307,16 @@ function SideNav(props) {
 
   return (
     <div className={classes.root}>
-      <Toolbar position="fixed" style={{ "margin": "0" }}>
+      <Toolbar position="fixed" style={{ margin: "0" }}>
         <IconButton
           color="inherit"
           aria-label="open drawer"
           edge="start"
           onClick={handleDrawerToggle}
           className={classes.menuButton}
-          style={{ "margin": "0" }}
+          style={{ margin: "0" }}
         >
-          <MenuIcon className={classes.navIcon} style={{ "margin": "0" }} />
+          <MenuIcon className={classes.navIcon} style={{ margin: "0" }} />
         </IconButton>
       </Toolbar>
       <nav className={classes.drawer} aria-label="mailbox folders">
