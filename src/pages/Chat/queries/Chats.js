@@ -94,22 +94,22 @@ export const CHAT_SUBSCRIPTION = gql`
 `;
 
 // Stop displaying a specific chatroom
-export const HIDE_CHATROOM_SENDER = gql`
+export const SHOW_CHATROOM_SENDER = gql`
   mutation hideChatroomSender($id: ID!) {
     updateChatRoom( 
       where: { id: $id } 
-      data: { displayForSender: false }
+      data: { displayForSender: true }
       ) {
       id
     }
   }
 `;
 
-export const HIDE_CHATROOM_Receiver = gql`
+export const SHOW_CHATROOM_Receiver = gql`
   mutation hideChatroomReceiver($id: ID!) {
     updateChatRoom( 
       where: { id: $id } 
-      data: { displayForReceiver: false }
+      data: { displayForReceiver: true }
       ) {
       id
     }

@@ -34,15 +34,15 @@ const StyledBadge = withStyles(theme => ({
 
 const useStyles = makeStyles(theme => ({
   root: {
-    margin: ".5rem auto",
     display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
     whiteSpace: "nowrap",
     overflow: "hidden",
   },
   chatRoomIcon: {
     color: "#2962FF",
     fontSize: "3rem",
-    margin: "0 5%",
     "&:hover": {
       cursor: "pointer",
       color: "red",
@@ -142,7 +142,6 @@ const useStyles = makeStyles(theme => ({
 export default function ChatRoom({ chatRoom, user, chats, chatRoomSub, notifications }) {
   const classes = useStyles();
   const navigate = useNavigate();
-
   const [hideChatroomSender] = useMutation(HIDE_CHATROOM_SENDER);
   const [hideChatroomReceiver] = useMutation(HIDE_CHATROOM_RECEIVER);
   const [deleteNotification] = useMutation(DELETE_NOTIFICATION);
@@ -218,10 +217,27 @@ export default function ChatRoom({ chatRoom, user, chats, chatRoomSub, notificat
     messageToggle ? setMessageToggle(false) : setMessageToggle(true);
   };
 
+  const removeChatroom = () => {
+    if (chatRoom.senderEmail == user.email) {
+      hideChatroomSender({
+        variables: {
+          id: chatRoom.id
+        }
+      })
+    }
+    else {
+      hideChatroomReceiver({
+        variables: {
+          id: chatRoom.id
+        }
+      })
+    }
+  }
+
   return (
     <>
       <div className={classes.root}>
-        <Tooltip title="Click to Delete Chatroom">
+        <Tooltip title="Visit profile">
           {notifications?.length > 0 && !messageToggle ? (
             <Tooltip title="New Message!">
               <StyledBadge
@@ -264,6 +280,13 @@ export default function ChatRoom({ chatRoom, user, chats, chatRoomSub, notificat
         >
           {senderName?.from?.firstName || chattingWith} {senderName?.from?.lastName}
         </button>
+        <Tooltip title="Remove Chatroom">
+          <CloseIcon
+            onClick={() => removeChatroom()}
+            aria-label="Remove Chatroom"
+            fontSize="small"
+          />
+        </Tooltip>
       </div>
       <Drawer
         anchor="right"

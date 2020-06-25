@@ -85,7 +85,8 @@ const useStyles = makeStyles(theme => ({
     margin: "2% 0",
   },
   divider: {
-    marginTop: "5%",
+    marginTop: "3%",
+    marginBottom: "3%",
   },
   box: {
     position: "absolute",

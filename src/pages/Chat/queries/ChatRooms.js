@@ -7,6 +7,9 @@ export const GET_CHAT_ROOMS = gql`
       id
       chatRooms {
         id
+        senderEmail
+        displayForSender
+        displayForReceiver
         participants {
           id
           email
@@ -40,6 +43,7 @@ export const CREATE_CHAT_ROOM = gql`
         participants: {
           connect: [{ email: $useremail }, { email: $recipientemail }]
         }
+        senderEmail: $useremail
       }
     ) {
       id
@@ -99,6 +103,8 @@ export const ADD_CHAT_ROOM_PARTICIPANTS = gql`
       data: { participants: { connect: { email: $email } } }
       ) {
       id
+      displayForSender
+      displayForReceiver
       participants {
         id
         email
@@ -127,6 +133,8 @@ export const CHAT_ROOM_SUBSCRIPTION = gql`
       mutation
       node {
         id
+        displayForSender
+        displayForReceiver
         participants {
           firstName
           lastName

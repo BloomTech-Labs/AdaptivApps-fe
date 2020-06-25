@@ -5,12 +5,10 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   img: {
-    marginRight: "8px",
-    marginLeft: "12px",
-    width: "22px",
-    height: "22px",
+    marginLeft: "5px",
+    width: "26px",
+    height: "26px",
     borderRadius: "50%",
-
   },
 }));
 

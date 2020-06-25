@@ -104,7 +104,7 @@ function RecipientModal({
   setOpen,
   allChatrooms,
   setNewRoom,
-  
+
 }) {
   const classes = useStyles();
   const [searchRecipient, setSearchRecipient] = useState("");
@@ -114,16 +114,27 @@ function RecipientModal({
   const [disableClick, setDisableClick] = useState(false);
 
   const { data: allUsers } = useQuery(GET_RECIPIENTS);
-  const [ createChatRoom ] = useMutation(CREATE_CHAT_ROOM);
+  const [createChatRoom] = useMutation(CREATE_CHAT_ROOM);
 
-  const currentChatRooms = allChatrooms?.profile?.chatRooms?.map(chatroom => {
-    const current = chatroom.participants.filter(participant => participant.email !== user.email && participant);
-    return current[0];
-  })
+  // Return a list of all currently available chatrooms in term of users
+  const hiddenChatRooms = [];
+  const currentChatRooms = [];
+  for (let i = 0; i < allChatrooms?.profile.chatRooms.length; i++) {
+    if (allChatrooms.profile.chatRooms[i].senderEmail === user.email && !allChatrooms.profile.chatRooms[i].displayForSender) {
+      hiddenChatRooms.push(allChatrooms.profile.chatRooms[i]);
+    }
+    else if (allChatrooms.profile.chatRooms[i].senderEmail !== user.email && !allChatrooms.profile.chatRooms[i].displayForReceiver) {
+      hiddenChatRooms.push(allChatrooms.profile.chatRooms[i]);
+    }
+    else {
+      const current = allChatrooms.profile.chatRooms[i].participants.filter(participant => participant.email !== user.email)
+      currentChatRooms.push(current[0])
+    }
+  }
 
   const availableToChat = [];
   allUsers && allUsers.profiles.map(person => {
-    let unique = currentChatRooms.find(item => item.email === person.email) 
+    let unique = currentChatRooms.find(item => item.email === person.email)
     if (unique === undefined && person.email !== user.email) {
       availableToChat.push(person);
     };
@@ -132,7 +143,7 @@ function RecipientModal({
   const searchAvailableRooms = e => {
     e.preventDefault();
     let filter = availableToChat.map(user => {
-      return [ `${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user ];
+      return [`${user.firstName.toLowerCase()} ${user.lastName.toLowerCase()}`, user];
     });
 
     filter.filter(user => {
@@ -149,18 +160,24 @@ function RecipientModal({
     setSearchRecipient("");
   };
 
+  console.log('Hidden chatrooms are', hiddenChatRooms)
+  const checkHiddenChats = (hiddenChatRooms, recipient) => {
+    const recipientEmail = recipient.email;
+  }
+
   const createNewChatRoom = async recipient => {
-    await createChatRoom({
-      variables: {
-        useremail: user.email,
-        recipientemail: recipient.email,
-      },
-    });
-    
-    setDisableClick(true);
-    setTimeout(() => setDisableClick(false), 5000);
-    setOpen(false);
-    setNewRoom(true);
+    console.log(recipient)
+    // await createChatRoom({
+    //   variables: {
+    //     useremail: user.email,
+    //     recipientemail: recipient.email,
+    //   },
+    // });
+
+    // setDisableClick(true);
+    // setTimeout(() => setDisableClick(false), 5000);
+    // setOpen(false);
+    // setNewRoom(true);
   };
 
   const handleChange = e => {
@@ -239,9 +256,9 @@ function RecipientModal({
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton 
-                    onClick={searchAvailableRooms}
-                    >                    
+                    <IconButton
+                      onClick={searchAvailableRooms}
+                    >
                       <SearchIcon fontSize="large" />
                     </IconButton>
                   </InputAdornment>
