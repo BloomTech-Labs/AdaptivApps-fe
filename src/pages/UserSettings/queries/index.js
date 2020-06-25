@@ -436,7 +436,7 @@ export const PROFILE_STEP_4 = gql`
 
 // Updates Demo Profile part 3 used in step 5 of Profile Wizard
 export const UPDATE_DEMO_3 = gql`
-  mutation UpdateSportsDemo(
+  mutation UpdateDemo3(
     $email: String!
     $acsDiscovery: String
     $acsOrgSpecificDiscovery: String
@@ -499,37 +499,39 @@ export const PROFILE_STEP_5 = gql`
   }
 `;
 
-// Updates Demo Profile part 3 used in Step 6 of Profile Wizard
+// Updates Demo Profile part 4 used in Step 6 of Profile Wizard
 export const UPDATE_DEMO_4 = gql`
-  mutation UpdateDemo3(
+  mutation UpdateDemo4(
     $email: String!
-    $becomeAthleteMentor: String
-    $athleteMentorHelp: String
-    $athleteMentorSport: String
-    $acsDiscovery: String
-    $acsOrgSpecificDiscovery: String
-    $amplaEmail: String
-    $hangerClinic: String
-    $challengeMagazine: String
+    $additionalInfo: String
+    $guardianSignature: String
+    $waiverSignature: String
+    $isMinor: String
+    $minorName: String
   ) {
     updateProfile(
       where: { email: $email }
       data: {
         demographicProfile: {
           update: {
-            becomeAthleteMentor: $becomeAthleteMentor
-            athleteMentorHelp: $athleteMentorHelp
-            athleteMentorSport: $athleteMentorSport
-            acsDiscovery: $acsDiscovery
-            acsOrgSpecificDiscovery: $acsOrgSpecificDiscovery
-            amplaEmail: $amplaEmail
-            hangerClinic: $hangerClinic
-            challengeMagazine: $challengeMagazine
+            additionalInfo: $additionalInfo
+            guardianSignature: $guardianSignature
+            waiverSignature: $waiverSignature
+            isMinor: $isMinor
+            minorName: $minorName
           }
         }
       }
     ) {
       id
+      demographicProfile {
+        id
+        additionalInfo
+        guardianSignature
+        waiverSignature
+        isMinor
+        minorName
+      }
     }
   }
 `;
@@ -541,14 +543,11 @@ export const PROFILE_STEP_6 = gql`
       id
       demographicProfile {
         id
-        becomeAthleteMentor
-        athleteMentorHelp
-        athleteMentorSport
-        acsDiscovery
-        acsOrgSpecificDiscovery
-        amplaEmail
-        hangerClinic
-        challengeMagazine
+        additionalInfo
+        guardianSignature
+        waiverSignature
+        isMinor
+        minorName
       }
     }
   }
