@@ -49,7 +49,8 @@ const useStyles = makeStyles((theme) => ({
   actionBox: {
     width: 744,
     display: "flex",
-    justifyContent: "space-between",
+    // justifyContent: "space-between",
+    justifyContent: "flex-end",
     "& p": {
       fontSize: "1.2rem",
     },
@@ -70,14 +71,14 @@ export default function ProgressBar({ activeStep, userEmail, stepNumber }) {
         className={classes.stepper}
       />
       <Box className={classes.actionBox}>
-        <Button size="small" className={classes.backBtn}>
-          {/* {theme.direction === "rtl" ? (
+        {/* <Button size="small" className={classes.backBtn}>
+          {theme.direction === "rtl" ? (
             <KeyboardArrowRight />
           ) : (
             <KeyboardArrowLeft />
           )}
-          <Typography className={classes.btnLabel}>Back</Typography> */}
-        </Button>
+          <Typography className={classes.btnLabel}>Back</Typography>
+        </Button> */}
         {window.location.pathname !== `/updateaccount/${userEmail}` ? (
           <Typography>{`${stepNumber} of 6`}</Typography>
         ) : null}
