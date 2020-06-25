@@ -357,7 +357,7 @@ export default function Step4({ updateDemo3 }) {
               </MenuItem>
               <MenuItem value="Yes">Yes</MenuItem>
               <MenuItem value="No">No</MenuItem>
-              <MenuItem value="Other">BKool</MenuItem>
+              <MenuItem value="Other">Other</MenuItem>
             </Select>
           }
           name="xBoxGamePass"

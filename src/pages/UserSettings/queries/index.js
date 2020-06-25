@@ -336,20 +336,43 @@ export const UPDATE_DEMO_PROFILE = gql`
       where: { email: $email }
       data: {
         demographicProfile: {
-          update: {
-            veteranStatus: $veteranStatus
-            militaryBranch: $militaryBranch
-            yearsServed: $yearsServed
-            ethnicity: $ethnicity
-            householdIncome: $householdIncome
-            employment: $employment
-            covid: $covid
-            citizen: $citizen
+          upsert: {
+            update: {
+              veteranStatus: $veteranStatus
+              militaryBranch: $militaryBranch
+              yearsServed: $yearsServed
+              ethnicity: $ethnicity
+              householdIncome: $householdIncome
+              employment: $employment
+              covid: $covid
+              citizen: $citizen
+            }
+            create: {
+              veteranStatus: $veteranStatus
+              militaryBranch: $militaryBranch
+              yearsServed: $yearsServed
+              ethnicity: $ethnicity
+              householdIncome: $householdIncome
+              employment: $employment
+              covid: $covid
+              citizen: $citizen
+            }
           }
         }
       }
     ) {
       id
+      demographicProfile {
+        id
+        veteranStatus
+        militaryBranch
+        yearsServed
+        ethnicity
+        householdIncome
+        employment
+        covid
+        citizen
+      }
     }
   }
 `;

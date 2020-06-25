@@ -63,25 +63,25 @@ export default function Step5({ updateDemoProfile }) {
     defaultValues: {
       veteranStatus:
         currentUserInfo &&
-        currentUserInfo.profile.demographicProfile.veteranStatus,
+        currentUserInfo?.profile?.demographicProfile?.veteranStatus,
       militaryBranch:
         currentUserInfo &&
-        currentUserInfo.profile.demographicProfile.militaryBranch,
+        currentUserInfo?.profile?.demographicProfile?.militaryBranch,
       yearsServed:
         currentUserInfo &&
-        currentUserInfo.profile.demographicProfile.yearsServed,
+        currentUserInfo?.profile?.demographicProfile?.yearsServed,
       ethnicity:
-        currentUserInfo && currentUserInfo.profile.demographicProfile.ethnicity,
+        currentUserInfo && currentUserInfo?.profile?.demographicProfile?.ethnicity,
       householdIncome:
         currentUserInfo &&
-        currentUserInfo.profile.demographicProfile.householdIncome,
+        currentUserInfo?.profile?.demographicProfile?.householdIncome,
       employment:
         currentUserInfo &&
-        currentUserInfo.profile.demographicProfile.employment,
+        currentUserInfo?.profile?.demographicProfile?.employment,
       covid:
-        currentUserInfo && currentUserInfo.profile.demographicProfile.covid,
+        currentUserInfo && currentUserInfo?.profile?.demographicProfile?.covid,
       citizen:
-        currentUserInfo && currentUserInfo.profile.demographicProfile.citizen,
+        currentUserInfo && currentUserInfo?.profile?.demographicProfile?.citizen,
     },
   });
   // Sets default values in input fields with current user's info
@@ -92,42 +92,42 @@ export default function Step5({ updateDemoProfile }) {
           {
             veteranStatus:
               currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.veteranStatus,
+              currentUserInfo?.profile?.demographicProfile?.veteranStatus,
           },
           {
             militaryBranch:
               currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.militaryBranch,
+              currentUserInfo?.profile?.demographicProfile?.militaryBranch,
           },
           {
             yearsServed:
               currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.yearsServed,
+              currentUserInfo?.profile?.demographicProfile?.yearsServed,
           },
           {
             ethnicity:
               currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.ethnicity,
+              currentUserInfo?.profile?.demographicProfile?.ethnicity,
           },
           {
             householdIncome:
               currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.householdIncome,
+              currentUserInfo?.profile?.demographicProfile?.householdIncome,
           },
           {
             employment:
               currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.employment,
+              currentUserInfo?.profile?.demographicProfile?.employment,
           },
           {
             covid:
               currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.covid,
+              currentUserInfo?.profile?.demographicProfile?.covid,
           },
           {
             citizen:
               currentUserInfo &&
-              currentUserInfo.profile.demographicProfile.citizen,
+              currentUserInfo?.profile?.demographicProfile?.citizen,
           },
         ]);
   }, [loading, currentUserInfo, defaultInfo, setValue]);
