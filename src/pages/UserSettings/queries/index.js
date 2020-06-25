@@ -372,6 +372,8 @@ export const PROFILE_STEP_3 = gql`
     }
   }
 `;
+
+/// Updates Demo Profile part 2 used in step 4 of Profile Wizard
 export const UPDATE_DEMO_2 = gql`
   mutation UpdateDemo2(
     $email: String!
@@ -413,7 +415,7 @@ export const UPDATE_DEMO_2 = gql`
     }
   }
 `;
-
+// Retrieves profile data to be used in Step4.js
 export const PROFILE_STEP_4 = gql`
   query($email: String!) {
     profile(where: { email: $email }) {
@@ -432,245 +434,72 @@ export const PROFILE_STEP_4 = gql`
   }
 `;
 
-// Update Sports Demo Profile used in step 4 of Profile Wizard
-export const UPDATE_SPORTS_DEMO = gql`
+// Updates Demo Profile part 3 used in step 5 of Profile Wizard
+export const UPDATE_DEMO_3 = gql`
   mutation UpdateSportsDemo(
     $email: String!
-    $airRifle: Boolean
-    $alpineSkiing: Boolean
-    $archery: Boolean
-    $badminton: Boolean
-    $baseball: Boolean
-    $beepBaseball: Boolean
-    $biathlon: Boolean
-    $blindHockey: Boolean
-    $boccia: Boolean
-    $bowling: Boolean
-    $boxing: Boolean
-    $canoe: Boolean
-    $cheerleading: Boolean
-    $crossFit: Boolean
-    $crossCountrySkiing: Boolean
-    $curling: Boolean
-    $cycling: Boolean
-    $equestrian: Boolean
-    $esports: Boolean
-    $fishing: Boolean
-    $goalball: Boolean
-    $golf: Boolean
-    $hiking: Boolean
-    $hunting: Boolean
-    $judo: Boolean
-    $juJitsu: Boolean
-    $lacrosse: Boolean
-    $mixedMartialArts: Boolean
-    $motorsportsMotorcross: Boolean
-    $mountainBiking: Boolean
-    $powerlifting: Boolean
-    $rafting: Boolean
-    $rockClimbing: Boolean
-    $rowing: Boolean
-    $sailing: Boolean
-    $scuba: Boolean
-    $shooting: Boolean
-    $skateboarding: Boolean
-    $snowboarding: Boolean
-    $sledHockey: Boolean
-    $soccerBlindSoccerFiveaside: Boolean
-    $soccerAmputeeCrutchSoccer: Boolean
-    $soccerPowerSoccer: Boolean
-    $soccerCPSevenaside: Boolean
-    $standupWheelchairPaddling: Boolean
-    $swimming: Boolean
-    $surfing: Boolean
-    $tableTennis: Boolean
-    $taekwondo: Boolean
-    $taiChi: Boolean
-    $trackField: Boolean
-    $triathlon: Boolean
-    $volleyballBeachVolleyball: Boolean
-    $volleyballSittingVolleyball: Boolean
-    $waterSkiing: Boolean
-    $wheelchairSkateboarding: Boolean
-    $wheelchairBasketball: Boolean
-    $wheelchairCurling: Boolean
-    $wheelchairFencing: Boolean
-    $wheelchairFootball: Boolean
-    $wheelchairSoftball: Boolean
-    $wheelchairRugby: Boolean
-    $wheelchairTennis: Boolean
-    $wrestling: Boolean
-    $yoga: Boolean
-    $other: Boolean
+    $acsDiscovery: String
+    $acsOrgSpecificDiscovery: String
+    $acsParticipation: String
+    $amplaEmail: String
+    $virtualRide: String
+    $virtualRidePlatforms: String
+    $xBoxGamePass: String
+    $videoGameFamiliarity: String
   ) {
     updateProfile(
       where: { email: $email }
       data: {
         demographicProfile: {
           update: {
-            sportsParticipation: {
-              create: {
-                alpineSkiing: $alpineSkiing
-                airRifle: $airRifle
-                archery: $archery
-                badminton: $badminton
-                baseball: $baseball
-                beepBaseball: $beepBaseball
-                biathlon: $biathlon
-                blindHockey: $blindHockey
-                boccia: $boccia
-                bowling: $bowling
-                boxing: $boxing
-                canoe: $canoe
-                cheerleading: $cheerleading
-                crossFit: $crossFit
-                crossCountrySkiing: $crossCountrySkiing
-                curling: $curling
-                cycling: $cycling
-                equestrian: $equestrian
-                esports: $esports
-                fishing: $fishing
-                goalball: $goalball
-                golf: $golf
-                hiking: $hiking
-                hunting: $hunting
-                judo: $judo
-                juJitsu: $juJitsu
-                lacrosse: $lacrosse
-                mixedMartialArts: $mixedMartialArts
-                motorsportsMotorcross: $motorsportsMotorcross
-                mountainBiking: $mountainBiking
-                powerlifting: $powerlifting
-                rafting: $rafting
-                rockClimbing: $rockClimbing
-                rowing: $rowing
-                sailing: $sailing
-                scuba: $scuba
-                shooting: $shooting
-                skateboarding: $skateboarding
-                snowboarding: $snowboarding
-                sledHockey: $sledHockey
-                soccerBlindSoccerFiveaside: $soccerBlindSoccerFiveaside
-                soccerAmputeeCrutchSoccer: $soccerAmputeeCrutchSoccer
-                soccerPowerSoccer: $soccerPowerSoccer
-                soccerCPSevenaside: $soccerCPSevenaside
-                standupWheelchairPaddling: $standupWheelchairPaddling
-                swimming: $swimming
-                surfing: $surfing
-                tableTennis: $tableTennis
-                taekwondo: $taekwondo
-                taiChi: $taiChi
-                trackField: $trackField
-                triathlon: $triathlon
-                volleyballBeachVolleyball: $volleyballBeachVolleyball
-                volleyballSittingVolleyball: $volleyballSittingVolleyball
-                waterSkiing: $waterSkiing
-                wheelchairSkateboarding: $wheelchairSkateboarding
-                wheelchairBasketball: $wheelchairBasketball
-                wheelchairCurling: $wheelchairCurling
-                wheelchairFencing: $wheelchairFencing
-                wheelchairFootball: $wheelchairFootball
-                wheelchairSoftball: $wheelchairSoftball
-                wheelchairRugby: $wheelchairRugby
-                wheelchairTennis: $wheelchairTennis
-                wrestling: $wrestling
-                yoga: $yoga
-                other: $other
-              }
-            }
+            acsDiscovery: $acsDiscovery
+            acsOrgSpecificDiscovery: $acsOrgSpecificDiscovery
+            acsParticipation: $acsParticipation
+            amplaEmail: $amplaEmail
+            virtualRide: $virtualRide
+            virtualRidePlatforms: $virtualRidePlatforms
+            xBoxGamePass: $xBoxGamePass
+            videoGameFamiliarity: $videoGameFamiliarity
           }
         }
       }
     ) {
       id
+      demographicProfile {
+        acsDiscovery
+        acsOrgSpecificDiscovery
+        acsParticipation
+        amplaEmail
+        virtualRide
+        virtualRidePlatforms
+        xBoxGamePass
+        videoGameFamiliarity
+      }
     }
   }
 `;
-// Retrieves user profile info to set default values in Step 4 of Profile Wizard
+// Retrieves user profile info to set default values in Step 5 of Profile Wizard
 export const PROFILE_STEP_5 = gql`
   query($email: String!) {
     profile(where: { email: $email }) {
       id
       demographicProfile {
         id
-        sportsParticipation {
-          id
-          alpineSkiing
-          airRifle
-          archery
-          badminton
-          baseball
-          beepBaseball
-          biathlon
-          blindHockey
-          boccia
-          bowling
-          boxing
-          canoe
-          cheerleading
-          crossFit
-          crossCountrySkiing
-          curling
-          cycling
-          equestrian
-          esports
-          fishing
-          goalball
-          golf
-          hiking
-          hunting
-          judo
-          juJitsu
-          lacrosse
-          mixedMartialArts
-          motorsportsMotorcross
-          mountainBiking
-          powerlifting
-          rafting
-          rockClimbing
-          rowing
-          sailing
-          scuba
-          shooting
-          skateboarding
-          snowboarding
-          sledHockey
-          soccerBlindSoccerFiveaside
-          soccerAmputeeCrutchSoccer
-          soccerPowerSoccer
-          soccerCPSevenaside
-          standupWheelchairPaddling
-          swimming
-          surfing
-          tableTennis
-          taekwondo
-          taiChi
-          trackField
-          triathlon
-          volleyballBeachVolleyball
-          volleyballSittingVolleyball
-          waterSkiing
-          wheelchairSkateboarding
-          wheelchairBasketball
-          wheelchairCurling
-          wheelchairFencing
-          wheelchairFootball
-          wheelchairSoftball
-          wheelchairRugby
-          wheelchairTennis
-          wrestling
-          yoga
-          other
-        }
+        acsDiscovery
+        acsOrgSpecificDiscovery
+        acsParticipation
+        amplaEmail
+        virtualRide
+        virtualRidePlatforms
+        xBoxGamePass
+        videoGameFamiliarity
       }
     }
   }
 `;
 
-// Updates Demo Profile part 2 used in step 5 of Profile Wizard
-
 // Updates Demo Profile part 3 used in Step 6 of Profile Wizard
-export const UPDATE_DEMO_3 = gql`
+export const UPDATE_DEMO_4 = gql`
   mutation UpdateDemo3(
     $email: String!
     $becomeAthleteMentor: String

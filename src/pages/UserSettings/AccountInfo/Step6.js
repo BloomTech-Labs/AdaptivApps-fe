@@ -41,7 +41,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Step6({ updateDemo3 }) {
+export default function Step6({ updateDemo4 }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
@@ -126,7 +126,7 @@ export default function Step6({ updateDemo3 }) {
         ]);
   }, [loading, currentUserInfo, defaultInfo, setValue]);
   const onSubmit = async data => {
-    await updateDemo3({
+    await updateDemo4({
       variables: {
         email: userEmail,
         becomeAthleteMentor: data.becomeAthleteMentor,

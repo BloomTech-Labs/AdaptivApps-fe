@@ -10,9 +10,9 @@ import { UPDATE_USER_PROFILE } from "../queries";
 import { UPDATE_ORG_PROFILE } from "../queries";
 import { UPDATE_EXT_PROFILE } from "../queries";
 import { UPDATE_DEMO_PROFILE } from "../queries";
-import { UPDATE_SPORTS_DEMO } from "../queries";
 import { UPDATE_DEMO_2 } from "../queries";
 import { UPDATE_DEMO_3 } from "../queries";
+import { UPDATE_DEMO_4 } from "../queries";
 // Component imports
 import AccountTypeForm from "./AccountTypeForm";
 import OrgStep1 from "./OrgStep1";
@@ -50,9 +50,9 @@ export default function AccountInfo() {
   const [UpdateOrgProfile] = useMutation(UPDATE_ORG_PROFILE);
   const [UpdateExtProfile] = useMutation(UPDATE_EXT_PROFILE);
   const [UpdateDemoProfile] = useMutation(UPDATE_DEMO_PROFILE);
-  const [UpdateSportsDemo] = useMutation(UPDATE_SPORTS_DEMO);
   const [UpdateDemo2] = useMutation(UPDATE_DEMO_2);
   const [UpdateDemo3] = useMutation(UPDATE_DEMO_3);
+  const [UpdateDemo4] = useMutation(UPDATE_DEMO_4);
 
   return (
     <Container className={classes.root}>
@@ -74,8 +74,8 @@ export default function AccountInfo() {
         <Step2 path="step2of6" updateExtProfile={UpdateExtProfile} />
         <Step3 path="step3of6" updateDemoProfile={UpdateDemoProfile} />
         <Step4 path="step4of6" updateDemo2={UpdateDemo2} />
-        <Step5 path="step5of6" updateDemo2={UpdateDemo2} />
-        <Step6 path="step6of6" updateDemo3={UpdateDemo3} />
+        <Step5 path="step5of6" updateDemo3={UpdateDemo3} />
+        <Step6 path="step6of6" updateDemo4={UpdateDemo4} />
       </Router>
     </Container>
   );
