@@ -13,6 +13,7 @@ export const GET_CHAT_ROOMS = gql`
           firstName
           lastName
           profilePicture
+          userName
         }
         chats {
           id
