@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     border: "none",
     maxWidth: '95%',
-    border: "3px solid red"
   },
   messageText: {
     marginTop: "0",
