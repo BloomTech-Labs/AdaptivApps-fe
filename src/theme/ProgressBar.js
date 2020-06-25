@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     padding: 0,
@@ -20,6 +20,15 @@ const useStyles = makeStyles({
       background: "#FFFFFF",
     },
     marginBottom: '3.2rem',
+    [theme.breakpoints.down("sm")]: {
+      width: '100%',
+      margin: 'auto',
+      margin: '1rem auto 3rem auto'
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: '100%',
+      margin: '1rem auto 3rem auto'
+    },
   },
   stepper: {
     width: "100%",
@@ -46,7 +55,7 @@ const useStyles = makeStyles({
     },
     marginLeft: -11,
   },
-});
+}));
 
 export default function ProgressBar({ activeStep, userEmail, stepNumber }) {
   const classes = useStyles();
