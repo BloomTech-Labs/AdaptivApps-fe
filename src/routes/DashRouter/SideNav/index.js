@@ -215,6 +215,10 @@ function SideNav(props) {
             <img src={acsLogo} alt="ACS Logo" />
           </Box>
           <Box className={classes.navContainer}>
+            <NavLink to="announcements" className={classes.navLink}>
+              <CalendarTodayIcon className={classes.navIcon} />
+              <p>Announcements</p>
+            </NavLink>
             <NavLink to="calendar" className={classes.navLink}>
               <CalendarTodayIcon className={classes.navIcon} />
               <p>Events Calendar</p>
