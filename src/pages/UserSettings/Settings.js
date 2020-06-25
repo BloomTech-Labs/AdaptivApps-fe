@@ -30,40 +30,42 @@ import SponsorBanner from '../SponsorSpotlight/SponsorBanner'
 const useStyles = makeStyles({
   root: {
     marginLeft: "3rem",
-    height: '100vh'
+    //height: '100vh',
+    wordWrap: 'normal',
+    '& .MuiTableCell-root': {
+       border: '1px solid green',
+       width: '50%',
+    },
+    '& .MuiTableRow-root': {
+      lineHeight: '1%'
+    }
   },
   headingBox: {
     margin: "6rem 0 2rem",
     fontWeight: "400",
     borderColor: "#D3D3D3",
   },
-  subHeading: {
-    marginBottom: "2.4rem",
-    fontWeight: 550,
-  },
-  infoBox: {
-    display: "flex",
-  },
+
   nullInfoBox: {
     display: "flex",
     flexDirection: "column",
   },
-  acctInfoBox: {
-    width: "30%",
-  },
-  dataContainer: {
-    display: "flex",
-  },
-  dataBox: {
-    display: "flex",
-    minWidth: "45%",
-    flexDirection: "column",
+  // acctInfoBox: {
+  //   width: "60%",
+  // },
+  // dataContainer: {
+  //   display: "flex",
+  // },
+  // dataBox: {
+  //   display: "flex",
+  //   minWidth: "45%",
+  //   flexDirection: "column",
 
-    "& p": {
-      fontWeight: 550,
-      lineHeight: "3rem",
-    },
-  },
+  //   "& p": {
+  //     fontWeight: 550,
+  //     lineHeight: "3rem",
+  //   },
+  // },
   data: {
     textAlign: "left",
     display: "flex",
@@ -81,8 +83,8 @@ const useStyles = makeStyles({
     },
   },
   ctaBox: {
-    marginLeft: "9.9rem",
-    marginTop: "4.8rem",
+    marginTop: '5%',
+    width: '40%',
     "& p": {
       fontSize: "1.8rem",
     },
@@ -110,17 +112,34 @@ const useStyles = makeStyles({
       color: "#2962FF",
     },
   },
-  disabilityBox: {
-    display: "flex",
-    flexDirection: "column",
-    "& :nth-child(1)": {
-      fontWeight: 500,
-    },
+  // disabilityBox: {
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   "& :nth-child(1)": {
+  //     fontWeight: 500,
+  //   },
+  // },
+  // row: {
+  //   display: 'flex',
+  //   flexDirection: 'column'
+  // },
+
+  subHeading: {
+    marginBottom: "2.4rem",
+    fontWeight: 550,
   },
-  row: {
+  infoBox: {
+    width: '45%'
+  },
+  flex: {
+    width: '80%',
     display: 'flex',
-    flexDirection: 'column'
-  }
+    justifyContent: 'space-between'
+  },
+  table: {
+    marginTop: '5%',
+    border: '1px solid red'
+  },
 });
 
 export default function Settings() {
@@ -170,216 +189,235 @@ export default function Settings() {
         </Typography>
       </Box>
 
+      <Box className={classes.flex}>
        <Box className={ profile?.type === null ? classes.nullInfoBox : classes.infoBox}>
-       {/* {profile?.type === "Individual" ? () : () } */}
         <Typography variant="h2" className={classes.subHeading}>
           Account Information
         </Typography>
-        <TableContainer component={Paper}>
-          <Table className={classes.table} aria-label='account information table'>
-          <TableBody>
+        {profile?.type === "Individual" ? (
+          <>
+          <TableContainer className={classes.table}>
+          <Table aria-label='account information table'>
+          <TableBody className={classes.tableBody}>
           <TableRow>
               <TableCell component="th" scope="row">
-              <Typography>Full name</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Full name</Typography>
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
+              <TableCell align="left">
               <Typography>{profile?.firstName} {profile?.lastName}</Typography>
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell component="th" scope="row">
-              <Typography>Username</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Username</Typography>
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
+              <TableCell  align="left">
               <Typography>{profile?.userName}</Typography>
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell component="th" scope="row">
-              <Typography>Phone</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Phone</Typography>
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
+              <TableCell align="left">
               <Typography>{profile?.phoneNumber}</Typography>
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell component="th" scope="row">
-              <Typography>Email</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Email</Typography>
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
+              <TableCell align="left">
               <Typography>{profile?.email}</Typography>
               </TableCell>
             </TableRow>
             <TableRow>
               <TableCell component="th" scope="row">
-              City, State
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>City, State</Typography>
               </TableCell>
-              <TableCell style={{ width: 160 }} align="right">
+              <TableCell align="left">
                 <Typography>{profile?.city}, {profile?.state}</Typography>
               </TableCell>
             </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
-      </Box>
-      </Box>
+    {/* <Box className={classes.displayBox}>
+    <Typography>Display this info publicly?</Typography>
+    <Checkbox color="primary" size="medium" />
+    </Box> */}
+      <TableContainer className={classes.table}>
+          <Table aria-label='account information table'>
+          <TableBody>
+          <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Birthday</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.extProfile?.birthday}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Gender</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.extProfile?.gender}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Emergency Contact</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.extProfile?.eC1Name}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Relation</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.extProfile?.eC1Relation}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Phone</Typography>
+              </TableCell>
+              <TableCell align="left">
+                <Typography>{profile?.extProfile?.eC1Phone}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Disability Details</Typography>
+              </TableCell>
+              <TableCell align="left">
+                <Typography>{profile?.extProfile?.disability?.physicalDisability}</Typography>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+      {/* <Box className={classes.displayBox}>
+    <Typography>Display this info publicly?</Typography>
+    <Checkbox color="primary" size="medium" />
+    </Box> */}
+    <TableContainer className={classes.table}>
+          <Table aria-label='account information table'>
+          <TableBody>
+          <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Veteran Status</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.demographicProfile?.veteranStatus}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Military Branch</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.demographicProfile?.militaryBranch}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Years Served</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.demographicProfile?.yearsServed}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Ethnicity</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.demographicProfile?.ethnicity}</Typography>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+      {/* <Box className={classes.displayBox}>
+    <Typography>Display this info publicly?</Typography>
+    <Checkbox color="primary" size="medium" />
+    </Box> */}
+          </>
+        ) : profile?.type === "Organization" ? (
+          <>
+          <TableContainer className={classes.orgTable}>
+          <Table aria-label='account information table'>
+          <TableBody>
+          <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Organization Name</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.extProfile?.orgName}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Website</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.extProfile?.website}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Phone</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.phoneNumber}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Email</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.email}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>City, State</Typography>
+              </TableCell>
+              <TableCell align="left">
+                <Typography>{profile?.city}, {profile?.state}</Typography>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
       </>
-      
-  
+      ) 
+      : null }
+      </Box>
+      <Box
+          className={
+            profile?.type === null ? classes.nullProfileCta : classes.ctaBox
+          }
+        >
+          <Typography>Help us bring you the best</Typography>
+          <Typography>Angel City Sports experience--</Typography>
+          <Typography>Tell us a bit more about yourself!</Typography>
+          <Button
+            className={classes.ctaBtn}
+            aria-label="Click here to update account information."
+            onClick={() => navigate(`/updateaccount/${userEmail}`)}
+          >
+            {profile?.firstName === null ? 'Add my info' : 'Edit my info'}
+          </Button>
+        </Box>
+        </Box>
+      </Box>
+      </>  
   );
 }
 
-
-  //   <Box
-    //     className={
-    //       profile?.type === null ? classes.nullInfoBox : classes.infoBox
-    //     }
-    //   >
-    //     <Box className={classes.acctInfoBox}>
-    //       {profile?.type === "Individual" ? (
-    //         <>
-    //          
-    //             <Box className={classes.data}>
-
-    //               <Typography>{profile?.userName || <br></br>}</Typography>
-    //               <Typography>{profile?.phoneNumber || <br></br>}</Typography>
-    //               <Typography>{profile?.email || <br></br>}</Typography>
-    //               {profile?.city && profile?.state === null ? (
-    //                 <br></br>
-    //               ) : (
-    //                 <Typography>
-    //                   {profile?.city}, {profile?.state}
-    //                 </Typography>
-    //               )}
-              
-    //             </Box>
-    //           </Box>
-    //           {/* Display option will be a feature in  */}
-    //           <Box className={classes.displayBox}>
-    //             {/* <Typography>Display this info publicly?</Typography>
-    //         <Checkbox color="primary" size="medium" /> */}
-    //           </Box>
-
-    //           <Box className={classes.dataContainer}>
-    //             <Box className={classes.dataBox}>
-    //               <Typography>Birthday</Typography>
-    //               <Typography>Gender</Typography>
-    //               <Typography>Emergency contact</Typography>
-    //               <Typography>Relation</Typography>
-    //               <Typography>Phone</Typography>
-    //               <Typography>Disability details</Typography>
-    //             </Box>
-    //             <Box className={classes.data}>
-    //               <Typography>
-    //                 {profile?.extProfile?.birthday || <br></br>}
-    //               </Typography>
-    //               <Typography>
-    //                 {profile?.extProfile?.gender || <br></br>}
-    //               </Typography>
-    //               <Typography>
-    //                 {profile?.extProfile?.eC1Name || <br></br>}
-    //               </Typography>
-    //               <Typography>
-    //                 {profile?.extProfile?.eC1Relation || <br></br>}
-    //               </Typography>
-    //               <Typography>
-    //                 {profile?.extProfile?.eC1Phone || <br></br>}
-    //               </Typography>
-    //               <Typography>
-    //                 {profile?.extProfile?.disability?.physicalDisability || (
-    //                   <br></br>
-    //                 )}
-    //               </Typography>
-    //             </Box>
-    //           </Box>
-    //           {/* Display option will be a feature in  */}
-    //           <Box className={classes.displayBox}>
-    //             {/* <Typography>Display this info publicly?</Typography>
-    //         <Checkbox color="primary" size="medium" /> */}
-    //           </Box>
-    //           <Box className={classes.dataContainer}>
-    //             <Box className={classes.dataBox}>
-    //               <Typography>Veteran Status</Typography>
-    //               <Typography>Military Branch</Typography>
-    //               <Typography>Years Served</Typography>
-    //               <Typography>Ethnicity</Typography>
-    //             </Box>
-    //             <Box className={classes.data}>
-    //               <Typography>
-    //                 {profile?.demographicProfile?.veteranStatus || <br></br>}
-    //               </Typography>
-    //               <Typography>
-    //                 {profile?.demographicProfile?.militaryBranch || <br></br>}
-    //               </Typography>
-    //               <Typography>
-    //                 {profile?.demographicProfile?.yearsServed || <br></br>}
-    //               </Typography>
-    //               <Typography>
-    //                 {profile?.demographicProfile?.ethnicity || <br></br>}
-    //               </Typography>
-    //             </Box>
-    //           </Box>
-    //           {/* Display option will be a feature in  */}
-    //           {/* <Box className={classes.displayBox}>
-    //         <Typography>Display this info publicly?</Typography>
-    //         <Checkbox color="primary" size="medium" />
-    //       </Box> */}
-    //         </>
-    //       ) : profile?.type === "Organization" ? (
-    //         <>
-    //           <Typography variant="h2" className={classes.subHeading}>
-    //             Account Information
-    //           </Typography>
-    //           <Box className={classes.dataContainer}>
-    //             <Box className={classes.dataBox}>
-    //               <Typography>Organization Name</Typography>
-    //               <Typography>Website</Typography>
-    //               <Typography>Phone</Typography>
-    //               <Typography>Email</Typography>
-    //               <Typography>City, State</Typography>
-    //             </Box>
-    //             <Box className={classes.data}>
-    //               <Typography>
-    //                 {profile?.extProfile?.orgName || <br></br>}
-    //               </Typography>
-    //               <Typography>
-    //                 {profile?.extProfile?.website || <br></br>}
-    //               </Typography>
-    //               <Typography>{profile?.phoneNumber || <br></br>}</Typography>
-    //               <Typography>{profile?.email || <br></br>}</Typography>
-    //               {profile?.city && profile?.state === null ? (
-    //                 <br></br>
-    //               ) : (
-    //                 <Typography>
-    //                   {profile?.city}, {profile?.state}
-    //                 </Typography>
-    //               )}
-    //             </Box>
-    //           </Box>
-    //           {/* Display option will be a feature in  */}
-    //           <Box className={classes.displayBox}>
-    //             {/* <Typography>Display this info publicly?</Typography>
-    //         <Checkbox color="primary" size="medium" /> */}
-    //           </Box>
-    //         </>
-    //       ) : null}
-    //     </Box>
-    //     <Box
-    //       className={
-    //         profile?.type === null ? classes.nullProfileCta : classes.ctaBox
-    //       }
-    //     >
-    //       <Typography>Help us bring you the best</Typography>
-    //       <Typography>Angel City Sports experience--</Typography>
-    //       <Typography>Tell us a bit more about yourself!</Typography>
-    //       <Button
-    //         className={classes.ctaBtn}
-    //         aria-label="Click here to update account information."
-    //         onClick={() => navigate(`/updateaccount/${userEmail}`)}
-    //       >
-    //         {profile?.firstName === null ? 'Add my info' : 'Edit my info'}
-    //       </Button>
-    //     </Box>
-    //   </Box>
-    // </Box>
-    // </>
