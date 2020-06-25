@@ -9,13 +9,12 @@ import { useParams } from "@reach/router";
 //s3 bucket imports
 import S3FileUpload from "react-s3";
 
-// Material-UI imports
+// Material-UI and styling imports
 import { Typography, makeStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFacebookSquare,
@@ -29,6 +28,7 @@ import ProfilePic from "./ProfilePic";
 import ProfileBanner from "./ProfileBanner";
 import UpcomingEventList from "./UpcomingEventList";
 
+const CameraIcon = require("../../assets/images/camera.svg");
 const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: "100vw",
@@ -48,6 +48,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     display: "flex",
     justifyContent: "space-between",
+    margin: "0",
   },
   profileWrapper: {
     width: "100%",
@@ -56,18 +57,22 @@ const useStyles = makeStyles(theme => ({
   bannerWrapper: {
     width: "100%",
     height: "20vh",
+    display: "flex",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    alignContent: "flex-end",
     "& label": {
+      padding: "0 2rem 1rem 0",
       position: "absolute",
-      top: "17rem",
-      left: "28rem",
     },
   },
   photoIcon: {
     fontSize: "3rem",
     position: "absolute",
     color: "black",
-    background: "white",
     borderRadius: "50%",
+    background: "white",
+    padding: "2px",
   },
   pictureWrapper: {
     display: "flex",
@@ -76,7 +81,7 @@ const useStyles = makeStyles(theme => ({
     width: "17rem",
     height: "17rem",
     top: "6rem",
-    left: "39%",
+    left: "42.5%",
     "& label": {
       position: "absolute",
       left: "70%",
@@ -234,15 +239,15 @@ export default function UserProfile() {
       });
   };
 
-  const filteredKeys = [];
+  // const filteredKeys = [];
 
-  const filtered =
-    userProfile &&
-    sportsParticipation &&
-    Object.entries(sportsParticipation).filter(
-      filteredKey =>
-        filteredKey.includes(true) && filteredKeys.push(filteredKey[0])
-    );
+  // const filtered =
+  //   userProfile &&
+  //   sportsParticipation &&
+  //   Object.entries(sportsParticipation).filter(
+  //     filteredKey =>
+  //       filteredKey.includes(true) && filteredKeys.push(filteredKey[0])
+  //   );
 
   useEffect(() => {}, [userProfile, profilePicture, profileBanner]);
 
@@ -293,7 +298,7 @@ export default function UserProfile() {
                   aria-label="Upload Profile Banner Image"
                   component="span"
                 >
-                  <PhotoCamera className={classes.photoIcon} />
+                  <PhotoCamera src={CameraIcon} className={classes.photoIcon} />
                 </IconButton>
               </label>
               <input
@@ -336,19 +341,19 @@ export default function UserProfile() {
                 <p>{userProfile?.profile?.bio}</p>
               </div>
             </div>
-            {userProfile?.profile?.type === "Individual" ? (
+            {/* {userProfile?.profile?.type === "Individual" ? (
               <div className={classes.infoWrapper}>
                 <h1>You'll find me...</h1>
-                {/* <div className={classes.extendedWrapper}>
+                <div className={classes.extendedWrapper}>
                   <p>{disability?.physicalDisability}</p>
                   <p>{disability?.detailedDisabilities}</p>
                 </div>
                 <div className={classes.demographicWrapper}>
                   <p>{demographicProfile?.veteranStatus}</p>
                   <p>{demographicProfile?.militaryBranch}</p>
-                </div> */}
+                </div>
                 <div className={classes.sportsWrapper}>
-                  <h3>playing these sports</h3>
+                  <h3>Playing these sports</h3>
                   <div className={classes.sportsList}>
                     {filteredKeys.map(sport => (
                       <p className={classes.sportItem}>
@@ -363,7 +368,7 @@ export default function UserProfile() {
                   </div>
                 </div>
               </div>
-            ) : null}
+            ) : null} */}
           </div>
         </div>
         <div className={classes.eventsContainer}>

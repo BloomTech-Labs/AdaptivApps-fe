@@ -28,7 +28,7 @@ export const CREATE_EVENT = gql`
   mutation createEvent(
     $type: String!
     $sportType: String!
-    $tags: String!
+    $tags: String
     $title: String!
     $host: String!
     $coaches: String!
@@ -89,7 +89,7 @@ export const UPDATE_EVENT = gql`
     $id: ID!
     $type: String!
     $sportType: String!
-    $tags: String!
+    $tags: String
     $title: String!
     $host: String!
     $coaches: String!

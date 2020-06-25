@@ -12,6 +12,7 @@ import ProgressBar from "../../../theme/ProgressBar";
 // Material-UI imports
 import {
   makeStyles,
+  Typography,
   Box,
   InputLabel,
   TextField,
@@ -23,7 +24,12 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "67.5%",
+    width: "85%",
+    "& .MuiInputLabel-asterisk": {
+      fontSize: '2rem',
+      color: 'red',
+      fontWeight: 'bolder'
+    }
   },
   form: {
     display: "flex",
@@ -40,11 +46,11 @@ const useStyles = makeStyles({
       width: "36rem",
       height: "4.8rem",
     },
+    marginBottom: "1.2rem",
   },
   shortSelect: {
     width: "36rem",
     marginRight: "2.4rem",
-    marginBottom: "2.4rem",
   },
   longSelect: {
     marginBottom: "2.4rem",
@@ -58,6 +64,13 @@ const useStyles = makeStyles({
     justifyContent: "space-between",
     marginTop: "7rem",
   },
+  error: {
+    color: 'red',
+    fontSize: '1.75rem',    
+    fontVariant: 'all-small-caps',
+    fontWeight: 'bold',
+    marginTop: '1rem'
+  }
 });
 
 export default function Step2({ updateExtProfile }) {
@@ -204,7 +217,9 @@ export default function Step2({ updateExtProfile }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
+            {/* {errors.gender && <Typography className={classes.error}>gender is a required field</Typography>} */}
           </Box>
           <Box>
             <InputLabel required htmlFor="birthday">
@@ -217,9 +232,12 @@ export default function Step2({ updateExtProfile }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
+            {/* {errors.birthday && <Typography className={classes.error}>birthday is a required field</Typography>} */}
           </Box>
         </Box>
+        <Box className={classes.ecfield}>
         <InputLabel required htmlFor="eC1Name">
           Please enter the name of your emergency contact
         </InputLabel>
@@ -230,7 +248,11 @@ export default function Step2({ updateExtProfile }) {
           variant="outlined"
           control={control}
           defaultValue=""
+          rules={{ required: true }}
         />
+        {/* {errors.eC1Name && <Typography className={classes.error}>emergency contact is a required field</Typography>} */}
+        </Box>
+        <Box className={classes.ecfield}>
         <InputLabel required htmlFor="eC1Relation">
           Please tell us how your emergency contact is related to you
         </InputLabel>
@@ -241,7 +263,11 @@ export default function Step2({ updateExtProfile }) {
           variant="outlined"
           control={control}
           defaultValue=""
+          rules={{ required: true }}
         />
+        {/* {errors.eC1Relation && <Typography className={classes.error}>emergency contact relation is a required field</Typography>} */}
+        </Box>
+        <Box className={classes.ecfield}>
         <InputLabel required htmlFor="eC1Phone">
           Please enter the best phone number for your emergency contact
         </InputLabel>
@@ -252,7 +278,10 @@ export default function Step2({ updateExtProfile }) {
           variant="outlined"
           control={control}
           defaultValue=""
+          rules={{ required: true }}
         />
+        {/* {errors.eC1Phone && <Typography className={classes.error}>emergency contact phone number is a required field</Typography>} */}
+        </Box>
         <InputLabel htmlFor="physicalDisability">
           Please select the category of physical disability that is most
           accurate for you
@@ -414,6 +443,7 @@ export default function Step2({ updateExtProfile }) {
           defaultValue=""
         />
         <Box className={classes.btnBox}>
+        <Typography className={classes.error}>* required field</Typography>
           <SaveButton
             label={"Save & Quit"}
             ariaLabel="Click to save and continue later and return to settings page."

@@ -9,6 +9,9 @@ import { PROFILE_STEP_1 } from "../queries";
 import NextButton from "../../../theme/SmallFormButton";
 import SaveButton from "../../../theme/LargeFormButton";
 import ProgressBar from "../../../theme/ProgressBar";
+// Query imports
+import { GET_RECIPIENTS } from '../../Chat/queries/Chats'
+
 // Material-UI imports
 import {
   makeStyles,
@@ -24,7 +27,12 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "67.5%",
+    width: '85%',
+    "& .MuiInputLabel-asterisk": {
+      fontSize: '2rem',
+      color: 'red',
+      fontWeight: 'bolder'
+    },
   },
   form: {
     display: "flex",
@@ -43,7 +51,7 @@ const useStyles = makeStyles({
     },
   },
   firstInput: {
-    marginRight: "2.4rem",
+    marginRight: "2.4rem"
   },
   typeSelect: {
     width: 744,
@@ -70,6 +78,24 @@ const useStyles = makeStyles({
     justifyContent: "space-between",
     marginTop: "5rem",
   },
+  error: {
+    color: 'red',
+    fontSize: '2rem',    
+    fontVariant: 'all-small-caps',
+    fontWeight: 'bold',
+    '&:last-child': {
+      fontSize: '1.65rem',
+      color: 'red',
+      marginTop: '1rem',
+    }
+  },
+  errorLabel: {
+    marginLeft: '1rem',
+    fontSize: '1.65rem',
+    color: 'red',
+    fontVariant: 'all-small-caps',
+    fontWeight: 'bold'
+  }
 });
 
 export default function Step1({ updateProfile }) {
@@ -80,7 +106,8 @@ export default function Step1({ updateProfile }) {
     variables: { email: userEmail },
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
-  const { handleSubmit, setValue, control } = useForm({
+  const [errorState, setErrorState] = useState();
+  const { handleSubmit, setValue, control, errors } = useForm({
     defaultValues: {
       firstName: currentUserInfo && currentUserInfo?.profile?.firstName,
       lastName: currentUserInfo && currentUserInfo?.profile?.lastName,
@@ -119,6 +146,7 @@ export default function Step1({ updateProfile }) {
     }
   }, [loading, currentUserInfo, defaultInfo, setValue]);
 
+
   // Will update profile and route user to next step in profile wizard
   const onNext = handleSubmit(async data => {
     await updateProfile({
@@ -142,6 +170,18 @@ export default function Step1({ updateProfile }) {
     alert("Successfully updated account info!");
     navigate(`/updateaccount/${userEmail}/step2of6`);
   });
+
+//   const userNames = []
+//   data && data.profiles.filter(user => user.userName !== null && user.userName !== '' && userNames.push(user.userName.toLowerCase()));
+
+//   const validateUsername = () => {
+//     const userName = control.getValues().userName.toLowerCase();
+//     if (userNames.includes(userName)) {
+//       setErrorState(true);
+//       alert('That username is already taken. Please choose another one!');
+//   } else setErrorState(false)  ;
+// };
+
   // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
   const onSave = handleSubmit(async data => {
     await updateProfile({
@@ -172,7 +212,7 @@ export default function Step1({ updateProfile }) {
       <form className={classes.form}>
         <Box className={classes.namePhoneBox}>
           <Box>
-            <InputLabel htmlFor="firstName">First Name*</InputLabel>
+            <InputLabel required htmlFor="firstName">First Name</InputLabel>
             <Controller
               as={<TextField />}
               className={classes.firstInput}
@@ -181,10 +221,12 @@ export default function Step1({ updateProfile }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
+            {/* {errors.firstName && <Typography className={classes.error}>first name is a required field</Typography>} */}
           </Box>
           <Box>
-            <InputLabel htmlFor="lastName">Last Name*</InputLabel>
+            <InputLabel required htmlFor="lastName">Last Name</InputLabel>
             <Controller
               as={<TextField />}
               name="lastName"
@@ -192,12 +234,14 @@ export default function Step1({ updateProfile }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
+            {/* {errors.lastName && <Typography className={classes.error}>last name is a required field</Typography>} */}
           </Box>
         </Box>
         <Box className={classes.namePhoneBox}>
           <Box>
-            <InputLabel htmlFor="userName">Username*</InputLabel>
+            <InputLabel required htmlFor="userName">Username</InputLabel>
             <Controller
               as={<TextField />}
               className={classes.firstInput}
@@ -206,10 +250,14 @@ export default function Step1({ updateProfile }) {
               type="text"
               control={control}
               defaultValue=""
+              // onBlur={validateUsername}
+              rules={{ required: true }}
             />
+            {/* {errors.userName && <Typography className={classes.error}>username is a required field</Typography>}
+            {errorState && <Typography className={classes.error}>Button is disabled until a unique username is chosen</Typography>} */}
           </Box>
           <Box>
-            <InputLabel htmlFor="phoneNumber">Phone Number*</InputLabel>
+            <InputLabel required htmlFor="phoneNumber">Phone Number</InputLabel>
             <Controller
               as={<TextField />}
               name="phoneNumber"
@@ -217,7 +265,9 @@ export default function Step1({ updateProfile }) {
               type="text"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
+            {/* {errors.phoneNumber && <Typography className={classes.error}>phone number is a required field</Typography>} */}
           </Box>
         </Box>
         <Box className={classes.addressBox}>
@@ -256,10 +306,12 @@ export default function Step1({ updateProfile }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
+            {/* {errors.city && <Typography className={classes.error}>city is a required field</Typography>} */}
           </Box>
           <Box>
-            <InputLabel htmlFor="state">State*</InputLabel>
+            <InputLabel required htmlFor="state">State</InputLabel>
             <Controller
               as={<TextField />}
               name="state"
@@ -267,7 +319,9 @@ export default function Step1({ updateProfile }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
+            {/* {errors.state && <Typography className={classes.error}>state is a required field</Typography>} */}
           </Box>
         </Box>
         <Box className={classes.addressBox}>
@@ -311,6 +365,7 @@ export default function Step1({ updateProfile }) {
           variant="outlined"
           control={control}
           defaultValue=""
+          rules={{ required: true }}
         />
         <InputLabel htmlFor="bio">
           If you're comfortable sharing, tell us your story
@@ -326,8 +381,8 @@ export default function Step1({ updateProfile }) {
           multiline
           rows="8"
         />
-        <Typography>* required field</Typography>
         <Box className={classes.btnBox}>
+        <Typography className={classes.error}>* required field</Typography>
           <SaveButton
             label={"Save & Quit"}
             ariaLabel="Click to save and continue later."

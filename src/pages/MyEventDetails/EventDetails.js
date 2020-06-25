@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 // Component imports
 import ActivityGroup from "./ActivityGroup";
+import eventImg from "../../assets/images/acs_hartford.png";
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
 // GraphQL/Apollo imports
@@ -88,7 +89,7 @@ const useStyles = makeStyles({
       fontWeight: 500,
     },
   },
-  webinarBox: {
+  virtualBox: {
     display: "flex",
     flexDirection: "column",
     "& p": {
@@ -144,9 +145,18 @@ export default function EventDetails(props) {
     <Box className={classes.root} m={4}>
       <Box className={classes.topContentContainer}>
         <Box>
-          <img src={activeEvent.imgUrl} alt="Event" />
+          <img
+            src={
+              (activeEvent && activeEvent?.event?.imgUrl === null) ||
+              activeEvent?.event?.imgUrl === undefined ||
+              activeEvent?.event?.imgUrl === ""
+                ? eventImg
+                : activeEvent?.imgUrl
+            }
+            alt="Event"
+          />
         </Box>
-        {activeEvent.type === "Webinar" ? (
+        {activeEvent.type === "Virtual" ? (
           <Box className={classes.topContentText} m="2.4rem">
             <p>{activeEvent.startDate}</p>
             <h2>{activeEvent.title}</h2>
@@ -178,8 +188,8 @@ export default function EventDetails(props) {
         </Typography>
       </Box>
 
-      {activeEvent.type === "Webinar" ? (
-        <Box className={classes.webinarBox}>
+      {activeEvent.type === "Virtual" ? (
+        <Box className={classes.virtualBox}>
           <p>Hosted by: {activeEvent.host}</p>
           <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
           <a href={activeEvent.link} rel="noopener noreferrer" target="_blank">

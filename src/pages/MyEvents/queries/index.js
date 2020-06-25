@@ -38,6 +38,10 @@ export const GET_ATTENDEES = gql`
       where: { eventProfile: { email: $email }, AND: { event: { id: $id } } }
     ) {
       id
+      eventProfile {
+        id
+        email
+      }
     }
   }
 `;
@@ -51,6 +55,10 @@ export const GET_PARTICIPANTS = gql`
       }
     ) {
       id
+      activityProfile {
+        id
+        email
+      }
     }
   }
 `;

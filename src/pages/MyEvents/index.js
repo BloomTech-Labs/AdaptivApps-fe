@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 // Component imports
 import EventList from "./EventList";
 import GlobalSearchBox from "../../routes/DashRouter/GlobalSearchBox";
+import SponsorBanner from '../SponsorSpotlight/SponsorBanner'
 // GraphQL/Apollo imports
 import { useQuery } from "react-apollo";
 import { GET_USER_EVENTS } from "./queries";
@@ -15,7 +16,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 const useStyles = makeStyles({
   root: {
     maxWidth: "100%",
-    width: "90%",
+    // Changed from 90 to 100, JC6/23
+    width: "100%",
     fontFamily: ["Roboto", "Helvetica", "Arial", "sans-serif"],
   },
   headingBox: {
@@ -49,7 +51,7 @@ const useStyles = makeStyles({
   search: {
     zIndex: 100,
     position: "absolute",
-    marginLeft: "550px",
+    marginLeft: "350px",
   },
 });
 
@@ -69,6 +71,10 @@ export default function MyEvents() {
   if (error) return `Error! ${error.message}`;
 
   return (
+    <>
+    <div>
+      <SponsorBanner />
+    </div>
     <div>
       <div className={classes.search}>
         <GlobalSearchBox />
@@ -84,22 +90,23 @@ export default function MyEvents() {
             <EventList data={data} refetch={refetch} />
           </Grid>
         ) : (
-          <>
-            <Typography className={classes.noActiv}>
-              You haven't registered for any events yet!
+            <>
+              <Typography className={classes.noActiv}>
+                You haven't registered for any events yet!
             </Typography>
-            <Box className={classes.inlineNotice}>
-              <Typography className={classes.noActivBlue}>
-                Check out the Events Calendar
+              <Box className={classes.inlineNotice}>
+                <Typography className={classes.noActivBlue}>
+                  Check out the Events Calendar
               </Typography>
-              <Typography>
-                , register for an event, then see all of your registered events
-                here!
+                <Typography>
+                  , register for an event, then see all of your registered events
+                  here!
               </Typography>
-            </Box>
-          </>
-        )}
+              </Box>
+            </>
+          )}
       </main>
     </div>
+    </>
   );
 }

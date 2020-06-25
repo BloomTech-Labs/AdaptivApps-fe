@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 // Import graphql
+import { useQuery } from "react-apollo";
+import { GET_NEWSFEED_COMMENTS } from '../queries';
 // Style Imports
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import ModeCommentIcon from '@material-ui/icons/ModeComment';
@@ -17,6 +19,7 @@ import {
   Divider,
   Typography
 } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -85,7 +88,11 @@ const useStyles = makeStyles(theme => ({
 export default function NewsfeedCard(props) {
   const classes = useStyles();
   const { post } = props;
-  const comments = post.comments;
+  const { data: comments, loading, error } = useQuery(GET_NEWSFEED_COMMENTS, {
+    variables: {
+      id: post.id
+    }
+  });
   const [commenting, setCommenting] = useState(false);
   const [displayComments, setDisplayComments] = useState(false);
 
@@ -96,6 +103,9 @@ export default function NewsfeedCard(props) {
   const showComments = () => {
     setDisplayComments(!displayComments);
   }
+
+  if (loading) return <CircularProgress />;
+  if (error) return `Error! ${error.message}`;
 
   return (
     <Card className={classes.root}>
@@ -150,7 +160,7 @@ export default function NewsfeedCard(props) {
       <Divider variant='middle' />
 
       <CardActionArea className={classes.postHeader}>
-        <button onClick={showComments}><p>{comments.length === 0 ? `No` : `${comments.length}`} comments</p></button>
+        <button onClick={showComments}><p>{comments && comments.feedComments.length === 0 ? `No` : `${comments.feedComments.length}`} comments</p></button>
       </CardActionArea>
 
       <Divider variant='middle' />
@@ -172,8 +182,8 @@ export default function NewsfeedCard(props) {
 
       <Divider variant='middle' />
 
-      {displayComments ?
-        comments.map(comment => (
+      {comments && displayComments ?
+        comments.feedComments.map(comment => (
           <div key={comment.id}>
             <p>{`${comment.postedBy.firstName} says: ${comment.body}`}</p>
           </div>

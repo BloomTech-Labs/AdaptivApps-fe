@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import { Container, Box, Button, Typography } from "@material-ui/core";
+import eventImg from "../../assets/images/acs_hartford.png";
 
 function getModalStyle() {
   const top = 50;
@@ -114,8 +115,17 @@ export default function SimpleModal({ activity, activityData, activeEvent }) {
         <img
           className={classes.img}
           src={
-            (activityData && activityData?.event?.imgUrl) ||
-            (activeEvent && activeEvent?.imgUrl)
+            ((activityData && activityData?.event?.imgUrl === null) ||
+            activityData?.event?.imgUrlactivityData?.event?.imgUrl ===
+              undefined ||
+            activityData?.event?.imgUrl === ""
+              ? eventImg
+              : activityData?.event?.imgUrl) ||
+            ((activeEvent && activeEvent?.event?.imgUrl === null) ||
+            activeEvent?.event?.imgUrl === undefined ||
+            activeEvent?.event?.imgUrl === ""
+              ? eventImg
+              : activeEvent?.imgUrl)
           }
           alt="Event"
         />

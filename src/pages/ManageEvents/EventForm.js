@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useNavigate } from "@reach/router";
-import TagInput from './TagInput';
+import TagInput from "./TagInput";
 import { useQuery, useMutation } from "react-apollo";
-import { GET_TAGS, CREATE_TAG } from './graphql';
+import { GET_TAGS, CREATE_TAG } from "./graphql";
 
 import {
   makeStyles,
@@ -16,18 +16,25 @@ import {
 
 const useStyles = makeStyles(theme => ({
   button: {
-    marginTop: "3rem",
+    margin: "3rem auto",
     border: "1px solid #2962FF",
     color: "#2962FF",
     height: "4rem",
     width: "8rem",
-    fontSize: "1.2rem",
+    fontSize: "2.5rem",
     textTransform: "none",
     [theme.breakpoints.down("sm")]: {
       width: "100%",
     },
   },
-  form: { display: "flex", flexDirection: "column", width: "400px" },
+  form: { display: "flex", flexDirection: "column", width: "50%" },
+  inputLabel: {
+    marginBottom: "7px",
+    marginLeft: "5px",
+  },
+  inputField: {
+    marginBottom: "10px",
+  },
 }));
 
 export default function EventForm({
@@ -37,7 +44,7 @@ export default function EventForm({
   loading,
   eventId,
 }) {
-  const { data: tagsData } = useQuery(GET_TAGS);
+  const { data: tagsData, refetch: refetchTags } = useQuery(GET_TAGS);
   const [CreateTag] = useMutation(CREATE_TAG);
   const [currentEvent, setCurrentEvent] = useState(event);
   const classes = useStyles();
@@ -85,8 +92,12 @@ export default function EventForm({
       ]);
     }
     if (event) {
-      let eventTags = event.tags.split(", ");
-      setTags(eventTags);
+      if (event.tags) {
+        let eventTags = event.tags.split(", ");
+        setTags(eventTags);
+      } else {
+        setTags(null)
+      }
     }
   }, [loading, currentEvent, setValue, event]);
 
@@ -99,12 +110,12 @@ export default function EventForm({
       if (!tagsInServer.includes(tags[j])) {
         CreateTag({
           variables: {
-            name: tags[j]
-          }
-        })
+            name: tags[j],
+          },
+        });
       }
     }
-  }
+  };
 
   const onSubmit = async (formValues, e) => {
     await createNewTags();
@@ -113,7 +124,7 @@ export default function EventForm({
         variables: {
           type: formValues.type,
           sportType: formValues.sportType,
-          tags: tags.join(', '),
+          tags: tags.length > 0 ? tags.join(", ") : null,
           title: formValues.title,
           host: formValues.host,
           coaches: formValues.coaches,
@@ -137,7 +148,7 @@ export default function EventForm({
           id: eventId,
           type: formValues.type,
           sportType: formValues.sportType,
-          tags: tags.join(', '),
+          tags: tags.join(", "),
           title: formValues.title,
           host: formValues.host,
           coaches: formValues.coaches,
@@ -157,45 +168,57 @@ export default function EventForm({
       alert("Successfully updated an event!");
     }
   };
+
+  useEffect(() => {
+    refetchTags();
+  }, [refetchTags])
+
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
         <InputLabel className={classes.inputLabel} htmlFor="type">
           Event Type
-      </InputLabel>
+        </InputLabel>
         <Controller
           as={
             <Select>
               <MenuItem value="In Person">In Person</MenuItem>
-              <MenuItem value="Webinar">Webinar</MenuItem>
+              <MenuItem value="Virtual">Virtual</MenuItem>
             </Select>
           }
           name="type"
           variant="outlined"
           control={control}
           defaultValue=""
+          className={classes.inputField}
         />
         <InputLabel className={classes.inputLabel} htmlFor="sportType">
           Sport Type
-      </InputLabel>
+        </InputLabel>
         <Controller
           as={
             <Select>
               <MenuItem value="Archery">Archery</MenuItem>
+              <MenuItem value="Blind Judo">Blind Judo</MenuItem>
+              <MenuItem value="Cheerleading">Cheerleading</MenuItem>
+              <MenuItem value="E-Sport">E-Sport</MenuItem>
+              <MenuItem value="Goalball">Goalball</MenuItem>
+              <MenuItem value="Powerlifting">Powerlifting</MenuItem>
+              <MenuItem value="Swimming">Swimming</MenuItem>
               <MenuItem value="Table Tennis">Table Tennis</MenuItem>
-              <MenuItem value="Track Field">Track Field</MenuItem>
-              <MenuItem value="Wheel Chair Basketball">
-                Wheel Chair Basketball
+              <MenuItem value="Track and Field">Track and Field</MenuItem>
+              <MenuItem value="Wheelchair Basketball">
+                Wheelchair Basketball
               </MenuItem>
               <MenuItem value="Wheelchair Tennis">Wheelchair Tennis</MenuItem>
-              <MenuItem value="Swimming">Swimming</MenuItem>
-              <MenuItem value="Sitting Volleyball">Sitting Volleyball</MenuItem>
+              <MenuItem value="Workout">Workout</MenuItem>
             </Select>
           }
           name="sportType"
           variant="outlined"
           control={control}
           defaultValue=""
+          className={classes.inputField}
         />
         <InputLabel className={classes.inputLabel} htmlFor="title">
           Event Title
@@ -208,6 +231,7 @@ export default function EventForm({
           variant="outlined"
           control={control}
           defaultValue=""
+          className={classes.inputField}
         />
         <InputLabel className={classes.inputLabel} htmlFor="host">
           Who's Hosting the Event?
@@ -220,6 +244,7 @@ export default function EventForm({
           variant="outlined"
           control={control}
           defaultValue=""
+          className={classes.inputField}
         />
         <InputLabel className={classes.inputLabel} htmlFor="coaches">
           Who's Coaching the Event?
@@ -232,6 +257,7 @@ export default function EventForm({
           variant="outlined"
           control={control}
           defaultValue=""
+          className={classes.inputField}
         />
         <InputLabel className={classes.inputLabel} htmlFor="speakers">
           Who's Speaking at the Event?
@@ -244,6 +270,7 @@ export default function EventForm({
           variant="outlined"
           control={control}
           defaultValue=""
+          className={classes.inputField}
         />
         <InputLabel className={classes.inputLabel} htmlFor="startDate">
           Start Date
@@ -256,6 +283,7 @@ export default function EventForm({
           variant="outlined"
           control={control}
           defaultValue=""
+          className={classes.inputField}
         />
         <InputLabel className={classes.inputLabel} htmlFor="endDate">
           End Date
@@ -268,6 +296,7 @@ export default function EventForm({
           variant="outlined"
           control={control}
           defaultValue=""
+          className={classes.inputField}
         />
         <InputLabel className={classes.inputLabel} htmlFor="startTime">
           What time does the event start?
@@ -280,6 +309,7 @@ export default function EventForm({
           variant="outlined"
           control={control}
           defaultValue=""
+          className={classes.inputField}
         />
         <InputLabel className={classes.inputLabel} htmlFor="endTime">
           What time does the event end?
@@ -292,6 +322,7 @@ export default function EventForm({
           variant="outlined"
           control={control}
           defaultValue=""
+          className={classes.inputField}
         />
         <InputLabel className={classes.inputLabel} htmlFor="location">
           Where is the event location?
@@ -304,6 +335,7 @@ export default function EventForm({
           variant="outlined"
           control={control}
           defaultValue=""
+          className={classes.inputField}
         />
         <InputLabel className={classes.inputLabel} htmlFor="link">
           Is there a zoom link?
@@ -316,6 +348,7 @@ export default function EventForm({
           variant="outlined"
           control={control}
           defaultValue=""
+          className={classes.inputField}
         />
         <InputLabel className={classes.inputLabel} htmlFor="sponsors">
           Who are the sponsors?
@@ -328,6 +361,7 @@ export default function EventForm({
           variant="outlined"
           control={control}
           defaultValue=""
+          className={classes.inputField}
         />
         <InputLabel className={classes.inputLabel} htmlFor="imgUrl">
           Find an image on the internet and pase the URL here!
@@ -340,6 +374,7 @@ export default function EventForm({
           variant="outlined"
           control={control}
           defaultValue=""
+          className={classes.inputField}
         />
         <InputLabel className={classes.inputLabel} htmlFor="details">
           Event details
@@ -352,10 +387,7 @@ export default function EventForm({
           rows="8"
           control={control}
         />
-        <TagInput
-          tags={tags}
-          setTags={setTags}
-        />
+        <TagInput tags={tags} setTags={setTags} />
         <Button
           className={classes.button}
           variant="outlined"
@@ -365,7 +397,7 @@ export default function EventForm({
           onClick={handleSubmit}
         >
           Save
-      </Button>
+        </Button>
       </form>
     </div>
   );

@@ -11,6 +11,7 @@ import ProgressBar from "../../../theme/ProgressBar";
 // Material-UI imports
 import {
   makeStyles,
+  Typography,
   Box,
   InputLabel,
   Select,
@@ -21,7 +22,12 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "67.5%",
+    width: '90%',
+    "& .MuiInputLabel-asterisk": {
+      fontSize: '2rem',
+      color: 'red',
+      fontWeight: 'bolder'
+    }
   },
   form: {
     height: "80vh",
@@ -49,7 +55,14 @@ const useStyles = makeStyles({
   },
   btnWrapper: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
+  },
+  error: {
+    color: 'red',
+    fontSize: '1.75rem',    
+    fontVariant: 'all-small-caps',
+    fontWeight: 'bold',
+    marginTop: '1rem'
   },
 });
 
@@ -158,6 +171,7 @@ export default function AccountTypeForm({ updateProfile }) {
           </Box>
         </Box>
         <Box className={classes.btnWrapper}>
+        <Typography className={classes.error}>* required field</Typography>
           <NextButton
             type="submit"
             label={"Next"}

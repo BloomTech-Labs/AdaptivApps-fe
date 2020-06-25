@@ -6,19 +6,12 @@ export const SEND_CHAT = gql`
     $id: ID!
     $email: String!
     $message: String!
-    $recipient: String!
   ) {
     createChat(
       data: {
         from: { connect: { email: $email } }
         message: $message
         room: { connect: { id: $id } }
-        notification: {
-          create: {
-            label: $message
-            profile: { connect: { email: $recipient } }
-          }
-        }
       }
     ) {
       id
@@ -72,6 +65,7 @@ export const GET_RECIPIENTS = gql`
       firstName
       lastName
       email
+      userName
     }
   }
 `;

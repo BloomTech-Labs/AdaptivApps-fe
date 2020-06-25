@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
-import { Tabs, Tab, Typography, Box, Paper, Button } from "@material-ui/core";
+import { Tabs, Tab, Typography, Box, Paper } from "@material-ui/core";
 import moment from "moment";
 import Activities from "./Activities";
 
@@ -30,24 +30,24 @@ const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
     width: "100%",
-    backgroundColor: theme.palette.background.paper,
   },
   activityGroup: {
     marginTop: "1.6rem",
     boxShadow: "none",
   },
-  tabs: {
-    width: "70rem",
+  tab: {
+    width: "40%",
+    fontSize: '2.25rem',
   },
   table: {
-    margin: "2.5rem 0 0 3.8rem",
+    margin: "2.5rem 0 0 1.8rem",
   },
   tableRow: {
     textAlign: "left",
     "& th": {
       width: "14.8rem",
-      fontSize: "1.4rem",
-      textAlgin: "left",
+      fontSize: "1.5rem",
+      textAlign: "left",
     },
   },
 }));
@@ -64,7 +64,7 @@ export default function ActivityGroup({ data, refetch }) {
   const endDate = moment(data?.event?.endDate);
   console.log(data);
 
-  const getDatesRangeArray = function(startDate, endDate, interval) {
+  const getDatesRangeArray = function (startDate, endDate, interval) {
     console.log(startDate, endDate, interval);
     let cfg = { interval: interval || "days" };
     let dateArray = [];

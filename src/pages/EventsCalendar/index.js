@@ -8,11 +8,13 @@ import { GET_EVENT_LIST } from "./queries";
 import { useAuth0 } from "../../config/react-auth0-spa";
 import config from "../../config/auth_config";
 import GlobalSearchBox from "../../routes/DashRouter/GlobalSearchBox";
+import SponsorBanner from '../SponsorSpotlight/SponsorBanner'
 
 const useStyles = makeStyles({
   root: {
     maxWidth: "100%",
-    width: "90%",
+    // Changed from 90 to 100, JC6/23
+    width: "100%",
   },
   headingBox: {
     margin: "6rem 0 2rem 3rem",
@@ -33,14 +35,14 @@ const useStyles = makeStyles({
   search: {
     zIndex: 100,
     position: "absolute",
-    marginLeft: "550px",
+    marginLeft: "450px",
   },
 });
 
 export default function EventsCalendar() {
   const { user } = useAuth0();
   const classes = useStyles();
-  const { loading, error, data, refetch } = useQuery(GET_EVENT_LIST);
+  const { loading, error, data, refetch } = useQuery(GET_EVENT_LIST, { fetchPolicy: "no-cache" });
   const [isSearching, setIsSearching] = useState(false);
 
   // refetches EVENT_LIST without refreshing page
@@ -51,6 +53,10 @@ export default function EventsCalendar() {
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
   return (
+    <>
+    <div>
+      <SponsorBanner />
+      </div>
     <div>
       <div className={classes.search}>
         <GlobalSearchBox />
@@ -69,10 +75,11 @@ export default function EventsCalendar() {
         ) : null}
         <Grid className={classes.grid}>
           {!isSearching ? (
-            <EventList currentEvents={currentEvents} refetch={refetch} />
+            <EventList currentEvents={currentEvents} refetch={refetch} user={user} />
           ) : null}
         </Grid>
       </main>
     </div>
+    </>
   );
 }
