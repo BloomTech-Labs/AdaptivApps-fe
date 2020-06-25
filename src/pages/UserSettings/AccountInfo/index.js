@@ -24,10 +24,18 @@ import Step6 from "./Step6";
 // Material-UI imports
 import { makeStyles, Container, Typography, Box } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft: "1.5rem",
     height: "100%",
+    '& .MuiTypography-h1': {
+      [theme.breakpoints.down("sm")]: {
+        fontSize: '2.75rem',
+      },
+      [theme.breakpoints.down("xs")]: {
+        fontSize: '2.25rem',
+      },
+    },
   },
   headingBox: {
     margin: "6rem 0 0.7rem",
@@ -39,7 +47,7 @@ const useStyles = makeStyles({
     width: "90%",
     height: "100%",
   },
-});
+}));
 
 export default function AccountInfo() {
   const classes = useStyles();
@@ -62,7 +70,7 @@ export default function AccountInfo() {
             : null
         }
       >
-        <Typography variant="h1">Update Account Information</Typography>
+        <Typography variant='h1'>Update Account Information</Typography>
       </Box>
 
       <Router className={classes.children}>
