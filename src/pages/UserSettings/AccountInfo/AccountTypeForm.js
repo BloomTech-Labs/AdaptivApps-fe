@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     width: '90%',
-    border: '1px solid red',
     "& .MuiInputLabel-asterisk": {
       fontSize: '2rem',
       color: 'red',
@@ -37,7 +36,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   form: {
-    height: "80vh",
     maxwidth: "100%",
     width: "100%",
     display: "flex",
@@ -48,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.6rem"
   },
   selectContainer: {
-    marginBottom: "11rem",
+    height: "80vh",
   },
   typeSelect: {
     width: "74.4rem",
@@ -83,6 +81,7 @@ const useStyles = makeStyles((theme) => ({
     
   },
   btnWrapper: {
+    width: '100%',
     display: "flex",
     justifyContent: "space-between",
   },
@@ -103,7 +102,7 @@ export default function AccountTypeForm({ updateProfile }) {
     variables: { email: userEmail },
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
-  const { handleSubmit, setValue, control } = useForm({
+  const { handleSubmit, setValue, control, errors } = useForm({
     defaultValues: {
       type: currentUserInfo && currentUserInfo?.profile?.type,
       roleIdentity: currentUserInfo && currentUserInfo?.profile?.roleIdentity
@@ -147,9 +146,10 @@ export default function AccountTypeForm({ updateProfile }) {
       <ProgressBar activeStep={0} userEmail={userEmail} />
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.selectContainer}>
-          <InputLabel htmlFor="account type">
+          <InputLabel required htmlFor="account type">
             Are you registering as an individual or an organization?
           </InputLabel>
+          {errors.type && <Typography className={classes.error}>Please make a selection</Typography>}
           <Box className={classes.box}>
             <Controller
               as={
@@ -169,11 +169,13 @@ export default function AccountTypeForm({ updateProfile }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
           </Box>
-          <InputLabel htmlFor="role identity">
+          <InputLabel required htmlFor="role identity">
             Which role do you best identify with?
           </InputLabel>
+          {errors.roleIdentity && <Typography className={classes.error}>Please make a selection</Typography>}
           <Box className={classes.roleBox}>
             <Controller
               as={
@@ -196,6 +198,7 @@ export default function AccountTypeForm({ updateProfile }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
           </Box>
         </Box>
@@ -213,3 +216,26 @@ export default function AccountTypeForm({ updateProfile }) {
     </Box>
   );
 }
+
+{/* <InputLabel className={classes.inputLabel} required htmlFor="account type">
+          Are you registering as an individual or an organization?
+        </InputLabel>
+        {errors.type && <Typography className={classes.error}>Please make a selection</Typography>}
+        <Box className={classes.box}>
+          <Controller
+            as={
+              <Select className={classes.typeSelect}>
+                <MenuItem value="Individual">
+                  I'm registering as an individual
+                </MenuItem>
+                <MenuItem value="Organization">
+                  I'm registering as an organization
+                </MenuItem>
+              </Select>
+            }
+            name="type"
+            variant="outlined"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+          /> */}
