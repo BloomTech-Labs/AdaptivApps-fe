@@ -26,6 +26,15 @@ export const GET_USER_PROFILE = gql`
   }
 `;
 
+export const GET_LOGGED_IN_USER = gql`
+  query getUserProfile($email: String!) {
+    profile(where: { email: $email }) {
+      id
+      userName
+    }
+  }
+`;
+
 export const GET_PROFILE_IMAGES = gql`
   query GetProfileImages($userName: String!) {
     profile(where: { userName: $userName }) {

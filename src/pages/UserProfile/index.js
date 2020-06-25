@@ -23,12 +23,11 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { useQuery } from "react-apollo";
 
-import { GET_USER_PROFILE } from "./queries";
+import { GET_USER_PROFILE, GET_LOGGED_IN_USER } from "./queries";
 import ProfilePic from "./ProfilePic";
 import ProfileBanner from "./ProfileBanner";
 import UpcomingEventList from "./UpcomingEventList";
 
-const CameraIcon = require("../../assets/images/camera.svg");
 const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: "100vw",
@@ -176,8 +175,10 @@ const useStyles = makeStyles(theme => ({
 export default function UserProfile() {
   const classes = useStyles();
   const { userName } = useParams();
+  const { user } = useAuth0();
   const [profilePicture, setProfilePicture] = useState(null);
   const [profileBanner, setProfileBanner] = useState(null);
+  const [profileOwner, setProfileOwner] = useState(false);
 
   const { data: userProfile, loading, error, refetch } = useQuery(
     GET_USER_PROFILE,
@@ -185,7 +186,11 @@ export default function UserProfile() {
       variables: { userName: userName },
     }
   );
+  const { data: loggedInUser } = useQuery(GET_LOGGED_IN_USER, {
+    variables: { email: user.email },
+  });
 
+  const loggedInUserName = loggedInUser?.profile?.userName;
   const extendedProfile = userProfile?.profile?.extProfile;
 
   //config options for uploading a profile picture
@@ -245,8 +250,10 @@ export default function UserProfile() {
   //       filteredKey.includes(true) && filteredKeys.push(filteredKey[0])
   //   );
 
-  useEffect(() => {}, [userProfile, profilePicture, profileBanner]);
-
+  useEffect(() => {
+    if (loggedInUser && loggedInUserName === userName) setProfileOwner(true);
+  }, [userProfile, profilePicture, profileBanner, profileOwner]);
+  console.log("Profile Owner", profileOwner);
   if (loading) return <CircularProgress />;
   if (error) return `Error! ${error.message}`;
   return (
@@ -264,24 +271,28 @@ export default function UserProfile() {
           <div className={classes.topProfileWrapper}>
             {/*input for uploading profile banner */}
             <div className={classes.bannerWrapper}>
-              <label htmlFor="uploadBanner">
-                <IconButton
-                  className={classes.photoButton}
-                  color="primary"
-                  size="medium"
-                  aria-label="Upload Profile Picture"
-                  component="span"
-                >
-                  <PhotoCamera className={classes.photoIcon} />
-                </IconButton>
-              </label>
-              <input
-                className={classes.input}
-                accept="image/*"
-                type="file"
-                onChange={uploadProfileBanner}
-                id="uploadBanner"
-              />
+              {profileOwner === true ? (
+                <>
+                  <label htmlFor="uploadBanner">
+                    <IconButton
+                      className={classes.photoButton}
+                      color="primary"
+                      size="medium"
+                      aria-label="Upload Profile Picture"
+                      component="span"
+                    >
+                      <PhotoCamera className={classes.photoIcon} />
+                    </IconButton>
+                  </label>
+                  <input
+                    className={classes.input}
+                    accept="image/*"
+                    type="file"
+                    onChange={uploadProfileBanner}
+                    id="uploadBanner"
+                  />
+                </>
+              ) : null}
               <ProfileBanner
                 profileBanner={profileBanner}
                 userName={userName}
@@ -290,23 +301,27 @@ export default function UserProfile() {
             {/*input for uploading profile picture */}
             <div className={classes.pictureWrapper}>
               <ProfilePic profilePicture={profilePicture} userName={userName} />
-              <label htmlFor="uploadPicture">
-                <IconButton
-                  size="medium"
-                  color="primary"
-                  aria-label="Upload Profile Banner Image"
-                  component="span"
-                >
-                  <PhotoCamera src={CameraIcon} className={classes.photoIcon} />
-                </IconButton>
-              </label>
-              <input
-                className={classes.input}
-                accept="image/*"
-                type="file"
-                onChange={uploadProfilePicture}
-                id="uploadPicture"
-              />
+              {profileOwner === true ? (
+                <>
+                  <label htmlFor="uploadPicture">
+                    <IconButton
+                      size="medium"
+                      color="primary"
+                      aria-label="Upload Profile Banner Image"
+                      component="span"
+                    >
+                      <PhotoCamera className={classes.photoIcon} />
+                    </IconButton>
+                  </label>
+                  <input
+                    className={classes.input}
+                    accept="image/*"
+                    type="file"
+                    onChange={uploadProfilePicture}
+                    id="uploadPicture"
+                  />
+                </>
+              ) : null}
             </div>
             <div className={classes.basicInfo}>
               <div className={classes.basicP}>

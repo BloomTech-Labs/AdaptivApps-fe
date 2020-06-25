@@ -42,245 +42,95 @@ const UsersList = () => {
             {
               title: "Email",
               field: "email",
-              render: rowData => (
-                <p
-                  style={{
-                    fontSize: "1.6rem",
-                    width: "24rem",
-                    overflow: "scroll",
-                  }}
-                >
-                  {rowData.email}
-                </p>
-              ),
+              render: rowData => <p>{rowData.email}</p>,
             },
             {
               title: "First Name",
               field: "firstName",
-              render: rowData => (
-                <p
-                  style={{
-                    fontSize: "1.6rem",
-                    width: "8rem",
-                    overflow: "scroll",
-                  }}
-                >
-                  {rowData.firstName}
-                </p>
-              ),
+              render: rowData => <p>{rowData.firstName}</p>,
             },
             {
               title: "Last Name",
               field: "lastName",
-              render: rowData => (
-                <p
-                  style={{
-                    fontSize: "1.6rem",
-                    width: "12rem",
-                    overflow: "scroll",
-                  }}
-                >
-                  {rowData.lastName}
-                </p>
-              ),
+              render: rowData => <p>{rowData.lastName}</p>,
             },
             {
               title: "City",
               field: "city",
-              render: rowData => (
-                <p
-                  style={{
-                    fontSize: "1.6rem",
-                    width: "12rem",
-                    overflow: "scroll",
-                  }}
-                >
-                  {rowData.city}
-                </p>
-              ),
+              render: rowData => <p>{rowData.city}</p>,
             },
             {
               title: "State",
               field: "state",
-              render: rowData => (
-                <p
-                  style={{
-                    fontSize: "1.6rem",
-                    width: "12rem",
-                    overflow: "scroll",
-                  }}
-                >
-                  {rowData.state}
-                </p>
-              ),
+              render: rowData => <p>{rowData.state}</p>,
             },
             {
               title: "Country",
               field: "country",
-              render: rowData => (
-                <p
-                  style={{
-                    fontSize: "1.6rem",
-                    width: "8rem",
-                    overflow: "scroll",
-                  }}
-                >
-                  {rowData.country}
-                </p>
-              ),
+              render: rowData => <p>{rowData.country}</p>,
             },
             {
               title: "Postal Code",
               field: "postalCode",
-              render: rowData => (
-                <p
-                  style={{
-                    fontSize: "1.6rem",
-                    width: "8rem",
-                    overflow: "scroll",
-                  }}
-                >
-                  {rowData.postalCode}
-                </p>
-              ),
+              render: rowData => <p>{rowData.postalCode}</p>,
             },
             {
               title: "Address1",
               field: "address1",
-              render: rowData => (
-                <p
-                  style={{
-                    fontSize: "1.6rem",
-                    width: "8rem",
-                    overflow: "scroll",
-                  }}
-                >
-                  {rowData.address1}
-                </p>
-              ),
+              render: rowData => <p>{rowData.address1}</p>,
             },
             {
               title: "Address2",
               field: "Address2",
-              render: rowData => (
-                <p
-                  style={{
-                    fontSize: "1.6rem",
-                    width: "8rem",
-                    overflow: "scroll",
-                  }}
-                >
-                  {rowData.firstaddress2}
-                </p>
-              ),
+              render: rowData => <p>{rowData.firstaddress2}</p>,
             },
             {
               title: "Gender",
               field: "gender",
-              render: rowData => (
-                <p
-                  style={{
-                    fontSize: "1.6rem",
-                    width: "8rem",
-                    overflow: "scroll",
-                  }}
-                >
-                  {rowData?.extProfile?.gender}
-                </p>
-              ),
+              render: rowData => <p>{rowData?.extProfile?.gender}</p>,
             },
             {
               title: "Birthday",
               field: "birthday",
-              render: rowData => (
-                <p
-                  style={{
-                    fontSize: "1.6rem",
-                    width: "8rem",
-                    overflow: "scroll",
-                  }}
-                >
-                  {rowData?.extProfile?.birthday}
-                </p>
-              ),
+              render: rowData => <p>{rowData?.extProfile?.birthday}</p>,
             },
             {
               title: "T-Shirt Size",
               field: "tShirtSize",
-              render: rowData => (
-                <p
-                  style={{
-                    fontSize: "1.6rem",
-                    width: "8rem",
-                    overflow: "scroll",
-                  }}
-                >
-                  {rowData?.extProfile?.tShirtSize}
-                </p>
-              ),
+              render: rowData => <p>{rowData?.extProfile?.tShirtSize}</p>,
             },
             {
               title: "Virtual Ride",
               field: "virtualRide",
               render: rowData => (
-                <p
-                  style={{
-                    fontSize: "1.6rem",
-                    width: "8rem",
-                    overflow: "scroll",
-                  }}
-                >
-                  {rowData?.demographicProfile?.virtualRide}
-                </p>
+                <p>{rowData?.demographicProfile?.virtualRide}</p>
               ),
             },
             {
               title: "Virtual Ride Platforms",
               field: "virtualRidePlatforms",
               render: rowData => (
-                <p
-                  style={{
-                    fontSize: "1.6rem",
-                    width: "8rem",
-                    overflow: "scroll",
-                  }}
-                >
-                  {rowData?.demographicProfile?.virtualRidePlatforms}
-                </p>
+                <p>{rowData?.demographicProfile?.virtualRidePlatforms}</p>
               ),
             },
             {
               title: "X-Box GamePass",
               field: "xBoxGamePass",
               render: rowData => (
-                <p
-                  style={{
-                    fontSize: "1.6rem",
-                    width: "8rem",
-                    overflow: "scroll",
-                  }}
-                >
-                  {rowData?.demographicProfile?.xBoxGamePass}
-                </p>
+                <p>{rowData?.demographicProfile?.xBoxGamePass}</p>
               ),
             },
             {
               title: "Video Game Familiarity",
               field: "videoGameFamiliarity",
               render: rowData => (
-                <p
-                  style={{
-                    fontSize: "1.6rem",
-                    width: "8rem",
-                    overflow: "scroll",
-                  }}
-                >
-                  {rowData?.demographicProfile?.videoGameFamiliarity}
-                </p>
+                <p>{rowData?.demographicProfile?.videoGameFamiliarity}</p>
               ),
             },
           ]}
           options={{
+            tableLayout: "auto",
+            exportButton: true,
             selection: true,
             search: true,
             showTitle: false,
