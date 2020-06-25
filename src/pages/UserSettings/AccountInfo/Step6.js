@@ -13,26 +13,45 @@ import {
   makeStyles,
   Box,
   InputLabel,
-  Select,
-  MenuItem,
+  TextField,
+  Typography,
+  Checkbox,
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "85%",
+    width: "67.5%",
+    '& .MuiInputLabel-root': {
+      color: "black",
+
+    }
   },
   form: {
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    "& .MuiSelect-root": {
-      width: 744,
-    },
   },
   spacing: {
-    marginTop: "2.4rem",
+    marginTop: "1.6rem",
+  },
+  checkBoxContainer: {
+    display: "flex",
+    marginTop: "1.6rem"
+  },
+  checkBoxLabel: {
+    paddingTop: ".8rem",
+    
+  },
+  waiverContainer: {
+    border: "0.5px solid #C4C4C4",
+    borderRadius: ".5rem",
+    height: "20rem",
+    overflowY: "auto",
+  },
+  waiverText: {
+    margin: "1.6rem 3.2rem 1.6rem 1.6rem",
   },
   btnBox: {
     display: "flex",
@@ -41,7 +60,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Step6({ updateDemo3 }) {
+export default function Step6({ updateDemo4 }) {
   const classes = useStyles();
   const navigate = useNavigate();
   const { userEmail } = useParams();
@@ -49,59 +68,66 @@ export default function Step6({ updateDemo3 }) {
     variables: { email: userEmail },
   });
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
-  const { handleSubmit, setValue, control } = useForm();
+  const { handleSubmit, setValue, control } = useForm({
+    defaultValues: {
+      additionalInfo:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.additionalInfo,
+      guardianSignature:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.guardianSignature,
+      waiverSignature:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.waiverSignature,
+      isMinor:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.isMinor,
+      minorName:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.minorName,
+    },
+  });
   // Sets default values in input fields with current user's info
   useEffect(() => {
     !loading && !currentUserInfo
       ? setCurrentUserInfo(defaultInfo)
       : setValue([
           {
-            becomeAthleteMentor:
-              currentUserInfo?.profile?.demographicProfile?.becomeAthleteMentor,
+            additionalInfo:
+              currentUserInfo &&
+              currentUserInfo?.profile?.demographicProfile?.additionalInfo,
           },
           {
-            athleteMentorHelp:
-              currentUserInfo?.profile?.demographicProfile?.athleteMentorHelp,
+            guardianSignature:
+              currentUserInfo &&
+              currentUserInfo?.profile?.demographicProfile?.guardianSignature,
           },
           {
-            athleteMentorSport:
-              currentUserInfo?.profile?.demographicProfile?.athleteMentorSport,
+            waiverSignature:
+              currentUserInfo &&
+              currentUserInfo?.profile?.demographicProfile?.waiverSignature,
           },
           {
-            acsDiscovery:
-              currentUserInfo?.profile?.demographicProfile?.acsDiscovery,
+            isMinor:
+              currentUserInfo &&
+              currentUserInfo?.profile?.demographicProfile?.isMinor,
           },
           {
-            acsOrgSpecificDiscovery:
-              currentUserInfo?.profile?.demographicProfile
-                ?.acsOrgSpecificDiscovery,
-          },
-          {
-            amplaEmail:
-              currentUserInfo?.profile?.demographicProfile?.amplaEmail,
-          },
-          {
-            hangerClinic:
-              currentUserInfo?.profile?.demographicProfile?.hangerClinic,
-          },
-          {
-            challengeMagazine:
-              currentUserInfo?.profile?.demographicProfile?.challengeMagazine,
+            minorName:
+              currentUserInfo &&
+              currentUserInfo?.profile?.demographicProfile?.minorName,
           },
         ]);
   }, [loading, currentUserInfo, defaultInfo, setValue]);
   const onSubmit = async data => {
-    await updateDemo3({
+    await updateDemo4({
       variables: {
         email: userEmail,
-        becomeAthleteMentor: data.becomeAthleteMentor,
-        athleteMentorHelp: data.athleteMentorHelp,
-        athleteMentorSport: data.athleteMentorSport,
-        acsDiscovery: data.acsDiscovery,
-        acsOrgSpecificDiscovery: data.acsOrgSpecificDiscovery,
-        amplaEmail: data.amplaEmail,
-        hangerClinic: data.hangerClinic,
-        challengeMagazine: data.challengeMagazine,
+        additionalInfo: data.additionalInfo,
+        guardianSignature: data.guardianSignature,
+        waiverSignature: data.waiverSignature,
+        isMinor: data.isMinor,
+        minorName: data.minorName,
       },
     });
     alert("Successfully updated all required account information!");
@@ -111,254 +137,172 @@ export default function Step6({ updateDemo3 }) {
     <Box className={classes.root}>
       <ProgressBar activeStep={6} stepNumber={6} userEmail={userEmail} />
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        <InputLabel htmlFor="becomeAthleteMentor">
-          Are you interested in becoming an Athlete Mentor?
+        <InputLabel htmlFor="additionalInfo">
+          Is there anything you would like the Angel City team to know in
+          preparation for the 2020 Angel City Virtual Games?
         </InputLabel>
         <Controller
-          as={
-            <Select>
-              <MenuItem value="Yes">Yes</MenuItem>
-              <MenuItem value="No">No</MenuItem>
-            </Select>
-          }
-          name="becomeAthleteMentor"
+          as={<TextField />}
+          name="additionalInfo"
           type="select"
           className={classes.select}
           variant="outlined"
           control={control}
           defaultValue=""
         />
-        <InputLabel htmlFor="athleteMentorHelp" className={classes.spacing}>
-          Are you interested in being mentored by an Athlete Mentor?
+        <Typography className={classes.spacing}>
+          Please read and acknowledge this Virtual Games Waiver of Liability
+        </Typography>
+        <Box className={classes.waiverContainer}>
+          <Typography className={classes.waiverText}>
+            1. Waiver of Liability, Assumption of Risk, and Indemnity Agreement
+            Waiver: In consideration of being permitted to participate in any
+            way in the Angel City Sports Virtual Games presented by The Hartford
+            on June 22, 2020 through August 29, 2020 hereinafter called the
+            “Angel City Sports Virtual Games”, for myself, my heirs, personal
+            representatives, or assigns, do hereby release, waive, discharge,
+            and covenant not to sue Angel City Sports, their respective
+            officers, board members, employees, agents, assigns, and successors
+            in interest, including The Hartford Financial Services Group, Inc.
+            and its affiliates, subsidiaries and parent companies, and all
+            respective officers, directors, agents or employees, from liability
+            from any and all claims including the negligence of or omissions by
+            Angel City Sports, its officers, employees and agents, and/or The
+            Hartford Financial Services Group, Inc., resulting in any injury,
+            accidents or illnesses (including death), and property loss arising
+            from, but not limited to, participation in the Angel City Sports
+            Virtual Games Assumption of Risks: Participation in the Angel City
+            Sports Virtual Games carries with it certain inherent risks that
+            cannot be eliminated regardless of the care taken to avoid injuries.
+            The specific risks vary from one activity to another, but the risks
+            include, but are not limited to: (1) minor injuries such as
+            scratches, bruises, and sprains; (2) major injuries such as eye
+            injury or loss of sight, joint or back injuries, bone fractures,
+            heart attacks, and concussions; and (3) catastrophic injuries
+            including paralysis and death. I have read the previous paragraphs
+            and I know, understand, and appreciate these and other risks that
+            are inherent in the Angel City Sports Virtual Games. I hereby
+            declare that my participation is voluntary and that I knowingly
+            assume all such risks. Indemnification and Hold Harmless: I also
+            agree to INDEMNIFY AND HOLD HARMLESS Angel City Sports and/or The
+            Hartford Financial Services Group, Inc. from any and all claims,
+            actions, suits, procedures, costs, expenses, damages and
+            liabilities, including attorney’s fees, brought as a result of my
+            involvement in the Angel City Sports Virtual Games and to reimburse
+            them for any such expenses incurred. 2. Permission for Use of Name,
+            Image and Statements I understand that in connection with Angel City
+            Sports Virtual Games, there may be photography, audio, and video
+            recording. By signing below, I grant absolute and irrevocable right
+            and unrestricted permission to Angel City Sports and/or The Hartford
+            Financial Services Group, Inc. to use my name, likeness, identity,
+            voice, photographic image, videographic image and oral or recorded
+            statements in any publication of the Angel City Sports Virtual Games
+            to be used for research, educational, promotional, advertising,
+            fundraising or other related use, including but not limited to, film
+            broadcast, printed publications, webpages and web-based
+            publications, news, web casts, telecasts, and social media
+            associated or affiliated with Angel City Sports and/or The Hartford
+            Financial Services Group, Inc.. By signing this form, I hereby waive
+            and release Angel City Sports, and its officers, employees and
+            agents, and/or The Hartford Financial Services Group, Inc., and each
+            and all persons involved from any claim or liability relating to the
+            use of my name, likeness, identity, voice, photographic image,
+            videographic image and oral or recorded statements. I further waive
+            all rights I may have to any claims for payments of money,
+            compensation, or remuneration in any form and of any kind from Angel
+            City Sports and/or The Hartford Financial Services Group, Inc.,
+            relating to the use of my name, likeness, identity, voice,
+            photographic image, videographic image and oral or recorded
+            statements, regardless of the purpose or sponsoring of such use by
+            Angel City Sports and/or The Hartford Financial Services Group,
+            Inc.. I also waive any right to inspect or approve any photo, video,
+            or audio recording taken or used by Angel City Sports and/or The
+            Hartford Financial Services Group, Inc.. I acknowledge that Angel
+            City Sports and/or The Hartford Financial Services Group, Inc., will
+            rely on this permission and release in producing, broadcasting, and
+            distributing materials containing my name, likeness, identity,
+            voice, photographic image, videographic image or oral or recorded
+            statements. Governing Law and Jurisdiction: This agreement shall be
+            governed by the laws of the State of California, and any disputes
+            arising out of or in connection with this Agreement shall be under
+            the exclusive jurisdiction of the Courts of the State of California.
+            Severability: The undersigned further expressly agrees that the
+            foregoing waiver and assumption of risks agreement is intended to be
+            as broad and inclusive as is permitted by the laws of the State of
+            California and that if any portion thereof is held invalid, it is
+            agreed that the balance shall, notwithstanding, continue in full
+            legal force and effect. Acknowledgment of Understanding: I have read
+            both (1) the Waiver of Liability, Assumption of Risk, and Indemnity
+            Agreement; and (2) Permission for Use of my Name, Image, and
+            Statements, and fully understand the terms. I understand that I am
+            giving up substantial rights, including my right to sue. I
+            acknowledge that I am signing the agreement freely and voluntarily,
+            and intend by my signature to be a complete and unconditional
+            release of all liability to the greatest extent allowed by law. I am
+            an adult, 18 years or older, and I have read and understand this
+            Agreement and freely and knowingly give my consent to Angel City
+            Sports as described herein.
+          </Typography>
+        </Box>
+        <Typography color="primary">
+          By signing you are agreeing to all of the above statements.
+        </Typography>
+        <InputLabel htmlFor="waiverSignature" className={classes.spacing}>
+          Please sign by typing your name below
         </InputLabel>
         <Controller
-          as={
-            <Select>
-              <MenuItem value="Yes">Yes</MenuItem>
-              <MenuItem value="No">No</MenuItem>
-            </Select>
-          }
-          name="athleteMentorHelp"
+          as={<TextField />}
+          name="waiverSignature"
           type="select"
           className={classes.select}
           variant="outlined"
           control={control}
           defaultValue=""
         />
-        <InputLabel htmlFor="athleteMentorSport" className={classes.spacing}>
-          If you would like to be involved in the Athlete Mentorship Program,
-          which is your preferred sport?
+        <Box className={classes.checkBoxContainer}>
+          <Controller
+            as={<Checkbox />}
+            name="isMinor"
+            type="checkbox"
+            control={control}
+            color="primary"
+            defaultValue={false}
+            value={true}
+          />
+          <InputLabel className={classes.checkBoxLabel} htmlFor="isMinor">
+            Participant is a minor (if so, please sign below)
+          </InputLabel>
+        </Box>
+        <Typography color="primary">
+          If the Participant is a Minor, the Minor Participant's Parent/Guardian
+          must read this Waiver of Liability, Assumption of Risk, and Indemnity
+          Agreement & PERMISSION FOR USE OF NAME, IMAGE AND STATEMENTS
+        </Typography>
+        <InputLabel htmlFor="guardianSignature" className={classes.spacing}>
+          Parent/Guardian Signature
         </InputLabel>
         <Controller
-          as={
-            <Select>
-              <MenuItem value="Air Rifle">Air Rifle</MenuItem>
-              <MenuItem value="Alpine Skiing">Alpine Skiing</MenuItem>
-              <MenuItem value="Archery">Archery</MenuItem>
-              <MenuItem value="Badminton">Badminton</MenuItem>
-              <MenuItem value="Baseball">Baseball</MenuItem>
-              <MenuItem value="Beep Baseball">Beep Baseball</MenuItem>
-              <MenuItem value="Biathlon">Biathlon</MenuItem>
-              <MenuItem value="Blind Hockey">Blind Hockey</MenuItem>
-              <MenuItem value="Boccia">Boccia</MenuItem>
-              <MenuItem value="Bowling">Bowling</MenuItem>
-              <MenuItem value="Boxing">Boxing</MenuItem>
-              <MenuItem value="Canoe">Canoe</MenuItem>
-              <MenuItem value="Cheerleading">Cheerleading</MenuItem>
-              <MenuItem value="CrossFit">CrossFit</MenuItem>
-              <MenuItem value="Cross-Country Skiing">
-                Cross-Country Skiing
-              </MenuItem>
-              <MenuItem value="Curling">Curling</MenuItem>
-              <MenuItem value="Cycling">Cycling</MenuItem>
-              <MenuItem value="Equestrian">Equestrian</MenuItem>
-              <MenuItem value="Esports">Esports</MenuItem>
-              <MenuItem value="Fishing">Fishing</MenuItem>
-              <MenuItem value="Goalball">Goalball</MenuItem>
-              <MenuItem value="Golf">Golf</MenuItem>
-              <MenuItem value="Hiking">Hiking</MenuItem>
-              <MenuItem value="Hunting">Hunting</MenuItem>
-              <MenuItem value="Judo">Judo</MenuItem>
-              <MenuItem value="Jiu Jitsu">Ju Jitsu</MenuItem>
-              <MenuItem value="Lacrosse">Lacrosse</MenuItem>
-              <MenuItem value="Mixed Martial Arts">Mixed Martial Arts</MenuItem>
-              <MenuItem value="Motorsports/Motorcross">
-                Motorsports/Motorcross
-              </MenuItem>
-              <MenuItem value="Mountain Biking">Mountain Biking</MenuItem>
-              <MenuItem value="Powerlifting">Powerlifting</MenuItem>
-              <MenuItem value="Rafting">Rafting</MenuItem>
-              <MenuItem value="Rock Climbing">Rock Climbing</MenuItem>
-              <MenuItem value="Rowing">Rowing</MenuItem>
-              <MenuItem value="Sailing">Sailing</MenuItem>
-              <MenuItem value="Scuba">Scuba</MenuItem>
-              <MenuItem value="Shooting">Shooting</MenuItem>
-              <MenuItem value="Skateboarding">Skateboarding</MenuItem>
-              <MenuItem value="Snowboarding">Snowboarding</MenuItem>
-              <MenuItem value="Sled Hockey">Sled Hockey</MenuItem>
-              <MenuItem value="Blind Soccer 5-a-side">
-                Blind Soccer 5-a-side
-              </MenuItem>
-              <MenuItem value="Amputee/Crutch Soccer">
-                Amputee/Crutch Soccer
-              </MenuItem>
-              <MenuItem value="Power Soccer">Power Soccer</MenuItem>
-              <MenuItem value="CP 7-a-side">CP 7-a-side</MenuItem>
-              <MenuItem value="Stand-up/Wheelchair Paddling">
-                Stand-up/Wheelchair Paddling
-              </MenuItem>
-              <MenuItem value="Swimming">Swimming</MenuItem>
-              <MenuItem value="Surfing">Surfing</MenuItem>
-              <MenuItem value="Table Tennis">Table Tennis</MenuItem>
-              <MenuItem value="Taekwondo">Taekwondo</MenuItem>
-              <MenuItem value="Tai Chi">Tai Chi</MenuItem>
-              <MenuItem value="Track & Field">Track & Field</MenuItem>
-              <MenuItem value="Triathlon">Triathlon</MenuItem>
-              <MenuItem value="Beach Volleyball">Beach Volleyball</MenuItem>
-              <MenuItem value="Sitting Volleyball">Sitting Volleyball</MenuItem>
-              <MenuItem value="Water Skiing">Water Skiing</MenuItem>
-              <MenuItem value="WCMX (Wheelchair Skateboarding)">
-                WCMX (Wheelchair Skateboarding)
-              </MenuItem>
-              <MenuItem value="Wheelchair Basketball">
-                Wheelchair Basketball
-              </MenuItem>
-              <MenuItem value="Wheelchair Curling">Wheelchair Curling</MenuItem>
-              <MenuItem value="Wheelchair Fencing">Wheelchair Fencing</MenuItem>
-              <MenuItem value="Wheelchair Football">
-                Wheelchair Football
-              </MenuItem>
-              <MenuItem value="Wheelchair Softball">
-                Wheelchair Softball
-              </MenuItem>
-              <MenuItem value="Wheelchair Rugby">Wheelchair Rugby</MenuItem>
-              <MenuItem value="Wheelchair Tennis">Wheelchair Tennis</MenuItem>
-              <MenuItem value="Wrestling">Wrestling</MenuItem>
-              <MenuItem value="Yoga">Yoga</MenuItem>
-              <MenuItem value="Other">Other</MenuItem>
-            </Select>
-          }
-          name="athleteMentorSport"
+          as={<TextField />}
+          name="guardianSignature"
           type="select"
           className={classes.select}
           variant="outlined"
           control={control}
           defaultValue=""
         />
-        <InputLabel htmlFor="acsDiscovery" className={classes.spacing}>
-          How did you hear about Angel City Sports?
+        <InputLabel className={classes.spacing} htmlFor="minorName">
+          Minor participant's name
         </InputLabel>
         <Controller
-          as={
-            <Select>
-              <MenuItem value="Outreach Event">Outreach Event</MenuItem>
-              <MenuItem value="Website">Website</MenuItem>
-              <MenuItem value="Existing Angel City athlete/volunteer">
-                Existing Angel City athlete/volunteer
-              </MenuItem>
-              <MenuItem value="Like-minded organization">
-                Like-minded organization
-              </MenuItem>
-              <MenuItem value="Social Media">Social Media</MenuItem>
-              <MenuItem value="Other">Other</MenuItem>
-            </Select>
-          }
-          name="acsDiscovery"
+          as={<TextField />}
+          name="minorName"
           type="select"
           className={classes.select}
           variant="outlined"
           control={control}
           defaultValue=""
         />
-        <InputLabel
-          htmlFor="acsOrgSpecificDiscovery"
-          className={classes.spacing}
-        >
-          Did you hear about Angel City Sports through any of the following
-          organizations?
-        </InputLabel>
-        <Controller
-          as={
-            <Select>
-              <MenuItem value="Hangar Clinic or Hangar Clinician">
-                Hangar Clinic or Hangar Clinician
-              </MenuItem>
-              <MenuItem value="Triumph Foundation">Triumph Foundation</MenuItem>
-              <MenuItem value="Wayfinder Family Services (formerly Junior Blind)">
-                Wayfinder Family Services (formerly Junior Blind)
-              </MenuItem>
-              <MenuItem value="The Training Hall">The Training Hall</MenuItem>
-              <MenuItem value="Never Say Never">Never Say Never</MenuItem>
-              <MenuItem value="Challenged Athletes Foundation">
-                Challenged Athletes Foundation
-              </MenuItem>
-              <MenuItem value="Angel City Sports Oregon">
-                Angel City Sports Oregon
-              </MenuItem>
-              <MenuItem value="Abilities Expo">Abilities Expo</MenuItem>
-              <MenuItem value="Other">Other</MenuItem>
-            </Select>
-          }
-          name="acsOrgSpecificDiscovery"
-          type="select"
-          className={classes.select}
-          variant="outlined"
-          control={control}
-          defaultValue=""
-        />
-        <InputLabel htmlFor="amplaEmail" className={classes.spacing}>
-          Are you interested in expanding career opportunities and being added
-          to the Ampla Partners email list?
-        </InputLabel>
-        <Controller
-          as={
-            <Select>
-              <MenuItem value="Yes">Yes</MenuItem>
-              <MenuItem value="No">No</MenuItem>
-            </Select>
-          }
-          name="amplaEmail"
-          type="select"
-          className={classes.select}
-          variant="outlined"
-          control={control}
-          defaultValue=""
-        />
-        <InputLabel htmlFor="hangerClinic" className={classes.spacing}>
-          Would you like to receive information about Hangar Clinic?
-        </InputLabel>
-        <Controller
-          as={
-            <Select>
-              <MenuItem value="Yes">Yes</MenuItem>
-              <MenuItem value="No">No</MenuItem>
-            </Select>
-          }
-          name="hangerClinic"
-          type="select"
-          className={classes.select}
-          variant="outlined"
-          control={control}
-          defaultValue=""
-        />
-        <InputLabel htmlFor="challengeMagazine" className={classes.spacing}>
-          Would you like to be signed up to receive the Challenge Magazine
-          published by Disabled Sports USA?
-        </InputLabel>
-        <Controller
-          as={
-            <Select>
-              <MenuItem value="Yes">Yes</MenuItem>
-              <MenuItem value="No">No</MenuItem>
-            </Select>
-          }
-          name="challengeMagazine"
-          type="select"
-          className={classes.select}
-          variant="outlined"
-          control={control}
-          defaultValue=""
-        />
+
         <Box className={classes.btnBox}>
           <FinishButton
             type="submit"

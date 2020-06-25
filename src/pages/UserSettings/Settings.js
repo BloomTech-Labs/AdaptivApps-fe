@@ -22,7 +22,7 @@ import SponsorBanner from '../SponsorSpotlight/SponsorBanner'
 const useStyles = makeStyles({
   root: {
     marginLeft: "3rem",
-    height: '100vh'
+    height: "100vh",
   },
   headingBox: {
     margin: "6rem 0 2rem",
@@ -177,20 +177,24 @@ export default function Settings() {
                   <Typography>City, State</Typography>
                 </Box>
                 <Box className={classes.data}>
-                  <Typography>
-                    {profile?.firstName} {profile?.lastName}
-                  </Typography>
+                  {profile?.firstName === null ? (
+                    <br></br>
+                  ) : (
+                    <Typography>
+                      {profile?.firstName} {profile?.lastName}
+                    </Typography>
+                  )}
+
                   <Typography>{profile?.userName || <br></br>}</Typography>
                   <Typography>{profile?.phoneNumber || <br></br>}</Typography>
                   <Typography>{profile?.email || <br></br>}</Typography>
-                  {profile?.city && profile?.state === null ? (
+                  {profile?.city === null ? (
                     <br></br>
                   ) : (
                     <Typography>
                       {profile?.city}, {profile?.state}
                     </Typography>
                   )}
-              
                 </Box>
               </Box>
               {/* Display option will be a feature in  */}
@@ -286,7 +290,7 @@ export default function Settings() {
                   </Typography>
                   <Typography>{profile?.phoneNumber || <br></br>}</Typography>
                   <Typography>{profile?.email || <br></br>}</Typography>
-                  {profile?.city && profile?.state === null ? (
+                  {profile?.city === null ? (
                     <br></br>
                   ) : (
                     <Typography>
@@ -316,7 +320,7 @@ export default function Settings() {
             aria-label="Click here to update account information."
             onClick={() => navigate(`/updateaccount/${userEmail}`)}
           >
-            {profile?.firstName === null ? 'Add my info' : 'Edit my info'}
+            {profile?.type === null ? "Add my info" : "Edit my info"}
           </Button>
         </Box>
       </Box>
