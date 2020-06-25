@@ -18,16 +18,23 @@ import {
   MenuItem,
 } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
     width: '90%',
+    border: '1px solid red',
     "& .MuiInputLabel-asterisk": {
       fontSize: '2rem',
       color: 'red',
-      fontWeight: 'bolder'
-    }
+      fontWeight: 'bolder',
+      [theme.breakpoints.down("sm")]: {
+        fontSize: '1.75rem'
+      },
+      [theme.breakpoints.down("xs")]: {
+        fontSize: '1.25rem'
+      },
+    },
   },
   form: {
     height: "80vh",
@@ -39,6 +46,28 @@ const useStyles = makeStyles({
   typeSelect: {
     width: 744,
     height: 48,
+    [theme.breakpoints.down("sm")]: {
+      width: '90%',
+      height: 48,
+      margin: '3% auto',
+      fontSize: '1rem'
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: '90%',
+      height: 35,
+      margin: '3%  auto',
+      fontSize: '1rem'
+    },
+  },
+  inputLabel: {
+    [theme.breakpoints.down("sm")]: {
+      fontSize: '1.5rem',
+      margin: 'auto'
+    },
+    [theme.breakpoints.down("xs")]: {
+      fontSize: '1.25rem',
+      margin: 'auto'
+    },
   },
   box: {
     height: "100%",
@@ -57,7 +86,7 @@ const useStyles = makeStyles({
     fontWeight: 'bold',
     marginTop: '1rem'
   },
-});
+}));
 
 export default function AccountTypeForm({ updateProfile }) {
   const classes = useStyles();
@@ -96,7 +125,7 @@ export default function AccountTypeForm({ updateProfile }) {
     <Box className={classes.root}>
       <ProgressBar activeStep={0} userEmail={userEmail} />
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        <InputLabel required htmlFor="account type">
+        <InputLabel className={classes.inputLabel} required htmlFor="account type">
           Are you registering as an individual or an organization?
         </InputLabel>
         {errors.type && <Typography className={classes.error}>Please make a selection</Typography>}
