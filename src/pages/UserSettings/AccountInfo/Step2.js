@@ -25,6 +25,9 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     width: "67.5%",
+    '& .MuiInputLabel-root': {
+      color: "black",
+    },
 
     "& .MuiInputLabel-asterisk": {
       fontSize: "2rem",
@@ -34,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   },
   form: {
     display: "flex",
-    height: "70vh",
+    height: "71vh",
     flexDirection: "column",
     "& .MuiTextField-root": {
       width: "65rem",
@@ -57,6 +60,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   ecField: {
+    marginTop: ".5rem",
     marginBottom: "1.6rem",
     "& .MuiInputBase-root": {
       width: "74.4rem",
@@ -69,6 +73,9 @@ const useStyles = makeStyles(theme => ({
   longSelect: {
     width: "100%",
     marginBottom: "1.6rem",
+  },
+  disabilitySelect: {
+    marginTop: ".5rem"
   },
   em: {
     fontStyle: "italic",
@@ -324,7 +331,7 @@ export default function Step2({ updateExtProfile }) {
             rules={{ required: true }}
           />
         </Box>
-        <InputLabel htmlFor="physicalDisability">
+        <InputLabel htmlFor="physicalDisability" className={classes.disabilitySelect}>
           Please select the category of physical disability that is most
           accurate for you
         </InputLabel>
