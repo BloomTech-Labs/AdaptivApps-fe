@@ -4,13 +4,15 @@ import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Apollo/GraphQL imports
 import { useQuery } from "react-apollo";
-import { PROFILE_STEP_1 } from "../queries";
+import { PROFILE_STEP_1, PROFILE_INFO } from "../queries";
 // Component imports
 import NextButton from "../../../theme/SmallFormButton";
 import SaveButton from "../../../theme/LargeFormButton";
 import ProgressBar from "../../../theme/ProgressBar";
 // Query imports
 import { GET_RECIPIENTS } from '../../Chat/queries/Chats'
+// Auth0 imports
+import { useAuth0 } from "../../../config/react-auth0-spa";
 
 // Material-UI imports
 import {
@@ -138,6 +140,13 @@ export default function Step1({ updateProfile }) {
   const { data: defaultInfo, loading } = useQuery(PROFILE_STEP_1, {
     variables: { email: userEmail },
   });
+  const { data } = useQuery(GET_RECIPIENTS);
+  const { data: user } = useQuery(PROFILE_INFO, { variables: { email: userEmail } });
+  
+  const currentUser = user?.profile?.userName
+
+  console.log(currentUser)
+
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
   const [errorState, setErrorState] = useState();
   const { handleSubmit, setValue, control, errors } = useForm({
@@ -204,16 +213,17 @@ export default function Step1({ updateProfile }) {
     navigate(`/updateaccount/${userEmail}/step2of6`);
   });
 
-//   const userNames = []
-//   data && data.profiles.filter(user => user.userName !== null && user.userName !== '' && userNames.push(user.userName.toLowerCase()));
+  const userNames = []
+  data && data.profiles.filter(user => user.userName !== null && user.userName !== '' && user.userName !== currentUser && userNames.push(user.userName.toLowerCase()));
 
-//   const validateUsername = () => {
-//     const userName = control.getValues().userName.toLowerCase();
-//     if (userNames.includes(userName)) {
-//       setErrorState(true);
-//       alert('That username is already taken. Please choose another one!');
-//   } else setErrorState(false)  ;
-// };
+
+  const validateUsername = () => {
+    const userName = control.getValues().userName.toLowerCase();
+    if (userNames.includes(userName)) {
+      setErrorState(true);
+      alert('That username is already taken. Please choose another one!');
+  } else setErrorState(false)  ;
+};
 
   // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
   const onSave = handleSubmit(async data => {
@@ -283,7 +293,7 @@ export default function Step1({ updateProfile }) {
               type="text"
               control={control}
               defaultValue=""
-              // onBlur={validateUsername}
+              onBlur={validateUsername}
               rules={{ required: true }}
             />
             {errors.userName && <Typography className={classes.error}>username is a required field</Typography>}
