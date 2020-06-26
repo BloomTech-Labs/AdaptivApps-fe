@@ -12,6 +12,7 @@ import {
   Select,
   MenuItem,
   Button,
+  Typography
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -31,9 +32,21 @@ const useStyles = makeStyles(theme => ({
   inputLabel: {
     marginBottom: "7px",
     marginLeft: "5px",
+    "& .MuiInputLabel-asterisk": {
+      fontSize: '1.75rem',
+      color: 'red',
+      fontWeight: 'bolder'
+    },
   },
   inputField: {
     marginBottom: "10px",
+  },
+  error: {
+    color: 'red',
+    fontSize: '1.75rem',
+    fontVariant: 'all-small-caps',
+    fontWeight: 'bold',
+    
   },
 }));
 
@@ -50,7 +63,7 @@ export default function EventForm({
   const classes = useStyles();
   const navigate = useNavigate();
   const [tags, setTags] = useState([]);
-  const { handleSubmit, setValue, control } = useForm({
+  const { handleSubmit, setValue, control, errors } = useForm({
     defaultValues: {
       type: currentEvent && currentEvent.type,
       sportType: currentEvent && currentEvent.sportType,
@@ -176,9 +189,10 @@ export default function EventForm({
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
-        <InputLabel className={classes.inputLabel} htmlFor="type">
+        <InputLabel required className={classes.inputLabel} htmlFor="type">
           Event Type
         </InputLabel>
+        {errors.type && <Typography className={classes.error}>Please choose an event type</Typography>}
         <Controller
           as={
             <Select>
@@ -191,10 +205,12 @@ export default function EventForm({
           control={control}
           defaultValue=""
           className={classes.inputField}
+          rules={{ required: true }}
         />
-        <InputLabel className={classes.inputLabel} htmlFor="sportType">
+        <InputLabel required className={classes.inputLabel} htmlFor="sportType">
           Sport Type
         </InputLabel>
+        {errors.sportType && <Typography className={classes.error}>Please choose a sport type</Typography>}
         <Controller
           as={
             <Select>
@@ -219,10 +235,12 @@ export default function EventForm({
           control={control}
           defaultValue=""
           className={classes.inputField}
+          rules={{ required: true }}
         />
-        <InputLabel className={classes.inputLabel} htmlFor="title">
+        <InputLabel required className={classes.inputLabel} htmlFor="title">
           Event Title
         </InputLabel>
+        {errors.title && <Typography className={classes.error}>Please create an event title</Typography>}
         <Controller
           as={<TextField />}
           type="text"
@@ -232,10 +250,12 @@ export default function EventForm({
           control={control}
           defaultValue=""
           className={classes.inputField}
+          rules={{ required: true }}
         />
-        <InputLabel className={classes.inputLabel} htmlFor="host">
+        <InputLabel required className={classes.inputLabel} htmlFor="host">
           Who's Hosting the Event?
         </InputLabel>
+        {errors.host && <Typography className={classes.error}>Please add a host to this event</Typography>}
         <Controller
           as={<TextField />}
           type="text"
@@ -245,6 +265,7 @@ export default function EventForm({
           control={control}
           defaultValue=""
           className={classes.inputField}
+          rules={{ required: true }}
         />
         <InputLabel className={classes.inputLabel} htmlFor="coaches">
           Who's Coaching the Event?
@@ -272,9 +293,10 @@ export default function EventForm({
           defaultValue=""
           className={classes.inputField}
         />
-        <InputLabel className={classes.inputLabel} htmlFor="startDate">
+        <InputLabel required className={classes.inputLabel} htmlFor="startDate">
           Start Date
         </InputLabel>
+        {errors.startDate && <Typography className={classes.error}>Please choose a start date</Typography>}
         <Controller
           as={<TextField />}
           type="date"
@@ -284,10 +306,12 @@ export default function EventForm({
           control={control}
           defaultValue=""
           className={classes.inputField}
+          rules={{ required: true }}
         />
-        <InputLabel className={classes.inputLabel} htmlFor="endDate">
+        <InputLabel required className={classes.inputLabel} htmlFor="endDate">
           End Date
         </InputLabel>
+        {errors.endDate && <Typography className={classes.error}>Please choose an end date</Typography>}
         <Controller
           as={<TextField />}
           type="date"
@@ -297,6 +321,7 @@ export default function EventForm({
           control={control}
           defaultValue=""
           className={classes.inputField}
+          rules={{ required: true }}
         />
         <InputLabel className={classes.inputLabel} htmlFor="startTime">
           What time does the event start?
@@ -324,9 +349,10 @@ export default function EventForm({
           defaultValue=""
           className={classes.inputField}
         />
-        <InputLabel className={classes.inputLabel} htmlFor="location">
+        <InputLabel required className={classes.inputLabel} htmlFor="location">
           Where is the event location?
         </InputLabel>
+        {errors.location && <Typography className={classes.error}>Please add an event location</Typography>}
         <Controller
           as={<TextField />}
           type="text"
@@ -336,6 +362,7 @@ export default function EventForm({
           control={control}
           defaultValue=""
           className={classes.inputField}
+          rules={{ required: true }}
         />
         <InputLabel className={classes.inputLabel} htmlFor="link">
           Is there a zoom link?
@@ -350,9 +377,10 @@ export default function EventForm({
           defaultValue=""
           className={classes.inputField}
         />
-        <InputLabel className={classes.inputLabel} htmlFor="sponsors">
+        <InputLabel required className={classes.inputLabel} htmlFor="sponsors">
           Who are the sponsors?
         </InputLabel>
+        {errors.sponsors && <Typography className={classes.error}>Please add an event sponsor</Typography>}
         <Controller
           as={<TextField />}
           type="text"
@@ -362,6 +390,7 @@ export default function EventForm({
           control={control}
           defaultValue=""
           className={classes.inputField}
+          rules={{ required: true }}
         />
         <InputLabel className={classes.inputLabel} htmlFor="imgUrl">
           Find an image on the internet and pase the URL here!
@@ -376,9 +405,10 @@ export default function EventForm({
           defaultValue=""
           className={classes.inputField}
         />
-        <InputLabel className={classes.inputLabel} htmlFor="details">
+        <InputLabel required className={classes.inputLabel} htmlFor="details">
           Event details
         </InputLabel>
+        {errors.details && <Typography className={classes.error}>Please add some details to this event</Typography>}
         <Controller
           as={<TextField />}
           name="details"
@@ -386,6 +416,7 @@ export default function EventForm({
           multiline
           rows="8"
           control={control}
+          rules={{ required: true }}
         />
         <TagInput tags={tags} setTags={setTags} />
         <Button
