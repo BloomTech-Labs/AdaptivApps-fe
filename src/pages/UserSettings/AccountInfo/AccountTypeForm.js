@@ -47,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
   selectContainer: {
     height: "80vh",
+    marginTop: "3.2rem"
   },
   typeSelect: {
     width: "100%",

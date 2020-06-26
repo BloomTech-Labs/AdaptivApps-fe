@@ -5,7 +5,6 @@ import {
   makeStyles,
   MobileStepper,
   Box,
-  Button,
   Typography,
 } from "@material-ui/core";
 import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
@@ -19,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiPaper-root": {
       background: "#FFFFFF",
     },
-    marginBottom: '3.2rem',
+    marginBottom: '1rem',
     [theme.breakpoints.down("sm")]: {
       width: '90%',
       margin: 'auto',
@@ -32,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   stepper: {
     width: "100%",
-    padding: 0,
+    padding: "0 0 0 0.8rem",
     marginLeft: -5,
     "& .MuiLinearProgress-root": {
       width: "100%",
