@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "react-apollo";
 import { CREATE_ANNOUNCEMENT, GET_RECIPIENTS } from '../../queries/Announcements';
 import { CREATE_ANNOUNCEMENT_NOTIFICATION } from '../../queries/Notifications'
@@ -80,6 +80,7 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
 
   const [newAnnouncement, setNewAnnouncement] = useState();
   const [newAnnouncementText, setNewAnnouncementText] = useState();
+  const [buttonDisabled, setButtonDisabled] = useState(true);
 
   const handleTitleChange = e => {
     setNewAnnouncement(e.target.value);
@@ -88,6 +89,10 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
   const handleMessageChange = e => {
     setNewAnnouncementText(e.target.value);
   };
+
+  useEffect(() => {
+    newAnnouncementText === undefined || newAnnouncement === undefined ? setButtonDisabled(true) : setButtonDisabled(false)
+  }, [newAnnouncementText, newAnnouncement])
 
   //Create array of emails to match BE data shape, exclude yourself
   const allUserEmails = data?.profiles?.map(participant => user.email !== participant.email &&
@@ -116,12 +121,26 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
       })
     setAnnouncementOpen(false);
     setAlertOpen(true);
+
   };
 
   const closeModal = e => {
     e.preventDefault();
     setAnnouncementOpen(false);
   };
+
+  const checkIfTitleEmpty = e => {
+    if (e.target.value === '') {
+      alert('Announcement Title is required')
+    }
+  }
+
+  const checkIfBodyEmpty = e => {
+    if (e.target.value === '') {
+      alert('Announcement Title is required')
+    }
+  }
+
 
   return (
     <div className={classes.modal}>
@@ -134,6 +153,8 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
         <div className={classes.titleDiv}>
           <Box component="div" className={classes.titleInput}>
             <TextField
+              onBlur={checkIfTitleEmpty}
+              placeholder='Required field'
               variant="outlined"
               type="text"
               fullWidth
@@ -146,6 +167,8 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
         <div className={classes.titleDiv}>
           <Box component="div" className={classes.titleInput}>
             <TextField
+              onBlur={checkIfBodyEmpty}
+              placeholder='Required field'
               variant="outlined"
               multiline={true}
               rows={2}
@@ -159,7 +182,7 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
         </div>
         <div className={classes.buttonDiv}>
           <Tooltip title="Send Announcement">
-            <Button variant="outlined" color="primary" onClick={onSubmit} className={classes.button}>
+            <Button variant="outlined" color="primary" onClick={onSubmit} className={classes.button} disabled={buttonDisabled}>
               Send Announcement
             </Button>
           </Tooltip>
