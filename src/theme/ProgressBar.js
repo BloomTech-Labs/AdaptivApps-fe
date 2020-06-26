@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   stepper: {
     width: "100%",
+    padding: 0,
     marginLeft: -5,
     "& .MuiLinearProgress-root": {
       width: "100%",
