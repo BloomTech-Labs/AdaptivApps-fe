@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 // Retrieves all events a user is registered to.
 export const GET_USER_EVENTS = gql`
   query getUserEvents($email: String!) {
-    events(where: { attendees_some: { email: $email } }) {
+    events(where: { attendees_some: { eventProfile: { email: $email } } }) {
       id
       type
       host
@@ -21,7 +21,7 @@ export const GET_USER_EVENTS = gql`
         id
         participants {
           id
-          profile {
+          activityProfile {
             id
             email
           }
@@ -32,15 +32,33 @@ export const GET_USER_EVENTS = gql`
   }
 `;
 
-export const GET_PARTICIPANT_IDS = gql`
+export const GET_ATTENDEES = gql`
+  query getAllAttendees($email: String!, $id: ID!) {
+    participants(
+      where: { eventProfile: { email: $email }, AND: { event: { id: $id } } }
+    ) {
+      id
+      eventProfile {
+        id
+        email
+      }
+    }
+  }
+`;
+
+export const GET_PARTICIPANTS = gql`
   query getParticipantIds($email: String!, $id: ID!) {
     participants(
       where: {
-        profile: { email: $email }
+        activityProfile: { email: $email }
         AND: { activity: { event: { id: $id } } }
       }
     ) {
       id
+      activityProfile {
+        id
+        email
+      }
     }
   }
 `;
@@ -48,14 +66,14 @@ export const GET_PARTICIPANT_IDS = gql`
 export const UNREGISTER_FROM_ALL = gql`
   mutation unregisterFromAll(
     $email: String!
-    $id: ID!
+    $attendeeId: ID!
     $participantIds: [ID!]
   ) {
     updateProfile(
       where: { email: $email }
       data: {
         activities: { deleteMany: [{ id_in: $participantIds }] }
-        events: { disconnect: { id: $id } }
+        events: { delete: { id: $attendeeId } }
       }
     ) {
       id
@@ -69,28 +87,32 @@ export const UNREGISTER_FROM_ALL = gql`
 export const UNREGISTER_FROM_EVENT_ACTIVITY = gql`
   mutation unregisterFromEventActivity(
     $email: String!
-    $id: ID!
+    $attendeeId: ID!
     $participantId: ID!
   ) {
     updateProfile(
       where: { email: $email }
       data: {
+        events: { delete: { id: $attendeeId } }
         activities: { delete: { id: $participantId } }
-        events: { disconnect: { id: $id } }
       }
     ) {
       id
       activities {
         id
       }
+      events {
+        id
+      }
     }
   }
 `;
+
 export const UNREGISTER_FROM_EVENT = gql`
-  mutation unregisterFromEvent($id: ID!, $email: String!) {
-    updateEvent(
-      where: { id: $id }
-      data: { attendees: { disconnect: { email: $email } } }
+  mutation unregisterFromEvent($attendeeId: ID!, $email: String!) {
+    updateProfile(
+      where: { email: $email }
+      data: { events: { delete: { id: $attendeeId } } }
     ) {
       id
     }

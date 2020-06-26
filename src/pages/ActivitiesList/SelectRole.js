@@ -11,7 +11,7 @@ import {
 // Styling imports
 import { makeStyles, Popover, Button, Box } from "@material-ui/core";
 import { IconContext } from "react-icons";
-import { IoIosAddCircle } from "react-icons/io";
+import { IoIosAddCircle, IoIosCheckmarkCircleOutline } from "react-icons/io";
 import LightTooltip from "../../theme/LightTooltip";
 
 const useStyles = makeStyles(theme => ({
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     background: "transparent",
     boxShadow: "none",
     border: "none",
-    margin: "0",
+    margin: "0 0 5px 10px",
     padding: "0",
     "&:hover": {
       background: "none",
@@ -48,7 +48,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SimplePopover({ activity, activityData }) {
+export default function SimplePopover({ activity, activityData, refetch }) {
   const { user } = useAuth0();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -64,17 +64,22 @@ export default function SimplePopover({ activity, activityData }) {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const participant = activity.participants.map(participant => {
-    return participant?.id;
-  });
-  const participantIdValue = JSON.stringify(participant).replace(
-    /[\[\]"]+/g,
-    ""
-  );
+
+  const processParticipantID = () => {
+    if (activity && activity.participants) {
+      for (let i = 0; i < activity.participants.length; i++) {
+        if (activity.participants[i].activityProfile.email === user.email) {
+          return activity.participants[i].id;
+        }
+      }
+    }
+    else {
+      return false;
+    }
+  }
 
   const athleteRegister = async () => {
-    console.log("participantIdValue", participantIdValue);
-    console.log("participant", participant);
+    const participantIdValue = !processParticipantID() ? "" : processParticipantID();
     await registerAsAthlete({
       variables: {
         participantId: participantIdValue,
@@ -84,11 +89,11 @@ export default function SimplePopover({ activity, activityData }) {
     });
     alert("Successfully registered to compete in this event!");
     handleClose();
+    refetch();
   };
 
   const coachRegister = async () => {
-    console.log("participantIdValue", participantIdValue);
-    console.log("participant", participant);
+    const participantIdValue = !processParticipantID() ? "" : processParticipantID();
     await registerAsCoach({
       variables: {
         participantId: participantIdValue,
@@ -98,11 +103,11 @@ export default function SimplePopover({ activity, activityData }) {
     });
     alert("Successfully registered as a Coach!");
     handleClose();
+    refetch();
   };
 
   const volunteerRegister = async () => {
-    console.log("participantIdValue", participantIdValue);
-    console.log("participant", participant);
+    const participantIdValue = !processParticipantID() ? "" : processParticipantID();
     await registerAsVolunteer({
       variables: {
         participantId: participantIdValue,
@@ -112,11 +117,12 @@ export default function SimplePopover({ activity, activityData }) {
     });
     alert("Successfully registered as a Volunteer");
     handleClose();
+    refetch();
   };
 
   const spectatorRegister = async () => {
-    console.log("participantIdValue", participantIdValue);
-    console.log("participant", participant);
+    console.log(activity.participants)
+    const participantIdValue = !processParticipantID() ? "" : processParticipantID();
     await registerAsSpectator({
       variables: {
         participantId: participantIdValue,
@@ -126,7 +132,17 @@ export default function SimplePopover({ activity, activityData }) {
     });
     alert("Successfully registered as a Spectator");
     handleClose();
+    refetch();
   };
+
+  const alreadyRegistered = () => {
+    for (let i = 0; i < activity.participants.length; i++) {
+      if (activity.participants[i].activityProfile.email === user.email) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -137,77 +153,85 @@ export default function SimplePopover({ activity, activityData }) {
       value={
         anchorEl
           ? {
-              style: {
-                background: "white",
-                color: "#FFC629",
-                fontSize: "3rem",
-              },
-            }
+            style: {
+              background: "white",
+              color: "#FFC629",
+              fontSize: "3rem",
+            },
+          }
           : {
-              style: {
-                background: "white",
-                color: "#2962FF",
-                fontSize: "3rem",
-              },
-            }
+            style: {
+              background: "white",
+              color: "#2962FF",
+              fontSize: "3rem",
+            },
+          }
       }
     >
-      {activityData && activityData?.event?.type === "Webinar" ? (
-        <LightTooltip title="Register for Activity" placement="right">
-          <Button
-            className={classes.btn}
-            aria-describedby={id}
-            variant="contained"
-            onClick={spectatorRegister}
-          >
-            <IoIosAddCircle />
-          </Button>
-        </LightTooltip>
-      ) : (
-        <>
+      {activityData && activityData?.event?.type === "Virtual" ? (
+        !alreadyRegistered() ?
           <LightTooltip title="Register for Activity" placement="right">
             <Button
               className={classes.btn}
               aria-describedby={id}
               variant="contained"
-              onClick={handleClick}
+              onClick={spectatorRegister}
             >
               <IoIosAddCircle />
             </Button>
+          </LightTooltip> :
+          <LightTooltip title="You've already registered!" placement="right">
+            <Button
+              className={classes.btn}
+              aria-describedby={id}
+              variant="contained"
+              onClick={() => alert("You are registered for this event!")}
+            >
+              <IoIosCheckmarkCircleOutline style={{ color: "green" }} />
+            </Button>
           </LightTooltip>
-          <Popover
-            className={classes.popover}
-            id={id}
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: "center",
-              horizontal: "right",
-            }}
-            transformOrigin={{
-              vertical: "center",
-              horizontal: "left",
-            }}
-            classes={{ paper: classes.dialogPaper }}
-          >
-            <Box className={classes.box}>
-              <Button className={classes.role} onClick={athleteRegister}>
-                I'm Competing
+      ) : (
+          <>
+            {<LightTooltip title="Register for Activity" placement="right">
+              <Button
+                className={classes.btn}
+                aria-describedby={id}
+                variant="contained"
+                onClick={handleClick}
+              >
+                <IoIosAddCircle />
               </Button>
-              <Button className={classes.role} onClick={coachRegister}>
-                I'm Coaching
+            </LightTooltip>}
+            <Popover
+              className={classes.popover}
+              id={id}
+              open={open}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: "center",
+                horizontal: "right",
+              }}
+              transformOrigin={{
+                vertical: "center",
+                horizontal: "left",
+              }}
+              classes={{ paper: classes.dialogPaper }}
+            >
+              <Box className={classes.box}>
+                <Button className={classes.role} onClick={athleteRegister}>
+                  I'm Competing
               </Button>
-              <Button className={classes.role} onClick={volunteerRegister}>
-                I'm Volunteering
+                <Button className={classes.role} onClick={volunteerRegister}>
+                  I'm Volunteering
               </Button>
-              <Button className={classes.role} onClick={spectatorRegister}>
-                I'm Spectating
+                <Button className={classes.role} onClick={spectatorRegister}>
+                  I'm Spectating
               </Button>
-            </Box>
-          </Popover>
-        </>
-      )}
+              </Box>
+            </Popover>
+          </>
+        )}
     </IconContext.Provider>
   );
 }

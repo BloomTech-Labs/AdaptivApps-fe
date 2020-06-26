@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import {
   Box,
   Typography,
@@ -7,7 +8,6 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import UsersList from "./UsersList";
-import UsersFilter from "./UsersFilter";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -49,8 +49,6 @@ const useStyles = makeStyles(theme => ({
 // But in future can be functions like group messaging.
 const ManageUsers = () => {
   const classes = useStyles();
-  const [showList, setShowList] = useState(false);
-  const [showPanel, setShowPanel] = useState(false);
 
   return (
     <Box component="main" className={classes.root}>
@@ -59,53 +57,7 @@ const ManageUsers = () => {
           Manage Registered Users
         </Typography>
       </Box>
-      <Container className={classes.buttonBox}>
-        <Container>
-          {!showList ? (
-            <Button
-              className={classes.btn}
-              onClick={() => {
-                setShowList(!showList);
-              }}
-            >
-              Show all users
-            </Button>
-          ) : (
-            <Button
-              className={classes.btn}
-              onClick={() => {
-                setShowList(!showList);
-              }}
-            >
-              Hide users
-            </Button>
-          )}
-        </Container>
-        {showList ? <UsersList /> : null}
-
-        <Container>
-          {!showPanel ? (
-            <Button
-              className={classes.btn}
-              onClick={() => {
-                setShowPanel(!showPanel);
-              }}
-            >
-              Start a customized search
-            </Button>
-          ) : (
-            <Button
-              className={classes.btn}
-              onClick={() => {
-                setShowPanel(!showPanel);
-              }}
-            >
-              Hide search
-            </Button>
-          )}
-        </Container>
-        {showPanel ? <UsersFilter /> : null}
-      </Container>
+      <UsersList />
     </Box>
   );
 };
