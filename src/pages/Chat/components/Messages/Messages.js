@@ -191,7 +191,6 @@ export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat 
   const otherProfilePic = profilePics[0].email === user.email ? profilePics[1].profilePicture : profilePics[0].profilePicture;
   const myProfileUsername = profilePics[0].email === user.email ? profilePics[0].userName : profilePics[1].userName;
   const otherProfileUsername = profilePics[0].email === user.email ? profilePics[1].userName : profilePics[0].userName;
-  console.log('Stars', myProfileUsername, otherProfileUsername)
   // Sets up an auto-scroll to last message when new message received, or when a message is updated/deleted
   const messagesEndRef = useRef(null);
 
