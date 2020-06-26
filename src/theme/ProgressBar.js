@@ -50,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
   actionBox: {
     width: '100%',
     display: "flex",
-    // justifyContent: "space-between",
     justifyContent: "flex-end",
     "& p": {
       fontSize: "1.2rem",

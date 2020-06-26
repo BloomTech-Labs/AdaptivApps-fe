@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   btnWrapper: {
     width: '100%',
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
   },
   error: {
     color: 'red',
