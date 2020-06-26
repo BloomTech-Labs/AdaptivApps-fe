@@ -235,6 +235,13 @@ export default function EventForm({
     .catch(async err => console.log(err));
   }
 
+  const handlePictureEnter = e => {
+    if (e.key === 'Enter') {
+      var button = document.getElementById("uploadPicture");
+      button.click();
+    }
+  }
+
   useEffect(() => {
     refetchTags();
     eventImage === null ? setDisableButton(true) : setDisableButton(false);
@@ -450,8 +457,9 @@ export default function EventForm({
             <label className={classes.photoButton} htmlFor="imgUrl">
                     <IconButton
                       size="medium"
-                      aria-label="Upload Profile Picture"
+                      aria-label="Upload Event Picture"
                       component="span"
+                      onKeyDown={e => handlePictureEnter(e)}
                     >
                       <PhotoCamera color="primary" className={classes.photoIcon} />
                       <Typography>Choose an image to upload!</Typography>
@@ -462,7 +470,7 @@ export default function EventForm({
                     accept="image/*"
                     type="file"
                     onChange={uploadEventImage}
-                    id="imgUrl"
+                    id="uploadPicture"
                   /> 
         <InputLabel required className={classes.inputLabel} htmlFor="details">
           Event details
