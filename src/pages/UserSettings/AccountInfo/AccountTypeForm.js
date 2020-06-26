@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: '90%',
+    width: '67.5%',
     "& .MuiInputLabel-asterisk": {
       fontSize: '2rem',
       color: 'red',
@@ -198,9 +198,9 @@ export default function AccountTypeForm({ updateProfile }) {
               rules={{ required: true }}
             />
           </Box>
+          <Typography className={classes.error}>* required field</Typography>
         </Box>
         <Box className={classes.btnWrapper}>
-          <Typography className={classes.error}>* required field</Typography>
           <NextButton
             type="submit"
             label={"Next"}
