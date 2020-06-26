@@ -67,7 +67,7 @@ const useStyles = makeStyles({
     fontWeight: 'bold',
     marginTop: '1rem'
   },
-  select: {
+  text: {
     marginBottom: '1.6rem'
   },
   minorBox: {
@@ -159,8 +159,8 @@ export default function Step6({ updateDemo4 }) {
         <Controller
           as={<TextField />}
           name="additionalInfo"
-          type="select"
-          className={classes.select}
+          type="text"
+          className={classes.text}
           variant="outlined"
           control={control}
           defaultValue=""
@@ -301,8 +301,8 @@ export default function Step6({ updateDemo4 }) {
         <Controller
           as={<TextField />}
           name="guardianSignature"
-          type="select"
-          className={classes.select}
+          type="text"
+          className={classes.text}
           variant="outlined"
           control={control}
           defaultValue=""
@@ -313,8 +313,8 @@ export default function Step6({ updateDemo4 }) {
         <Controller
           as={<TextField />}
           name="minorName"
-          type="select"
-          className={classes.select}
+          type="text"
+          className={classes.text}
           variant="outlined"
           control={control}
           defaultValue=""
