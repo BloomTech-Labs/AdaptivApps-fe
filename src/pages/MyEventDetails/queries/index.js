@@ -27,6 +27,7 @@ export const GET_EVENT_DETAILS = gql`
         name
         date
         location
+        link
         startTime
         participants {
           id
