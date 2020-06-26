@@ -186,8 +186,8 @@ export default function EventCard({ event, refetch, user }) {
           className={classes.img}
           src={
             event?.imgUrl === null ||
-            event?.imgUrl === undefined ||
-            event?.imgUrl === ""
+              event?.imgUrl === undefined ||
+              event?.imgUrl === ""
               ? eventImg
               : event?.imgUrl
           }
@@ -225,15 +225,12 @@ export default function EventCard({ event, refetch, user }) {
               width="15rem"
               image={
                 event?.imgUrl === null ||
-                event?.imgUrl === undefined ||
-                event?.imgUrl === ""
+                  event?.imgUrl === undefined ||
+                  event?.imgUrl === ""
                   ? eventImg
                   : event?.imgUrl
               }
               title="Angel City Event"
-              onClick={() => {
-                navigate(`calendar/${event.id}`);
-              }}
             />
           </Box>
           <Box className={classes.contentWrapper}>
@@ -254,9 +251,6 @@ export default function EventCard({ event, refetch, user }) {
                 gutterBottom
                 variant="h5"
                 component="h2"
-                onClick={() => {
-                  navigate(`calendar/${event.id}`);
-                }}
               >
                 {event.title}
               </Typography>

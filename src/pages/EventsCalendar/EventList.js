@@ -26,6 +26,10 @@ export default function EventList({ currentEvents, refetch, user }) {
     setEventsByMonth(currentEvents && currentEvents);
   });
 
+  useEffect(() => {
+    refetch()
+  }, [refetch])
+
   const groupBy = (array, key) => {
     // Return the end result
     return (

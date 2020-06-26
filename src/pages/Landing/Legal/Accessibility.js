@@ -1,16 +1,55 @@
 import React from "react";
+import { Link } from "@reach/router";
+import { makeStyles } from "@material-ui/core";
+import Divider from "@material-ui/core/Divider";
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+
+const useStyles = makeStyles({
+  root: {
+    maxWidth: "90%",
+    width: "90%",
+    margin: "30px 0 0 30px",
+    fontSize: "5rem"
+  },
+  linkBack: {
+    color: "#202020",
+    fontSize: "1.8rem",
+    fontWeight: 530,
+    display: "flex",
+    alignItems: "center",
+    marginBottom: "1.6rem",
+    marginLeft: "0.3rem",
+    textDecoration: "none",
+  },
+  title: {
+    marginLeft: "35%",
+    fontSize: "4rem",
+  },
+  link: {
+    fontSize: "2rem"
+  },
+  divider: {
+    marginTop: "3%",
+    marginBottom: "3%",
+  },
+});
 
 export default function Accessibility() {
+  const classes = useStyles();
+
   return (
-    <>
-      <div className="access-wrapper">
-        <h1>Accessibility Statement</h1>
-        <br />
+    <div className={classes.root}>
+      <Link to={`/`} className={classes.linkBack}>
+        <ArrowBackIosIcon color="primary" fontSize="large" />
+        Go Back
+      </Link>
+
+      <Divider variant="inset" className={classes.divider} />
+
+      <div>
+        <h1 className={classes.title}>Accessibility Statement</h1>
         <br />
         <p>Updated: March 2020.</p>
-
-        <br />
-        <br />
         <h2>General</h2>
         <p>
           adaptivdev.net strives to ensure that its services are accessible to
@@ -28,6 +67,7 @@ export default function Accessibility() {
             href="https://UserWay.org"
             alt="Free Website Accessibility Widget"
             title="Free Website Accessibility Widget"
+            className={classes.link}
           >
             UserWay Website Accessibility Widget
           </a>{" "}
@@ -76,13 +116,12 @@ export default function Accessibility() {
         </p>
 
         <br />
-        <br />
 
         <p>
           Email:{" "}
-          <a href="mailto:admin@adaptivapps.org">admin@adaptivapps.org</a>
+          <a href="mailto:admin@adaptivapps.org" className={classes.link}>admin@adaptivapps.org</a>
         </p>
       </div>
-    </>
+    </div>
   );
 }

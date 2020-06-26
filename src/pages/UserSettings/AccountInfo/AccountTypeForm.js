@@ -49,8 +49,9 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "1.6rem"
   },
   selectContainer: {
-    height: "80vh",
+    height: "78vh",
     marginTop: "3.2rem"
+  
   },
   typeSelect: {
     width: "100%",
@@ -126,7 +127,6 @@ export default function AccountTypeForm({ updateProfile }) {
       ]);
   }, [loading, currentUserInfo, defaultInfo, setValue]);
 
-  // console.log('Inside AccountType', currentUserInfo)
   const onSubmit = async data => {
     await updateProfile({
       variables: {

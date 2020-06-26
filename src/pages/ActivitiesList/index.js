@@ -6,7 +6,8 @@ import eventImg from "../../assets/images/acs_hartford.png";
 import { useParams } from "@reach/router";
 import { GET_EVENT_ACTIVITIES } from "./queries/getActivities";
 
-import { makeStyles, Box, Typography } from "@material-ui/core";
+import { makeStyles, Box, Typography, Link } from "@material-ui/core";
+import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 const useStyles = makeStyles({
   root: {
@@ -99,6 +100,13 @@ const useStyles = makeStyles({
     right: "50%",
     color: "#2763FF",
   },
+  back: {
+    display: 'flex',
+    alignItems: 'center',
+    color: 'black',
+    margin: '0 0 2% 2%',
+    fontSize: '1.8rem',
+  },
 });
 
 export default function ActivityList() {
@@ -117,6 +125,10 @@ export default function ActivityList() {
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
+      <Link href="/calendar" className={classes.back} >
+        <ArrowBackIosIcon color="primary" aria-label='Back to Events Calendar' fontSize="large" />
+        Back to Events Calendar
+      </Link>  
         <Typography className={classes.heading} variant="h1" gutterBottom>
           Event Activities
         </Typography>
