@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: '85%'
+    width: '67.5%'
   },
   form: {
     height: '60vh',
@@ -31,19 +31,15 @@ const useStyles = makeStyles({
     flexDirection: "column",
     width: "100%",
     "& .MuiTextField-root": {
-      marginBottom: '2.4rem'
+      marginBottom: '1.6rem'
     },
   },
   em: {
     fontStyle: "italic",
     fontSize: "1.6rem"
   },
- 
-  spacing: {
-    marginTop: "1.6rem",
-  },
   textBox: {
-    marginBottom: "2.4rem",
+    marginBottom: "1.6rem",
   },
   talentContainer: {
     display: "flex",
@@ -53,7 +49,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     width: "48%",
-    marginBottom: '2.4rem'
+    marginBottom: '1.6rem'
   },
   btnBox: {
     display: "flex",
