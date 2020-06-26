@@ -18,10 +18,14 @@ import {
 const useStyles = makeStyles({
   root: {
     display: "flex",
+    width: "67.5%",
+    '& .MuiInputLabel-root': {
+      color: "black",
+    },
     flexDirection: "column",
     "& .MuiTextField-root": {
-      width: 744,
-      height: 48,
+      width: "74.4rem",
+      height: "4.8rem",
     },
     "& .MuiInputLabel-asterisk": {
       fontSize: '2rem',
@@ -33,8 +37,8 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     "& .MuiTextField-root": {
-      width: 360,
-      height: 48,
+      width: "36rem",
+      height: "4.8rem",
     },
   },
   firstInput: {
@@ -45,24 +49,31 @@ const useStyles = makeStyles({
   },
   addressBox: {
     display: "flex",
+    // marginTop: "1.6rem",
     marginBottom: "2.4rem",
     "& .MuiTextField-root": {
-      width: 360,
-      height: 48,
+      width: "36rem",
+      height: "4.8rem",
     },
   },
+  address1: {
+    marginRight: "2.4rem",
+    marginTop: ".5rem"
+  },
+  address2: {
+    marginTop: ".9rem"
+  },
   typeSelect: {
-    width: 744,
-    height: 48,
+    width: "74.4rem",
+    height: "4.8rem",
   },
   bioBox: {
-    marginBottom: "15rem",
+    marginBottom: "13rem",
   },
   btnBox: {
     marginTop: '3rem',
-    maxWidth: '90%',
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     alignItems: 'center'
   },
   error: {
@@ -190,8 +201,8 @@ export default function OrgStep1({ updateOrgProfile }) {
         />
       </Box>
       <Box className={classes.addressBox}>
-        <Box className={classes.firstInput}>
-          <InputLabel htmlFor="address1">Address 1*</InputLabel>
+        <Box className={classes.address1}>
+          <InputLabel required htmlFor="address1">Address 1</InputLabel>
           <Controller
             as={<TextField />}
             name="address1"
@@ -200,9 +211,10 @@ export default function OrgStep1({ updateOrgProfile }) {
             control={control}
             defaultValue=""
           />
+           {errors.address1 && <Typography className={classes.error}>address1 is a required field</Typography>}
         </Box>
-        <Box>
-          <InputLabel htmlFor="address2">Address 2*</InputLabel>
+        <Box className={classes.address2}>
+          <InputLabel htmlFor="address2">Address 2</InputLabel>
           <Controller
             as={<TextField />}
             name="address2"
@@ -216,7 +228,7 @@ export default function OrgStep1({ updateOrgProfile }) {
 
       <Box className={classes.addressBox}>
         <Box className={classes.firstInput}>
-          <InputLabel htmlFor="city">City*</InputLabel>
+          <InputLabel required htmlFor="city">City</InputLabel>
           <Controller
             as={<TextField />}
             name="city"
@@ -244,7 +256,7 @@ export default function OrgStep1({ updateOrgProfile }) {
       </Box>
       <Box className={classes.addressBox}>
         <Box className={classes.firstInput}>
-          <InputLabel htmlFor="postalCode">Postal Code*</InputLabel>
+          <InputLabel required htmlFor="postalCode">Postal Code</InputLabel>
           <Controller
             as={<TextField />}
             name="postalCode"
@@ -253,9 +265,10 @@ export default function OrgStep1({ updateOrgProfile }) {
             control={control}
             defaultValue=""
           />
+           {errors.postalCode && <Typography className={classes.error}>postal code is a required field</Typography>}
         </Box>
         <Box>
-          <InputLabel htmlFor="country">Country*</InputLabel>
+          <InputLabel required htmlFor="country">Country</InputLabel>
           <Controller
             as={<TextField />}
             name="country"
@@ -264,6 +277,7 @@ export default function OrgStep1({ updateOrgProfile }) {
             control={control}
             defaultValue=""
           />
+           {errors.coutry && <Typography className={classes.error}>country is a required field</Typography>}
         </Box>
       </Box>
       <Box className={classes.bioBox}>
@@ -281,8 +295,8 @@ export default function OrgStep1({ updateOrgProfile }) {
           defaultValue=""
         />
       </Box>
-      <Box className={classes.btnBox}>
       <Typography className={classes.error}>* required field</Typography>
+      <Box className={classes.btnBox}>
         <FinishButton
           label="Finish"
           type="submit"
