@@ -108,7 +108,7 @@ export default function SimpleModal({ activity, activityData, activeEvent }) {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log(activity);
+
   const body = (
     <Container style={modalStyle} className={classes.paper}>
       <Box className={classes.imgBox}>
@@ -116,14 +116,14 @@ export default function SimpleModal({ activity, activityData, activeEvent }) {
           className={classes.img}
           src={
             ((activityData && activityData?.event?.imgUrl === null) ||
-            activityData?.event?.imgUrlactivityData?.event?.imgUrl ===
+              activityData?.event?.imgUrlactivityData?.event?.imgUrl ===
               undefined ||
-            activityData?.event?.imgUrl === ""
+              activityData?.event?.imgUrl === ""
               ? eventImg
               : activityData?.event?.imgUrl) ||
             ((activeEvent && activeEvent?.event?.imgUrl === null) ||
-            activeEvent?.event?.imgUrl === undefined ||
-            activeEvent?.event?.imgUrl === ""
+              activeEvent?.event?.imgUrl === undefined ||
+              activeEvent?.event?.imgUrl === ""
               ? eventImg
               : activeEvent?.imgUrl)
           }
@@ -148,8 +148,7 @@ export default function SimpleModal({ activity, activityData, activeEvent }) {
       </Box>
     </Container>
   );
-  console.log("activity ", activity);
-  console.log("activity Data", activeEvent);
+
   return (
     <div>
       <Button className={classes.btn} onClick={handleOpen}>

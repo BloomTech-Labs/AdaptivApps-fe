@@ -75,7 +75,6 @@ export default function UpcomingEventList({ userName }) {
 
   if (loading) return <CircularProgress />;
   if (error) return `Error! ${error.message}`;
-  console.log("data in upcoming event list", data);
   const upcomingEvents = [];
   if (data) {
     for (let i = 0; i < data.events.length; i++) {
@@ -100,8 +99,8 @@ export default function UpcomingEventList({ userName }) {
                 <img
                   src={
                     event?.imgUrl === null ||
-                    event?.imgUrl === undefined ||
-                    event?.imgUrl === ""
+                      event?.imgUrl === undefined ||
+                      event?.imgUrl === ""
                       ? eventImg
                       : event?.imgUrl
                   }
@@ -120,8 +119,8 @@ export default function UpcomingEventList({ userName }) {
           ))}
         </div>
       ) : (
-        <h3>You have no upcoming events.</h3>
-      )}
+          <h3>You have no upcoming events.</h3>
+        )}
     </>
   );
 }

@@ -253,7 +253,7 @@ export default function UserProfile() {
   useEffect(() => {
     if (loggedInUser && loggedInUserName === userName) setProfileOwner(true);
   }, [userProfile, profilePicture, profileBanner, profileOwner]);
-  console.log("Profile Owner", profileOwner);
+  // console.log("Profile Owner", profileOwner);
   if (loading) return <CircularProgress />;
   if (error) return `Error! ${error.message}`;
   return (
