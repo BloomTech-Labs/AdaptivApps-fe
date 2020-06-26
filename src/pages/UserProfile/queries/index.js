@@ -26,9 +26,18 @@ export const GET_USER_PROFILE = gql`
   }
 `;
 
-export const GET_PROFILE_IMAGES = gql`
-  query GetProfileImages($email: String!) {
+export const GET_LOGGED_IN_USER = gql`
+  query getUserProfile($email: String!) {
     profile(where: { email: $email }) {
+      id
+      userName
+    }
+  }
+`;
+
+export const GET_PROFILE_IMAGES = gql`
+  query GetProfileImages($userName: String!) {
+    profile(where: { userName: $userName }) {
       id
       email
       userName
@@ -39,9 +48,9 @@ export const GET_PROFILE_IMAGES = gql`
 `;
 
 export const UPDATE_PROFILE_PICTURE = gql`
-  mutation UpdateProfile($email: String!, $profilePicture: String!) {
+  mutation UpdateProfile($userName: String!, $profilePicture: String!) {
     updateProfile(
-      where: { email: $email }
+      where: { userName: $userName }
       data: { profilePicture: $profilePicture }
     ) {
       id
@@ -52,9 +61,9 @@ export const UPDATE_PROFILE_PICTURE = gql`
 `;
 
 export const UPDATE_PROFILE_BANNER = gql`
-  mutation UpdateProfile($email: String, $profileBanner: String) {
+  mutation UpdateProfile($userName: String, $profileBanner: String) {
     updateProfile(
-      where: { email: $email }
+      where: { userName: $userName }
       data: { profileBanner: $profileBanner }
     ) {
       id

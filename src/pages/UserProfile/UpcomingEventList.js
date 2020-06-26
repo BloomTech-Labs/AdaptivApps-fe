@@ -6,6 +6,7 @@ import { GET_UPCOMING_EVENTS } from "./queries";
 // Import stylings
 import { makeStyles } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import eventImg from "../../assets/images/acs_hartford.png";
 
 const useStyles = makeStyles({
   title: {
@@ -40,7 +41,8 @@ const useStyles = makeStyles({
   },
   img: {
     width: "100%",
-    height: "150px",
+    height: "auto",
+    objectFit: "fill",
   },
   text: {
     margin: "0",
@@ -73,7 +75,6 @@ export default function UpcomingEventList({ userName }) {
 
   if (loading) return <CircularProgress />;
   if (error) return `Error! ${error.message}`;
-  console.log("data in upcoming event list", data);
   const upcomingEvents = [];
   if (data) {
     for (let i = 0; i < data.events.length; i++) {
@@ -96,7 +97,13 @@ export default function UpcomingEventList({ userName }) {
                 className={classes.navLink}
               >
                 <img
-                  src={event.imgUrl}
+                  src={
+                    event?.imgUrl === null ||
+                      event?.imgUrl === undefined ||
+                      event?.imgUrl === ""
+                      ? eventImg
+                      : event?.imgUrl
+                  }
                   alt="Upcoming event"
                   className={classes.img}
                 />

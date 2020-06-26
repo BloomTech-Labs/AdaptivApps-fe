@@ -3,6 +3,9 @@ import React, { useEffect } from "react";
 import { UPDATE_PROFILE_BANNER, GET_PROFILE_IMAGES } from "./queries";
 import { useQuery, useMutation } from "react-apollo";
 
+//Reach Router imports
+// import { useParams } from "@reach/router";
+
 import BannerDefault from "../../assets/images/acs_games_2020.png";
 
 // Auth0 imports
@@ -27,13 +30,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ProfileBanner({ profileBanner }) {
+export default function ProfileBanner({ profileBanner, userName }) {
+  // const { userName } = useParams();
   const classes = useStyles();
   const { user } = useAuth0();
   const [updateProfileBanner] = useMutation(UPDATE_PROFILE_BANNER);
   const { data, error, loading, refetch } = useQuery(GET_PROFILE_IMAGES, {
     variables: {
-      email: user?.email,
+      userName: userName,
     },
   });
   const usersProfileBanner = data?.profile?.profileBanner;
@@ -42,7 +46,7 @@ export default function ProfileBanner({ profileBanner }) {
     if (profileBanner && profileBanner !== null)
       updateProfileBanner({
         variables: {
-          email: user?.email,
+          userName: userName,
           profileBanner: profileBanner,
         },
       });

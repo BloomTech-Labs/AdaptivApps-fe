@@ -142,6 +142,10 @@ const useStyles = makeStyles(theme => ({
     marginTop: "3%",
     marginBottom: "3%",
   },
+  removalBtn: {
+    border: "none",
+    backgroundColor: "white"
+  }
 }));
 
 export default function ChatRoom({ results, setResults, chatRoom, user, chats, chatRoomSub, notifications }) {
@@ -176,7 +180,7 @@ export default function ChatRoom({ results, setResults, chatRoom, user, chats, c
   }, 3000);
 
   const roomNotifications = [];
-  notifications !== null && notifications.length > 0 && notifications.map(notification => notification.chatroom !== null && notification.chatroom.id === chatRoom.id && roomNotifications.push(notification.id));
+  notifications !== null && notifications.length > 0 && notifications.map(notification => notification.chatroom !== null && notification.label !== "Announcement" && notification.chatroom.id === chatRoom.id && roomNotifications.push(notification.id));
 
   const senderName = chatRoom?.chats?.find(chat => chat?.from.email !== user?.email)
   const participants = []
@@ -288,13 +292,15 @@ export default function ChatRoom({ results, setResults, chatRoom, user, chats, c
           >
             {senderName?.from?.firstName || chattingWith} {senderName?.from?.lastName}
           </button>
-          <Tooltip title="Remove Chatroom">
-            <CloseIcon
-              onClick={() => removeChatroom()}
-              aria-label="Remove Chatroom"
-              fontSize="small"
-            />
-          </Tooltip>
+          <button className={classes.removalBtn}>
+            <Tooltip title="Remove Chatroom">
+              <CloseIcon
+                onClick={() => removeChatroom()}
+                aria-label="Remove Chatroom"
+                fontSize="small"
+              />
+            </Tooltip>
+          </button>
         </div>
         <Divider variant="inset" className={classes.divider} />
         <Drawer
