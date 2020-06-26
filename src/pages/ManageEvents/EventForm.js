@@ -12,12 +12,18 @@ import {
   Select,
   MenuItem,
   Button,
-  Typography
+  Typography,
+  Box
 } from "@material-ui/core";
+
+//s3 bucket imports
+import S3FileUpload from "react-s3";
+
+import IconButton from "@material-ui/core/IconButton";
+import PhotoCamera from "@material-ui/icons/PhotoCamera";
 
 const useStyles = makeStyles(theme => ({
   button: {
-    margin: "3rem auto",
     border: "1px solid #2962FF",
     color: "#2962FF",
     height: "4rem",
@@ -46,7 +52,17 @@ const useStyles = makeStyles(theme => ({
     fontSize: '1.75rem',
     fontVariant: 'all-small-caps',
     fontWeight: 'bold',
-    
+  },
+  disable: {
+    margin: '2% auto',
+    fontSize: '1.25rem',
+    color: 'gray',
+    fontWeight: 'bold'
+  },
+  flex: {
+    lineHeight: '5px',
+    textAlign: 'center',
+    margin: '3rem auto'
   },
 }));
 
@@ -63,6 +79,9 @@ export default function EventForm({
   const classes = useStyles();
   const navigate = useNavigate();
   const [tags, setTags] = useState([]);
+  const [eventImage, setEventImage] = useState(null)
+  const [disableButton, setDisableButton] = useState(false)
+
   const { handleSubmit, setValue, control, errors } = useForm({
     defaultValues: {
       type: currentEvent && currentEvent.type,
@@ -149,7 +168,7 @@ export default function EventForm({
           location: formValues.location,
           link: formValues.link,
           sponsors: formValues.sponsors,
-          imgUrl: formValues.imgUrl,
+          imgUrl: eventImage,
           details: formValues.details,
         },
       });
@@ -173,7 +192,7 @@ export default function EventForm({
           location: formValues.location,
           link: formValues.link,
           sponsors: formValues.sponsors,
-          imgUrl: formValues.imgUrl,
+          imgUrl: eventImage === null ? currentEvent.imgUrl : eventImage,
           details: formValues.details,
         },
       });
@@ -182,10 +201,33 @@ export default function EventForm({
     }
   };
 
+  //config options for uploading an event image
+  const eventImageConfig = {
+    bucketName: process.env.REACT_APP_AWS_IMAGE_BUCKET_NAME,
+    dirName: `events/${currentEvent?.title}/event_images`,
+    region: "us-east-1",
+    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY,
+  };
+
+  const uploadEventImage = async e => {
+    await S3FileUpload.uploadFile(e.target.files[0], eventImageConfig)
+    .then(async data => {
+      if (data && data?.location) {
+        setEventImage(data?.location)
+      } else {
+        console.log('loading');
+      }
+    })
+    .catch(async err => console.log(err));
+  }
+
   useEffect(() => {
     refetchTags();
-  }, [refetchTags])
+    eventImage === null ? setDisableButton(true) : setDisableButton(false);
+  }, [refetchTags, eventImage])
 
+  console.log(eventImage)
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
@@ -392,19 +434,45 @@ export default function EventForm({
           className={classes.inputField}
           rules={{ required: true }}
         />
-        <InputLabel className={classes.inputLabel} htmlFor="imgUrl">
+        {/* <InputLabel className={classes.inputLabel} htmlFor="imgUrl">
           Find an image on the internet and pase the URL here!
-        </InputLabel>
+        </InputLabel> */}
+        {/* {
+          window.location.pathname !== `/editEvent/${eventId}` ? (
+              <> */}
+            <label htmlFor="imgUrl">
+                    <IconButton
+                      className={classes.photoButton}
+                      color="primary"
+                      size="medium"
+                      aria-label="Upload Profile Picture"
+                      component="span"
+                    >
+                      <PhotoCamera className={classes.photoIcon} />
+                    </IconButton>
+                  </label>
+                  <input
+                    className={classes.input}
+                    accept="image/*"
+                    type="file"
+                    onChange={uploadEventImage}
+                    id="imgUrl"
+                  /> 
+                  {/* </>
+            ) : (
         <Controller
-          as={<TextField />}
-          type="text"
+          as={<input />}
+          type="file"
+          accept="image/*"
+          onChange={uploadEventImage}
+          id="imgUrl"
           placeholder="imgUrl"
           name="imgUrl"
           variant="outlined"
           control={control}
-          defaultValue=""
           className={classes.inputField}
         />
+                  )} */}
         <InputLabel required className={classes.inputLabel} htmlFor="details">
           Event details
         </InputLabel>
@@ -419,6 +487,7 @@ export default function EventForm({
           rules={{ required: true }}
         />
         <TagInput tags={tags} setTags={setTags} />
+        <Box className={classes.flex}>
         <Button
           className={classes.button}
           variant="outlined"
@@ -426,9 +495,12 @@ export default function EventForm({
           type="submit"
           aria-label="Click here to create an event"
           onClick={handleSubmit}
+          disabled={disableButton}
         >
           Save
         </Button>
+        {disableButton && <Typography className={classes.disable}>Button is disabled while uploading photo</Typography>}
+        </Box>
       </form>
     </div>
   );
