@@ -53,6 +53,7 @@ export default function TagInput(props) {
   const { tags, setTags } = props;
   const [currentTag, setCurrentTag] = useState("");
   const classes = useStyles();
+  let key = 0;
 
   const handleChange = e => {
     setCurrentTag(e.target.value.toLowerCase());
@@ -68,8 +69,14 @@ export default function TagInput(props) {
   }
 
   const handleDelete = async tag => {
-    let temp = tags.filter(item => item !== tag)
-    await setTags(temp);
+    const tempList = [];
+    for (let i = 0; i < tags.length; i++) {
+      if (tags[i] !== tag) {
+        tempList.push(tags[i]);
+      }
+    }
+    // let temp = tags.filter(item => item !== tag)
+    await setTags(tempList);
   }
 
   return (
@@ -79,8 +86,9 @@ export default function TagInput(props) {
         </InputLabel>
       {tags && tags.length > 0 ? <Paper component="ul" className={classes.paper}>
         {tags && tags.map(tag => {
+          key += 1;
           return (
-            <li key={tag.length}>
+            <li key={key}>
               <Chip
                 label={tag}
                 className={classes.chip}
