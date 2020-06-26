@@ -20,20 +20,21 @@ import {
   MenuItem,
 } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "85%",
+    width: "67.5%",
+
     "& .MuiInputLabel-asterisk": {
-      fontSize: '2rem',
-      color: 'red',
-      fontWeight: 'bolder'
-    }
+      fontSize: "2rem",
+      color: "red",
+      fontWeight: "bolder",
+    },
   },
   form: {
     display: "flex",
-    height: '70vh',
+    height: "70vh",
     flexDirection: "column",
     "& .MuiTextField-root": {
       width: "65rem",
@@ -42,18 +43,23 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   genderBirthBox: {
-    width: '100%',
+    width: "100%",
     display: "flex",
     "& .MuiTextField-root": {
-      width: "26rem",
+      width: "36rem",
       height: "4.8rem",
     },
     marginBottom: "1.2rem",
     [theme.breakpoints.down("sm")]: {
-      flexDirection: 'column',
+      flexDirection: "column",
     },
     [theme.breakpoints.down("xs")]: {
-      flexDirection: 'column',
+      flexDirection: "column",
+    },
+  },
+  ecField: {
+    "& .MuiInputBase-root": {
+      width: "74.4rem",
     },
   },
   shortSelect: {
@@ -61,9 +67,8 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "2.4rem",
   },
   longSelect: {
-    minWidth: '36px',
-    maxWidth: '65rem',
-    marginBottom: "2.4rem",
+    width: "100%",
+    marginBottom: "1.6rem",
   },
   em: {
     fontStyle: "italic",
@@ -75,12 +80,12 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "7rem",
   },
   error: {
-    color: 'red',
-    fontSize: '1.75rem',    
-    fontVariant: 'all-small-caps',
-    fontWeight: 'bold',
-    marginTop: '1rem'
-  }
+    color: "red",
+    fontSize: "1.75rem",
+    fontVariant: "all-small-caps",
+    fontWeight: "bold",
+    marginTop: "1rem",
+  },
 }));
 
 export default function Step2({ updateExtProfile }) {
@@ -94,9 +99,11 @@ export default function Step2({ updateExtProfile }) {
   const { handleSubmit, setValue, control, errors } = useForm({
     defaultValues: {
       gender: currentUserInfo && currentUserInfo?.profile?.extProfile?.gender,
-      birthday: currentUserInfo && currentUserInfo?.profile?.extProfile?.birthday,
+      birthday:
+        currentUserInfo && currentUserInfo?.profile?.extProfile?.birthday,
       eC1Name: currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Name,
-      eC1Phone: currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Phone,
+      eC1Phone:
+        currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Phone,
       eC1Relation:
         currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Relation,
       physicalDisability:
@@ -118,7 +125,8 @@ export default function Step2({ updateExtProfile }) {
     if (!loading && currentUserInfo) {
       setValue([
         {
-          gender: currentUserInfo && currentUserInfo?.profile?.extProfile?.gender,
+          gender:
+            currentUserInfo && currentUserInfo?.profile?.extProfile?.gender,
         },
         {
           birthday:
@@ -134,17 +142,20 @@ export default function Step2({ updateExtProfile }) {
         },
         {
           eC1Relation:
-            currentUserInfo && currentUserInfo?.profile?.extProfile?.eC1Relation,
+            currentUserInfo &&
+            currentUserInfo?.profile?.extProfile?.eC1Relation,
         },
         {
           physicalDisability:
             currentUserInfo &&
-            currentUserInfo?.profile?.extProfile?.disability?.physicalDisability,
+            currentUserInfo?.profile?.extProfile?.disability
+              ?.physicalDisability,
         },
         {
           detailedDisabilities:
             currentUserInfo &&
-            currentUserInfo?.profile?.extProfile?.disability?.detailedDisabilities,
+            currentUserInfo?.profile?.extProfile?.disability
+              ?.detailedDisabilities,
         },
         {
           mobilityStatus:
@@ -153,8 +164,7 @@ export default function Step2({ updateExtProfile }) {
         },
         {
           tShirtSize:
-            currentUserInfo &&
-            currentUserInfo?.profile?.extProfile?.tShirtSize,
+            currentUserInfo && currentUserInfo?.profile?.extProfile?.tShirtSize,
         },
       ]);
     }
@@ -210,7 +220,11 @@ export default function Step2({ updateExtProfile }) {
             <InputLabel required htmlFor="gender">
               Please select gender
             </InputLabel>
-            {errors.gender && <Typography className={classes.error}>gender is a required field</Typography>}
+            {errors.gender && (
+              <Typography className={classes.error}>
+                gender is a required field
+              </Typography>
+            )}
             <Controller
               as={
                 <Select className={classes.shortSelect}>
@@ -220,7 +234,9 @@ export default function Step2({ updateExtProfile }) {
                   <MenuItem value="Male">Male</MenuItem>
                   <MenuItem value="Female">Female</MenuItem>
                   <MenuItem value="Genderqueer">Genderqueer</MenuItem>
-                  <MenuItem value="Prefer not to say">Prefer not to say</MenuItem>
+                  <MenuItem value="Prefer not to say">
+                    Prefer not to say
+                  </MenuItem>
                 </Select>
               }
               name="gender"
@@ -235,7 +251,11 @@ export default function Step2({ updateExtProfile }) {
             <InputLabel required htmlFor="birthday">
               Please enter your birthday
             </InputLabel>
-            {errors.birthday && <Typography className={classes.error}>birthday is a required field</Typography>}
+            {errors.birthday && (
+              <Typography className={classes.error}>
+                birthday is a required field
+              </Typography>
+            )}
             <Controller
               as={<TextField />}
               name="birthday"
@@ -247,50 +267,62 @@ export default function Step2({ updateExtProfile }) {
             />
           </Box>
         </Box>
-        <Box className={classes.ecfield}>
-        <InputLabel required htmlFor="eC1Name">
-          Please enter the name of your emergency contact
-        </InputLabel>
-        {errors.eC1Name && <Typography className={classes.error}>emergency contact is a required field</Typography>}
-        <Controller
-          as={<TextField />}
-          name="eC1Name"
-          type="text"
-          variant="outlined"
-          control={control}
-          defaultValue=""
-          rules={{ required: true }}
-        />
+        <Box className={classes.ecField}>
+          <InputLabel required htmlFor="eC1Name">
+            Please enter the name of your emergency contact
+          </InputLabel>
+          {errors.eC1Name && (
+            <Typography className={classes.error}>
+              emergency contact is a required field
+            </Typography>
+          )}
+          <Controller
+            as={<TextField />}
+            name="eC1Name"
+            type="text"
+            variant="outlined"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+          />
         </Box>
-        <Box className={classes.ecfield}>
-        <InputLabel required htmlFor="eC1Relation">
-          Please tell us how your emergency contact is related to you
-        </InputLabel>
-        {errors.eC1Relation && <Typography className={classes.error}>emergency contact relation is a required field</Typography>}
-        <Controller
-          as={<TextField />}
-          name="eC1Relation"
-          type="text"
-          variant="outlined"
-          control={control}
-          defaultValue=""
-          rules={{ required: true }}
-        />
+        <Box className={classes.ecField}>
+          <InputLabel required htmlFor="eC1Relation">
+            Please tell us how your emergency contact is related to you
+          </InputLabel>
+          {errors.eC1Relation && (
+            <Typography className={classes.error}>
+              emergency contact relation is a required field
+            </Typography>
+          )}
+          <Controller
+            as={<TextField />}
+            name="eC1Relation"
+            type="text"
+            variant="outlined"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+          />
         </Box>
-        <Box className={classes.ecfield}>
-        <InputLabel required htmlFor="eC1Phone">
-          Please enter the best phone number for your emergency contact
-        </InputLabel>
-        {errors.eC1Phone && <Typography className={classes.error}>emergency contact phone number is a required field</Typography>}
-        <Controller
-          as={<TextField />}
-          name="eC1Phone"
-          type="text"
-          variant="outlined"
-          control={control}
-          defaultValue=""
-          rules={{ required: true }}
-        />
+        <Box className={classes.ecField}>
+          <InputLabel required htmlFor="eC1Phone">
+            Please enter the best phone number for your emergency contact
+          </InputLabel>
+          {errors.eC1Phone && (
+            <Typography className={classes.error}>
+              emergency contact phone number is a required field
+            </Typography>
+          )}
+          <Controller
+            as={<TextField />}
+            name="eC1Phone"
+            type="text"
+            variant="outlined"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+          />
         </Box>
         <InputLabel htmlFor="physicalDisability">
           Please select the category of physical disability that is most
@@ -343,7 +375,9 @@ export default function Step2({ updateExtProfile }) {
                 <em className={classes.em}>Please choose one</em>
               </MenuItem>
               <MenuItem value="ALS">ALS</MenuItem>
-              <MenuItem value="Amputation / Limb Difference">Amputation / Limb Difference</MenuItem>
+              <MenuItem value="Amputation / Limb Difference">
+                Amputation / Limb Difference
+              </MenuItem>
               <MenuItem value="Arthogyposis">Arthogyposis</MenuItem>
               <MenuItem value="Ataxia">Ataxia</MenuItem>
               <MenuItem value="Brachial Plexus Injury">
@@ -353,7 +387,9 @@ export default function Step2({ updateExtProfile }) {
                 Cauda Equina Syndrome
               </MenuItem>
               <MenuItem value="Cerebral Palsy">Cerebral Palsy</MenuItem>
-              <MenuItem value="Chronic joint immobilization / Arthritis">Chronic joint immobilization / Arthritis</MenuItem>
+              <MenuItem value="Chronic joint immobilization / Arthritis">
+                Chronic joint immobilization / Arthritis
+              </MenuItem>
               <MenuItem value="Charcot Marie Tooth">
                 Charcot Marie Tooth
               </MenuItem>
@@ -366,7 +402,9 @@ export default function Step2({ updateExtProfile }) {
               <MenuItem value="Guillain-Barre Syndrome">
                 Guillain-Barre Syndrome
               </MenuItem>
-              <MenuItem value="Leg Length Difference">Leg Length Difference</MenuItem>
+              <MenuItem value="Leg Length Difference">
+                Leg Length Difference
+              </MenuItem>
               <MenuItem value="Multiple Sclerosis">Multiple Sclerosis</MenuItem>
               <MenuItem value="Muscular Dystrophy">Muscular Dystrophy</MenuItem>
               <MenuItem value="Osteogenesis Imperfecta">
@@ -428,7 +466,11 @@ export default function Step2({ updateExtProfile }) {
         <InputLabel required htmlFor="tShirtSize">
           Please select a T-shirt size
         </InputLabel>
-        {errors.tShirtSize && <Typography className={classes.error}>t-shirt size is a required field</Typography>}
+        {errors.tShirtSize && (
+          <Typography className={classes.error}>
+            t-shirt size is a required field
+          </Typography>
+        )}
         <Controller
           as={
             <Select className={classes.longSelect}>
@@ -454,20 +496,20 @@ export default function Step2({ updateExtProfile }) {
           defaultValue=""
           rules={{ required: true }}
         />
-        </form>
-        <Box className={classes.btnBox}>
-        <Typography className={classes.error}>* required field</Typography>
-          <SaveButton
-            label={"Save & Quit"}
-            ariaLabel="Click to save and continue later and return to settings page."
-            onClick={onSave}
-          />
-          <NextButton
-            label="Next"
-            onClick={onNext}
-            ariaLabel="Click here to complete step 2 and move onto step 3 of account information update."
-          />
-        </Box>
+      </form>
+      <Typography className={classes.error}>* required field</Typography>
+      <Box className={classes.btnBox}>
+        <SaveButton
+          label={"Save & Quit"}
+          ariaLabel="Click to save and continue later and return to settings page."
+          onClick={onSave}
+        />
+        <NextButton
+          label="Next"
+          onClick={onNext}
+          ariaLabel="Click here to complete step 2 and move onto step 3 of account information update."
+        />
+      </Box>
     </Box>
   );
 }
