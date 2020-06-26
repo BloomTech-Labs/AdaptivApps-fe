@@ -39,7 +39,6 @@ const useStyles = makeStyles(theme => ({
     "& .MuiTextField-root": {
       width: "65rem",
       height: "4.8rem",
-      marginBottom: "2.4rem",
     },
   },
   genderBirthBox: {
@@ -58,6 +57,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   ecField: {
+    marginBottom: "1.6rem",
     "& .MuiInputBase-root": {
       width: "74.4rem",
     },
@@ -77,7 +77,7 @@ const useStyles = makeStyles(theme => ({
   btnBox: {
     display: "flex",
     justifyContent: "space-between",
-    marginTop: "7rem",
+    marginTop: "5rem",
   },
   error: {
     color: "red",
