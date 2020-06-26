@@ -186,7 +186,7 @@ export default function Step3({ updateDemo2 }) {
           control={control}
           defaultValue=""
         />
-        <InputLabel htmlFor="favCelebs" className={classes.spacing}>
+        <InputLabel htmlFor="favCelebs">
           Who are your favorite celebrities?
         </InputLabel>
         <Controller
@@ -197,7 +197,7 @@ export default function Step3({ updateDemo2 }) {
           control={control}
           defaultValue=""
         />
-        <InputLabel htmlFor="goals" className={classes.spacing}>What are your goals?</InputLabel>
+        <InputLabel htmlFor="goals">What are your goals?</InputLabel>
         <Controller
           as={<TextField />}
           name="goals"
@@ -209,7 +209,7 @@ export default function Step3({ updateDemo2 }) {
         <Box className={classes.talentContainer}>
           <Box className={classes.talentBoxes}>
 
-          <InputLabel className={classes.spacing} htmlFor="specialTalents">
+          <InputLabel htmlFor="specialTalents">
             Do you have any special talents?
           </InputLabel>
           <Controller
@@ -230,7 +230,7 @@ export default function Step3({ updateDemo2 }) {
           <Box className={classes.talentBoxes}>
 
           <InputLabel
-            className={classes.spacing}
+          
             htmlFor="adaptivSportsParticipation"
           >
             Have you participated in Adaptive Sports before?
@@ -251,7 +251,7 @@ export default function Step3({ updateDemo2 }) {
           />
           </Box>
         </Box>
-        <InputLabel className={classes.spacing} htmlFor="notParticipating">
+        <InputLabel htmlFor="notParticipating">
           If you are not participating in as many adaptive sports as you'd like,
           can you please share why?
         </InputLabel>
@@ -275,7 +275,7 @@ export default function Step3({ updateDemo2 }) {
           className={classes.textBox}
           defaultValue=""
         />
-        <InputLabel htmlFor="sportEquipmentNeed" className={classes.spacing}>If you selected access to equipment, what adaptive sports equipment do you need to participate?</InputLabel>
+        <InputLabel htmlFor="sportEquipmentNeed">If you selected access to equipment, what adaptive sports equipment do you need to participate?</InputLabel>
         <Controller
           as={<TextField />}
           name="sportEquipmentNeed"

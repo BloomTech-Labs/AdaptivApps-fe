@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "85%",
+    width: "67.5%",
     '& .MuiInputLabel': {
       color: "black",
     }
@@ -38,11 +38,12 @@ const useStyles = makeStyles({
     fontSize: "1.6rem",
   },
   spacing: {
-    marginTop: "3.5rem",
+    marginTop: "1.6rem",
   },
   btnBox: {
     display: "flex",
     justifyContent: "space-between",
+    marginTop: "2rem"
   },
 });
 
