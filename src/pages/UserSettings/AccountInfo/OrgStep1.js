@@ -49,7 +49,6 @@ const useStyles = makeStyles({
   },
   addressBox: {
     display: "flex",
-    // marginTop: "1.6rem",
     marginBottom: "2.4rem",
     "& .MuiTextField-root": {
       width: "36rem",

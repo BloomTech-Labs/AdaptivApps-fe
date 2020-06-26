@@ -218,25 +218,3 @@ export default function AccountTypeForm({ updateProfile }) {
   );
 }
 
-{/* <InputLabel className={classes.inputLabel} required htmlFor="account type">
-          Are you registering as an individual or an organization?
-        </InputLabel>
-        {errors.type && <Typography className={classes.error}>Please make a selection</Typography>}
-        <Box className={classes.box}>
-          <Controller
-            as={
-              <Select className={classes.typeSelect}>
-                <MenuItem value="Individual">
-                  I'm registering as an individual
-                </MenuItem>
-                <MenuItem value="Organization">
-                  I'm registering as an organization
-                </MenuItem>
-              </Select>
-            }
-            name="type"
-            variant="outlined"
-            control={control}
-            defaultValue=""
-            rules={{ required: true }}
-          /> */}
