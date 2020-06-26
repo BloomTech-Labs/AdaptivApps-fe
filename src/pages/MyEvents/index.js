@@ -10,7 +10,7 @@ import { GET_USER_EVENTS } from "./queries";
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
 // Styling imports
-import { makeStyles, Grid, Box, Typography } from "@material-ui/core";
+import { makeStyles, Grid, Box, Typography, Link } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles({
@@ -44,6 +44,9 @@ const useStyles = makeStyles({
   noActivBlue: {
     marginLeft: "3rem",
     color: "#2962FF",
+    '&:hover': {
+      cursor: 'pointer'
+    }
   },
   inlineNotice: {
     display: "inline-flex",
@@ -95,9 +98,11 @@ export default function MyEvents() {
                 You haven't registered for any events yet!
             </Typography>
               <Box className={classes.inlineNotice}>
+                <Link href='calendar'>
                 <Typography className={classes.noActivBlue}>
                   Check out the Events Calendar
               </Typography>
+              </Link>
                 <Typography>
                   , register for an event, then see all of your registered events
                   here!

@@ -201,9 +201,6 @@ export default function SimplePopover({ activity, activityData, refetch }) {
                 <Button className={classes.role} onClick={athleteRegister}>
                   I'm Competing
               </Button>
-                <Button className={classes.role} onClick={coachRegister}>
-                  I'm Coaching
-              </Button>
                 <Button className={classes.role} onClick={volunteerRegister}>
                   I'm Volunteering
               </Button>

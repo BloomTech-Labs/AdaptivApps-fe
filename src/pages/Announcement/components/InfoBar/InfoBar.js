@@ -41,6 +41,7 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       background: "lightgrey",
       borderRadius: "5px",
+      cursor: 'pointer'
     },
   },
   icons: {
