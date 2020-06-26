@@ -124,7 +124,7 @@ export default function EventForm({
         variables: {
           type: formValues.type,
           sportType: formValues.sportType,
-          tags: tags.length > 0 ? tags.join(", ") : null,
+          tags: tags && tags.length > 0 ? tags.join(", ") : null,
           title: formValues.title,
           host: formValues.host,
           coaches: formValues.coaches,
@@ -148,7 +148,7 @@ export default function EventForm({
           id: eventId,
           type: formValues.type,
           sportType: formValues.sportType,
-          tags: tags.join(", "),
+          tags: tags && tags.length > 0 ? tags.join(", ") : null,
           title: formValues.title,
           host: formValues.host,
           coaches: formValues.coaches,

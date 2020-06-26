@@ -79,9 +79,11 @@ const AdminTagsSearch = props => {
   let eventsList = eventsData?.events;
 
   const checkEventContainAllTags = (event, tags) => {
-    const eventTags = event?.tags?.split(", ");
+    if (event.tags === null || event.tags === "") return false;
+    const eventTags =
+      event.tags && event.tags.length > 0 && event.tags.split(", ");
     for (let i = 0; i < tags.length; i++) {
-      if (!eventTags?.includes(tags[i])) {
+      if (eventTags && !eventTags.includes(tags[i])) {
         return false;
       }
     }

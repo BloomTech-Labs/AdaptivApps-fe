@@ -39,8 +39,9 @@ const useStyles = makeStyles(() => ({
   },
   chatRoomIcon: {
     color: "#2962FF",
-    fontSize: "3rem",
-    margin: "0 5%"
+    fontSize: "2.7rem",
+    margin: "0 5%",
+    marginBottom: "0.3rem",
   },
   chatRoomButton: {
     fontSize: "1.6rem",

@@ -49,7 +49,9 @@ const useStyles = makeStyles(theme => ({
     cursor: "pointer",
     marginRight: "10%",
   },
-
+  span: {
+    fontSize: "1.6rem",
+  },
   modal: {
     display: "flex",
     alignItems: "center",

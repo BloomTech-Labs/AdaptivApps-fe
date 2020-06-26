@@ -26,11 +26,12 @@ const useStyles = makeStyles({
     width: "85%",
   },
   form: {
+    height: '75vh',
     width: "100%",
     display: "flex",
     flexDirection: "column",
     "& .MuiTextField-root": {
-      width: 744,
+      width: '100%',
       height: 48,
     },
   },
@@ -38,7 +39,7 @@ const useStyles = makeStyles({
     marginTop: "2.4rem",
   },
   select: {
-    width: 744,
+    width: '100%',
   },
   em: {
     fontStyle: "italic",
@@ -336,6 +337,7 @@ export default function Step5({ updateDemoProfile }) {
           control={control}
           defaultValue=""
         />
+        </form>
         <Box className={classes.btnBox}>
           <SaveButton
             label={"Save & Quit"}
@@ -348,7 +350,6 @@ export default function Step5({ updateDemoProfile }) {
             ariaLabel="Click here to complete step 3 and move onto step 4 of account info update."
           />
         </Box>
-      </form>
     </Box>
   );
 }
