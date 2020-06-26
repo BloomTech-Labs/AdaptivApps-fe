@@ -213,18 +213,18 @@ export default function SponsorSpotlight() {
     <div className={classes.root}>
       <Grid container className={classes.logo}>
         <Grid item xs>
-          <img className={classes.img} alt='' src={ACS_Logo} />
+          <img className={classes.img} tabIndex='0' alt='2020 Angel City Virtual Games Logo' src={ACS_Logo} />
         </Grid>
       </Grid>
 
       <Grid container alignItems='center' className={classes.presented}>
         <Grid item  xs>
           <Typography className={classes.header}>Proudly presented by</Typography>
-          <img className={classes.img} alt='' src={Hartford_Logo} />
+          <img className={classes.img} tabIndex='0' alt='The Hartford Logo' src={Hartford_Logo} />
         </Grid>
         <Grid item  xs>
         <Typography className={classes.header}>Hosted by</Typography>
-          <img className={classes.img} alt='' src={Adaptiv_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Adaptiv Apps Logo' src={Adaptiv_Logo} />
         </Grid>
       </Grid>
       <Typography className={classes.header}>With heartfelt thanks to our sponsors, friends and partners</Typography>
@@ -232,107 +232,107 @@ export default function SponsorSpotlight() {
       <Typography className={classes.sponsorText}>Gold sponsors</Typography>
       <Grid container alignItems='center' justify='space-evenly' className={classes.gold}>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Citi_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Citibank Logo' src={Citi_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Gold_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Gold Meets Golden Logo' src={Gold_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={GSD_SWF_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Sidewinder Films, Global Sports Development Logo' src={GSD_SWF_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={MarVista_Logo} />
+          <img className={classes.img} tabIndex='0' alt='MarVista Entertainment Logo' src={MarVista_Logo} />
         </Grid>
       </Grid>
 
       <Typography className={classes.sponsorText}>Silver sponsors</Typography>
       <Grid container alignItems='center' justify='space-evenly' className={classes.silver}>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={BOC_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Banc of California Logo' src={BOC_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={CapitalGroup_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Capital Group Logo' src={CapitalGroup_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Hanger_Foundation_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Hanger Foundation Logo' src={Hanger_Foundation_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Microsoft_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Microsoft Logo' src={Microsoft_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Move_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Move United Logo' src={Move_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Shannon_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Shannon Fabrics Logo' src={Shannon_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Wayfinder_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Wayfinder Family Services Logo' src={Wayfinder_Logo} />
         </Grid>
       </Grid>
 
       <Typography className={classes.sponsorText}>Bronze sponsors</Typography>
       <Grid container alignItems='center' justify='space-evenly' className={classes.bronze}>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={ARC_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Abilities Recovery Center Logo' src={ARC_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Doyle_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Doyle Law Logo' src={Doyle_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Fillauer_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Fillauer Logo' src={Fillauer_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={IMAX_Logo} />
+          <img className={classes.img} tabIndex='0' alt='IMAX Logo' src={IMAX_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={MR_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Michelman & Robinson, LLP Logo' src={MR_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Per_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Per 4 Max Logo' src={Per_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Shamrock_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Shamrock Logo' src={Shamrock_Logo} />
         </Grid>
       </Grid>
 
       <Typography className={classes.sponsorText}>Friends of Angel City Sports</Typography>
       <Grid container alignItems='center' justify='space-evenly' className={classes.friends}>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Abilities_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Abilities Expo Logo' src={Abilities_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Broadvoice_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Broadvoice Logo' src={Broadvoice_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Dod_Logo} />
+          <img className={classes.img} tabIndex='0' alt='City of Los Angeles Department of Disability Logo' src={Dod_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Metz_Harrison_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Metz and Harrison, LLP Logo' src={Metz_Harrison_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={MyGym_Logo} />
+          <img className={classes.img} tabIndex='0' alt='My Gym Foundation Logo' src={MyGym_Logo} />
         </Grid>
       </Grid>
 
       <Typography className={classes.sponsorText}>Angel City Sports partners</Typography>
       <Grid container alignItems='center' justify='space-evenly' className={classes.partners}>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Ampla_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Ampla Partners Logo' src={Ampla_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Dk3_Logo} />
+          <img className={classes.img} tabIndex='0' alt='DK3 Logo' src={Dk3_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Hanger_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Hanger Clinic Logo' src={Hanger_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={LA_Parks_Logo} />
+          <img className={classes.img} tabIndex='0' alt='City of Los Angeles Department of Recreation and Parks Logo' src={LA_Parks_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={LA84_Logo} />
+          <img className={classes.img} tabIndex='0' alt='LA84 Foundation Logo' src={LA84_Logo} />
         </Grid>
         <Grid item  xs>
-          <img className={classes.img} alt='' src={Momo_Logo} />
+          <img className={classes.img} tabIndex='0' alt='Momo Production & Event Rentals Logo' src={Momo_Logo} />
         </Grid>
       </Grid>
     </div>
