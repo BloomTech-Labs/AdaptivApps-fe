@@ -7,12 +7,16 @@ export const GET_CHAT_ROOMS = gql`
       id
       chatRooms {
         id
+        senderEmail
+        displayForSender
+        displayForReceiver
         participants {
           id
           email
           firstName
           lastName
           profilePicture
+          userName
         }
         chats {
           id
@@ -39,6 +43,7 @@ export const CREATE_CHAT_ROOM = gql`
         participants: {
           connect: [{ email: $useremail }, { email: $recipientemail }]
         }
+        senderEmail: $useremail
       }
     ) {
       id
@@ -98,6 +103,8 @@ export const ADD_CHAT_ROOM_PARTICIPANTS = gql`
       data: { participants: { connect: { email: $email } } }
       ) {
       id
+      displayForSender
+      displayForReceiver
       participants {
         id
         email
@@ -126,6 +133,8 @@ export const CHAT_ROOM_SUBSCRIPTION = gql`
       mutation
       node {
         id
+        displayForSender
+        displayForReceiver
         participants {
           firstName
           lastName
@@ -141,6 +150,29 @@ export const CHAT_ROOM_SUBSCRIPTION = gql`
           createdAt
         }
       }
+    }
+  }
+`;
+
+// Stop displaying a specific chatroom
+export const HIDE_CHATROOM_SENDER = gql`
+  mutation hideChatroomSender($id: ID!) {
+    updateChatRoom( 
+      where: { id: $id } 
+      data: { displayForSender: false }
+      ) {
+      id
+    }
+  }
+`;
+
+export const HIDE_CHATROOM_RECEIVER = gql`
+  mutation hideChatroomReceiver($id: ID!) {
+    updateChatRoom( 
+      where: { id: $id } 
+      data: { displayForReceiver: false }
+      ) {
+      id
     }
   }
 `;

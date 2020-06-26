@@ -31,13 +31,13 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function ProfilePicture({ profilePicture }) {
+export default function ProfilePicture({ profilePicture, userName }) {
   const classes = useStyles();
   const { user } = useAuth0();
   const [updateProfilePicture] = useMutation(UPDATE_PROFILE_PICTURE);
   const { data, error, loading, refetch } = useQuery(GET_PROFILE_IMAGES, {
     variables: {
-      email: user?.email,
+      userName: userName,
     },
   });
   const usersProfilePicture = data?.profile?.profilePicture;
@@ -45,16 +45,13 @@ export default function ProfilePicture({ profilePicture }) {
     if (profilePicture && profilePicture !== null)
       updateProfilePicture({
         variables: {
-          email: user?.email,
+          userName: userName,
           profilePicture: profilePicture,
         },
       });
     refetch();
   }, [refetch, profilePicture, usersProfilePicture]);
 
-  // console.log("profile picture in Profile picture", profilePicture);
-  // console.log("user profile in Profile picture", data);
-  // console.log("users profile picture", usersProfilePicture);
   return (
     <>
       <img

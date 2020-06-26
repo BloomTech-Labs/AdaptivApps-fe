@@ -1,10 +1,8 @@
 // React imports
 import React, { useState } from "react";
 import InfoBar from "./components/InfoBar/InfoBar";
-
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
-
 // Styling imports
 import { makeStyles } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
@@ -28,7 +26,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function ChatFeature() {
+function Announcement() {
   const { user } = useAuth0();
   const classes = useStyles();
   const [alert, setAlertOpen] = useState(false);
@@ -90,10 +88,9 @@ function ChatFeature() {
         <InfoBar
           user={user}
           setAlertOpen={setAlertOpen}
-          setNewRoom={setNewRoom}
         />
       </div>
     </>
   );
 }
-export default ChatFeature;
+export default Announcement;

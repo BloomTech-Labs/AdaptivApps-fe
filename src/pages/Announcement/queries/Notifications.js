@@ -10,7 +10,7 @@ export const GET_NOTIFICATIONS = gql`
       notifications {
         id
         label
-        chatroom {
+        announcement {
           id
         }
       }
@@ -18,24 +18,19 @@ export const GET_NOTIFICATIONS = gql`
   }
 `;
 
-export const CREATE_CHAT_NOTIFICATION = gql`
-  mutation createChatRoomNotification($email: String!, $id: ID!) {
+export const CREATE_ANNOUNCEMENT_NOTIFICATION = gql`
+  mutation createAnnouncementNotification(
+    $email: String!, $label: String!) {
     createNotification(data: {
       profile: {
         connect: {
           email: $email
         }
       }
-      chatroom: {
-        connect: {
-          id: $id
-        }
-      }
+      label: $label
     }) {
       id
-      chatroom {
-        id
-      }
+      label
       profile {
         id
         email
@@ -61,12 +56,6 @@ export const NOTIFICATION_SUBSCRIPTION = gql`
       node {
         id
         label
-        chatroom {
-          id
-          notifications {
-            id
-          }
-        }
         announcement {
           id
           notification {

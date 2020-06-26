@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { useSpeechRecognition } from "react-speech-kit";
 
 // Query / Mutation Imports
-import { SEND_CHAT } from "../../queries/Chats";
+import { SEND_CHAT, SHOW_CHATROOM_All } from "../../queries/Chats";
 import { ADD_CHAT_ROOM_PARTICIPANTS } from '../../queries/ChatRooms'
 import { CREATE_CHAT_NOTIFICATION } from '../../queries/Notifications'
 import { useMutation } from "react-apollo";
@@ -71,6 +71,7 @@ const Input = ({ chatRoom, user, messages }) => {
   const [toggleEmoji, setToggleEmoji] = useState(false);
 
   const [sendChat] = useMutation(SEND_CHAT);
+  const [showChatroomAll] = useMutation(SHOW_CHATROOM_All);
   const [updateChatRoom] = useMutation(ADD_CHAT_ROOM_PARTICIPANTS);
   const [createChatRoomNotification] = useMutation(CREATE_CHAT_NOTIFICATION);
   const [message, setMessage] = useState("");
@@ -97,31 +98,39 @@ const Input = ({ chatRoom, user, messages }) => {
   const senderEmail = messages?.filter(message => message.sender !== user.email && message.sender)
   // Create message via text or speech message
   const newMessage = async () => {
-    recipient.length > 0 ? 
-    await sendChat({
-      variables: {
-        id: chatRoom.id,
-        email: user.email,
-        message: message,
-      }}) &&
+    recipient.length > 0 ?
+      await sendChat({
+        variables: {
+          id: chatRoom.id,
+          email: user.email,
+          message: message,
+        }
+      }) &&
       await createChatRoomNotification({
         variables: {
           id: chatRoom.id,
           email: recipient[0].email
-        }}) &&
-      setMessage("") : 
-    await updateChatRoom({
-      variables: {
-        id: chatRoom.id,
-        email: senderEmail[0].sender
-      }
-    }) &&
-    await createChatRoomNotification({
-      variables: {
-        id: chatRoom.id,
-        email: senderEmail[0].sender
-      }}) &&
-    setMessage("");
+        }
+      }) &&
+      await showChatroomAll({
+        variables: {
+          id: chatRoom.id
+        }
+      }) &&
+      setMessage("") :
+      await updateChatRoom({
+        variables: {
+          id: chatRoom.id,
+          email: senderEmail[0].sender
+        }
+      }) &&
+      await createChatRoomNotification({
+        variables: {
+          id: chatRoom.id,
+          email: senderEmail[0].sender
+        }
+      }) &&
+      setMessage("");
   };
 
   return (

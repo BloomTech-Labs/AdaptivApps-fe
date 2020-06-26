@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 // Query / Mutations
-import { useQuery, useMutation, useSubscription } from "react-apollo";
+import { useMutation } from "react-apollo";
 import { DELETE_ANNOUNCEMENT, } from '../../queries/Announcements';
 import EditAnnouncementModal from '../Modals/EditAnnouncementModal';
 
@@ -9,7 +9,6 @@ import EditAnnouncementModal from '../Modals/EditAnnouncementModal';
 import config from "../../../../config/auth_config";
 
 // Styling imports
-import CircularProgress from "@material-ui/core/CircularProgress";
 import Tooltip from '@material-ui/core/Tooltip';
 import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -106,10 +105,10 @@ export default function Announcements({ announcements, user, setUpdateChat, setD
       id: announcement.id,
       title: announcement.title,
       message: announcement.message,
-      createdAt: announcement.createdAt,    
+      createdAt: announcement.createdAt,
     }
   });
-  
+
   // Sets up an auto-scroll to last announcement when new announcement received, or when an announcement is updated/deleted
   const announcementsEndRef = useRef(null)
 
@@ -141,14 +140,14 @@ export default function Announcements({ announcements, user, setUpdateChat, setD
                 <div className={classes.messageHeader}>
                   <p className={classes.sender}>{announcement.title}</p>
                   {user && user[config.roleUrl].includes("Admin") ? (
-                  <div className={classes.iconDiv}>
-                  <Tooltip title="Edit Announcement">
-                    <EditOutlinedIcon className={classes.editIcon} onClick={() => {setAnnouncementOpen(true); setAnnouncementToEdit(announcement)}} />
-                  </Tooltip>
-                  <Tooltip title="Delete Announcement">
-                    <DeleteIcon className={classes.deleteIcon} onClick={() => deleteMessage(announcement)} />
-                  </Tooltip>
-                  </div>) : null}
+                    <div className={classes.iconDiv}>
+                      <Tooltip title="Edit Announcement">
+                        <EditOutlinedIcon className={classes.editIcon} onClick={() => { setAnnouncementOpen(true); setAnnouncementToEdit(announcement) }} />
+                      </Tooltip>
+                      <Tooltip title="Delete Announcement">
+                        <DeleteIcon className={classes.deleteIcon} onClick={() => deleteMessage(announcement)} />
+                      </Tooltip>
+                    </div>) : null}
                 </div>
                 <p className={classes.messageText}>{announcement.message}</p>
                 <div ref={announcementsEndRef} />

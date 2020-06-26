@@ -93,7 +93,6 @@ export default function AnnouncementRoom({ user, announcements, notifications })
   const [messageToggle, setMessageToggle] = useState(false);
   const [updateChat, setUpdateChat] = useState(false);
   const [deleteChat, setDeleteChat] = useState(false);
-  const [disableClick, setDisableClick] = useState(false);
   const [deleteNotification] = useMutation(DELETE_NOTIFICATION);
 
   // Set timeout for automated alerts
@@ -109,7 +108,7 @@ export default function AnnouncementRoom({ user, announcements, notifications })
     e.preventDefault();
     messageToggle ? setMessageToggle(false) : setMessageToggle(true)
 
-    announcementNotifications && announcementNotifications.length > 0 &&
+    announcementNotifications.length > 0 &&
       announcementNotifications.map(notification => {
         deleteNotification({
           variables: {
@@ -125,8 +124,7 @@ export default function AnnouncementRoom({ user, announcements, notifications })
   };
 
   const announcementNotifications = [];
-  notifications !== null && notifications.length > 0 && notifications.map(notification => notification.label !== null && announcementNotifications.push(notification.id))
-  console.log('ann', announcementNotifications)
+  notifications && notifications.map(notification => notification.label !== null && notification.label === "Announcement" && announcementNotifications.push(notification.id))
 
   return (
     <>
@@ -141,8 +139,7 @@ export default function AnnouncementRoom({ user, announcements, notifications })
             <button
               className={classes.chatRoomButton}
               onClick={handleClick}
-              aria-label="Open all announcements"
-              disabled={disableClick}>
+              aria-label="Open all announcements">
               Announcements
                 </button>
           </StyledBadge>
@@ -198,4 +195,4 @@ export default function AnnouncementRoom({ user, announcements, notifications })
       </Drawer>
     </>
   )
-};
+}
