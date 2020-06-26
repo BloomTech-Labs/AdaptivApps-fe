@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "67.5",
+    width: "67.5%",
     '& .MuiInputLabel-root': {
       color: "black",
     },
@@ -42,7 +42,6 @@ const useStyles = makeStyles({
   },
   checkBoxContainer: {
     display: "flex",
-    margin: ".8rem 0"
   },
   checkBoxLabel: {
     padding: ".8rem 0",
@@ -60,7 +59,6 @@ const useStyles = makeStyles({
   btnBox: {
     display: "flex",
     justifyContent: "flex-end",
-    marginTop: "13.5rem",
   },
   error: {
     color: 'red',
@@ -154,7 +152,7 @@ export default function Step6({ updateDemo4 }) {
     <Box className={classes.root}>
       <ProgressBar activeStep={6} stepNumber={6} userEmail={userEmail} />
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        <InputLabel htmlFor="additionalInfo" className={classes.spacing}>
+        <InputLabel htmlFor="additionalInfo">
           Is there anything you would like the Angel City team to know in
           preparation for the 2020 Angel City Virtual Games?
         </InputLabel>
@@ -167,7 +165,7 @@ export default function Step6({ updateDemo4 }) {
           control={control}
           defaultValue=""
         />
-        <Typography className={classes.spacing}>
+        <Typography>
           Please read and acknowledge this Virtual Games Waiver of Liability
         </Typography>
         <Box className={classes.waiverContainer}tabIndex="0">
@@ -309,7 +307,7 @@ export default function Step6({ updateDemo4 }) {
           control={control}
           defaultValue=""
         />
-        <InputLabel className={classes.spacing} htmlFor="minorName">
+        <InputLabel htmlFor="minorName">
           Minor participant's name
         </InputLabel>
         <Controller
