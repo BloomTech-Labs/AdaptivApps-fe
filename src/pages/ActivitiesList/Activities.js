@@ -32,7 +32,7 @@ export default function Activities({ refetch, value, activityData }) {
   useEffect(() => {
     refetch();
   }, [refetch]);
-  console.log("activity Data in activities.js", activityData);
+
   return (
     <div className={classes.root}>
       {activityData?.event?.activities.map((activity, id) => (

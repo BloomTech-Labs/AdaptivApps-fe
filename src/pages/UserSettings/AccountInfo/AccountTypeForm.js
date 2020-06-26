@@ -51,7 +51,7 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     marginBottom: "1.6rem",
-    
+
   },
   btnWrapper: {
     display: "flex",
@@ -59,7 +59,7 @@ const useStyles = makeStyles({
   },
   error: {
     color: 'red',
-    fontSize: '1.75rem',    
+    fontSize: '1.75rem',
     fontVariant: 'all-small-caps',
     fontWeight: 'bold',
     marginTop: '1rem'
@@ -86,18 +86,18 @@ export default function AccountTypeForm({ updateProfile }) {
     !loading && !currentUserInfo
       ? setCurrentUserInfo(defaultInfo)
       : setValue([
-          {
-            type: currentUserInfo && currentUserInfo?.profile?.type,
-            
-          },
-          {
-            roleIdentity: currentUserInfo && currentUserInfo?.profile?.extProfile?.roleIdentity
-            
-          },
-        ]);
+        {
+          type: currentUserInfo && currentUserInfo?.profile?.type,
+
+        },
+        {
+          roleIdentity: currentUserInfo && currentUserInfo?.profile?.extProfile?.roleIdentity
+
+        },
+      ]);
   }, [loading, currentUserInfo, defaultInfo, setValue]);
 
-  console.log('Inside AccountType', currentUserInfo)
+  // console.log('Inside AccountType', currentUserInfo)
   const onSubmit = async data => {
     await updateProfile({
       variables: {
@@ -171,7 +171,7 @@ export default function AccountTypeForm({ updateProfile }) {
           </Box>
         </Box>
         <Box className={classes.btnWrapper}>
-        <Typography className={classes.error}>* required field</Typography>
+          <Typography className={classes.error}>* required field</Typography>
           <NextButton
             type="submit"
             label={"Next"}
