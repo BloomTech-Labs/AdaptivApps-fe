@@ -29,7 +29,6 @@ export default function Activities({ refetch, value, activeEvent }) {
   useEffect(() => {
     refetch();
   }, [refetch]);
-  console.log("active Event activities.js", activeEvent);
 
   return (
     <div className={classes.root}>

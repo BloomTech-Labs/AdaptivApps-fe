@@ -47,7 +47,7 @@ const useStyles = makeStyles({
 
 export default function Activity({ activity, activityData, value, refetch }) {
   const classes = useStyles();
-  console.log("activityData in Activity.js", activityData, activity);
+
   return (
     <>
       {value === activity?.date ? (

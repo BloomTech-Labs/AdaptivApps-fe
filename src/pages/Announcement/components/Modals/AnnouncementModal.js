@@ -39,7 +39,7 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       cursor: "pointer",
       color: "#2962FF"
-    }, 
+    },
     '&:focus': {
       outline: "none"
     }
@@ -71,7 +71,7 @@ const useStyles = makeStyles(theme => ({
     }
   }
 }));
-  
+
 function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipants, user }) {
   const classes = useStyles();
   const { data } = useQuery(GET_RECIPIENTS)
@@ -80,7 +80,7 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
 
   const [newAnnouncement, setNewAnnouncement] = useState();
   const [newAnnouncementText, setNewAnnouncementText] = useState();
-  
+
   const handleTitleChange = e => {
     setNewAnnouncement(e.target.value);
   };
@@ -90,11 +90,11 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
   };
 
   //Create array of emails to match BE data shape, exclude yourself
-  const allUserEmails = data?.profiles?.map(participant => user.email !== participant.email && 
+  const allUserEmails = data?.profiles?.map(participant => user.email !== participant.email &&
     { "email": participant.email }).filter(participant => participant !== false)
 
-    allUserEmails && allUserEmails.forEach(user => console.log(user.email))
-  
+  // allUserEmails && allUserEmails.forEach(user => console.log(user.email))
+
   // Send announcement to BE & all users
   const onSubmit = e => {
     e.preventDefault();
@@ -104,13 +104,15 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
         message: newAnnouncementText,
         isAnnouncementRoom: true,
         participants: allUserEmails,
-      }}) &&
+      }
+    }) &&
       allUserEmails.forEach(user => {
         createAnnouncementNotification({
           variables: {
             email: user.email,
             label: 'Announcement'
-          }});
+          }
+        });
       })
     setAnnouncementOpen(false);
     setAlertOpen(true);
@@ -122,14 +124,14 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
   };
 
   return (
-    <div className={classes.modal}>          
+    <div className={classes.modal}>
       <div className={classes.paper}>
         <Tooltip title="Cancel">
           <CloseIcon className={classes.closeModal} onClick={closeModal} />
         </Tooltip>
         <h2 id="transition-modal-title" className={classes.span}>Create New Announcement</h2>
         <h3 className={classes.titles}>Announcement Title</h3>
-        <div className={classes.titleDiv}>       
+        <div className={classes.titleDiv}>
           <Box component="div" className={classes.titleInput}>
             <TextField
               variant="outlined"
@@ -154,7 +156,7 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
               value={newAnnouncementText}
               onChange={handleMessageChange} />
           </Box>
-        </div>      
+        </div>
         <div className={classes.buttonDiv}>
           <Tooltip title="Send Announcement">
             <Button variant="outlined" color="primary" onClick={onSubmit} className={classes.button}>
@@ -166,5 +168,5 @@ function AnnouncementModal({ setAnnouncementOpen, setAlertOpen, validParticipant
     </div>
   )
 };
-  
+
 export default AnnouncementModal;
