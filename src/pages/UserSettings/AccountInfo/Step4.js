@@ -23,16 +23,16 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-   
+    width: '85%'
   },
   form: {
+    height: '60vh',
     display: "flex",
     flexDirection: "column",
-    width: "74.4rem"
-    // "& .MuiTextField-root": {
-    //   width: 744,
-    //   height: 48,
-    // },
+    width: "100%",
+    "& .MuiTextField-root": {
+      marginBottom: '2.4rem'
+    },
   },
   em: {
     fontStyle: "italic",
@@ -43,16 +43,17 @@ const useStyles = makeStyles({
     marginTop: "1.6rem",
   },
   textBox: {
-    marginBottom: "35rem",
+    marginBottom: "2.4rem",
   },
   talentContainer: {
     display: "flex",
-    justifyContent: "space-between"
+    justifyContent: "space-between",
   },
   talentBoxes: {
     display: "flex",
     flexDirection: "column",
-    width: "36rem"
+    width: "48%",
+    marginBottom: '2.4rem'
   },
   btnBox: {
     display: "flex",
@@ -275,7 +276,7 @@ export default function Step3({ updateDemo2 }) {
           type="select"
           variant="outlined"
           control={control}
-          // className={classes.textBox}
+          className={classes.textBox}
           defaultValue=""
         />
         <InputLabel htmlFor="sportEquipmentNeed" className={classes.spacing}>If you selected access to equipment, what adaptive sports equipment do you need to participate?</InputLabel>
@@ -287,6 +288,7 @@ export default function Step3({ updateDemo2 }) {
           control={control}
           defaultValue=""
         />
+        </form>
         <Box className={classes.btnBox}>
           <SaveButton
             label={"Save & Quit"}
@@ -299,7 +301,6 @@ export default function Step3({ updateDemo2 }) {
             ariaLabel="Click here to complete step 4 and move onto step 5 of account information update."
           />
         </Box>
-      </form>
     </Box>
   );
 }

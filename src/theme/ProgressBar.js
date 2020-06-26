@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
   },
   actionBox: {
-    width: 744,
+    width: '100%',
     display: "flex",
     // justifyContent: "space-between",
     justifyContent: "flex-end",

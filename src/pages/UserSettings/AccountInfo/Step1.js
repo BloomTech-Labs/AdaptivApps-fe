@@ -23,11 +23,11 @@ import {
   MenuItem,
 } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: '85%',
+    width: '90%',
     "& .MuiInputLabel-asterisk": {
       fontSize: '2rem',
       color: 'red',
@@ -38,25 +38,42 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     "& .MuiTextField-root": {
-      width: 744,
-      height: 48,
+      width: '100%',
     },
   },
   namePhoneBox: {
     display: "flex",
     marginBottom: "2.4rem",
     "& .MuiTextField-root": {
-      width: 360,
+      width: 400,
       height: 48,
+      [theme.breakpoints.down("sm")]: {
+        margin: '1.2rem auto'
+      },
+      [theme.breakpoints.down("xs")]: {
+        margin: '1.2rem auto'
+      },
+    },
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: 'column',
+    },
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: 'column',
     },
   },
   firstInput: {
     marginRight: "2.4rem"
   },
   typeSelect: {
-    width: 744,
+    width: 825,
     height: 48,
     marginBottom: "2.4rem",
+    [theme.breakpoints.down("sm")]: {
+      width: 400
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: 400
+    },
   },
   em: {
     fontStyle: "italic",
@@ -66,11 +83,24 @@ const useStyles = makeStyles({
     display: "flex",
     marginBottom: "2.4rem",
     "& .MuiTextField-root": {
-      width: 360,
+      width: 400,
       height: 48,
+      [theme.breakpoints.down("sm")]: {
+        margin: '1.2rem auto',
+      },
+      [theme.breakpoints.down("xs")]: {
+        margin: '1.2rem auto',
+      },
+    },
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: 'column',
+    },
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: 'column',
     },
   },
   bioBox: {
+    width: '100%',
     marginBottom: "15rem",
   },
   btnBox: {
@@ -96,7 +126,7 @@ const useStyles = makeStyles({
     fontVariant: 'all-small-caps',
     fontWeight: 'bold'
   }
-});
+}));
 
 export default function Step1({ updateProfile }) {
   const classes = useStyles();
@@ -283,7 +313,7 @@ export default function Step1({ updateProfile }) {
               defaultValue=""
               rules={{ required: true }}
             />
-            {errors.address1 && <Typography className={classes.error}>phone number is a required field</Typography>}
+            {errors.address1 && <Typography className={classes.error}>address is a required field</Typography>}
           </Box>
           <Box>
             <InputLabel htmlFor="address2">Address 2</InputLabel>
@@ -339,6 +369,7 @@ export default function Step1({ updateProfile }) {
               defaultValue=""
               rules={{ required: true }}
             />
+            {errors.postalCode && <Typography className={classes.error}>postal code is a required field</Typography>}
           </Box>
           <Box>
             <InputLabel required htmlFor="country">Country</InputLabel>
@@ -349,10 +380,13 @@ export default function Step1({ updateProfile }) {
               variant="outlined"
               control={control}
               defaultValue=""
+              rules={{ required: true }}
             />
+            {errors.country && <Typography className={classes.error}>country is a required field</Typography>}
           </Box>
         </Box>
-        <InputLabel htmlFor="legal">Are you over 18 years old?*</InputLabel>
+        <InputLabel required htmlFor="legal">Are you over 18 years old?</InputLabel>
+        {errors.legal && <Typography className={classes.error}>Please make a selection</Typography>}
         <Controller
           as={
             <Select className={classes.typeSelect}>
