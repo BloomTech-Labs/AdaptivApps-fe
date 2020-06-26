@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SearchEventCard from "./SearchEventCard";
 import { Typography, makeStyles } from "@material-ui/core";
 
@@ -21,6 +21,10 @@ const useStyles = makeStyles(theme => ({
 
 export default function SearchEventList({ eventsList, refetch }) {
   const classes = useStyles();
+
+  useEffect(() => {
+    refetch();
+  }, [refetch])
 
   return (
     <div className={classes.eventGroup}>
