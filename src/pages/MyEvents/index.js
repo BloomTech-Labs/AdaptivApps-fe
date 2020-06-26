@@ -98,7 +98,7 @@ export default function MyEvents() {
                 You haven't registered for any events yet!
             </Typography>
               <Box className={classes.inlineNotice}>
-                <Link to='calendar'>
+                <Link href='calendar'>
                 <Typography className={classes.noActivBlue}>
                   Check out the Events Calendar
               </Typography>
