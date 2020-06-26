@@ -201,11 +201,14 @@ function SideNav(props) {
     loading: notificationLoading,
   } = useSubscription(NOTIFICATION_SUBSCRIPTION);
 
-  console.log(notifications);
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
+
+  const announcementNotifications = [];
+  const roomNotifications = [];
+  notifications && notifications.profile.notifications.map(notification => notification.label === "Announcement" && announcementNotifications.push(notification))
+  notifications && notifications.profile.notifications.map(notification => notification.chatroom !== null && notification.label !== "Announcement" && roomNotifications.push(notification));
 
   const drawer = (
     <div className={classes.sideContainer}>
@@ -215,6 +218,15 @@ function SideNav(props) {
             <img src={acsLogo} alt="ACS Logo" />
           </Box>
           <Box className={classes.navContainer}>
+            <NavLink to="announcements" className={classes.navLink}>
+              <StyledBadge
+                overlap="circle"
+                badgeContent={announcementNotifications.length}
+              >
+                <CalendarTodayIcon className={classes.navIcon} />
+              </StyledBadge>
+              <p>Announcements</p>
+            </NavLink>
             <NavLink to="calendar" className={classes.navLink}>
               <CalendarTodayIcon className={classes.navIcon} />
               <p>Events Calendar</p>
@@ -247,7 +259,7 @@ function SideNav(props) {
                 <NavLink to="/chats" className={classes.navLink}>
                   <StyledBadge
                     overlap="circle"
-                    badgeContent={notifications?.profile?.notifications?.length}
+                    badgeContent={roomNotifications.length}
                   >
                     <ForumOutlinedIcon className={classes.navIcon} />
                   </StyledBadge>

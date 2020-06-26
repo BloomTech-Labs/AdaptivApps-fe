@@ -25,6 +25,7 @@ import PrivacyPolicy from "./pages/Landing/Legal/PrivacyPolicy";
 import ChatFeature from "./pages/Chat/index";
 import SponsorSpotlight from "./pages/SponsorSpotlight/SponsorSpotlight";
 import ManageUsers from "./pages/ManageUsers";
+import Announcement from './pages/Announcement';
 // import NewsfeedPage from './pages/Newsfeed/components/NewsfeedPage'
 
 // Import apollo server
@@ -159,6 +160,7 @@ function App() {
             <ChatFeature path="chats" />
             <SponsorSpotlight path="/sponsorspotlight" />
             <ManageUsers path="manageUsers" />
+            <Announcement path='/announcements' />
             {/*<NewsfeedPage path="/newsfeed" />*/}
           </PrivateRoute>
         </Router>

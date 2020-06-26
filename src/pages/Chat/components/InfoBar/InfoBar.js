@@ -2,31 +2,20 @@ import React, { useState } from "react";
 import RecipientModal from "../Modals/Modal";
 import ChatRoom from "./ChatRoom";
 
-import AnnouncementRoom from "./AnnouncementRoom";
-import AnnouncementModal from "../Modals/AnnouncementModal";
-
 // Query / Mutation / Subscription Imports
 import { useQuery, useSubscription } from "react-apollo";
 import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms'
 import { CHAT_SUBSCRIPTION } from '../../queries/Chats'
-import { GET_ANNOUNCEMENTS, ANNOUNCEMENT_SUBSCRIPTION } from '../../queries/Announcements';
 import { GET_NOTIFICATIONS, NOTIFICATION_SUBSCRIPTION } from '../../queries/Notifications'
-
-//Auth0 imports
-import config from "../../../../config/auth_config";
-
 // Style Imports
 import CreateIcon from "@material-ui/icons/Create";
-import LanguageIcon from "@material-ui/icons/Language";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Tooltip from "@material-ui/core/Tooltip";
-import Badge from "@material-ui/core/Badge";
 import { makeStyles, Box, TextField } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -84,10 +73,6 @@ const useStyles = makeStyles(theme => ({
   chatroom: {
     margin: "2% 0",
   },
-  divider: {
-    marginTop: "3%",
-    marginBottom: "3%",
-  },
   box: {
     position: "absolute",
     bottom: "0",
@@ -123,10 +108,6 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
   // Notification Subscription
   const { error: notificationError, loading: notificationLoading, data: notsub } = useSubscription(NOTIFICATION_SUBSCRIPTION)
   const { data: notifications, refetch: refetchNotifications } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email } })
-
-  // Announcement Subscription
-  const { error: announcementError, loading: announcementLoading, data: announcementData } = useSubscription(ANNOUNCEMENT_SUBSCRIPTION, { variables: { isAnnouncementRoom: true } });
-  const { data: announcements, refetch: refetchAnnouncements } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
 
   // Search for a chat room
   const participants = chatRoomData && chatRoomData?.profile.chatRooms.map(item => item.participants).concat().flat();
@@ -180,11 +161,10 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
   };
 
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
-  if (error || roomError || chatError || announcementError || notificationError) return `Error! ${error.message}` || `Error! ${roomError.message}` || `Error! ${chatError.message}` || `Error! ${notificationError.message}`;
+  if (error || roomError || chatError) return `Error! ${error.message}` || `Error! ${roomError.message}` || `Error! ${chatError.message}` || `Error! ${notificationError.message}`;
 
   !roomsLoading && refetch();
   !chatLoading && refetch();
-  !announcementLoading && refetchAnnouncements();
   !notificationLoading && refetchNotifications();
 
   return (
@@ -218,45 +198,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
           allChatrooms={chatRoomData}
         />
       </Modal>
-      {user && user[config.roleUrl].includes("Admin") ? (
-        <>
-          <div className={classes.messageIcons}>
-            <LanguageIcon className={classes.icons} />
-            <span
-              className={classes.span}
-              onClick={handleAnnouncementOpen}
-              aria-label="New Announcement Button"
-            >
-              New Announcement
-            </span>
-          </div>
-          <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            className={classes.modal}
-            open={announcement}
-            onClose={handleAnnouncementClose}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 500,
-            }}
-          >
-            <AnnouncementModal
-              user={user}
-              setAnnouncementOpen={setAnnouncementOpen}
-              setAlertOpen={setAlertOpen}
-            />
-          </Modal>
-        </>
-      ) : null}
       <div className={classes.chatRoomDiv}>
-        <AnnouncementRoom
-          user={user}
-          announcements={announcements}
-          notifications={notifications?.profile?.notifications}
-        />
-        <Divider variant="inset" className={classes.divider} />
         {results.length > 0
           ? results.map((chatRoom, id) => (
             <div className={classes.chatroom} key={chatRoom.id}>
