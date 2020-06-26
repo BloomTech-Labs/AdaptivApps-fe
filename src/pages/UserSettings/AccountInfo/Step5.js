@@ -22,27 +22,27 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "67.5%",
+    width: "85%",
     '& .MuiInputLabel': {
-      color: "black"
+      color: "black",
     }
   },
   form: {
     display: "flex",
     flexDirection: "column",
     width: "100%",
+    height: '75vh'
   },
   em: {
     fontStyle: "italic",
     fontSize: "1.6rem",
   },
   spacing: {
-    marginTop: "1.6rem",
+    marginTop: "3.5rem",
   },
   btnBox: {
     display: "flex",
     justifyContent: "space-between",
-    marginTop: "1.7rem",
   },
 });
 
@@ -391,7 +391,7 @@ export default function Step4({ updateDemo3 }) {
           control={control}
           defaultValue=""
         />
-
+      </form>
         <Box className={classes.btnBox}>
           <SaveButton
             label={"Save & Quit"}
@@ -404,7 +404,6 @@ export default function Step4({ updateDemo3 }) {
             ariaLabel="Click here to complete step 5 and move onto step 6 of account information update."
           />
         </Box>
-      </form>
     </Box>
   );
 }

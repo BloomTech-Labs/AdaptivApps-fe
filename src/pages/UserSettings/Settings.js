@@ -8,9 +8,17 @@ import { useQuery, useMutation } from "react-apollo";
 
 // import ProfileForm from "./ProfileForm";
 import { ADD_USER_PROFILE, PROFILE_INFO } from "./queries";
+
 // Material-UI imports
 import {
   makeStyles,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
   Box,
   Typography,
   Checkbox,
@@ -19,51 +27,34 @@ import {
 
 import SponsorBanner from '../SponsorSpotlight/SponsorBanner'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft: "3rem",
-    height: "100vh",
+    //height: '100vh',
+    wordWrap: 'normal',
+    '& .MuiTableCell-root': {
+       width: '100%',
+       border: 'none',
+    },
   },
   headingBox: {
     margin: "6rem 0 2rem",
     fontWeight: "400",
     borderColor: "#D3D3D3",
   },
-  subHeading: {
-    marginBottom: "2.4rem",
-    fontWeight: 550,
-  },
-  infoBox: {
-    display: "flex",
-  },
+
   nullInfoBox: {
     display: "flex",
     flexDirection: "column",
   },
-  acctInfoBox: {
-    width: "30%",
-  },
-  dataContainer: {
-    display: "flex",
-  },
-  dataBox: {
-    display: "flex",
-    minWidth: "45%",
-    flexDirection: "column",
-
-    "& p": {
-      fontWeight: 550,
-      lineHeight: "3rem",
-    },
-  },
-  data: {
-    textAlign: "left",
-    display: "flex",
-    flexDirection: "column",
-    "& p": {
-      lineHeight: "3rem",
-    },
-  },
+  // data: {
+  //   textAlign: "left",
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   "& p": {
+  //     lineHeight: "3rem",
+  //   },
+  // },
   displayBox: {
     display: "flex",
     marginBottom: 40,
@@ -73,10 +64,20 @@ const useStyles = makeStyles({
     },
   },
   ctaBox: {
-    marginLeft: "9.9rem",
-    marginTop: "4.8rem",
+    marginTop: '8%',
+    width: '45%',
     "& p": {
       fontSize: "1.8rem",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: '90%',
+      margin: '8% auto',
+      textAlign: 'center'
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: '90%',
+      margin: '8% auto',
+      textAlign: 'center'
     },
   },
   nullProfileCta: {
@@ -90,7 +91,7 @@ const useStyles = makeStyles({
     marginTop: "2.4rem",
     background: "#2962FF",
     color: "#FFFFFF",
-    width: 360,
+    width: '100%',
     height: 48,
     "& .MuiButton-label": {
       fontSize: "2.1rem",
@@ -102,14 +103,62 @@ const useStyles = makeStyles({
       color: "#2962FF",
     },
   },
-  disabilityBox: {
-    display: "flex",
-    flexDirection: "column",
-    "& :nth-child(1)": {
-      fontWeight: 500,
+  subHeading: {
+    marginBottom: "2.4rem",
+    fontWeight: 550,
+  },
+  infoBox: {
+    width: '50%',
+    [theme.breakpoints.down("sm")]: {
+      width: '100%',
+      margin: 'auto'
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: '100%',
+      margin: 'auto'
     },
   },
-});
+  flex: {
+    width: '90%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: 'column',
+      width: '100%',
+      margin: 'auto'
+    },
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: 'column',
+      width: '100%',
+      margin: 'auto'
+    },
+  },
+  table: {
+    marginTop: '5%',
+  },
+  tableBody: {
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: 'column',
+      margin: 'auto'
+    },
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: 'column',
+      margin: 'auto'
+    },
+  },
+  mobileFlex: {
+    [theme.breakpoints.down("sm")]: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%'
+    },
+    [theme.breakpoints.down("xs")]: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%'
+    },
+  }
+}));
 
 export default function Settings() {
   const { user } = useAuth0();
@@ -157,157 +206,228 @@ export default function Settings() {
           Account Settings
         </Typography>
       </Box>
+
+      <Box className={classes.flex}>
+       <Box className={ profile?.type === null ? classes.nullInfoBox : classes.infoBox}>
+        <Typography variant="h2" className={classes.subHeading}>
+          Account Information
+        </Typography>
+        {profile?.type === "Individual" ? (
+          <>
+          <TableContainer className={classes.table}>
+          <Table aria-label='account information table' size='small'>
+          <TableBody className={classes.tableBody}>
+          <TableRow >
+              <div className={classes.mobileFlex}>
+              <TableCell component="th" scope="row" >
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Full name</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.firstName} {profile?.lastName}</Typography>
+              </TableCell>
+              </div>
+            </TableRow>
+            <TableRow>
+            <div className={classes.mobileFlex}>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Username</Typography>
+              </TableCell>
+              <TableCell  align="left">
+              <Typography>{profile?.userName}</Typography>
+              </TableCell>
+              </div>
+            </TableRow>
+            <TableRow>
+            <div className={classes.mobileFlex}>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Phone</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.phoneNumber}</Typography>
+              </TableCell>
+              </div>
+            </TableRow>
+            <TableRow>
+            <div className={classes.mobileFlex}>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Email</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.email}</Typography>
+              </TableCell>
+              </div>
+            </TableRow>
+            <TableRow>
+            <div className={classes.mobileFlex}>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>City, State</Typography>
+              </TableCell>
+              <TableCell align="left">
+                <Typography>{profile?.city}, {profile?.state}</Typography>
+              </TableCell>
+              </div>
+            </TableRow>
+          <TableRow>
+          <div className={classes.mobileFlex}>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Birthday</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.extProfile?.birthday}</Typography>
+              </TableCell>
+              </div>
+            </TableRow>
+            <TableRow>
+            <div className={classes.mobileFlex}>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Gender</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.extProfile?.gender}</Typography>
+              </TableCell>
+              </div>
+            </TableRow>
+            <TableRow>
+            <div className={classes.mobileFlex}>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Emergency Contact</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.extProfile?.eC1Name}</Typography>
+              </TableCell>
+              </div>
+            </TableRow>
+            <TableRow>
+            <div className={classes.mobileFlex}>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Relation</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.extProfile?.eC1Relation}</Typography>
+              </TableCell>
+              </div>
+            </TableRow>
+            <TableRow>
+            <div className={classes.mobileFlex}>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Phone</Typography>
+              </TableCell>
+              <TableCell align="left">
+                <Typography>{profile?.extProfile?.eC1Phone}</Typography>
+              </TableCell>
+              </div>
+            </TableRow>
+            <TableRow>
+            <div className={classes.mobileFlex}>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Disability Details</Typography>
+              </TableCell>
+              <TableCell align="left">
+                <Typography>{profile?.extProfile?.disability?.physicalDisability}</Typography>
+              </TableCell>
+              </div>
+            </TableRow>
+          <TableRow>
+          <div className={classes.mobileFlex}>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Veteran Status</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.demographicProfile?.veteranStatus}</Typography>
+              </TableCell>
+              </div>
+            </TableRow>
+            <TableRow>
+            <div className={classes.mobileFlex}>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Military Branch</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.demographicProfile?.militaryBranch}</Typography>
+              </TableCell>
+              </div>
+            </TableRow>
+            <TableRow>
+            <div className={classes.mobileFlex}>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Years Served</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.demographicProfile?.yearsServed}</Typography>
+              </TableCell>
+              </div>
+            </TableRow>
+            <TableRow>
+            <div className={classes.mobileFlex}>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Ethnicity</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.demographicProfile?.ethnicity}</Typography>
+              </TableCell>
+              </div>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+      {/* <Box className={classes.displayBox}>
+    <Typography>Display this info publicly?</Typography>
+    <Checkbox color="primary" size="medium" />
+    </Box> */}
+          </>
+        ) : profile?.type === "Organization" ? (
+          <>
+          <TableContainer className={classes.orgTable}>
+          <Table aria-label='account information table' size='small'>
+          <TableBody>
+          <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Organization Name</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.extProfile?.orgName}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Website</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.extProfile?.website}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Phone</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.phoneNumber}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Email</Typography>
+              </TableCell>
+              <TableCell align="left">
+              <Typography>{profile?.email}</Typography>
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell component="th" scope="row">
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>City, State</Typography>
+              </TableCell>
+              <TableCell align="left">
+                <Typography>{profile?.city}, {profile?.state}</Typography>
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
+      </TableContainer>
+      </>
+      ) 
+      : null }
+      </Box>
       <Box
-        className={
-          profile?.type === null ? classes.nullInfoBox : classes.infoBox
-        }
-      >
-        <Box className={classes.acctInfoBox}>
-          {profile?.type === "Individual" ? (
-            <>
-              <Typography variant="h2" className={classes.subHeading}>
-                Account Information
-              </Typography>
-              <Box className={classes.dataContainer}>
-                <Box className={classes.dataBox}>
-                  <Typography>Full name</Typography>
-                  <Typography>Username</Typography>
-                  <Typography>Phone</Typography>
-                  <Typography>Email</Typography>
-                  <Typography>City, State</Typography>
-                </Box>
-                <Box className={classes.data}>
-                  {profile?.firstName === null ? (
-                    <br></br>
-                  ) : (
-                    <Typography>
-                      {profile?.firstName} {profile?.lastName}
-                    </Typography>
-                  )}
-
-                  <Typography>{profile?.userName || <br></br>}</Typography>
-                  <Typography>{profile?.phoneNumber || <br></br>}</Typography>
-                  <Typography>{profile?.email || <br></br>}</Typography>
-                  {profile?.city === null ? (
-                    <br></br>
-                  ) : (
-                    <Typography>
-                      {profile?.city}, {profile?.state}
-                    </Typography>
-                  )}
-                </Box>
-              </Box>
-              {/* Display option will be a feature in  */}
-              <Box className={classes.displayBox}>
-                {/* <Typography>Display this info publicly?</Typography>
-            <Checkbox color="primary" size="medium" /> */}
-              </Box>
-
-              <Box className={classes.dataContainer}>
-                <Box className={classes.dataBox}>
-                  <Typography>Birthday</Typography>
-                  <Typography>Gender</Typography>
-                  <Typography>Emergency contact</Typography>
-                  <Typography>Relation</Typography>
-                  <Typography>Phone</Typography>
-                  <Typography>Disability details</Typography>
-                </Box>
-                <Box className={classes.data}>
-                  <Typography>
-                    {profile?.extProfile?.birthday || <br></br>}
-                  </Typography>
-                  <Typography>
-                    {profile?.extProfile?.gender || <br></br>}
-                  </Typography>
-                  <Typography>
-                    {profile?.extProfile?.eC1Name || <br></br>}
-                  </Typography>
-                  <Typography>
-                    {profile?.extProfile?.eC1Relation || <br></br>}
-                  </Typography>
-                  <Typography>
-                    {profile?.extProfile?.eC1Phone || <br></br>}
-                  </Typography>
-                  <Typography>
-                    {profile?.extProfile?.disability?.physicalDisability || (
-                      <br></br>
-                    )}
-                  </Typography>
-                </Box>
-              </Box>
-              {/* Display option will be a feature in  */}
-              <Box className={classes.displayBox}>
-                {/* <Typography>Display this info publicly?</Typography>
-            <Checkbox color="primary" size="medium" /> */}
-              </Box>
-              <Box className={classes.dataContainer}>
-                <Box className={classes.dataBox}>
-                  <Typography>Veteran Status</Typography>
-                  <Typography>Military Branch</Typography>
-                  <Typography>Years Served</Typography>
-                  <Typography>Ethnicity</Typography>
-                </Box>
-                <Box className={classes.data}>
-                  <Typography>
-                    {profile?.demographicProfile?.veteranStatus || <br></br>}
-                  </Typography>
-                  <Typography>
-                    {profile?.demographicProfile?.militaryBranch || <br></br>}
-                  </Typography>
-                  <Typography>
-                    {profile?.demographicProfile?.yearsServed || <br></br>}
-                  </Typography>
-                  <Typography>
-                    {profile?.demographicProfile?.ethnicity || <br></br>}
-                  </Typography>
-                </Box>
-              </Box>
-              {/* Display option will be a feature in  */}
-              {/* <Box className={classes.displayBox}>
-            <Typography>Display this info publicly?</Typography>
-            <Checkbox color="primary" size="medium" />
-          </Box> */}
-            </>
-          ) : profile?.type === "Organization" ? (
-            <>
-              <Typography variant="h2" className={classes.subHeading}>
-                Account Information
-              </Typography>
-              <Box className={classes.dataContainer}>
-                <Box className={classes.dataBox}>
-                  <Typography>Organization Name</Typography>
-                  <Typography>Website</Typography>
-                  <Typography>Phone</Typography>
-                  <Typography>Email</Typography>
-                  <Typography>City, State</Typography>
-                </Box>
-                <Box className={classes.data}>
-                  <Typography>
-                    {profile?.extProfile?.orgName || <br></br>}
-                  </Typography>
-                  <Typography>
-                    {profile?.extProfile?.website || <br></br>}
-                  </Typography>
-                  <Typography>{profile?.phoneNumber || <br></br>}</Typography>
-                  <Typography>{profile?.email || <br></br>}</Typography>
-                  {profile?.city === null ? (
-                    <br></br>
-                  ) : (
-                    <Typography>
-                      {profile?.city}, {profile?.state}
-                    </Typography>
-                  )}
-                </Box>
-              </Box>
-              {/* Display option will be a feature in  */}
-              <Box className={classes.displayBox}>
-                {/* <Typography>Display this info publicly?</Typography>
-            <Checkbox color="primary" size="medium" /> */}
-              </Box>
-            </>
-          ) : null}
-        </Box>
-        <Box
           className={
             profile?.type === null ? classes.nullProfileCta : classes.ctaBox
           }
@@ -323,8 +443,15 @@ export default function Settings() {
             {profile?.type === null ? "Add my info" : "Edit my info"}
           </Button>
         </Box>
+        </Box>
       </Box>
-    </Box>
-    </>
+      </>  
   );
 }
+
+//Privacy toggle button for future use
+{/* <Box className={classes.displayBox}>
+    <Typography>Display this info publicly?</Typography>
+    <Checkbox color="primary" size="medium" />
+    </Box> */}
+
