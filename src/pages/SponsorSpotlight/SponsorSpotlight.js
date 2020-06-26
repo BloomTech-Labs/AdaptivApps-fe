@@ -206,9 +206,9 @@ export default function SponsorSpotlight() {
   const classes = useStyles();
   return (
     <>
-      <Link href="/calendar" className={classes.back} >
-        <ArrowBackIosIcon color="primary" aria-label='Back to Events Calendar' fontSize="large" />
-        <Typography>Back to Events Calendar</Typography>
+      <Link href="/" className={classes.back} >
+        <ArrowBackIosIcon color="primary" aria-label='Back to Account Settings' fontSize="large" />
+        <Typography>Back to Settings</Typography>
       </Link>    
     <div className={classes.root}>
       <Grid container className={classes.logo}>
