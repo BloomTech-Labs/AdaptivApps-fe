@@ -19,7 +19,7 @@ import { withStyles } from "@material-ui/core/styles";
 import NavLink from "./NavLink";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import BookmarkIcon from "@material-ui/icons/BookmarkBorder";
-import BookmarksIcon from '@material-ui/icons/Bookmarks';
+import BookmarksIcon from '@material-ui/icons/BookmarksOutlined';
 import HomeIcon from "@material-ui/icons/HomeOutlined";
 import UserIcon from "@material-ui/icons/PersonOutlineOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
