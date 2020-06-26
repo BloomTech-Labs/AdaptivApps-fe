@@ -36,8 +36,7 @@ const useStyles = makeStyles((theme) => ({
     height: '70vh',
     flexDirection: "column",
     "& .MuiTextField-root": {
-      mindWidth: '36px',
-      width: "100%",
+      width: "65rem",
       height: "4.8rem",
       marginBottom: "2.4rem",
     },
@@ -46,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     display: "flex",
     "& .MuiTextField-root": {
-      width: "36rem",
+      width: "26rem",
       height: "4.8rem",
     },
     marginBottom: "1.2rem",
@@ -63,6 +62,7 @@ const useStyles = makeStyles((theme) => ({
   },
   longSelect: {
     minWidth: '36px',
+    maxWidth: '65rem',
     marginBottom: "2.4rem",
   },
   em: {

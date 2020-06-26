@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     marginBottom: "2.4rem",
     "& .MuiTextField-root": {
-      width: 400,
+      width: 375,
       height: 48,
       [theme.breakpoints.down("sm")]: {
         margin: '1.2rem auto'
@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "2.4rem"
   },
   typeSelect: {
-    width: 825,
+    width: 775,
     height: 48,
     marginBottom: "2.4rem",
     [theme.breakpoints.down("sm")]: {
@@ -83,7 +83,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     marginBottom: "2.4rem",
     "& .MuiTextField-root": {
-      width: 400,
+      width: 375,
       height: 48,
       [theme.breakpoints.down("sm")]: {
         margin: '1.2rem auto',
@@ -100,8 +100,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   bioBox: {
-    width: '100%',
     marginBottom: "15rem",
+    "& .MuiTextField-root": {
+      width: 775,
+      height: 48,
+    }
   },
   btnBox: {
     display: "flex",
