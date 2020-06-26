@@ -4,13 +4,15 @@ import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Apollo/GraphQL imports
 import { useQuery } from "react-apollo";
-import { PROFILE_STEP_1 } from "../queries";
+import { PROFILE_STEP_1, PROFILE_INFO } from "../queries";
 // Component imports
 import NextButton from "../../../theme/SmallFormButton";
 import SaveButton from "../../../theme/LargeFormButton";
 import ProgressBar from "../../../theme/ProgressBar";
 // Query imports
 import { GET_RECIPIENTS } from '../../Chat/queries/Chats'
+// Auth0 imports
+import { useAuth0 } from "../../../config/react-auth0-spa";
 
 // Material-UI imports
 import {
@@ -143,6 +145,10 @@ export default function Step1({ updateProfile }) {
     variables: { email: userEmail },
   });
   const { data } = useQuery(GET_RECIPIENTS);
+  const { data: user } = useQuery(PROFILE_INFO, { variables: { email: userEmail } });  
+  const currentUser = user?.profile?.userName
+
+
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
   const [errorState, setErrorState] = useState();
   const { handleSubmit, setValue, control, errors } = useForm({
@@ -210,7 +216,7 @@ export default function Step1({ updateProfile }) {
   });
 
   const userNames = []
-  data && data.profiles.filter(user => user.userName !== null && user.userName !== '' && userNames.push(user.userName.toLowerCase()));
+  data && data.profiles.filter(user => user.userName !== null && user.userName !== '' && user.userName !== currentUser && userNames.push(user.userName.toLowerCase()));
 
   const validateUsername = () => {
     const userName = control.getValues().userName.toLowerCase();
