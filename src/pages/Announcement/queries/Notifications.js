@@ -13,41 +13,10 @@ export const GET_NOTIFICATIONS = gql`
         announcement {
           id
         }
-        chatroom {
-          id
-        }
       }
     }
   }
 `;
-
-export const CREATE_CHAT_NOTIFICATION = gql`
-  mutation createChatRoomNotification($email: String!, $id: ID!) {
-    createNotification(data: {
-      profile: {
-        connect: {
-          email: $email
-        }
-      }
-      chatroom: {
-        connect: {
-          id: $id
-        }
-      }
-    }) {
-      id
-      chatroom {
-        id
-      }
-      profile {
-        id
-        email
-        firstName
-        lastName
-      }
-    }
-  }
-`
 
 export const CREATE_ANNOUNCEMENT_NOTIFICATION = gql`
   mutation createAnnouncementNotification(
@@ -92,9 +61,6 @@ export const NOTIFICATION_SUBSCRIPTION = gql`
           notification {
             id
           }
-        }
-        chatroom {
-          id
         }
         profile {
           id

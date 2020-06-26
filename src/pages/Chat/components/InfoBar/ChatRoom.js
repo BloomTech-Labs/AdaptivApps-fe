@@ -176,7 +176,7 @@ export default function ChatRoom({ results, setResults, chatRoom, user, chats, c
   }, 3000);
 
   const roomNotifications = [];
-  notifications !== null && notifications.length > 0 && notifications.map(notification => notification.chatroom !== null && notification.chatroom.id === chatRoom.id && roomNotifications.push(notification.id));
+  notifications !== null && notifications.length > 0 && notifications.map(notification => notification.chatroom !== null && notification.label !== "Announcement" && notification.chatroom.id === chatRoom.id && roomNotifications.push(notification.id));
 
   const senderName = chatRoom?.chats?.find(chat => chat?.from.email !== user?.email)
   const participants = []

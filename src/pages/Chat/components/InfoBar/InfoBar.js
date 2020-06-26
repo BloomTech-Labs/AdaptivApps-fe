@@ -7,22 +7,15 @@ import { useQuery, useSubscription } from "react-apollo";
 import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../queries/ChatRooms'
 import { CHAT_SUBSCRIPTION } from '../../queries/Chats'
 import { GET_NOTIFICATIONS, NOTIFICATION_SUBSCRIPTION } from '../../queries/Notifications'
-
-//Auth0 imports
-import config from "../../../../config/auth_config";
-
 // Style Imports
 import CreateIcon from "@material-ui/icons/Create";
-import LanguageIcon from "@material-ui/icons/Language";
 import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Tooltip from "@material-ui/core/Tooltip";
-import Badge from "@material-ui/core/Badge";
 import { makeStyles, Box, TextField } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -79,10 +72,6 @@ const useStyles = makeStyles(theme => ({
   },
   chatroom: {
     margin: "2% 0",
-  },
-  divider: {
-    marginTop: "3%",
-    marginBottom: "3%",
   },
   box: {
     position: "absolute",

@@ -124,7 +124,7 @@ export default function AnnouncementRoom({ user, announcements, notifications })
   };
 
   const announcementNotifications = [];
-  notifications && notifications.map(notification => notification.label !== null && announcementNotifications.push(notification.id))
+  notifications && notifications.map(notification => notification.label !== null && notification.label === "Announcement" && announcementNotifications.push(notification.id))
 
   return (
     <>
