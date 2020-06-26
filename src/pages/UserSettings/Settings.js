@@ -27,7 +27,7 @@ import {
 
 import SponsorBanner from '../SponsorSpotlight/SponsorBanner'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft: "3rem",
     //height: '100vh',
@@ -69,9 +69,19 @@ const useStyles = makeStyles({
   },
   ctaBox: {
     marginTop: '5%',
-    width: '40%',
+    width: '50%',
     "& p": {
       fontSize: "1.8rem",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: '90%',
+      margin: '8% auto',
+      textAlign: 'center'
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: '90%',
+      margin: '8% auto',
+      textAlign: 'center'
     },
   },
   nullProfileCta: {
@@ -85,7 +95,7 @@ const useStyles = makeStyles({
     marginTop: "2.4rem",
     background: "#2962FF",
     color: "#FFFFFF",
-    width: 360,
+    width: '100%',
     height: 48,
     "& .MuiButton-label": {
       fontSize: "2.1rem",
@@ -102,17 +112,35 @@ const useStyles = makeStyles({
     fontWeight: 550,
   },
   infoBox: {
-    width: '55%'
+    width: '55%',
+    [theme.breakpoints.down("sm")]: {
+      width: '100%',
+      margin: 'auto'
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: '100%',
+      margin: 'auto'
+    },
   },
   flex: {
-    width: '80%',
+    width: '90%',
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: 'column',
+      width: '100%',
+      margin: 'auto'
+    },
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: 'column',
+      width: '100%',
+      margin: 'auto'
+    },
   },
   table: {
     marginTop: '5%',
   },
-});
+}));
 
 export default function Settings() {
   const { user } = useAuth0();
