@@ -142,6 +142,10 @@ const useStyles = makeStyles(theme => ({
     marginTop: "3%",
     marginBottom: "3%",
   },
+  removalBtn: {
+    border: "none",
+    backgroundColor: "white"
+  }
 }));
 
 export default function ChatRoom({ results, setResults, chatRoom, user, chats, chatRoomSub, notifications }) {
@@ -288,13 +292,15 @@ export default function ChatRoom({ results, setResults, chatRoom, user, chats, c
           >
             {senderName?.from?.firstName || chattingWith} {senderName?.from?.lastName}
           </button>
-          <Tooltip title="Remove Chatroom">
-            <CloseIcon
-              onClick={() => removeChatroom()}
-              aria-label="Remove Chatroom"
-              fontSize="small"
-            />
-          </Tooltip>
+          <button className={classes.removalBtn}>
+            <Tooltip title="Remove Chatroom">
+              <CloseIcon
+                onClick={() => removeChatroom()}
+                aria-label="Remove Chatroom"
+                fontSize="small"
+              />
+            </Tooltip>
+          </button>
         </div>
         <Divider variant="inset" className={classes.divider} />
         <Drawer
