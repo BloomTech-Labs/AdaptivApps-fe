@@ -54,6 +54,8 @@ const useStyles = makeStyles(theme => ({
     fontSize: "1.5rem",
     color: "grey",
     cursor: "pointer",
+    border: "none",
+    backgroundColor: "white",
   },
   modal: {
     display: "flex",
