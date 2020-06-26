@@ -65,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   },
   ctaBox: {
     marginTop: '8%',
-    width: '45%',
+    width: '40%',
     "& p": {
       fontSize: "1.8rem",
     },
@@ -147,6 +147,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   mobileFlex: {
+    display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+      margin: '.25rem auto',
+      lineHeight: '10px',
     [theme.breakpoints.down("sm")]: {
       display: 'flex',
       flexDirection: 'column',
@@ -220,9 +225,9 @@ export default function Settings() {
           <TableRow >
               <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row" >
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Full name</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Full name</Typography>
               </TableCell>
-              <TableCell align="left">
+              <TableCell align="left" >
               <Typography>{profile?.firstName} {profile?.lastName}</Typography>
               </TableCell>
               </div>
@@ -230,7 +235,7 @@ export default function Settings() {
             <TableRow>
             <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Username</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Username</Typography>
               </TableCell>
               <TableCell  align="left">
               <Typography>{profile?.userName}</Typography>
@@ -240,7 +245,7 @@ export default function Settings() {
             <TableRow>
             <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Phone</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Phone</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.phoneNumber}</Typography>
@@ -250,7 +255,7 @@ export default function Settings() {
             <TableRow>
             <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Email</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Email</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.email}</Typography>
@@ -260,7 +265,7 @@ export default function Settings() {
             <TableRow>
             <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>City, State</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>City, State</Typography>
               </TableCell>
               <TableCell align="left">
                 <Typography>{profile?.city}, {profile?.state}</Typography>
@@ -270,7 +275,7 @@ export default function Settings() {
           <TableRow>
           <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Birthday</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Birthday</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.extProfile?.birthday}</Typography>
@@ -280,7 +285,7 @@ export default function Settings() {
             <TableRow>
             <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Gender</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Gender</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.extProfile?.gender}</Typography>
@@ -290,7 +295,7 @@ export default function Settings() {
             <TableRow>
             <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Emergency Contact</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Emergency Contact</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.extProfile?.eC1Name}</Typography>
@@ -300,7 +305,7 @@ export default function Settings() {
             <TableRow>
             <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Relation</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Relation</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.extProfile?.eC1Relation}</Typography>
@@ -310,7 +315,7 @@ export default function Settings() {
             <TableRow>
             <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Phone</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Phone</Typography>
               </TableCell>
               <TableCell align="left">
                 <Typography>{profile?.extProfile?.eC1Phone}</Typography>
@@ -320,7 +325,7 @@ export default function Settings() {
             <TableRow>
             <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Disability Details</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Disability Details</Typography>
               </TableCell>
               <TableCell align="left">
                 <Typography>{profile?.extProfile?.disability?.physicalDisability}</Typography>
@@ -330,7 +335,7 @@ export default function Settings() {
           <TableRow>
           <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Veteran Status</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Veteran Status</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.demographicProfile?.veteranStatus}</Typography>
@@ -340,7 +345,7 @@ export default function Settings() {
             <TableRow>
             <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Military Branch</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Military Branch</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.demographicProfile?.militaryBranch}</Typography>
@@ -350,7 +355,7 @@ export default function Settings() {
             <TableRow>
             <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Years Served</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Years Served</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.demographicProfile?.yearsServed}</Typography>
@@ -360,7 +365,7 @@ export default function Settings() {
             <TableRow>
             <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Ethnicity</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Ethnicity</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.demographicProfile?.ethnicity}</Typography>
@@ -382,7 +387,7 @@ export default function Settings() {
           <TableBody>
           <TableRow>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Organization Name</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Organization Name</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.extProfile?.orgName}</Typography>
@@ -390,7 +395,7 @@ export default function Settings() {
             </TableRow>
             <TableRow>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Website</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Website</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.extProfile?.website}</Typography>
@@ -398,7 +403,7 @@ export default function Settings() {
             </TableRow>
             <TableRow>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Phone</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Phone</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.phoneNumber}</Typography>
@@ -406,7 +411,7 @@ export default function Settings() {
             </TableRow>
             <TableRow>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Email</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>Email</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.email}</Typography>
@@ -414,7 +419,7 @@ export default function Settings() {
             </TableRow>
             <TableRow>
               <TableCell component="th" scope="row">
-              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>City, State</Typography>
+              <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem', height: '15px' }}>City, State</Typography>
               </TableCell>
               <TableCell align="left">
                 <Typography>{profile?.city}, {profile?.state}</Typography>
