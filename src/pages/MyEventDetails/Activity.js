@@ -38,11 +38,9 @@ export default function Activities({
   activity,
   activeEvent,
   value,
-  activityData,
 }) {
   const classes = useStyles();
   const { user } = useAuth0();
-  console.log("activity in activity.js", activity);
   return (
     <>
       {value === activity?.date ? (
@@ -56,21 +54,21 @@ export default function Activities({
               <td>
                 <a
                   className={classes.nameLink}
-                  href={activity?.link}
+                  href={`${activity.link}`}
                   target="_blank"
                 >
                   Join!
                 </a>
               </td>
             ) : (
-              <td>{activity?.location}</td>
-            )}
+                <td>{activity?.location}</td>
+              )}
             <td>{activity?.startTime}</td>
             {activity?.participants.map((participant, id) =>
               participant &&
-              participant?.activityProfile?.email === user.email ? (
-                <td>{participant?.role}</td>
-              ) : null
+                participant?.activityProfile?.email === user.email ? (
+                  <td>{participant?.role}</td>
+                ) : null
             )}
           </tr>
         </>

@@ -11,7 +11,7 @@ import {
 // Styling imports
 import { makeStyles, Popover, Button, Box } from "@material-ui/core";
 import { IconContext } from "react-icons";
-import { IoIosAddCircle } from "react-icons/io";
+import { IoIosAddCircle, IoIosCheckmarkCircleOutline } from "react-icons/io";
 import LightTooltip from "../../theme/LightTooltip";
 
 const useStyles = makeStyles(theme => ({
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     background: "transparent",
     boxShadow: "none",
     border: "none",
-    margin: "0",
+    margin: "0 0 5px 10px",
     padding: "0",
     "&:hover": {
       background: "none",
@@ -121,6 +121,7 @@ export default function SimplePopover({ activity, activityData, refetch }) {
   };
 
   const spectatorRegister = async () => {
+    console.log(activity.participants)
     const participantIdValue = !processParticipantID() ? "" : processParticipantID();
     await registerAsSpectator({
       variables: {
@@ -133,6 +134,15 @@ export default function SimplePopover({ activity, activityData, refetch }) {
     handleClose();
     refetch();
   };
+
+  const alreadyRegistered = () => {
+    for (let i = 0; i < activity.participants.length; i++) {
+      if (activity.participants[i].activityProfile.email === user.email) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
@@ -159,19 +169,30 @@ export default function SimplePopover({ activity, activityData, refetch }) {
       }
     >
       {activityData && activityData?.event?.type === "Virtual" ? (
-        <LightTooltip title="Register for Activity" placement="right">
-          <Button
-            className={classes.btn}
-            aria-describedby={id}
-            variant="contained"
-            onClick={spectatorRegister}
-          >
-            <IoIosAddCircle />
-          </Button>
-        </LightTooltip>
+        !alreadyRegistered() ?
+          <LightTooltip title="Register for Activity" placement="right">
+            <Button
+              className={classes.btn}
+              aria-describedby={id}
+              variant="contained"
+              onClick={spectatorRegister}
+            >
+              <IoIosAddCircle />
+            </Button>
+          </LightTooltip> :
+          <LightTooltip title="You've already registered!" placement="right">
+            <Button
+              className={classes.btn}
+              aria-describedby={id}
+              variant="contained"
+              onClick={() => alert("You are registered for this event!")}
+            >
+              <IoIosCheckmarkCircleOutline style={{ color: "green" }} />
+            </Button>
+          </LightTooltip>
       ) : (
           <>
-            <LightTooltip title="Register for Activity" placement="right">
+            {<LightTooltip title="Register for Activity" placement="right">
               <Button
                 className={classes.btn}
                 aria-describedby={id}
@@ -180,7 +201,7 @@ export default function SimplePopover({ activity, activityData, refetch }) {
               >
                 <IoIosAddCircle />
               </Button>
-            </LightTooltip>
+            </LightTooltip>}
             <Popover
               className={classes.popover}
               id={id}

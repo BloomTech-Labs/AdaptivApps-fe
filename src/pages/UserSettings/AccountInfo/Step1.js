@@ -29,7 +29,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: '90%',
+    width: '67.5%',
+    '& .MuiInputLabel-root': {
+      color: "black",
+    },
     "& .MuiInputLabel-asterisk": {
       fontSize: '2rem',
       color: 'red',
@@ -37,6 +40,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   form: {
+    marginTop: 0,
     display: "flex",
     flexDirection: "column",
     "& .MuiTextField-root": {
@@ -45,10 +49,10 @@ const useStyles = makeStyles((theme) => ({
   },
   namePhoneBox: {
     display: "flex",
-    marginBottom: "2.4rem",
+    marginBottom: "1.6rem",
     "& .MuiTextField-root": {
-      width: 375,
-      height: 48,
+      width: "36rem",
+      height: "4.8rem",
       [theme.breakpoints.down("sm")]: {
         margin: '1.2rem auto'
       },
@@ -67,14 +71,14 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "2.4rem"
   },
   typeSelect: {
-    width: 775,
-    height: 48,
-    marginBottom: "2.4rem",
+  
+    height: "4.8rem",
+    marginBottom: "1.6rem",
     [theme.breakpoints.down("sm")]: {
-      width: 400
+      width: "40rem"
     },
     [theme.breakpoints.down("xs")]: {
-      width: 400
+      width: "40rem"
     },
   },
   em: {
@@ -83,10 +87,10 @@ const useStyles = makeStyles((theme) => ({
   },
   addressBox: {
     display: "flex",
-    marginBottom: "2.4rem",
+    marginBottom: "1.6rem",
     "& .MuiTextField-root": {
-      width: 375,
-      height: 48,
+      width: "36rem",
+      height: "4.8rem",
       [theme.breakpoints.down("sm")]: {
         margin: '1.2rem auto',
       },
@@ -102,16 +106,16 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   bioBox: {
-    marginBottom: "15rem",
+    width: "100%",
     "& .MuiTextField-root": {
-      width: 775,
-      height: 48,
+      width: "100%",
+      height: "4.8rem",
     }
   },
   btnBox: {
     display: "flex",
     justifyContent: "space-between",
-    marginTop: "5rem",
+    marginTop: "1rem",
   },
   error: {
     color: 'red',
@@ -141,11 +145,9 @@ export default function Step1({ updateProfile }) {
     variables: { email: userEmail },
   });
   const { data } = useQuery(GET_RECIPIENTS);
-  const { data: user } = useQuery(PROFILE_INFO, { variables: { email: userEmail } });
-  
+  const { data: user } = useQuery(PROFILE_INFO, { variables: { email: userEmail } });  
   const currentUser = user?.profile?.userName
 
-  console.log(currentUser)
 
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
   const [errorState, setErrorState] = useState();
@@ -215,7 +217,6 @@ export default function Step1({ updateProfile }) {
 
   const userNames = []
   data && data.profiles.filter(user => user.userName !== null && user.userName !== '' && user.userName !== currentUser && userNames.push(user.userName.toLowerCase()));
-
 
   const validateUsername = () => {
     const userName = control.getValues().userName.toLowerCase();
@@ -431,8 +432,8 @@ export default function Step1({ updateProfile }) {
           multiline
           rows="8"
         />
-        <Box className={classes.btnBox}>
         <Typography className={classes.error}>* required field</Typography>
+        <Box className={classes.btnBox}>
           <SaveButton
             label={"Save & Quit"}
             ariaLabel="Click to save and continue later."
