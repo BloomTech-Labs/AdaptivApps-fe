@@ -106,7 +106,7 @@ export default function EventForm({
     for (let i = 0; i < tagsData.tags.length; i++) {
       tagsInServer.push(tagsData.tags[i].name);
     }
-    for (let j = 0; j < tags.length; j++) {
+    for (let j = 0; j < tags?.length; j++) {
       if (!tagsInServer.includes(tags[j])) {
         CreateTag({
           variables: {
@@ -124,7 +124,7 @@ export default function EventForm({
         variables: {
           type: formValues.type,
           sportType: formValues.sportType,
-          tags: tags.length > 0 ? tags.join(", ") : null,
+          tags: tags && tags.length > 0 ? tags.join(", ") : null,
           title: formValues.title,
           host: formValues.host,
           coaches: formValues.coaches,
@@ -148,7 +148,7 @@ export default function EventForm({
           id: eventId,
           type: formValues.type,
           sportType: formValues.sportType,
-          tags: tags.join(", "),
+          tags: tags && tags.length > 0 ? tags.join(", ") : null,
           title: formValues.title,
           host: formValues.host,
           coaches: formValues.coaches,
