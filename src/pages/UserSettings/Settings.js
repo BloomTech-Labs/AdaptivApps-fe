@@ -30,7 +30,9 @@ import SponsorBanner from '../SponsorSpotlight/SponsorBanner'
 const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft: "3rem",
+   
     //height: '100vh',
+    width: "67.5%",
     wordWrap: 'normal',
     '& .MuiTableCell-root': {
        width: '100%',
