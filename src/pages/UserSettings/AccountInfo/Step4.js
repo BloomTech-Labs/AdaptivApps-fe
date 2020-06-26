@@ -23,7 +23,10 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: '67.5%'
+    width: '67.5%',
+    '& .MuiInputLabel-root': {
+      color: "black",
+    },
   },
   form: {
     height: '60vh',
