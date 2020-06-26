@@ -154,14 +154,6 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
     setSearchRecipient(e.target.value);
   };
 
-  const handleAnnouncementOpen = () => {
-    setAnnouncementOpen(true);
-  };
-
-  const handleAnnouncementClose = () => {
-    setAnnouncementOpen(false);
-  };
-
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error || roomError || chatError) return `Error! ${error.message}` || `Error! ${roomError.message}` || `Error! ${chatError.message}` || `Error! ${notificationError.message}`;
 
