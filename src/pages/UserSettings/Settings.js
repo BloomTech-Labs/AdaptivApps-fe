@@ -33,13 +33,9 @@ const useStyles = makeStyles((theme) => ({
     //height: '100vh',
     wordWrap: 'normal',
     '& .MuiTableCell-root': {
-       width: '50%',
-       height: '10px',
-       border: 'none'
+       width: '100%',
+       border: 'none',
     },
-    '& .MuiTableRow-root': {
-      lineHeight: '1%'
-    }
   },
   headingBox: {
     margin: "6rem 0 2rem",
@@ -51,14 +47,14 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
   },
-  data: {
-    textAlign: "left",
-    display: "flex",
-    flexDirection: "column",
-    "& p": {
-      lineHeight: "3rem",
-    },
-  },
+  // data: {
+  //   textAlign: "left",
+  //   display: "flex",
+  //   flexDirection: "column",
+  //   "& p": {
+  //     lineHeight: "3rem",
+  //   },
+  // },
   displayBox: {
     display: "flex",
     marginBottom: 40,
@@ -68,8 +64,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   ctaBox: {
-    marginTop: '5%',
-    width: '50%',
+    marginTop: '8%',
+    width: '45%',
     "& p": {
       fontSize: "1.8rem",
     },
@@ -112,7 +108,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 550,
   },
   infoBox: {
-    width: '55%',
+    width: '50%',
     [theme.breakpoints.down("sm")]: {
       width: '100%',
       margin: 'auto'
@@ -140,6 +136,28 @@ const useStyles = makeStyles((theme) => ({
   table: {
     marginTop: '5%',
   },
+  tableBody: {
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: 'column',
+      margin: 'auto'
+    },
+    [theme.breakpoints.down("xs")]: {
+      flexDirection: 'column',
+      margin: 'auto'
+    },
+  },
+  mobileFlex: {
+    [theme.breakpoints.down("sm")]: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%'
+    },
+    [theme.breakpoints.down("xs")]: {
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%'
+    },
+  }
 }));
 
 export default function Settings() {
@@ -199,125 +217,155 @@ export default function Settings() {
           <TableContainer className={classes.table}>
           <Table aria-label='account information table' size='small'>
           <TableBody className={classes.tableBody}>
-          <TableRow>
-              <TableCell component="th" scope="row">
+          <TableRow >
+              <div className={classes.mobileFlex}>
+              <TableCell component="th" scope="row" >
               <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Full name</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.firstName} {profile?.lastName}</Typography>
               </TableCell>
+              </div>
             </TableRow>
             <TableRow>
+            <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
               <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Username</Typography>
               </TableCell>
               <TableCell  align="left">
               <Typography>{profile?.userName}</Typography>
               </TableCell>
+              </div>
             </TableRow>
             <TableRow>
+            <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
               <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Phone</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.phoneNumber}</Typography>
               </TableCell>
+              </div>
             </TableRow>
             <TableRow>
+            <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
               <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Email</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.email}</Typography>
               </TableCell>
+              </div>
             </TableRow>
             <TableRow>
+            <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
               <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>City, State</Typography>
               </TableCell>
               <TableCell align="left">
                 <Typography>{profile?.city}, {profile?.state}</Typography>
               </TableCell>
+              </div>
             </TableRow>
           <TableRow>
+          <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
               <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Birthday</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.extProfile?.birthday}</Typography>
               </TableCell>
+              </div>
             </TableRow>
             <TableRow>
+            <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
               <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Gender</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.extProfile?.gender}</Typography>
               </TableCell>
+              </div>
             </TableRow>
             <TableRow>
+            <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
               <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Emergency Contact</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.extProfile?.eC1Name}</Typography>
               </TableCell>
+              </div>
             </TableRow>
             <TableRow>
+            <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
               <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Relation</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.extProfile?.eC1Relation}</Typography>
               </TableCell>
+              </div>
             </TableRow>
             <TableRow>
+            <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
               <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Phone</Typography>
               </TableCell>
               <TableCell align="left">
                 <Typography>{profile?.extProfile?.eC1Phone}</Typography>
               </TableCell>
+              </div>
             </TableRow>
             <TableRow>
+            <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
               <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Disability Details</Typography>
               </TableCell>
               <TableCell align="left">
                 <Typography>{profile?.extProfile?.disability?.physicalDisability}</Typography>
               </TableCell>
+              </div>
             </TableRow>
           <TableRow>
+          <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
               <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Veteran Status</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.demographicProfile?.veteranStatus}</Typography>
               </TableCell>
+              </div>
             </TableRow>
             <TableRow>
+            <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
               <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Military Branch</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.demographicProfile?.militaryBranch}</Typography>
               </TableCell>
+              </div>
             </TableRow>
             <TableRow>
+            <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
               <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Years Served</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.demographicProfile?.yearsServed}</Typography>
               </TableCell>
+              </div>
             </TableRow>
             <TableRow>
+            <div className={classes.mobileFlex}>
               <TableCell component="th" scope="row">
               <Typography style={{ fontWeight: 'bold', fontSize: '1.6rem' }}>Ethnicity</Typography>
               </TableCell>
               <TableCell align="left">
               <Typography>{profile?.demographicProfile?.ethnicity}</Typography>
               </TableCell>
+              </div>
             </TableRow>
           </TableBody>
         </Table>
