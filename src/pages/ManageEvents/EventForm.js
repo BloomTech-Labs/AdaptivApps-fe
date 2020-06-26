@@ -64,6 +64,19 @@ const useStyles = makeStyles(theme => ({
     textAlign: 'center',
     margin: '3rem auto'
   },
+  photoIcon: {
+    fontSize: "3rem",
+    borderRadius: "50%",
+    background: "white",
+    padding: "2px",
+    marginRight: '1rem'
+  },
+  photoButton: {
+   margin: '.5rem 0 .5rem 0'
+  },
+  input: {
+    display: 'none'
+  }
 }));
 
 export default function EventForm({
@@ -434,21 +447,14 @@ export default function EventForm({
           className={classes.inputField}
           rules={{ required: true }}
         />
-        {/* <InputLabel className={classes.inputLabel} htmlFor="imgUrl">
-          Find an image on the internet and pase the URL here!
-        </InputLabel> */}
-        {/* {
-          window.location.pathname !== `/editEvent/${eventId}` ? (
-              <> */}
-            <label htmlFor="imgUrl">
+            <label className={classes.photoButton} htmlFor="imgUrl">
                     <IconButton
-                      className={classes.photoButton}
-                      color="primary"
                       size="medium"
                       aria-label="Upload Profile Picture"
                       component="span"
                     >
-                      <PhotoCamera className={classes.photoIcon} />
+                      <PhotoCamera color="primary" className={classes.photoIcon} />
+                      <Typography>Choose an image to upload!</Typography>
                     </IconButton>
                   </label>
                   <input
@@ -458,21 +464,6 @@ export default function EventForm({
                     onChange={uploadEventImage}
                     id="imgUrl"
                   /> 
-                  {/* </>
-            ) : (
-        <Controller
-          as={<input />}
-          type="file"
-          accept="image/*"
-          onChange={uploadEventImage}
-          id="imgUrl"
-          placeholder="imgUrl"
-          name="imgUrl"
-          variant="outlined"
-          control={control}
-          className={classes.inputField}
-        />
-                  )} */}
         <InputLabel required className={classes.inputLabel} htmlFor="details">
           Event details
         </InputLabel>
