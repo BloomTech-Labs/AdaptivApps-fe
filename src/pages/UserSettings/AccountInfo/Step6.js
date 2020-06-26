@@ -153,7 +153,7 @@ export default function Step6({ updateDemo4 }) {
         <Typography className={classes.spacing}>
           Please read and acknowledge this Virtual Games Waiver of Liability
         </Typography>
-        <Box className={classes.waiverContainer}>
+        <Box className={classes.waiverContainer}tabIndex="0">
           <Typography className={classes.waiverText}>
             1. Waiver of Liability, Assumption of Risk, and Indemnity Agreement
             Waiver: In consideration of being permitted to participate in any
