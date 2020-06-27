@@ -1,5 +1,6 @@
 // Import dependencies
 import React, { useState } from "react";
+import { HashRouter } from "react-router-dom";
 
 // Reach Router imports
 import { Router } from "@reach/router";
@@ -139,7 +140,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <Router>
+        <Router history={HashRouter}>
           <Accessibility path="/accessibility" />
           <PrivacyPolicy path="/privacy-policy" />
           <PrivateRoute path="/" component={DashRouter}>
