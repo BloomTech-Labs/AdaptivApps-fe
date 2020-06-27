@@ -237,7 +237,7 @@ export default function EventForm({
 
   const handlePictureEnter = e => {
     if (e.key === "Enter") {
-      var button = document.getElementById("uploadPicture");
+      var button = document.getElementById("uploadEventPicture");
       button.click();
     }
   };
@@ -491,7 +491,7 @@ export default function EventForm({
             size="medium"
             aria-label="Upload Event Picture"
             component="span"
-            onKeyDown={e => handlePictureEnter(e)}
+            //onKeyDown={e => handlePictureEnter(e)}
           >
             <PhotoCamera color="primary" className={classes.photoIcon} />
             <Typography>Choose an image to upload!</Typography>
@@ -502,7 +502,8 @@ export default function EventForm({
           accept="image/*"
           type="file"
           onChange={uploadEventImage}
-          id="uploadPicture"
+          //onClick={() => console.log('clicked')}
+          id="uploadEventPicture"
         />
         <InputLabel required className={classes.inputLabel} htmlFor="details">
           Event details
