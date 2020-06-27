@@ -244,18 +244,18 @@ export default function UserProfile() {
   };
 
   const handleBannerEnter = e => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       var button = document.getElementById("uploadBanner");
       button.click();
     }
-  }
+  };
 
   const handlePictureEnter = e => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       var button = document.getElementById("uploadPicture");
       button.click();
     }
-  }
+  };
 
   useEffect(() => {
     if (loggedInUser && loggedInUserName === userName) setProfileOwner(true);
@@ -290,7 +290,7 @@ export default function UserProfile() {
                     accept="image/*"
                     type="file"
                     onChange={uploadProfileBanner}
-                    id="uploadBanner"
+                    id="uploadPicture"
                   />
                 </>
               ) : null}
@@ -320,7 +320,7 @@ export default function UserProfile() {
                     accept="image/*"
                     type="file"
                     onChange={uploadProfilePicture}
-                    id="uploadPicture"
+                    id="uploadBanner"
                   />
                 </>
               ) : null}

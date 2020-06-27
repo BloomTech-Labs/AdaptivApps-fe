@@ -4,10 +4,11 @@ import ActivityGroup from "./ActivityGroup";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import eventImg from "../../assets/images/acs_hartford.png";
 import { useParams } from "@reach/router";
+import { useNavigate } from "@reach/router";
 import { GET_EVENT_ACTIVITIES } from "./queries/getActivities";
 
 import { makeStyles, Box, Typography, Link } from "@material-ui/core";
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 const useStyles = makeStyles({
   root: {
@@ -101,16 +102,17 @@ const useStyles = makeStyles({
     color: "#2763FF",
   },
   back: {
-    display: 'flex',
-    alignItems: 'center',
-    color: 'black',
-    margin: '0 0 2% 2%',
-    fontSize: '1.8rem',
+    display: "flex",
+    alignItems: "center",
+    color: "black",
+    margin: "0 0 2% 2%",
+    fontSize: "1.8rem",
   },
 });
 
 export default function ActivityList() {
   const classes = useStyles();
+  const navigate = useNavigate();
   const { eventId } = useParams();
   const { loading, error, data: activityData, refetch } = useQuery(
     GET_EVENT_ACTIVITIES,
@@ -125,10 +127,14 @@ export default function ActivityList() {
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
-      <Link href="/calendar" className={classes.back} >
-        <ArrowBackIosIcon color="primary" aria-label='Back to Events Calendar' fontSize="large" />
-        Back to Events Calendar
-      </Link>  
+        <Link onClick={() => navigate(`/calendar`)} className={classes.back}>
+          <ArrowBackIosIcon
+            color="primary"
+            aria-label="Back to Events Calendar"
+            fontSize="large"
+          />
+          Back to Events Calendar
+        </Link>
         <Typography className={classes.heading} variant="h1" gutterBottom>
           Event Details
         </Typography>
