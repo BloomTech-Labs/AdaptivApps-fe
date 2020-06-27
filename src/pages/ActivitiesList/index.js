@@ -130,7 +130,7 @@ export default function ActivityList() {
         Back to Events Calendar
       </Link>  
         <Typography className={classes.heading} variant="h1" gutterBottom>
-          Event Activities
+          Event Details
         </Typography>
       </Box>
       <Box className={classes.eventContainer}>

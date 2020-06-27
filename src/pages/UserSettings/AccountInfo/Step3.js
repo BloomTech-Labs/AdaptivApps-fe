@@ -23,7 +23,10 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: "85%",
+    width: "67.5%",
+    '& .MuiInputLabel-root': {
+      color: "black",
+    },
   },
   form: {
     height: '75vh',
@@ -32,11 +35,14 @@ const useStyles = makeStyles({
     flexDirection: "column",
     "& .MuiTextField-root": {
       width: '100%',
-      height: 48,
+      height: "4.8rem",
     },
   },
   spacing: {
-    marginTop: "2.4rem",
+    marginTop: "1.6rem",
+  },
+  ethnicityTextField: {
+    marginTop: "2rem"
   },
   select: {
     width: '100%',
@@ -226,7 +232,7 @@ export default function Step5({ updateDemoProfile }) {
           control={control}
           defaultValue=""
         />
-        <InputLabel htmlFor="ethnicity" className={classes.spacing}>
+        <InputLabel htmlFor="ethnicity" className={classes.ethnicityTextField}>
           Please select your ethnicity
         </InputLabel>
         <Controller
