@@ -14,6 +14,7 @@ import {
   MenuItem,
   Button,
   Box,
+  Typography
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -43,9 +44,21 @@ const useStyles = makeStyles(theme => ({
   inputLabel: {
     marginBottom: "7px",
     marginLeft: "5px",
+    "& .MuiInputLabel-asterisk": {
+      fontSize: '1.75rem',
+      color: 'red',
+      fontWeight: 'bolder'
+    },
   },
   inputField: {
     marginBottom: "10px",
+  },
+  error: {
+    color: 'red',
+    fontSize: '1.75rem',
+    fontVariant: 'all-small-caps',
+    fontWeight: 'bold',
+    
   },
 }));
 
@@ -62,7 +75,7 @@ export default function ActivityForm({
   const navigate = useNavigate();
   const [currentActivity, setCurrentActivity] = useState(data);
   const activity = currentActivity?.activity;
-  const { handleSubmit, setValue, control } = useForm({
+  const { handleSubmit, setValue, control, errors } = useForm({
     defaultValues: {
       name: activity && activity.name,
       type: activity && activity.type,
@@ -153,9 +166,10 @@ export default function ActivityForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
-      <InputLabel className={classes.inputLabel} htmlFor="date">
+      <InputLabel required className={classes.inputLabel} htmlFor="date">
         Date
       </InputLabel>
+      {errors.date && <Typography className={classes.error}>Please choose a date for this activity</Typography>}
       <Controller
         as={<TextField />}
         type="date"
@@ -164,10 +178,12 @@ export default function ActivityForm({
         variant="outlined"
         control={control}
         className={classes.inputField}
+        rules={{ required: true }}
       />
-      <InputLabel className={classes.inputLabel} htmlFor="type">
+      <InputLabel required className={classes.inputLabel} htmlFor="type">
         Activity Type
       </InputLabel>
+      {errors.type && <Typography className={classes.error}>Please choose an activity type</Typography>}
       <Controller
         as={
           <Select>
@@ -182,10 +198,12 @@ export default function ActivityForm({
         control={control}
         defaultValue=""
         className={classes.inputField}
+        rules={{ required: true }}
       />
-      <InputLabel className={classes.inputLabel} htmlFor="sportType">
+      <InputLabel required className={classes.inputLabel} htmlFor="sportType">
         Sport Type
       </InputLabel>
+      {errors.sportType && <Typography className={classes.error}>Please choose a sport type</Typography>}
       <Controller
         as={
           <Select>
@@ -210,10 +228,12 @@ export default function ActivityForm({
         control={control}
         defaultValue=""
         className={classes.inputField}
+        rules={{ required: true }}
       />
-      <InputLabel className={classes.inputLabel} htmlFor="name">
+      <InputLabel required className={classes.inputLabel} htmlFor="name">
         Activity Name
       </InputLabel>
+      {errors.name && <Typography className={classes.error}>Please choose a name for this activity</Typography>}
       <Controller
         as={<TextField />}
         type="text"
@@ -222,10 +242,12 @@ export default function ActivityForm({
         variant="outlined"
         control={control}
         className={classes.inputField}
+        rules={{ required: true }}
       />
-      <InputLabel className={classes.inputLabel} htmlFor="coaches">
+      <InputLabel required className={classes.inputLabel} htmlFor="coaches">
         Coaches
       </InputLabel>
+      {errors.coaches && <Typography className={classes.error}>Please add a coach to this activity</Typography>}
       <Controller
         as={<TextField />}
         type="text"
@@ -234,10 +256,12 @@ export default function ActivityForm({
         variant="outlined"
         control={control}
         className={classes.inputField}
+        rules={{ required: true }}
       />
-      <InputLabel className={classes.inputLabel} htmlFor="startTime">
+      <InputLabel required className={classes.inputLabel} htmlFor="startTime">
         Start Time
       </InputLabel>
+      {errors.startTime && <Typography className={classes.error}>Please add a start time for this activity</Typography>}
       <Controller
         as={<TextField />}
         type="time"
@@ -246,10 +270,12 @@ export default function ActivityForm({
         variant="outlined"
         control={control}
         className={classes.inputField}
+        rules={{ required: true }}
       />
-      <InputLabel className={classes.inputLabel} htmlFor="endTime">
+      <InputLabel required className={classes.inputLabel} htmlFor="endTime">
         End Time
       </InputLabel>
+      {errors.endTime && <Typography className={classes.error}>Please add an end time for this activity</Typography>}
       <Controller
         as={<TextField />}
         type="time"
@@ -258,10 +284,12 @@ export default function ActivityForm({
         variant="outlined"
         control={control}
         className={classes.inputField}
+        rules={{ required: true }}
       />
-      <InputLabel className={classes.inputLabel} htmlFor="location">
+      <InputLabel required className={classes.inputLabel} htmlFor="location">
         Location
       </InputLabel>
+      {errors.location && <Typography className={classes.error}>Please add a location for this activity</Typography>}
       <Controller
         as={<TextField />}
         type="text"
@@ -270,6 +298,7 @@ export default function ActivityForm({
         variant="outlined"
         control={control}
         className={classes.inputField}
+        rules={{ required: true }}
       />
       <InputLabel className={classes.inputLabel} htmlFor="link">
         Zoom Link

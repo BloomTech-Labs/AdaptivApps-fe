@@ -243,15 +243,19 @@ export default function UserProfile() {
       });
   };
 
-  // const filteredKeys = [];
+  const handleBannerEnter = e => {
+    if (e.key === 'Enter') {
+      var button = document.getElementById("uploadBanner");
+      button.click();
+    }
+  }
 
-  // const filtered =
-  //   userProfile &&
-  //   sportsParticipation &&
-  //   Object.entries(sportsParticipation).filter(
-  //     filteredKey =>
-  //       filteredKey.includes(true) && filteredKeys.push(filteredKey[0])
-  //   );
+  const handlePictureEnter = e => {
+    if (e.key === 'Enter') {
+      var button = document.getElementById("uploadPicture");
+      button.click();
+    }
+  }
 
   useEffect(() => {
     if (loggedInUser && loggedInUserName === userName) setProfileOwner(true);
@@ -259,30 +263,24 @@ export default function UserProfile() {
   // console.log("Profile Owner", profileOwner);
   if (loading) return <CircularProgress />;
   if (error) return `Error! ${error.message}`;
+
   return (
-    // <>
-    //   {data.profile.private === true || data.profile.userName === null ? (
-    //     <p>
-    //       {" "}
-    //       Sorry this user has not set up their account yet, or their profile is
-    //       set to private.
-    //     </p>
-    //   ) : (
     <div className={classes.root}>
       <div className={classes.profileEventWrapper}>
         <div className={classes.profileWrapper}>
           <div className={classes.topProfileWrapper}>
-            {/*input for uploading profile banner */}
+            {/*input for uploading profile picture */}
             <div className={classes.bannerWrapper}>
               {profileOwner === true ? (
                 <>
-                  <label htmlFor="uploadBanner">
+                  <label htmlFor="uploadPicture">
                     <IconButton
                       className={classes.photoButton}
                       color="primary"
                       size="medium"
                       aria-label="Upload Profile Picture"
                       component="span"
+                      onKeyDown={e => handleBannerEnter(e)}
                     >
                       <PhotoCamera className={classes.photoIcon} />
                     </IconButton>
@@ -301,17 +299,18 @@ export default function UserProfile() {
                 userName={userName}
               />
             </div>
-            {/*input for uploading profile picture */}
+            {/*input for uploading profile banner */}
             <div className={classes.pictureWrapper}>
               <ProfilePic profilePicture={profilePicture} userName={userName} />
               {profileOwner === true ? (
                 <>
-                  <label htmlFor="uploadPicture">
+                  <label htmlFor="uploadBanner">
                     <IconButton
                       size="medium"
                       color="primary"
                       aria-label="Upload Profile Banner Image"
                       component="span"
+                      onKeyDown={e => handlePictureEnter(e)}
                     >
                       <PhotoCamera className={classes.photoIcon} />
                     </IconButton>
