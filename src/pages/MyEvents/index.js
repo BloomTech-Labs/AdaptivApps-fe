@@ -1,5 +1,6 @@
 // React imports
 import React, { useEffect } from "react";
+import { useNavigate } from "@reach/router";
 // Component imports
 import EventList from "./EventList";
 import GlobalSearchBox from "../../routes/DashRouter/GlobalSearchBox";
@@ -62,6 +63,7 @@ export default function MyEvents() {
   const classes = useStyles();
   // Retrieves logged in user info
   const { user } = useAuth0();
+  const navigate = useNavigate();
   // Retrieves all events a user is registered to
   const { error, loading, data, refetch } = useQuery(GET_USER_EVENTS, {
     variables: { email: user.email },
@@ -99,7 +101,7 @@ export default function MyEvents() {
                 You haven't registered for any events yet!
               </Typography>
               <Box className={classes.inlineNotice}>
-                <Link href="calendar">
+                <Link onClick={() => navigate(`/calendar`)}>
                   <Typography className={classes.noActivBlue}>
                     Check out the Events Calendar
                   </Typography>

@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 // Reach Router imports
 import { useParams } from "@reach/router";
+import { useNavigate } from "@reach/router";
 // Component imports
 import EventDetails from "./EventDetails";
 // Auth0 imports
@@ -46,6 +47,7 @@ export default function MyEventDetails() {
   const classes = useStyles();
   // Retrieves ID of current event from parameters
   const { eventId } = useParams();
+  const navigate = useNavigate();
   // Retrieves logged in user info from Auth0
   const { user } = useAuth0();
   // Retrieves event details of specified event by ID which user is registered to
@@ -63,7 +65,10 @@ export default function MyEventDetails() {
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
-        <Link href="/myevents" className={classes.linkBack}>
+        <Link
+          onClick={() => navigate(`/myevents`)}
+          className={classes.linkBack}
+        >
           <ArrowBackIosIcon color="primary" fontSize="large" />
           Back to my events
         </Link>
