@@ -208,8 +208,8 @@ function SideNav(props) {
 
   const announcementNotifications = [];
   const roomNotifications = [];
-  notifications && notifications.profile.notifications.map(notification => notification.label === "Announcement" && announcementNotifications.push(notification))
-  notifications && notifications.profile.notifications.map(notification => notification.chatroom !== null && notification.label !== "Announcement" && roomNotifications.push(notification));
+  const setAnnouncementNotifications = notifications?.profile?.notifications?.map(notification => notification.label === "Announcement" && announcementNotifications.push(notification))
+  const setRoomNotifications = notifications?.profile?.notifications?.map(notification => notification.chatroom !== null && notification.label !== "Announcement" && roomNotifications.push(notification));
 
   const drawer = (
     <div className={classes.sideContainer}>

@@ -227,7 +227,7 @@ export default function EventForm({
     await S3FileUpload.uploadFile(e.target.files[0], eventImageConfig)
       .then(async data => {
         if (data && data?.location) {
-          setEventImage(data?.location);
+          await setEventImage(data?.location);
         } else {
           console.log("loading");
         }
@@ -237,7 +237,7 @@ export default function EventForm({
 
   const handlePictureEnter = e => {
     if (e.key === "Enter") {
-      var button = document.getElementById("uploadPicture");
+      var button = document.getElementById("uploadEventPicture");
       button.click();
     }
   };
@@ -486,7 +486,7 @@ export default function EventForm({
           className={classes.inputField}
           rules={{ required: true }}
         />
-        <label className={classes.photoButton} htmlFor="imgUrl">
+        <label className={classes.photoButton} htmlFor="uploadEventPicture">
           <IconButton
             size="medium"
             aria-label="Upload Event Picture"
@@ -502,7 +502,7 @@ export default function EventForm({
           accept="image/*"
           type="file"
           onChange={uploadEventImage}
-          id="uploadPicture"
+          id="uploadEventPicture"
         />
         <InputLabel required className={classes.inputLabel} htmlFor="details">
           Event details

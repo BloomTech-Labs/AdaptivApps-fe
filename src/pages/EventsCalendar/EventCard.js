@@ -215,10 +215,11 @@ export default function EventCard({ event, refetch, user }) {
   return (
     <>
       <Card className={classes.root}>
-        <CardActionArea onClick={() => navigate(`/calendar/${event.id}`)} className={classes.card}>
+        <CardActionArea className={classes.card}>
           <Box>
             <div className={classes.banner}>{event.type}</div>
             <CardMedia
+              onClick={() => navigate(`/calendar/${event.id}`)} 
               className={classes.cardImg}
               component="img"
               alt="Event"
