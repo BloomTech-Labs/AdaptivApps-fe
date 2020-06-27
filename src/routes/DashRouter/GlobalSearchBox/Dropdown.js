@@ -59,7 +59,7 @@ export default function Dropdown(props) {
     <div>
       <input
         className={classes.search}
-        placeholder="Search users and organizations"
+        placeholder="Search users"
         onChange={handleChange}
       />
       <div>
