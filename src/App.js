@@ -25,7 +25,7 @@ import PrivacyPolicy from "./pages/Landing/Legal/PrivacyPolicy";
 import ChatFeature from "./pages/Chat/index";
 import SponsorSpotlight from "./pages/SponsorSpotlight/SponsorSpotlight";
 import ManageUsers from "./pages/ManageUsers";
-import Announcement from './pages/Announcement';
+import Announcement from "./pages/Announcement";
 // import NewsfeedPage from './pages/Newsfeed/components/NewsfeedPage'
 
 // Import apollo server
@@ -100,10 +100,7 @@ function App() {
   location.protocol === "https:" ? (new_uri = "wss://") : (new_uri = "ws://");
 
   const wsLink = new WebSocketLink({
-    uri:
-      process.env.NODE_ENV === "development"
-        ? "ws://localhost:8000/graphql"
-        : `${new_uri}${process.env.REACT_APP_WS_URL}`,
+    uri: `${new_uri}${process.env.REACT_APP_WS_URL}`,
     options: {
       reconnect: true,
       connectionParams: {
@@ -160,7 +157,7 @@ function App() {
             <ChatFeature path="chats" />
             <SponsorSpotlight path="/sponsorspotlight" />
             <ManageUsers path="manageUsers" />
-            <Announcement path='/announcements' />
+            <Announcement path="/announcements" />
             {/*<NewsfeedPage path="/newsfeed" />*/}
           </PrivateRoute>
         </Router>
