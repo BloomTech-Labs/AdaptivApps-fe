@@ -146,7 +146,6 @@ const Input = ({ chatRoom, user, messages }) => {
         </div>
         <TextField
           className={classes.messageBox}
-          multiline={true}
           rowsMax="4"
           value={message}
           variant="outlined"
@@ -154,11 +153,13 @@ const Input = ({ chatRoom, user, messages }) => {
           name="newChat"
           placeholder="Type a message..."
           onChange={e => setMessage(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' && message !== '' ? newMessage() && setMessage('') : null}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
                 <Tooltip title="Send Message">
                   <SendIcon
+                    tabIndex='0'
                     className={classes.sendMessageIcon}
                     onClick={newMessage}
                     aria-label="send message"

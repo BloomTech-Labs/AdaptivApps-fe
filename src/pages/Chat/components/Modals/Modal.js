@@ -121,7 +121,7 @@ function RecipientModal({
   // Return a list of all currently available chatrooms in term of users
   const hiddenChatRooms = [];
   const currentChatRooms = [];
-  for (let i = 0; i < allChatrooms?.profile.chatRooms.length; i++) {
+  for (let i = 0; i < allChatrooms?.profile?.chatRooms?.length; i++) {
     if (allChatrooms.profile.chatRooms[i].senderEmail === user.email && !allChatrooms.profile.chatRooms[i].displayForSender) {
       hiddenChatRooms.push(allChatrooms.profile.chatRooms[i]);
     }
@@ -137,10 +137,11 @@ function RecipientModal({
   const availableToChat = [];
   allUsers && allUsers.profiles.map(person => {
     let unique = currentChatRooms.find(item => item.email === person.email)
-    if (unique === undefined && person.email !== user.email) {
+    if (unique === undefined && person.email !== user.email && person.firstName !== null && person.lastName !== null) {
       availableToChat.push(person);
     };
   });
+
 
   const searchAvailableRooms = e => {
     e.preventDefault();
@@ -288,7 +289,7 @@ function RecipientModal({
             <TextField
               variant="outlined"
               type="text"
-              placeholder="Search for a Recipient"
+              placeholder="Type name here..."
               name="message"
               value={searchRecipient}
               onChange={handleChange}
