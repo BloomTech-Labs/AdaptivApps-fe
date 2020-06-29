@@ -70,9 +70,6 @@ const GlobalSearchBox = () => {
         let currData = { id: data.profiles[i].id, name: data.profiles[i].extProfile.orgName, username: data.profiles[i].userName }
         searchData.push(currData);
       }
-      else {
-        break;
-      }
     }
   }
 
