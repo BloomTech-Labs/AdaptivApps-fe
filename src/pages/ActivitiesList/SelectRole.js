@@ -114,7 +114,17 @@ export default function SimplePopover({ activity, activityData, refetch }) {
   };
 
   const volunteerRegister = async () => {
+    const eventParticipantId = processAttendeeID() ? processAttendeeID : "";
     const participantIdValue = !processParticipantID() ? "" : processParticipantID();
+    if (!eventParticipantId) {
+      await registerForEvent({
+        variables: {
+          attendeeId: eventParticipantId,
+          eventId: activityData.event.id,
+          eventProfile: user.email,
+        },
+      });
+    }
     await registerAsVolunteer({
       variables: {
         participantId: participantIdValue,
@@ -128,7 +138,17 @@ export default function SimplePopover({ activity, activityData, refetch }) {
   };
 
   const spectatorRegister = async () => {
+    const eventParticipantId = processAttendeeID() ? processAttendeeID : "";
     const participantIdValue = !processParticipantID() ? "" : processParticipantID();
+    if (!eventParticipantId) {
+      await registerForEvent({
+        variables: {
+          attendeeId: eventParticipantId,
+          eventId: activityData.event.id,
+          eventProfile: user.email,
+        },
+      });
+    }
     await registerAsSpectator({
       variables: {
         participantId: participantIdValue,
