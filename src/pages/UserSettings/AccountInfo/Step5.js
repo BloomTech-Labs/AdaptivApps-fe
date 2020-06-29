@@ -22,13 +22,13 @@ import {
 
 const useStyles = makeStyles({
   root: {
-   
     display: "flex",
     flexDirection: "column",
     width: "67.5%",
     "& .MuiInputLabel-root": {
       color: "black",
     },
+    height: "100vh",
   },
   form: {
     display: "flex",
@@ -43,14 +43,19 @@ const useStyles = makeStyles({
   spacing: {
     marginTop: "1.6rem",
   },
+  checkBoxContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+    // marginBottom: '1rem'
+  },
   checkBox: {
-    display: 'flex',
-    alignItems: 'center'
+    display: "flex",
+    alignItems: "center",
   },
   btnBox: {
     display: "flex",
     justifyContent: "space-between",
-    marginTop: "3rem",
+    marginTop: "1.5rem",
   },
 });
 
@@ -85,9 +90,23 @@ export default function Step4({ updateDemo3 }) {
       xBoxGamePass:
         currentUserInfo &&
         currentUserInfo?.profile?.demographicProfile?.xBoxGamePass,
-      videoGameFamiliarity:
+      gameFamiliarityMinecraft:
         currentUserInfo &&
-        currentUserInfo?.profile?.demographicProfile?.videoGameFamiliarity,
+        currentUserInfo?.profile?.demographicProfile?.gameFamiliarityMinecraft,
+      gameFamiliarityFortnite:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.gameFamiliarityFortnite,
+      gameFamiliarityCallofDuty:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile?.gameFamiliarityCallofDuty,
+      gameFamiliarityRocketLeague:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile
+          ?.gameFamiliarityRocketLeague,
+      gameFamiliarityNone:
+        currentUserInfo &&
+        currentUserInfo?.profile?.demographicProfile
+          ?.gameFamiliarityNone,
     },
   });
   // Sets state with current user's profile info
@@ -132,9 +151,14 @@ export default function Step4({ updateDemo3 }) {
             currentUserInfo?.profile?.demographicProfile?.xBoxGamePass,
         },
         {
-          videoGameFamiliarity:
-            currentUserInfo &&
-            currentUserInfo?.profile?.demographicProfile?.videoGameFamiliarity,
+          gameFamiliarityMinecraft:
+          currentUserInfo &&
+          currentUserInfo?.profile?.demographicProfile?.gameFamiliarityMinecraft,
+        },
+        {
+          gameFamiliarityFortnite:
+          currentUserInfo &&
+          currentUserInfo?.profile?.demographicProfile?.gameFamiliarityFortnite,
         },
       ]);
     }
@@ -383,10 +407,11 @@ export default function Step4({ updateDemo3 }) {
           defaultValue=""
         />
         <Typography className={classes.spacing}>
-          Which of these games are you familiar with?
+          Which of these games are you familiar with? (check all that apply)
         </Typography>
+        {/* <Box className={classes.checkBoxContainer}> */}
+
         <Box className={classes.checkBox}>
-          <InputLabel htmlFor="gameFamiliarityMinecraft">Minecraft</InputLabel>
           <Controller
             as={<Checkbox />}
             name="gameFamiliarityMinecraft"
@@ -396,42 +421,68 @@ export default function Step4({ updateDemo3 }) {
             color="primary"
             defaultValue={false}
             value={true}
-           
           />
+          <InputLabel htmlFor="gameFamiliarityMinecraft">Minecraft</InputLabel>
         </Box>
         <Box className={classes.checkBox}>
-
+          <Controller
+            as={<Checkbox />}
+            name="gameFamiliarityFortnite"
+            type="checkbox"
+            variant="outlined"
+            control={control}
+            color="primary"
+            defaultValue={false}
+            value={true}
+          />
+          <InputLabel htmlFor="gameFamiliarityFortnite">Fortnite</InputLabel>
         </Box>
-        <Controller
-          as={<Checkbox />}
-          name="gameFamiliarityFortnite"
-          type="checkbox"
-          variant="outlined"
-          control={control}
-          color="primary"
-          defaultValue={false}
-          value={true}
-        />
-        <Controller
-          as={<Checkbox />}
-          name="gameFamiliarityCallofDuty"
-          type="checkbox"
-          variant="outlined"
-          control={control}
-          color="primary"
-          defaultValue={false}
-          value={true}
-        />
-        <Controller
-          as={<Checkbox />}
-          name="gameFamiliarityRocketLeague"
-          type="checkbox"
-          variant="outlined"
-          control={control}
-          color="primary"
-          defaultValue={false}
-          value={true}
-        />
+
+        <Box className={classes.checkBox}>
+          <Controller
+            as={<Checkbox />}
+            name="gameFamiliarityCallofDuty"
+            type="checkbox"
+            variant="outlined"
+            control={control}
+            color="primary"
+            defaultValue={false}
+            value={true}
+          />
+          <InputLabel htmlFor="gameFamiliarityCallofDuty">
+            Call of Duty
+          </InputLabel>
+        </Box>
+        <Box className={classes.checkBox}>
+          <Controller
+            as={<Checkbox />}
+            name="gameFamiliarityRocketLeague"
+            type="checkbox"
+            variant="outlined"
+            control={control}
+            color="primary"
+            defaultValue={false}
+            value={true}
+          />
+          <InputLabel htmlFor="gameFamiliarityRocketLeague">
+            Rocket League
+          </InputLabel>
+        </Box>
+        <Box className={classes.checkBox}>
+          <Controller
+            as={<Checkbox />}
+            name="gameFamiliarityNone"
+            type="checkbox"
+            variant="outlined"
+            control={control}
+            color="primary"
+            defaultValue={false}
+            value={true}
+          />
+          <InputLabel htmlFor="gameFamiliarityNone">None</InputLabel>
+        </Box>
+
+        {/* </Box> */}
       </form>
       <Box className={classes.btnBox}>
         <SaveButton
