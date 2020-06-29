@@ -224,18 +224,28 @@ export default function EventForm({
   };
 
   const uploadEventImage = async e => {
-    await S3FileUpload.uploadFile(e.target.files[0], eventImageConfig)
-      .then(async data => {
-        if (data && data?.location) {
-          await setEventImage(data?.location);
-        } else {
-          console.log("loading");
-        }
-      })
-      .catch(async err => console.log(err));
+    console.log('uploading...')
+    if (e.target.files[0]) {
+      setDisableButton(true);
+      await S3FileUpload.uploadFile(e.target.files[0], eventImageConfig)
+        .then(async data => {
+          if (data && data?.location) {
+            await setEventImage(data?.location);
+            setDisableButton(false);
+          } else {
+            console.log("loading");
+          }
+        })
+        .catch(async err => console.log(err));
+    }
+    else {
+      console.log("Select an image to upload!")
+    }
   };
 
   const handlePictureEnter = e => {
+    console.log('entering...')
+
     if (e.key === "Enter") {
       var button = document.getElementById("uploadEventPicture");
       button.click();
@@ -244,10 +254,9 @@ export default function EventForm({
 
   useEffect(() => {
     refetchTags();
-    eventImage === null ? setDisableButton(true) : setDisableButton(false);
-  }, [refetchTags, eventImage]);
+    // eventImage === null ? setDisableButton(true) : setDisableButton(false);
+  }, [refetchTags]);
 
-  console.log(eventImage);
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
