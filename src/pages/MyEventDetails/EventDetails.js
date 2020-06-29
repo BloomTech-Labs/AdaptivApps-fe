@@ -148,8 +148,8 @@ export default function EventDetails(props) {
           <img
             src={
               (activeEvent && activeEvent?.event?.imgUrl === null) ||
-              activeEvent?.event?.imgUrl === undefined ||
-              activeEvent?.event?.imgUrl === ""
+                activeEvent?.event?.imgUrl === undefined ||
+                activeEvent?.event?.imgUrl === ""
                 ? eventImg
                 : activeEvent?.imgUrl
             }
@@ -164,14 +164,14 @@ export default function EventDetails(props) {
             <p>Start time: {activeEvent.startTime}</p>
           </Box>
         ) : (
-          <Box className={classes.topContentText} m="2.4rem">
-            <p>
-              {activeEvent.startDate} - {activeEvent.endDate}
-            </p>
-            <h2>{activeEvent.title}</h2>
-            <Typography variant="subtitle1">{activeEvent.location}</Typography>
-          </Box>
-        )}
+            <Box className={classes.topContentText} m="2.4rem">
+              <p>
+                {activeEvent.startDate} - {activeEvent.endDate}
+              </p>
+              <h2>{activeEvent.title}</h2>
+              <Typography variant="subtitle1">{activeEvent.location}</Typography>
+            </Box>
+          )}
         <Link
           className={classes.donateBtn}
           color="primary"
@@ -217,8 +217,8 @@ export default function EventDetails(props) {
         <ul>
           {activeEvent.sponsors.length > 0
             ? activeEvent?.sponsors
-                ?.split(", ")
-                .map(sponsor => <li>{sponsor}</li>)
+              ?.split(", ")
+              .map(sponsor => <li>{sponsor}</li>)
             : null}
         </ul>
       </Box>

@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Activities({ refetch, value, activeEvent }) {
+export default function Activities({ refetch, value, activeEvent, currentActivities }) {
   const classes = useStyles();
 
   useEffect(() => {
@@ -32,7 +32,7 @@ export default function Activities({ refetch, value, activeEvent }) {
 
   return (
     <div className={classes.root}>
-      {activeEvent?.activities.map((activity, id) => (
+      {currentActivities?.map((activity, id) => (
         <Activity
           key={id}
           activeEvent={activeEvent}
