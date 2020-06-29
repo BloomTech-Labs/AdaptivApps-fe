@@ -25,31 +25,6 @@ export const REGISTER_AS_VOLUNTEER = gql`
   }
 `;
 
-export const REGISTER_AS_COACH = gql`
-  mutation registerAsCoach(
-    $participantId: ID!
-    $email: String!
-    $activityId: ID!
-  ) {
-    upsertParticipant(
-      where: { id: $participantId }
-      create: {
-        activityProfile: { connect: { email: $email } }
-        role: COACH
-        activity: { connect: { id: $activityId } }
-      }
-      update: { role: COACH }
-    ) {
-      id
-      activityProfile {
-        id
-        email
-      }
-      role
-    }
-  }
-`;
-
 export const REGISTER_AS_SPECTATOR = gql`
   mutation registerAsSpectator(
     $participantId: ID!
@@ -95,6 +70,29 @@ export const REGISTER_AS_ATHLETE = gql`
         email
       }
       role
+    }
+  }
+`;
+
+export const REGISTER_FOR_EVENT = gql`
+  mutation registerForEvent(
+    $attendeeId: ID!
+    $eventId: ID!
+    $eventProfile: String!
+  ) {
+    upsertParticipant(
+      where: { id: $attendeeId }
+      update: { role: SPECTATOR }
+      create: {
+        event: { connect: { id: $eventId } }
+        eventProfile: { connect: { email: $eventProfile } }
+        role: SPECTATOR
+      }
+    ) {
+      id
+      eventProfile {
+        id
+      }
     }
   }
 `;
