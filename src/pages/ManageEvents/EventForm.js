@@ -82,7 +82,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "white"
   },
   img: {
-    width: "400px",
+    width: "380px",
     padding: "0",
     height: "16rem",
     objectFit: "cover",
