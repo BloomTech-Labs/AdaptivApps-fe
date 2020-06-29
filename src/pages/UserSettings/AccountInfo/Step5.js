@@ -16,22 +16,25 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  Checkbox,
+  Typography,
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
+   
     display: "flex",
     flexDirection: "column",
     width: "67.5%",
-    '& .MuiInputLabel-root': {
+    "& .MuiInputLabel-root": {
       color: "black",
-    }
+    },
   },
   form: {
     display: "flex",
     flexDirection: "column",
     width: "100%",
-    height: '75vh'
+    height: "100vh",
   },
   em: {
     fontStyle: "italic",
@@ -40,10 +43,14 @@ const useStyles = makeStyles({
   spacing: {
     marginTop: "1.6rem",
   },
+  checkBox: {
+    display: 'flex',
+    alignItems: 'center'
+  },
   btnBox: {
     display: "flex",
     justifyContent: "space-between",
-    marginTop: "3rem"
+    marginTop: "3rem",
   },
 });
 
@@ -310,7 +317,11 @@ export default function Step4({ updateDemo3 }) {
           control={control}
           defaultValue=""
         />
-        <InputLabel htmlFor="virtualRide" variant="default" className={classes.spacing}>
+        <InputLabel
+          htmlFor="virtualRide"
+          variant="default"
+          className={classes.spacing}
+        >
           Are you interested in participating in the Virtual Ride on 8/9/2020?
         </InputLabel>
         <Controller
@@ -371,41 +382,69 @@ export default function Step4({ updateDemo3 }) {
           control={control}
           defaultValue=""
         />
-        <InputLabel htmlFor="videoGameFamiliarity" className={classes.spacing}>
+        <Typography className={classes.spacing}>
           Which of these games are you familiar with?
-        </InputLabel>
-        <Controller
-          as={
-            <Select>
-              <MenuItem>
-                <em className={classes.em}>Please choose one</em>
-              </MenuItem>
-              <MenuItem value="Minecraft">Minecraft</MenuItem>
-              <MenuItem value="Fortnite">Fortnite</MenuItem>
-              <MenuItem value="Call of Duty">Call of Duty</MenuItem>
-              <MenuItem value="Rocket League">Rocket League</MenuItem>
-              <MenuItem value="None">None</MenuItem>
-            </Select>
-          }
-          name="videoGameFamiliarity"
-          type="select"
-          variant="outlined"
-          control={control}
-          defaultValue=""
-        />
-      </form>
-        <Box className={classes.btnBox}>
-          <SaveButton
-            label={"Save & Quit"}
-            ariaLabel="Click to save and continue later and return to settings page."
-            onClick={onSave}
-          />
-          <NextButton
-            label={"Next"}
-            onClick={onNext}
-            ariaLabel="Click here to complete step 5 and move onto step 6 of account information update."
+        </Typography>
+        <Box className={classes.checkBox}>
+          <InputLabel htmlFor="gameFamiliarityMinecraft">Minecraft</InputLabel>
+          <Controller
+            as={<Checkbox />}
+            name="gameFamiliarityMinecraft"
+            type="checkbox"
+            variant="outlined"
+            control={control}
+            color="primary"
+            defaultValue={false}
+            value={true}
+           
           />
         </Box>
+        <Box className={classes.checkBox}>
+
+        </Box>
+        <Controller
+          as={<Checkbox />}
+          name="gameFamiliarityFortnite"
+          type="checkbox"
+          variant="outlined"
+          control={control}
+          color="primary"
+          defaultValue={false}
+          value={true}
+        />
+        <Controller
+          as={<Checkbox />}
+          name="gameFamiliarityCallofDuty"
+          type="checkbox"
+          variant="outlined"
+          control={control}
+          color="primary"
+          defaultValue={false}
+          value={true}
+        />
+        <Controller
+          as={<Checkbox />}
+          name="gameFamiliarityRocketLeague"
+          type="checkbox"
+          variant="outlined"
+          control={control}
+          color="primary"
+          defaultValue={false}
+          value={true}
+        />
+      </form>
+      <Box className={classes.btnBox}>
+        <SaveButton
+          label={"Save & Quit"}
+          ariaLabel="Click to save and continue later and return to settings page."
+          onClick={onSave}
+        />
+        <NextButton
+          label={"Next"}
+          onClick={onNext}
+          ariaLabel="Click here to complete step 5 and move onto step 6 of account information update."
+        />
+      </Box>
     </Box>
   );
 }
