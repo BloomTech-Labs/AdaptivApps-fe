@@ -148,7 +148,7 @@ export default function Step4({ updateDemo3 }) {
         videoGameFamiliarity: data.videoGameFamiliarity,
       },
     });
-    alert("Successfully completed step 5 of account info update!");
+    // alert("Successfully completed step 5 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step6of6`);
   });
 
@@ -166,7 +166,7 @@ export default function Step4({ updateDemo3 }) {
         videoGameFamiliarity: data.videoGameFamiliarity,
       },
     });
-    alert("Successfully saved account info!");
+    // alert("Successfully saved account info!");
     navigate(`/`);
   });
 

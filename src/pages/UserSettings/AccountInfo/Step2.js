@@ -193,7 +193,7 @@ export default function Step2({ updateExtProfile }) {
         tShirtSize: data.tShirtSize,
       },
     });
-    alert("Succesfully completed step 2 of account info update!");
+    // alert("Succesfully completed step 2 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step3of6`);
   });
 
@@ -214,7 +214,7 @@ export default function Step2({ updateExtProfile }) {
       },
     });
 
-    alert("Succesfully saved account info!");
+    // alert("Succesfully saved account info!");
     navigate(`/`);
   });
 

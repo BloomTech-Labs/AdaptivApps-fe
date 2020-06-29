@@ -153,7 +153,7 @@ export default function Step5({ updateDemoProfile }) {
       },
     });
 
-    alert("Successfully completed step 3 of account info update!");
+    // alert("Successfully completed step 3 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step4of6`);
   });
   const onSave = handleSubmit(async data => {
@@ -171,7 +171,7 @@ export default function Step5({ updateDemoProfile }) {
       },
     });
 
-    alert("Successfully saved account info!");
+    // alert("Successfully saved account info!");
     await navigate(`/`);
   });
 

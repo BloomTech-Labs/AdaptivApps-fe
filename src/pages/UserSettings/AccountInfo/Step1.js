@@ -211,7 +211,7 @@ export default function Step1({ updateProfile }) {
       },
     });
 
-    alert("Successfully updated account info!");
+    // alert("Successfully updated account info!");
     navigate(`/updateaccount/${userEmail}/step2of6`);
   });
 
@@ -246,7 +246,7 @@ export default function Step1({ updateProfile }) {
       },
     });
 
-    alert("Successfully saved account info!");
+    // alert("Successfully saved account info!");
     navigate(`/`);
   });
 

@@ -155,7 +155,7 @@ export default function OrgStep1({ updateOrgProfile }) {
       },
     });
 
-    alert("Successfully updated organization account information!");
+    // alert("Successfully updated organization account information!");
     await navigate(`/`);
   };
   return (
