@@ -289,7 +289,7 @@ function RecipientModal({
             <TextField
               variant="outlined"
               type="text"
-              placeholder="Search for a Recipient"
+              placeholder="Type name here..."
               name="message"
               value={searchRecipient}
               onChange={handleChange}
