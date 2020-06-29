@@ -82,9 +82,11 @@ const useStyles = makeStyles(theme => ({
     width: "17.5%",
   },
   searchBox: {
-    width: "90%",
+    margin: 'auto',
+    width: "85%",
     whiteSpace: "nowrap",
     overflow: "hidden",
+    
   },
   chatRoomDiv: {
     maxHeight: "80vh",
@@ -113,12 +115,12 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
 
   // Search for a chat room
   const participants = chatRoomData && chatRoomData?.profile.chatRooms.map(item => item.participants).concat().flat();
+  console.log('participants', chatRoomData?.profile?.chatRooms)
+
 
   const searchRooms = e => {
     e.preventDefault();
-    let filter =
-      chatRoomData &&
-      chatRoomData?.profile.chatRooms.map(room => {
+    const filter = chatRoomData?.profile?.chatRooms?.map(room => {
         let users = room.participants.map(user => {
           if (
             user.firstName !== null &&
@@ -153,6 +155,9 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
     setResults([]);
     setSearchRecipient(e.target.value);
   };
+
+  console.log('results', results)
+  console.log('searchrecip', searchRecipient)
 
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error || roomError || chatError) return `Error! ${error.message}` || `Error! ${roomError.message}` || `Error! ${chatError.message}` || `Error! ${notificationError.message}`;
@@ -226,14 +231,14 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
               </div>
             ))}
       </div>
-      <Tooltip title="Type 'all' or 'All' to clear search results">
+      {/* <Tooltip title="Type 'all' or 'All' to clear search results">
         <Box component="div" className={classes.box}>
           <TextField
             className={classes.searchBox}
             variant="outlined"
             type="text"
             name="message"
-            placeholder="Search Messages..."
+            placeholder="Search Chatrooms..."
             aria-label="Search Chatrooms"
             value={searchRecipient}
             onChange={handleChange}
@@ -251,7 +256,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
             }}
           />
         </Box>
-      </Tooltip>
+      </Tooltip> */}
     </div>
   );
 }
