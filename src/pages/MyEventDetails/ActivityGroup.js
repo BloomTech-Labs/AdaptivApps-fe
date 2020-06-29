@@ -79,17 +79,10 @@ export default function ActivityGroup({
   const startDate = moment(activeEvent?.startDate);
   const endDate = moment(activeEvent?.endDate);
   const getDatesRangeArray = function (startDate, endDate, interval) {
-    // console.log(startDate, endDate, interval);
     let cfg = { interval: interval || "days" };
     let dateArray = [];
     let currentDate = moment(startDate);
-    // console.log(
-    //   "-->",
-    //   currentDate._i,
-    //   "<=",
-    //   endDate._i,
-    //   currentDate <= endDate
-    // );
+
     while (currentDate <= endDate) {
       dateArray.push(currentDate.format("ddd MM/DD/YY"));
       currentDate = currentDate.add(1, cfg.interval);
@@ -98,7 +91,6 @@ export default function ActivityGroup({
   };
   const days = getDatesRangeArray(startDate, endDate);
   const [value, setValue] = React.useState(days[0]);
-  console.log(days);
 
   useEffect(() => {
     setActivityByDates(activityData?.event?.activities);

@@ -12,6 +12,13 @@ export const GET_EVENT_ACTIVITIES = gql`
       location
       imgUrl
       details
+      attendees {
+        id
+        eventProfile {
+          id
+          email
+        }
+      }
       activities {
         id
         name

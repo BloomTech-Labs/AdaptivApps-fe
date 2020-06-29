@@ -3,9 +3,9 @@ import { useAuth0 } from "../../config/react-auth0-spa";
 import { useMutation } from "react-apollo";
 import {
   REGISTER_AS_ATHLETE,
-  REGISTER_AS_COACH,
   REGISTER_AS_VOLUNTEER,
   REGISTER_AS_SPECTATOR,
+  REGISTER_FOR_EVENT
 } from "./queries/ActivityRegister";
 
 // Styling imports
@@ -53,9 +53,9 @@ export default function SimplePopover({ activity, activityData, refetch }) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [registerAsAthlete] = useMutation(REGISTER_AS_ATHLETE);
-  const [registerAsCoach] = useMutation(REGISTER_AS_COACH);
   const [registerAsVolunteer] = useMutation(REGISTER_AS_VOLUNTEER);
   const [registerAsSpectator] = useMutation(REGISTER_AS_SPECTATOR);
+  const [registerForEvent] = useMutation(REGISTER_FOR_EVENT);
 
   const handleClick = event => {
     setAnchorEl(event.currentTarget);
@@ -63,6 +63,17 @@ export default function SimplePopover({ activity, activityData, refetch }) {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const processAttendeeID = () => {
+    if (activityData.event && activityData.event.attendees) {
+      for (let i = 0; i < activityData.event.attendees.length; i++) {
+        if (activityData.event.attendees[i].eventProfile.email === user.email)
+          return activityData.event.attendees[i].id;
+      }
+    } else {
+      return false;
+    }
   };
 
   const processParticipantID = () => {
@@ -79,7 +90,17 @@ export default function SimplePopover({ activity, activityData, refetch }) {
   }
 
   const athleteRegister = async () => {
+    const eventParticipantId = processAttendeeID() ? processAttendeeID : "";
     const participantIdValue = !processParticipantID() ? "" : processParticipantID();
+    if (!eventParticipantId) {
+      await registerForEvent({
+        variables: {
+          attendeeId: eventParticipantId,
+          eventId: activityData.event.id,
+          eventProfile: user.email,
+        },
+      });
+    }
     await registerAsAthlete({
       variables: {
         participantId: participantIdValue,
@@ -92,22 +113,18 @@ export default function SimplePopover({ activity, activityData, refetch }) {
     refetch();
   };
 
-  const coachRegister = async () => {
-    const participantIdValue = !processParticipantID() ? "" : processParticipantID();
-    await registerAsCoach({
-      variables: {
-        participantId: participantIdValue,
-        activityId: activity.id,
-        email: user.email,
-      },
-    });
-    alert("Successfully registered as a Coach!");
-    handleClose();
-    refetch();
-  };
-
   const volunteerRegister = async () => {
+    const eventParticipantId = processAttendeeID() ? processAttendeeID : "";
     const participantIdValue = !processParticipantID() ? "" : processParticipantID();
+    if (!eventParticipantId) {
+      await registerForEvent({
+        variables: {
+          attendeeId: eventParticipantId,
+          eventId: activityData.event.id,
+          eventProfile: user.email,
+        },
+      });
+    }
     await registerAsVolunteer({
       variables: {
         participantId: participantIdValue,
@@ -121,8 +138,17 @@ export default function SimplePopover({ activity, activityData, refetch }) {
   };
 
   const spectatorRegister = async () => {
-    console.log(activity.participants)
+    const eventParticipantId = processAttendeeID() ? processAttendeeID : "";
     const participantIdValue = !processParticipantID() ? "" : processParticipantID();
+    if (!eventParticipantId) {
+      await registerForEvent({
+        variables: {
+          attendeeId: eventParticipantId,
+          eventId: activityData.event.id,
+          eventProfile: user.email,
+        },
+      });
+    }
     await registerAsSpectator({
       variables: {
         participantId: participantIdValue,
