@@ -6,7 +6,7 @@ import { useParams, useNavigate } from "@reach/router";
 import { useQuery } from "react-apollo";
 import { PROFILE_STEP_1, PROFILE_INFO } from "../queries";
 // Component imports
-import NextButton from "../../../theme/SmallFormButton";
+import FinishButton from "../../../theme/SmallFormButton";
 import SaveButton from "../../../theme/LargeFormButton";
 import ProgressBar from "../../../theme/ProgressBar";
 // Query imports
@@ -114,7 +114,7 @@ const useStyles = makeStyles((theme) => ({
   },
   btnBox: {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     marginTop: "1rem",
   },
   error: {
@@ -192,7 +192,7 @@ export default function Step1({ updateProfile }) {
 
 
   // Will update profile and route user to next step in profile wizard
-  const onNext = handleSubmit(async data => {
+  const onSubmit = async data => {
     await updateProfile({
       variables: {
         email: userEmail,
@@ -211,9 +211,9 @@ export default function Step1({ updateProfile }) {
       },
     });
 
-    alert("Successfully updated account info!");
-    navigate(`/updateaccount/${userEmail}/step2of6`);
-  });
+    // alert("Successfully updated account info!");
+    navigate(`/`);
+  };
 
   const userNames = []
   data && data.profiles.filter(user => user.userName !== null && user.userName !== '' && user.userName !== currentUser && userNames.push(user.userName.toLowerCase()));
@@ -227,33 +227,33 @@ export default function Step1({ updateProfile }) {
 };
 
   // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
-  const onSave = handleSubmit(async data => {
-    await updateProfile({
-      variables: {
-        email: userEmail,
-        firstName: data.firstName,
-        userName: data.userName,
-        lastName: data.lastName,
-        phoneNumber: data.phoneNumber,
-        address1: data.address1,
-        address2: data.address2,
-        city: data.city,
-        state: data.state,
-        postalCode: data.postalCode,
-        country: data.country,
-        legal: data.legal,
-        bio: data.bio,
-      },
-    });
+  // const onSave = handleSubmit(async data => {
+  //   await updateProfile({
+  //     variables: {
+  //       email: userEmail,
+  //       firstName: data.firstName,
+  //       userName: data.userName,
+  //       lastName: data.lastName,
+  //       phoneNumber: data.phoneNumber,
+  //       address1: data.address1,
+  //       address2: data.address2,
+  //       city: data.city,
+  //       state: data.state,
+  //       postalCode: data.postalCode,
+  //       country: data.country,
+  //       legal: data.legal,
+  //       bio: data.bio,
+  //     },
+  //   });
 
-    alert("Successfully saved account info!");
-    navigate(`/`);
-  });
+    // alert("Successfully saved account info!");
+  //   navigate(`/`);
+  // });
 
   return (
     <Box className={classes.root}>
-      <ProgressBar activeStep={1} stepNumber={1} userEmail={userEmail} />
-      <form className={classes.form}>
+      {/* <ProgressBar activeStep={1} stepNumber={1} userEmail={userEmail} /> */}
+      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.namePhoneBox}>
           <Box>
             <InputLabel required htmlFor="firstName">First Name</InputLabel>
@@ -314,7 +314,7 @@ export default function Step1({ updateProfile }) {
             {errors.phoneNumber && <Typography className={classes.error}>phone number is a required field</Typography>}
           </Box>
         </Box>
-        <Box className={classes.addressBox}>
+        {/* <Box className={classes.addressBox}>
           <Box>
             <InputLabel required htmlFor="address1">Address 1</InputLabel>
             <Controller
@@ -398,7 +398,7 @@ export default function Step1({ updateProfile }) {
             />
             {errors.country && <Typography className={classes.error}>country is a required field</Typography>}
           </Box>
-        </Box>
+        </Box> */}
         <InputLabel required htmlFor="legal">Are you over 18 years old?</InputLabel>
         {errors.legal && <Typography className={classes.error}>Please make a selection</Typography>}
         <Controller
@@ -432,17 +432,14 @@ export default function Step1({ updateProfile }) {
           multiline
           rows="8"
         />
-        <Typography className={classes.error}>* required field</Typography>
+        {/* <Typography className={classes.error}>* required field</Typography> */}
         <Box className={classes.btnBox}>
-          <SaveButton
-            label={"Save & Quit"}
-            ariaLabel="Click to save and continue later."
-            onClick={onSave}
-          />
-          <NextButton
-            label={"Next"}
-            ariaLabel="Click here to complete step 1 and move onto step 2."
-            onClick={onNext}
+         
+          <FinishButton
+            type="submit"
+            label="Finish"
+            onClick={handleSubmit}
+            ariaLabel="Click here to complete step 6 of account update and go back to account settings."
           />
         </Box>
       </form>

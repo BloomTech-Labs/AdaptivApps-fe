@@ -136,7 +136,7 @@ export default function AccountTypeForm({ updateProfile }) {
       },
     });
 
-    alert("Successfully updated account type!");
+    // alert("Successfully updated account type!");
     data?.type === "Individual"
       ? await navigate(`/updateaccount/${userEmail}/step1of6`)
       : await navigate(`/updateaccount/${userEmail}/orginfo`);
