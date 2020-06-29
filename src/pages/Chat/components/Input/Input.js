@@ -153,7 +153,7 @@ const Input = ({ chatRoom, user, messages }) => {
           name="newChat"
           placeholder="Type a message..."
           onChange={e => setMessage(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' ? newMessage() : null}
+          onKeyPress={(e) => e.key === 'Enter' && message !== '' ? newMessage() && setMessage('') : null}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
