@@ -121,7 +121,8 @@ function RecipientModal({
   // Return a list of all currently available chatrooms in term of users
   const hiddenChatRooms = [];
   const currentChatRooms = [];
-  for (let i = 0; i < allChatrooms?.profile.chatRooms.length; i++) {
+  for (let i = 0; i < allChatrooms?.profile?.chatRooms?.length; i++) {
+    console.log('in the loop', allChatrooms.profile.chatRooms[i])
     if (allChatrooms.profile.chatRooms[i].senderEmail === user.email && !allChatrooms.profile.chatRooms[i].displayForSender) {
       hiddenChatRooms.push(allChatrooms.profile.chatRooms[i]);
     }
@@ -134,13 +135,19 @@ function RecipientModal({
     }
   }
 
+  console.log('hidden', hiddenChatRooms);
+  console.log('current', currentChatRooms)
+
   const availableToChat = [];
   allUsers && allUsers.profiles.map(person => {
+    console.log('unique', currentChatRooms)
     let unique = currentChatRooms.find(item => item.email === person.email)
-    if (unique === undefined && person.email !== user.email) {
+    if (unique === undefined && person.email !== user.email && person.firstName !== null && person.lastName !== null) {
       availableToChat.push(person);
     };
   });
+
+  console.log('available', availableToChat)
 
   const searchAvailableRooms = e => {
     e.preventDefault();
