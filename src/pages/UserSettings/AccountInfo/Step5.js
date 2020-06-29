@@ -342,6 +342,7 @@ export default function Step4({ updateDemo3 }) {
               <MenuItem value="Zwift">Zwift</MenuItem>
               <MenuItem value="BKool">BKool</MenuItem>
               <MenuItem value="Other">Other</MenuItem>
+              <MenuItem value="None">None</MenuItem>
             </Select>
           }
           name="virtualRidePlatforms"
