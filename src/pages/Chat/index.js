@@ -14,7 +14,7 @@ import Alert from "@material-ui/lab/Alert";
 
 const useStyles = makeStyles(() => ({
   root: {
-    width: "20%",
+    width: "25rem",
     height: "100vh",
     padding: "2%",
     border: "none",
