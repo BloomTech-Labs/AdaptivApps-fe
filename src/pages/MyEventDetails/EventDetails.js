@@ -122,6 +122,12 @@ const useStyles = makeStyles({
     right: "50%",
     color: "#2763FF",
   },
+  img: {
+    width: "100%",
+    padding: "0",
+    height: "16rem",
+    objectFit: "cover",
+  },
 });
 
 export default function EventDetails(props) {
@@ -146,6 +152,7 @@ export default function EventDetails(props) {
       <Box className={classes.topContentContainer}>
         <Box>
           <img
+            className={classes.img}
             src={
               (activeEvent && activeEvent?.event?.imgUrl === null) ||
                 activeEvent?.event?.imgUrl === undefined ||
@@ -197,7 +204,7 @@ export default function EventDetails(props) {
           </a>
         </Box>
       ) : null}
-      <>
+      {/*      <>
         {currentActivities.length >= 1 ? (
           <Box className={classes.myActivitiesBox}>
             <p>My Activities</p>
@@ -209,7 +216,7 @@ export default function EventDetails(props) {
             />
           </Box>
         ) : null}
-      </>
+        </>*/}
       <Box className={classes.sponsorBox}>
         {activeEvent?.sponsors?.length > 0 ? (
           <Typography variant="h3">Special thanks to our sponsors!</Typography>

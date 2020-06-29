@@ -4,7 +4,9 @@ import { useNavigate } from "@reach/router";
 import TagInput from "./TagInput";
 import { useQuery, useMutation } from "react-apollo";
 import { GET_TAGS, CREATE_TAG } from "./graphql";
-
+//s3 bucket imports
+import S3FileUpload from "react-s3";
+// Material ui stuff
 import {
   makeStyles,
   InputLabel,
@@ -15,12 +17,10 @@ import {
   Typography,
   Box,
 } from "@material-ui/core";
-
-//s3 bucket imports
-import S3FileUpload from "react-s3";
-
+import CloseIcon from "@material-ui/icons/Close";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles(theme => ({
   button: {
@@ -76,6 +76,16 @@ const useStyles = makeStyles(theme => ({
   },
   input: {
     display: "none",
+  },
+  removalBtn: {
+    border: "none",
+    backgroundColor: "white"
+  },
+  img: {
+    width: "380px",
+    padding: "0",
+    height: "16rem",
+    objectFit: "cover",
   },
 }));
 
@@ -224,15 +234,22 @@ export default function EventForm({
   };
 
   const uploadEventImage = async e => {
-    await S3FileUpload.uploadFile(e.target.files[0], eventImageConfig)
-      .then(async data => {
-        if (data && data?.location) {
-          await setEventImage(data?.location);
-        } else {
-          console.log("loading");
-        }
-      })
-      .catch(async err => console.log(err));
+    if (e.target.files[0]) {
+      setDisableButton(true);
+      await S3FileUpload.uploadFile(e.target.files[0], eventImageConfig)
+        .then(async data => {
+          if (data && data?.location) {
+            await setEventImage(data?.location);
+            await setDisableButton(false);
+          } else {
+            console.log("loading");
+          }
+        })
+        .catch(async err => console.log(err));
+    }
+    else {
+      console.log("Select an image to upload!")
+    }
   };
 
   const handlePictureEnter = e => {
@@ -244,13 +261,67 @@ export default function EventForm({
 
   useEffect(() => {
     refetchTags();
-    eventImage === null ? setDisableButton(true) : setDisableButton(false);
-  }, [refetchTags, eventImage]);
+  }, [refetchTags]);
 
-  console.log(eventImage);
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
+        <InputLabel required className={classes.inputLabel} htmlFor="title">
+          Event Title
+        </InputLabel>
+        {errors.title && (
+          <Typography className={classes.error}>
+            Please create an event title
+          </Typography>
+        )}
+        <Controller
+          as={<TextField />}
+          type="text"
+          placeholder="title"
+          name="title"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+          className={classes.inputField}
+          rules={{ required: true }}
+        />
+        {!eventImage ?
+          <div>
+            <label className={classes.photoButton} htmlFor="uploadEventPicture">
+              <IconButton
+                size="medium"
+                aria-label="Upload Event Picture"
+                component="span"
+                onKeyDown={e => handlePictureEnter(e)}
+              >
+                <PhotoCamera color="primary" className={classes.photoIcon} />
+                <Typography>Choose an image to upload!</Typography>
+              </IconButton>
+            </label>
+            <input
+              className={classes.input}
+              accept="image/*"
+              type="file"
+              onChange={uploadEventImage}
+              id="uploadEventPicture"
+            />
+          </div> :
+          <div className={classes.inputField}>
+            <InputLabel required className={classes.inputLabel} htmlFor="image">
+              Event Image
+            </InputLabel>
+            <img src={eventImage} alt="image for this event" className={classes.img} />
+            <button className={classes.removalBtn}>
+              <Tooltip title="Remove Image">
+                <CloseIcon
+                  onClick={() => setEventImage(null)}
+                  aria-label="Remove Image"
+                  fontSize="large"
+                />
+              </Tooltip>
+            </button>
+          </div>
+        }
         <InputLabel required className={classes.inputLabel} htmlFor="type">
           Event Type
         </InputLabel>
@@ -301,25 +372,6 @@ export default function EventForm({
             </Select>
           }
           name="sportType"
-          variant="outlined"
-          control={control}
-          defaultValue=""
-          className={classes.inputField}
-          rules={{ required: true }}
-        />
-        <InputLabel required className={classes.inputLabel} htmlFor="title">
-          Event Title
-        </InputLabel>
-        {errors.title && (
-          <Typography className={classes.error}>
-            Please create an event title
-          </Typography>
-        )}
-        <Controller
-          as={<TextField />}
-          type="text"
-          placeholder="title"
-          name="title"
           variant="outlined"
           control={control}
           defaultValue=""
@@ -485,24 +537,6 @@ export default function EventForm({
           defaultValue=""
           className={classes.inputField}
           rules={{ required: true }}
-        />
-        <label className={classes.photoButton} htmlFor="uploadEventPicture">
-          <IconButton
-            size="medium"
-            aria-label="Upload Event Picture"
-            component="span"
-            onKeyDown={e => handlePictureEnter(e)}
-          >
-            <PhotoCamera color="primary" className={classes.photoIcon} />
-            <Typography>Choose an image to upload!</Typography>
-          </IconButton>
-        </label>
-        <input
-          className={classes.input}
-          accept="image/*"
-          type="file"
-          onChange={uploadEventImage}
-          id="uploadEventPicture"
         />
         <InputLabel required className={classes.inputLabel} htmlFor="details">
           Event details
