@@ -224,15 +224,23 @@ export default function EventForm({
   };
 
   const uploadEventImage = async e => {
-    await S3FileUpload.uploadFile(e.target.files[0], eventImageConfig)
-      .then(async data => {
-        if (data && data?.location) {
-          await setEventImage(data?.location);
-        } else {
-          console.log("loading");
-        }
-      })
-      .catch(async err => console.log(err));
+    console.log('uploading...')
+    if (e.target.files[0]) {
+      setDisableButton(true);
+      await S3FileUpload.uploadFile(e.target.files[0], eventImageConfig)
+        .then(async data => {
+          if (data && data?.location) {
+            await setEventImage(data?.location);
+            setDisableButton(false);
+          } else {
+            console.log("loading");
+          }
+        })
+        .catch(async err => console.log(err));
+    }
+    else {
+      console.log("Select an image to upload!")
+    }
   };
 
   const handlePictureEnter = e => {
@@ -244,13 +252,49 @@ export default function EventForm({
 
   useEffect(() => {
     refetchTags();
-    eventImage === null ? setDisableButton(true) : setDisableButton(false);
-  }, [refetchTags, eventImage]);
+    // eventImage === null ? setDisableButton(true) : setDisableButton(false);
+  }, [refetchTags]);
 
-  console.log(eventImage);
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
+        <InputLabel required className={classes.inputLabel} htmlFor="title">
+          Event Title
+        </InputLabel>
+        {errors.title && (
+          <Typography className={classes.error}>
+            Please create an event title
+          </Typography>
+        )}
+        <Controller
+          as={<TextField />}
+          type="text"
+          placeholder="title"
+          name="title"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+          className={classes.inputField}
+          rules={{ required: true }}
+        />
+        <label className={classes.photoButton} htmlFor="uploadEventPicture">
+          <IconButton
+            size="medium"
+            aria-label="Upload Event Picture"
+            component="span"
+            onKeyDown={e => handlePictureEnter(e)}
+          >
+            <PhotoCamera color="primary" className={classes.photoIcon} />
+            <Typography>Choose an image to upload!</Typography>
+          </IconButton>
+        </label>
+        <input
+          className={classes.input}
+          accept="image/*"
+          type="file"
+          onChange={uploadEventImage}
+          id="uploadEventPicture"
+        />
         <InputLabel required className={classes.inputLabel} htmlFor="type">
           Event Type
         </InputLabel>
@@ -301,25 +345,6 @@ export default function EventForm({
             </Select>
           }
           name="sportType"
-          variant="outlined"
-          control={control}
-          defaultValue=""
-          className={classes.inputField}
-          rules={{ required: true }}
-        />
-        <InputLabel required className={classes.inputLabel} htmlFor="title">
-          Event Title
-        </InputLabel>
-        {errors.title && (
-          <Typography className={classes.error}>
-            Please create an event title
-          </Typography>
-        )}
-        <Controller
-          as={<TextField />}
-          type="text"
-          placeholder="title"
-          name="title"
           variant="outlined"
           control={control}
           defaultValue=""
@@ -485,24 +510,6 @@ export default function EventForm({
           defaultValue=""
           className={classes.inputField}
           rules={{ required: true }}
-        />
-        <label className={classes.photoButton} htmlFor="uploadEventPicture">
-          <IconButton
-            size="medium"
-            aria-label="Upload Event Picture"
-            component="span"
-            onKeyDown={e => handlePictureEnter(e)}
-          >
-            <PhotoCamera color="primary" className={classes.photoIcon} />
-            <Typography>Choose an image to upload!</Typography>
-          </IconButton>
-        </label>
-        <input
-          className={classes.input}
-          accept="image/*"
-          type="file"
-          onChange={uploadEventImage}
-          id="uploadEventPicture"
         />
         <InputLabel required className={classes.inputLabel} htmlFor="details">
           Event details
