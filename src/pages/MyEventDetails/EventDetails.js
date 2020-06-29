@@ -204,7 +204,7 @@ export default function EventDetails(props) {
           </a>
         </Box>
       ) : null}
-      <>
+      {/*      <>
         {currentActivities.length >= 1 ? (
           <Box className={classes.myActivitiesBox}>
             <p>My Activities</p>
@@ -216,7 +216,7 @@ export default function EventDetails(props) {
             />
           </Box>
         ) : null}
-      </>
+        </>*/}
       <Box className={classes.sponsorBox}>
         {activeEvent?.sponsors?.length > 0 ? (
           <Typography variant="h3">Special thanks to our sponsors!</Typography>

@@ -178,7 +178,7 @@ export default function ActivityList() {
         </Box>
       </Box>
       <Box className={classes.details}>{activityData.event.details}</Box>
-      {activityData.event.activities.length >= 1 ? (
+      {/*activityData.event.activities.length >= 1 ? (
         <Box className={classes.activityC}>
           <p className={classes.myActivities}>Activities Schedule</p>
           <table className={classes.table}>
@@ -187,7 +187,7 @@ export default function ActivityList() {
             </tbody>
           </table>
         </Box>
-      ) : null}
+      ) : null*/}
     </main>
   );
 }
