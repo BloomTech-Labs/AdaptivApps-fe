@@ -606,7 +606,7 @@ export default function Settings() {
                           <Typography>{profile?.email}</Typography>
                         </TableCell>
                       </TableRow>
-                      <TableRow>
+                      {/* <TableRow>
                         <TableCell component="th" scope="row">
                           <Typography
                             style={{
@@ -623,7 +623,7 @@ export default function Settings() {
                             {profile?.city}, {profile?.state}
                           </Typography>
                         </TableCell>
-                      </TableRow>
+                      </TableRow> */}
                     </TableBody>
                   </Table>
                 </TableContainer>
