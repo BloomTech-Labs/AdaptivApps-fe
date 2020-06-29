@@ -7,10 +7,10 @@ import { useAuth0 } from "../../../config/react-auth0-spa";
 // Query Imports
 import { useQuery, useSubscription } from "react-apollo";
 import { GET_MY_PROFILE, PROFILE_SUBSCRIPTION } from "./queries/profile";
-import {
-  GET_NOTIFICATIONS,
-  NOTIFICATION_SUBSCRIPTION,
-} from "../../../pages/Chat/queries/Notifications";
+import { GET_NOTIFICATIONS, NOTIFICATION_SUBSCRIPTION } from "../../../pages/Chat/queries/Notifications";
+import { GET_ANNOUNCEMENTS, ANNOUNCEMENT_SUBSCRIPTION } from '../../../pages/Announcement/queries/Announcements';
+import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../../pages/Chat/queries/ChatRooms'
+import { CHAT_SUBSCRIPTION } from '../../../pages/Chat/queries/Chats'
 import GroupIcon from "@material-ui/icons/GroupAddOutlined";
 
 // Styling imports
@@ -193,14 +193,16 @@ function SideNav(props) {
   const { data: subData } = useSubscription(PROFILE_SUBSCRIPTION);
 
   // Update notifications in real time
-  const {
-    data: notifications,
-    refetch: refetchNotifications,
-  } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email } });
-  const {
-    error: notificationError,
-    loading: notificationLoading,
-  } = useSubscription(NOTIFICATION_SUBSCRIPTION);
+  const { data: notifications, refetch: refetchNotifications } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email } });
+  const { error: notificationError, loading: notificationLoading } = useSubscription(NOTIFICATION_SUBSCRIPTION);
+
+    // Chatroom/Chat messages/ Announcements Subscription
+    const { error: roomError, loading: roomsLoading, data: chatRoomSub } = useSubscription(CHAT_ROOM_SUBSCRIPTION)
+    const { error: chatError, loading: chatLoading, data: chatsData } = useSubscription(CHAT_SUBSCRIPTION)
+    const { error: announcementError, loading: announcementLoading } = useSubscription(ANNOUNCEMENT_SUBSCRIPTION, { variables: { isAnnouncementRoom: true } });
+    const { error, loading, data: chatRoomData, refetch: refetchData } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email } })
+    const { data: announcements, refetch: refetchAnnouncements } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
+  
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -300,7 +302,11 @@ function SideNav(props) {
   );
 
   !subData && refetch();
+  !roomsLoading && refetchData();
+  !chatLoading && refetchData();
+  !announcementLoading && refetchAnnouncements();
   !notificationLoading && refetchNotifications();
+  
 
   return (
     <div className={classes.root}>
