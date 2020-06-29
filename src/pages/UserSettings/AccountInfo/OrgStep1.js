@@ -199,7 +199,7 @@ export default function OrgStep1({ updateOrgProfile }) {
           defaultValue=""
         />
       </Box>
-      <Box className={classes.addressBox}>
+      {/* <Box className={classes.addressBox}>
         <Box className={classes.address1}>
           <InputLabel required htmlFor="address1">Address 1</InputLabel>
           <Controller
@@ -223,9 +223,9 @@ export default function OrgStep1({ updateOrgProfile }) {
             defaultValue=""
           />
         </Box>
-      </Box>
+      </Box> */}
 
-      <Box className={classes.addressBox}>
+      {/* <Box className={classes.addressBox}>
         <Box className={classes.firstInput}>
           <InputLabel required htmlFor="city">City</InputLabel>
           <Controller
@@ -278,7 +278,7 @@ export default function OrgStep1({ updateOrgProfile }) {
           />
            {errors.coutry && <Typography className={classes.error}>country is a required field</Typography>}
         </Box>
-      </Box>
+      </Box> */}
       <Box className={classes.bioBox}>
         <InputLabel className={classes.inputLabel} htmlFor="bio">
           Tell us about your organization

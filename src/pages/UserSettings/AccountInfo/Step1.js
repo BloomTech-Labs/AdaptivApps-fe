@@ -314,7 +314,7 @@ export default function Step1({ updateProfile }) {
             {errors.phoneNumber && <Typography className={classes.error}>phone number is a required field</Typography>}
           </Box>
         </Box>
-        <Box className={classes.addressBox}>
+        {/* <Box className={classes.addressBox}>
           <Box>
             <InputLabel required htmlFor="address1">Address 1</InputLabel>
             <Controller
@@ -398,7 +398,7 @@ export default function Step1({ updateProfile }) {
             />
             {errors.country && <Typography className={classes.error}>country is a required field</Typography>}
           </Box>
-        </Box>
+        </Box> */}
         <InputLabel required htmlFor="legal">Are you over 18 years old?</InputLabel>
         {errors.legal && <Typography className={classes.error}>Please make a selection</Typography>}
         <Controller
