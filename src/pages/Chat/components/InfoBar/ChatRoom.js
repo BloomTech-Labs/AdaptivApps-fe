@@ -159,6 +159,7 @@ export default function ChatRoom({ results, setResults, chatRoom, user, chats, c
   const [deleteChat, setDeleteChat] = useState(false);
   const [disableClick, setDisableClick] = useState(false);
 
+
   const roomNotifications = [];
   notifications !== null && notifications.length > 0 && notifications.map(notification => notification.chatroom !== null && notification.label !== "Announcement" && notification.chatroom.id === chatRoom.id && roomNotifications.push(notification.id));
 
@@ -211,14 +212,14 @@ export default function ChatRoom({ results, setResults, chatRoom, user, chats, c
     e.preventDefault();
     messageToggle ? setMessageToggle(false) : setMessageToggle(true);
 
-    roomNotifications && roomNotifications.length > 0 &&
-      roomNotifications.map(notification => {
-        deleteNotification({
-          variables: {
-            id: notification
-          }
-        })
-      })
+    // roomNotifications && roomNotifications.length > 0 &&
+    //   roomNotifications.map(notification => {
+    //     deleteNotification({
+    //       variables: {
+    //         id: notification
+    //       }
+    //     })
+    //   })
   };
 
   const closeDrawer = e => {

@@ -224,7 +224,7 @@ function SideNav(props) {
             <NavLink to="announcements" className={classes.navLink}>
               <StyledBadge
                 overlap="circle"
-                badgeContent={announcementNotifications.length}
+                badgeContent={announcementNotifications?.length}
               >
                 <BookmarksIcon className={classes.navIcon} />
               </StyledBadge>
@@ -262,7 +262,7 @@ function SideNav(props) {
                 <NavLink to="/chats" className={classes.navLink}>
                   <StyledBadge
                     overlap="circle"
-                    badgeContent={roomNotifications.length}
+                    badgeContent={roomNotifications?.length}
                   >
                     <ForumOutlinedIcon className={classes.navIcon} />
                   </StyledBadge>

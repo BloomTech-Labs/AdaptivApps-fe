@@ -115,8 +115,6 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
 
   // Search for a chat room
   const participants = chatRoomData && chatRoomData?.profile.chatRooms.map(item => item.participants).concat().flat();
-  console.log('participants', chatRoomData?.profile?.chatRooms)
-
 
   const searchRooms = e => {
     e.preventDefault();
@@ -155,9 +153,6 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
     setResults([]);
     setSearchRecipient(e.target.value);
   };
-
-  console.log('results', results)
-  console.log('searchrecip', searchRecipient)
 
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error || roomError || chatError) return `Error! ${error.message}` || `Error! ${roomError.message}` || `Error! ${chatError.message}` || `Error! ${notificationError.message}`;
