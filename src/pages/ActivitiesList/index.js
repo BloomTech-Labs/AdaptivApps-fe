@@ -33,9 +33,11 @@ const useStyles = makeStyles({
     width: "36rem",
     height: "16rem",
   },
-  eventImg: {
+  img: {
     width: "100%",
-    objectFit: "contain",
+    padding: "0",
+    height: "16rem",
+    objectFit: "cover",
   },
   infoContainer: {
     display: "flex",
@@ -142,11 +144,11 @@ export default function ActivityList() {
       <Box className={classes.eventContainer}>
         <Box className={classes.imgContainer}>
           <img
-            className={classes.eventImg}
+            className={classes.img}
             src={
               (activityData && activityData?.event?.imgUrl === null) ||
-              activityData?.event?.imgUrl === undefined ||
-              activityData?.event?.imgUrl === ""
+                activityData?.event?.imgUrl === undefined ||
+                activityData?.event?.imgUrl === ""
                 ? eventImg
                 : activityData?.event?.imgUrl
             }

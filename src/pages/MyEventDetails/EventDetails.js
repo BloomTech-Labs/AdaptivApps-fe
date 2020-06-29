@@ -122,6 +122,12 @@ const useStyles = makeStyles({
     right: "50%",
     color: "#2763FF",
   },
+  img: {
+    width: "100%",
+    padding: "0",
+    height: "16rem",
+    objectFit: "cover",
+  },
 });
 
 export default function EventDetails(props) {
@@ -146,6 +152,7 @@ export default function EventDetails(props) {
       <Box className={classes.topContentContainer}>
         <Box>
           <img
+            className={classes.img}
             src={
               (activeEvent && activeEvent?.event?.imgUrl === null) ||
                 activeEvent?.event?.imgUrl === undefined ||
