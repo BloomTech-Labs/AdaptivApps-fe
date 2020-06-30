@@ -25,8 +25,8 @@ import UserIcon from "@material-ui/icons/PersonOutlineOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
 import ForumOutlinedIcon from "@material-ui/icons/ForumOutlined";
 import SettingsIcon from "@material-ui/icons/SettingsOutlined";
-import HouseIcon from '@material-ui/icons/House';
-import InfoIcon from '@material-ui/icons/Info';
+import HouseOutlinedIcon from '@material-ui/icons/HouseOutlined';
+import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import { IconContext } from "react-icons";
 import { FiLogOut } from "react-icons/fi";
 import acsLogo from "../../../assets/images/acsLogo.png";
@@ -224,7 +224,7 @@ function SideNav(props) {
           </Box>
           <Box className={classes.navContainer}>
             <NavLink to="welcome" className={classes.navLink}>
-              <HouseIcon className={classes.navIcon} />
+              <HouseOutlinedIcon className={classes.navIcon} />
               <p>Welcome</p>
             </NavLink>
             <NavLink to="announcements" className={classes.navLink}>
@@ -279,7 +279,7 @@ function SideNav(props) {
               <p>Newsfeed</p>
             </NavLink>*/}
             <NavLink to="faqs" className={classes.navLink}>
-              <InfoIcon className={classes.navIcon} />
+              <InfoOutlinedIcon className={classes.navIcon} />
               <p>FAQs</p>
             </NavLink>
             {user && user[config.roleUrl].includes("Admin") ? (

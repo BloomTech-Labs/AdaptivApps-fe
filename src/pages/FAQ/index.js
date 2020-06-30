@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   },
   h4: {
     fontSize: "2.5rem",
-    color: "gray",
+    color: "rgb(41, 98, 255)",
     fontWeight: "normal",
   },
   p: {

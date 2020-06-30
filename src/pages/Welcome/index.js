@@ -28,7 +28,7 @@ const useStyles = makeStyles(theme => ({
   },
   h3: {
     fontSize: "3rem",
-    color: "gray",
+    color: "rgb(41, 98, 255)",
     fontWeight: "normal",
   }
 }));
