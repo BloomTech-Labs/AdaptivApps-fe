@@ -27,6 +27,7 @@ import {
 
 const useStyles = makeStyles(theme => ({
   root: {
+    maxWidth: "35rem",
     backgroundColor: "transparent",
     borderRadius: ".5rem",
     marginRight: "2.4rem",
@@ -40,6 +41,9 @@ const useStyles = makeStyles(theme => ({
     margin: ".4rem 0",
     fontWeight: "500",
     color: "#3C3C3C",
+    "&.MuiTypography-root": {
+      wordBreak: "break-word",
+    },
   },
   cardLoc: {
     fontSize: "1.6rem",
@@ -81,7 +85,7 @@ const useStyles = makeStyles(theme => ({
   editDeleteBtn: {
     height: "40px",
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     padding: "0",
     margin: "0",
     "& button": {
@@ -274,25 +278,25 @@ export default function EventCard({ event, refetch, user }) {
               >
                 {event.location}
               </Typography>
+              {user && user[config.roleUrl].includes("Admin") ? (
+                <Box className={classes.editDeleteBtn}>
+                  <Button onClick={editEvent}>
+                    <EditOutlinedIcon
+                      className={classes.icon}
+                      color="primary"
+                      fontSize="large"
+                    />
+                  </Button>
+                  <Button onClick={handleOpen}>
+                    <DeleteOutlineIcon
+                      className={classes.icon}
+                      color="primary"
+                      fontSize="large"
+                    />
+                  </Button>
+                </Box>
+              ) : null}
             </CardContent>
-            {user && user[config.roleUrl].includes("Admin") ? (
-              <Box className={classes.editDeleteBtn}>
-                <Button onClick={editEvent}>
-                  <EditOutlinedIcon
-                    className={classes.icon}
-                    color="primary"
-                    fontSize="large"
-                  />
-                </Button>
-                <Button onClick={handleOpen}>
-                  <DeleteOutlineIcon
-                    className={classes.icon}
-                    color="primary"
-                    fontSize="large"
-                  />
-                </Button>
-              </Box>
-            ) : null}
           </Box>
         </CardActionArea>
         <CardActions className={classes.btnContainer}>

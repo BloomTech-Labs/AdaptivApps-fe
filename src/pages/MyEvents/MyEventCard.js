@@ -40,6 +40,7 @@ import {
 
 const useStyles = makeStyles(theme => ({
   root: {
+    maxWidth: "35rem",
     borderRadius: ".5rem",
     marginRight: "2.4rem",
     boxShadow: "none",
@@ -53,6 +54,9 @@ const useStyles = makeStyles(theme => ({
     margin: ".4rem 0",
     fontWeight: "500",
     color: "#3C3C3C",
+    "&.MuiTypography-root": {
+      wordBreak: "break-word",
+    },
   },
   cardLoc: {
     fontSize: "1.6rem",
