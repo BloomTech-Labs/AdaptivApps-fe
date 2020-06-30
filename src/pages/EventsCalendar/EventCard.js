@@ -186,8 +186,8 @@ export default function EventCard({ event, refetch, user }) {
           className={classes.img}
           src={
             event?.imgUrl === null ||
-              event?.imgUrl === undefined ||
-              event?.imgUrl === ""
+            event?.imgUrl === undefined ||
+            event?.imgUrl === ""
               ? eventImg
               : event?.imgUrl
           }
@@ -219,15 +219,14 @@ export default function EventCard({ event, refetch, user }) {
           <Box>
             <div className={classes.banner}>{event.type}</div>
             <CardMedia
-              onClick={() => navigate(`/calendar/${event.id}`)} 
               className={classes.cardImg}
               component="img"
               alt="Event"
               width="15rem"
               image={
                 event?.imgUrl === null ||
-                  event?.imgUrl === undefined ||
-                  event?.imgUrl === ""
+                event?.imgUrl === undefined ||
+                event?.imgUrl === ""
                   ? eventImg
                   : event?.imgUrl
               }
