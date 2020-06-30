@@ -137,14 +137,17 @@ export default function AccountTypeForm({ updateProfile }) {
     });
 
     // alert("Successfully updated account type!");
+    // data?.type === "Individual"
+    //   ? await navigate(`/updateaccount/${userEmail}/step1of6`)
+    //   : await navigate(`/updateaccount/${userEmail}/orginfo`);
     data?.type === "Individual"
-      ? await navigate(`/updateaccount/${userEmail}/step1of6`)
-      : await navigate(`/updateaccount/${userEmail}/orginfo`);
+      ? await navigate(`/updateaccount/${userEmail}/individualInfo`)
+      : await navigate(`/updateaccount/${userEmail}/organizationInfo`);
   };
 
   return (
     <Box className={classes.root}>
-      <ProgressBar activeStep={0} userEmail={userEmail} />
+      {/* <ProgressBar activeStep={0} userEmail={userEmail} /> */}
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.selectContainer}>
           <InputLabel required htmlFor="account type">
