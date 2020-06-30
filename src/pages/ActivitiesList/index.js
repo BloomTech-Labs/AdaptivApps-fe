@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "react-apollo";
+import moment from "moment";
 import ActivityGroup from "./ActivityGroup";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import eventImg from "../../assets/images/acs_hartford.png";
@@ -147,8 +148,8 @@ export default function ActivityList() {
             className={classes.img}
             src={
               (activityData && activityData?.event?.imgUrl === null) ||
-                activityData?.event?.imgUrl === undefined ||
-                activityData?.event?.imgUrl === ""
+              activityData?.event?.imgUrl === undefined ||
+              activityData?.event?.imgUrl === ""
                 ? eventImg
                 : activityData?.event?.imgUrl
             }
@@ -162,7 +163,8 @@ export default function ActivityList() {
             color="textSecondary"
             component="p"
           >
-            {activityData?.event?.startDate}-{activityData?.event?.endDate}
+            {moment(activityData?.event?.startDate).format("MM/DD/YYYY")} -{" "}
+            {moment(activityData?.event?.endDate).format("MM/DD/YYYY")}
           </Typography>
           <Typography className={classes.title}>
             {activityData?.event?.title}
