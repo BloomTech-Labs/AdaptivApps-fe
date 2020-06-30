@@ -25,6 +25,8 @@ import UserIcon from "@material-ui/icons/PersonOutlineOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
 import ForumOutlinedIcon from "@material-ui/icons/ForumOutlined";
 import SettingsIcon from "@material-ui/icons/SettingsOutlined";
+import HouseIcon from '@material-ui/icons/House';
+import InfoIcon from '@material-ui/icons/Info';
 import { IconContext } from "react-icons";
 import { FiLogOut } from "react-icons/fi";
 import acsLogo from "../../../assets/images/acsLogo.png";
@@ -196,13 +198,13 @@ function SideNav(props) {
   const { data: notifications, refetch: refetchNotifications } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email } });
   const { error: notificationError, loading: notificationLoading } = useSubscription(NOTIFICATION_SUBSCRIPTION);
 
-    // Chatroom/Chat messages/ Announcements Subscription
-    const { error: roomError, loading: roomsLoading, data: chatRoomSub } = useSubscription(CHAT_ROOM_SUBSCRIPTION)
-    const { error: chatError, loading: chatLoading, data: chatsData } = useSubscription(CHAT_SUBSCRIPTION)
-    const { error: announcementError, loading: announcementLoading } = useSubscription(ANNOUNCEMENT_SUBSCRIPTION, { variables: { isAnnouncementRoom: true } });
-    const { error, loading, data: chatRoomData, refetch: refetchData } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email } })
-    const { data: announcements, refetch: refetchAnnouncements } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
-  
+  // Chatroom/Chat messages/ Announcements Subscription
+  const { error: roomError, loading: roomsLoading, data: chatRoomSub } = useSubscription(CHAT_ROOM_SUBSCRIPTION)
+  const { error: chatError, loading: chatLoading, data: chatsData } = useSubscription(CHAT_SUBSCRIPTION)
+  const { error: announcementError, loading: announcementLoading } = useSubscription(ANNOUNCEMENT_SUBSCRIPTION, { variables: { isAnnouncementRoom: true } });
+  const { error, loading, data: chatRoomData, refetch: refetchData } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email } })
+  const { data: announcements, refetch: refetchAnnouncements } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -221,6 +223,10 @@ function SideNav(props) {
             <img src={acsLogo} alt="ACS Logo" />
           </Box>
           <Box className={classes.navContainer}>
+            <NavLink to="welcome" className={classes.navLink}>
+              <HouseIcon className={classes.navIcon} />
+              <p>Welcome</p>
+            </NavLink>
             <NavLink to="announcements" className={classes.navLink}>
               <StyledBadge
                 overlap="circle"
@@ -250,7 +256,6 @@ function SideNav(props) {
               <p>Settings</p>
             </NavLink>
             {/* Profile Validation */}
-
             {data?.profile?.userName === null ? (
               <Tooltip title="Please complete your profile information to access Chats">
                 <div className={classes.disabledNavLink}>
@@ -273,6 +278,10 @@ function SideNav(props) {
               <HomeIcon className={classes.navIcon} />
               <p>Newsfeed</p>
             </NavLink>*/}
+            <NavLink to="faqs" className={classes.navLink}>
+              <InfoIcon className={classes.navIcon} />
+              <p>FAQs</p>
+            </NavLink>
             {user && user[config.roleUrl].includes("Admin") ? (
               <>
                 <NavLink to="createEvent" className={classes.navLink}>
@@ -306,7 +315,7 @@ function SideNav(props) {
   !chatLoading && refetchData();
   !announcementLoading && refetchAnnouncements();
   !notificationLoading && refetchNotifications();
-  
+
 
   return (
     <div className={classes.root}>
