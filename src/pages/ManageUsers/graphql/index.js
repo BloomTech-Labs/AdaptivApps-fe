@@ -29,3 +29,26 @@ export const GET_USERS = gql`
     }
   }
 `;
+
+export const GET_EVENTS_ATTENDEES = gql`
+  query GetEventAttendees {
+    events {
+      id
+      title
+      startDate
+      endDate
+      location
+      attendees {
+        id
+        eventProfile{
+          id
+          userName
+          firstName
+          lastName
+          email
+          phoneNumber
+        }
+      }
+    }
+  }
+`;

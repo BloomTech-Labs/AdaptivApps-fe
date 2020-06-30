@@ -345,11 +345,11 @@ export default function EventForm({
           rules={{ required: true }}
         />
         <InputLabel required className={classes.inputLabel} htmlFor="sportType">
-          Sport Type
+          Event Category
         </InputLabel>
         {errors.sportType && (
           <Typography className={classes.error}>
-            Please choose a sport type
+            Please choose an event category
           </Typography>
         )}
         <Controller
@@ -369,6 +369,7 @@ export default function EventForm({
               </MenuItem>
               <MenuItem value="Wheelchair Tennis">Wheelchair Tennis</MenuItem>
               <MenuItem value="Workout">Workout</MenuItem>
+              <MenuItem value="N/A">N/A</MenuItem>
             </Select>
           }
           name="sportType"

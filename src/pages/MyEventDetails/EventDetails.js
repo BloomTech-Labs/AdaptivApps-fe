@@ -146,8 +146,9 @@ export default function EventDetails(props) {
 
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
-
-  const currentActivities = data.activities;
+  console.log("props", props);
+  console.log("Inside Event Details", activeEvent);
+  // const currentActivities = data.activities;
   return (
     <Box className={classes.root} m={4}>
       <Box className={classes.topContentContainer}>
@@ -155,11 +156,11 @@ export default function EventDetails(props) {
           <img
             className={classes.img}
             src={
-              (activeEvent && activeEvent?.event?.imgUrl === null) ||
-              activeEvent?.event?.imgUrl === undefined ||
-              activeEvent?.event?.imgUrl === ""
+              (props && props?.event?.imgUrl === null) ||
+              props?.event?.imgUrl === undefined ||
+              props?.event?.imgUrl === ""
                 ? eventImg
-                : activeEvent?.imgUrl
+                : props?.event?.imgUrl
             }
             alt="Event"
           />
@@ -206,6 +207,7 @@ export default function EventDetails(props) {
       {activeEvent.type === "Virtual" ? (
         <Box className={classes.virtualBox}>
           <p>Hosted by: {activeEvent.host}</p>
+          <p>Coach(es): {activeEvent.coaches}</p>
           <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
           <a href={activeEvent.link} rel="noopener noreferrer" target="_blank">
             Click Here to Join Us!
