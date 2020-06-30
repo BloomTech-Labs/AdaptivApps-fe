@@ -37,6 +37,7 @@ const useStyles = makeStyles(theme => ({
       fontSize: "2rem",
       color: "red",
       fontWeight: "bolder",
+      height: "100vh"
     },
   },
   form: {
@@ -45,11 +46,13 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     "& .MuiTextField-root": {
       width: "100%",
+      marginBottom: "1.6rem"
     },
+    height: "100vh"
   },
   namePhoneBox: {
     display: "flex",
-    marginBottom: "1.6rem",
+    marginBottom: "0.8rem",
     "& .MuiTextField-root": {
       width: "36rem",
       height: "4.8rem",
@@ -424,63 +427,43 @@ export default function Step1({ updateProfile }) {
             {errors.country && <Typography className={classes.error}>country is a required field</Typography>}
           </Box>
         </Box> */}
-        <Box>
-          <InputLabel required htmlFor="country">
-            Please enter your Twitter handle
+       
+          <InputLabel htmlFor="twitter">
+            Please enter the link to your Twitter profile
           </InputLabel>
           <Controller
             as={<TextField />}
-            name="country"
+            name="twitter"
             type="text"
             variant="outlined"
             control={control}
             defaultValue=""
-            rules={{ required: true }}
           />
-          {errors.country && (
-            <Typography className={classes.error}>
-              country is a required field
-            </Typography>
-          )}
-        </Box>
-        <Box>
-          <InputLabel required htmlFor="country">
-            Please enter your Facebook handle
+       
+          <InputLabel htmlFor="facebook">
+            Please enter the link to your Facebook profile
           </InputLabel>
           <Controller
             as={<TextField />}
-            name="country"
+            name="facebook"
             type="text"
             variant="outlined"
             control={control}
             defaultValue=""
-            rules={{ required: true }}
           />
-          {errors.country && (
-            <Typography className={classes.error}>
-              country is a required field
-            </Typography>
-          )}
-        </Box>
-        <Box>
-          <InputLabel required htmlFor="country">
-            Please enter your Instagram handle
+      
+          <InputLabel htmlFor="instagram">
+            Please enter the link to your Instagram profile
           </InputLabel>
           <Controller
             as={<TextField />}
-            name="country"
+            name="instagram"
             type="text"
             variant="outlined"
             control={control}
             defaultValue=""
-            rules={{ required: true }}
           />
-          {errors.country && (
-            <Typography className={classes.error}>
-              country is a required field
-            </Typography>
-          )}
-        </Box>
+    
         <InputLabel required htmlFor="legal">
           Are you over 18 years old?
         </InputLabel>
@@ -507,7 +490,7 @@ export default function Step1({ updateProfile }) {
           rules={{ required: true }}
         />
         <InputLabel htmlFor="bio">
-          If you're comfortable sharing, tell us your story
+          Bio
         </InputLabel>
         <Controller
           as={<TextField />}

@@ -187,6 +187,7 @@ export const UPDATE_ORG_PROFILE = gql`
       instagram
       facebook
       twitter
+      userName
       extProfile {
         id
         orgName
