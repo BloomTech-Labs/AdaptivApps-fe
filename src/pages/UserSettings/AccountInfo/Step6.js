@@ -145,7 +145,7 @@ export default function Step6({ updateDemo4 }) {
         minorName: data.minorName,
       },
     });
-    alert("Successfully updated all required account information!");
+    // alert("Successfully updated all required account information!");
     await navigate(`/`);
   };
   return (

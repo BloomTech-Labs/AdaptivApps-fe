@@ -153,7 +153,7 @@ export default function Step3({ updateDemo2 }) {
       },
     });
 
-    alert("Successfully completed step 4 of account info update!");
+    // alert("Successfully completed step 4 of account info update!");
     await navigate(`/updateaccount/${userEmail}/step5of6`);
   });
   // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
@@ -170,7 +170,7 @@ export default function Step3({ updateDemo2 }) {
         sportEquipmentNeed: data.sportEquipmentNeed,
       },
     });
-    alert("Successfully saved account info!");
+    // alert("Successfully saved account info!");
     navigate(`/`);
   });
 
