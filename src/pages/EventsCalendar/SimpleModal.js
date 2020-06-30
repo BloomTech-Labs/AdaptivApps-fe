@@ -167,7 +167,7 @@ export default function SimpleModal({ event, registerEvent }) {
   return (
     <div>
       <Button className={classes.btn} onClick={handleOpen}>
-        Add to my schedule
+        View Details
       </Button>
       <Modal
         open={open}
