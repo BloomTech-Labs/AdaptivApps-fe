@@ -44,6 +44,11 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "center",
     flexDirection: "column",
   },
+  tab: {
+    border: "1px solid gray",
+    marginLeft: "10px",
+    marginBottom: "10px",
+  }
 }));
 
 const ManageUsers = () => {
@@ -73,12 +78,12 @@ const ManageUsers = () => {
         textColor="black"
         centered
       >
-        <Tab label="Filter Users" onClick={handleClick1}></Tab>
-        <Tab label="Event Attendees" onClick={handleClick2}></Tab>
+        <Tab label="Filter Users" onClick={handleClick1} className={classes.tab}></Tab>
+        <Tab label="Event Attendees" onClick={handleClick2} className={classes.tab}></Tab>
       </Tabs>
       {displayFilter ? <UsersList /> : null}
       {displayEventUser ? <EventAttendeeList /> : null}
-    </Box>
+    </Box >
   );
 };
 

@@ -16,6 +16,10 @@ const useStyles = makeStyles({
     },
     '& .MuiCheckbox-colorSecondary.Mui-checked': {
       color: 'black'
+    },
+    '& .MuiListItem-button': {
+      color: 'black',
+      border: "1px solid red",
     }
   },
   loadingSpinner: {
@@ -37,7 +41,6 @@ const UsersList = () => {
 
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
-  console.log('oh hi', data)
   return (
     <Container className={classes.root}>
       {data && data?.events ? (
@@ -81,7 +84,7 @@ const UsersList = () => {
             headerStyle: {
               fontSize: "4.5rem"
             },
-            exportAllData: true
+            exportAllData: true,
           }}
         />
       ) : null}
@@ -90,7 +93,6 @@ const UsersList = () => {
 };
 
 export default UsersList;
-
 
 // Options for table commented out for now
 // exportButton: true,
