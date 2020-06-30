@@ -7,6 +7,7 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import UsersList from "./UsersList";
+import EventAttendeeList from "./EventAttendeeList";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -76,7 +77,7 @@ const ManageUsers = () => {
         <Tab label="Event Attendees" onClick={handleClick2}></Tab>
       </Tabs>
       {displayFilter ? <UsersList /> : null}
-      {displayEventUser ? <p>Coming soon</p> : null}
+      {displayEventUser ? <EventAttendeeList /> : null}
     </Box>
   );
 };
