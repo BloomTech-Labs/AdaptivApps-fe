@@ -2,9 +2,13 @@
   font-size: 62.5%;
   font-style: normal;
 }
+html {
+  width: 100vw;
+  overflow-x: hidden;
+}
 
 .MuiAlert-standardInfo .MuiAlert-icon {
-  color: #2962FF !important;
+  color: #2962ff !important;
 }
 
 .MuiAlert-message {

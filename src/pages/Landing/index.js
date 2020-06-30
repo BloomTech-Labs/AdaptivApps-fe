@@ -76,15 +76,16 @@ const useStyles = makeStyles(theme => ({
     },
     [theme.breakpoints.down("md")]: {
       width: "40%",
+      margin: "3rem auto 0 auto",
       "& h6": {
-        margin: "0.5rem 0",
+        margin: "0.5rem auto",
         fontSize: "4.0rem",
       },
     },
     [theme.breakpoints.down("sm")]: {
       width: "60%",
       "& h6": {
-        margin: "0.5rem 0",
+        margin: "0.5rem auto",
         // fontSize: "3.0rem",
       },
     },
@@ -102,6 +103,12 @@ const useStyles = makeStyles(theme => ({
       fontSize: "2.4rem",
       fontWeight: "bold",
       margin: "0",
+    },
+    [theme.breakpoints.down("md")]: {
+      margin: "0 12rem 0 0",
+    },
+    [theme.breakpoints.down("sm")]: {
+      margin: "0 auto",
     },
   },
   btn1: {
