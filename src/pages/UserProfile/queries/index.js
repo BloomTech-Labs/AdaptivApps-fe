@@ -10,6 +10,9 @@ export const GET_USER_PROFILE = gql`
       lastName
       email
       userName
+      twitter
+      facebook
+      instagram
       profilePicture
       profileBanner
       bio
