@@ -52,14 +52,15 @@ const useStyles = makeStyles(theme => ({
   profileWrapper: {
     width: "100%",
   },
-  topProfileWrapper: {},
+  topProfileWrapper: { maxHeight: "25rem" },
   bannerWrapper: {
     width: "100%",
-    height: "20vh",
+    height: "18rem",
     display: "flex",
     justifyContent: "flex-end",
     alignItems: "flex-end",
     alignContent: "flex-end",
+
     "& label": {
       padding: "0 2rem 1rem 0",
       position: "absolute",
@@ -76,11 +77,11 @@ const useStyles = makeStyles(theme => ({
   pictureWrapper: {
     display: "flex",
     justifyContent: "center",
-    position: "absolute",
+    position: "relative",
     width: "17rem",
     height: "17rem",
-    top: "6rem",
-    left: "40%",
+    bottom: "11rem",
+    margin: "0 auto",
     "& label": {
       position: "absolute",
       left: "70%",
@@ -103,29 +104,32 @@ const useStyles = makeStyles(theme => ({
     // scrollbarColor: "white white",
   },
   basicInfo: {
-    height: "8rem",
+    height: "3rem",
     display: "flex",
     justifyContent: "center",
   },
   basicP: {
-    width: "50%",
+    maxWidth: "50rem",
+    minWidth: "30rem",
     display: "flex",
-    justifyContent: "space-evenly",
-    alignContent: "flex-end",
-    alignItems: "flex-end",
-    alignSelf: "flex-end",
+    justifyContent: "space-around",
+    alignSelf: "flex-start",
+
     "& p": {
-      margin: "0",
+      margin: "0 auto",
       fontSize: "1.2rem",
       fontWeight: "700",
     },
   },
   socialHandles: {
+    width: "30rem",
+
     display: "flex",
     justifyContent: "center",
+    margin: "0 auto",
   },
   socialIcons: {
-    width: "50%",
+    width: "80%",
     display: "flex",
     justifyContent: "space-evenly",
     alignItems: "center",
@@ -273,7 +277,7 @@ export default function UserProfile() {
             <div className={classes.bannerWrapper}>
               {profileOwner === true ? (
                 <>
-                  <label htmlFor="uploadPicture">
+                  <label htmlFor="uploadBanner">
                     <IconButton
                       className={classes.photoButton}
                       color="primary"
@@ -290,7 +294,7 @@ export default function UserProfile() {
                     accept="image/*"
                     type="file"
                     onChange={uploadProfileBanner}
-                    id="uploadPicture"
+                    id="uploadBanner"
                   />
                 </>
               ) : null}
@@ -304,7 +308,7 @@ export default function UserProfile() {
               <ProfilePic profilePicture={profilePicture} userName={userName} />
               {profileOwner === true ? (
                 <>
-                  <label htmlFor="uploadBanner">
+                  <label htmlFor="uploadPicture">
                     <IconButton
                       size="medium"
                       color="primary"
@@ -320,34 +324,34 @@ export default function UserProfile() {
                     accept="image/*"
                     type="file"
                     onChange={uploadProfilePicture}
-                    id="uploadBanner"
+                    id="uploadPicture"
                   />
                 </>
               ) : null}
             </div>
-            <div className={classes.basicInfo}>
-              <div className={classes.basicP}>
-                <p>{userProfile?.profile?.userName}</p>
-                <p>
-                  {userProfile?.profile?.city}, {userProfile?.profile?.state}
-                </p>
-                {userProfile?.profile?.type === "Organization" ? (
-                  <p>{extendedProfile?.website}</p>
-                ) : null}
-              </div>
+          </div>
+          <div className={classes.basicInfo}>
+            <div className={classes.basicP}>
+              <p>{userProfile?.profile?.userName}</p>
+              <p>
+                {userProfile?.profile?.city}, {userProfile?.profile?.state}
+              </p>
+              {userProfile?.profile?.type === "Organization" ? (
+                <p>{extendedProfile?.website}</p>
+              ) : null}
             </div>
-            <div className={classes.socialHandles}>
-              <div className={classes.socialIcons}>
-                <FontAwesomeIcon
-                  icon={faFacebookSquare}
-                  className={classes.icons}
-                />
-                <FontAwesomeIcon
-                  icon={faTwitterSquare}
-                  className={classes.icons}
-                />
-                <FontAwesomeIcon icon={faInstagram} className={classes.icons} />
-              </div>
+          </div>
+          <div className={classes.socialHandles}>
+            <div className={classes.socialIcons}>
+              <FontAwesomeIcon
+                icon={faFacebookSquare}
+                className={classes.icons}
+              />
+              <FontAwesomeIcon
+                icon={faTwitterSquare}
+                className={classes.icons}
+              />
+              <FontAwesomeIcon icon={faInstagram} className={classes.icons} />
             </div>
           </div>
           <div className={classes.middleProfileWrapper}>
