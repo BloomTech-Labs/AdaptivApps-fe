@@ -10,7 +10,7 @@ import { useParams } from "@reach/router";
 import S3FileUpload from "react-s3";
 
 // Material-UI and styling imports
-import { Typography, makeStyles } from "@material-ui/core";
+import { Typography, makeStyles, Link } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
@@ -261,6 +261,11 @@ export default function UserProfile() {
     }
   };
 
+  const twitterURL = userProfile?.profile?.twitter;
+  const facebookURL = userProfile?.profile?.facebook;
+  const instagramURL = userProfile?.profile?.instagram;
+
+
   useEffect(() => {
     if (loggedInUser && loggedInUserName === userName) setProfileOwner(true);
   }, [userProfile, profilePicture, profileBanner, profileOwner]);
@@ -333,9 +338,9 @@ export default function UserProfile() {
           <div className={classes.basicInfo}>
             <div className={classes.basicP}>
               <p>{userProfile?.profile?.userName}</p>
-              <p>
+              {/* <p>
                 {userProfile?.profile?.city}, {userProfile?.profile?.state}
-              </p>
+              </p> */}
               {userProfile?.profile?.type === "Organization" ? (
                 <p>{extendedProfile?.website}</p>
               ) : null}
@@ -343,10 +348,16 @@ export default function UserProfile() {
           </div>
           <div className={classes.socialHandles}>
             <div className={classes.socialIcons}>
-              <FontAwesomeIcon
-                icon={faFacebookSquare}
-                className={classes.icons}
-              />
+              <Link
+                href={facebookURL}
+                target="_blank"
+                rel="noopener"
+              >
+                <FontAwesomeIcon
+                  icon={faFacebookSquare}
+                  className={classes.icons}
+                />
+              </Link>
               <FontAwesomeIcon
                 icon={faTwitterSquare}
                 className={classes.icons}
