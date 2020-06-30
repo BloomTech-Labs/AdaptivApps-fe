@@ -157,12 +157,9 @@ export default function Step1({ updateProfile }) {
       lastName: currentUserInfo && currentUserInfo?.profile?.lastName,
       userName: currentUserInfo && currentUserInfo?.profile?.userName,
       phoneNumber: currentUserInfo && currentUserInfo?.profile?.phoneNumber,
-      address1: currentUserInfo && currentUserInfo?.profile?.address1,
-      address2: currentUserInfo && currentUserInfo?.profile?.address2,
-      city: currentUserInfo && currentUserInfo?.profile?.city,
-      state: currentUserInfo && currentUserInfo?.profile?.state,
-      postalCode: currentUserInfo && currentUserInfo?.profile?.postalCode,
-      country: currentUserInfo && currentUserInfo?.profile?.country,
+      instagram: currentUserInfo && currentUserInfo?.profile?.instagram,
+      facebook: currentUserInfo && currentUserInfo?.profile?.facebook,
+      twitter: currentUserInfo && currentUserInfo?.profile?.twitter,
       legal: currentUserInfo && currentUserInfo?.profile?.legal,
       bio: currentUserInfo && currentUserInfo?.profile?.bio,
     },
@@ -178,12 +175,9 @@ export default function Step1({ updateProfile }) {
         {
           phoneNumber: currentUserInfo && currentUserInfo?.profile?.phoneNumber,
         },
-        { address1: currentUserInfo && currentUserInfo?.profile?.address1 },
-        { address2: currentUserInfo && currentUserInfo?.profile?.address2 },
-        { city: currentUserInfo && currentUserInfo?.profile?.city },
-        { state: currentUserInfo && currentUserInfo?.profile?.state },
-        { postalCode: currentUserInfo && currentUserInfo?.profile?.postalCode },
-        { country: currentUserInfo && currentUserInfo?.profile?.country },
+        { instagram: currentUserInfo && currentUserInfo?.profile?.instagram },
+        { facebook: currentUserInfo && currentUserInfo?.profile?.facebook },
+        { twitter: currentUserInfo && currentUserInfo?.profile?.twitter },
         { legal: currentUserInfo && currentUserInfo?.profile?.legal },
         { bio: currentUserInfo && currentUserInfo?.profile?.bio },
       ]);
@@ -199,12 +193,9 @@ export default function Step1({ updateProfile }) {
         userName: data.userName,
         lastName: data.lastName,
         phoneNumber: data.phoneNumber,
-        address1: data.address1,
-        address2: data.address2,
-        city: data.city,
-        state: data.state,
-        postalCode: data.postalCode,
-        country: data.country,
+        twitter: data.twitter,
+        facebook: data.facebook,
+        instagram: data.instagram,
         legal: data.legal,
         bio: data.bio,
       },
@@ -433,45 +424,63 @@ export default function Step1({ updateProfile }) {
             {errors.country && <Typography className={classes.error}>country is a required field</Typography>}
           </Box>
         </Box> */}
-         <Box>
-            <InputLabel required htmlFor="country">Please enter your Twitter handle</InputLabel>
-            <Controller
-              as={<TextField />}
-              name="country"
-              type="text"
-              variant="outlined"
-              control={control}
-              defaultValue=""
-              rules={{ required: true }}
-            />
-            {errors.country && <Typography className={classes.error}>country is a required field</Typography>}
-          </Box>
-         <Box>
-            <InputLabel required htmlFor="country">Please enter your Facebook handle</InputLabel>
-            <Controller
-              as={<TextField />}
-              name="country"
-              type="text"
-              variant="outlined"
-              control={control}
-              defaultValue=""
-              rules={{ required: true }}
-            />
-            {errors.country && <Typography className={classes.error}>country is a required field</Typography>}
-          </Box>
-         <Box>
-            <InputLabel required htmlFor="country">Please enter your Instagram handle</InputLabel>
-            <Controller
-              as={<TextField />}
-              name="country"
-              type="text"
-              variant="outlined"
-              control={control}
-              defaultValue=""
-              rules={{ required: true }}
-            />
-            {errors.country && <Typography className={classes.error}>country is a required field</Typography>}
-          </Box>
+        <Box>
+          <InputLabel required htmlFor="country">
+            Please enter your Twitter handle
+          </InputLabel>
+          <Controller
+            as={<TextField />}
+            name="country"
+            type="text"
+            variant="outlined"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+          />
+          {errors.country && (
+            <Typography className={classes.error}>
+              country is a required field
+            </Typography>
+          )}
+        </Box>
+        <Box>
+          <InputLabel required htmlFor="country">
+            Please enter your Facebook handle
+          </InputLabel>
+          <Controller
+            as={<TextField />}
+            name="country"
+            type="text"
+            variant="outlined"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+          />
+          {errors.country && (
+            <Typography className={classes.error}>
+              country is a required field
+            </Typography>
+          )}
+        </Box>
+        <Box>
+          <InputLabel required htmlFor="country">
+            Please enter your Instagram handle
+          </InputLabel>
+          <Controller
+            as={<TextField />}
+            name="country"
+            type="text"
+            variant="outlined"
+            control={control}
+            defaultValue=""
+            rules={{ required: true }}
+          />
+          {errors.country && (
+            <Typography className={classes.error}>
+              country is a required field
+            </Typography>
+          )}
+        </Box>
         <InputLabel required htmlFor="legal">
           Are you over 18 years old?
         </InputLabel>
