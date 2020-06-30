@@ -48,6 +48,13 @@ const useStyles = makeStyles(theme => ({
     border: "1px solid gray",
     marginLeft: "10px",
     marginBottom: "10px",
+  },
+  highlightedTab: {
+    border: "1px solid gray",
+    marginLeft: "10px",
+    marginBottom: "10px",
+    backgroundColor: "rgb(41, 98, 255)",
+    color: "white"
   }
 }));
 
@@ -78,8 +85,14 @@ const ManageUsers = () => {
         textColor="black"
         centered
       >
-        <Tab label="Filter Users" onClick={handleClick1} className={classes.tab}></Tab>
-        <Tab label="Event Attendees" onClick={handleClick2} className={classes.tab}></Tab>
+        {displayFilter ?
+          <Tab label="Filter Users" onClick={handleClick1} className={classes.highlightedTab} /> :
+          <Tab label="Filter Users" onClick={handleClick1} className={classes.tab} />
+        }
+        {displayEventUser ?
+          <Tab label="Event Attendees" onClick={handleClick2} className={classes.highlightedTab} /> :
+          <Tab label="Event Attendees" onClick={handleClick2} className={classes.tab} />
+        }
       </Tabs>
       {displayFilter ? <UsersList /> : null}
       {displayEventUser ? <EventAttendeeList /> : null}
