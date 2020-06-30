@@ -193,6 +193,9 @@ const useStyles = makeStyles(theme => ({
     color: "#2962FF",
     margin: "2% 0 0 2%",
     fontSize: ".25rem",
+    "&:hover": {
+      cursor: "pointer",
+    },
     [theme.breakpoints.down("sm")]: {
       fontSize: ".25rem",
     },
