@@ -52,6 +52,8 @@ const useStyles = makeStyles(theme => ({
     padding: "1.5rem 0 0 0",
   },
   btnContainer: {
+    display: "flex",
+    justifyContent: "space-between",
     padding: "0",
     margin: "1.6rem 0",
   },
@@ -94,10 +96,10 @@ const useStyles = makeStyles(theme => ({
       padding: "0",
     },
   },
-  contentWrapper: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
+  // contentWrapper: {
+  //   display: "flex",
+  //   justifyContent: "space-between",
+  // },
   imgBox: {
     width: "100%",
   },
@@ -131,6 +133,10 @@ const useStyles = makeStyles(theme => ({
     color: "#2962FF",
     fontWeight: 500,
     marginTop: 58,
+  },
+  cardContainer: {
+    display: "flex",
+    justifyContent: "space-between",
   },
 }));
 
@@ -240,16 +246,17 @@ export default function EventCard({ event, refetch, user }) {
           <Box className={classes.contentWrapper}>
             <CardContent className={classes.content}>
               <Typography
-                className={classes.cardDate}
+                className={classes.cardContainer}
                 variant="body2"
                 color="textSecondary"
                 component="p"
               >
-                {moment(event.startDate).format("MM/DD/YYYY")}{" "}
+                <span className={classes.cardDate}>
+                  {moment(event.startDate).format("MM/DD/YYYY")}{" "}
+                </span>
                 {event.startTime && event.endTime ? (
                   <span className={classes.cardDate}>
-                    {moment(event.startTime, "HH:mm").format("h:mm A")} -{" "}
-                    {moment(event.endTime, "HH:mm").format("h:mm A")} PST
+                    {moment(event.startTime, "HH:mm").format("h:mm A")}
                   </span>
                 ) : event.startTime && !event.endTime ? (
                   <span className={classes.cardDate}>
@@ -278,29 +285,29 @@ export default function EventCard({ event, refetch, user }) {
               >
                 {event.location}
               </Typography>
-              {user && user[config.roleUrl].includes("Admin") ? (
-                <Box className={classes.editDeleteBtn}>
-                  <Button onClick={editEvent}>
-                    <EditOutlinedIcon
-                      className={classes.icon}
-                      color="primary"
-                      fontSize="large"
-                    />
-                  </Button>
-                  <Button onClick={handleOpen}>
-                    <DeleteOutlineIcon
-                      className={classes.icon}
-                      color="primary"
-                      fontSize="large"
-                    />
-                  </Button>
-                </Box>
-              ) : null}
             </CardContent>
           </Box>
         </CardActionArea>
         <CardActions className={classes.btnContainer}>
           <SimpleModal event={event} registerEvent={registerEvent} />
+          {user && user[config.roleUrl].includes("Admin") ? (
+            <Box className={classes.editDeleteBtn}>
+              <Button onClick={editEvent}>
+                <EditOutlinedIcon
+                  className={classes.icon}
+                  color="primary"
+                  fontSize="large"
+                />
+              </Button>
+              <Button onClick={handleOpen}>
+                <DeleteOutlineIcon
+                  className={classes.icon}
+                  color="primary"
+                  fontSize="large"
+                />
+              </Button>
+            </Box>
+          ) : null}
         </CardActions>
       </Card>
       <DeleteModal
