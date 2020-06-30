@@ -145,7 +145,7 @@ export default function EventDetails(props) {
 
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
-
+  console.log("props", props);
   const currentActivities = data.activities;
   return (
     <Box className={classes.root} m={4}>
@@ -154,11 +154,11 @@ export default function EventDetails(props) {
           <img
             className={classes.img}
             src={
-              (activeEvent && activeEvent?.event?.imgUrl === null) ||
-                activeEvent?.event?.imgUrl === undefined ||
-                activeEvent?.event?.imgUrl === ""
+              (props && props?.event?.imgUrl === null) ||
+              props?.event?.imgUrl === undefined ||
+              props?.event?.imgUrl === ""
                 ? eventImg
-                : activeEvent?.imgUrl
+                : props?.event?.imgUrl
             }
             alt="Event"
           />
@@ -171,14 +171,14 @@ export default function EventDetails(props) {
             <p>Start time: {activeEvent.startTime}</p>
           </Box>
         ) : (
-            <Box className={classes.topContentText} m="2.4rem">
-              <p>
-                {activeEvent.startDate} - {activeEvent.endDate}
-              </p>
-              <h2>{activeEvent.title}</h2>
-              <Typography variant="subtitle1">{activeEvent.location}</Typography>
-            </Box>
-          )}
+          <Box className={classes.topContentText} m="2.4rem">
+            <p>
+              {activeEvent.startDate} - {activeEvent.endDate}
+            </p>
+            <h2>{activeEvent.title}</h2>
+            <Typography variant="subtitle1">{activeEvent.location}</Typography>
+          </Box>
+        )}
         <Link
           className={classes.donateBtn}
           color="primary"
@@ -224,8 +224,8 @@ export default function EventDetails(props) {
         <ul>
           {activeEvent.sponsors.length > 0
             ? activeEvent?.sponsors
-              ?.split(", ")
-              .map(sponsor => <li>{sponsor}</li>)
+                ?.split(", ")
+                .map(sponsor => <li>{sponsor}</li>)
             : null}
         </ul>
       </Box>
