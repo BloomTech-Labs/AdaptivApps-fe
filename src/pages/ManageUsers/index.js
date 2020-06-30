@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import {
   Box,
   Typography,
-  Button,
-  Container,
   makeStyles,
 } from "@material-ui/core";
 import UsersList from "./UsersList";
@@ -16,6 +15,9 @@ const useStyles = makeStyles(theme => ({
     "& .MuiButton-label": {
       fontSize: "1.6rem",
       fontWeight: "500",
+    },
+    "& .MuiTab-wrapper": {
+      fontSize: "1.6rem",
     },
   },
   btn: {
@@ -43,12 +45,20 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-// This page is still a work in progress
-// It will display a list of users, using material table, and an admin
-// Can select users to perform actions. For now that's a dummy function,
-// But in future can be functions like group messaging.
 const ManageUsers = () => {
   const classes = useStyles();
+  const [displayFilter, setDisplayFilter] = useState(true);
+  const [displayEventUser, setDisplayEventUser] = useState(false);
+
+  const handleClick1 = async () => {
+    await setDisplayEventUser(false);
+    setDisplayFilter(true);
+  }
+
+  const handleClick2 = async () => {
+    await setDisplayFilter(false);
+    setDisplayEventUser(true);
+  }
 
   return (
     <Box component="main" className={classes.root}>
@@ -57,7 +67,16 @@ const ManageUsers = () => {
           Manage Registered Users
         </Typography>
       </Box>
-      <UsersList />
+      <Tabs
+        indicatorColor="primary"
+        textColor="black"
+        centered
+      >
+        <Tab label="Filter Users" onClick={handleClick1}></Tab>
+        <Tab label="Event Attendees" onClick={handleClick2}></Tab>
+      </Tabs>
+      {displayFilter ? <UsersList /> : null}
+      {displayEventUser ? <p>Coming soon</p> : null}
     </Box>
   );
 };
