@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   paper: {
     position: "absolute",
     width: "40rem",
-    height: "56.8rem",
+    maxHeight: "100%",
     backgroundColor: "white",
     padding: "0",
     "& .MuiButton-label": {
@@ -55,6 +55,9 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     fontSize: "2.1rem",
+    "&.MuiTypography-root": {
+      wordBreak: "break-word",
+    },
   },
   loc: {
     color: "#808080",
@@ -73,6 +76,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     alignContent: "flex-end",
+    paddingBottom: "2%",
   },
   modalP: {
     margin: "1.2rem 0",
