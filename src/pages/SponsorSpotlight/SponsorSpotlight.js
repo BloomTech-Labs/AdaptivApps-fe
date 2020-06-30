@@ -218,12 +218,19 @@ export default function SponsorSpotlight() {
       <div className={classes.root}>
         <Grid container className={classes.logo}>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="http://angelcitysports.org/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="2020 Angel City Virtual Games Logo"
-              src={ACS_Logo}
-            />
+              aria-label="Click to go to Angel City Sports' Website"
+            >
+              <img
+                className={classes.img}
+                alt="2020 Angel City Virtual Games Logo"
+                src={ACS_Logo}
+              />
+            </a>
           </Grid>
         </Grid>
 
@@ -232,21 +239,35 @@ export default function SponsorSpotlight() {
             <Typography className={classes.header}>
               Proudly presented by
             </Typography>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.thehartford.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="The Hartford Logo"
-              src={Hartford_Logo}
-            />
+              aria-label="Click to go to The Hartford's website"
+            >
+              <img
+                className={classes.img}
+                alt="The Hartford Logo"
+                src={Hartford_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
             <Typography className={classes.header}>Hosted by</Typography>
-            <img
-              className={classes.img}
+            <a
+              href="http://www.adaptivapps.org/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Adaptiv Apps Logo"
-              src={Adaptiv_Logo}
-            />
+              aria-label="Click to go to Adaptiv Apps' Website"
+            >
+              <img
+                className={classes.img}
+                alt="Adaptiv Apps Logo"
+                src={Adaptiv_Logo}
+              />
+            </a>
           </Grid>
         </Grid>
         <Typography className={classes.header}>
@@ -261,36 +282,64 @@ export default function SponsorSpotlight() {
           className={classes.gold}
         >
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://online.citi.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Citibank Logo"
-              src={Citi_Logo}
-            />
+              aria-label="Click to go to Citi's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Citibank Logo"
+                src={Citi_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="http://www.goldmeetsgolden.com/charity"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Gold Meets Golden Logo"
-              src={Gold_Logo}
-            />
+              aria-label="Click to go to Gold Meets Golden Website"
+            >
+              <img
+                className={classes.img}
+                alt="Gold Meets Golden Logo"
+                src={Gold_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="http://globalsportsdevelopment.org/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Sidewinder Films, Global Sports Development Logo"
-              src={GSD_SWF_Logo}
-            />
+              aria-label="Click to go to Global Sports Development's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Sidewinder Films, Global Sports Development Logo"
+                src={GSD_SWF_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.marvista.net/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="MarVista Entertainment Logo"
-              src={MarVista_Logo}
-            />
+              aria-label="Click to go to MarVista's website"
+            >
+              <img
+                className={classes.img}
+                alt="MarVista Entertainment Logo"
+                src={MarVista_Logo}
+              />
+            </a>
           </Grid>
         </Grid>
 
@@ -300,62 +349,112 @@ export default function SponsorSpotlight() {
           alignItems="center"
           justify="space-evenly"
           className={classes.silver}
+          aria-label="Click to go to Adaptiv Apps' Website"
         >
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://bancofcal.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Banc of California Logo"
-              src={BOC_Logo}
-            />
+              aria-label="Click to go to Bank of California's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Banc of California Logo"
+                src={BOC_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.capitalgroup.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Capital Group Logo"
-              src={CapitalGroup_Logo}
-            />
+              aria-label="Click to go to CapitalGroup's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Capital Group Logo"
+                src={CapitalGroup_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="http://www.hanger.com/doing/Pages/default.aspx"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Hanger Foundation Logo"
-              src={Hanger_Foundation_Logo}
-            />
+              aria-label="Click to go to Hanger Foundation's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Hanger Foundation Logo"
+                src={Hanger_Foundation_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.microsoft.com/en-us/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Microsoft Logo"
-              src={Microsoft_Logo}
-            />
+              aria-label="Click to go to Microsoft's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Microsoft Logo"
+                src={Microsoft_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.moveunitedsport.org/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Move United Logo"
-              src={Move_Logo}
-            />
+              aria-label="Click to go to Move United's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Move United Logo"
+                src={Move_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.shannonfabrics.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Shannon Fabrics Logo"
-              src={Shannon_Logo}
-            />
+            >
+              <img
+                className={classes.img}
+                alt="Shannon Fabrics Logo"
+                src={Shannon_Logo}
+                aria-label="Click to go to Shannon Fabrics Website"
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.wayfinderfamily.org/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Wayfinder Family Services Logo"
-              src={Wayfinder_Logo}
-            />
+              aria-label="Click to go to Wayfinder Family's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Wayfinder Family Services Logo"
+                src={Wayfinder_Logo}
+              />
+            </a>
           </Grid>
         </Grid>
 
@@ -367,60 +466,105 @@ export default function SponsorSpotlight() {
           className={classes.bronze}
         >
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://arc-la.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Abilities Recovery Center Logo"
-              src={ARC_Logo}
-            />
+              aria-label="Click to go to ARC LA's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Abilities Recovery Center Logo"
+                src={ARC_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.conaldoylelaw.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Doyle Law Logo"
-              src={Doyle_Logo}
-            />
+              aria-label="Click to go to Doyle Law's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Doyle Law Logo"
+                src={Doyle_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://fillauer.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Fillauer Logo"
-              src={Fillauer_Logo}
-            />
+              aria-label="Click to go to Fillauer's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Fillauer Logo"
+                src={Fillauer_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.imax.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="IMAX Logo"
-              src={IMAX_Logo}
-            />
+              aria-label="Click to go to IMAX's Website"
+            >
+              <img className={classes.img} alt="IMAX Logo" src={IMAX_Logo} />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.mrllp.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Michelman & Robinson, LLP Logo"
-              src={MR_Logo}
-            />
+              aria-label="Click to go to Michelman & Robinson's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Michelman & Robinson, LLP Logo"
+                src={MR_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.per4max.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Per 4 Max Logo"
-              src={Per_Logo}
-            />
+              aria-label="Click to go to Per4Max's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Per 4 Max Logo"
+                src={Per_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://shamrockcap.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Shamrock Logo"
-              src={Shamrock_Logo}
-            />
+              aria-label="Click to go to Shamrock Capital Advisor's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Shamrock Logo"
+                src={Shamrock_Logo}
+              />
+            </a>
           </Grid>
         </Grid>
 
@@ -434,44 +578,79 @@ export default function SponsorSpotlight() {
           className={classes.friends}
         >
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.abilities.com/losangeles/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Abilities Expo Logo"
-              src={Abilities_Logo}
-            />
+              aria-label="Click to go to Abilities Expo's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Abilities Expo Logo"
+                src={Abilities_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.broadvoice.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Broadvoice Logo"
-              src={Broadvoice_Logo}
-            />
+              aria-label="Click to go to Broadvoice's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Broadvoice Logo"
+                src={Broadvoice_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://disability.lacity.org/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="City of Los Angeles Department of Disability Logo"
-              src={Dod_Logo}
-            />
+              aria-label="Click to go to City of Los Angeles Department of Disabilities Website"
+            >
+              <img
+                className={classes.img}
+                alt="City of Los Angeles Department of Disability Logo"
+                src={Dod_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="http://www.metzharrison.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Metz and Harrison, LLP Logo"
-              src={Metz_Harrison_Logo}
-            />
+              aria-label="Click to go to Metz and Harrison's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Metz and Harrison, LLP Logo"
+                src={Metz_Harrison_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.mygymfoundation.org/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="My Gym Foundation Logo"
-              src={MyGym_Logo}
-            />
+              aria-label="Click to go to My Gym Foundation's Website"
+            >
+              <img
+                className={classes.img}
+                alt="My Gym Foundation Logo"
+                src={MyGym_Logo}
+              />
+            </a>
           </Grid>
         </Grid>
 
@@ -485,52 +664,90 @@ export default function SponsorSpotlight() {
           className={classes.partners}
         >
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.amplapartners.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Ampla Partners Logo"
-              src={Ampla_Logo}
-            />
+              aria-label="Click to go to Ampla Partner's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Ampla Partners Logo"
+                src={Ampla_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.davekileydk3.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="DK3 Logo"
-              src={Dk3_Logo}
-            />
+              aria-label="Click to go to Dave Kiley DK3's Website"
+            >
+              <img className={classes.img} alt="DK3 Logo" src={Dk3_Logo} />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://hangerclinic.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Hanger Clinic Logo"
-              src={Hanger_Logo}
-            />
+              aria-label="Click to go to Hanger Clinic's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Hanger Clinic Logo"
+                src={Hanger_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.laparks.org/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="City of Los Angeles Department of Recreation and Parks Logo"
-              src={LA_Parks_Logo}
-            />
+              aria-label="Click to go to LA Parks Website"
+            >
+              <img
+                className={classes.img}
+                alt="City of Los Angeles Department of Recreation and Parks Logo"
+                src={LA_Parks_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="https://www.la84.org/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="LA84 Foundation Logo"
-              src={LA84_Logo}
-            />
+              aria-label="Click to go to LA84's Website"
+            >
+              <img
+                className={classes.img}
+                alt="LA84 Foundation Logo"
+                src={LA84_Logo}
+              />
+            </a>
           </Grid>
           <Grid item xs>
-            <img
-              className={classes.img}
+            <a
+              href="http://www.momoproductionrentals.com/"
+              target="_blank"
+              rel="noopener noreferrer"
               tabIndex="0"
-              alt="Momo Production & Event Rentals Logo"
-              src={Momo_Logo}
-            />
+              aria-label="Click to go to Momo Prodution & Event Rental's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Momo Production & Event Rentals Logo"
+                src={Momo_Logo}
+              />
+            </a>
           </Grid>
         </Grid>
       </div>
