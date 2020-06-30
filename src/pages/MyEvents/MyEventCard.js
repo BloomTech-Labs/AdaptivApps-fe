@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 //Component imports
 import eventImg from "../../assets/images/acs_hartford.png";
+import moment from "moment";
 import { useNavigate } from "@reach/router";
 // GraphQL/Apollo imports
 import { useMutation, useQuery } from "react-apollo";
@@ -202,7 +203,9 @@ export default function MyEventCard({ event, refetch }) {
             color="textSecondary"
             component="p"
           >
-            {event.startDate} - {event.endDate}
+            {moment(event.startDate).format("MM/DD/YYYY")}
+            {" - "}
+            {moment(event.endDate).format("MM/DD/YYYY")}
           </Typography>
           <Typography
             className={classes.cardTitle}
@@ -234,7 +237,11 @@ export default function MyEventCard({ event, refetch }) {
         <Tooltip title="Share this event on Facebook">
           <FacebookShareButton
             url={"http://angelcitysports.org/"}
-            quote={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}`}
+            quote={`I'm attending an event!\nEvent Name: ${
+              event.title
+            }\nStarts: ${moment(event.startDate).format(
+              "MM/DD/YYYY"
+            )}\nWhere: ${event.location}`}
             className={classes.socialMediaBtn}
           >
             <FacebookIcon size={32} round={true} />
@@ -242,7 +249,11 @@ export default function MyEventCard({ event, refetch }) {
         </Tooltip>
         <Tooltip title="Share this event on Twitter">
           <TwitterShareButton
-            title={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}\n`}
+            title={`I'm attending an event!\nEvent Name: ${
+              event.title
+            }\nStarts: ${moment(event.startDate).format(
+              "MM/DD/YYYY"
+            )}\nWhere: ${event.location}\n`}
             url={"http://angelcitysports.org/"}
             via={"angelcitysports"}
             className={classes.socialMediaBtn}
@@ -253,7 +264,11 @@ export default function MyEventCard({ event, refetch }) {
         <Tooltip title="Share this event on Linkedin">
           <LinkedinShareButton
             title={"Angel City Sports Event"}
-            summary={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}`}
+            summary={`I'm attending an event!\nEvent Name: ${
+              event.title
+            }\nStarts: ${moment(event.startDate).format(
+              "MM/DD/YYYY"
+            )}\nWhere: ${event.location}`}
             url={"http://angelcitysports.org/"}
             className={classes.socialMediaBtn}
           >

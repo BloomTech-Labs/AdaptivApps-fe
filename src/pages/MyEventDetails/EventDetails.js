@@ -1,5 +1,6 @@
 // React imports
 import React, { useEffect } from "react";
+import moment from "moment";
 // Component imports
 import ActivityGroup from "./ActivityGroup";
 import eventImg from "../../assets/images/acs_hartford.png";
@@ -155,8 +156,8 @@ export default function EventDetails(props) {
             className={classes.img}
             src={
               (activeEvent && activeEvent?.event?.imgUrl === null) ||
-                activeEvent?.event?.imgUrl === undefined ||
-                activeEvent?.event?.imgUrl === ""
+              activeEvent?.event?.imgUrl === undefined ||
+              activeEvent?.event?.imgUrl === ""
                 ? eventImg
                 : activeEvent?.imgUrl
             }
@@ -165,20 +166,27 @@ export default function EventDetails(props) {
         </Box>
         {activeEvent.type === "Virtual" ? (
           <Box className={classes.topContentText} m="2.4rem">
-            <p>{activeEvent.startDate}</p>
+            <p>{moment(activeEvent.startDate).format("MM/DD/YYYY")}</p>
             <h2>{activeEvent.title}</h2>
             <Typography variant="subtitle1">{activeEvent.location}</Typography>
-            <p>Start time: {activeEvent.startTime}</p>
+            {activeEvent.startTime && (
+              <p>
+                Start time:{" "}
+                {moment(activeEvent.startTime, "HH:mm").format("h:mm A")} PST
+              </p>
+            )}
           </Box>
         ) : (
-            <Box className={classes.topContentText} m="2.4rem">
-              <p>
-                {activeEvent.startDate} - {activeEvent.endDate}
-              </p>
-              <h2>{activeEvent.title}</h2>
-              <Typography variant="subtitle1">{activeEvent.location}</Typography>
-            </Box>
-          )}
+          <Box className={classes.topContentText} m="2.4rem">
+            <p>
+              {moment(activeEvent.startDate).format("MM/DD/YYYY")}
+              {" - "}
+              {moment(activeEvent.endDate).format("MM/DD/YYYY")}
+            </p>
+            <h2>{activeEvent.title}</h2>
+            <Typography variant="subtitle1">{activeEvent.location}</Typography>
+          </Box>
+        )}
         <Link
           className={classes.donateBtn}
           color="primary"
@@ -224,8 +232,8 @@ export default function EventDetails(props) {
         <ul>
           {activeEvent.sponsors.length > 0
             ? activeEvent?.sponsors
-              ?.split(", ")
-              .map(sponsor => <li>{sponsor}</li>)
+                ?.split(", ")
+                .map(sponsor => <li>{sponsor}</li>)
             : null}
         </ul>
       </Box>
