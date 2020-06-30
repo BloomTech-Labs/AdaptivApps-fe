@@ -148,7 +148,7 @@ export default function EventDetails(props) {
   if (error) return `Error! ${error.message}`;
   console.log("props", props);
   console.log('Inside Event Details', activeEvent)
-  const currentActivities = data.activities;
+  // const currentActivities = data.activities;
   return (
     <Box className={classes.root} m={4}>
       <Box className={classes.topContentContainer}>
