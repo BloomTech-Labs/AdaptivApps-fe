@@ -7,12 +7,12 @@ import { useQuery } from "react-apollo";
 import { PROFILE_STEP_1, PROFILE_INFO } from "../queries";
 // Component imports
 import FinishButton from "../../../theme/SmallFormButton";
-import SaveButton from "../../../theme/LargeFormButton";
-import ProgressBar from "../../../theme/ProgressBar";
+// import SaveButton from "../../../theme/LargeFormButton";
+// import ProgressBar from "../../../theme/ProgressBar";
 // Query imports
 import { GET_RECIPIENTS } from '../../Chat/queries/Chats'
 // Auth0 imports
-import { useAuth0 } from "../../../config/react-auth0-spa";
+// import { useAuth0 } from "../../../config/react-auth0-spa";
 
 // Material-UI imports
 import {
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   form: {
-    marginTop: 0,
+    marginTop: '3.6rem',
     display: "flex",
     flexDirection: "column",
     "& .MuiTextField-root": {

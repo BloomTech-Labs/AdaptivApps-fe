@@ -2,7 +2,7 @@
 import React from "react";
 import { Router } from "@reach/router";
 // Auth0 imports
-import { useAuth0 } from "../../../config/react-auth0-spa"
+import { useAuth0 } from "../../../config/react-auth0-spa";
 // Apollo/GraphQL imports
 import { useMutation } from "react-apollo";
 import { UPDATE_TYPE_ROLE } from "../queries";
@@ -25,16 +25,16 @@ import Step6 from "./Step6";
 // Material-UI imports
 import { makeStyles, Container, Typography, Box } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     marginLeft: "1.5rem",
-    height: "100%",
-    '& .MuiTypography-h1': {
+    height: "100vh",
+    "& .MuiTypography-h1": {
       [theme.breakpoints.down("sm")]: {
-        fontSize: '2.75rem',
+        fontSize: "2.75rem",
       },
       [theme.breakpoints.down("xs")]: {
-        fontSize: '2.25rem',
+        fontSize: "2.25rem",
       },
     },
   },
@@ -64,21 +64,14 @@ export default function AccountInfo() {
 
   return (
     <Container className={classes.root}>
-      <Box
-        className={classes.headingBox}
-        borderBottom={
-          window.location.pathname === `/updateaccount/${user.email}/orginfo`
-            ? 2
-            : null
-        }
-      >
-        <Typography variant='h1'>Update Account Information</Typography>
+      <Box className={classes.headingBox} borderBottom={2}>
+        <Typography variant="h1">Update Account Information</Typography>
       </Box>
 
       <Router className={classes.children}>
         <AccountTypeForm path="/" updateProfile={UpdateTypeRole} />
-        <OrgStep1 path="orginfo" updateOrgProfile={UpdateOrgProfile} />
-        <Step1 path="step1of6" updateProfile={UpdateProfile} />
+        <OrgStep1 path="organizationInfo" updateOrgProfile={UpdateOrgProfile} />
+        <Step1 path="individualInfo" updateProfile={UpdateProfile} />
         <Step2 path="step2of6" updateExtProfile={UpdateExtProfile} />
         <Step3 path="step3of6" updateDemoProfile={UpdateDemoProfile} />
         <Step4 path="step4of6" updateDemo2={UpdateDemo2} />
