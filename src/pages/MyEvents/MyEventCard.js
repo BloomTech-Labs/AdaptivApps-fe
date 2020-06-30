@@ -233,7 +233,7 @@ export default function MyEventCard({ event, refetch }) {
           Unregister
         </Button>
       </CardActions>
-      <div className={classes.socialBtnContainer}>
+      {/* <div className={classes.socialBtnContainer}>
         <Tooltip title="Share this event on Facebook">
           <FacebookShareButton
             url={"http://angelcitysports.org/"}
@@ -275,7 +275,7 @@ export default function MyEventCard({ event, refetch }) {
             <LinkedinIcon size={32} round={true} />
           </LinkedinShareButton>
         </Tooltip>
-      </div>
+      </div> */}
     </Card>
   );
 }
