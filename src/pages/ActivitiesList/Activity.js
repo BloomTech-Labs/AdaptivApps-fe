@@ -1,6 +1,7 @@
 import React from "react";
 import SimpleModal from "./SimpleModal";
 import RolesDialog from "./SelectRole";
+import moment from "moment";
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -41,13 +42,14 @@ const useStyles = makeStyles({
   },
   time: {
     margin: "0",
-    maxWidth: "5rem",
+    maxWidth: "8rem",
   },
 });
 
 export default function Activity({ activity, activityData, value, refetch }) {
   const classes = useStyles();
-
+  // const momentStartDate = moment(activity?.startTime).getHours();
+  // console.log("moment start date", momentStartDate);
   return (
     <>
       {value === activity?.date ? (
@@ -61,17 +63,17 @@ export default function Activity({ activity, activityData, value, refetch }) {
             {activityData?.event?.type === "In Person" ? (
               <td className={classes.tableData}>{activity.location}</td>
             ) : (
-                <td>
-                  <a
-                    className={classes.tableData}
-                    href={activity?.link}
-                    target="_blank"
-                  >
-                    Join!
+              <td>
+                <a
+                  className={classes.tableData}
+                  href={activity?.link}
+                  target="_blank"
+                >
+                  Join!
                 </a>
-                </td>
-              )}
-            <td className={classes.time}>{activity?.startTime}</td>
+              </td>
+            )}
+            <td className={classes.time}>{activity?.startTime} pst</td>
             <td>
               <RolesDialog
                 className={classes.rolesDialog}
