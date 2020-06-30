@@ -29,12 +29,17 @@ const useStyles = makeStyles({
   empty: {
     backgroundColor: "orange"
   },
+  searchResults: {
+    maxHeight: "250px",
+    overflow: "scroll"
+  },
 });
 
 export default function Dropdown(props) {
   const classes = useStyles();
   const { profilesData, setTitle, keyword, setKeyword, toggleList } = props;
   const [tempList, setTempList] = useState(profilesData);
+  const [isSearching, setIsSearching] = useState(false);
 
   const handleChange = e => {
     setKeyword(e.target.value.toLowerCase());
@@ -52,7 +57,13 @@ export default function Dropdown(props) {
       if (a.name > b.name) { return 1; }
       return 0;
     })
-    setTempList(results)
+    setTempList(keyword.length > 0 ? results : "")
+    if (keyword.length > 0) {
+      setIsSearching(true);
+    }
+    if (keyword.length < 1) {
+      setIsSearching(false);
+    }
   }, [profilesData, keyword, setKeyword])
 
   return (
@@ -62,9 +73,9 @@ export default function Dropdown(props) {
         placeholder="Enter first and last name here..."
         onChange={handleChange}
       />
-      <div>
+      <div className={classes.searchResults}>
         {
-          tempList.map(item =>
+          tempList !== "" ? tempList.map(item =>
             <NavLink to={`/user/${item.username}`} key={item.id}>
               <button
                 type="button"
@@ -75,10 +86,10 @@ export default function Dropdown(props) {
                 {item.name}
               </button>
             </NavLink>
-          )
+          ) : null
         }
         {
-          tempList.length < 1 && <div className={`${classes.item} ${classes.empty}`}>No results</div>
+          tempList.length < 1 && isSearching ? <div className={`${classes.item} ${classes.empty}`}>No results</div> : null
         }
       </div>
     </div >
