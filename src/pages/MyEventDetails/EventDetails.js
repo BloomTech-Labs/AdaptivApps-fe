@@ -139,13 +139,15 @@ export default function EventDetails(props) {
     variables: { id: eventId, email: user.email },
   });
 
+  
   useEffect(() => {
     refetch();
   }, [refetch]);
-
+  
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
   console.log("props", props);
+  console.log('Inside Event Details', activeEvent)
   const currentActivities = data.activities;
   return (
     <Box className={classes.root} m={4}>
@@ -198,6 +200,7 @@ export default function EventDetails(props) {
       {activeEvent.type === "Virtual" ? (
         <Box className={classes.virtualBox}>
           <p>Hosted by: {activeEvent.host}</p>
+          <p>Coach(es): {activeEvent.coaches}</p>
           <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
           <a href={activeEvent.link} rel="noopener noreferrer" target="_blank">
             Click Here to Join Us!
