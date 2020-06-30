@@ -10,6 +10,12 @@ const useStyles = makeStyles({
     display: "flex",
     flexDirection: "column",
     marginLeft: "1rem",
+    '& .MuiTypography-root': {
+      color: 'black'
+    },
+    '& .MuiCheckbox-colorSecondary.Mui-checked': {
+      color: 'black'
+    }
   },
   loadingSpinner: {
     position: "absolute",
@@ -138,7 +144,8 @@ const UsersList = () => {
             filtering: true,
             headerStyle: {
               fontSize: "4.5rem"
-            }
+            },
+            exportAllData: true
           }}
         />
       ) : null}

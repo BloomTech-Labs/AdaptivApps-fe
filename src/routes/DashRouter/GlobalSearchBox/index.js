@@ -36,7 +36,7 @@ const useStyles = makeStyles({
   icons: {
     marginRight: "20px",
     color: "black"
-  }
+  },
 });
 
 const GlobalSearchBox = () => {
