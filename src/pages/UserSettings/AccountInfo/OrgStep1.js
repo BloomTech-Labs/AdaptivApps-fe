@@ -19,7 +19,7 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     width: "67.5%",
-    '& .MuiInputLabel-root': {
+    "& .MuiInputLabel-root": {
       color: "black",
     },
     flexDirection: "column",
@@ -28,9 +28,9 @@ const useStyles = makeStyles({
       height: "4.8rem",
     },
     "& .MuiInputLabel-asterisk": {
-      fontSize: '2rem',
-      color: 'red',
-      fontWeight: 'bolder'
+      fontSize: "2rem",
+      color: "red",
+      fontWeight: "bolder",
     },
   },
   nameBox: {
@@ -57,31 +57,32 @@ const useStyles = makeStyles({
   },
   address1: {
     marginRight: "2.4rem",
-    marginTop: ".5rem"
+    marginTop: ".5rem",
   },
   address2: {
-    marginTop: ".9rem"
+    marginTop: ".9rem",
   },
   typeSelect: {
     width: "74.4rem",
     height: "4.8rem",
   },
   bioBox: {
-    marginBottom: "13rem",
+    marginTop: "1.6rem",
+    marginBottom: "12.5rem",
   },
   btnBox: {
-    marginTop: '3rem',
+    marginTop: "3rem",
     display: "flex",
     justifyContent: "flex-end",
-    alignItems: 'center'
+    alignItems: "center",
   },
   error: {
-    color: 'red',
-    fontSize: '1.75rem',    
-    fontVariant: 'all-small-caps',
-    fontWeight: 'bold',
-    marginTop: '1rem'
-  }
+    color: "red",
+    fontSize: "1.75rem",
+    fontVariant: "all-small-caps",
+    fontWeight: "bold",
+    marginTop: "1rem",
+  },
 });
 
 export default function OrgStep1({ updateOrgProfile }) {
@@ -96,12 +97,9 @@ export default function OrgStep1({ updateOrgProfile }) {
     defaultValues: {
       phoneNumber: currentUserInfo && currentUserInfo?.profile?.phoneNumber,
       userName: currentUserInfo && currentUserInfo?.profile?.userName,
-      address1: currentUserInfo && currentUserInfo?.profile?.address1,
-      address2: currentUserInfo && currentUserInfo?.profile?.address2,
-      city: currentUserInfo && currentUserInfo?.profile?.city,
-      state: currentUserInfo && currentUserInfo?.profile?.state,
-      postalCode: currentUserInfo && currentUserInfo?.profile?.postalCode,
-      country: currentUserInfo && currentUserInfo?.profile?.country,
+      instagram: currentUserInfo && currentUserInfo?.profile?.instagram,
+      facebook: currentUserInfo && currentUserInfo?.profile?.facebook,
+      twitter: currentUserInfo && currentUserInfo?.profile?.twitter,
       bio: currentUserInfo && currentUserInfo?.profile?.bio,
       orgName: currentUserInfo && currentUserInfo?.profile?.extProfile?.orgName,
       website: currentUserInfo && currentUserInfo?.profile?.extProfile?.website,
@@ -117,14 +115,9 @@ export default function OrgStep1({ updateOrgProfile }) {
               currentUserInfo && currentUserInfo?.profile?.phoneNumber,
           },
           { userName: currentUserInfo && currentUserInfo?.profile?.userName },
-          { address1: currentUserInfo && currentUserInfo?.profile?.address1 },
-          { address2: currentUserInfo && currentUserInfo?.profile?.address2 },
-          { city: currentUserInfo && currentUserInfo?.profile?.city },
-          { state: currentUserInfo && currentUserInfo?.profile?.state },
-          {
-            postalCode: currentUserInfo && currentUserInfo?.profile?.postalCode,
-          },
-          { country: currentUserInfo && currentUserInfo?.profile?.country },
+          { instagram: currentUserInfo && currentUserInfo?.profile?.instagram },
+          { facebook: currentUserInfo && currentUserInfo?.profile?.facebook },
+          { twitter: currentUserInfo && currentUserInfo?.profile?.twitter },
           { bio: currentUserInfo && currentUserInfo?.profile?.bio },
           {
             orgName:
@@ -142,12 +135,9 @@ export default function OrgStep1({ updateOrgProfile }) {
       variables: {
         email: userEmail,
         phoneNumber: data.phoneNumber,
-        address1: data.address1,
-        address2: data.address2,
-        city: data.city,
-        state: data.state,
-        postalCode: data.postalCode,
-        country: data.country,
+        twitter: data.twitter,
+        facebook: data.facebook,
+        instagram: data.instagram,
         bio: data.bio,
         userName: data.orgName,
         orgName: data.orgName,
@@ -161,7 +151,9 @@ export default function OrgStep1({ updateOrgProfile }) {
   return (
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
       <Box className={classes.boxSpacing}>
-        <InputLabel required htmlFor="orgName">Organization Name</InputLabel>
+        <InputLabel required htmlFor="orgName">
+          Organization Name
+        </InputLabel>
         <Controller
           as={<TextField />}
           name="orgName"
@@ -171,10 +163,16 @@ export default function OrgStep1({ updateOrgProfile }) {
           defaultValue=""
           rules={{ required: true }}
         />
-        {errors.orgName && <Typography className={classes.error}>organization name is a required field</Typography>}
+        {errors.orgName && (
+          <Typography className={classes.error}>
+            organization name is a required field
+          </Typography>
+        )}
       </Box>
       <Box className={classes.boxSpacing}>
-        <InputLabel required htmlFor="website">Organization Website</InputLabel>
+        <InputLabel required htmlFor="website">
+          Organization Website
+        </InputLabel>
         <Controller
           as={<TextField />}
           name="website"
@@ -184,7 +182,11 @@ export default function OrgStep1({ updateOrgProfile }) {
           defaultValue=""
           rules={{ required: true }}
         />
-        {errors.website && <Typography className={classes.error}>organization website is a required field</Typography>}
+        {errors.website && (
+          <Typography className={classes.error}>
+            organization website is a required field
+          </Typography>
+        )}
       </Box>
       <Box className={classes.boxSpacing}>
         <InputLabel htmlFor="phoneNumber">
@@ -266,19 +268,47 @@ export default function OrgStep1({ updateOrgProfile }) {
           />
            {errors.postalCode && <Typography className={classes.error}>postal code is a required field</Typography>}
         </Box>
-        <Box>
-          <InputLabel required htmlFor="country">Country</InputLabel>
-          <Controller
-            as={<TextField />}
-            name="country"
-            type="text"
-            variant="outlined"
-            control={control}
-            defaultValue=""
-          />
-           {errors.coutry && <Typography className={classes.error}>country is a required field</Typography>}
-        </Box>
+       
       </Box> */}
+      <Box className={classes.boxSpacing}>
+        <InputLabel htmlFor="twitter">
+          Please enter the full url link to your Twitter profile
+        </InputLabel>
+        <Controller
+          as={<TextField />}
+          name="twitter"
+          type="text"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+      </Box>
+      <Box className={classes.boxSpacing}>
+        <InputLabel htmlFor="facebook">
+          Please enter the full url link to your Facebook profile
+        </InputLabel>
+        <Controller
+          as={<TextField />}
+          name="facebook"
+          type="text"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+      </Box>
+      <Box className={classes.boxSpacing}>
+        <InputLabel htmlFor="instagram">
+          Please enter the full url link to your Instagram profile
+        </InputLabel>
+        <Controller
+          as={<TextField />}
+          name="instagram"
+          type="text"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+      </Box>
       <Box className={classes.bioBox}>
         <InputLabel className={classes.inputLabel} htmlFor="bio">
           Tell us about your organization

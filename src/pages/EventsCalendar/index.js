@@ -67,12 +67,12 @@ export default function EventsCalendar() {
             Upcoming Events
           </Typography>
         </Box>
-        {user && user[config.roleUrl].includes("Admin") ? (
+        {/* {user && user[config.roleUrl].includes("Admin") ? ( */}
           <AdminTagsSearch
             isSearching={isSearching}
             setIsSearching={setIsSearching}
           />
-        ) : null}
+        {/* ) : null} */}
         <Grid className={classes.grid}>
           {!isSearching ? (
             <EventList currentEvents={currentEvents} refetch={refetch} user={user} />

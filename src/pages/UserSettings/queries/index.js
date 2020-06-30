@@ -50,12 +50,9 @@ export const UPDATE_USER_PROFILE = gql`
     $lastName: String
     $userName: String
     $phoneNumber: String
-    $address1: String
-    $address2: String
-    $state: String
-    $city: String
-    $postalCode: String
-    $country: String
+    $instagram: String
+    $facebook: String
+    $twitter: String
     $bio: String
     $legal: String
   ) {
@@ -67,12 +64,9 @@ export const UPDATE_USER_PROFILE = gql`
         lastName: $lastName
         userName: $userName
         phoneNumber: $phoneNumber
-        address1: $address1
-        address2: $address2
-        state: $state
-        city: $city
-        postalCode: $postalCode
-        country: $country
+        instagram: $instagram
+        facebook: $facebook
+        twitter: $twitter
         bio: $bio
         legal: $legal
       }
@@ -83,12 +77,9 @@ export const UPDATE_USER_PROFILE = gql`
       lastName
       userName
       phoneNumber
-      address1
-      address2
-      state
-      city
-      postalCode
-      country
+      twitter
+      facebook
+      instagram
       bio
       legal
       createdAt
@@ -105,12 +96,9 @@ export const PROFILE_STEP_1 = gql`
       lastName
       userName
       phoneNumber
-      address1
-      address2
-      state
-      city
-      postalCode
-      country
+      twitter
+      facebook
+      instagram
       bio
       legal
     }
@@ -169,12 +157,9 @@ export const UPDATE_ORG_PROFILE = gql`
   mutation UpdateOrgProfile(
     $email: String!
     $phoneNumber: String
-    $address1: String
-    $address2: String
-    $city: String
-    $state: String
-    $country: String
-    $postalCode: String
+    $instagram: String
+    $facebook: String
+    $twitter: String
     $bio: String
     $userName: String
     $orgName: String
@@ -184,12 +169,9 @@ export const UPDATE_ORG_PROFILE = gql`
       where: { email: $email }
       data: {
         phoneNumber: $phoneNumber
-        address1: $address1
-        address2: $address2
-        city: $city
-        state: $state
-        country: $country
-        postalCode: $postalCode
+        instagram: $instagram
+        facebook: $facebook
+        twitter: $twitter
         bio: $bio
         userName: $userName
         extProfile: {
@@ -201,8 +183,16 @@ export const UPDATE_ORG_PROFILE = gql`
       }
     ) {
       id
+      phoneNumber
+      instagram
+      facebook
+      twitter
+      userName
+      bio
       extProfile {
         id
+        orgName
+        website
       }
     }
   }
@@ -214,12 +204,9 @@ export const ORG_PROFILE = gql`
       id
       phoneNumber
       userName
-      address1
-      address2
-      state
-      city
-      postalCode
-      country
+      instagram
+      facebook
+      twitter
       bio
       extProfile {
         id
