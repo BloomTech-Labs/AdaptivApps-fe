@@ -429,7 +429,7 @@ export default function Step1({ updateProfile }) {
         </Box> */}
        
           <InputLabel htmlFor="twitter">
-            Please enter the link to your Twitter profile
+            Please enter the full url link to your Twitter profile
           </InputLabel>
           <Controller
             as={<TextField />}
@@ -441,7 +441,7 @@ export default function Step1({ updateProfile }) {
           />
        
           <InputLabel htmlFor="facebook">
-            Please enter the link to your Facebook profile
+            Please enter the full url link to your Facebook profile
           </InputLabel>
           <Controller
             as={<TextField />}
@@ -453,7 +453,7 @@ export default function Step1({ updateProfile }) {
           />
       
           <InputLabel htmlFor="instagram">
-            Please enter the link to your Instagram profile
+            Please enter the full url link to your Instagram profile
           </InputLabel>
           <Controller
             as={<TextField />}

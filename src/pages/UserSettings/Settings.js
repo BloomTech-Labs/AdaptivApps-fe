@@ -93,7 +93,7 @@ const useStyles = makeStyles(theme => ({
     marginTop: "2.4rem",
     background: "#2962FF",
     color: "#FFFFFF",
-    width: "100%",
+    width: "36rem",
     height: 48,
     "& .MuiButton-label": {
       fontSize: "2.1rem",

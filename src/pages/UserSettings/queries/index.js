@@ -188,6 +188,7 @@ export const UPDATE_ORG_PROFILE = gql`
       facebook
       twitter
       userName
+      bio
       extProfile {
         id
         orgName
