@@ -10,7 +10,7 @@ import FinishButton from "../../../theme/SmallFormButton";
 // import SaveButton from "../../../theme/LargeFormButton";
 // import ProgressBar from "../../../theme/ProgressBar";
 // Query imports
-import { GET_RECIPIENTS } from '../../Chat/queries/Chats'
+import { GET_RECIPIENTS } from "../../Chat/queries/Chats";
 // Auth0 imports
 // import { useAuth0 } from "../../../config/react-auth0-spa";
 
@@ -25,26 +25,26 @@ import {
   MenuItem,
 } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    width: '67.5%',
-    '& .MuiInputLabel-root': {
+    width: "67.5%",
+    "& .MuiInputLabel-root": {
       color: "black",
     },
     "& .MuiInputLabel-asterisk": {
-      fontSize: '2rem',
-      color: 'red',
-      fontWeight: 'bolder'
+      fontSize: "2rem",
+      color: "red",
+      fontWeight: "bolder",
     },
   },
   form: {
-    marginTop: '3.6rem',
+    marginTop: "3.6rem",
     display: "flex",
     flexDirection: "column",
     "& .MuiTextField-root": {
-      width: '100%',
+      width: "100%",
     },
   },
   namePhoneBox: {
@@ -54,36 +54,35 @@ const useStyles = makeStyles((theme) => ({
       width: "36rem",
       height: "4.8rem",
       [theme.breakpoints.down("sm")]: {
-        margin: '1.2rem auto'
+        margin: "1.2rem auto",
       },
       [theme.breakpoints.down("xs")]: {
-        margin: '1.2rem auto'
+        margin: "1.2rem auto",
       },
     },
     [theme.breakpoints.down("sm")]: {
-      flexDirection: 'column',
+      flexDirection: "column",
     },
     [theme.breakpoints.down("xs")]: {
-      flexDirection: 'column',
+      flexDirection: "column",
     },
   },
   firstInput: {
-    marginRight: "2.4rem"
+    marginRight: "2.4rem",
   },
   typeSelect: {
-  
     height: "4.8rem",
     marginBottom: "1.6rem",
     [theme.breakpoints.down("sm")]: {
-      width: "40rem"
+      width: "40rem",
     },
     [theme.breakpoints.down("xs")]: {
-      width: "40rem"
+      width: "40rem",
     },
   },
   em: {
     fontStyle: "italic",
-    fontSize: "1.6rem"
+    fontSize: "1.6rem",
   },
   addressBox: {
     display: "flex",
@@ -92,17 +91,17 @@ const useStyles = makeStyles((theme) => ({
       width: "36rem",
       height: "4.8rem",
       [theme.breakpoints.down("sm")]: {
-        margin: '1.2rem auto',
+        margin: "1.2rem auto",
       },
       [theme.breakpoints.down("xs")]: {
-        margin: '1.2rem auto',
+        margin: "1.2rem auto",
       },
     },
     [theme.breakpoints.down("sm")]: {
-      flexDirection: 'column',
+      flexDirection: "column",
     },
     [theme.breakpoints.down("xs")]: {
-      flexDirection: 'column',
+      flexDirection: "column",
     },
   },
   bioBox: {
@@ -110,7 +109,7 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiTextField-root": {
       width: "100%",
       height: "4.8rem",
-    }
+    },
   },
   btnBox: {
     display: "flex",
@@ -118,23 +117,23 @@ const useStyles = makeStyles((theme) => ({
     marginTop: "1rem",
   },
   error: {
-    color: 'red',
-    fontSize: '2rem',    
-    fontVariant: 'all-small-caps',
-    fontWeight: 'bold',
-    '&:last-child': {
-      fontSize: '1.65rem',
-      color: 'red',
-      marginTop: '1rem',
-    }
+    color: "red",
+    fontSize: "2rem",
+    fontVariant: "all-small-caps",
+    fontWeight: "bold",
+    "&:last-child": {
+      fontSize: "1.65rem",
+      color: "red",
+      marginTop: "1rem",
+    },
   },
   errorLabel: {
-    marginLeft: '1rem',
-    fontSize: '1.65rem',
-    color: 'red',
-    fontVariant: 'all-small-caps',
-    fontWeight: 'bold'
-  }
+    marginLeft: "1rem",
+    fontSize: "1.65rem",
+    color: "red",
+    fontVariant: "all-small-caps",
+    fontWeight: "bold",
+  },
 }));
 
 export default function Step1({ updateProfile }) {
@@ -145,9 +144,10 @@ export default function Step1({ updateProfile }) {
     variables: { email: userEmail },
   });
   const { data } = useQuery(GET_RECIPIENTS);
-  const { data: user } = useQuery(PROFILE_INFO, { variables: { email: userEmail } });  
-  const currentUser = user?.profile?.userName
-
+  const { data: user } = useQuery(PROFILE_INFO, {
+    variables: { email: userEmail },
+  });
+  const currentUser = user?.profile?.userName;
 
   const [currentUserInfo, setCurrentUserInfo] = useState(defaultInfo);
   const [errorState, setErrorState] = useState();
@@ -190,7 +190,6 @@ export default function Step1({ updateProfile }) {
     }
   }, [loading, currentUserInfo, defaultInfo, setValue]);
 
-
   // Will update profile and route user to next step in profile wizard
   const onSubmit = async data => {
     await updateProfile({
@@ -215,16 +214,23 @@ export default function Step1({ updateProfile }) {
     navigate(`/`);
   };
 
-  const userNames = []
-  data && data.profiles.filter(user => user.userName !== null && user.userName !== '' && user.userName !== currentUser && userNames.push(user.userName.toLowerCase()));
+  const userNames = [];
+  data &&
+    data.profiles.filter(
+      user =>
+        user.userName !== null &&
+        user.userName !== "" &&
+        user.userName !== currentUser &&
+        userNames.push(user.userName.toLowerCase())
+    );
 
   const validateUsername = () => {
     const userName = control.getValues().userName.toLowerCase();
     if (userNames.includes(userName)) {
       setErrorState(true);
-      alert('That username is already taken. Please choose another one!');
-  } else setErrorState(false)  ;
-};
+      alert("That username is already taken. Please choose another one!");
+    } else setErrorState(false);
+  };
 
   // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
   // const onSave = handleSubmit(async data => {
@@ -246,7 +252,7 @@ export default function Step1({ updateProfile }) {
   //     },
   //   });
 
-    // alert("Successfully saved account info!");
+  // alert("Successfully saved account info!");
   //   navigate(`/`);
   // });
 
@@ -256,7 +262,9 @@ export default function Step1({ updateProfile }) {
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.namePhoneBox}>
           <Box>
-            <InputLabel required htmlFor="firstName">First Name</InputLabel>
+            <InputLabel required htmlFor="firstName">
+              First Name
+            </InputLabel>
             <Controller
               as={<TextField />}
               className={classes.firstInput}
@@ -267,10 +275,16 @@ export default function Step1({ updateProfile }) {
               defaultValue=""
               rules={{ required: true }}
             />
-            {errors.firstName && <Typography className={classes.error}>first name is a required field</Typography>}
+            {errors.firstName && (
+              <Typography className={classes.error}>
+                first name is a required field
+              </Typography>
+            )}
           </Box>
           <Box>
-            <InputLabel required htmlFor="lastName">Last Name</InputLabel>
+            <InputLabel required htmlFor="lastName">
+              Last Name
+            </InputLabel>
             <Controller
               as={<TextField />}
               name="lastName"
@@ -280,12 +294,18 @@ export default function Step1({ updateProfile }) {
               defaultValue=""
               rules={{ required: true }}
             />
-            {errors.lastName && <Typography className={classes.error}>last name is a required field</Typography>}
+            {errors.lastName && (
+              <Typography className={classes.error}>
+                last name is a required field
+              </Typography>
+            )}
           </Box>
         </Box>
         <Box className={classes.namePhoneBox}>
           <Box>
-            <InputLabel required htmlFor="userName">Username</InputLabel>
+            <InputLabel required htmlFor="userName">
+              Username
+            </InputLabel>
             <Controller
               as={<TextField />}
               className={classes.firstInput}
@@ -297,11 +317,21 @@ export default function Step1({ updateProfile }) {
               onBlur={validateUsername}
               rules={{ required: true }}
             />
-            {errors.userName && <Typography className={classes.error}>username is a required field</Typography>}
-            {errorState && <Typography className={classes.error}>Button is disabled until a unique username is chosen</Typography>}
+            {errors.userName && (
+              <Typography className={classes.error}>
+                username is a required field
+              </Typography>
+            )}
+            {errorState && (
+              <Typography className={classes.error}>
+                Button is disabled until a unique username is chosen
+              </Typography>
+            )}
           </Box>
           <Box>
-            <InputLabel required htmlFor="phoneNumber">Phone Number</InputLabel>
+            <InputLabel required htmlFor="phoneNumber">
+              Phone Number
+            </InputLabel>
             <Controller
               as={<TextField />}
               name="phoneNumber"
@@ -311,7 +341,11 @@ export default function Step1({ updateProfile }) {
               defaultValue=""
               rules={{ required: true }}
             />
-            {errors.phoneNumber && <Typography className={classes.error}>phone number is a required field</Typography>}
+            {errors.phoneNumber && (
+              <Typography className={classes.error}>
+                phone number is a required field
+              </Typography>
+            )}
           </Box>
         </Box>
         {/* <Box className={classes.addressBox}>
@@ -399,8 +433,53 @@ export default function Step1({ updateProfile }) {
             {errors.country && <Typography className={classes.error}>country is a required field</Typography>}
           </Box>
         </Box> */}
-        <InputLabel required htmlFor="legal">Are you over 18 years old?</InputLabel>
-        {errors.legal && <Typography className={classes.error}>Please make a selection</Typography>}
+         <Box>
+            <InputLabel required htmlFor="country">Please enter your Twitter handle</InputLabel>
+            <Controller
+              as={<TextField />}
+              name="country"
+              type="text"
+              variant="outlined"
+              control={control}
+              defaultValue=""
+              rules={{ required: true }}
+            />
+            {errors.country && <Typography className={classes.error}>country is a required field</Typography>}
+          </Box>
+         <Box>
+            <InputLabel required htmlFor="country">Please enter your Facebook handle</InputLabel>
+            <Controller
+              as={<TextField />}
+              name="country"
+              type="text"
+              variant="outlined"
+              control={control}
+              defaultValue=""
+              rules={{ required: true }}
+            />
+            {errors.country && <Typography className={classes.error}>country is a required field</Typography>}
+          </Box>
+         <Box>
+            <InputLabel required htmlFor="country">Please enter your Instagram handle</InputLabel>
+            <Controller
+              as={<TextField />}
+              name="country"
+              type="text"
+              variant="outlined"
+              control={control}
+              defaultValue=""
+              rules={{ required: true }}
+            />
+            {errors.country && <Typography className={classes.error}>country is a required field</Typography>}
+          </Box>
+        <InputLabel required htmlFor="legal">
+          Are you over 18 years old?
+        </InputLabel>
+        {errors.legal && (
+          <Typography className={classes.error}>
+            Please make a selection
+          </Typography>
+        )}
         <Controller
           as={
             <Select className={classes.typeSelect}>
@@ -432,9 +511,8 @@ export default function Step1({ updateProfile }) {
           multiline
           rows="8"
         />
-        {/* <Typography className={classes.error}>* required field</Typography> */}
+        <Typography className={classes.error}>* required field</Typography>
         <Box className={classes.btnBox}>
-         
           <FinishButton
             type="submit"
             label="Finish"
