@@ -257,6 +257,8 @@ export default function EventCard({ event, refetch, user }) {
                 {event.startTime && event.endTime ? (
                   <span className={classes.cardDate}>
                     {moment(event.startTime, "HH:mm").format("h:mm A")}
+                    {" - "}
+                    {moment(event.endTime, "HH:mm").format("h:mm A")}
                   </span>
                 ) : event.startTime && !event.endTime ? (
                   <span className={classes.cardDate}>

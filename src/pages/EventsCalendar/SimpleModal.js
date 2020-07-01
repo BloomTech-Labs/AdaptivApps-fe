@@ -148,6 +148,12 @@ export default function SimpleModal({ event, registerEvent }) {
           {moment(event.startDate).format("MM/DD/YYYY")} -{" "}
           {moment(event.endDate).format("MM/DD/YYYY")}
         </Typography>
+        <Typography className={classes.date}>
+          {event.startTime && moment(event.startTime, "HH:mm").format("h:mm A")}
+          {event.endTime && " - "}
+          {event.endTime && moment(event.endTime, "HH:mm").format("h:mm A")}
+          {event.endTime && "  PST"}
+        </Typography>
         <Typography className={classes.title} id="simple-modal-title">
           {event.title}
         </Typography>

@@ -216,19 +216,13 @@ export default function MyEventCard({ event, refetch }) {
               {" - "}
               {moment(event.endDate).format("MM/DD/YYYY")}
             </span>
-            {event.startTime && event.endTime ? (
-              <span className={classes.cardDate}>
-                {moment(event.startTime, "HH:mm").format("h:mm A")}
-              </span>
-            ) : event.startTime && !event.endTime ? (
-              <span className={classes.cardDate}>
-                {moment(event.startTime, "HH:mm").format("h:mm A")} PST
-              </span>
-            ) : event.endTime && !event.startTime ? (
-              <span className={classes.cardDate}>
-                Ends at {moment(event.endTime, "HH:mm").format("h:mm A")} PST
-              </span>
-            ) : null}
+            <span className={classes.cardDate}>
+              {event.startTime &&
+                moment(event.startTime, "HH:mm").format("h:mm A")}
+              {event.endTime && " - "}
+              {event.endTime && moment(event.endTime, "HH:mm").format("h:mm A")}
+              {event.endTime && "  PST"}
+            </span>
           </Typography>
           <Typography
             className={classes.cardTitle}
