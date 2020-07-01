@@ -13,6 +13,11 @@ const useStyles = makeStyles(theme => ({
       fontWeight: "600",
       color: "#808080",
     },
+    "& h3": {
+      fontWeight: "500",
+      color: "#808080",
+    },
+    marginBottom: "20px",
   },
   eventCard: {
     display: "flex",
