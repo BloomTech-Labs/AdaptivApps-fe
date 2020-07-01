@@ -27,10 +27,10 @@ const theme = createMuiTheme({
     h6: { fontSize: "2rem" },
     subtitle1: { fontSize: "1.6rem", color: "#808080" },
     subtitle2: { fontSize: "4.8rem", fontWeight: "bold" },
-    body1: { fontSize: "1.6rem" },
+    body1: { fontSize: "1.8rem" },
     body2: { fontSize: "1.6rem" },
     button: { fontSize: "1.6rem" },
-    caption: { fontSize: "1.6rem" },
+    caption: { fontSize: "2.4rem", color: "#2962FF" },
     overline: { fontSize: "1.6rem" },
   },
   breakpoints: {

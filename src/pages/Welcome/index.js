@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Box,
-  Typography,
-  makeStyles,
-} from "@material-ui/core";
+import { Box, Typography, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,6 +12,16 @@ const useStyles = makeStyles(theme => ({
     "& .MuiTab-wrapper": {
       fontSize: "1.6rem",
     },
+    "& li": {
+      fontSize: "1.8rem",
+    },
+    "& strong": {
+      fontSize: "1.8rem",
+    },
+    "& a": {
+      textDecoration: 'none',
+      fontSize: "1.8rem",
+    },
   },
   headingBox: {
     margin: "6rem 0 2rem 3rem",
@@ -27,9 +33,18 @@ const useStyles = makeStyles(theme => ({
     marginBottom: "5rem",
   },
   h3: {
-    fontSize: "3rem",
+    fontSize: "2.4rem",
     color: "rgb(41, 98, 255)",
     fontWeight: "normal",
+  },
+  li: {
+    display: "flex",
+  },
+  p1: {
+    fontSize: "1.8rem",
+    "& strong": {
+      fontSize: "1.8rem",
+    },
   },
   vid: {
     width: "800px",
@@ -56,27 +71,148 @@ const Welcome = () => {
     <Box component="main" className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
         <Typography variant="h1" gutterBottom>
-          Welcome to the Angel City Sports platform!
+          Welcome to the Angel City Sports Platform!
         </Typography>
       </Box>
       <div className={classes.body}>
-        <h3 className={classes.h3}>A welcome message from us to you</h3>
+        <h3 className={classes.h3}>A Welcome Message From Us to You</h3>
+        <Typography>
+          Steamed, dark cappuccino mazagran steamed grounds to go. Variety est,
+          ut irish half and half, whipped frappuccino cultivar java breve
+          mazagran. To go, doppio, black con panna filter, caramelization bar
+          fair trade roast fair trade. Grounds galão, chicory, redeye et crema
+          and sit fair trade. And wings latte trifecta flavour body dripper.
+          Strong mazagran extra carajillo aged, body mocha cortado and con panna
+          brewed. Skinny, extraction extra, café au lait aroma blue mountain
+          grinder whipped doppio. Beans dark as white sit chicory est chicory.
+        </Typography>
+        <h3 className={classes.h3}>
+          This Portal for the 2020 Angel City Virtual Games is Presented by The
+          Hartford!{" "}
+        </h3>
+        <Typography>
+          The platform will be your hub to not only register and attend events,
+          but also to connect with your peers and coaches.{" "}
+        </Typography>
+        <Typography>You can get started in five simple steps!</Typography>
+        <ol>
+          <li>
+            <p className={classes.p1}>
+              Visit the <strong>Settings</strong> tab to create your profile. Be
+              sure to enter a username to personalize your profile page.
+            </p>
+          </li>
+          <li>
+            <p className={classes.p1}>
+              Checkout the <strong>My Profile</strong> tab to give more
+              of a personalized touch by adding a cool banner and profile image.
+            </p>
+          </li>
+          <li>
+            <p className={classes.p1}>
+              Click on <strong>Events Calendar</strong> and check out all of the
+              opportunities available for you to participate in. If you are interested in an event simply click <strong>view details</strong>. If you would like to participate in the event click <strong>add</strong> and you will be taken to the <strong>Event Details</strong> page. You may now go back to <strong>Events Calendar</strong> and repeat this process to register for as many events as you would like.
+            </p>
+
+          </li>
+          <li>
+            <p className={classes.p1}>
+              Once you have selected your fun-filled week, check out the{" "}
+              <strong>My Events</strong> tab to view your upcoming events and participation information.
+            </p>
+          </li>
+          <li>
+            <p className={classes.p1}>
+              Every day of this action-packed week, login to participate in all
+              events and connect with others! Don't forget to check out the <strong>Chat</strong> tab to chat with friends!
+            </p>
+          </li>
+        </ol>
+        <h3 className={classes.h3}>
+          Checkout this video tutorial for a walkthrough of our app!
+        </h3>
         <iframe
           className={classes.vid}
           src="https://www.youtube.com/embed/w77zPAtVTuI"
           frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowFullscreen />
-        <h3 className={classes.h3}>A few tips for getting started on our platform</h3>
-        <iframe
-          className={classes.vid}
-          src="https://www.youtube.com/embed/w77zPAtVTuI"
-          frameBorder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowFullscreen />
+          allowFullscreen
+        />
+        <h3 className={classes.h3}>
+          A few tips for getting started on our platform
+        </h3>
+        <Typography>
+          For any questions about this exciting community platform please refer
+          to the video tutorial above or check out the <strong>FAQ</strong>{" "}
+          page. For any additional information, please email <strong>info@angelcitysports.org</strong>.
+          <br/>
+          <br/>
+          Thank you for joining Angel City Sports in this World Premier
+          Virtual Adaptive Sports Event- The 2020 Angel City Games presented by
+          The Hartford.
+        </Typography>
+        
+        <h3 className={classes.h3}>
+          The 2020 Angel City Virtual Games Presented by The Harford (Explained)
+        </h3>
+        <Typography>
+          On March 12th, Angel City Sports made the tough decision to suspend
+          all in-person programming and events in response to the COVID-19
+          crisis. This included the 2020 Angel City Games presented by The
+          Hartford. However, quickly after that decision was made, the Angel
+          City team began to brainstorm ways to inspire and support our athletes
+          to connect, engage, and build community all while living healthy,
+          active lives. Thus, the 2020 Angel City Virtual Games presented by The
+          Hartford was created!
+          <br />
+          <br />
+          The 2020 Angel City Virtual Games presented by The Hartford will
+          mirror all components the physical Games would have showcased: sport
+          clinics, competitive opportunities, special events, and community
+          building. The key difference-
+          <strong>
+            the Virtual Games will last 3 weeks as opposed to 4 days!
+          </strong>
+          <br />
+          <br />
+          Adaptive athletes along with family, friends, volunteers, and peers are
+          welcome to join in on this unforgettable summer – 21 days full of sport,
+          education, connection, and fun!
+          <br />
+          <br />
+          Check out the <strong>Events Calendar</strong> tab in this portal to
+          view all activities available in the upcoming week. These events will
+          be continually updated as the Virtual Games will take place all summer
+          long!
+          <br />
+          <br />
+          <strong>Week 1</strong>: July 13 - 19
+          <br />
+          <strong>Week 2</strong>: August 3 - 9
+          <br />
+          <strong>Week 3</strong>: August 24 - 30
+        </Typography>
+
+        <h3 className={classes.h3}>About Angel City Sports</h3>
+        <Typography>
+          Angel City Sports provides year-round free adaptive sports
+          opportunities for kids, adults, and veterans with physical disabilities
+          or visual impairments. A chapter member of Move United, Angel City
+          Sports is focused on encouraging participation in sports and
+          recreation activities for people with physical disabilities and
+          advancing the Paralympic movement. Debuting in 2015, the annual Angel
+          City Games presented by The Hartford, is now the largest multisport
+          Paralympic competition open to kids, adults, and veterans. In addition
+          to providing free equipment, coaching, and competitive opportunities –
+          Angel City focuses on how every individual can reach their full
+          potential and unlock their dreams through music, art, higher education,
+          and career opportunities. For more information about Angel City
+          Sports, visit <a href="https://www.angelcitysports.org" target="_blank">angelcitysports.org</a> and follow <strong>@angelcitysports</strong> on
+          Facebook, Instagram, and Twitter.
+        </Typography>
       </div>
     </Box>
-  )
-}
+  );
+};
 
 export default Welcome;
