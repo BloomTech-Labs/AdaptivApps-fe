@@ -9,6 +9,7 @@ const Hartford_Logo = require("../../assets/images/TheHartfordBlue.jpg");
 const useStyles = makeStyles(theme => ({
   banner: {
     //backgroundImage: " linear-gradient(#343c6d, #43496c 30%, #282a3c 80%)",
+    width: "100%",
     backgroundColor: "#282c52",
     padding: "1%",
     textAlign: "center",
@@ -27,10 +28,10 @@ const useStyles = makeStyles(theme => ({
     },
   },
   acs: {
-    maxWidth: "20%",
+    maxWidth: "15%",
   },
   hartford: {
-    maxWidth: "25%",
+    maxWidth: "20%",
   },
 }));
 
@@ -40,7 +41,7 @@ export default function SponsorBanner() {
 
   return (
     <Link onClick={() => navigate(`/sponsorspotlight`)}>
-      <Container className={classes.banner}>
+      <div className={classes.banner}>
         <img
           className={classes.acs}
           src={ACS_Logo}
@@ -56,7 +57,7 @@ export default function SponsorBanner() {
           alt="Hartford Logo"
           tabIndex="0"
         />
-      </Container>
+      </div>
     </Link>
   );
 }
