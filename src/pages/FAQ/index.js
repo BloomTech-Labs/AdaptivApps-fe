@@ -101,8 +101,7 @@ const FAQ = () => {
             clinic, connect with mentors, and more! Simply fill out your
             profile, then access the <strong>Chat</strong> tab to find other users with the
             same interests, start a group chat with the most recent clinic you
-            attended, or message a mentor for guidance! This feature is only
-            available to those 18 years or older.
+            attended, or message a mentor for guidance!
           </p>
         </div>
       </div>
