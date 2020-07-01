@@ -54,8 +54,6 @@ export default function EventList({ currentEvents, refetch, user }) {
   return (
     <>
       {allDates.length > 0 ?
-        // Inside this div, what we are gonna have is a list of events, group by date
-        // This is equivalent to January, February, March, etc. grouping
         <div>
           {allDates.map(date => (
             <div className={classes.eventGroup}>
