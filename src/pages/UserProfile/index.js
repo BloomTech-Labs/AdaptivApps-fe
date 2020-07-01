@@ -15,18 +15,15 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFacebookSquare,
-  faTwitterSquare,
-  faInstagram,
-} from "@fortawesome/free-brands-svg-icons";
 import { useQuery } from "react-apollo";
-
 import { GET_USER_PROFILE, GET_LOGGED_IN_USER } from "./queries";
 import ProfilePic from "./ProfilePic";
 import ProfileBanner from "./ProfileBanner";
 import UpcomingEventList from "./UpcomingEventList";
+
+const FacebookIcon = require('../../assets/images/facebook.png')
+const TwitterIcon = require('../../assets/images/twitter.png')
+const InstagramIcon = require('../../assets/images/instagram.png')
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,8 +37,11 @@ const useStyles = makeStyles(theme => ({
   input: {
     display: "none",
   },
+  iconLink: {
+    width: "2.4rem"
+  },
   icons: {
-    fontSize: "3rem",
+    fontSize: "2.4rem",
   },
   profileEventWrapper: {
     width: "100%",
@@ -265,7 +265,6 @@ export default function UserProfile() {
   const facebookURL = userProfile?.profile?.facebook;
   const instagramURL = userProfile?.profile?.instagram;
 
-
   useEffect(() => {
     if (loggedInUser && loggedInUserName === userName) setProfileOwner(true);
   }, [userProfile, profilePicture, profileBanner, profileOwner]);
@@ -352,17 +351,35 @@ export default function UserProfile() {
                 href={facebookURL}
                 target="_blank"
                 rel="noopener"
+                aria-label="Visit your friend's Facebook profile."
               >
-                <FontAwesomeIcon
-                  icon={faFacebookSquare}
-                  className={classes.icons}
+                <img
+                  src={FacebookIcon}
+                  className={classes.iconLink}
                 />
               </Link>
-              <FontAwesomeIcon
-                icon={faTwitterSquare}
-                className={classes.icons}
-              />
-              <FontAwesomeIcon icon={faInstagram} className={classes.icons} />
+              <Link
+                href={twitterURL}
+                target="_blank"
+                rel="noopener"
+                aria-label="Visit your friend's Twitter profile."
+              >
+               <img
+                  src={TwitterIcon}
+                  className={classes.iconLink}
+                />
+              </Link>
+              <Link
+                href={instagramURL}
+                target="_blank"
+                rel="noopener"
+                aria-label="Visit your friend's Twitter profile."
+              >
+                <img
+                  src={InstagramIcon}
+                  className={classes.iconLink}
+                />
+              </Link>
             </div>
           </div>
           <div className={classes.middleProfileWrapper}>
