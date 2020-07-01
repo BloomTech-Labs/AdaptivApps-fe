@@ -184,6 +184,9 @@ const useStyles = makeStyles(theme => ({
   logoutP: {
     color: "#2962FF",
   },
+  underAge: {
+    display: "none",
+  },
 }));
 
 function SideNav(props) {
@@ -310,7 +313,7 @@ function SideNav(props) {
               </Tooltip>
             ) : data?.profile?.legal === "No" ? (
               <Tooltip title="Chat feature is not available to users under 18 years old">
-                <div className={classes.disabledNavLink}>
+                <div className={classes.underAge}>
                   <ForumOutlinedIcon className={classes.navIcon} />
                   <p>Chat</p>
                 </div>
