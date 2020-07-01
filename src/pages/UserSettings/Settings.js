@@ -535,76 +535,84 @@ export default function Settings() {
               </>
             ) : profile?.type === "Organization" ? (
               <>
-                <TableContainer className={classes.orgTable}>
+                <TableContainer className={classes.table}>
                   <Table aria-label="account information table" size="small">
-                    <TableBody>
+                    <TableBody className={classes.tableBody}>
                       <TableRow>
-                        <TableCell component="th" scope="row">
-                          <Typography
-                            style={{
-                              fontWeight: "bold",
-                              fontSize: "1.6rem",
-                              height: "15px",
-                            }}
-                          >
-                            Organization Name
-                          </Typography>
-                        </TableCell>
-                        <TableCell align="left">
-                          <Typography>
-                            {profile?.extProfile?.orgName}
-                          </Typography>
-                        </TableCell>
+                        <div className={classes.mobileFlex}>
+                          <TableCell component="th" scope="row">
+                            <Typography
+                              style={{
+                                fontWeight: "bold",
+                                fontSize: "1.6rem",
+                                height: "15px",
+                              }}
+                            >
+                              Organization Name
+                            </Typography>
+                          </TableCell>
+                          <TableCell align="left">
+                            <Typography>
+                              {profile?.extProfile?.orgName}
+                            </Typography>
+                          </TableCell>
+                        </div>
                       </TableRow>
                       <TableRow>
-                        <TableCell component="th" scope="row">
-                          <Typography
-                            style={{
-                              fontWeight: "bold",
-                              fontSize: "1.6rem",
-                              height: "15px",
-                            }}
-                          >
-                            Website
-                          </Typography>
-                        </TableCell>
-                        <TableCell align="left">
-                          <Typography>
-                            {profile?.extProfile?.website}
-                          </Typography>
-                        </TableCell>
+                        <div className={classes.mobileFlex}>
+                          <TableCell component="th" scope="row">
+                            <Typography
+                              style={{
+                                fontWeight: "bold",
+                                fontSize: "1.6rem",
+                                height: "15px",
+                              }}
+                            >
+                              Website
+                            </Typography>
+                          </TableCell>
+                          <TableCell align="left">
+                            <Typography>
+                              {profile?.extProfile?.website}
+                            </Typography>
+                          </TableCell>
+                        </div>
                       </TableRow>
                       <TableRow>
-                        <TableCell component="th" scope="row">
-                          <Typography
-                            style={{
-                              fontWeight: "bold",
-                              fontSize: "1.6rem",
-                              height: "15px",
-                            }}
-                          >
-                            Phone
-                          </Typography>
-                        </TableCell>
-                        <TableCell align="left">
-                          <Typography>{profile?.phoneNumber}</Typography>
-                        </TableCell>
+                        <div className={classes.mobileFlex}>
+                          <TableCell component="th" scope="row">
+                            <Typography
+                              style={{
+                                fontWeight: "bold",
+                                fontSize: "1.6rem",
+                                height: "15px",
+                              }}
+                            >
+                              Phone
+                            </Typography>
+                          </TableCell>
+                          <TableCell align="left">
+                            <Typography>{profile?.phoneNumber}</Typography>
+                          </TableCell>
+                        </div>
                       </TableRow>
                       <TableRow>
-                        <TableCell component="th" scope="row">
-                          <Typography
-                            style={{
-                              fontWeight: "bold",
-                              fontSize: "1.6rem",
-                              height: "15px",
-                            }}
-                          >
-                            Email
-                          </Typography>
-                        </TableCell>
-                        <TableCell align="left">
-                          <Typography>{profile?.email}</Typography>
-                        </TableCell>
+                        <div className={classes.mobileFlex}>
+                          <TableCell component="th" scope="row">
+                            <Typography
+                              style={{
+                                fontWeight: "bold",
+                                fontSize: "1.6rem",
+                                height: "15px",
+                              }}
+                            >
+                              Email
+                            </Typography>
+                          </TableCell>
+                          <TableCell align="left">
+                            <Typography>{profile?.email}</Typography>
+                          </TableCell>
+                        </div>
                       </TableRow>
                       {/* <TableRow>
                         <TableCell component="th" scope="row">

@@ -61,7 +61,7 @@ export default function MyEventDetails() {
   if (error) return `Error! ${error.message}`;
 
   const activeEvent = data.events;
-
+ 
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>

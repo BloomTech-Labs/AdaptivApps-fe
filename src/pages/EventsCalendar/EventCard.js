@@ -27,6 +27,7 @@ import {
 
 const useStyles = makeStyles(theme => ({
   root: {
+    maxWidth: "35rem",
     backgroundColor: "transparent",
     borderRadius: ".5rem",
     marginRight: "2.4rem",
@@ -40,6 +41,9 @@ const useStyles = makeStyles(theme => ({
     margin: ".4rem 0",
     fontWeight: "500",
     color: "#3C3C3C",
+    "&.MuiTypography-root": {
+      wordBreak: "break-word",
+    },
   },
   cardLoc: {
     fontSize: "1.6rem",
@@ -48,6 +52,8 @@ const useStyles = makeStyles(theme => ({
     padding: "1.5rem 0 0 0",
   },
   btnContainer: {
+    display: "flex",
+    justifyContent: "space-between",
     padding: "0",
     margin: "1.6rem 0",
   },
@@ -81,7 +87,7 @@ const useStyles = makeStyles(theme => ({
   editDeleteBtn: {
     height: "40px",
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     padding: "0",
     margin: "0",
     "& button": {
@@ -90,10 +96,10 @@ const useStyles = makeStyles(theme => ({
       padding: "0",
     },
   },
-  contentWrapper: {
-    display: "flex",
-    justifyContent: "space-between",
-  },
+  // contentWrapper: {
+  //   display: "flex",
+  //   justifyContent: "space-between",
+  // },
   imgBox: {
     width: "100%",
   },
@@ -127,6 +133,10 @@ const useStyles = makeStyles(theme => ({
     color: "#2962FF",
     fontWeight: 500,
     marginTop: 58,
+  },
+  cardContainer: {
+    display: "flex",
+    justifyContent: "space-between",
   },
 }));
 
@@ -186,8 +196,8 @@ export default function EventCard({ event, refetch, user }) {
           className={classes.img}
           src={
             event?.imgUrl === null ||
-              event?.imgUrl === undefined ||
-              event?.imgUrl === ""
+            event?.imgUrl === undefined ||
+            event?.imgUrl === ""
               ? eventImg
               : event?.imgUrl
           }
@@ -219,15 +229,14 @@ export default function EventCard({ event, refetch, user }) {
           <Box>
             <div className={classes.banner}>{event.type}</div>
             <CardMedia
-              onClick={() => navigate(`/calendar/${event.id}`)} 
               className={classes.cardImg}
               component="img"
               alt="Event"
               width="15rem"
               image={
                 event?.imgUrl === null ||
-                  event?.imgUrl === undefined ||
-                  event?.imgUrl === ""
+                event?.imgUrl === undefined ||
+                event?.imgUrl === ""
                   ? eventImg
                   : event?.imgUrl
               }
@@ -237,15 +246,30 @@ export default function EventCard({ event, refetch, user }) {
           <Box className={classes.contentWrapper}>
             <CardContent className={classes.content}>
               <Typography
-                className={classes.cardDate}
+                className={classes.cardContainer}
                 variant="body2"
                 color="textSecondary"
                 component="p"
               >
-                {moment(event.startDate).format("MM/DD/YYYY")}{" "}
                 <span className={classes.cardDate}>
-                  {event.startTime} - {event.endTime}
+                  {moment(event.startDate).format("MM/DD/YYYY")}{" "}
                 </span>
+                {event.startTime && event.endTime ? (
+                  <span className={classes.cardDate}>
+                    {moment(event.startTime, "HH:mm").format("h:mm A")}
+                    {" - "}
+                    {moment(event.endTime, "HH:mm").format("h:mm A")}
+                  </span>
+                ) : event.startTime && !event.endTime ? (
+                  <span className={classes.cardDate}>
+                    {moment(event.startTime, "HH:mm").format("h:mm A")} PST
+                  </span>
+                ) : event.endTime && !event.startTime ? (
+                  <span className={classes.cardDate}>
+                    Ends at {moment(event.endTime, "HH:mm").format("h:mm A")}{" "}
+                    PST
+                  </span>
+                ) : null}
               </Typography>
               <Typography
                 className={classes.cardTitle}
@@ -264,28 +288,28 @@ export default function EventCard({ event, refetch, user }) {
                 {event.location}
               </Typography>
             </CardContent>
-            {user && user[config.roleUrl].includes("Admin") ? (
-              <Box className={classes.editDeleteBtn}>
-                <Button onClick={editEvent}>
-                  <EditOutlinedIcon
-                    className={classes.icon}
-                    color="primary"
-                    fontSize="large"
-                  />
-                </Button>
-                <Button onClick={handleOpen}>
-                  <DeleteOutlineIcon
-                    className={classes.icon}
-                    color="primary"
-                    fontSize="large"
-                  />
-                </Button>
-              </Box>
-            ) : null}
           </Box>
         </CardActionArea>
         <CardActions className={classes.btnContainer}>
           <SimpleModal event={event} registerEvent={registerEvent} />
+          {user && user[config.roleUrl].includes("Admin") ? (
+            <Box className={classes.editDeleteBtn}>
+              <Button onClick={editEvent}>
+                <EditOutlinedIcon
+                  className={classes.icon}
+                  color="primary"
+                  fontSize="large"
+                />
+              </Button>
+              <Button onClick={handleOpen}>
+                <DeleteOutlineIcon
+                  className={classes.icon}
+                  color="primary"
+                  fontSize="large"
+                />
+              </Button>
+            </Box>
+          ) : null}
         </CardActions>
       </Card>
       <DeleteModal

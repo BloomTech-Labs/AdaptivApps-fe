@@ -3,17 +3,17 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Container, Typography, Link } from "@material-ui/core";
 import { useNavigate } from "@reach/router";
 
-const ACS_Logo = require("../../assets/images/01-ACS_Logo.png");
-const Hartford_Logo = require("../../assets/images/TheHartfordBlue.jpg");
+const Sponsors = require("../../assets/images/Sponsors.jpg");
+const Sponsor_Thanks = require("../../assets/images/ProfilePhoto.png");
 
 const useStyles = makeStyles(theme => ({
   banner: {
     //backgroundImage: " linear-gradient(#343c6d, #43496c 30%, #282a3c 80%)",
-    backgroundColor: "#282c52",
-    padding: "1%",
-    textAlign: "center",
+    backgroundColor: "#232c63",
     display: "flex",
-    justifyContent: "space-evenly",
+    padding: "1%",
+    //textAlign: "center",
+    justifyContent: "center",
     alignItems: "center",
   },
   text: {
@@ -21,16 +21,17 @@ const useStyles = makeStyles(theme => ({
     textDecoration: "none",
     fontWeight: "900",
     fontSize: "2.5rem",
-    letterSpacing: "2px",
     "&:hover": {
       cursor: "pointer",
     },
   },
-  acs: {
-    maxWidth: "20%",
+  image: {
+    maxWidth: "80%",
+    alignSelf: "flex-end",
   },
-  hartford: {
-    maxWidth: "25%",
+  sponsors: {
+    maxWidth: "30%",
+    marginRight: "15%",
   },
 }));
 
@@ -40,23 +41,27 @@ export default function SponsorBanner() {
 
   return (
     <Link onClick={() => navigate(`/sponsorspotlight`)}>
-      <Container className={classes.banner}>
+      <div className={classes.banner}>
+        <img src={Sponsors} className={classes.sponsors} />
+        <img src={Sponsor_Thanks} className={classes.image} />
+      </div>
+      {/* <Container className={classes.banner}>
         <img
           className={classes.acs}
           src={ACS_Logo}
           alt="Angel City Virtual Games Logo"
           tabIndex="0"
-        />
-        <Typography className={classes.text}>
-          Click to view all sponsors!
-        </Typography>
-        <img
+        /> */}
+      {/* <Typography className={classes.text}>
+        Click to view all sponsors!
+      </Typography> */}
+      {/* <img
           className={classes.hartford}
           src={Hartford_Logo}
           alt="Hartford Logo"
           tabIndex="0"
         />
-      </Container>
+      </Container> */}
     </Link>
   );
 }

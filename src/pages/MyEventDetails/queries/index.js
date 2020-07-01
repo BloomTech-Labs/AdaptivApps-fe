@@ -13,6 +13,7 @@ export const GET_EVENT_DETAILS = gql`
       type
       title
       host
+      coaches
       speakers
       sponsors
       startTime

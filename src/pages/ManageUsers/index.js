@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import {
   Box,
   Typography,
-  Button,
-  Container,
   makeStyles,
 } from "@material-ui/core";
 import UsersList from "./UsersList";
+import EventAttendeeList from "./EventAttendeeList";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,6 +16,9 @@ const useStyles = makeStyles(theme => ({
     "& .MuiButton-label": {
       fontSize: "1.6rem",
       fontWeight: "500",
+    },
+    "& .MuiTab-wrapper": {
+      fontSize: "1.6rem",
     },
   },
   btn: {
@@ -41,14 +44,34 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "center",
     flexDirection: "column",
   },
+  tab: {
+    border: "1px solid gray",
+    marginLeft: "10px",
+    marginBottom: "10px",
+  },
+  highlightedTab: {
+    border: "1px solid gray",
+    marginLeft: "10px",
+    marginBottom: "10px",
+    backgroundColor: "rgb(41, 98, 255)",
+    color: "white"
+  }
 }));
 
-// This page is still a work in progress
-// It will display a list of users, using material table, and an admin
-// Can select users to perform actions. For now that's a dummy function,
-// But in future can be functions like group messaging.
 const ManageUsers = () => {
   const classes = useStyles();
+  const [displayFilter, setDisplayFilter] = useState(true);
+  const [displayEventUser, setDisplayEventUser] = useState(false);
+
+  const handleClick1 = async () => {
+    await setDisplayEventUser(false);
+    setDisplayFilter(true);
+  }
+
+  const handleClick2 = async () => {
+    await setDisplayFilter(false);
+    setDisplayEventUser(true);
+  }
 
   return (
     <Box component="main" className={classes.root}>
@@ -57,8 +80,23 @@ const ManageUsers = () => {
           Manage Registered Users
         </Typography>
       </Box>
-      <UsersList />
-    </Box>
+      <Tabs
+        indicatorColor="primary"
+        textColor="black"
+        centered
+      >
+        {displayFilter ?
+          <Tab label="Filter Users" onClick={handleClick1} className={classes.highlightedTab} /> :
+          <Tab label="Filter Users" onClick={handleClick1} className={classes.tab} />
+        }
+        {displayEventUser ?
+          <Tab label="Event Attendees" onClick={handleClick2} className={classes.highlightedTab} /> :
+          <Tab label="Event Attendees" onClick={handleClick2} className={classes.tab} />
+        }
+      </Tabs>
+      {displayFilter ? <UsersList /> : null}
+      {displayEventUser ? <EventAttendeeList /> : null}
+    </Box >
   );
 };
 
