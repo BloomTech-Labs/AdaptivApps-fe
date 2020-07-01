@@ -22,6 +22,8 @@ const useStyles = makeStyles({
     borderColor: "#D3D3D3",
   },
   grid: {
+    display: "flex",
+    flexDirection: "column",
     justifyContent: "flex-start",
     flexWrap: "wrap",
     marginLeft: "3rem",
@@ -35,7 +37,18 @@ const useStyles = makeStyles({
   search: {
     zIndex: 100,
     position: "absolute",
-    marginLeft: "450px",
+    marginLeft: "350px",
+    '@media (max-width: 850px)': {
+      display: "none",
+    },
+  },
+  search2: {
+    height: "38px",
+    marginLeft: "3rem",
+    marginBottom: "25px",
+    '@media (min-width: 850px)': {
+      display: "none",
+    },
   },
 });
 
@@ -54,32 +67,35 @@ export default function EventsCalendar() {
   if (error) return `Error! ${error.message}`;
   return (
     <>
-    <div>
-      <SponsorBanner />
+      <div>
+        <SponsorBanner />
       </div>
-    <div>
-      <div className={classes.search}>
-        <GlobalSearchBox />
-      </div>
-      <main className={classes.root}>
-        <Box className={classes.headingBox} borderBottom={2}>
-          <Typography className={classes.heading} variant="h1" gutterBottom>
-            Upcoming Events
+      <div>
+        <div className={classes.search}>
+          <GlobalSearchBox />
+        </div>
+        <main className={classes.root}>
+          <Box className={classes.headingBox} borderBottom={2}>
+            <Typography className={classes.heading} variant="h1" gutterBottom>
+              Upcoming Events
           </Typography>
-        </Box>
-        {/* {user && user[config.roleUrl].includes("Admin") ? ( */}
+          </Box>
+          {/* {user && user[config.roleUrl].includes("Admin") ? ( */}
           <AdminTagsSearch
             isSearching={isSearching}
             setIsSearching={setIsSearching}
           />
-        {/* ) : null} */}
-        <Grid className={classes.grid}>
-          {!isSearching ? (
-            <EventList currentEvents={currentEvents} refetch={refetch} user={user} />
-          ) : null}
-        </Grid>
-      </main>
-    </div>
+          <div className={classes.search2}>
+            <GlobalSearchBox />
+          </div>
+          {/* ) : null} */}
+          <Grid className={classes.grid}>
+            {!isSearching ? (
+              <EventList currentEvents={currentEvents} refetch={refetch} user={user} />
+            ) : null}
+          </Grid>
+        </main>
+      </div>
     </>
   );
 }

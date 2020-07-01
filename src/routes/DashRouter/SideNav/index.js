@@ -271,7 +271,7 @@ function SideNav(props) {
             <img src={acsLogo} alt="ACS Logo" />
           </Box>
           <Box className={classes.navContainer}>
-            <NavLink to="welcome" className={classes.navLink}>
+            <NavLink to="/" className={classes.navLink}>
               <HouseOutlinedIcon className={classes.navIcon} />
               <p>Welcome</p>
             </NavLink>
@@ -299,7 +299,7 @@ function SideNav(props) {
               <UserIcon className={classes.navIcon} />
               <p>My Profile</p>
             </NavLink>
-            <NavLink to="/" className={classes.navLink}>
+            <NavLink to="settings" className={classes.navLink}>
               <SettingsIcon className={classes.navIcon} />
               <p>Settings</p>
             </NavLink>

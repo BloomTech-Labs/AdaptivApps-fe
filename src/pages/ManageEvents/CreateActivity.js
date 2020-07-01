@@ -43,6 +43,18 @@ const useStyles = makeStyles({
   activityCreation: {
     marginLeft: ".5rem",
     display: "flex",
+    '@media (max-width: 1300px)': {
+      flexDirection: "column",
+    },
+  },
+  rightHalf: {
+    '@media (max-width: 1300px)': {
+      marginLeft: "-25px",
+      marginBottom: "100px",
+    },
+    '@media (max-width: 700px)': {
+      display: "none",
+    },
   },
   eventInfo: {
     margin: "2rem 0 3rem 4rem",
@@ -95,7 +107,7 @@ export default function CreateActivity() {
             refetch={refetch}
           />
         </Box>
-        <Box>
+        <Box className={classes.rightHalf}>
           <Box className={classes.eventInfo}>
             <Typography variant="h2">{data?.event?.title}</Typography>
             <Typography variant="h5" className={classes.subHeadings}>
@@ -117,10 +129,10 @@ export default function CreateActivity() {
               </Typography>
             </Box>
           ) : (
-            <Box className={classes.activityGroup}>
-              <ActivityGroup data={data} refetch={refetch} />
-            </Box>
-          )}
+              <Box className={classes.activityGroup}>
+                <ActivityGroup data={data} refetch={refetch} />
+              </Box>
+            )}
         </Box>
       </Container>
     </main>

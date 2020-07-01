@@ -34,7 +34,20 @@ const useStyles = makeStyles(theme => ({
       width: "100%",
     },
   },
-  form: { display: "flex", flexDirection: "column", width: "50%" },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    width: "60%",
+    '@media (max-width: 1200px)': {
+      width: "70%",
+    },
+    '@media (max-width: 1000px)': {
+      width: "70%",
+    },
+    '@media (max-width: 800px)': {
+      width: "90%",
+    },
+  },
   inputLabel: {
     marginBottom: "7px",
     marginLeft: "5px",
