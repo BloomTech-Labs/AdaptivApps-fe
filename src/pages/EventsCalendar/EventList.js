@@ -30,8 +30,8 @@ export default function EventList({ currentEvents, refetch, user }) {
   var eventsMap = new HashMap();
 
   useEffect(() => {
-    refetch()
-  }, [refetch])
+    refetch();
+  }, [refetch]);
 
   if (currentEvents) {
     for (let i = 0; i < currentEvents.length; i++) {
