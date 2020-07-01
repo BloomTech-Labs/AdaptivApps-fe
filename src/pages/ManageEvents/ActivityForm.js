@@ -43,9 +43,9 @@ const useStyles = makeStyles(theme => ({
   form: {
     display: "flex",
     flexDirection: "column",
-    width: "600px",
-    '@media (max-width: 1400px)': {
-      width: "500px",
+    width: "500px",
+    '@media (max-width: 1600px)': {
+      width: "400px",
     },
   },
   inputLabel: {
