@@ -1,5 +1,6 @@
 // React imports
 import React, { useEffect } from "react";
+import moment from "moment";
 // Component imports
 import ActivityGroup from "./ActivityGroup";
 import eventImg from "../../assets/images/acs_hartford.png";
@@ -139,15 +140,14 @@ export default function EventDetails(props) {
     variables: { id: eventId, email: user.email },
   });
 
-  
   useEffect(() => {
     refetch();
   }, [refetch]);
-  
+
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
   console.log("props", props);
-  console.log('Inside Event Details', activeEvent)
+  console.log("Inside Event Details", activeEvent);
   // const currentActivities = data.activities;
   return (
     <Box className={classes.root} m={4}>
@@ -167,15 +167,22 @@ export default function EventDetails(props) {
         </Box>
         {activeEvent.type === "Virtual" ? (
           <Box className={classes.topContentText} m="2.4rem">
-            <p>{activeEvent.startDate}</p>
+            <p>{moment(activeEvent.startDate).format("MM/DD/YYYY")}</p>
             <h2>{activeEvent.title}</h2>
             <Typography variant="subtitle1">{activeEvent.location}</Typography>
-            <p>Start time: {activeEvent.startTime}</p>
+            {activeEvent.startTime && (
+              <p>
+                Start time:{" "}
+                {moment(activeEvent.startTime, "HH:mm").format("h:mm A")} PST
+              </p>
+            )}
           </Box>
         ) : (
           <Box className={classes.topContentText} m="2.4rem">
             <p>
-              {activeEvent.startDate} - {activeEvent.endDate}
+              {moment(activeEvent.startDate).format("MM/DD/YYYY")}
+              {" - "}
+              {moment(activeEvent.endDate).format("MM/DD/YYYY")}
             </p>
             <h2>{activeEvent.title}</h2>
             <Typography variant="subtitle1">{activeEvent.location}</Typography>

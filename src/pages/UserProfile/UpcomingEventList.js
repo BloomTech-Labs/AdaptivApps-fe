@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import NavLink from "../../routes/DashRouter/SideNav/NavLink";
+import moment from "moment";
 // Import queries
 import { useQuery } from "react-apollo";
 import { GET_UPCOMING_EVENTS } from "./queries";
@@ -99,8 +100,8 @@ export default function UpcomingEventList({ userName }) {
                 <img
                   src={
                     event?.imgUrl === null ||
-                      event?.imgUrl === undefined ||
-                      event?.imgUrl === ""
+                    event?.imgUrl === undefined ||
+                    event?.imgUrl === ""
                       ? eventImg
                       : event?.imgUrl
                   }
@@ -110,7 +111,9 @@ export default function UpcomingEventList({ userName }) {
               </NavLink>
               <div className={classes.textContainer}>
                 <p className={classes.text}>
-                  {event.startDate} - {event.endDate}
+                  {moment(event.startDate).format("MM/DD/YYYY")}
+                  {" - "}
+                  {moment(event.endDate).format("MM/DD/YYYY")}
                 </p>
                 <h1 className={classes.subtitle}>{event.title}</h1>
                 <p className={classes.text}>{event.location}</p>
@@ -119,8 +122,8 @@ export default function UpcomingEventList({ userName }) {
           ))}
         </div>
       ) : (
-          <h3 className={classes.text}>You have no upcoming events.</h3>
-        )}
+        <h3 className={classes.text}>You have no upcoming events.</h3>
+      )}
     </>
   );
 }
