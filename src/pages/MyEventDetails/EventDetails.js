@@ -27,6 +27,9 @@ const useStyles = makeStyles({
   topContentContainer: {
     display: "flex",
     flexDirection: "row",
+    '@media (max-width: 1050px)': {
+      flexDirection: "column",
+    },
   },
   topContentText: {
     display: "flex",
@@ -157,8 +160,8 @@ export default function EventDetails(props) {
             className={classes.img}
             src={
               (props && props?.event?.imgUrl === null) ||
-              props?.event?.imgUrl === undefined ||
-              props?.event?.imgUrl === ""
+                props?.event?.imgUrl === undefined ||
+                props?.event?.imgUrl === ""
                 ? eventImg
                 : props?.event?.imgUrl
             }
@@ -178,16 +181,16 @@ export default function EventDetails(props) {
             )}
           </Box>
         ) : (
-          <Box className={classes.topContentText} m="2.4rem">
-            <p>
-              {moment(activeEvent.startDate).format("MM/DD/YYYY")}
-              {" - "}
-              {moment(activeEvent.endDate).format("MM/DD/YYYY")}
-            </p>
-            <h2>{activeEvent.title}</h2>
-            <Typography variant="subtitle1">{activeEvent.location}</Typography>
-          </Box>
-        )}
+            <Box className={classes.topContentText} m="2.4rem">
+              <p>
+                {moment(activeEvent.startDate).format("MM/DD/YYYY")}
+                {" - "}
+                {moment(activeEvent.endDate).format("MM/DD/YYYY")}
+              </p>
+              <h2>{activeEvent.title}</h2>
+              <Typography variant="subtitle1">{activeEvent.location}</Typography>
+            </Box>
+          )}
         <Link
           className={classes.donateBtn}
           color="primary"
@@ -234,8 +237,8 @@ export default function EventDetails(props) {
         <ul>
           {activeEvent.sponsors.length > 0
             ? activeEvent?.sponsors
-                ?.split(", ")
-                .map(sponsor => <li>{sponsor}</li>)
+              ?.split(", ")
+              .map(sponsor => <li>{sponsor}</li>)
             : null}
         </ul>
       </Box>
