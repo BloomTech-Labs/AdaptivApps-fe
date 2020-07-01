@@ -40,9 +40,9 @@ const useStyles = makeStyles(theme => ({
       padding: "0",
     },
     [theme.breakpoints.down("xs")]: {
-      width: "100%",
+      maxWidth: "55%",
+      margin: "0 0 0 2%",
       padding: "0",
-      height: "85%",
     },
   },
   chatRoomIcon: {
@@ -54,9 +54,7 @@ const useStyles = makeStyles(theme => ({
       marginRight: "2%",
     },
     [theme.breakpoints.down("xs")]: {
-      width: "100%",
-      padding: "0",
-      height: "85%",
+      marginRight: "2%",
     },
   },
   chatRoomButton: {
