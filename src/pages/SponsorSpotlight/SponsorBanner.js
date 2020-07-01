@@ -12,6 +12,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "#232c63",
     display: "flex",
     padding: "1%",
+    overflow: "hidden",
     //textAlign: "center",
     justifyContent: "center",
     alignItems: "center",

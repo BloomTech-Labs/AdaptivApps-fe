@@ -27,14 +27,16 @@ import { makeStyles, Container, Typography, Box } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    marginLeft: "1.5rem",
-    height: "100vh",
+    height: "100%",
+    margin: "0",
     "& .MuiTypography-h1": {
       [theme.breakpoints.down("sm")]: {
+        marginLeft: "0rem",
         fontSize: "2.75rem",
       },
-      [theme.breakpoints.down("xs")]: {
-        fontSize: "2.25rem",
+      [theme.breakpoints.down("sm")]: {
+        marginLeft: "0rem",
+        fontSize: "2.30rem",
       },
     },
   },
@@ -42,11 +44,20 @@ const useStyles = makeStyles(theme => ({
     margin: "6rem 0 0.7rem",
     fontWeight: "400",
     borderColor: "#D3D3D3",
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+      margin: "6rem auto 3rem auto",
+    },
   },
+
   children: {
     maxwidth: "100%",
     width: "90%",
     height: "100%",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      height: "100%",
+    },
   },
 }));
 
@@ -65,7 +76,9 @@ export default function AccountInfo() {
   return (
     <Container className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
-        <Typography variant="h1">Update Account Information</Typography>
+        <Typography className={classes.heading} variant="h1">
+          Update Account Information
+        </Typography>
       </Box>
 
       <Router className={classes.children}>

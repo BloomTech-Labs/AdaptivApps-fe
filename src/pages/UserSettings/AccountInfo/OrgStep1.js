@@ -15,7 +15,7 @@ import {
   TextField,
 } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     width: "67.5%",
@@ -26,11 +26,17 @@ const useStyles = makeStyles({
     "& .MuiTextField-root": {
       width: "74.4rem",
       height: "4.8rem",
+      [theme.breakpoints.down("xs")]: {
+        width: "100%",
+      },
     },
     "& .MuiInputLabel-asterisk": {
       fontSize: "2rem",
       color: "red",
       fontWeight: "bolder",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
     },
   },
   nameBox: {
@@ -83,7 +89,7 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     marginTop: "1rem",
   },
-});
+}));
 
 export default function OrgStep1({ updateOrgProfile }) {
   const classes = useStyles();

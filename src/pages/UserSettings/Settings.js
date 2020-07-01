@@ -30,13 +30,20 @@ import SponsorBanner from "../SponsorSpotlight/SponsorBanner";
 const useStyles = makeStyles(theme => ({
   root: {
     marginLeft: "3rem",
-
     //height: '100vh',
     width: "67.5%",
     wordWrap: "normal",
     "& .MuiTableCell-root": {
       width: "100%",
       border: "none",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "90%",
+      margin: "0 auto",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "90%",
+      margin: "0 auto",
     },
   },
   headingBox: {
@@ -71,18 +78,13 @@ const useStyles = makeStyles(theme => ({
     "& p": {
       fontSize: "1.8rem",
     },
-    [theme.breakpoints.down("sm")]: {
-      width: "90%",
-      margin: "8% auto",
-      textAlign: "center",
-    },
     [theme.breakpoints.down("xs")]: {
       width: "90%",
-      margin: "8% auto",
-      textAlign: "center",
+      margin: "8% 0",
     },
   },
   nullProfileCta: {
+    width: "100%",
     marginLeft: "0rem",
     "& p": {
       fontSize: "1.8rem",
@@ -103,6 +105,10 @@ const useStyles = makeStyles(theme => ({
       border: "1px solid #2962FF",
       background: "white",
       color: "#2962FF",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "18rem",
+      margin: "2rem auto",
     },
   },
   subHeading: {
@@ -152,7 +158,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     width: "100%",
-    margin: ".25rem auto",
+    margin: ".25rem 0",
     lineHeight: "10px",
     [theme.breakpoints.down("sm")]: {
       display: "flex",
@@ -163,6 +169,9 @@ const useStyles = makeStyles(theme => ({
       display: "flex",
       flexDirection: "column",
       width: "100%",
+    },
+    "& .MuiTableCell-sizeSmall": {
+      paddingLeft: "0",
     },
   },
 }));

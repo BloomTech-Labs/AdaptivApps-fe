@@ -37,18 +37,24 @@ const useStyles = makeStyles(theme => ({
       fontSize: "2rem",
       color: "red",
       fontWeight: "bolder",
-      height: "100vh"
+      height: "100vh",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
     },
   },
   form: {
     marginTop: "3.6rem",
     display: "flex",
     flexDirection: "column",
+    height: "100vh",
     "& .MuiTextField-root": {
       width: "100%",
-      marginBottom: "1.6rem"
+      marginBottom: "1.6rem",
     },
-    height: "100vh"
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+    },
   },
   namePhoneBox: {
     display: "flex",
@@ -60,6 +66,7 @@ const useStyles = makeStyles(theme => ({
         margin: "1.2rem auto",
       },
       [theme.breakpoints.down("xs")]: {
+        width: "100%",
         margin: "1.2rem auto",
       },
     },
@@ -80,7 +87,7 @@ const useStyles = makeStyles(theme => ({
       width: "40rem",
     },
     [theme.breakpoints.down("xs")]: {
-      width: "40rem",
+      width: "100%",
     },
   },
   em: {
@@ -427,43 +434,43 @@ export default function Step1({ updateProfile }) {
             {errors.country && <Typography className={classes.error}>country is a required field</Typography>}
           </Box>
         </Box> */}
-       
-          <InputLabel htmlFor="twitter">
-            Please enter the full url link to your Twitter profile
-          </InputLabel>
-          <Controller
-            as={<TextField />}
-            name="twitter"
-            type="text"
-            variant="outlined"
-            control={control}
-            defaultValue=""
-          />
-       
-          <InputLabel htmlFor="facebook">
-            Please enter the full url link to your Facebook profile
-          </InputLabel>
-          <Controller
-            as={<TextField />}
-            name="facebook"
-            type="text"
-            variant="outlined"
-            control={control}
-            defaultValue=""
-          />
-      
-          <InputLabel htmlFor="instagram">
-            Please enter the full url link to your Instagram profile
-          </InputLabel>
-          <Controller
-            as={<TextField />}
-            name="instagram"
-            type="text"
-            variant="outlined"
-            control={control}
-            defaultValue=""
-          />
-    
+
+        <InputLabel htmlFor="twitter">
+          Please enter the full url link to your Twitter profile
+        </InputLabel>
+        <Controller
+          as={<TextField />}
+          name="twitter"
+          type="text"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+
+        <InputLabel htmlFor="facebook">
+          Please enter the full url link to your Facebook profile
+        </InputLabel>
+        <Controller
+          as={<TextField />}
+          name="facebook"
+          type="text"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+
+        <InputLabel htmlFor="instagram">
+          Please enter the full url link to your Instagram profile
+        </InputLabel>
+        <Controller
+          as={<TextField />}
+          name="instagram"
+          type="text"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+
         <InputLabel required htmlFor="legal">
           Are you over 18 years old?
         </InputLabel>
@@ -489,9 +496,7 @@ export default function Step1({ updateProfile }) {
           defaultValue=""
           rules={{ required: true }}
         />
-        <InputLabel htmlFor="bio">
-          Bio
-        </InputLabel>
+        <InputLabel htmlFor="bio">Bio</InputLabel>
         <Controller
           as={<TextField />}
           name="bio"

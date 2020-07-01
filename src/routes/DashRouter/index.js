@@ -11,6 +11,7 @@ const useStyles = makeStyles({
   root: {
     maxWidth: "100vw",
     display: "flex",
+    padding: "0",
     backgroundColor: "#FFFFFF",
     minHeight: "100vh",
   },
