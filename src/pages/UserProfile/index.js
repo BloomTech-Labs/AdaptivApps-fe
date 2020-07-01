@@ -37,12 +37,11 @@ const useStyles = makeStyles(theme => ({
   input: {
     display: "none",
   },
-  iconLink: {
-    width: "2.4rem"
+  icon: {
+    width: "2.4rem",
+    borderRadius: ".3rem"
   },
-  icons: {
-    fontSize: "2.4rem",
-  },
+  
   profileEventWrapper: {
     width: "100%",
     display: "flex",
@@ -355,7 +354,7 @@ export default function UserProfile() {
               >
                 <img
                   src={FacebookIcon}
-                  className={classes.iconLink}
+                  className={classes.icon}
                 />
               </Link>
               <Link
@@ -366,7 +365,7 @@ export default function UserProfile() {
               >
                <img
                   src={TwitterIcon}
-                  className={classes.iconLink}
+                  className={classes.icon}
                 />
               </Link>
               <Link
@@ -377,7 +376,7 @@ export default function UserProfile() {
               >
                 <img
                   src={InstagramIcon}
-                  className={classes.iconLink}
+                  className={classes.icon}
                 />
               </Link>
             </div>
