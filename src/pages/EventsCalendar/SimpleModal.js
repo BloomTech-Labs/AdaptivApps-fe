@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import moment from "moment";
 import Modal from "@material-ui/core/Modal";
 import { Container, Box, Button, Typography } from "@material-ui/core";
 import eventImg from "../../assets/images/acs_hartford.png";
@@ -19,7 +20,7 @@ const useStyles = makeStyles(theme => ({
   paper: {
     position: "absolute",
     width: "40rem",
-    height: "56.8rem",
+    maxHeight: "100%",
     backgroundColor: "white",
     padding: "0",
     "& .MuiButton-label": {
@@ -54,6 +55,9 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     fontSize: "2.1rem",
+    "&.MuiTypography-root": {
+      wordBreak: "break-word",
+    },
   },
   loc: {
     color: "#808080",
@@ -72,6 +76,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     alignContent: "flex-end",
+    paddingBottom: "2%",
   },
   modalP: {
     margin: "1.2rem 0",
@@ -140,7 +145,14 @@ export default function SimpleModal({ event, registerEvent }) {
       </Box>
       <Box className={classes.modalMiddle}>
         <Typography className={classes.date}>
-          {event.startDate} - {event.endDate}
+          {moment(event.startDate).format("MM/DD/YYYY")} -{" "}
+          {moment(event.endDate).format("MM/DD/YYYY")}
+        </Typography>
+        <Typography className={classes.date}>
+          {event.startTime && moment(event.startTime, "HH:mm").format("h:mm A")}
+          {event.endTime && " - "}
+          {event.endTime && moment(event.endTime, "HH:mm").format("h:mm A")}
+          {event.endTime && "  PST"}
         </Typography>
         <Typography className={classes.title} id="simple-modal-title">
           {event.title}
@@ -167,7 +179,7 @@ export default function SimpleModal({ event, registerEvent }) {
   return (
     <div>
       <Button className={classes.btn} onClick={handleOpen}>
-        Add to my schedule
+        View Details
       </Button>
       <Modal
         open={open}

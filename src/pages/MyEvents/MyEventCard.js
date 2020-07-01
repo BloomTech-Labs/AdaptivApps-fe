@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 //Component imports
 import eventImg from "../../assets/images/acs_hartford.png";
+import moment from "moment";
 import { useNavigate } from "@reach/router";
 // GraphQL/Apollo imports
 import { useMutation, useQuery } from "react-apollo";
@@ -39,6 +40,7 @@ import {
 
 const useStyles = makeStyles(theme => ({
   root: {
+    maxWidth: "35rem",
     borderRadius: ".5rem",
     marginRight: "2.4rem",
     boxShadow: "none",
@@ -52,6 +54,9 @@ const useStyles = makeStyles(theme => ({
     margin: ".4rem 0",
     fontWeight: "500",
     color: "#3C3C3C",
+    "&.MuiTypography-root": {
+      wordBreak: "break-word",
+    },
   },
   cardLoc: {
     fontSize: "1.6rem",
@@ -102,6 +107,10 @@ const useStyles = makeStyles(theme => ({
     width: "12.75rem",
     textAlign: "center",
     fontSize: "1.6rem",
+  },
+  cardContainer: {
+    display: "flex",
+    justifyContent: "space-between",
   },
 }));
 
@@ -197,12 +206,23 @@ export default function MyEventCard({ event, refetch }) {
         </Box>
         <CardContent className={classes.content}>
           <Typography
-            className={classes.cardDate}
+            className={classes.cardContainer}
             variant="body2"
             color="textSecondary"
             component="p"
           >
-            {event.startDate} - {event.endDate}
+            <span className={classes.cardDate}>
+              {moment(event.startDate).format("MM/DD/YYYY")}
+              {" - "}
+              {moment(event.endDate).format("MM/DD/YYYY")}
+            </span>
+            <span className={classes.cardDate}>
+              {event.startTime &&
+                moment(event.startTime, "HH:mm").format("h:mm A")}
+              {event.endTime && " - "}
+              {event.endTime && moment(event.endTime, "HH:mm").format("h:mm A")}
+              {event.endTime && "  PST"}
+            </span>
           </Typography>
           <Typography
             className={classes.cardTitle}
@@ -230,11 +250,15 @@ export default function MyEventCard({ event, refetch }) {
           Unregister
         </Button>
       </CardActions>
-      <div className={classes.socialBtnContainer}>
+      {/* <div className={classes.socialBtnContainer}>
         <Tooltip title="Share this event on Facebook">
           <FacebookShareButton
             url={"http://angelcitysports.org/"}
-            quote={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}`}
+            quote={`I'm attending an event!\nEvent Name: ${
+              event.title
+            }\nStarts: ${moment(event.startDate).format(
+              "MM/DD/YYYY"
+            )}\nWhere: ${event.location}`}
             className={classes.socialMediaBtn}
           >
             <FacebookIcon size={32} round={true} />
@@ -242,7 +266,11 @@ export default function MyEventCard({ event, refetch }) {
         </Tooltip>
         <Tooltip title="Share this event on Twitter">
           <TwitterShareButton
-            title={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}\n`}
+            title={`I'm attending an event!\nEvent Name: ${
+              event.title
+            }\nStarts: ${moment(event.startDate).format(
+              "MM/DD/YYYY"
+            )}\nWhere: ${event.location}\n`}
             url={"http://angelcitysports.org/"}
             via={"angelcitysports"}
             className={classes.socialMediaBtn}
@@ -253,14 +281,18 @@ export default function MyEventCard({ event, refetch }) {
         <Tooltip title="Share this event on Linkedin">
           <LinkedinShareButton
             title={"Angel City Sports Event"}
-            summary={`I'm attending an event!\nEvent Name: ${event.title}\nStarts: ${event.startDate}\nWhere: ${event.location}`}
+            summary={`I'm attending an event!\nEvent Name: ${
+              event.title
+            }\nStarts: ${moment(event.startDate).format(
+              "MM/DD/YYYY"
+            )}\nWhere: ${event.location}`}
             url={"http://angelcitysports.org/"}
             className={classes.socialMediaBtn}
           >
             <LinkedinIcon size={32} round={true} />
           </LinkedinShareButton>
         </Tooltip>
-      </div>
+      </div> */}
     </Card>
   );
 }
