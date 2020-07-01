@@ -1,0 +1,180 @@
+Task #1:
+Group events by date
+
+Task #2: 
+Translate that date into a displayable date for our app
+
+
+Instructions:
+Look at each of the event in the list
+I will create an empty table (key - value) where keys will be dates, and values will be an array of events
+
+Dates                       Values
+Tuesday, July 1st         [Event1, Event2, ....]
+Wednesday, July 2nd       [Event3, Event4, ....]
+
+
+Rendering Event:
+Process a display header using the dates, and then content of this tab will be events, one by one, sorted by startTime
+
+
+  const classes = useStyles();
+  const [eventsByMonth, setEventsByMonth] = useState();
+  useEffect(() => {
+    setEventsByMonth(currentEvents && currentEvents);
+  });
+
+  useEffect(() => {
+    refetch()
+  }, [refetch])
+
+  const groupBy = (array, key) => {
+    // Return the end result
+    return (
+      array &&
+      array.reduce((result, currentValue) => {
+        // If an array already present for key, push it to the array. Else create an array and push the object
+        (result[moment(currentValue[key]).format("MMMM")] =
+          result[moment(currentValue[key]).format("MMMM")] || []).push(
+            currentValue
+          );
+        // Return the current iteration `result` value, this will be taken as next iteration `result` value and accumulate
+        return result;
+      }, {})
+    ); // empty object is the initial value for result object
+  };
+
+  const eventsGroupedByMonth = groupBy(eventsByMonth, "startDate");
+
+      {eventsGroupedByMonth?.January === undefined ||
+        eventsGroupedByMonth?.January.length < 1 ? null : (
+          <div className={classes.eventGroup}>
+            <Typography variant="h1">January</Typography>
+            <div className={classes.eventCard}>
+              {eventsGroupedByMonth?.January.map((event, id) => (
+                <EventCard key={id} event={event} refetch={refetch} user={user} />
+              ))}
+            </div>
+          </div>
+        )}
+      {eventsGroupedByMonth?.February === undefined ||
+        eventsGroupedByMonth?.February.length < 1 ? null : (
+          <div className={classes.eventGroup}>
+            <Typography variant="h1">February</Typography>
+            <div className={classes.eventCard}>
+              {eventsGroupedByMonth?.February.map((event, id) => (
+                <EventCard key={id} event={event} refetch={refetch} user={user} />
+              ))}
+            </div>
+          </div>
+        )}
+      {eventsGroupedByMonth?.March === undefined ||
+        eventsGroupedByMonth?.March.length < 1 ? null : (
+          <div className={classes.eventGroup}>
+            <Typography variant="h1">March</Typography>
+            <div className={classes.eventCard}>
+              {eventsGroupedByMonth?.March.map((event, id) => (
+                <EventCard key={id} event={event} refetch={refetch} user={user} />
+              ))}
+            </div>
+          </div>
+        )}
+      {eventsGroupedByMonth?.April === undefined ||
+        eventsGroupedByMonth?.April.length < 1 ? null : (
+          <div className={classes.eventGroup}>
+            <Typography variant="h1">April</Typography>
+            <div className={classes.eventCard}>
+              {eventsGroupedByMonth?.April.map((event, id) => (
+                <EventCard key={id} event={event} refetch={refetch} user={user} />
+              ))}
+            </div>
+          </div>
+        )}
+      {eventsGroupedByMonth?.May === undefined ||
+        eventsGroupedByMonth?.May.length < 1 ? null : (
+          <div className={classes.eventGroup}>
+            <Typography variant="h1">May</Typography>
+            <div className={classes.eventCard}>
+              {eventsGroupedByMonth?.May.map((event, id) => (
+                <EventCard key={id} event={event} refetch={refetch} user={user} />
+              ))}
+            </div>
+          </div>
+        )}
+      {eventsGroupedByMonth?.June === undefined ||
+        eventsGroupedByMonth?.June.length < 1 ? null : (
+          <div className={classes.eventGroup}>
+            <Typography variant="h1">June</Typography>
+            <div className={classes.eventCard}>
+              {eventsGroupedByMonth?.June.map((event, id) => (
+                <EventCard key={id} event={event} refetch={refetch} user={user} />
+              ))}
+            </div>
+          </div>
+        )}
+      {eventsGroupedByMonth?.July === undefined ||
+        eventsGroupedByMonth?.July.length < 1 ? null : (
+          <div className={classes.eventGroup}>
+            <Typography variant="h1">July</Typography>
+            <div className={classes.eventCard}>
+              {eventsGroupedByMonth?.July.map((event, id) => (
+                <EventCard key={id} event={event} refetch={refetch} user={user} />
+              ))}
+            </div>
+          </div>
+        )}
+      {eventsGroupedByMonth?.August === undefined ||
+        eventsGroupedByMonth?.August.length < 1 ? null : (
+          <div className={classes.eventGroup}>
+            <Typography variant="h1">August</Typography>
+            <div className={classes.eventCard}>
+              {eventsGroupedByMonth?.August.map((event, id) => (
+                <EventCard key={id} event={event} refetch={refetch} user={user} />
+              ))}
+            </div>
+          </div>
+        )}
+      {eventsGroupedByMonth?.September === undefined ||
+        eventsGroupedByMonth?.September.length < 1 ? null : (
+          <div className={classes.eventGroup}>
+            <Typography variant="h1">September</Typography>
+            <div className={classes.eventCard}>
+              {eventsGroupedByMonth?.September.map((event, id) => (
+                <EventCard key={id} event={event} refetch={refetch} user={user} />
+              ))}
+            </div>
+          </div>
+        )}
+      {eventsGroupedByMonth?.October === undefined ||
+        eventsGroupedByMonth?.October.length < 1 ? null : (
+          <div className={classes.eventGroup}>
+            <Typography variant="h1">October</Typography>
+            <div className={classes.eventCard}>
+              {eventsGroupedByMonth?.October.map((event, id) => (
+                <EventCard key={id} event={event} refetch={refetch} user={user} />
+              ))}
+            </div>
+          </div>
+        )}
+      {eventsGroupedByMonth?.November === undefined ||
+        eventsGroupedByMonth?.November.length < 1 ? null : (
+          <div className={classes.eventGroup}>
+            <Typography variant="h1">November</Typography>
+            <div className={classes.eventCard}>
+              {eventsGroupedByMonth?.November.map((event, id) => (
+                <EventCard key={id} event={event} refetch={refetch} user={user} />
+              ))}
+            </div>
+          </div>
+        )}
+      {eventsGroupedByMonth?.December === undefined ||
+        eventsGroupedByMonth?.December.length < 1 ? null : (
+          <div className={classes.eventGroup}>
+            <Typography variant="h1">December</Typography>
+            <div className={classes.eventCard}>
+              {eventsGroupedByMonth?.December.map((event, id) => (
+                <EventCard key={id} event={event} refetch={refetch} user={user} />
+              ))}
+            </div>
+          </div>
+        )}
