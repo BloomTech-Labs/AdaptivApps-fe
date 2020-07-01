@@ -36,6 +36,7 @@ const Hanger_Logo = require("../../assets/images/29-HangerCilnic.png");
 const LA_Parks_Logo = require("../../assets/images/30-LA Dept of Rec&Parks.png");
 const LA84_Logo = require("../../assets/images/31-LA84.png");
 const Momo_Logo = require("../../assets/images/32-MoMo.png");
+const SixBLabels = require("../../assets/images/33-SixBLabels.png");
 
 // [theme.breakpoints.up("lg")]: {
 //   fontSize: "7.2rem",
@@ -203,6 +204,18 @@ const useStyles = makeStyles(theme => ({
       fontSize: ".25rem",
     },
   },
+  hartford: {
+    maxWidth: "99%",
+  },
+  adaptiv: {
+    maxWidth: "35%",
+    [theme.breakpoints.down("sm")]: {
+      margin: "10% auto",
+    },
+    [theme.breakpoints.down("xs")]: {
+      margin: "10% auto",
+    },
+  },
 }));
 
 export default function SponsorSpotlight() {
@@ -250,12 +263,14 @@ export default function SponsorSpotlight() {
               aria-label="Click to go to The Hartford's website"
             >
               <img
-                className={classes.img}
+                className={classes.hartford}
                 alt="The Hartford Logo"
                 src={Hartford_Logo}
               />
             </a>
           </Grid>
+        </Grid>
+        <Grid container alignItems="center" className={classes.presented}>
           <Grid item xs>
             <Typography className={classes.header}>Hosted by</Typography>
             <a
@@ -266,7 +281,7 @@ export default function SponsorSpotlight() {
               aria-label="Click to go to Adaptiv Apps' Website"
             >
               <img
-                className={classes.img}
+                className={classes.adaptiv}
                 alt="Adaptiv Apps Logo"
                 src={Adaptiv_Logo}
               />
@@ -749,6 +764,21 @@ export default function SponsorSpotlight() {
                 className={classes.img}
                 alt="Momo Production & Event Rentals Logo"
                 src={Momo_Logo}
+              />
+            </a>
+          </Grid>
+          <Grid item xs>
+            <a
+              href="http://www.momoproductionrentals.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              tabIndex="0"
+              aria-label="Click to go to Six B Label's Website"
+            >
+              <img
+                className={classes.img}
+                alt="Six B Label's Logo"
+                src={SixBLabels}
               />
             </a>
           </Grid>
