@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Container, Typography, Link } from "@material-ui/core";
 import { useNavigate } from "@reach/router";
 
+const Sponsors = require("../../assets/images/Sponsors.jpg");
 const Sponsor_Thanks = require("../../assets/images/SponsorThanks.png");
 const ACS_Logo = require("../../assets/images/01-ACS_Logo.png");
 const Hartford_Logo = require("../../assets/images/TheHartfordBlue.jpg");
@@ -39,6 +40,9 @@ const useStyles = makeStyles(theme => ({
   image: {
     alignSelf: "flex-end",
   },
+  sponsors: {
+    maxWidth: "10%",
+  },
 }));
 
 export default function SponsorBanner() {
@@ -48,6 +52,7 @@ export default function SponsorBanner() {
   return (
     <Link onClick={() => navigate(`/sponsorspotlight`)}>
       <div className={classes.banner}>
+        <img src={Sponsors} className={classes.sponsors} />
         <img src={Sponsor_Thanks} className={classes.image} />
       </div>
       {/* <Container className={classes.banner}>
@@ -57,9 +62,9 @@ export default function SponsorBanner() {
           alt="Angel City Virtual Games Logo"
           tabIndex="0"
         /> */}
-      <Typography className={classes.text}>
+      {/* <Typography className={classes.text}>
         Click to view all sponsors!
-      </Typography>
+      </Typography> */}
       {/* <img
           className={classes.hartford}
           src={Hartford_Logo}
