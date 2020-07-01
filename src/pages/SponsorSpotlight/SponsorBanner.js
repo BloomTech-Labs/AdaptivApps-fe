@@ -4,25 +4,19 @@ import { Container, Typography, Link } from "@material-ui/core";
 import { useNavigate } from "@reach/router";
 
 const Sponsors = require("../../assets/images/Sponsors.jpg");
-const Sponsor_Thanks = require("../../assets/images/SponsorThanks.png");
-const ACS_Logo = require("../../assets/images/01-ACS_Logo.png");
-const Hartford_Logo = require("../../assets/images/TheHartfordBlue.jpg");
+const Sponsor_Thanks = require("../../assets/images/ProfilePhoto.png");
 
 const useStyles = makeStyles(theme => ({
   banner: {
     //backgroundImage: " linear-gradient(#343c6d, #43496c 30%, #282a3c 80%)",
     backgroundColor: "#232c63",
     display: "flex",
-    //padding: "1%",
-    textAlign: "center",
-    display: "flex",
-    justifyContent: "space-evenly",
+    padding: "1%",
+    //textAlign: "center",
+    justifyContent: "center",
     alignItems: "center",
   },
   text: {
-    position: "absolute",
-    top: "5%",
-    left: "22%",
     color: "white",
     textDecoration: "none",
     fontWeight: "900",
@@ -31,17 +25,13 @@ const useStyles = makeStyles(theme => ({
       cursor: "pointer",
     },
   },
-  acs: {
-    maxWidth: "20%",
-  },
-  hartford: {
-    maxWidth: "25%",
-  },
   image: {
+    maxWidth: "80%",
     alignSelf: "flex-end",
   },
   sponsors: {
-    maxWidth: "10%",
+    maxWidth: "30%",
+    marginRight: "15%",
   },
 }));
 
