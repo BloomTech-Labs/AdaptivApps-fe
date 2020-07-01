@@ -7,10 +7,19 @@ import { useAuth0 } from "../../../config/react-auth0-spa";
 // Query Imports
 import { useQuery, useSubscription } from "react-apollo";
 import { GET_MY_PROFILE, PROFILE_SUBSCRIPTION } from "./queries/profile";
-import { GET_NOTIFICATIONS, NOTIFICATION_SUBSCRIPTION } from "../../../pages/Chat/queries/Notifications";
-import { GET_ANNOUNCEMENTS, ANNOUNCEMENT_SUBSCRIPTION } from '../../../pages/Announcement/queries/Announcements';
-import { GET_CHAT_ROOMS, CHAT_ROOM_SUBSCRIPTION } from '../../../pages/Chat/queries/ChatRooms'
-import { CHAT_SUBSCRIPTION } from '../../../pages/Chat/queries/Chats'
+import {
+  GET_NOTIFICATIONS,
+  NOTIFICATION_SUBSCRIPTION,
+} from "../../../pages/Chat/queries/Notifications";
+import {
+  GET_ANNOUNCEMENTS,
+  ANNOUNCEMENT_SUBSCRIPTION,
+} from "../../../pages/Announcement/queries/Announcements";
+import {
+  GET_CHAT_ROOMS,
+  CHAT_ROOM_SUBSCRIPTION,
+} from "../../../pages/Chat/queries/ChatRooms";
+import { CHAT_SUBSCRIPTION } from "../../../pages/Chat/queries/Chats";
 import GroupIcon from "@material-ui/icons/GroupAddOutlined";
 
 // Styling imports
@@ -19,14 +28,14 @@ import { withStyles } from "@material-ui/core/styles";
 import NavLink from "./NavLink";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
 import BookmarkIcon from "@material-ui/icons/BookmarkBorder";
-import BookmarksIcon from '@material-ui/icons/BookmarksOutlined';
+import BookmarksIcon from "@material-ui/icons/BookmarksOutlined";
 import HomeIcon from "@material-ui/icons/HomeOutlined";
 import UserIcon from "@material-ui/icons/PersonOutlineOutlined";
 import MenuIcon from "@material-ui/icons/Menu";
 import ForumOutlinedIcon from "@material-ui/icons/ForumOutlined";
 import SettingsIcon from "@material-ui/icons/SettingsOutlined";
-import HouseOutlinedIcon from '@material-ui/icons/HouseOutlined';
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+import HouseOutlinedIcon from "@material-ui/icons/HouseOutlined";
+import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import { IconContext } from "react-icons";
 import { FiLogOut } from "react-icons/fi";
 import acsLogo from "../../../assets/images/acsLogo.png";
@@ -175,6 +184,9 @@ const useStyles = makeStyles(theme => ({
   logoutP: {
     color: "#2962FF",
   },
+  underAge: {
+    display: "none",
+  },
 }));
 
 function SideNav(props) {
@@ -191,20 +203,47 @@ function SideNav(props) {
       email: user?.email,
     },
   });
+  //console.log(data && data.profile.legal);
 
   const { data: subData } = useSubscription(PROFILE_SUBSCRIPTION);
 
   // Update notifications in real time
-  const { data: notifications, refetch: refetchNotifications } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email } });
-  const { error: notificationError, loading: notificationLoading } = useSubscription(NOTIFICATION_SUBSCRIPTION);
+  const {
+    data: notifications,
+    refetch: refetchNotifications,
+  } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email } });
+  const {
+    error: notificationError,
+    loading: notificationLoading,
+  } = useSubscription(NOTIFICATION_SUBSCRIPTION);
 
   // Chatroom/Chat messages/ Announcements Subscription
-  const { error: roomError, loading: roomsLoading, data: chatRoomSub } = useSubscription(CHAT_ROOM_SUBSCRIPTION)
-  const { error: chatError, loading: chatLoading, data: chatsData } = useSubscription(CHAT_SUBSCRIPTION)
-  const { error: announcementError, loading: announcementLoading } = useSubscription(ANNOUNCEMENT_SUBSCRIPTION, { variables: { isAnnouncementRoom: true } });
-  const { error, loading, data: chatRoomData, refetch: refetchData } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email } })
-  const { data: announcements, refetch: refetchAnnouncements } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
-
+  const {
+    error: roomError,
+    loading: roomsLoading,
+    data: chatRoomSub,
+  } = useSubscription(CHAT_ROOM_SUBSCRIPTION);
+  const {
+    error: chatError,
+    loading: chatLoading,
+    data: chatsData,
+  } = useSubscription(CHAT_SUBSCRIPTION);
+  const {
+    error: announcementError,
+    loading: announcementLoading,
+  } = useSubscription(ANNOUNCEMENT_SUBSCRIPTION, {
+    variables: { isAnnouncementRoom: true },
+  });
+  const {
+    error,
+    loading,
+    data: chatRoomData,
+    refetch: refetchData,
+  } = useQuery(GET_CHAT_ROOMS, { variables: { email: user?.email } });
+  const {
+    data: announcements,
+    refetch: refetchAnnouncements,
+  } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -212,8 +251,17 @@ function SideNav(props) {
 
   const announcementNotifications = [];
   const roomNotifications = [];
-  const setAnnouncementNotifications = notifications?.profile?.notifications?.map(notification => notification.label === "Announcement" && announcementNotifications.push(notification))
-  const setRoomNotifications = notifications?.profile?.notifications?.map(notification => notification.chatroom !== null && notification.label !== "Announcement" && roomNotifications.push(notification));
+  const setAnnouncementNotifications = notifications?.profile?.notifications?.map(
+    notification =>
+      notification.label === "Announcement" &&
+      announcementNotifications.push(notification)
+  );
+  const setRoomNotifications = notifications?.profile?.notifications?.map(
+    notification =>
+      notification.chatroom !== null &&
+      notification.label !== "Announcement" &&
+      roomNotifications.push(notification)
+  );
 
   const drawer = (
     <div className={classes.sideContainer}>
@@ -257,23 +305,30 @@ function SideNav(props) {
             </NavLink>
             {/* Profile Validation */}
             {data?.profile?.userName === null ? (
-              <Tooltip title="Please complete your profile information to access Chats">
+              <Tooltip title="Please complete your profile information to access Chat">
                 <div className={classes.disabledNavLink}>
                   <ForumOutlinedIcon className={classes.navIcon} />
                   <p>Chat</p>
                 </div>
               </Tooltip>
-            ) : (
-                <NavLink to="/chats" className={classes.navLink}>
-                  <StyledBadge
-                    overlap="circle"
-                    badgeContent={roomNotifications?.length}
-                  >
-                    <ForumOutlinedIcon className={classes.navIcon} />
-                  </StyledBadge>
+            ) : data?.profile?.legal === "No" ? (
+              <Tooltip title="Chat feature is not available to users under 18 years old">
+                <div className={classes.underAge}>
+                  <ForumOutlinedIcon className={classes.navIcon} />
                   <p>Chat</p>
-                </NavLink>
-              )}
+                </div>
+              </Tooltip>
+            ) : (
+              <NavLink to="/chats" className={classes.navLink}>
+                <StyledBadge
+                  overlap="circle"
+                  badgeContent={roomNotifications?.length}
+                >
+                  <ForumOutlinedIcon className={classes.navIcon} />
+                </StyledBadge>
+                <p>Chat</p>
+              </NavLink>
+            )}
             {/*<NavLink to="/newsfeed" className={classes.navLink}>
               <HomeIcon className={classes.navIcon} />
               <p>Newsfeed</p>
@@ -315,7 +370,6 @@ function SideNav(props) {
   !chatLoading && refetchData();
   !announcementLoading && refetchAnnouncements();
   !notificationLoading && refetchNotifications();
-
 
   return (
     <div className={classes.root}>

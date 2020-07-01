@@ -56,7 +56,6 @@ const useStyles = makeStyles(theme => ({
       alignSelf: "flex-start",
       margin: "0",
       padding: "3%",
-      fontSize: "1.75rem",
     },
   },
   messageIcons: {
@@ -76,9 +75,9 @@ const useStyles = makeStyles(theme => ({
       padding: "0",
     },
     [theme.breakpoints.down("xs")]: {
-      width: "100%",
+      maxWidth: "55%",
+      margin: "3%",
       padding: "0",
-      height: "85%",
     },
   },
   icons: {
@@ -90,9 +89,7 @@ const useStyles = makeStyles(theme => ({
       marginRight: "2%",
     },
     [theme.breakpoints.down("xs")]: {
-      width: "100%",
-      padding: "0",
-      height: "85%",
+      marginRight: "2%",
     },
   },
   span: {
