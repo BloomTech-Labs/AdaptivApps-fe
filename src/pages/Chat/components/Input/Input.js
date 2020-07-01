@@ -6,8 +6,8 @@ import { useSpeechRecognition } from "react-speech-kit";
 
 // Query / Mutation Imports
 import { SEND_CHAT, SHOW_CHATROOM_All } from "../../queries/Chats";
-import { ADD_CHAT_ROOM_PARTICIPANTS } from '../../queries/ChatRooms'
-import { CREATE_CHAT_NOTIFICATION } from '../../queries/Notifications'
+import { ADD_CHAT_ROOM_PARTICIPANTS } from "../../queries/ChatRooms";
+import { CREATE_CHAT_NOTIFICATION } from "../../queries/Notifications";
 import { useMutation } from "react-apollo";
 
 //Emoji Picker Import
@@ -23,11 +23,17 @@ import MicNoneIcon from "@material-ui/icons/MicNone";
 import Modal from "@material-ui/core/Modal";
 import { makeStyles, TextField } from "@material-ui/core";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   inputDiv: {
     width: "75%",
     display: "flex",
     alignItems: "center",
+    [theme.breakpoints.down("sm")]: {
+      width: "90%",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "90%",
+    },
   },
   iconDiv: {
     width: "15%",
@@ -95,42 +101,44 @@ const Input = ({ chatRoom, user, messages }) => {
     return participant.email !== user.email;
   });
 
-  const senderEmail = messages?.filter(message => message.sender !== user.email && message.sender)
+  const senderEmail = messages?.filter(
+    message => message.sender !== user.email && message.sender
+  );
   // Create message via text or speech message
   const newMessage = async () => {
-    recipient.length > 0 ?
-      await sendChat({
-        variables: {
-          id: chatRoom.id,
-          email: user.email,
-          message: message,
-        }
-      }) &&
-      await createChatRoomNotification({
-        variables: {
-          id: chatRoom.id,
-          email: recipient[0].email
-        }
-      }) &&
-      await showChatroomAll({
-        variables: {
-          id: chatRoom.id
-        }
-      }) &&
-      setMessage("") :
-      await updateChatRoom({
-        variables: {
-          id: chatRoom.id,
-          email: senderEmail[0].sender
-        }
-      }) &&
-      await createChatRoomNotification({
-        variables: {
-          id: chatRoom.id,
-          email: senderEmail[0].sender
-        }
-      }) &&
-      setMessage("");
+    recipient.length > 0
+      ? (await sendChat({
+          variables: {
+            id: chatRoom.id,
+            email: user.email,
+            message: message,
+          },
+        })) &&
+        (await createChatRoomNotification({
+          variables: {
+            id: chatRoom.id,
+            email: recipient[0].email,
+          },
+        })) &&
+        (await showChatroomAll({
+          variables: {
+            id: chatRoom.id,
+          },
+        })) &&
+        setMessage("")
+      : (await updateChatRoom({
+          variables: {
+            id: chatRoom.id,
+            email: senderEmail[0].sender,
+          },
+        })) &&
+        (await createChatRoomNotification({
+          variables: {
+            id: chatRoom.id,
+            email: senderEmail[0].sender,
+          },
+        })) &&
+        setMessage("");
   };
 
   return (
@@ -153,13 +161,17 @@ const Input = ({ chatRoom, user, messages }) => {
           name="newChat"
           placeholder="Type a message..."
           onChange={e => setMessage(e.target.value)}
-          onKeyPress={(e) => e.key === 'Enter' && message !== '' ? newMessage() && setMessage('') : null}
+          onKeyPress={e =>
+            e.key === "Enter" && message !== ""
+              ? newMessage() && setMessage("")
+              : null
+          }
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
                 <Tooltip title="Send Message">
                   <SendIcon
-                    tabIndex='0'
+                    tabIndex="0"
                     className={classes.sendMessageIcon}
                     onClick={newMessage}
                     aria-label="send message"
