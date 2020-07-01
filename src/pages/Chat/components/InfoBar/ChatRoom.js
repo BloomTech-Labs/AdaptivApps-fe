@@ -24,6 +24,7 @@ import Alert from "@material-ui/lab/Alert";
 import Badge from "@material-ui/core/Badge";
 import { makeStyles } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
+import Hidden from "@material-ui/core/Hidden";
 
 const StyledBadge = withStyles(theme => ({
   badge: {
@@ -331,55 +332,112 @@ export default function ChatRoom({
           </Tooltip>
         </button>
       </div>
-      <Divider variant="inset" className={classes.divider} />
-      <Drawer
-        anchor="right"
-        open={messageToggle}
-        onClose={closeDrawer}
-        variant="temporary"
-        PaperProps={{ style: { width: "66%" } }}
-      >
-        <div className={classes.alertDiv}>
-          <Collapse in={updateChat}>
-            <Alert
-              severity="success"
-              color="info"
-              action={
-                <IconButton
-                  aria-label="close"
-                  size="small"
-                  onClick={() => {
-                    setUpdateChat(false);
-                  }}
-                >
-                  <CloseIcon fontSize="large" />
-                </IconButton>
-              }
-            >
-              Successfully updated
-            </Alert>
-          </Collapse>
-        </div>
-        <div className={classes.titleDiv}>
-          <h1 className={classes.roomTitle}>
-            {senderName?.from?.firstName || chattingWith}{" "}
-            {senderName?.from?.lastName}
-          </h1>
-          <Tooltip title="Close Chatroom">
-            <CloseIcon
-              className={classes.closeModal}
-              onClick={closeDrawer}
-              aria-label="Close Chatroom"
-            />
-          </Tooltip>
-        </div>
-        <Messages
-          chatRoom={chatRoom}
-          user={user}
-          setUpdateChat={setUpdateChat}
-          setDeleteChat={setDeleteChat}
-        />
-      </Drawer>
+      <Hidden only={["md", "lg", "xl"]}>
+        <Divider variant="middle" className={classes.divider} />
+      </Hidden>
+      <Hidden only={["xs", "sm"]}>
+        <Divider variant="inset" className={classes.divider} />
+      </Hidden>
+      <Hidden only={["xs", "sm"]}>
+        <Drawer
+          anchor="right"
+          open={messageToggle}
+          onClose={closeDrawer}
+          variant="temporary"
+          PaperProps={{ style: { width: "66%" } }}
+        >
+          <div className={classes.alertDiv}>
+            <Collapse in={updateChat}>
+              <Alert
+                severity="success"
+                color="info"
+                action={
+                  <IconButton
+                    aria-label="close"
+                    size="small"
+                    onClick={() => {
+                      setUpdateChat(false);
+                    }}
+                  >
+                    <CloseIcon fontSize="large" />
+                  </IconButton>
+                }
+              >
+                Successfully updated
+              </Alert>
+            </Collapse>
+          </div>
+          <div className={classes.titleDiv}>
+            <h1 className={classes.roomTitle}>
+              {senderName?.from?.firstName || chattingWith}{" "}
+              {senderName?.from?.lastName}
+            </h1>
+            <Tooltip title="Close Chatroom">
+              <CloseIcon
+                className={classes.closeModal}
+                onClick={closeDrawer}
+                aria-label="Close Chatroom"
+              />
+            </Tooltip>
+          </div>
+          <Messages
+            chatRoom={chatRoom}
+            user={user}
+            setUpdateChat={setUpdateChat}
+            setDeleteChat={setDeleteChat}
+          />
+        </Drawer>
+      </Hidden>
+      <Hidden only={["md", "lg", "xl"]}>
+        <Drawer
+          anchor="right"
+          open={messageToggle}
+          onClose={closeDrawer}
+          variant="temporary"
+          PaperProps={{ style: { width: "100%" } }}
+        >
+          <div className={classes.alertDiv}>
+            <Collapse in={updateChat}>
+              <Alert
+                severity="success"
+                color="info"
+                action={
+                  <IconButton
+                    aria-label="close"
+                    size="small"
+                    onClick={() => {
+                      setUpdateChat(false);
+                    }}
+                  >
+                    <CloseIcon fontSize="large" />
+                  </IconButton>
+                }
+              >
+                Successfully updated
+              </Alert>
+            </Collapse>
+          </div>
+          <div className={classes.titleDiv}>
+            <h1 className={classes.roomTitle}>
+              {senderName?.from?.firstName || chattingWith}{" "}
+              {senderName?.from?.lastName}
+            </h1>
+            <Tooltip title="Close Chatroom">
+              <CloseIcon
+                className={classes.closeModal}
+                onClick={closeDrawer}
+                aria-label="Close Chatroom"
+              />
+            </Tooltip>
+          </div>
+          <Messages
+            chatRoom={chatRoom}
+            user={user}
+            setUpdateChat={setUpdateChat}
+            setDeleteChat={setDeleteChat}
+          />
+        </Drawer>
+      </Hidden>
     </>
   ) : null;
 }
