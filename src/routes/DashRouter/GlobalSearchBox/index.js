@@ -26,7 +26,10 @@ const useStyles = makeStyles({
     lineHeight: "30px",
     cursor: "default",
     width: "100%",
-    fontSize: "2.4rem"
+    fontSize: "2.4rem",
+    '@media (max-width: 850px)': {
+      lineHeight: "38px",
+    },
   },
   title: {
     margin: "2px 20px",

@@ -115,13 +115,13 @@ const AdminTagsSearch = props => {
           {!isSearching ? (
             <div className={classes.title}>Select Tags</div>
           ) : (
-            <div className={classes.title}>{numSelected} Tags Selected</div>
-          )}
+              <div className={classes.title}>{numSelected} Tags Selected</div>
+            )}
           {listOpen ? (
             <FontAwesomeIcon icon={faAngleUp} className={classes.icons} />
           ) : (
-            <FontAwesomeIcon icon={faAngleDown} className={classes.icons} />
-          )}
+              <FontAwesomeIcon icon={faAngleDown} className={classes.icons} />
+            )}
         </button>
         {listOpen && (
           <Dropdown

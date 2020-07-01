@@ -46,6 +46,22 @@ const useStyles = makeStyles(theme => ({
       fontSize: "1.8rem",
     },
   },
+  vid: {
+    width: "800px",
+    height: "500px",
+    '@media (max-width: 1100px)': {
+      width: "600px",
+      height: "425px"
+    },
+    '@media (max-width: 900px)': {
+      width: "450px",
+      height: "325px"
+    },
+    '@media (max-width: 700px)': {
+      width: "350px",
+      height: "250px"
+    },
+  }
 }));
 
 const Welcome = () => {
@@ -116,8 +132,7 @@ const Welcome = () => {
           Checkout this video tutorial for a walkthrough of our app!
         </h3>
         <iframe
-          width="700"
-          height="400"
+          className={classes.vid}
           src="https://www.youtube.com/embed/w77zPAtVTuI"
           frameBorder="0"
           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
