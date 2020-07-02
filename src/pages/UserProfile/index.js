@@ -169,7 +169,7 @@ const useStyles = makeStyles(theme => ({
       fontSize: "1.6rem",
     },
     "& h1": {
-      fontSize: "1.4rem",
+      fontSize: "1.8rem",
     },
     [theme.breakpoints.down("sm")]: {
       width: "95%",
