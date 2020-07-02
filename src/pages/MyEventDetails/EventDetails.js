@@ -205,16 +205,16 @@ export default function EventDetails(props) {
           {activeEvent.details}
         </Typography>
       </Box>
-
+    
       {activeEvent.type === "Virtual" ? (
         <Box className={classes.virtualBox}>
-          {activeEvent.host !== null ? (
+          {activeEvent.host !== "" ? (
             <p>Hosted by: {activeEvent.host}</p>
           ) : null}
-          {activeEvent.coaches !== null ? (
+          {activeEvent.coaches !== "" ? (
             <p>Coach(es): {activeEvent.coaches}</p>
           ) : null}
-          {activeEvent.speakers !== null ? (
+          {activeEvent.speakers !== "" ? (
             <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
           ) : null}
 

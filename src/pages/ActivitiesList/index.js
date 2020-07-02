@@ -112,7 +112,7 @@ const useStyles = makeStyles({
     display: "flex",
     alignItems: "center",
     color: "black",
-    margin: "0 0 2% 2%",
+    margin: "0 0 2% 0",
     fontSize: "1.8rem",
     textDecoration: "none",
   },
@@ -235,13 +235,13 @@ export default function ActivityList() {
         </div>
         {activityData.event.type === "Virtual" ? (
           <Box className={classes.virtualBox}>
-            {activityData.event.host !== null ? (
+            {activityData.event.host !== "" ? (
               <p>Hosted by: {activityData.event.host}</p>
             ) : null}
-            {activityData.event.coaches !== null ? (
+            {activityData.event.coaches !== "" ? (
               <p>Coach(es): {activityData.event.coaches}</p>
             ) : null}
-            {activityData.event.speakers !== null ? (
+            {activityData.event.speakers !== "" ? (
               <p>Special Guest Speaker(s): {activityData.event.speakers}</p>
             ) : null}
 
