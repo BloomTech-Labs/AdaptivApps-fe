@@ -339,7 +339,7 @@ function SideNav(props) {
             </NavLink>*/}
             <NavLink to="faqs" className={classes.navLink}>
               <InfoOutlinedIcon className={classes.navIcon} />
-              <p>FAQs</p>
+              <p>FAQ</p>
             </NavLink>
             {user && user[config.roleUrl].includes("Admin") ? (
               <>
