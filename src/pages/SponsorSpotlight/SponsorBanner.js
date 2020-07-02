@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "@material-ui/core";
 import { useNavigate } from "@reach/router";
+import Tooltip from '@material-ui/core/Tooltip';
 
 const Sponsors = require("../../assets/images/Sponsors.jpg");
 const Sponsor_Thanks = require("../../assets/images/ProfilePhoto.png");
@@ -27,12 +28,19 @@ const useStyles = makeStyles(theme => ({
   sponsors: {
     maxWidth: "30%",
     marginRight: "15%",
+    minHeight: "45px",
+    minWidth: "300px",
     "@media (max-width: 950px)": {
       marginRight: "0",
       minHeight: "45px",
-      minWidth: "250px",
+      minWidth: "300px",
     },
   },
+  btn: {
+    border: "none",
+    background: "none",
+    backgroundColor: "none",
+  }
 }));
 
 export default function SponsorBanner() {
@@ -42,7 +50,11 @@ export default function SponsorBanner() {
   return (
     <Link onClick={() => navigate(`/sponsorspotlight`)}>
       <div className={classes.banner}>
-        <img src={Sponsors} className={classes.sponsors} />
+        <Tooltip title="Check out our sponsors">
+          <button className={classes.btn}>
+            <img src={Sponsors} className={classes.sponsors} />
+          </button>
+        </Tooltip>
         <img src={Sponsor_Thanks} className={classes.image} />
       </div>
     </Link>

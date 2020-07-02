@@ -65,7 +65,7 @@ export default function EventList({ data, refetch }) {
             </div>
           ))}
         </div> :
-        <p>No events in the database</p>
+        null
       }
     </>
   );

@@ -23,6 +23,9 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexWrap: "wrap",
   },
+  p: {
+    fontSize: "1.6rem",
+  }
 }));
 
 export default function EventList({ currentEvents, refetch, user }) {
@@ -67,7 +70,7 @@ export default function EventList({ currentEvents, refetch, user }) {
             </div>
           ))}
         </div> :
-        <p>No events in the database</p>
+        <p className={classes.p}>No events available for now. Come back later!</p>
       }
     </>
   );

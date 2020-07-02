@@ -92,8 +92,12 @@ const useStyles = makeStyles(theme => ({
       marginRight: "2%",
     },
   },
-  span: {
-    fontSize: "1.6rem",
+  button2: {
+    fontSize: "1.5rem",
+    color: "grey",
+    cursor: "pointer",
+    border: "none",
+    backgroundColor: "white",
   },
   modal: {
     display: "flex",
@@ -170,13 +174,13 @@ function InfoBar({ user, setAlertOpen }) {
         <>
           <div className={classes.messageIcons}>
             <LanguageIcon className={classes.icons} />
-            <span
-              className={classes.span}
+            <button
+              className={classes.button2}
               onClick={handleAnnouncementOpen}
               aria-label="New Announcement Button"
             >
               New Announcement
-            </span>
+            </button>
           </div>
           <Modal
             aria-labelledby="transition-modal-title"

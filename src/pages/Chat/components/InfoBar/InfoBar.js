@@ -16,7 +16,6 @@ import {
 // Style Imports
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CreateIcon from "@material-ui/icons/Create";
-import SearchIcon from "@material-ui/icons/Search";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -297,22 +296,22 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
         <div className={classes.chatRoomDiv}>
           {results.length > 0
             ? results.map((chatRoom, id) => (
-                <div className={classes.chatroom} key={chatRoom.id}>
-                  <ChatRoom
-                    key={chatRoom.id}
-                    chatRoom={chatRoom}
-                    chats={chatsData}
-                    chatRoomSub={chatRoomSub}
-                    user={user}
-                    notifications={notifications?.profile?.notifications}
-                    results={results}
-                    setResults={setResults}
-                  />
-                </div>
-              ))
+              <div className={classes.chatroom} key={chatRoom.id}>
+                <ChatRoom
+                  key={chatRoom.id}
+                  chatRoom={chatRoom}
+                  chats={chatsData}
+                  chatRoomSub={chatRoomSub}
+                  user={user}
+                  notifications={notifications?.profile?.notifications}
+                  results={results}
+                  setResults={setResults}
+                />
+              </div>
+            ))
             : chatRoomData?.profile?.chatRooms === undefined
-            ? null
-            : chatRoomData &&
+              ? null
+              : chatRoomData &&
               chatRoomData?.profile.chatRooms?.map(chatRoom => (
                 <div className={classes.chatroom} key={chatRoom.id}>
                   <ChatRoom
