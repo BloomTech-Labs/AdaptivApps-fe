@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useMutation } from "react-apollo";
 // Component Imports
 import CustomMessageIcon from "../../Chat/components/Messages/CustomMessageIcon";
+import { CREATE_NEWSFEED_POST_NO_IMAGE } from '../queries/FeedPost'
 // Styling Imports
 import { makeStyles, TextField, Checkbox, Typography } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
@@ -51,15 +53,32 @@ const useStyles = makeStyles(theme => ({
     color: "#808080",
     fontSize: "1.4rem",
   },
+  icon: {
+    fontSize: '2.75rem',
+    marginRight: '1rem'
+  }
 }));
 
 export default function CreatePost({ user }) {
   const classes = useStyles();
+  const [postInput, setPostInput] = useState('')
   const [pinnedPost, setPinnedPost] = useState(false);
 
-  const handleChange = e => {
+  const [createPostNoImage] = useMutation(CREATE_NEWSFEED_POST_NO_IMAGE)
+
+  const handlePinnedPost = e => {
     setPinnedPost(e.target.checked);
   };
+  
+  const createPost = async () => {
+    await createPostNoImage({
+      variables: {
+        body: postInput,
+        postedBy: user.email
+      }
+    })
+    setPostInput('')
+  }
 
   return (
     <div className={classes.root}>
@@ -67,13 +86,21 @@ export default function CreatePost({ user }) {
         {user?.profilePicture ? (
           <CustomMessageIcon pictureIcon={user?.profilePicture} />
         ) : (
-          <AccountCircleIcon />
+          <AccountCircleIcon className={classes.icon}/>
         )}
         <TextField
           size="small"
+          type='text'
           variant="outlined"
-          multiline
+          //multiline
+          onKeyPress={e =>
+            e.key === "Enter" && postInput !== ""
+              ? createPost()
+              : null
+          }
+          onChange={e => setPostInput(e.target.value)}
           className={classes.input}
+          value={postInput}
           placeholder="What's on your mind?"
         />
       </div>
@@ -85,7 +112,7 @@ export default function CreatePost({ user }) {
         <div className={classes.flexPinnedPost}>
           <Checkbox
             check={pinnedPost}
-            onChange={handleChange}
+            onChange={handlePinnedPost}
             inputProps={{ "aria-label": "Click to make this your pinned post" }}
             color="default"
             size="large"
