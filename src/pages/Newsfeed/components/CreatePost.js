@@ -106,7 +106,8 @@ export default function CreatePost({ user, profile }) {
           onChange={e => setPostInput(e.target.value)}
           className={classes.input}
           value={postInput}
-          placeholder="What's on your mind?"
+          placeholder="Type here to share a post with the community..."
+          aria-label="Type a message here that will be posted to the community newsfeed. Then hit enter to send."
         />
       </div>
       <div className={classes.cta}>

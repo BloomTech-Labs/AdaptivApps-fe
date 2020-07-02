@@ -30,6 +30,7 @@ const pinnedPost = {
   imgUrl: "www.google.com",
   body:
     "Don't forget to tune in for our Opening Ceremony at noon! Click the zoom link below!!",
+  postedBy: "amm123@test.com",
 };
 
 const useStyles = makeStyles(theme => ({
@@ -40,9 +41,9 @@ const useStyles = makeStyles(theme => ({
     paddingBottom: "1rem",
   },
   paper: {
-    '&:hover': {
-      backgroundColor: '#F5F5F5'
-    }
+    "&:hover": {
+      backgroundColor: "#F5F5F5",
+    },
   },
   label: {
     backgroundColor: "#2962FF",
@@ -164,21 +165,21 @@ export default function PinnedPost({ user }) {
         </CardActions>
 
         {commenting ? (
-        <div className={classes.comment}>
-          <AccountCircleIcon fontSize={"large"} className={classes.icon} />
-          <TextField
-            size="small"
-            variant="outlined"
-            multiline
-            className={classes.input}
-            placeholder="Write a comment..."
-          />
-          <Button color="primary" className={classes.button}>
-            <KeyboardReturnIcon fontSize={"large"} className={classes.icon} />
-            Submit
-          </Button>
-        </div>
-      ) : null}
+          <div className={classes.comment}>
+            <AccountCircleIcon fontSize={"large"} className={classes.icon} />
+            <TextField
+              size="small"
+              variant="outlined"
+              multiline
+              className={classes.input}
+              placeholder="Write a comment..."
+            />
+            <Button color="primary" className={classes.button}>
+              <KeyboardReturnIcon fontSize={"large"} className={classes.icon} />
+              Submit
+            </Button>
+          </div>
+        ) : null}
 
         <Divider variant="middle" />
       </Card>
