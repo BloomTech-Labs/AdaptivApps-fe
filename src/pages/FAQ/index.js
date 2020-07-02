@@ -78,7 +78,7 @@ const FAQ = () => {
         </Typography>
       </Box>
       <div className={classes.body}>
-        <div className={classes.group}>
+        {/* <div className={classes.group}>
           <h3 className={classes.h4}>
             This Portal for the 2020 Angel City Virtual Games is Presented by
             The Hartford!{" "}
@@ -92,14 +92,8 @@ const FAQ = () => {
             Check out the video tutorial below to learn everything you need to
             know about this action-packed week!
           </p>
-        </div>
-        <iframe
-          className={classes.vid}
-          src="https://www.youtube.com/embed/w77zPAtVTuI"
-          frameBorder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowFullscreen
-        />
+        </div> */}
+       
         <div className={classes.group}>
           <h3 className={classes.h4}>How do the Virtual Games work?</h3>
           <p>
@@ -111,7 +105,7 @@ const FAQ = () => {
           </p>
         </div>
         <div className={classes.group}>
-          <h3 className={classes.h4}>How does this portal work?</h3>
+          <h3 className={classes.h4}>How do I use this website?</h3>
           <p>Great question, you can get started in five easy steps!</p>
           <ol>
             <li>
@@ -153,6 +147,14 @@ const FAQ = () => {
               </p>
             </li>
           </ol>
+          <p>Check out the video tutorial below to learn everything you need to know about this action-packed week!</p>
+          <iframe
+          className={classes.vid}
+          src="https://www.youtube.com/embed/w77zPAtVTuI"
+          frameBorder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowFullscreen
+        />
         </div>
         <div className={classes.group}>
           <h3 className={classes.h4}>
@@ -205,6 +207,7 @@ const FAQ = () => {
             </strong>
           </p>
         </div>
+       
       </div>
     </Box>
   );
