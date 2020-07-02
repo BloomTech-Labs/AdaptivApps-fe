@@ -47,7 +47,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignContent: "center",
     marginLeft: "2.4rem",
-    '@media (max-width: 1050px)': {
+    "@media (max-width: 1050px)": {
       marginTop: "20px",
     },
   },
@@ -114,12 +114,12 @@ const useStyles = makeStyles({
     color: "black",
     margin: "0 0 2% 2%",
     fontSize: "1.8rem",
-    textDecoration: "none"
+    textDecoration: "none",
   },
   top: {
     display: "flex",
     flexDirection: "row",
-    '@media (max-width: 950px)': {
+    "@media (max-width: 950px)": {
       flexDirection: "column",
     },
   },
@@ -153,11 +153,15 @@ export default function ActivityList() {
   );
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
-  console.log(activityData)
+  console.log(activityData);
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
-        <Link to="/calendar" aria-label="Navigate back to Events Calendar page." className={classes.back}>
+        <Link
+          to="/calendar"
+          aria-label="Navigate back to Events Calendar page."
+          className={classes.back}
+        >
           <ArrowBackIosIcon
             color="primary"
             aria-label="Back to Events Calendar"
@@ -176,8 +180,8 @@ export default function ActivityList() {
               className={classes.img}
               src={
                 (activityData && activityData?.event?.imgUrl === null) ||
-                  activityData?.event?.imgUrl === undefined ||
-                  activityData?.event?.imgUrl === ""
+                activityData?.event?.imgUrl === undefined ||
+                activityData?.event?.imgUrl === ""
                   ? eventImg
                   : activityData?.event?.imgUrl
               }
@@ -209,12 +213,23 @@ export default function ActivityList() {
         </div>
         {activityData.event.type === "Virtual" ? (
           <Box className={classes.virtualBox}>
-            <p>Hosted by: {activityData.event.host}</p>
-            <p>Coach(es): {activityData.event.coaches}</p>
-            <p>Special Guest Speaker(s): {activityData.event.speakers}</p>
-            <a href={activityData.event.link} rel="noopener noreferrer" target="_blank">
+            {activityData.event.host !== null ? (
+              <p>Hosted by: {activityData.event.host}</p>
+            ) : null}
+            {activityData.event.coaches !== null ? (
+              <p>Coach(es): {activityData.event.coaches}</p>
+            ) : null}
+            {activityData.event.speakers !== null ? (
+              <p>Special Guest Speaker(s): {activityData.event.speakers}</p>
+            ) : null}
+
+            <a
+              href={activityData.event.link}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
               Click Here to Join Us!
-          </a>
+            </a>
           </Box>
         ) : null}
       </Box>

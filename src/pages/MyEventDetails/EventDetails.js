@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   topContentContainer: {
     display: "flex",
     flexDirection: "row",
-    '@media (max-width: 1050px)': {
+    "@media (max-width: 1050px)": {
       flexDirection: "column",
     },
   },
@@ -159,8 +159,8 @@ export default function EventDetails(props) {
             className={classes.img}
             src={
               (props && props?.event?.imgUrl === null) ||
-                props?.event?.imgUrl === undefined ||
-                props?.event?.imgUrl === ""
+              props?.event?.imgUrl === undefined ||
+              props?.event?.imgUrl === ""
                 ? eventImg
                 : props?.event?.imgUrl
             }
@@ -180,16 +180,16 @@ export default function EventDetails(props) {
             )}
           </Box>
         ) : (
-            <Box className={classes.topContentText} m="2.4rem">
-              <p>
-                {moment(activeEvent.startDate).format("MM/DD/YYYY")}
-                {" - "}
-                {moment(activeEvent.endDate).format("MM/DD/YYYY")}
-              </p>
-              <h2>{activeEvent.title}</h2>
-              <Typography variant="subtitle1">{activeEvent.location}</Typography>
-            </Box>
-          )}
+          <Box className={classes.topContentText} m="2.4rem">
+            <p>
+              {moment(activeEvent.startDate).format("MM/DD/YYYY")}
+              {" - "}
+              {moment(activeEvent.endDate).format("MM/DD/YYYY")}
+            </p>
+            <h2>{activeEvent.title}</h2>
+            <Typography variant="subtitle1">{activeEvent.location}</Typography>
+          </Box>
+        )}
         <Link
           className={classes.donateBtn}
           color="primary"
@@ -208,9 +208,16 @@ export default function EventDetails(props) {
 
       {activeEvent.type === "Virtual" ? (
         <Box className={classes.virtualBox}>
-          <p>Hosted by: {activeEvent.host}</p>
-          <p>Coach(es): {activeEvent.coaches}</p>
-          <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
+          {activeEvent.host !== null ? (
+            <p>Hosted by: {activeEvent.host}</p>
+          ) : null}
+          {activeEvent.coaches !== null ? (
+            <p>Coach(es): {activeEvent.coaches}</p>
+          ) : null}
+          {activeEvent.speakers !== null ? (
+            <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
+          ) : null}
+
           <a href={activeEvent.link} rel="noopener noreferrer" target="_blank">
             Click Here to Join Us!
           </a>
@@ -236,8 +243,8 @@ export default function EventDetails(props) {
         <ul>
           {activeEvent.sponsors.length > 0
             ? activeEvent?.sponsors
-              ?.split(", ")
-              .map(sponsor => <li>{sponsor}</li>)
+                ?.split(", ")
+                .map(sponsor => <li>{sponsor}</li>)
             : null}
         </ul>
       </Box>
