@@ -31,34 +31,28 @@ export const GET_NEWSFEED_POSTS = gql`
 // Newsfeed Post Subscription
 export const NEWSFEED_POST_SUBSCRIPTION = gql`
   subscription {
-  feedPost {
-    mutation
-    node {
-      id
-      body
-      imgUrl
-      postedBy {
+    feedPost {
+      mutation
+      node {
         id
-        userName
-        firstName
-        lastName
+        body
+        imgUrl
+        postedBy {
+          id
+          userName
+          firstName
+          lastName
+        }
+        createdAt
       }
-      createdAt
     }
   }
-}
 `;
 
 // Get a newsfeed post's comments
 export const GET_NEWSFEED_COMMENTS = gql`
-  query getComments($id: ID!){
-    feedComments(
-      where: {
-        feed: {
-          id: $id
-        }
-      }
-    ){
+  query getComments($id: ID!) {
+    feedComments(where: { feed: { id: $id } }) {
       id
       body
       postedBy {
@@ -75,22 +69,28 @@ export const GET_NEWSFEED_COMMENTS = gql`
 export const CREATE_NEWSFEED_COMMENT = gql`
   mutation createFeedComment($body: String!, $email: String!, $id: ID!) {
     createFeedComment(
-      data:{
+      data: {
         body: $body
-        postedBy: {
-          connect: {
-            email: $email
-          }
-        }
-        feed: {
-          connect: {
-            id: $id
-          }
-        }
+        postedBy: { connect: { email: $email } }
+        feed: { connect: { id: $id } }
       }
-    ){
+    ) {
       id
       body
     }
   }
-`
+`;
+
+// Get user profile to display profile pic
+export const GET_MY_PROFILE = gql`
+  query getMyProfile($email: String!) {
+    profile(where: { email: $email }) {
+      id
+      firstName
+      lastName
+      userName
+      email
+      profilePicture
+    }
+  }
+`;
