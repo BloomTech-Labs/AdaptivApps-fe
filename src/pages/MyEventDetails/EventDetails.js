@@ -193,7 +193,7 @@ export default function EventDetails(props) {
         <Link
           className={classes.donateBtn}
           color="primary"
-          href="https://app.mobilecause.com/vf/ANGEL"
+          href="https://app.mobilecause.com/vf/virtual2020"
           target="_blank"
           rel="noopener"
         >
