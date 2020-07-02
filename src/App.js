@@ -52,7 +52,7 @@ import "./styles.css";
 
 const trackingId = process.env.REACT_APP_ANALYTICS;
 (function initializeReactGA() {
-  ReactGA.initialize(trackingId, { testMode: true });
+  ReactGA.initialize(trackingId);
   ReactGA.pageview("/");
   ReactGA.pageview("/settings");
   ReactGA.pageview("/myEvents");
