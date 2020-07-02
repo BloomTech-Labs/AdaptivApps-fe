@@ -1,4 +1,6 @@
+// React imports
 import React from "react";
+// Material-UI imports
 import { Box, Typography, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -79,30 +81,14 @@ const FAQ = () => {
         </Typography>
       </Box>
       <div className={classes.body}>
-        {/* <div className={classes.group}>
-          <h3 className={classes.h4}>
-            This Portal for the 2020 Angel City Virtual Games is Presented by
-            The Hartford!{" "}
-          </h3>
-          <p>
-            This platform will be your hub to register and attend events,
-            connect with your peers and coaches, and be an integral part of this
-            community!
-          </p>
-          <p>
-            Check out the video tutorial below to learn everything you need to
-            know about this action-packed week!
-          </p>
-        </div> */}
-       
         <div className={classes.group}>
           <h3 className={classes.h4}>How do the Virtual Games work?</h3>
           <p>
             All activities and special events for the 2020 Angel City Virtual
-            Games presented by The Hartford will be accessible through this web
-            portal. All activities will be hosted via Zoom or a similar
+            Games presented by The Hartford will be accessible through this
+            website. All activities will be hosted via Zoom or a similar
             platform. You can view and register for individual events in the{" "}
-            <a href="/calendar" aria-label="Navigate to Events Calendar."><strong>Events Calendar</strong></a> tab.
+            <strong>Events Calendar</strong> tab.
           </p>
         </div>
         <div className={classes.group}>
@@ -111,19 +97,19 @@ const FAQ = () => {
           <ol>
             <li>
               <p className={classes.p1}>
-                Visit the <a href="/settings" aria-label="Navigate to settings page."><strong>Settings</strong></a> tab to create your profile.
+                Visit the <strong>Settings</strong> tab to create your profile.
                 Be sure to enter a username to personalize your profile page.
               </p>
             </li>
             <li>
               <p className={classes.p1}>
-                Checkout the <a><strong>My Profile</strong></a> tab to give more of a
+                Checkout the <strong>My Profile</strong> tab to give more of a
                 personalized touch by adding a cool banner and profile image.
               </p>
             </li>
             <li>
               <p className={classes.p1}>
-                Click on <a href="/calendar"><strong>Events Calendar</strong></a> and check out all of
+                Click on <strong>Events Calendar</strong> and check out all of
                 the opportunities available for you to participate in. If you
                 are interested in an event simply click{" "}
                 <strong>view details</strong>. If you would like to participate
@@ -148,21 +134,24 @@ const FAQ = () => {
               </p>
             </li>
           </ol>
-          <p>Check out the video tutorial below to learn everything you need to know about this action-packed week!</p>
+          <p>
+            Check out the video tutorial below to learn everything you need to
+            know about this action-packed week!
+          </p>
           <iframe
-          className={classes.vid}
-          src="https://www.youtube.com/embed/w77zPAtVTuI"
-          frameBorder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowFullscreen
-        />
+            className={classes.vid}
+            src="https://www.youtube.com/embed/w77zPAtVTuI"
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullscreen
+          />
         </div>
         <div className={classes.group}>
           <h3 className={classes.h4}>
             Do I have to register for each activity separately?
           </h3>
           <p>
-            Once you've completed <a href="https://www.angelcitygames.org/Virtual/Event-D" target="_blank" aria-label="Navigate to the ACS registration site.">registration</a> for the 2020 Angel City Virtual
+            Once you've completed registration for the 2020 Angel City Virtual
             Games presented by the Hartford you are set to attend any and all
             activities throughout all 3 weeks. If you would like for the events
             you are interested to be displayed in the <strong>My Events</strong>{" "}
@@ -204,11 +193,11 @@ const FAQ = () => {
             users with the same interests, start a group chat with the most
             recent clinic you attended, or message a mentor for guidance!{" "}
             <strong>
+              {" "}
               This feature is only available to those 18 years or older.
             </strong>
           </p>
         </div>
-       
       </div>
     </Box>
   );

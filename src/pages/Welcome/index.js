@@ -96,16 +96,10 @@ const Welcome = () => {
           special events, community fun, and most of all-connection.
           <br />
           <br />
-          Be sure to browse the{" "}
-          <a href="/calendar" aria-label="Navigate to Events Calendar">
-            <strong>Events Calendar</strong>
-          </a>{" "}
-          and select which events you are interested in attending this week and
-          utilize the{" "}
-          <a href="/chats">
-            <strong>Chat</strong>
-          </a>{" "}
-          to connect with friends, peers and coaches from all over the world!
+          Be sure to browse the <strong>Events Calendar</strong> and select
+          which events you are interested in attending this week and utilize the{" "}
+          <strong>Chat</strong> to connect with friends, peers and coaches from
+          all over the world!
           <br />
           <br />
           We are so excited for what’s ahead! Thank you so much for registering
@@ -114,13 +108,9 @@ const Welcome = () => {
           <br />
           <br />
           <i>
-            Be sure to visit the{" "}
-            <a href="faqs" aria-label="Navigate to FAQ page.">
-              <strong>FAQ</strong>
-            </a>{" "}
-            tab for easy video tutorials, a system walkthrough, and more! For
-            any additional information, please email{" "}
-            <strong>info@angelcitysports.org</strong>.
+            Be sure to visit the <strong>FAQ</strong> tab for easy video
+            tutorials, a system walkthrough, and more! For any additional
+            information, please email <strong>info@angelcitysports.org</strong>.
           </i>
         </Typography>
 
@@ -152,13 +142,10 @@ const Welcome = () => {
           sport, education, connection, and fun!
           <br />
           <br />
-          Check out the{" "}
-          <a href="/calendar" aria-label="Navigate to Events Calendar">
-            <strong>Events Calendar</strong>
-          </a>{" "}
-          tab to view all activities available in the upcoming week. These
-          events will be continually updated as the Virtual Games will take
-          place all summer long!
+          Check out the <strong>Events Calendar</strong> tab to view all
+          activities available in the upcoming week. These events will be
+          continually updated as the Virtual Games will take place all summer
+          long!
           <br />
           <br />
           <strong>Week 1</strong>: July 13 - 19
