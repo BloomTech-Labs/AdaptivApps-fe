@@ -50,7 +50,10 @@ const useStyles = makeStyles(theme => ({
     marginTop: "3.6rem",
     display: "flex",
     flexDirection: "column",
-    height: "100vh",
+    height: "100%",
+    [theme.breakpoints.down("lg")]: {
+      width: "100%",
+    },
     "& .MuiTextField-root": {
       width: "100%",
       marginBottom: "1.6rem",
@@ -70,16 +73,12 @@ const useStyles = makeStyles(theme => ({
       height: "4.8rem",
       [theme.breakpoints.down("sm")]: {
         width: "100%",
-        margin: "1.2rem auto",
       },
       [theme.breakpoints.down("xs")]: {
         width: "100%",
-        margin: "1.2rem auto",
       },
     },
-    [theme.breakpoints.down("xl")]: {
-      width: "100%",
-    },
+
     [theme.breakpoints.down("sm")]: {
       width: "100%",
       flexDirection: "column",
@@ -92,15 +91,16 @@ const useStyles = makeStyles(theme => ({
   doubleInput: {
     display: "flex",
     width: "100%",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+    },
   },
-  firstInput: {
-    marginRight: "2.4rem",
-    // width: "45%",
+  singleInput: {
+    margin: "0 auto",
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
   },
-  // secondInput: {
-  //   width: "45%",
-  // },
-  singleInput: { display: "flex", flexDirection: "column", width: "70%" },
   typeSelect: {
     height: "4.8rem",
     marginBottom: "1.6rem",
