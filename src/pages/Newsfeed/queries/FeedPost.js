@@ -17,6 +17,7 @@ export const GET_NEWSFEED_POSTS = gql`
           firstName
           lastName
           email
+          profilePicture
         }
       }
       postedBy {
@@ -54,7 +55,11 @@ export const CREATE_NEWSFEED_POST_NO_IMAGE = gql`
       createdAt
       postedBy {
         id
+        userName
+        firstName
+        lastName
         email
+        profilePicture
       }
     }
   }
@@ -79,7 +84,11 @@ export const CREATE_NEWSFEED_POST_WITH_IMAGE = gql`
       createdAt
       postedBy {
         id
+        userName
+        firstName
+        lastName
         email
+        profilePicture
       }
     }
   }
@@ -94,7 +103,11 @@ export const UPDATE_NEWSFEED_POST_NO_IMAGE = gql`
       imgUrl
       postedBy {
         id
+        userName
+        firstName
+        lastName
         email
+        profilePicture
       }
       updatedAt
     }
@@ -110,7 +123,11 @@ export const UPDATE_NEWSFEED_POST_WITH_IMAGE = gql`
       imgUrl
       postedBy {
         id
+        userName
+        firstName
+        lastName
         email
+        profilePicture
       }
       updatedAt
     }

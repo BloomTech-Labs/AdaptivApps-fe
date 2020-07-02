@@ -12,6 +12,7 @@ export const GET_NEWSFEED_COMMENTS = gql`
         firstName
         lastName
         email
+        profilePicture
       }
       createdAt
       updatedAt
@@ -36,7 +37,11 @@ export const CREATE_NEWSFEED_COMMENT = gql`
       }
       postedBy {
         id
+        userName
+        firstName
+        lastName
         email
+        profilePicture
       }
       createdAt
     }
@@ -54,7 +59,11 @@ export const UPDATE_NEWSFEED_COMMENT = gql`
       }
       postedBy {
         id
+        userName
+        firstName
+        lastName
         email
+        profilePicture
       }
       updatedAt
     }
@@ -83,7 +92,11 @@ export const NEWSFEED_COMMENT_SUBSCRIPTION = gql`
         }
         postedBy {
           id
+          userName
+          firstName
+          lastName
           email
+          profilePicture
         }
         createdAt
         updatedAt

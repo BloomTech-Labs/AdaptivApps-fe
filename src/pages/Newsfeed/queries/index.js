@@ -17,6 +17,7 @@ export const GET_NEWSFEED_POSTS = gql`
           firstName
           lastName
           email
+          profilePicture
         }
       }
       postedBy {
@@ -95,7 +96,11 @@ export const CREATE_NEWSFEED_COMMENT = gql`
       }
       postedBy {
         id
+        userName
+        firstName
+        lastName
         email
+        profilePicture
       }
       createdAt
     }

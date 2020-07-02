@@ -6,17 +6,12 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 const Sponsors = require("../../assets/images/Sponsors.png");
 const Sponsor_Thanks = require("../../assets/images/ProfilePhoto.png");
+const Sponsor_Photo = require("../../assets/images/ProfilePhoto.png");
 
 const useStyles = makeStyles(theme => ({
   banner: {
     backgroundColor: "#232c63",
-    display: "flex",
     padding: "1%",
-    //justifyContent: "space-between",
-    alignItems: "center",
-    "@media (max-width: 950px)": {
-      flexDirection: "column-reverse",
-    },
   },
   image: {
     maxWidth: "80%",
@@ -25,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   sponsors: {
-    maxWidth: "40%",
+    maxWidth: "50%",
     //marginRight: "15%",
     minHeight: "45px",
     minWidth: "300px",
@@ -39,6 +34,10 @@ const useStyles = makeStyles(theme => ({
     border: "none",
     background: "none",
     backgroundColor: "none",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    margin: "auto",
   },
 }));
 
@@ -51,10 +50,10 @@ export default function SponsorBanner() {
       <div className={classes.banner}>
         <Tooltip title="Check out our sponsors">
           <button className={classes.btn}>
+            <img src={Sponsor_Photo} className={classes.image} />
             <img src={Sponsors} className={classes.sponsors} />
           </button>
         </Tooltip>
-        <img src={Sponsor_Thanks} className={classes.image} />
       </div>
     </Link>
   );

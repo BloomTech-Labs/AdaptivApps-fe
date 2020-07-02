@@ -43,6 +43,13 @@ const useStyles = makeStyles(theme => ({
       width: "100%",
       padding: "0",
     },
+    "& .MuiTextField-root": {
+      width: "61.6rem",
+      backgroundColor: "white",
+    },
+    "& .MuiInputBase-input": {
+      fontSize: "1.4rem",
+    },
   },
   postBody: {
     display: "flex",
@@ -96,11 +103,10 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-evenly",
   },
   comment: {
-    width: "80%",
     display: "flex",
     justifyContent: "space-evenly",
     alignItems: "baseline",
-    margin: "3% auto",
+    padding: "1.2rem 1.6rem",
   },
   cta: {
     fontSize: "1.4rem",
@@ -119,6 +125,14 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     fontSize: "1rem",
+  },
+  commentBox: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  flex: {
+    display: "flex",
   },
 }));
 
@@ -273,7 +287,6 @@ export default function NewsfeedCard(props) {
 
       {/* {commenting ? ( */}
       <div className={classes.comment}>
-        <AccountCircleIcon fontSize={"large"} className={classes.icon} />
         <TextField
           size="small"
           type="text"
@@ -283,14 +296,9 @@ export default function NewsfeedCard(props) {
             e.key === "Enter" && commentText !== "" ? addComment() : null
           }
           onChange={e => setCommentText(e.target.value)}
-          className={classes.input}
           value={commentText}
           placeholder="Write a comment..."
         />
-        <Button color="primary" className={classes.button} onClick={addComment}>
-          <KeyboardReturnIcon fontSize={"large"} className={classes.icon} />
-          Submit
-        </Button>
       </div>
       {/* ) : null} */}
 
@@ -299,10 +307,36 @@ export default function NewsfeedCard(props) {
       {comments &&
         comments.feedComments.map(comment => (
           <div key={comment.id}>
-            <p>{`${comment.postedBy.firstName} says: ${comment.body}`}</p>
+            <div className={classes.flex}>
+              {comment?.postedBy?.profilePicture ? (
+                <CustomMessageIcon
+                  pictureIcon={comment?.postedBy?.profilePicture}
+                />
+              ) : (
+                <AccountCircleIcon
+                  fontSize={"large"}
+                  className={classes.avatarIcon}
+                />
+              )}
+
+              <div className={classes.commentBox}>
+                <Typography className={classes.commentName}>
+                  {comment.postedBy.firstName} {comment.postedBy.lastName}
+                </Typography>
+                <Typography className={classes.commentContent} gutterBottom>
+                  {comment.body}
+                </Typography>
+              </div>
+            </div>
             <Divider variant="middle" />
           </div>
         ))}
     </Card>
   );
 }
+
+// <Button color="primary" className={classes.button} onClick={addComment}>
+//           <KeyboardReturnIcon fontSize={"large"} className={classes.icon} />
+//           Submit
+//         </Button>
+//<AccountCircleIcon fontSize={"large"} className={classes.icon} />
