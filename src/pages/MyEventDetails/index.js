@@ -34,6 +34,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     marginBottom: "1.6rem",
     marginLeft: "0.3rem",
+    textDirection: "none"
   },
   loadingSpinner: {
     position: "absolute",

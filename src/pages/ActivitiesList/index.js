@@ -4,11 +4,11 @@ import moment from "moment";
 import ActivityGroup from "./ActivityGroup";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import eventImg from "../../assets/images/acs_hartford.png";
-import { useParams } from "@reach/router";
+import { useParams, Link } from "@reach/router";
 import { useNavigate } from "@reach/router";
 import { GET_EVENT_ACTIVITIES } from "./queries/getActivities";
 
-import { makeStyles, Box, Typography, Link } from "@material-ui/core";
+import { makeStyles, Box, Typography } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 
 const useStyles = makeStyles({
@@ -116,6 +116,7 @@ const useStyles = makeStyles({
     color: "black",
     margin: "0 0 2% 2%",
     fontSize: "1.8rem",
+    textDecoration: "none"
   },
 });
 
@@ -136,7 +137,7 @@ export default function ActivityList() {
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
-        <Link onClick={() => navigate(`/calendar`)} className={classes.back}>
+        <Link to="/calendar" aria-label="Navigate back to Events Calendar page." className={classes.back}>
           <ArrowBackIosIcon
             color="primary"
             aria-label="Back to Events Calendar"
