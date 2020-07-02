@@ -32,16 +32,18 @@ export default function EventList({ data, refetch }) {
   const currentEvents = data.events;
 
   if (currentEvents) {
-    for (let i = 0; i < currentEvents.length; i++) {
-      const startDate = currentEvents[i]?.startDate;
+    const sortedEvents = currentEvents?.sort((a, b) => b.startDate - a.startDate)
+
+    for (let i = 0; i < sortedEvents.length; i++) {
+      const startDate = sortedEvents[i]?.startDate;
       if (eventsMap.has(startDate)) {
         // Push this event
-        eventsMap.get(startDate).push(currentEvents[i]);
+        eventsMap.get(startDate).push(sortedEvents[i]);
       }
       else {
         // Create new entry
         const events = [];
-        events.push(currentEvents[i]);
+        events.push(sortedEvents[i]);
         eventsMap.set(startDate, events);
       }
     }
