@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   topContentContainer: {
     display: "flex",
     flexDirection: "row",
-    '@media (max-width: 1050px)': {
+    "@media (max-width: 1050px)": {
       flexDirection: "column",
     },
   },
@@ -96,6 +96,7 @@ const useStyles = makeStyles({
   virtualBox: {
     display: "flex",
     flexDirection: "column",
+    marginTop: "2.5rem",
     "& p": {
       margin: 0,
       fontSize: "1.6rem",
@@ -116,7 +117,7 @@ const useStyles = makeStyles({
     width: "20rem",
   },
   details: {
-    fontSize: "1.4rem",
+    fontSize: "1.6rem",
     maxWidth: "80rem",
     margin: "2rem 0 0 0",
   },
@@ -159,8 +160,8 @@ export default function EventDetails(props) {
             className={classes.img}
             src={
               (props && props?.event?.imgUrl === null) ||
-                props?.event?.imgUrl === undefined ||
-                props?.event?.imgUrl === ""
+              props?.event?.imgUrl === undefined ||
+              props?.event?.imgUrl === ""
                 ? eventImg
                 : props?.event?.imgUrl
             }
@@ -180,16 +181,16 @@ export default function EventDetails(props) {
             )}
           </Box>
         ) : (
-            <Box className={classes.topContentText} m="2.4rem">
-              <p>
-                {moment(activeEvent.startDate).format("MM/DD/YYYY")}
-                {" - "}
-                {moment(activeEvent.endDate).format("MM/DD/YYYY")}
-              </p>
-              <h2>{activeEvent.title}</h2>
-              <Typography variant="subtitle1">{activeEvent.location}</Typography>
-            </Box>
-          )}
+          <Box className={classes.topContentText} m="2.4rem">
+            <p>
+              {moment(activeEvent.startDate).format("MM/DD/YYYY")}
+              {" - "}
+              {moment(activeEvent.endDate).format("MM/DD/YYYY")}
+            </p>
+            <h2>{activeEvent.title}</h2>
+            <Typography variant="subtitle1">{activeEvent.location}</Typography>
+          </Box>
+        )}
         <Link
           className={classes.donateBtn}
           color="primary"
@@ -200,22 +201,29 @@ export default function EventDetails(props) {
           DONATE NOW
         </Link>
       </Box>
-      <Box className={classes.detailsContainer}>
-        <Typography className={classes.details} variant="body1">
-          {activeEvent.details}
-        </Typography>
-      </Box>
-
+    
       {activeEvent.type === "Virtual" ? (
         <Box className={classes.virtualBox}>
-          <p>Hosted by: {activeEvent.host}</p>
-          <p>Coach(es): {activeEvent.coaches}</p>
-          <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
+          {activeEvent.host !== "" ? (
+            <p>Hosted by: {activeEvent.host}</p>
+          ) : null}
+          {activeEvent.coaches !== "" ? (
+            <p>Coach(es): {activeEvent.coaches}</p>
+          ) : null}
+          {activeEvent.speakers !== "" ? (
+            <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
+          ) : null}
+
           <a href={activeEvent.link} rel="noopener noreferrer" target="_blank">
             Click Here to Join Us!
           </a>
         </Box>
       ) : null}
+      <Box className={classes.detailsContainer}>
+        <Typography className={classes.details} variant="body1">
+          {activeEvent.details}
+        </Typography>
+      </Box>
       {/*      <>
         {currentActivities.length >= 1 ? (
           <Box className={classes.myActivitiesBox}>
@@ -236,8 +244,8 @@ export default function EventDetails(props) {
         <ul>
           {activeEvent.sponsors.length > 0
             ? activeEvent?.sponsors
-              ?.split(", ")
-              .map(sponsor => <li>{sponsor}</li>)
+                ?.split(", ")
+                .map(sponsor => <li>{sponsor}</li>)
             : null}
         </ul>
       </Box>
