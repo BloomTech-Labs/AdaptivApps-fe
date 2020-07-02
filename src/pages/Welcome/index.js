@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
       fontSize: "1.8rem",
     },
     "& a": {
-      textDecoration: 'none',
+      textDecoration: "none",
       fontSize: "1.8rem",
     },
   },
@@ -49,19 +49,19 @@ const useStyles = makeStyles(theme => ({
   vid: {
     width: "800px",
     height: "500px",
-    '@media (max-width: 1100px)': {
+    "@media (max-width: 1100px)": {
       width: "600px",
-      height: "425px"
+      height: "425px",
     },
-    '@media (max-width: 900px)': {
+    "@media (max-width: 900px)": {
       width: "450px",
-      height: "325px"
+      height: "325px",
     },
-    '@media (max-width: 700px)': {
+    "@media (max-width: 700px)": {
       width: "350px",
-      height: "250px"
+      height: "250px",
     },
-  }
+  },
 }));
 
 const Welcome = () => {
@@ -77,14 +77,24 @@ const Welcome = () => {
       <div className={classes.body}>
         <h3 className={classes.h3}>A Welcome Message From Us to You</h3>
         <Typography>
-          Steamed, dark cappuccino mazagran steamed grounds to go. Variety est,
-          ut irish half and half, whipped frappuccino cultivar java breve
-          mazagran. To go, doppio, black con panna filter, caramelization bar
-          fair trade roast fair trade. Grounds galão, chicory, redeye et crema
-          and sit fair trade. And wings latte trifecta flavour body dripper.
-          Strong mazagran extra carajillo aged, body mocha cortado and con panna
-          brewed. Skinny, extraction extra, café au lait aroma blue mountain
-          grinder whipped doppio. Beans dark as white sit chicory est chicory.
+          This accessible portal will be your home for the 2020 Angel City
+          Virtual Games presented by The Hartford. The entire Angel City Team is
+          thrilled you are here to participate in three epic weeks of sports,
+          special events, community fun, and most of all-connection.
+          <br />
+          <br />
+          Be sure to browse the <strong>Events Calendar</strong> and select which events you are
+          interested in attending this week and utilize the <strong>Chat</strong> to connect with
+          friends, peers and coaches from all over the world!
+          <br />
+          <br />
+          We are so excited for what’s ahead! Thank you so much for registering
+          for the 2020 Angel City Games presented by The Hartford…this summer is
+          going to be a blast!
+          <br />
+          <br />
+          Be sure to visit the <strong>FAQs</strong> tab for easy video tutorials, a
+          system walkthrough, and more!
         </Typography>
         <h3 className={classes.h3}>
           This Portal for the 2020 Angel City Virtual Games is Presented by The
@@ -104,27 +114,34 @@ const Welcome = () => {
           </li>
           <li>
             <p className={classes.p1}>
-              Checkout the <strong>My Profile</strong> tab to give more
-              of a personalized touch by adding a cool banner and profile image.
+              Checkout the <strong>My Profile</strong> tab to give more of a
+              personalized touch by adding a cool banner and profile image.
             </p>
           </li>
           <li>
             <p className={classes.p1}>
               Click on <strong>Events Calendar</strong> and check out all of the
-              opportunities available for you to participate in. If you are interested in an event simply click <strong>view details</strong>. If you would like to participate in the event click <strong>add</strong> and you will be taken to the <strong>Event Details</strong> page. You may now go back to <strong>Events Calendar</strong> and repeat this process to register for as many events as you would like.
+              opportunities available for you to participate in. If you are
+              interested in an event simply click <strong>view details</strong>.
+              If you would like to participate in the event click{" "}
+              <strong>add</strong> and you will be taken to the{" "}
+              <strong>Event Details</strong> page. You may now go back to{" "}
+              <strong>Events Calendar</strong> and repeat this process to
+              register for as many events as you would like.
             </p>
-
           </li>
           <li>
             <p className={classes.p1}>
               Once you have selected your fun-filled week, check out the{" "}
-              <strong>My Events</strong> tab to view your upcoming events and participation information.
+              <strong>My Events</strong> tab to view your upcoming events and
+              participation information.
             </p>
           </li>
           <li>
             <p className={classes.p1}>
               Every day of this action-packed week, login to participate in all
-              events and connect with others! Don't forget to check out the <strong>Chat</strong> tab to chat with friends!
+              events and connect with others! Don't forget to check out the{" "}
+              <strong>Chat</strong> tab to chat with friends!
             </p>
           </li>
         </ol>
@@ -144,14 +161,15 @@ const Welcome = () => {
         <Typography>
           For any questions about this exciting community platform please refer
           to the video tutorial above or check out the <strong>FAQ</strong>{" "}
-          page. For any additional information, please email <strong>info@angelcitysports.org</strong>.
-          <br/>
-          <br/>
-          Thank you for joining Angel City Sports in this World Premier
-          Virtual Adaptive Sports Event- The 2020 Angel City Games presented by
-          The Hartford.
+          page. For any additional information, please email{" "}
+          <strong>info@angelcitysports.org</strong>.
+          <br />
+          <br />
+          Thank you for joining Angel City Sports in this World Premier Virtual
+          Adaptive Sports Event- The 2020 Angel City Games presented by The
+          Hartford.
         </Typography>
-        
+
         <h3 className={classes.h3}>
           The 2020 Angel City Virtual Games Presented by The Harford (Explained)
         </h3>
@@ -175,9 +193,9 @@ const Welcome = () => {
           </strong>
           <br />
           <br />
-          Adaptive athletes along with family, friends, volunteers, and peers are
-          welcome to join in on this unforgettable summer – 21 days full of sport,
-          education, connection, and fun!
+          Adaptive athletes along with family, friends, volunteers, and peers
+          are welcome to join in on this unforgettable summer – 21 days full of
+          sport, education, connection, and fun!
           <br />
           <br />
           Check out the <strong>Events Calendar</strong> tab in this portal to
@@ -196,19 +214,23 @@ const Welcome = () => {
         <h3 className={classes.h3}>About Angel City Sports</h3>
         <Typography>
           Angel City Sports provides year-round free adaptive sports
-          opportunities for kids, adults, and veterans with physical disabilities
-          or visual impairments. A chapter member of Move United, Angel City
-          Sports is focused on encouraging participation in sports and
-          recreation activities for people with physical disabilities and
+          opportunities for kids, adults, and veterans with physical
+          disabilities or visual impairments. A chapter member of Move United,
+          Angel City Sports is focused on encouraging participation in sports
+          and recreation activities for people with physical disabilities and
           advancing the Paralympic movement. Debuting in 2015, the annual Angel
           City Games presented by The Hartford, is now the largest multisport
           Paralympic competition open to kids, adults, and veterans. In addition
           to providing free equipment, coaching, and competitive opportunities –
           Angel City focuses on how every individual can reach their full
-          potential and unlock their dreams through music, art, higher education,
-          and career opportunities. For more information about Angel City
-          Sports, visit <a href="https://www.angelcitysports.org" target="_blank">angelcitysports.org</a> and follow <strong>@angelcitysports</strong> on
-          Facebook, Instagram, and Twitter.
+          potential and unlock their dreams through music, art, higher
+          education, and career opportunities. For more information about Angel
+          City Sports, visit{" "}
+          <a href="https://www.angelcitysports.org" target="_blank">
+            angelcitysports.org
+          </a>{" "}
+          and follow <strong>@angelcitysports</strong> on Facebook, Instagram,
+          and Twitter.
         </Typography>
       </div>
     </Box>

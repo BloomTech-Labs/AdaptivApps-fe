@@ -34,7 +34,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     marginBottom: "1.6rem",
     marginLeft: "0.3rem",
-    textDirection: "none"
+    textDecoration: "none"
   },
   loadingSpinner: {
     position: "absolute",
@@ -72,7 +72,7 @@ export default function MyEventDetails() {
           to="/myevents"
         >
           <ArrowBackIosIcon color="primary" fontSize="large" />
-          Back to my events
+          Back to My Events
         </Link>
         <Typography variant="h1" gutterBottom>
           Event Details
