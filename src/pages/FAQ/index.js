@@ -23,6 +23,7 @@ const useStyles = makeStyles(theme => ({
     },
     "& a": {
       textDecoration: "none",
+      color: "black",
       fontSize: "1.8rem",
     },
   },
@@ -101,7 +102,7 @@ const FAQ = () => {
             Games presented by The Hartford will be accessible through this web
             portal. All activities will be hosted via Zoom or a similar
             platform. You can view and register for individual events in the{" "}
-            <strong>Events Calendar</strong> tab.
+            <a href="/calendar" aria-label="Navigate to Events Calendar."><strong>Events Calendar</strong></a> tab.
           </p>
         </div>
         <div className={classes.group}>
@@ -110,19 +111,19 @@ const FAQ = () => {
           <ol>
             <li>
               <p className={classes.p1}>
-                Visit the <strong>Settings</strong> tab to create your profile.
+                Visit the <a href="/settings" aria-label="Navigate to settings page."><strong>Settings</strong></a> tab to create your profile.
                 Be sure to enter a username to personalize your profile page.
               </p>
             </li>
             <li>
               <p className={classes.p1}>
-                Checkout the <strong>My Profile</strong> tab to give more of a
+                Checkout the <a><strong>My Profile</strong></a> tab to give more of a
                 personalized touch by adding a cool banner and profile image.
               </p>
             </li>
             <li>
               <p className={classes.p1}>
-                Click on <strong>Events Calendar</strong> and check out all of
+                Click on <a href="/calendar"><strong>Events Calendar</strong></a> and check out all of
                 the opportunities available for you to participate in. If you
                 are interested in an event simply click{" "}
                 <strong>view details</strong>. If you would like to participate

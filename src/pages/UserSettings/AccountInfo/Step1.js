@@ -505,7 +505,7 @@ export default function Step1({ updateProfile }) {
         />
 
         <InputLabel required htmlFor="legal">
-          Are you over 18 years old?
+          Are you over 18 years old? (minors will not have access to the chat feature)
         </InputLabel>
         {errors.legal && (
           <Typography className={classes.error}>

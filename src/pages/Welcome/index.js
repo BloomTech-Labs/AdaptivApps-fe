@@ -1,4 +1,11 @@
-import React from "react";
+// React/Reach Router imports
+import React, { useEffect } from "react";
+// Auth0 imports
+import { useAuth0 } from "../../config/react-auth0-spa"
+// Apollo/GraphQL imports
+import { useQuery, useMutation } from "react-apollo"
+import { ADD_USER_PROFILE, PROFILE_INFO } from "../UserSettings/queries"
+// Material-UI imports 
 import { Box, Typography, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -40,6 +47,39 @@ const useStyles = makeStyles(theme => ({
 
 const Welcome = () => {
   const classes = useStyles();
+  const { user } = useAuth0();
+  const [createProfile] = useMutation(ADD_USER_PROFILE);
+  const userEmail = user.email;
+console.log('Inside Welcome page', userEmail)
+  // Fetch profile for the user using the email associated with auth0 login
+  const { loading, error, data, refetch } = useQuery(PROFILE_INFO, {
+    variables: { email: userEmail },
+  });
+
+  const profile = data?.profile;
+  console.log('Inside Welcome', profile)
+
+  // Extract the profile from returning data of useQuery
+  useEffect(() => {
+    if (error) {
+      return <p>Error</p>;
+    }
+    // If user does not have a profile in backend, create one for them
+    if (!loading && !profile?.id) {
+      newProfile();
+    }
+    if (profile) {
+      refetch();
+    }
+    // eslint-disable-next-line
+  }, [profile]);
+
+  // Function that creates a profile for given email
+  const newProfile = async () => {
+    await createProfile({ variables: { email: userEmail } });
+    refetch();
+  };
+
 
   return (
     <Box component="main" className={classes.root}>
@@ -74,7 +114,7 @@ const Welcome = () => {
           </Typography>
 
         <h3 className={classes.h3}>
-          The 2020 Angel City Virtual Games Presented by The Harford (Explained)
+          The 2020 Angel City Virtual Games Presented by The Harford Explained
         </h3>
         <Typography>
           On March 12th, Angel City Sports made the tough decision to suspend
