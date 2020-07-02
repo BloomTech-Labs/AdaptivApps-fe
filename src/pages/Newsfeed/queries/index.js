@@ -7,6 +7,7 @@ export const GET_NEWSFEED_POSTS = gql`
       id
       body
       imgUrl
+      createdAt
       comments {
         id
         body
@@ -15,6 +16,7 @@ export const GET_NEWSFEED_POSTS = gql`
           userName
           firstName
           lastName
+          email
         }
       }
       postedBy {
@@ -22,8 +24,21 @@ export const GET_NEWSFEED_POSTS = gql`
         userName
         firstName
         lastName
+        email
+        profilePicture
       }
-      createdAt
+      likes {
+        id
+        post {
+          id
+        }
+        likedBy {
+          id
+          email
+          firstName
+          lastName
+        }
+      }
     }
   }
 `;
@@ -37,29 +52,27 @@ export const NEWSFEED_POST_SUBSCRIPTION = gql`
         id
         body
         imgUrl
+        createdAt
         postedBy {
           id
           userName
           firstName
           lastName
+          email
+          profilePicture
         }
-        createdAt
-      }
-    }
-  }
-`;
-
-// Get a newsfeed post's comments
-export const GET_NEWSFEED_COMMENTS = gql`
-  query getComments($id: ID!) {
-    feedComments(where: { feed: { id: $id } }) {
-      id
-      body
-      postedBy {
-        id
-        userName
-        firstName
-        lastName
+        likes {
+          id
+          post {
+            id
+          }
+          likedBy {
+            id
+            email
+            firstName
+            lastName
+          }
+        }
       }
     }
   }
@@ -77,6 +90,14 @@ export const CREATE_NEWSFEED_COMMENT = gql`
     ) {
       id
       body
+      feed {
+        id
+      }
+      postedBy {
+        id
+        email
+      }
+      createdAt
     }
   }
 `;
