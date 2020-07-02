@@ -1,6 +1,6 @@
 // React imports
 import React, { useEffect } from "react";
-import { useNavigate } from "@reach/router";
+import { useNavigate, Link } from "@reach/router";
 // Component imports
 import EventList from "./EventList";
 import GlobalSearchBox from "../../routes/DashRouter/GlobalSearchBox";
@@ -11,7 +11,7 @@ import { GET_USER_EVENTS } from "./queries";
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
 // Styling imports
-import { makeStyles, Grid, Box, Typography, Link } from "@material-ui/core";
+import { makeStyles, Grid, Box, Typography } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles({
@@ -68,6 +68,9 @@ const useStyles = makeStyles({
       display: "none",
     },
   },
+  redirLink: {
+    textDecoration: "none",
+  }
 });
 
 export default function MyEvents() {
@@ -115,10 +118,10 @@ export default function MyEvents() {
                   You haven't registered for any events yet!
               </Typography>
                 <Box className={classes.inlineNotice}>
-                  <Link onClick={() => navigate(`/calendar`)}>
+                  <Link to="/calendar" aria-label="check out the event calendar page" className={classes.redirLink}>
                     <Typography className={classes.noActivBlue}>
                       Check out the Events Calendar
-                  </Typography>
+                    </Typography>
                   </Link>
                   <Typography>
                     , register for an event, then see all of your registered
