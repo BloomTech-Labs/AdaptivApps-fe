@@ -108,16 +108,12 @@ const useStyles = makeStyles(theme => ({
       background: "white",
       color: "#2962FF",
     },
-    [theme.breakpoints.down("lg")]: {
-      width: "80%",
-      margin: "2rem auto",
-    },
-    [theme.breakpoints.down("md")]: {
-      width: "100%",
-      margin: "2rem auto",
-    },
     [theme.breakpoints.down("sm")]: {
-      width: "100%",
+      width: "28rem",
+      margin: "2rem auto",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "80%",
       margin: "2rem auto",
     },
   },

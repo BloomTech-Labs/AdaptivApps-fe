@@ -15,7 +15,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import {
-  makeStyles
+  makeStyles,
+  Button
 } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -76,19 +77,25 @@ const useStyles = makeStyles(theme => ({
   iconDiv: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: '6%'
+    width: '6%',
+    marginLeft: "-100px",
   },
   editIcon: {
     '&:hover': {
       cursor: 'pointer',
       color: '#2962FF'
-    }
+    },
   },
   deleteIcon: {
     '&:hover': {
       cursor: 'pointer',
-      color: 'red'
+      color: 'red',
     }
+  },
+  btn: {
+    backgroundColor: "none",
+    background: "none",
+    border: "none",
   }
 }));
 
@@ -142,10 +149,14 @@ export default function Announcements({ announcements, user, setUpdateChat, setD
                   {user && user[config.roleUrl].includes("Admin") ? (
                     <div className={classes.iconDiv}>
                       <Tooltip title="Edit Announcement">
-                        <EditOutlinedIcon className={classes.editIcon} onClick={() => { setAnnouncementOpen(true); setAnnouncementToEdit(announcement) }} />
+                        <button onClick={() => { setAnnouncementOpen(true); setAnnouncementToEdit(announcement) }} className={classes.btn} >
+                          <EditOutlinedIcon className={classes.editIcon} />
+                        </button>
                       </Tooltip>
                       <Tooltip title="Delete Announcement">
-                        <DeleteIcon className={classes.deleteIcon} onClick={() => deleteMessage(announcement)} />
+                        <button onClick={() => deleteMessage(announcement)} className={classes.btn} >
+                          <DeleteIcon className={classes.deleteIcon} />
+                        </button>
                       </Tooltip>
                     </div>) : null}
                 </div>
