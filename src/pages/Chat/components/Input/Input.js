@@ -74,7 +74,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "none",
     background: "none",
     border: "none",
-  }
+  },
 }));
 
 const Input = ({ chatRoom, user, messages }) => {
@@ -113,37 +113,37 @@ const Input = ({ chatRoom, user, messages }) => {
   const newMessage = async () => {
     recipient.length > 0
       ? (await sendChat({
-        variables: {
-          id: chatRoom.id,
-          email: user.email,
-          message: message,
-        },
-      })) &&
-      (await createChatRoomNotification({
-        variables: {
-          id: chatRoom.id,
-          email: recipient[0].email,
-        },
-      })) &&
-      (await showChatroomAll({
-        variables: {
-          id: chatRoom.id,
-        },
-      })) &&
-      setMessage("")
+          variables: {
+            id: chatRoom.id,
+            email: user.email,
+            message: message,
+          },
+        })) &&
+        (await createChatRoomNotification({
+          variables: {
+            id: chatRoom.id,
+            email: recipient[0].email,
+          },
+        })) &&
+        (await showChatroomAll({
+          variables: {
+            id: chatRoom.id,
+          },
+        })) &&
+        setMessage("")
       : (await updateChatRoom({
-        variables: {
-          id: chatRoom.id,
-          email: senderEmail[0].sender,
-        },
-      })) &&
-      (await createChatRoomNotification({
-        variables: {
-          id: chatRoom.id,
-          email: senderEmail[0].sender,
-        },
-      })) &&
-      setMessage("");
+          variables: {
+            id: chatRoom.id,
+            email: senderEmail[0].sender,
+          },
+        })) &&
+        (await createChatRoomNotification({
+          variables: {
+            id: chatRoom.id,
+            email: senderEmail[0].sender,
+          },
+        })) &&
+        setMessage("");
   };
 
   return (
@@ -180,7 +180,7 @@ const Input = ({ chatRoom, user, messages }) => {
                   <SendIcon
                     tabIndex="0"
                     className={classes.sendMessageIcon}
-                    onClick={newMessage}
+                    onClick={message !== "" && newMessage}
                     aria-label="send message"
                   />
                 </Tooltip>

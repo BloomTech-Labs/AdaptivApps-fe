@@ -66,7 +66,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "none",
     background: "none",
     border: "none",
-  }
+  },
 }));
 
 const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
@@ -123,6 +123,9 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
           variant="outlined"
           type="text"
           name="updateChat"
+          onKeyPress={e =>
+            e.key === "Enter" && message !== "" ? updateMessage() : null
+          }
           onChange={e => setMessage(e.target.value)}
           InputProps={{
             endAdornment: (
@@ -131,7 +134,7 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
                   <button className={classes.btn}>
                     <SendIcon
                       className={classes.sendMessageIcon}
-                      onClick={updateMessage}
+                      onClick={message !== "" && updateMessage}
                       aria-label="update message"
                     />
                   </button>
