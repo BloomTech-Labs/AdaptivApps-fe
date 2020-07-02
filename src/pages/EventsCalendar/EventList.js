@@ -37,8 +37,11 @@ export default function EventList({ currentEvents, refetch, user }) {
   }, [refetch]);
 
   if (currentEvents) {
-    const sortedEvents = currentEvents?.sort((a, b) => b.startDate - a.startDate)
-
+    const sortedEvents = currentEvents?.sort((a, b) => {
+      if (a.startDate < b.startDate) return -1;
+      else if (a.startDate > b.startDate) return 1;
+      else return 0;
+    })
     for (let i = 0; i < sortedEvents.length; i++) {
       const startDate = sortedEvents[i].startDate;
       if (eventsMap.has(startDate)) {
