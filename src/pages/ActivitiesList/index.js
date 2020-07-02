@@ -98,7 +98,7 @@ const useStyles = makeStyles({
     marginBottom: "1rem",
   },
   details: {
-    fontSize: "1.4rem",
+    fontSize: "1.6rem",
     maxWidth: "80rem",
     margin: "2rem 0 0 3rem",
   },

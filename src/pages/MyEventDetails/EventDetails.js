@@ -96,6 +96,7 @@ const useStyles = makeStyles({
   virtualBox: {
     display: "flex",
     flexDirection: "column",
+    marginTop: "2.5rem",
     "& p": {
       margin: 0,
       fontSize: "1.6rem",
@@ -116,7 +117,7 @@ const useStyles = makeStyles({
     width: "20rem",
   },
   details: {
-    fontSize: "1.4rem",
+    fontSize: "1.6rem",
     maxWidth: "80rem",
     margin: "2rem 0 0 0",
   },
@@ -200,11 +201,6 @@ export default function EventDetails(props) {
           DONATE NOW
         </Link>
       </Box>
-      <Box className={classes.detailsContainer}>
-        <Typography className={classes.details} variant="body1">
-          {activeEvent.details}
-        </Typography>
-      </Box>
     
       {activeEvent.type === "Virtual" ? (
         <Box className={classes.virtualBox}>
@@ -223,6 +219,11 @@ export default function EventDetails(props) {
           </a>
         </Box>
       ) : null}
+      <Box className={classes.detailsContainer}>
+        <Typography className={classes.details} variant="body1">
+          {activeEvent.details}
+        </Typography>
+      </Box>
       {/*      <>
         {currentActivities.length >= 1 ? (
           <Box className={classes.myActivitiesBox}>
