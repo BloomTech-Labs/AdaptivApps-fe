@@ -292,10 +292,6 @@ function SideNav(props) {
               <CalendarTodayIcon className={classes.navIcon} />
               <p>Events Calendar</p>
             </NavLink>
-            <NavLink to="myevents" className={classes.navLink}>
-              <BookmarkIcon className={classes.navIcon} />
-              <p>My Events</p>
-            </NavLink>
             <NavLink
               to={`user/${data?.profile?.userName}`}
               className={classes.navLink}
@@ -303,10 +299,11 @@ function SideNav(props) {
               <UserIcon className={classes.navIcon} />
               <p>My Profile</p>
             </NavLink>
-            <NavLink to="settings" className={classes.navLink}>
-              <SettingsIcon className={classes.navIcon} />
-              <p>Settings</p>
+            <NavLink to="myevents" className={classes.navLink}>
+              <BookmarkIcon className={classes.navIcon} />
+              <p>My Events</p>
             </NavLink>
+           
             {/* Profile Validation */}
             {data?.profile?.userName === null ? (
               <Tooltip title="Please complete your profile information to access Chat">
@@ -337,6 +334,10 @@ function SideNav(props) {
               <HomeIcon className={classes.navIcon} />
               <p>Newsfeed</p>
             </NavLink>*/}
+             <NavLink to="settings" className={classes.navLink}>
+              <SettingsIcon className={classes.navIcon} />
+              <p>Settings</p>
+            </NavLink>
             <NavLink to="faqs" className={classes.navLink}>
               <InfoOutlinedIcon className={classes.navIcon} />
               <p>FAQ</p>
