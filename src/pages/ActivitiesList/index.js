@@ -28,6 +28,9 @@ const useStyles = makeStyles({
   eventContainer: {
     display: "flex",
     marginLeft: "3rem",
+    '@media (max-width: 950px)': {
+      flexDirection: "column",
+    },
   },
   imgContainer: {
     display: "flex",
@@ -46,6 +49,9 @@ const useStyles = makeStyles({
     justifyContent: "center",
     alignContent: "center",
     marginLeft: "2.4rem",
+    '@media (max-width: 1050px)': {
+      marginTop: "20px",
+    },
   },
   date: {
     fontSize: "1.4rem",
@@ -148,8 +154,8 @@ export default function ActivityList() {
             className={classes.img}
             src={
               (activityData && activityData?.event?.imgUrl === null) ||
-              activityData?.event?.imgUrl === undefined ||
-              activityData?.event?.imgUrl === ""
+                activityData?.event?.imgUrl === undefined ||
+                activityData?.event?.imgUrl === ""
                 ? eventImg
                 : activityData?.event?.imgUrl
             }

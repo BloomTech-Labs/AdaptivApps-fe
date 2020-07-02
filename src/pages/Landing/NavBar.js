@@ -66,6 +66,7 @@ const useStyles = makeStyles(theme => ({
 const NavBar = () => {
   const classes = useStyles();
   const { isAuthenticated, loginWithRedirect } = useAuth0();
+  console.log('Inside Nav', loginWithRedirect)
   return (
     <nav className={classes.container}>
       <Box className={classes.acsBanner}>
@@ -81,7 +82,7 @@ const NavBar = () => {
           {!isAuthenticated && (
             <Button
               className={classes.navBtn}
-              onClick={() => loginWithRedirect({})}
+              onClick={() => loginWithRedirect({screen_hint: "signup"})}
             >
               Sign Up
             </Button>

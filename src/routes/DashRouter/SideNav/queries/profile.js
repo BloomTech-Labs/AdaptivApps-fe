@@ -8,6 +8,7 @@ export const GET_MY_PROFILE = gql`
       lastName
       userName
       email
+      legal
     }
   }
 `;
@@ -22,6 +23,7 @@ export const PROFILE_SUBSCRIPTION = gql`
         lastName
         type
         email
+        legal
         extProfile {
           id
           orgName

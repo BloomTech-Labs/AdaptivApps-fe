@@ -12,7 +12,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import Collapse from "@material-ui/core/Collapse";
 import Alert from "@material-ui/lab/Alert";
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
   root: {
     width: "25rem",
     height: "100vh",
@@ -20,6 +20,16 @@ const useStyles = makeStyles(() => ({
     border: "none",
     boxShadow:
       "0px 1px 3px rgba(0, 0, 0, 0.2), 0px 2px 2px rgba(0, 0, 0, 0.12), 0px 0px 2px rgba(0, 0, 0, 0.14)",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      margin: "auto",
+      padding: "0",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+      margin: "auto",
+      padding: "0",
+    },
   },
   alertDiv: {
     width: "102%",

@@ -40,7 +40,14 @@ const useStyles = makeStyles(theme => ({
       width: "100%",
     },
   },
-  form: { display: "flex", flexDirection: "column", width: "500px" },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    width: "500px",
+    '@media (max-width: 1600px)': {
+      width: "400px",
+    },
+  },
   inputLabel: {
     marginBottom: "7px",
     marginLeft: "5px",
@@ -58,7 +65,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: '1.75rem',
     fontVariant: 'all-small-caps',
     fontWeight: 'bold',
-    
+
   },
 }));
 

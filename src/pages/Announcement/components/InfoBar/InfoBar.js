@@ -5,8 +5,14 @@ import AnnouncementModal from "../Modals/AnnouncementModal";
 
 // Query / Mutation / Subscription Imports
 import { useQuery, useSubscription } from "react-apollo";
-import { GET_ANNOUNCEMENTS, ANNOUNCEMENT_SUBSCRIPTION } from '../../queries/Announcements';
-import { GET_NOTIFICATIONS, NOTIFICATION_SUBSCRIPTION } from '../../queries/Notifications'
+import {
+  GET_ANNOUNCEMENTS,
+  ANNOUNCEMENT_SUBSCRIPTION,
+} from "../../queries/Announcements";
+import {
+  GET_NOTIFICATIONS,
+  NOTIFICATION_SUBSCRIPTION,
+} from "../../queries/Notifications";
 
 //Auth0 imports
 import config from "../../../../config/auth_config";
@@ -15,7 +21,7 @@ import config from "../../../../config/auth_config";
 import LanguageIcon from "@material-ui/icons/Language";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Divider } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -23,6 +29,16 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     whiteSpace: "nowrap",
     overflow: "hidden",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+      padding: "0",
+      height: "85%",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+      padding: "0",
+      height: "85%",
+    },
   },
   header: {
     fontSize: "2.5rem",
@@ -31,6 +47,16 @@ const useStyles = makeStyles(theme => ({
     fontFamily: "Arial",
     marginBottom: "10%",
     marginTop: "1%",
+    [theme.breakpoints.down("sm")]: {
+      alignSelf: "flex-start",
+      margin: "0",
+      padding: "3%",
+    },
+    [theme.breakpoints.down("xs")]: {
+      alignSelf: "flex-start",
+      margin: "0",
+      padding: "3%",
+    },
   },
   messageIcons: {
     maxWidth: "95%",
@@ -41,7 +67,17 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       background: "lightgrey",
       borderRadius: "5px",
-      cursor: 'pointer'
+      cursor: "pointer",
+    },
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: "55%",
+      margin: "3%",
+      padding: "0",
+    },
+    [theme.breakpoints.down("xs")]: {
+      maxWidth: "55%",
+      margin: "3%",
+      padding: "0",
     },
   },
   icons: {
@@ -49,6 +85,12 @@ const useStyles = makeStyles(theme => ({
     color: "grey",
     cursor: "pointer",
     marginRight: "10%",
+    [theme.breakpoints.down("sm")]: {
+      marginRight: "2%",
+    },
+    [theme.breakpoints.down("xs")]: {
+      marginRight: "2%",
+    },
   },
   span: {
     fontSize: "1.6rem",
@@ -65,17 +107,42 @@ const useStyles = makeStyles(theme => ({
     overflowX: "hidden",
     overflow: "auto",
   },
+  divider: {
+    display: "none",
+    [theme.breakpoints.down("sm")]: {
+      display: "block",
+      height: "2px",
+    },
+    [theme.breakpoints.down("xs")]: {
+      display: "block",
+      height: "2px",
+    },
+  },
 }));
 
 function InfoBar({ user, setAlertOpen }) {
   const classes = useStyles();
   const [announcement, setAnnouncementOpen] = useState(false);
   // Notification Subscription
-  const { error: notificationError, loading: notificationLoading } = useSubscription(NOTIFICATION_SUBSCRIPTION)
-  const { data: notifications, refetch: refetchNotifications } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email } })
+  const {
+    error: notificationError,
+    loading: notificationLoading,
+  } = useSubscription(NOTIFICATION_SUBSCRIPTION);
+  const {
+    data: notifications,
+    refetch: refetchNotifications,
+  } = useQuery(GET_NOTIFICATIONS, { variables: { email: user?.email } });
   // Announcement Subscription
-  const { error: announcementError, loading: announcementLoading } = useSubscription(ANNOUNCEMENT_SUBSCRIPTION, { variables: { isAnnouncementRoom: true } });
-  const { data: announcements, refetch: refetchAnnouncements } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
+  const {
+    error: announcementError,
+    loading: announcementLoading,
+  } = useSubscription(ANNOUNCEMENT_SUBSCRIPTION, {
+    variables: { isAnnouncementRoom: true },
+  });
+  const {
+    data: announcements,
+    refetch: refetchAnnouncements,
+  } = useQuery(GET_ANNOUNCEMENTS, { variables: { isAnnouncementRoom: true } });
 
   const handleAnnouncementOpen = () => {
     setAnnouncementOpen(true);
@@ -86,7 +153,11 @@ function InfoBar({ user, setAlertOpen }) {
   };
 
   //if (loading) return <CircularProgress className={classes.loadingSpinner} />;
-  if (announcementError || notificationError) return `Error! ${announcementError.message}` || `Error! ${notificationError.message}`;
+  if (announcementError || notificationError)
+    return (
+      `Error! ${announcementError.message}` ||
+      `Error! ${notificationError.message}`
+    );
 
   !announcementLoading && refetchAnnouncements();
   !notificationLoading && refetchNotifications();
@@ -94,6 +165,7 @@ function InfoBar({ user, setAlertOpen }) {
   return (
     <div className={classes.root}>
       <h1 className={classes.header}>Announcements</h1>
+      <Divider variant="fullWidth" className={classes.divider} />
       {user && user[config.roleUrl].includes("Admin") ? (
         <>
           <div className={classes.messageIcons}>

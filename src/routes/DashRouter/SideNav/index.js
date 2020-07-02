@@ -188,6 +188,9 @@ const useStyles = makeStyles(theme => ({
   logoutP: {
     color: "#2962FF",
   },
+  underAge: {
+    display: "none",
+  },
 }));
 
 function SideNav(props) {
@@ -204,6 +207,7 @@ function SideNav(props) {
       email: user?.email,
     },
   });
+  //console.log(data && data.profile.legal);
 
   const { data: subData } = useSubscription(PROFILE_SUBSCRIPTION);
 
@@ -271,7 +275,7 @@ function SideNav(props) {
             <img src={acsLogo} alt="ACS Logo" />
           </Box>
           <Box className={classes.navContainer}>
-            <NavLink to="welcome" className={classes.navLink}>
+            <NavLink to="/" className={classes.navLink}>
               <HouseOutlinedIcon className={classes.navIcon} />
               <p>Welcome</p>
             </NavLink>
@@ -299,14 +303,21 @@ function SideNav(props) {
               <UserIcon className={classes.navIcon} />
               <p>My Profile</p>
             </NavLink>
-            <NavLink to="/" className={classes.navLink}>
+            <NavLink to="settings" className={classes.navLink}>
               <SettingsIcon className={classes.navIcon} />
               <p>Settings</p>
             </NavLink>
             {/* Profile Validation */}
             {data?.profile?.userName === null ? (
-              <Tooltip title="Please complete your profile information to access Chats">
+              <Tooltip title="Please complete your profile information to access Chat">
                 <div className={classes.disabledNavLink}>
+                  <ForumOutlinedIcon className={classes.navIcon} />
+                  <p>Chat</p>
+                </div>
+              </Tooltip>
+            ) : data?.profile?.legal === "No" ? (
+              <Tooltip title="Chat feature is not available to users under 18 years old">
+                <div className={classes.underAge}>
                   <ForumOutlinedIcon className={classes.navIcon} />
                   <p>Chat</p>
                 </div>

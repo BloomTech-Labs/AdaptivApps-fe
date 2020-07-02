@@ -146,7 +146,8 @@ function App() {
           <Accessibility path="/accessibility" />
           <PrivacyPolicy path="/privacy-policy" />
           <PrivateRoute path="/" component={DashRouter}>
-            <Settings path="/" />
+            <Welcome path="/" />
+            <Settings path="/settings" />
             <AccountInfo path="updateaccount/:userEmail/*" />
             <UserProfile path="user/:userName" />
             <EventsCalendar path="calendar" />
@@ -162,7 +163,6 @@ function App() {
             <ManageUsers path="manageUsers" />
             <Announcement path="/announcements" />
             <FAQ path="/faqs" />
-            <Welcome path="/welcome" />
             {/*<NewsfeedPage path="/newsfeed" />*/}
           </PrivateRoute>
         </Router>
