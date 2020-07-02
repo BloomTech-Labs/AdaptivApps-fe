@@ -28,9 +28,7 @@ const useStyles = makeStyles({
   eventContainer: {
     display: "flex",
     marginLeft: "3rem",
-    '@media (max-width: 950px)': {
-      flexDirection: "column",
-    },
+    flexDirection: "column",
   },
   imgContainer: {
     display: "flex",
@@ -117,6 +115,28 @@ const useStyles = makeStyles({
     margin: "0 0 2% 2%",
     fontSize: "1.8rem",
   },
+  top: {
+    display: "flex",
+    flexDirection: "row",
+    '@media (max-width: 950px)': {
+      flexDirection: "column",
+    },
+  },
+  virtualBox: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "3rem",
+    "& p": {
+      margin: 0,
+      fontSize: "1.6rem",
+    },
+    "& a": {
+      marginTop: "2rem",
+      color: "#2862ff",
+      fontSize: "1.6rem",
+      textDecoration: "none",
+    },
+  },
 });
 
 export default function ActivityList() {
@@ -132,7 +152,7 @@ export default function ActivityList() {
   );
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
-
+  console.log(activityData)
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
@@ -149,41 +169,53 @@ export default function ActivityList() {
         </Typography>
       </Box>
       <Box className={classes.eventContainer}>
-        <Box className={classes.imgContainer}>
-          <img
-            className={classes.img}
-            src={
-              (activityData && activityData?.event?.imgUrl === null) ||
-                activityData?.event?.imgUrl === undefined ||
-                activityData?.event?.imgUrl === ""
-                ? eventImg
-                : activityData?.event?.imgUrl
-            }
-            alt="Event"
-          />
-        </Box>
-        <Box className={classes.infoContainer}>
-          <Typography
-            className={classes.date}
-            variant="body2"
-            color="textSecondary"
-            component="p"
-          >
-            {moment(activityData?.event?.startDate).format("MM/DD/YYYY")} -{" "}
-            {moment(activityData?.event?.endDate).format("MM/DD/YYYY")}
-          </Typography>
-          <Typography className={classes.title}>
-            {activityData?.event?.title}
-          </Typography>
-          <Typography
-            className={classes.loc}
-            variant="body2"
-            color="textSecondary"
-            component="p"
-          >
-            {activityData.event.location}
-          </Typography>
-        </Box>
+        <div className={classes.top}>
+          <Box className={classes.imgContainer}>
+            <img
+              className={classes.img}
+              src={
+                (activityData && activityData?.event?.imgUrl === null) ||
+                  activityData?.event?.imgUrl === undefined ||
+                  activityData?.event?.imgUrl === ""
+                  ? eventImg
+                  : activityData?.event?.imgUrl
+              }
+              alt="Event"
+            />
+          </Box>
+          <Box className={classes.infoContainer}>
+            <Typography
+              className={classes.date}
+              variant="body2"
+              color="textSecondary"
+              component="p"
+            >
+              {moment(activityData?.event?.startDate).format("MM/DD/YYYY")} -{" "}
+              {moment(activityData?.event?.endDate).format("MM/DD/YYYY")}
+            </Typography>
+            <Typography className={classes.title}>
+              {activityData?.event?.title}
+            </Typography>
+            <Typography
+              className={classes.loc}
+              variant="body2"
+              color="textSecondary"
+              component="p"
+            >
+              {activityData.event.location}
+            </Typography>
+          </Box>
+        </div>
+        {activityData.event.type === "Virtual" ? (
+          <Box className={classes.virtualBox}>
+            <p>Hosted by: {activityData.event.host}</p>
+            <p>Coach(es): {activityData.event.coaches}</p>
+            <p>Special Guest Speaker(s): {activityData.event.speakers}</p>
+            <a href={activityData.event.link} rel="noopener noreferrer" target="_blank">
+              Click Here to Join Us!
+          </a>
+          </Box>
+        ) : null}
       </Box>
       <Box className={classes.details}>{activityData.event.details}</Box>
       {/*activityData.event.activities.length >= 1 ? (
