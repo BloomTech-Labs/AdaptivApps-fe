@@ -90,16 +90,19 @@ const useStyles = makeStyles(theme => ({
   },
   doubleInput: {
     display: "flex",
+    justifyContent: "space-between",
     width: "100%",
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
     },
   },
   singleInput: {
-    margin: "0 auto",
     display: "flex",
     flexDirection: "column",
-    width: "100%",
+    width: "48.6%",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   typeSelect: {
     height: "4.8rem",
