@@ -149,8 +149,7 @@ export default function EventDetails(props) {
 
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
-  console.log("props", props);
-  console.log("Inside Event Details", activeEvent);
+
   // const currentActivities = data.activities;
   return (
     <Box className={classes.root} m={4}>

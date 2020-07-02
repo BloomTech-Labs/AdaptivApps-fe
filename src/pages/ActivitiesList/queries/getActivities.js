@@ -12,6 +12,10 @@ export const GET_EVENT_ACTIVITIES = gql`
       location
       imgUrl
       details
+      host
+      coaches
+      speakers
+      link
       attendees {
         id
         eventProfile {

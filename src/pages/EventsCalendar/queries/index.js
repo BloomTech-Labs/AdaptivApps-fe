@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 // Getting a list of events, being used in UserDashboard
 export const GET_EVENT_LIST = gql`
   query getEvents {
-    events(orderBy: startDate_ASC) {
+    events(orderBy: startTime_ASC) {
       id
       type
       host
