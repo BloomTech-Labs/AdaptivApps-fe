@@ -62,6 +62,11 @@ const useStyles = makeStyles(() => ({
     justifyContent: "flex-end",
     fontSize: "-webkit-xxx-large",
   },
+  btn: {
+    backgroundColor: "none",
+    background: "none",
+    border: "none",
+  }
 }));
 
 const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
@@ -105,7 +110,9 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
           aria-label="create speech-to-text message"
           onClick={toggleListen}
         >
-          <MicNoneIcon className={classes.speechIcon} />
+          <button className={classes.btn}>
+            <MicNoneIcon className={classes.speechIcon} />
+          </button>
           {listening && "Go ahead, I'm listening"}
         </div>
         <TextField
@@ -121,11 +128,13 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
             endAdornment: (
               <InputAdornment position="end">
                 <Tooltip title="Update Message">
-                  <SendIcon
-                    className={classes.sendMessageIcon}
-                    onClick={updateMessage}
-                    aria-label="update message"
-                  />
+                  <button className={classes.btn}>
+                    <SendIcon
+                      className={classes.sendMessageIcon}
+                      onClick={updateMessage}
+                      aria-label="update message"
+                    />
+                  </button>
                 </Tooltip>
               </InputAdornment>
             ),
@@ -133,11 +142,13 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
         />
         <div className={classes.iconDiv}>
           <Tooltip title="Add an emoji!">
-            <MoodIcon
-              className={classes.icons}
-              onClick={() => setToggleEmoji(true)}
-              aria-label="open emoji picker"
-            />
+            <button className={classes.btn}>
+              <MoodIcon
+                className={classes.icons}
+                onClick={() => setToggleEmoji(true)}
+                aria-label="open emoji picker"
+              />
+            </button>
           </Tooltip>
           <Modal
             className={classes.modal}
