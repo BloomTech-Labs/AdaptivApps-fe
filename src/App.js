@@ -29,7 +29,7 @@ import ManageUsers from "./pages/ManageUsers";
 import Announcement from "./pages/Announcement";
 import FAQ from "./pages/FAQ";
 import Welcome from "./pages/Welcome";
-// import NewsfeedPage from './pages/Newsfeed/components/NewsfeedPage'
+import NewsfeedPage from "./pages/Newsfeed/components/NewsfeedPage";
 
 // Import apollo server
 import { ApolloProvider } from "@apollo/react-hooks";
@@ -163,7 +163,7 @@ function App() {
             <ManageUsers path="manageUsers" />
             <Announcement path="/announcements" />
             <FAQ path="/faqs" />
-            {/*<NewsfeedPage path="/newsfeed" />*/}
+            <NewsfeedPage path="/newsfeed" />
           </PrivateRoute>
         </Router>
       </div>
