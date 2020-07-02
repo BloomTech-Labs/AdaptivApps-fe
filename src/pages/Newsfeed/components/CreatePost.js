@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import config from "../../../config/auth_config";
 import { useMutation } from "react-apollo";
 // Component Imports
 import CustomMessageIcon from "../../Chat/components/Messages/CustomMessageIcon";
@@ -14,6 +15,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "#F5F5F5",
     margin: "4rem auto",
     display: "flex-column",
+    borderRadius: '5px',
     "& .MuiTextField-root": {
       backgroundColor: "white",
     },
@@ -109,6 +111,7 @@ export default function CreatePost({ user }) {
           <CropOriginalIcon className={classes.image} />
           <Typography className={classes.text}>Add a photo</Typography>
         </div>
+        {user[config.roleUrl]?.includes("Admin") ? (
         <div className={classes.flexPinnedPost}>
           <Checkbox
             check={pinnedPost}
@@ -119,6 +122,7 @@ export default function CreatePost({ user }) {
           />
           <Typography className={classes.text}>Pin this post?</Typography>
         </div>
+        ) : null}
       </div>
     </div>
   );
