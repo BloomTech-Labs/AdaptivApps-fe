@@ -88,7 +88,6 @@ const useStyles = makeStyles(theme => ({
     },
   },
   nullProfileCta: {
-    border: "2px solid blue",
     width: "100%",
     marginLeft: "0rem",
     "& p": {
@@ -112,12 +111,10 @@ const useStyles = makeStyles(theme => ({
       color: "#2962FF",
     },
     [theme.breakpoints.down("sm")]: {
-      border: "2px solid red",
       width: "28rem",
       margin: "2rem auto",
     },
     [theme.breakpoints.down("xs")]: {
-      border: "2px solid red",
       width: "80%",
       margin: "2rem auto",
     },
