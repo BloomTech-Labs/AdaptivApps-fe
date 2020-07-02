@@ -65,6 +65,7 @@ const useStyles = makeStyles(theme => ({
   },
   img: {
     maxWidth: "90%",
+    margin: "20% auto",
     [theme.breakpoints.down("sm")]: {
       margin: "10% auto",
     },
@@ -143,9 +144,9 @@ const useStyles = makeStyles(theme => ({
     color: "#2962FF",
     fontWeight: "bold",
     margin: "5% auto 3%",
-    "&:nth-child(3)": {
-      margin: "3% auto",
-    },
+    // "&:nth-child(3)": {
+    //   margin: "3% auto",
+    // },
     [theme.breakpoints.down("sm")]: {
       fontSize: "1.75rem",
       margin: "3% auto",
@@ -226,10 +227,10 @@ export default function SponsorSpotlight() {
       <Link onClick={() => navigate(`/`)} className={classes.back}>
         <ArrowBackIosIcon
           color="primary"
-          aria-label="Back to Account Settings"
+          aria-label="Back to Welcome Page"
           fontSize="large"
         />
-        <Typography>Back to Settings</Typography>
+        <Typography>Back to Welcome Page</Typography>
       </Link>
       <div className={classes.root}>
         <Grid container className={classes.logo}>
@@ -241,11 +242,7 @@ export default function SponsorSpotlight() {
               tabIndex="0"
               aria-label="Click to go to Angel City Sports' Website"
             >
-              <img
-                className={classes.img}
-                alt="2020 Angel City Virtual Games Logo"
-                src={ACS_Logo}
-              />
+              <img alt="2020 Angel City Virtual Games Logo" src={ACS_Logo} />
             </a>
           </Grid>
         </Grid>
@@ -292,7 +289,7 @@ export default function SponsorSpotlight() {
           With heartfelt thanks to our sponsors, friends and partners
         </Typography>
 
-        <Typography className={classes.sponsorText}>Gold sponsors</Typography>
+        {/* <Typography className={classes.sponsorText}>Gold sponsors</Typography> */}
         <Grid
           container
           alignItems="center"
@@ -361,7 +358,7 @@ export default function SponsorSpotlight() {
           </Grid>
         </Grid>
 
-        <Typography className={classes.sponsorText}>Silver sponsors</Typography>
+        {/* <Typography className={classes.sponsorText}>Silver sponsors</Typography> */}
         <Grid
           container
           alignItems="center"
@@ -476,7 +473,7 @@ export default function SponsorSpotlight() {
           </Grid>
         </Grid>
 
-        <Typography className={classes.sponsorText}>Bronze sponsors</Typography>
+        {/* <Typography className={classes.sponsorText}>Bronze sponsors</Typography> */}
         <Grid
           container
           alignItems="center"
@@ -586,9 +583,9 @@ export default function SponsorSpotlight() {
           </Grid>
         </Grid>
 
-        <Typography className={classes.sponsorText}>
+        {/* <Typography className={classes.sponsorText}>
           Friends of Angel City Sports
-        </Typography>
+        </Typography> */}
         <Grid
           container
           alignItems="center"
@@ -672,9 +669,9 @@ export default function SponsorSpotlight() {
           </Grid>
         </Grid>
 
-        <Typography className={classes.sponsorText}>
+        {/* <Typography className={classes.sponsorText}>
           Angel City Sports partners
-        </Typography>
+        </Typography> */}
         <Grid
           container
           alignItems="center"
