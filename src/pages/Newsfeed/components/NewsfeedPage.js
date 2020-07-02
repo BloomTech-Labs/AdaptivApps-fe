@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useAuth0 } from "../../../config/react-auth0-spa";
 import { useQuery, useSubscription } from "react-apollo";
 import {
@@ -52,20 +52,23 @@ const useStyles = makeStyles(theme => ({
     width: "35%",
   },
   endOfPosts: {
-    margin: '4% 0',
-    textAlign: 'center',
-    color: '#2962FF',
-    fontWeight: 'bold'
-  }
+    margin: "4% 0",
+    textAlign: "center",
+    color: "#2962FF",
+    fontWeight: "bold",
+  },
 }));
 
 export default function NewsfeedPage() {
   const classes = useStyles();
   const { user } = useAuth0();
-  const { data, loading, error, refetch } = useQuery(GET_NEWSFEED_POSTS);
+
   const { data: profile } = useQuery(GET_MY_PROFILE, {
     variables: { email: user.email },
   });
+  const { data, loading, error, refetch: refetchPosts } = useQuery(
+    GET_NEWSFEED_POSTS
+  );
   const {
     data: newsFeedSubsData,
     loading: newsFeedSubsLoading,
@@ -76,7 +79,7 @@ export default function NewsfeedPage() {
   if (loading) return <CircularProgress />;
   if (error) return `Error! ${error.message}`;
   if (newsFeedSubsError) return `newsFeedSubsError! ${error.newsFeedSubsError}`;
-  !newsFeedSubsLoading && refetch();
+  !newsFeedSubsLoading && refetchPosts();
 
   console.log(profile);
   return (
@@ -87,12 +90,19 @@ export default function NewsfeedPage() {
           <GlobalSearchBox />
         </div>
         <div className={classes.newsfeed}>
-          <CreatePost user={profile?.profile} />
+          <CreatePost user={user} profile={profile?.profile} />
           <PinnedPost user={user} />
           {posts.map((post, index) => (
-            <NewsfeedCard post={post} key={post.id} user={user} />
+            <NewsfeedCard
+              post={post}
+              key={post.id}
+              user={user}
+              refetchPosts={refetchPosts}
+            />
           ))}
-          <Typography className={classes.endOfPosts}>You've reached the end!</Typography>
+          <Typography className={classes.endOfPosts}>
+            You've reached the end!
+          </Typography>
         </div>
       </div>
       <div className={classes.spotlight}>
