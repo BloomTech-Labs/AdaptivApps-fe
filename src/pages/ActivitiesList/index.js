@@ -138,6 +138,28 @@ const useStyles = makeStyles({
       textDecoration: "none",
     },
   },
+  top: {
+    display: "flex",
+    flexDirection: "row",
+    '@media (max-width: 950px)': {
+      flexDirection: "column",
+    },
+  },
+  virtualBox: {
+    display: "flex",
+    flexDirection: "column",
+    marginTop: "3rem",
+    "& p": {
+      margin: 0,
+      fontSize: "1.6rem",
+    },
+    "& a": {
+      marginTop: "2rem",
+      color: "#2862ff",
+      fontSize: "1.6rem",
+      textDecoration: "none",
+    },
+  },
 });
 
 export default function ActivityList() {
