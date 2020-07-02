@@ -15,7 +15,14 @@ const useStyles = makeStyles(theme => ({
     "& p": {
       fontSize: "1.8rem",
     },
+    "& li": {
+      fontSize: "1.8rem",
+    },
     "& strong": {
+      fontSize: "1.8rem",
+    },
+    "& a": {
+      textDecoration: "none",
       fontSize: "1.8rem",
     },
   },
@@ -32,6 +39,31 @@ const useStyles = makeStyles(theme => ({
     fontSize: "2.5rem",
     color: "rgb(41, 98, 255)",
     fontWeight: "normal",
+  },
+  li: {
+    display: "flex",
+  },
+  p1: {
+    fontSize: "1.8rem",
+    "& strong": {
+      fontSize: "1.8rem",
+    },
+  },
+  vid: {
+    width: "800px",
+    height: "500px",
+    "@media (max-width: 1100px)": {
+      width: "600px",
+      height: "425px",
+    },
+    "@media (max-width: 900px)": {
+      width: "450px",
+      height: "325px",
+    },
+    "@media (max-width: 700px)": {
+      width: "350px",
+      height: "250px",
+    },
   },
 }));
 
@@ -79,11 +111,55 @@ const FAQ = () => {
           </p>
         </div>
         <div className={classes.group}>
+          <h3 className={classes.h4}>How does this portal work?</h3>
+          <p>Great question, you can get started in five easy steps!</p>
+          <ol>
+            <li>
+              <p className={classes.p1}>
+                Visit the <strong>Settings</strong> tab to create your profile.
+                Be sure to enter a username to personalize your profile page.
+              </p>
+            </li>
+            <li>
+              <p className={classes.p1}>
+                Checkout the <strong>My Profile</strong> tab to give more of a
+                personalized touch by adding a cool banner and profile image.
+              </p>
+            </li>
+            <li>
+              <p className={classes.p1}>
+                Click on <strong>Events Calendar</strong> and check out all of
+                the opportunities available for you to participate in. If you
+                are interested in an event simply click{" "}
+                <strong>view details</strong>. If you would like to participate
+                in the event click <strong>add</strong> and you will be taken to
+                the <strong>Event Details</strong> page. You may now go back to{" "}
+                <strong>Events Calendar</strong> and repeat this process to
+                register for as many events as you would like.
+              </p>
+            </li>
+            <li>
+              <p className={classes.p1}>
+                Once you have selected your fun-filled week, check out the{" "}
+                <strong>My Events</strong> tab to view your upcoming events and
+                participation information.
+              </p>
+            </li>
+            <li>
+              <p className={classes.p1}>
+                Every day of this action-packed week, login to participate in
+                all events and connect with others! Don't forget to check out
+                the <strong>Chat</strong> tab to chat with friends!
+              </p>
+            </li>
+          </ol>
+        </div>
+        <div className={classes.group}>
           <h3 className={classes.h4}>
             Do I have to register for each activity separately?
           </h3>
           <p>
-            Once you've completed registration for the 2020 Angel City Virtual
+            Once you've completed <a href="https://www.angelcitygames.org/Virtual/Event-D" target="_blank" aria-label="Navigate to the ACS registration site.">registration</a> for the 2020 Angel City Virtual
             Games presented by the Hartford you are set to attend any and all
             activities throughout all 3 weeks. If you would like for the events
             you are interested to be displayed in the <strong>My Events</strong>{" "}
