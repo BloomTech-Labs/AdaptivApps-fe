@@ -1,11 +1,11 @@
 // React/Reach Router imports
 import React, { useEffect } from "react";
 // Auth0 imports
-import { useAuth0 } from "../../config/react-auth0-spa"
+import { useAuth0 } from "../../config/react-auth0-spa";
 // Apollo/GraphQL imports
-import { useQuery, useMutation } from "react-apollo"
-import { ADD_USER_PROFILE, PROFILE_INFO } from "../UserSettings/queries"
-// Material-UI imports 
+import { useQuery, useMutation } from "react-apollo";
+import { ADD_USER_PROFILE, PROFILE_INFO } from "../UserSettings/queries";
+// Material-UI imports
 import { Box, Typography, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
@@ -19,14 +19,18 @@ const useStyles = makeStyles(theme => ({
     "& .MuiTab-wrapper": {
       fontSize: "1.6rem",
     },
-    
     "& strong": {
       fontSize: "1.8rem",
     },
     "& a": {
       textDecoration: "none",
+      color: "black",
       fontSize: "1.8rem",
     },
+    "& i": {
+      fontStyle: "italic",
+      fontSize: "1.8rem"
+    }
   },
   headingBox: {
     margin: "6rem 0 2rem 3rem",
@@ -42,7 +46,6 @@ const useStyles = makeStyles(theme => ({
     color: "rgb(41, 98, 255)",
     fontWeight: "normal",
   },
- 
 }));
 
 const Welcome = () => {
@@ -50,14 +53,11 @@ const Welcome = () => {
   const { user } = useAuth0();
   const [createProfile] = useMutation(ADD_USER_PROFILE);
   const userEmail = user.email;
-console.log('Inside Welcome page', userEmail)
   // Fetch profile for the user using the email associated with auth0 login
   const { loading, error, data, refetch } = useQuery(PROFILE_INFO, {
     variables: { email: userEmail },
   });
-
   const profile = data?.profile;
-  console.log('Inside Welcome', profile)
 
   // Extract the profile from returning data of useQuery
   useEffect(() => {
@@ -80,7 +80,6 @@ console.log('Inside Welcome page', userEmail)
     refetch();
   };
 
-
   return (
     <Box component="main" className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
@@ -97,10 +96,13 @@ console.log('Inside Welcome page', userEmail)
           special events, community fun, and most of all-connection.
           <br />
           <br />
-          Be sure to browse the <strong>Events Calendar</strong> and select
-          which events you are interested in attending this week and utilize the{" "}
-          <strong>Chat</strong> to connect with friends, peers and coaches from
-          all over the world!
+          Be sure to browse the{" "}
+          <a href="/calendar" aria-label="Navigate to Events Calendar">
+            <strong>Events Calendar</strong>
+          </a>{" "}
+          and select which events you are interested in attending this week and
+          utilize the <a href="/chats"><strong>Chat</strong></a> to connect with friends, peers and
+          coaches from all over the world!
           <br />
           <br />
           We are so excited for what’s ahead! Thank you so much for registering
@@ -108,10 +110,10 @@ console.log('Inside Welcome page', userEmail)
           going to be a blast!
           <br />
           <br />
-          Be sure to visit the <strong>FAQs</strong> tab for easy video
+          <i>Be sure to visit the <a href="faqs" aria-label="Navigate to FAQ page."><strong>FAQ</strong></a> tab for easy video
           tutorials, a system walkthrough, and more! For any additional
-          information, please email <strong>info@angelcitysports.org</strong>.
-          </Typography>
+          information, please email <strong>info@angelcitysports.org</strong>.</i>
+        </Typography>
 
         <h3 className={classes.h3}>
           The 2020 Angel City Virtual Games Presented by The Harford Explained
