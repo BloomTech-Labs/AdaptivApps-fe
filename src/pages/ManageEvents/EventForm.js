@@ -523,10 +523,11 @@ export default function EventForm({
         <InputLabel className={classes.inputLabel} htmlFor="link">
           Is there a zoom link?
         </InputLabel>
+       
         <Controller
           as={<TextField />}
           type="text"
-          placeholder="link"
+          placeholder="https://www.zoom.com"
           name="link"
           variant="outlined"
           control={control}
