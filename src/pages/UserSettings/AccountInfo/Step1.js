@@ -239,7 +239,7 @@ export default function Step1({ updateProfile }) {
     });
 
     // alert("Successfully updated account info!");
-    navigate(`/`);
+    navigate(`/settings`);
   };
 
   const userNames = [];
@@ -547,7 +547,7 @@ export default function Step1({ updateProfile }) {
             type="submit"
             label="Finish"
             onClick={handleSubmit}
-            ariaLabel="Click here to complete step 6 of account update and go back to account settings."
+            ariaLabel="Click here to complete account update and go back to account settings."
           />
         </Box>
       </form>
