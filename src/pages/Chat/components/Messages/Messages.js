@@ -160,6 +160,11 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       cursor: 'pointer'
     }
+  },
+  btn: {
+    backgroundColor: "none",
+    background: "none",
+    border: "none",
   }
 }));
 
@@ -238,11 +243,15 @@ export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat 
                   <div className={classes.messageSubHeader}>
                     {message.sender === user.email ? (
                       <Tooltip title="Edit Message">
-                        <EditOutlinedIcon className={classes.editIcon} onClick={() => { setEditInput(true); setMessageToEdit(message) }} />
+                        <button className={classes.btn}>
+                          <EditOutlinedIcon className={classes.editIcon} onClick={() => { setEditInput(true); setMessageToEdit(message) }} />
+                        </button>
                       </Tooltip>) : null}
                     {message.sender === user.email ? (
                       <Tooltip title="Delete Message">
-                        <DeleteOutlineOutlinedIcon className={classes.deleteIcon} onClick={() => deleteMessage(message)} />
+                        <button className={classes.btn}>
+                          <DeleteOutlineOutlinedIcon className={classes.deleteIcon} onClick={() => deleteMessage(message)} />
+                        </button>
                       </Tooltip>) : null}
                   </div>
                 </div>

@@ -45,6 +45,9 @@ const useStyles = makeStyles(theme => ({
       marginTop: "1.5rem",
       margin: "0 auto",
     },
+    [theme.breakpoints.down("xs")]: {
+      width: "80%",
+    },
   },
   navBtn: {
     width: "9.6rem",

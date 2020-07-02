@@ -70,6 +70,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     flexDirection: "column",
+    [theme.breakpoints.down("xs")]: {
+      position: "absolute",
+    },
   },
   sideContainer: {
     display: "flex",
@@ -97,6 +100,7 @@ const useStyles = makeStyles(theme => ({
   menuButton: {
     margin: "0",
     padding: "0",
+    color: "#C69C5C",
     [theme.breakpoints.up("sm")]: {
       display: "none",
     },

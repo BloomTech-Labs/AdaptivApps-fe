@@ -70,6 +70,11 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "flex-end",
     fontSize: "-webkit-xxx-large",
   },
+  btn: {
+    backgroundColor: "none",
+    background: "none",
+    border: "none",
+  }
 }));
 
 const Input = ({ chatRoom, user, messages }) => {
@@ -108,37 +113,37 @@ const Input = ({ chatRoom, user, messages }) => {
   const newMessage = async () => {
     recipient.length > 0
       ? (await sendChat({
-          variables: {
-            id: chatRoom.id,
-            email: user.email,
-            message: message,
-          },
-        })) &&
-        (await createChatRoomNotification({
-          variables: {
-            id: chatRoom.id,
-            email: recipient[0].email,
-          },
-        })) &&
-        (await showChatroomAll({
-          variables: {
-            id: chatRoom.id,
-          },
-        })) &&
-        setMessage("")
+        variables: {
+          id: chatRoom.id,
+          email: user.email,
+          message: message,
+        },
+      })) &&
+      (await createChatRoomNotification({
+        variables: {
+          id: chatRoom.id,
+          email: recipient[0].email,
+        },
+      })) &&
+      (await showChatroomAll({
+        variables: {
+          id: chatRoom.id,
+        },
+      })) &&
+      setMessage("")
       : (await updateChatRoom({
-          variables: {
-            id: chatRoom.id,
-            email: senderEmail[0].sender,
-          },
-        })) &&
-        (await createChatRoomNotification({
-          variables: {
-            id: chatRoom.id,
-            email: senderEmail[0].sender,
-          },
-        })) &&
-        setMessage("");
+        variables: {
+          id: chatRoom.id,
+          email: senderEmail[0].sender,
+        },
+      })) &&
+      (await createChatRoomNotification({
+        variables: {
+          id: chatRoom.id,
+          email: senderEmail[0].sender,
+        },
+      })) &&
+      setMessage("");
   };
 
   return (
@@ -149,7 +154,9 @@ const Input = ({ chatRoom, user, messages }) => {
           aria-label="create speech-to-text message"
           onClick={toggleListen}
         >
-          <MicNoneIcon className={classes.speechIcon} />
+          <button className={classes.btn}>
+            <MicNoneIcon className={classes.speechIcon} />
+          </button>
           {listening && "Go ahead, I'm listening"}
         </div>
         <TextField
@@ -183,11 +190,13 @@ const Input = ({ chatRoom, user, messages }) => {
         />
         <div className={classes.iconDiv}>
           <Tooltip title="Add an emoji!">
-            <MoodIcon
-              className={classes.icons}
-              onClick={() => setToggleEmoji(true)}
-              aria-label="open emoji picker"
-            />
+            <button className={classes.btn}>
+              <MoodIcon
+                className={classes.icons}
+                onClick={() => setToggleEmoji(true)}
+                aria-label="open emoji picker"
+              />
+            </button>
           </Tooltip>
           <Modal
             className={classes.modal}

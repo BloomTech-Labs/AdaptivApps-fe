@@ -51,6 +51,20 @@ const useStyles = makeStyles(theme => ({
       borderRadius: "5px",
     },
   },
+  btn: {
+    display: "flex",
+    justifyContent: "center",
+    textAlign: "center",
+    margin: "2% 1%",
+    "&:hover": {
+      color: "#2962FF",
+      cursor: "pointer",
+      borderRadius: "5px",
+    },
+    border: "none",
+    background: "none",
+    backgroundColor: "none",
+  },
   closeModal: {
     fontSize: "2rem",
     marginLeft: "100%",
@@ -231,6 +245,20 @@ function RecipientModal({
     setOpen(false);
   };
 
+  const handleChatroomAddition = e => {
+    if (e.key === "Enter") {
+      var button = document.getElementById("newChatroom");
+      button.click();
+    }
+  };
+
+  const handleSearchedChatroomAddition = e => {
+    if (e.key === "Enter") {
+      var button = document.getElementById("newSearchedChatroom");
+      button.click();
+    }
+  };
+
   // Return search results in list
   const searchResults =
     results.length > 0 &&
@@ -246,14 +274,16 @@ function RecipientModal({
       });
       if (filtered[0] !== result.email) {
         return (
-          <ListItem
-            className={classes.listItem}
-            value={`${result.firstName} ${result.lastName}`}
-            diabled={disableClick}
-            onClick={() => createNewChatRoom(result)}
-          >
-            <ListItemText primary={`${result.firstName} ${result.lastName}`} />
-          </ListItem>
+          <button aria-label="a user in chatroom" className={classes.btn} onClick={() => createNewChatRoom(result)}>
+            <ListItem
+              value={`${result.firstName} ${result.lastName}`}
+              diabled={disableClick}
+              onKeyDown={e => handleSearchedChatroomAddition(e)}
+              id="newSearchedChatroom"
+            >
+              <ListItemText primary={`${result.firstName} ${result.lastName}`} />
+            </ListItem>
+          </button>
         );
       }
     });
@@ -263,13 +293,15 @@ function RecipientModal({
     !results.length &&
     availableToChat.map(available => {
       return (
-        <ListItem
-          className={classes.listItem}
-          value={`${available.firstName} ${available.lastName}`}
-          onClick={() => createNewChatRoom(available)}
-        >
-          <ListItemText primary={`${available.firstName} ${available.lastName}`} />
-        </ListItem>
+        <button aria-label="a user in chatroom" className={classes.btn} onClick={() => createNewChatRoom(available)}>
+          <ListItem
+            value={`${available.firstName} ${available.lastName}`}
+            onKeyDown={e => handleChatroomAddition(e)}
+            id="newChatroom"
+          >
+            <ListItemText primary={`${available.firstName} ${available.lastName}`} />
+          </ListItem>
+        </button>
       );
     });
 

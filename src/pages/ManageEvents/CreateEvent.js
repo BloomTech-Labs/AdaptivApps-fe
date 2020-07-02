@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { makeStyles, Box, Typography } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import config from "../../config/auth_config";
+
 import { useAuth0 } from "../../config/react-auth0-spa";
 import { useQuery, useMutation } from "react-apollo";
 import { CREATE_EVENT, GET_EVENTS } from "./graphql";
@@ -30,19 +32,26 @@ const useStyles = makeStyles({
 });
 
 export default function CreateEvent() {
+  const { user } = useAuth0();
   const classes = useStyles();
   const [createEvent, { data }] = useMutation(CREATE_EVENT);
 
   return (
     <main className={classes.root}>
-      <Box className={classes.headingBox} borderBottom={2}>
-        <Typography className={classes.heading} variant="h1" gutterBottom>
-          Create An Event
-        </Typography>
-      </Box>
-      <Box className={classes.formContainer}>
-        <EventForm createEvent={createEvent} data={data} />
-      </Box>
+      {user && user[config.roleUrl].includes("Admin") ? (
+        <>
+          <Box className={classes.headingBox} borderBottom={2}>
+            <Typography className={classes.heading} variant="h1" gutterBottom>
+              Create An Event
+            </Typography>
+          </Box>
+          <Box className={classes.formContainer}>
+            <EventForm createEvent={createEvent} data={data} />
+          </Box>
+        </>
+      ) : (
+        <p>Sorry, you don't belong here. Please navigate to another page.</p>
+      )}
     </main>
   );
 }

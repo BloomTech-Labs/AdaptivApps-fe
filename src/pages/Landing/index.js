@@ -49,7 +49,9 @@ const useStyles = makeStyles(theme => ({
       fontSize: "5.2rem",
     },
     [theme.breakpoints.down("sm")]: {
-      fontSize: "3.2rem",
+      top: "17rem",
+      fontSize: "3rem",
+      textAlign: "center",
     },
   },
   contentContainer: {
@@ -75,17 +77,21 @@ const useStyles = makeStyles(theme => ({
       margin: "1.5rem 0",
     },
     [theme.breakpoints.down("md")]: {
-      width: "40%",
+      width: "60%",
+      margin: "3rem auto 0 4rem",
       "& h6": {
-        margin: "0.5rem 0",
+        margin: "0.5rem auto",
         fontSize: "4.0rem",
       },
     },
     [theme.breakpoints.down("sm")]: {
       width: "60%",
+      margin: "3rem auto 2rem auto",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "90%",
       "& h6": {
-        margin: "0.5rem 0",
-        // fontSize: "3.0rem",
+        margin: "0.5rem auto",
       },
     },
   },
@@ -103,9 +109,17 @@ const useStyles = makeStyles(theme => ({
       fontWeight: "bold",
       margin: "0",
     },
+    [theme.breakpoints.down("md")]: {
+      margin: "4rem auto",
+      width: "80%",
+    },
+    [theme.breakpoints.down("sm")]: {
+      margin: "0 auto",
+      width: "100%",
+    },
   },
   btn1: {
-    margin: "10rem 0 2rem 0",
+    margin: "2rem 0 2rem 0",
     textTransform: "none",
     display: "flex",
     borderRadius: "5px",
@@ -123,6 +137,18 @@ const useStyles = makeStyles(theme => ({
       justifyContent: "flex-start",
       "& svg": {
         margin: "0 1.5rem",
+      },
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "40rem",
+      "& p": {
+        fontSize: "1.8rem",
+      },
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+      "& p": {
+        fontSize: "1.8rem",
       },
     },
   },
@@ -145,6 +171,18 @@ const useStyles = makeStyles(theme => ({
       justifyContent: "flex-start",
       "& svg": {
         margin: "0 1.5rem",
+      },
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "40rem",
+      "& p": {
+        fontSize: "1.8rem",
+      },
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+      "& p": {
+        fontSize: "1.8rem",
       },
     },
   },

@@ -21,7 +21,7 @@ import config from "../../../../config/auth_config";
 import LanguageIcon from "@material-ui/icons/Language";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
-import { makeStyles, Divider } from "@material-ui/core";
+import { makeStyles, Divider, Tooltip } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -92,8 +92,12 @@ const useStyles = makeStyles(theme => ({
       marginRight: "2%",
     },
   },
-  span: {
-    fontSize: "1.6rem",
+  button2: {
+    fontSize: "1.5rem",
+    color: "grey",
+    cursor: "pointer",
+    border: "none",
+    backgroundColor: "white",
   },
   modal: {
     display: "flex",
@@ -170,13 +174,15 @@ function InfoBar({ user, setAlertOpen }) {
         <>
           <div className={classes.messageIcons}>
             <LanguageIcon className={classes.icons} />
-            <span
-              className={classes.span}
-              onClick={handleAnnouncementOpen}
-              aria-label="New Announcement Button"
-            >
-              New Announcement
-            </span>
+            <Tooltip title="Create a new announcement">
+              <button
+                className={classes.button2}
+                onClick={handleAnnouncementOpen}
+                aria-label="New Announcement Button"
+              >
+                New Announcement
+              </button>
+            </Tooltip>
           </div>
           <Modal
             aria-labelledby="transition-modal-title"

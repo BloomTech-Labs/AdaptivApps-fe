@@ -60,9 +60,6 @@ const useStyles = makeStyles(theme => ({
       cursor: "pointer",
       color: "#2962FF",
     },
-    "&:focus": {
-      outline: "none",
-    },
     background: "none",
   },
   closeModal: {
@@ -150,6 +147,11 @@ const useStyles = makeStyles(theme => ({
     border: "none",
     backgroundColor: "white",
   },
+  btn: {
+    border: "none",
+    background: "none",
+    backgroundColor: "none",
+  }
 }));
 
 export default function ChatRoom({
@@ -195,7 +197,7 @@ export default function ChatRoom({
   }, [chats, chatRoomSub, notifications]);
 
   // Set timeout for automated alerts
-  setTimeout(function() {
+  setTimeout(function () {
     if (updateChat) {
       setUpdateChat(false);
     } else if (deleteChat) {
@@ -272,172 +274,189 @@ export default function ChatRoom({
     setResults(newResults);
   };
 
+  const handleChatroomRemoval = e => {
+    if (e.key === "Enter") {
+      var button = document.getElementById("removeChatroomIcon");
+      button.click();
+    }
+  };
+
   return (chatRoom.senderEmail === user.email && chatRoom.displayForSender) ||
     (chatRoom.senderEmail !== user.email && chatRoom.displayForReceiver) ? (
-    <>
-      <div className={classes.root}>
-        <Tooltip title="Visit profile">
-          {notifications?.length > 0 && !messageToggle ? (
-            <Tooltip title="New Message!">
-              <StyledBadge
-                badgeContent={roomNotifications.length}
-                overlap="circle"
-              >
-                {chattingIcon ? (
-                  <CustomPeopleIcon
-                    className={classes.chatRoomIcon}
-                    chattingIcon={chattingIcon}
-                    chattingUsername={chattingUsername}
-                  />
-                ) : (
-                  <PeopleAltIcon
-                    className={classes.chatRoomIcon}
-                    aria-label="Visit profile"
-                    onClick={() => navigate(`/user/${chattingUsername}`)}
-                  />
+      <>
+        <div className={classes.root}>
+          <Tooltip title="Visit profile">
+            {notifications?.length > 0 && !messageToggle ? (
+              <Tooltip title="New Message!">
+                <StyledBadge
+                  badgeContent={roomNotifications.length}
+                  overlap="circle"
+                >
+                  {chattingIcon ? (
+                    <button className={classes.btn}>
+                      <CustomPeopleIcon
+                        className={classes.chatRoomIcon}
+                        chattingIcon={chattingIcon}
+                        chattingUsername={chattingUsername}
+                      />
+                    </button>
+                  ) : (
+                      <button className={classes.btn}>
+                        <PeopleAltIcon
+                          className={classes.chatRoomIcon}
+                          aria-label="Visit profile"
+                          onClick={() => navigate(`/user/${chattingUsername}`)}
+                        />
+                      </button>
+                    )}
+                </StyledBadge>
+              </Tooltip>
+            ) : chattingIcon ? (
+              <button className={classes.btn}>
+                <CustomPeopleIcon
+                  className={classes.chatRoomIcon}
+                  chattingIcon={chattingIcon}
+                  chattingUsername={chattingUsername}
+                />
+              </button>
+            ) : (
+                  <button className={classes.btn}>
+                    <PeopleAltIcon
+                      className={classes.chatRoomIcon}
+                      aria-label="Visit profile"
+                      onClick={() => navigate(`/user/${chattingUsername}`)}
+                    />
+                  </button>
                 )}
-              </StyledBadge>
-            </Tooltip>
-          ) : chattingIcon ? (
-            <CustomPeopleIcon
-              className={classes.chatRoomIcon}
-              chattingIcon={chattingIcon}
-              chattingUsername={chattingUsername}
-            />
-          ) : (
-            <PeopleAltIcon
-              className={classes.chatRoomIcon}
-              aria-label="Visit profile"
-              onClick={() => navigate(`/user/${chattingUsername}`)}
-            />
-          )}
-        </Tooltip>
-
-        <button
-          aria-label="Expand chat messages"
-          className={classes.chatRoomButton}
-          onClick={handleClick}
-          disabled={disableClick}
-        >
-          {senderName?.from?.firstName || chattingWith}{" "}
-          {senderName?.from?.lastName}
-        </button>
-        <button className={classes.removalBtn}>
-          <Tooltip title="Remove Chatroom">
-            <CloseIcon
-              onClick={() => removeChatroom()}
-              aria-label="Remove Chatroom"
-              fontSize="small"
-            />
           </Tooltip>
-        </button>
-      </div>
-      <Hidden only={["md", "lg", "xl"]}>
-        <Divider variant="middle" className={classes.divider} />
-      </Hidden>
-      <Hidden only={["xs", "sm"]}>
-        <Divider variant="inset" className={classes.divider} />
-      </Hidden>
-      <Hidden only={["xs", "sm"]}>
-        <Drawer
-          anchor="right"
-          open={messageToggle}
-          onClose={closeDrawer}
-          variant="temporary"
-          PaperProps={{ style: { width: "66%" } }}
-        >
-          <div className={classes.alertDiv}>
-            <Collapse in={updateChat}>
-              <Alert
-                severity="success"
-                color="info"
-                action={
-                  <IconButton
-                    aria-label="close"
-                    size="small"
-                    onClick={() => {
-                      setUpdateChat(false);
-                    }}
-                  >
-                    <CloseIcon fontSize="large" />
-                  </IconButton>
-                }
-              >
-                Successfully updated
-              </Alert>
-            </Collapse>
-          </div>
-          <div className={classes.titleDiv}>
-            <h1 className={classes.roomTitle}>
+          <Tooltip title="expand chat message">
+            <button
+              aria-label="Expand chat messages"
+              className={classes.chatRoomButton}
+              onClick={handleClick}
+              disabled={disableClick}
+            >
               {senderName?.from?.firstName || chattingWith}{" "}
               {senderName?.from?.lastName}
-            </h1>
-            <Tooltip title="Close Chatroom">
+            </button>
+          </Tooltip>
+          <Tooltip title="Remove Chatroom">
+            <button className={classes.removalBtn} onClick={() => removeChatroom()}>
               <CloseIcon
-                className={classes.closeModal}
-                onClick={closeDrawer}
-                aria-label="Close Chatroom"
+                onKeyDown={e => handleChatroomRemoval(e)}
+                aria-label="Remove Chatroom"
+                fontSize="small"
+                id="removeChatroomIcon"
               />
-            </Tooltip>
-          </div>
-          <Messages
-            chatRoom={chatRoom}
-            user={user}
-            setUpdateChat={setUpdateChat}
-            setDeleteChat={setDeleteChat}
-          />
-        </Drawer>
-      </Hidden>
-      <Hidden only={["md", "lg", "xl"]}>
-        <Drawer
-          anchor="right"
-          open={messageToggle}
-          onClose={closeDrawer}
-          variant="temporary"
-          PaperProps={{ style: { width: "100%" } }}
-        >
-          <div className={classes.alertDiv}>
-            <Collapse in={updateChat}>
-              <Alert
-                severity="success"
-                color="info"
-                action={
-                  <IconButton
-                    aria-label="close"
-                    size="small"
-                    onClick={() => {
-                      setUpdateChat(false);
-                    }}
-                  >
-                    <CloseIcon fontSize="large" />
-                  </IconButton>
-                }
-              >
-                Successfully updated
+            </button>
+          </Tooltip>
+        </div>
+        <Hidden only={["md", "lg", "xl"]}>
+          <Divider variant="middle" className={classes.divider} />
+        </Hidden>
+        <Hidden only={["xs", "sm"]}>
+          <Divider variant="inset" className={classes.divider} />
+        </Hidden>
+        <Hidden only={["xs", "sm"]}>
+          <Drawer
+            anchor="right"
+            open={messageToggle}
+            onClose={closeDrawer}
+            variant="temporary"
+            PaperProps={{ style: { width: "66%" } }}
+          >
+            <div className={classes.alertDiv}>
+              <Collapse in={updateChat}>
+                <Alert
+                  severity="success"
+                  color="info"
+                  action={
+                    <IconButton
+                      aria-label="close"
+                      size="small"
+                      onClick={() => {
+                        setUpdateChat(false);
+                      }}
+                    >
+                      <CloseIcon fontSize="large" />
+                    </IconButton>
+                  }
+                >
+                  Successfully updated
               </Alert>
-            </Collapse>
-          </div>
-          <div className={classes.titleDiv}>
-            <h1 className={classes.roomTitle}>
-              {senderName?.from?.firstName || chattingWith}{" "}
-              {senderName?.from?.lastName}
-            </h1>
-            <Tooltip title="Close Chatroom">
-              <CloseIcon
-                className={classes.closeModal}
-                onClick={closeDrawer}
-                aria-label="Close Chatroom"
-              />
-            </Tooltip>
-          </div>
-          <Messages
-            chatRoom={chatRoom}
-            user={user}
-            setUpdateChat={setUpdateChat}
-            setDeleteChat={setDeleteChat}
-          />
-        </Drawer>
-      </Hidden>
-    </>
-  ) : null;
+              </Collapse>
+            </div>
+            <div className={classes.titleDiv}>
+              <h1 className={classes.roomTitle}>
+                {senderName?.from?.firstName || chattingWith}{" "}
+                {senderName?.from?.lastName}
+              </h1>
+              <Tooltip title="Close Chatroom">
+                <CloseIcon
+                  className={classes.closeModal}
+                  onClick={closeDrawer}
+                  aria-label="Close Chatroom"
+                />
+              </Tooltip>
+            </div>
+            <Messages
+              chatRoom={chatRoom}
+              user={user}
+              setUpdateChat={setUpdateChat}
+              setDeleteChat={setDeleteChat}
+            />
+          </Drawer>
+        </Hidden>
+        <Hidden only={["md", "lg", "xl"]}>
+          <Drawer
+            anchor="right"
+            open={messageToggle}
+            onClose={closeDrawer}
+            variant="temporary"
+            PaperProps={{ style: { width: "100%" } }}
+          >
+            <div className={classes.alertDiv}>
+              <Collapse in={updateChat}>
+                <Alert
+                  severity="success"
+                  color="info"
+                  action={
+                    <IconButton
+                      aria-label="close"
+                      size="small"
+                      onClick={() => {
+                        setUpdateChat(false);
+                      }}
+                    >
+                      <CloseIcon fontSize="large" />
+                    </IconButton>
+                  }
+                >
+                  Successfully updated
+              </Alert>
+              </Collapse>
+            </div>
+            <div className={classes.titleDiv}>
+              <h1 className={classes.roomTitle}>
+                {senderName?.from?.firstName || chattingWith}{" "}
+                {senderName?.from?.lastName}
+              </h1>
+              <Tooltip title="Close Chatroom">
+                <CloseIcon
+                  className={classes.closeModal}
+                  onClick={closeDrawer}
+                  aria-label="Close Chatroom"
+                />
+              </Tooltip>
+            </div>
+            <Messages
+              chatRoom={chatRoom}
+              user={user}
+              setUpdateChat={setUpdateChat}
+              setDeleteChat={setDeleteChat}
+            />
+          </Drawer>
+        </Hidden>
+      </>
+    ) : null;
 }
