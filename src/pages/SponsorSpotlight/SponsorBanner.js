@@ -2,9 +2,9 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link } from "@material-ui/core";
 import { useNavigate } from "@reach/router";
-import Tooltip from '@material-ui/core/Tooltip';
+import Tooltip from "@material-ui/core/Tooltip";
 
-const Sponsors = require("../../assets/images/Sponsors.jpg");
+const Sponsors = require("../../assets/images/Sponsors.png");
 const Sponsor_Thanks = require("../../assets/images/ProfilePhoto.png");
 
 const useStyles = makeStyles(theme => ({
@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "#232c63",
     display: "flex",
     padding: "1%",
-    justifyContent: "center",
+    //justifyContent: "space-between",
     alignItems: "center",
     "@media (max-width: 950px)": {
       flexDirection: "column-reverse",
@@ -20,14 +20,13 @@ const useStyles = makeStyles(theme => ({
   },
   image: {
     maxWidth: "80%",
-    alignSelf: "flex-end",
     "@media (max-width: 950px)": {
       padding: "0 100px 100px -250px",
     },
   },
   sponsors: {
-    maxWidth: "30%",
-    marginRight: "15%",
+    maxWidth: "40%",
+    //marginRight: "15%",
     minHeight: "45px",
     minWidth: "300px",
     "@media (max-width: 950px)": {
@@ -40,7 +39,7 @@ const useStyles = makeStyles(theme => ({
     border: "none",
     background: "none",
     backgroundColor: "none",
-  }
+  },
 }));
 
 export default function SponsorBanner() {
