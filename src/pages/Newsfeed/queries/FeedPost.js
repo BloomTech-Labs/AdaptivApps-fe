@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 // Get Newsfeed Posts
 export const GET_NEWSFEED_POSTS = gql`
   query {
-    feedPosts {
+    feedPosts(orderBy: createdAt_DESC) {
       id
       body
       imgUrl
