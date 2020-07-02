@@ -182,6 +182,9 @@ const useStyles = makeStyles(theme => ({
       paddingLeft: "0",
     },
   },
+  emailNotice: {
+    fontSize: "1.2rem",
+  },
 }));
 
 export default function Settings() {
@@ -672,6 +675,9 @@ export default function Settings() {
             </Button>
           </Box>
         </Box>
+        <p className={classes.emailNotice}>
+          *Don't forget to check your email with updates from ACS!
+        </p>
       </Box>
     </>
   );
