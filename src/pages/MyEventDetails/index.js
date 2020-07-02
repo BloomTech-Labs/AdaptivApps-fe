@@ -1,7 +1,7 @@
 // React imports
 import React, { useEffect } from "react";
 // Reach Router imports
-import { useParams } from "@reach/router";
+import { useParams, Link } from "@reach/router";
 import { useNavigate } from "@reach/router";
 // Component imports
 import EventDetails from "./EventDetails";
@@ -11,7 +11,7 @@ import { useAuth0 } from "../../config/react-auth0-spa";
 import { useQuery } from "react-apollo";
 import { GET_EVENT_DETAILS } from "./queries";
 // Styling imports
-import { Box, Typography, makeStyles, Link } from "@material-ui/core";
+import { Box, Typography, makeStyles } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -61,13 +61,14 @@ export default function MyEventDetails() {
   if (error) return `Error! ${error.message}`;
 
   const activeEvent = data.events;
- 
+
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
         <Link
-          onClick={() => navigate(`/myevents`)}
+          aria-label="Navigate back to My Events list."
           className={classes.linkBack}
+          to="/myevents"
         >
           <ArrowBackIosIcon color="primary" fontSize="large" />
           Back to my events
