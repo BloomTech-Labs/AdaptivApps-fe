@@ -29,8 +29,8 @@ const useStyles = makeStyles(theme => ({
     },
     "& i": {
       fontStyle: "italic",
-      fontSize: "1.8rem"
-    }
+      fontSize: "1.8rem",
+    },
   },
   headingBox: {
     margin: "6rem 0 2rem 3rem",
@@ -90,7 +90,7 @@ const Welcome = () => {
       <div className={classes.body}>
         <h3 className={classes.h3}>A Welcome Message From Us to You</h3>
         <Typography>
-          This accessible portal will be your home for the 2020 Angel City
+          This accessible website will be your home for the 2020 Angel City
           Virtual Games presented by The Hartford. The entire Angel City Team is
           thrilled you are here to participate in three epic weeks of sports,
           special events, community fun, and most of all-connection.
@@ -101,8 +101,11 @@ const Welcome = () => {
             <strong>Events Calendar</strong>
           </a>{" "}
           and select which events you are interested in attending this week and
-          utilize the <a href="/chats"><strong>Chat</strong></a> to connect with friends, peers and
-          coaches from all over the world!
+          utilize the{" "}
+          <a href="/chats">
+            <strong>Chat</strong>
+          </a>{" "}
+          to connect with friends, peers and coaches from all over the world!
           <br />
           <br />
           We are so excited for what’s ahead! Thank you so much for registering
@@ -110,9 +113,15 @@ const Welcome = () => {
           going to be a blast!
           <br />
           <br />
-          <i>Be sure to visit the <a href="faqs" aria-label="Navigate to FAQ page."><strong>FAQ</strong></a> tab for easy video
-          tutorials, a system walkthrough, and more! For any additional
-          information, please email <strong>info@angelcitysports.org</strong>.</i>
+          <i>
+            Be sure to visit the{" "}
+            <a href="faqs" aria-label="Navigate to FAQ page.">
+              <strong>FAQ</strong>
+            </a>{" "}
+            tab for easy video tutorials, a system walkthrough, and more! For
+            any additional information, please email{" "}
+            <strong>info@angelcitysports.org</strong>.
+          </i>
         </Typography>
 
         <h3 className={classes.h3}>
@@ -143,10 +152,13 @@ const Welcome = () => {
           sport, education, connection, and fun!
           <br />
           <br />
-          Check out the <strong>Events Calendar</strong> tab in this portal to
-          view all activities available in the upcoming week. These events will
-          be continually updated as the Virtual Games will take place all summer
-          long!
+          Check out the{" "}
+          <a href="/calendar" aria-label="Navigate to Events Calendar">
+            <strong>Events Calendar</strong>
+          </a>{" "}
+          tab to view all activities available in the upcoming week. These
+          events will be continually updated as the Virtual Games will take
+          place all summer long!
           <br />
           <br />
           <strong>Week 1</strong>: July 13 - 19
@@ -165,14 +177,22 @@ const Welcome = () => {
           and recreation activities for people with physical disabilities and
           advancing the Paralympic movement. Debuting in 2015, the annual Angel
           City Games presented by The Hartford, is now the largest multisport
-          Paralympic competition open to kids, adults, and veterans. In addition
-          to providing free equipment, coaching, and competitive opportunities –
-          Angel City focuses on how every individual can reach their full
-          potential and unlock their dreams through music, art, higher
-          education, and career opportunities. For more information about Angel
-          City Sports, visit{" "}
-          <a href="https://www.angelcitysports.org" target="_blank">
-            angelcitysports.org
+          Paralympic competition open to kids, adults, and veterans.
+          <br />
+          <br />
+          In addition to providing free equipment, coaching, and competitive
+          opportunities – Angel City focuses on how every individual can reach
+          their full potential and unlock their dreams through music, art,
+          higher education, and career opportunities.
+          <br />
+          <br />
+          For more information about Angel City Sports, visit{" "}
+          <a
+            className={classes.acsLink}
+            href="https://www.angelcitysports.org"
+            target="_blank"
+          >
+            <strong>angelcitysports.org</strong>
           </a>{" "}
           and follow <strong>@angelcitysports</strong> on Facebook, Instagram,
           and Twitter.
