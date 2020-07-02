@@ -78,6 +78,10 @@ const useStyles = makeStyles(theme => ({
     "& p": {
       fontSize: "1.8rem",
     },
+    [theme.breakpoints.down("md")]: {
+      width: "90%",
+      margin: "8% 0",
+    },
     [theme.breakpoints.down("xs")]: {
       width: "90%",
       margin: "8% 0",
@@ -105,6 +109,14 @@ const useStyles = makeStyles(theme => ({
       border: "1px solid #2962FF",
       background: "white",
       color: "#2962FF",
+    },
+    [theme.breakpoints.down("lg")]: {
+      width: "80%",
+      margin: "2rem auto",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+      margin: "2rem auto",
     },
     [theme.breakpoints.down("sm")]: {
       width: "18rem",

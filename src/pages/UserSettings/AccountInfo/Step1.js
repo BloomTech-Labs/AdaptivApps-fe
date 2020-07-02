@@ -39,6 +39,9 @@ const useStyles = makeStyles(theme => ({
       fontWeight: "bolder",
       height: "100vh",
     },
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+    },
     [theme.breakpoints.down("xs")]: {
       width: "100%",
     },
@@ -52,6 +55,9 @@ const useStyles = makeStyles(theme => ({
       width: "100%",
       marginBottom: "1.6rem",
     },
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+    },
     [theme.breakpoints.down("xs")]: {
       width: "100%",
     },
@@ -60,9 +66,10 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     marginBottom: "0.8rem",
     "& .MuiTextField-root": {
-      width: "36rem",
+      width: "100%",
       height: "4.8rem",
       [theme.breakpoints.down("sm")]: {
+        width: "100%",
         margin: "1.2rem auto",
       },
       [theme.breakpoints.down("xs")]: {
@@ -70,21 +77,38 @@ const useStyles = makeStyles(theme => ({
         margin: "1.2rem auto",
       },
     },
+    [theme.breakpoints.down("xl")]: {
+      width: "100%",
+    },
     [theme.breakpoints.down("sm")]: {
+      width: "100%",
       flexDirection: "column",
     },
     [theme.breakpoints.down("xs")]: {
+      width: "100%",
       flexDirection: "column",
     },
   },
+  doubleInput: {
+    display: "flex",
+    width: "100%",
+  },
   firstInput: {
     marginRight: "2.4rem",
+    // width: "45%",
   },
+  // secondInput: {
+  //   width: "45%",
+  // },
+  singleInput: { display: "flex", flexDirection: "column", width: "70%" },
   typeSelect: {
     height: "4.8rem",
     marginBottom: "1.6rem",
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+    },
     [theme.breakpoints.down("sm")]: {
-      width: "40rem",
+      width: "100%",
     },
     [theme.breakpoints.down("xs")]: {
       width: "100%",
@@ -262,91 +286,97 @@ export default function Step1({ updateProfile }) {
       {/* <ProgressBar activeStep={1} stepNumber={1} userEmail={userEmail} /> */}
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.namePhoneBox}>
-          <Box>
-            <InputLabel required htmlFor="firstName">
-              First Name
-            </InputLabel>
-            <Controller
-              as={<TextField />}
-              className={classes.firstInput}
-              name="firstName"
-              type="text"
-              variant="outlined"
-              control={control}
-              defaultValue=""
-              rules={{ required: true }}
-            />
-            {errors.firstName && (
-              <Typography className={classes.error}>
-                first name is a required field
-              </Typography>
-            )}
-          </Box>
-          <Box>
-            <InputLabel required htmlFor="lastName">
-              Last Name
-            </InputLabel>
-            <Controller
-              as={<TextField />}
-              name="lastName"
-              type="text"
-              variant="outlined"
-              control={control}
-              defaultValue=""
-              rules={{ required: true }}
-            />
-            {errors.lastName && (
-              <Typography className={classes.error}>
-                last name is a required field
-              </Typography>
-            )}
+          <Box className={classes.doubleInput}>
+            <Box className={classes.singleInput}>
+              <InputLabel required htmlFor="firstName">
+                First Name
+              </InputLabel>
+              <Controller
+                as={<TextField />}
+                className={classes.firstInput}
+                name="firstName"
+                type="text"
+                variant="outlined"
+                control={control}
+                defaultValue=""
+                rules={{ required: true }}
+              />
+              {errors.firstName && (
+                <Typography className={classes.error}>
+                  first name is a required field
+                </Typography>
+              )}
+            </Box>
+            <Box className={classes.singleInput}>
+              <InputLabel required htmlFor="lastName">
+                Last Name
+              </InputLabel>
+              <Controller
+                as={<TextField />}
+                name="lastName"
+                type="text"
+                variant="outlined"
+                control={control}
+                defaultValue=""
+                rules={{ required: true }}
+                className={classes.secondInput}
+              />
+              {errors.lastName && (
+                <Typography className={classes.error}>
+                  last name is a required field
+                </Typography>
+              )}
+            </Box>
           </Box>
         </Box>
         <Box className={classes.namePhoneBox}>
-          <Box>
-            <InputLabel required htmlFor="userName">
-              Username
-            </InputLabel>
-            <Controller
-              as={<TextField />}
-              className={classes.firstInput}
-              name="userName"
-              variant="outlined"
-              type="text"
-              control={control}
-              defaultValue=""
-              onBlur={validateUsername}
-              rules={{ required: true }}
-            />
-            {errors.userName && (
-              <Typography className={classes.error}>
-                username is a required field
-              </Typography>
-            )}
-            {errorState && (
-              <Typography className={classes.error}>
-                Button is disabled until a unique username is chosen
-              </Typography>
-            )}
-          </Box>
-          <Box>
-            <InputLabel required htmlFor="phoneNumber">
-              Phone Number
-            </InputLabel>
-            <Controller
-              as={<TextField />}
-              name="phoneNumber"
-              variant="outlined"
-              type="text"
-              control={control}
-              defaultValue=""
-              rules={{ required: true }}
-            />
-            {errors.phoneNumber && (
-              <Typography className={classes.error}>
-                phone number is a required field
-              </Typography>
-            )}
+          <Box className={classes.doubleInput}>
+            <Box className={classes.singleInput}>
+              <InputLabel required htmlFor="userName">
+                Username
+              </InputLabel>
+              <Controller
+                as={<TextField />}
+                className={classes.firstInput}
+                name="userName"
+                variant="outlined"
+                type="text"
+                control={control}
+                defaultValue=""
+                onBlur={validateUsername}
+                rules={{ required: true }}
+              />
+              {errors.userName && (
+                <Typography className={classes.error}>
+                  username is a required field
+                </Typography>
+              )}
+
+              {errorState && (
+                <Typography className={classes.error}>
+                  Button is disabled until a unique username is chosen
+                </Typography>
+              )}
+            </Box>
+            <Box className={classes.singleInput}>
+              <InputLabel required htmlFor="phoneNumber">
+                Phone Number
+              </InputLabel>
+              <Controller
+                as={<TextField />}
+                name="phoneNumber"
+                variant="outlined"
+                type="text"
+                control={control}
+                defaultValue=""
+                rules={{ required: true }}
+              />
+              {errors.phoneNumber && (
+                <Typography className={classes.error}>
+                  phone number is a required field
+                </Typography>
+              )}
+            </Box>
           </Box>
         </Box>
         {/* <Box className={classes.addressBox}>

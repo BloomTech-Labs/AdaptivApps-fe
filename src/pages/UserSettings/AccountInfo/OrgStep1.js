@@ -26,6 +26,13 @@ const useStyles = makeStyles(theme => ({
     "& .MuiTextField-root": {
       width: "74.4rem",
       height: "4.8rem",
+      border: "2px solid blue",
+      [theme.breakpoints.down("md")]: {
+        width: "100%",
+      },
+      [theme.breakpoints.up("sm")]: {
+        width: "100%",
+      },
       [theme.breakpoints.down("xs")]: {
         width: "100%",
       },
@@ -34,6 +41,9 @@ const useStyles = makeStyles(theme => ({
       fontSize: "2rem",
       color: "red",
       fontWeight: "bolder",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
     },
     [theme.breakpoints.down("xs")]: {
       width: "100%",
