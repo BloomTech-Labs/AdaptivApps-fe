@@ -18,24 +18,27 @@ import {
   MenuItem,
 } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    '& .MuiInputLabel-root': {
+    "& .MuiInputLabel-root": {
       color: "black",
     },
-    width: '67.5%',
+    width: "67.5%",
     "& .MuiInputLabel-asterisk": {
-      fontSize: '2rem',
-      color: 'red',
-      fontWeight: 'bolder',
+      fontSize: "2rem",
+      color: "red",
+      fontWeight: "bolder",
       [theme.breakpoints.down("sm")]: {
-        fontSize: '1.75rem'
+        fontSize: "1.75rem",
       },
       [theme.breakpoints.down("xs")]: {
-        fontSize: '1.25rem'
+        fontSize: "1.25rem",
       },
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
     },
   },
   form: {
@@ -46,35 +49,34 @@ const useStyles = makeStyles((theme) => ({
   },
   em: {
     fontStyle: "italic",
-    fontSize: "1.6rem"
+    fontSize: "1.6rem",
   },
   selectContainer: {
-    height: "78vh",
-    marginTop: "3.2rem"
-  
+    height: "100%",
+    marginTop: "3.2rem",
   },
   typeSelect: {
     width: "100%",
     height: "4.8rem",
     [theme.breakpoints.down("sm")]: {
-      width: '90%',
+      width: "100%",
       height: 48,
-      margin: '3% auto',
+      margin: "3% 0",
     },
     [theme.breakpoints.down("xs")]: {
-      width: '90%',
+      width: "100%",
       height: 35,
-      margin: '3%  auto'
+      margin: "3% 0",
     },
   },
   inputLabel: {
     [theme.breakpoints.down("sm")]: {
-      fontSize: '1.5rem',
-      margin: 'auto'
+      fontSize: "1.5rem",
+      margin: "auto",
     },
     [theme.breakpoints.down("xs")]: {
-      fontSize: '1.25rem',
-      margin: 'auto'
+      fontSize: "1.25rem",
+      margin: "auto",
     },
   },
   box: {
@@ -83,16 +85,17 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: "1.6rem",
   },
   btnWrapper: {
-    width: '100%',
+    marginTop: "4rem",
+    width: "100%",
     display: "flex",
     justifyContent: "flex-end",
   },
   error: {
-    color: 'red',
-    fontSize: '1.75rem',
-    fontVariant: 'all-small-caps',
-    fontWeight: 'bold',
-    marginTop: '1rem'
+    color: "red",
+    fontSize: "1.75rem",
+    fontVariant: "all-small-caps",
+    fontWeight: "bold",
+    marginTop: "1rem",
   },
 }));
 
@@ -107,8 +110,8 @@ export default function AccountTypeForm({ updateProfile }) {
   const { handleSubmit, setValue, control, errors } = useForm({
     defaultValues: {
       type: currentUserInfo && currentUserInfo?.profile?.type,
-      roleIdentity: currentUserInfo && currentUserInfo?.profile?.roleIdentity
-    }
+      roleIdentity: currentUserInfo && currentUserInfo?.profile?.roleIdentity,
+    },
   });
 
   // Sets default values in input fields with current user's info
@@ -116,15 +119,15 @@ export default function AccountTypeForm({ updateProfile }) {
     !loading && !currentUserInfo
       ? setCurrentUserInfo(defaultInfo)
       : setValue([
-        {
-          type: currentUserInfo && currentUserInfo?.profile?.type,
-
-        },
-        {
-          roleIdentity: currentUserInfo && currentUserInfo?.profile?.extProfile?.roleIdentity
-
-        },
-      ]);
+          {
+            type: currentUserInfo && currentUserInfo?.profile?.type,
+          },
+          {
+            roleIdentity:
+              currentUserInfo &&
+              currentUserInfo?.profile?.extProfile?.roleIdentity,
+          },
+        ]);
   }, [loading, currentUserInfo, defaultInfo, setValue]);
 
   const onSubmit = async data => {
@@ -150,10 +153,14 @@ export default function AccountTypeForm({ updateProfile }) {
       {/* <ProgressBar activeStep={0} userEmail={userEmail} /> */}
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.selectContainer}>
-          <InputLabel required htmlFor="account type">
+          <InputLabel className={classes.label} required htmlFor="account type">
             Are you registering as an individual or an organization?
           </InputLabel>
-          {errors.type && <Typography className={classes.error}>Please make a selection</Typography>}
+          {errors.type && (
+            <Typography className={classes.error}>
+              Please make a selection
+            </Typography>
+          )}
           <Box className={classes.box}>
             <Controller
               as={
@@ -179,7 +186,11 @@ export default function AccountTypeForm({ updateProfile }) {
           <InputLabel required htmlFor="role identity">
             Which role do you best identify with?
           </InputLabel>
-          {errors.roleIdentity && <Typography className={classes.error}>Please make a selection</Typography>}
+          {errors.roleIdentity && (
+            <Typography className={classes.error}>
+              Please make a selection
+            </Typography>
+          )}
           <Box className={classes.box}>
             <Controller
               as={
@@ -220,4 +231,3 @@ export default function AccountTypeForm({ updateProfile }) {
     </Box>
   );
 }
-

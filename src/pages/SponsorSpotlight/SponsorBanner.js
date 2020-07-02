@@ -13,21 +13,21 @@ const useStyles = makeStyles(theme => ({
     padding: "1%",
     justifyContent: "center",
     alignItems: "center",
-    '@media (max-width: 950px)': {
+    "@media (max-width: 950px)": {
       flexDirection: "column-reverse",
     },
   },
   image: {
     maxWidth: "80%",
     alignSelf: "flex-end",
-    '@media (max-width: 950px)': {
+    "@media (max-width: 950px)": {
       padding: "0 100px 100px -250px",
     },
   },
   sponsors: {
     maxWidth: "30%",
     marginRight: "15%",
-    '@media (max-width: 950px)': {
+    "@media (max-width: 950px)": {
       marginRight: "0",
       minHeight: "45px",
       minWidth: "250px",

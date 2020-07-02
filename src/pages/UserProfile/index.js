@@ -21,14 +21,14 @@ import ProfilePic from "./ProfilePic";
 import ProfileBanner from "./ProfileBanner";
 import UpcomingEventList from "./UpcomingEventList";
 
-const FacebookIcon = require('../../assets/images/facebook.png')
-const TwitterIcon = require('../../assets/images/twitter.png')
-const InstagramIcon = require('../../assets/images/instagram.png')
+const FacebookIcon = require("../../assets/images/facebook.png");
+const TwitterIcon = require("../../assets/images/twitter.png");
+const InstagramIcon = require("../../assets/images/instagram.png");
 
 const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: "100vw",
-    width: "90%",
+    width: "100%",
     display: "flex",
     "& > *": {
       margin: theme.spacing(1),
@@ -39,14 +39,17 @@ const useStyles = makeStyles(theme => ({
   },
   icon: {
     width: "2.4rem",
-    borderRadius: ".3rem"
+    borderRadius: ".3rem",
   },
-  
+
   profileEventWrapper: {
     width: "100%",
     display: "flex",
     justifyContent: "space-between",
     margin: "0",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+    },
   },
   profileWrapper: {
     width: "100%",
@@ -91,16 +94,20 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     marginTop: "2rem",
     flexDirection: "column",
-    alignSelf: "flex-start",
-    alignContent: "flex-end",
-    marginLeft: "10px",
     maxHeight: "100vh",
-    maxWidth: "300px",
+    width: "32rem",
     border: "none",
     boxShadow: "none",
     backgroundColor: "white",
-    // overflow: "scroll",
-    // scrollbarColor: "white white",
+    overflow: "scroll",
+    scrollbarColor: "white white",
+    "& h3": {
+      textAlign: "center",
+    },
+    [theme.breakpoints.down("sm")]: {
+      margin: "0 auto",
+      width: "80%",
+    },
   },
   basicInfo: {
     height: "3rem",
@@ -150,8 +157,6 @@ const useStyles = makeStyles(theme => ({
   },
   middleProfileWrapper: {
     marginTop: "2rem",
-    // display: "flex",
-    // justifyContent: "center",
     height: "580px",
   },
   bioWrapper: {
@@ -165,6 +170,9 @@ const useStyles = makeStyles(theme => ({
     },
     "& h1": {
       fontSize: "1.4rem",
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "95%",
     },
   },
   sportsList: {
@@ -352,10 +360,7 @@ export default function UserProfile() {
                 rel="noopener"
                 aria-label="Visit your friend's Facebook profile."
               >
-                <img
-                  src={FacebookIcon}
-                  className={classes.icon}
-                />
+                <img src={FacebookIcon} className={classes.icon} />
               </Link>
               <Link
                 href={twitterURL}
@@ -363,10 +368,7 @@ export default function UserProfile() {
                 rel="noopener"
                 aria-label="Visit your friend's Twitter profile."
               >
-               <img
-                  src={TwitterIcon}
-                  className={classes.icon}
-                />
+                <img src={TwitterIcon} className={classes.icon} />
               </Link>
               <Link
                 href={instagramURL}
@@ -374,10 +376,7 @@ export default function UserProfile() {
                 rel="noopener"
                 aria-label="Visit your friend's Twitter profile."
               >
-                <img
-                  src={InstagramIcon}
-                  className={classes.icon}
-                />
+                <img src={InstagramIcon} className={classes.icon} />
               </Link>
             </div>
           </div>
@@ -418,9 +417,11 @@ export default function UserProfile() {
             ) : null} */}
           </div>
         </div>
-        <div className={classes.eventsContainer}>
-          <UpcomingEventList userName={userName} />
-        </div>
+        {userProfile?.profile?.type === "Individual" ? (
+          <div className={classes.eventsContainer}>
+            <UpcomingEventList userName={userName} />
+          </div>
+        ) : null}
       </div>
     </div>
   );

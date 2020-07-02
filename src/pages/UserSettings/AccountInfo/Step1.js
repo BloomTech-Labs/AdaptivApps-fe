@@ -37,50 +37,84 @@ const useStyles = makeStyles(theme => ({
       fontSize: "2rem",
       color: "red",
       fontWeight: "bolder",
-      height: "100vh"
+      height: "100vh",
+    },
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
     },
   },
   form: {
     marginTop: "3.6rem",
     display: "flex",
     flexDirection: "column",
+    height: "100%",
+    [theme.breakpoints.down("lg")]: {
+      width: "100%",
+    },
     "& .MuiTextField-root": {
       width: "100%",
-      marginBottom: "1.6rem"
+      marginBottom: "1.6rem",
     },
-    height: "100vh"
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "100%",
+    },
   },
   namePhoneBox: {
     display: "flex",
     marginBottom: "0.8rem",
     "& .MuiTextField-root": {
-      width: "36rem",
+      width: "100%",
       height: "4.8rem",
       [theme.breakpoints.down("sm")]: {
-        margin: "1.2rem auto",
+        width: "100%",
       },
       [theme.breakpoints.down("xs")]: {
-        margin: "1.2rem auto",
+        width: "100%",
       },
     },
+
     [theme.breakpoints.down("sm")]: {
+      width: "100%",
       flexDirection: "column",
     },
     [theme.breakpoints.down("xs")]: {
+      width: "100%",
       flexDirection: "column",
     },
   },
-  firstInput: {
-    marginRight: "2.4rem",
+  doubleInput: {
+    display: "flex",
+    justifyContent: "space-between",
+    width: "100%",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column",
+    },
+  },
+  singleInput: {
+    display: "flex",
+    flexDirection: "column",
+    width: "48.6%",
+    [theme.breakpoints.down("sm")]: {
+      width: "100%",
+    },
   },
   typeSelect: {
     height: "4.8rem",
     marginBottom: "1.6rem",
+    [theme.breakpoints.down("md")]: {
+      width: "100%",
+    },
     [theme.breakpoints.down("sm")]: {
-      width: "40rem",
+      width: "100%",
     },
     [theme.breakpoints.down("xs")]: {
-      width: "40rem",
+      width: "100%",
     },
   },
   em: {
@@ -255,91 +289,97 @@ export default function Step1({ updateProfile }) {
       {/* <ProgressBar activeStep={1} stepNumber={1} userEmail={userEmail} /> */}
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.namePhoneBox}>
-          <Box>
-            <InputLabel required htmlFor="firstName">
-              First Name
-            </InputLabel>
-            <Controller
-              as={<TextField />}
-              className={classes.firstInput}
-              name="firstName"
-              type="text"
-              variant="outlined"
-              control={control}
-              defaultValue=""
-              rules={{ required: true }}
-            />
-            {errors.firstName && (
-              <Typography className={classes.error}>
-                first name is a required field
-              </Typography>
-            )}
-          </Box>
-          <Box>
-            <InputLabel required htmlFor="lastName">
-              Last Name
-            </InputLabel>
-            <Controller
-              as={<TextField />}
-              name="lastName"
-              type="text"
-              variant="outlined"
-              control={control}
-              defaultValue=""
-              rules={{ required: true }}
-            />
-            {errors.lastName && (
-              <Typography className={classes.error}>
-                last name is a required field
-              </Typography>
-            )}
+          <Box className={classes.doubleInput}>
+            <Box className={classes.singleInput}>
+              <InputLabel required htmlFor="firstName">
+                First Name
+              </InputLabel>
+              <Controller
+                as={<TextField />}
+                className={classes.firstInput}
+                name="firstName"
+                type="text"
+                variant="outlined"
+                control={control}
+                defaultValue=""
+                rules={{ required: true }}
+              />
+              {errors.firstName && (
+                <Typography className={classes.error}>
+                  first name is a required field
+                </Typography>
+              )}
+            </Box>
+            <Box className={classes.singleInput}>
+              <InputLabel required htmlFor="lastName">
+                Last Name
+              </InputLabel>
+              <Controller
+                as={<TextField />}
+                name="lastName"
+                type="text"
+                variant="outlined"
+                control={control}
+                defaultValue=""
+                rules={{ required: true }}
+                className={classes.secondInput}
+              />
+              {errors.lastName && (
+                <Typography className={classes.error}>
+                  last name is a required field
+                </Typography>
+              )}
+            </Box>
           </Box>
         </Box>
         <Box className={classes.namePhoneBox}>
-          <Box>
-            <InputLabel required htmlFor="userName">
-              Username
-            </InputLabel>
-            <Controller
-              as={<TextField />}
-              className={classes.firstInput}
-              name="userName"
-              variant="outlined"
-              type="text"
-              control={control}
-              defaultValue=""
-              onBlur={validateUsername}
-              rules={{ required: true }}
-            />
-            {errors.userName && (
-              <Typography className={classes.error}>
-                username is a required field
-              </Typography>
-            )}
-            {errorState && (
-              <Typography className={classes.error}>
-                Button is disabled until a unique username is chosen
-              </Typography>
-            )}
-          </Box>
-          <Box>
-            <InputLabel required htmlFor="phoneNumber">
-              Phone Number
-            </InputLabel>
-            <Controller
-              as={<TextField />}
-              name="phoneNumber"
-              variant="outlined"
-              type="text"
-              control={control}
-              defaultValue=""
-              rules={{ required: true }}
-            />
-            {errors.phoneNumber && (
-              <Typography className={classes.error}>
-                phone number is a required field
-              </Typography>
-            )}
+          <Box className={classes.doubleInput}>
+            <Box className={classes.singleInput}>
+              <InputLabel required htmlFor="userName">
+                Username
+              </InputLabel>
+              <Controller
+                as={<TextField />}
+                className={classes.firstInput}
+                name="userName"
+                variant="outlined"
+                type="text"
+                control={control}
+                defaultValue=""
+                onBlur={validateUsername}
+                rules={{ required: true }}
+              />
+              {errors.userName && (
+                <Typography className={classes.error}>
+                  username is a required field
+                </Typography>
+              )}
+
+              {errorState && (
+                <Typography className={classes.error}>
+                  Button is disabled until a unique username is chosen
+                </Typography>
+              )}
+            </Box>
+            <Box className={classes.singleInput}>
+              <InputLabel required htmlFor="phoneNumber">
+                Phone Number
+              </InputLabel>
+              <Controller
+                as={<TextField />}
+                name="phoneNumber"
+                variant="outlined"
+                type="text"
+                control={control}
+                defaultValue=""
+                rules={{ required: true }}
+              />
+              {errors.phoneNumber && (
+                <Typography className={classes.error}>
+                  phone number is a required field
+                </Typography>
+              )}
+            </Box>
           </Box>
         </Box>
         {/* <Box className={classes.addressBox}>
@@ -427,43 +467,43 @@ export default function Step1({ updateProfile }) {
             {errors.country && <Typography className={classes.error}>country is a required field</Typography>}
           </Box>
         </Box> */}
-       
-          <InputLabel htmlFor="twitter">
-            Please enter the full url link to your Twitter profile
-          </InputLabel>
-          <Controller
-            as={<TextField />}
-            name="twitter"
-            type="text"
-            variant="outlined"
-            control={control}
-            defaultValue=""
-          />
-       
-          <InputLabel htmlFor="facebook">
-            Please enter the full url link to your Facebook profile
-          </InputLabel>
-          <Controller
-            as={<TextField />}
-            name="facebook"
-            type="text"
-            variant="outlined"
-            control={control}
-            defaultValue=""
-          />
-      
-          <InputLabel htmlFor="instagram">
-            Please enter the full url link to your Instagram profile
-          </InputLabel>
-          <Controller
-            as={<TextField />}
-            name="instagram"
-            type="text"
-            variant="outlined"
-            control={control}
-            defaultValue=""
-          />
-    
+
+        <InputLabel htmlFor="twitter">
+          Please enter the full url link to your Twitter profile
+        </InputLabel>
+        <Controller
+          as={<TextField />}
+          name="twitter"
+          type="text"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+
+        <InputLabel htmlFor="facebook">
+          Please enter the full url link to your Facebook profile
+        </InputLabel>
+        <Controller
+          as={<TextField />}
+          name="facebook"
+          type="text"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+
+        <InputLabel htmlFor="instagram">
+          Please enter the full url link to your Instagram profile
+        </InputLabel>
+        <Controller
+          as={<TextField />}
+          name="instagram"
+          type="text"
+          variant="outlined"
+          control={control}
+          defaultValue=""
+        />
+
         <InputLabel required htmlFor="legal">
           Are you over 18 years old?
         </InputLabel>
@@ -489,9 +529,7 @@ export default function Step1({ updateProfile }) {
           defaultValue=""
           rules={{ required: true }}
         />
-        <InputLabel htmlFor="bio">
-          Bio
-        </InputLabel>
+        <InputLabel htmlFor="bio">Bio</InputLabel>
         <Controller
           as={<TextField />}
           name="bio"

@@ -11,12 +11,11 @@ const useStyles = makeStyles({
   root: {
     maxWidth: "100vw",
     display: "flex",
+    padding: "0",
     backgroundColor: "#FFFFFF",
-    // Added, JC6/23
     minHeight: "100vh",
   },
   box: {
-    // Changed from 80 to 100, JC6/23
     width: "100%",
     margin: "0",
     backgroundColor: "#FFFFFF",

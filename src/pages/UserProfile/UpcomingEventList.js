@@ -9,10 +9,12 @@ import { makeStyles } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import eventImg from "../../assets/images/acs_hartford.png";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   title: {
-    marginLeft: "1rem",
     fontSize: "2rem",
+    [theme.breakpoints.down("sm")]: {
+      fontSize: "2.4rem",
+    },
   },
   eventsList: {
     border: "none",
@@ -23,9 +25,13 @@ const useStyles = makeStyles({
     maxHeight: "90%",
     direction: "rtl",
     backgroundColor: "white",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      direction: "ltr",
+    },
   },
   eventCard: {
-    border: "none",
     boxShadow: "none",
     display: "flex",
     flexDirection: "column",
@@ -33,17 +39,33 @@ const useStyles = makeStyles({
     backgroundColor: "white",
     width: "90%",
     marginBottom: "20px",
+    [theme.breakpoints.down("sm")]: {
+      width: "80%",
+      direction: "ltr",
+      margin: "1rem auto",
+    },
+    [theme.breakpoints.up("xs")]: {
+      flexDirection: "column",
+    },
   },
   textContainer: {
+    marginTop: "1rem",
     display: "flex",
     flexDirection: "column",
     alignItems: "flex-start",
-    marginLeft: "10px",
+  },
+  imgContainer: {
+    width: "100%",
+    height: "12rem",
+    [theme.breakpoints.down("sm")]: {
+      height: "14rem",
+    },
   },
   img: {
+    borderRadius: "5px",
     width: "100%",
-    height: "auto",
-    objectFit: "fill",
+    height: "100%",
+    objectFit: "cover",
   },
   text: {
     margin: "0",
@@ -53,7 +75,7 @@ const useStyles = makeStyles({
     margin: "0",
     fontSize: "1.8rem",
   },
-});
+}));
 
 export default function UpcomingEventList({ userName }) {
   const classes = useStyles();
@@ -97,17 +119,19 @@ export default function UpcomingEventList({ userName }) {
                 key={event.id}
                 className={classes.navLink}
               >
-                <img
-                  src={
-                    event?.imgUrl === null ||
-                    event?.imgUrl === undefined ||
-                    event?.imgUrl === ""
-                      ? eventImg
-                      : event?.imgUrl
-                  }
-                  alt="Upcoming event"
-                  className={classes.img}
-                />
+                <div className={classes.imgContainer}>
+                  <img
+                    src={
+                      event?.imgUrl === null ||
+                      event?.imgUrl === undefined ||
+                      event?.imgUrl === ""
+                        ? eventImg
+                        : event?.imgUrl
+                    }
+                    alt="Upcoming event"
+                    className={classes.img}
+                  />
+                </div>
               </NavLink>
               <div className={classes.textContainer}>
                 <p className={classes.text}>
