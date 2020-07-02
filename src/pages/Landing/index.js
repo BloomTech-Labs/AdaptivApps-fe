@@ -78,11 +78,15 @@ const useStyles = makeStyles(theme => ({
     },
     [theme.breakpoints.down("md")]: {
       width: "60%",
-      margin: "3rem auto 0 auto",
+      margin: "3rem auto 0 4rem",
       "& h6": {
         margin: "0.5rem auto",
         fontSize: "4.0rem",
       },
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "60%",
+      margin: "3rem auto 2rem auto",
     },
     [theme.breakpoints.down("xs")]: {
       width: "90%",
@@ -105,10 +109,10 @@ const useStyles = makeStyles(theme => ({
       fontWeight: "bold",
       margin: "0",
     },
-    // [theme.breakpoints.down("md")]: {
-    //   margin: "0 auto",
-    //   width: "80%",
-    // },
+    [theme.breakpoints.down("md")]: {
+      margin: "4rem auto",
+      width: "80%",
+    },
     [theme.breakpoints.down("sm")]: {
       margin: "0 auto",
       width: "100%",
