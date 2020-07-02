@@ -47,6 +47,28 @@ const FAQ = () => {
       </Box>
       <div className={classes.body}>
         <div className={classes.group}>
+          <h3 className={classes.h4}>
+            This Portal for the 2020 Angel City Virtual Games is Presented by
+            The Hartford!{" "}
+          </h3>
+          <p>
+            This platform will be your hub to register and attend events,
+            connect with your peers and coaches, and be an integral part of this
+            community!
+          </p>
+          <p>
+            Check out the video tutorial below to learn everything you need to
+            know about this action-packed week!
+          </p>
+        </div>
+        <iframe
+          className={classes.vid}
+          src="https://www.youtube.com/embed/w77zPAtVTuI"
+          frameBorder="0"
+          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+          allowFullscreen
+        />
+        <div className={classes.group}>
           <h3 className={classes.h4}>How do the Virtual Games work?</h3>
           <p>
             All activities and special events for the 2020 Angel City Virtual
@@ -99,9 +121,12 @@ const FAQ = () => {
           <p>
             Using the chat feature, you can find friends, discuss the latest
             clinic, connect with mentors, and more! Simply fill out your
-            profile, then access the <strong>Chat</strong> tab to find other users with the
-            same interests, start a group chat with the most recent clinic you
-            attended, or message a mentor for guidance! <strong>This feature is only available to those 18 years or older.</strong>
+            profile, then access the <strong>Chat</strong> tab to find other
+            users with the same interests, start a group chat with the most
+            recent clinic you attended, or message a mentor for guidance!{" "}
+            <strong>
+              This feature is only available to those 18 years or older.
+            </strong>
           </p>
         </div>
       </div>

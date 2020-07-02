@@ -83,9 +83,10 @@ const Welcome = () => {
           special events, community fun, and most of all-connection.
           <br />
           <br />
-          Be sure to browse the <strong>Events Calendar</strong> and select which events you are
-          interested in attending this week and utilize the <strong>Chat</strong> to connect with
-          friends, peers and coaches from all over the world!
+          Be sure to browse the <strong>Events Calendar</strong> and select
+          which events you are interested in attending this week and utilize the{" "}
+          <strong>Chat</strong> to connect with friends, peers and coaches from
+          all over the world!
           <br />
           <br />
           We are so excited for what’s ahead! Thank you so much for registering
@@ -93,82 +94,10 @@ const Welcome = () => {
           going to be a blast!
           <br />
           <br />
-          Be sure to visit the <strong>FAQs</strong> tab for easy video tutorials, a
-          system walkthrough, and more!
-        </Typography>
-        <h3 className={classes.h3}>
-          This Portal for the 2020 Angel City Virtual Games is Presented by The
-          Hartford!{" "}
-        </h3>
-        <Typography>
-          The platform will be your hub to not only register and attend events,
-          but also to connect with your peers and coaches.{" "}
-        </Typography>
-        <Typography>You can get started in five simple steps!</Typography>
-        <ol>
-          <li>
-            <p className={classes.p1}>
-              Visit the <strong>Settings</strong> tab to create your profile. Be
-              sure to enter a username to personalize your profile page.
-            </p>
-          </li>
-          <li>
-            <p className={classes.p1}>
-              Checkout the <strong>My Profile</strong> tab to give more of a
-              personalized touch by adding a cool banner and profile image.
-            </p>
-          </li>
-          <li>
-            <p className={classes.p1}>
-              Click on <strong>Events Calendar</strong> and check out all of the
-              opportunities available for you to participate in. If you are
-              interested in an event simply click <strong>view details</strong>.
-              If you would like to participate in the event click{" "}
-              <strong>add</strong> and you will be taken to the{" "}
-              <strong>Event Details</strong> page. You may now go back to{" "}
-              <strong>Events Calendar</strong> and repeat this process to
-              register for as many events as you would like.
-            </p>
-          </li>
-          <li>
-            <p className={classes.p1}>
-              Once you have selected your fun-filled week, check out the{" "}
-              <strong>My Events</strong> tab to view your upcoming events and
-              participation information.
-            </p>
-          </li>
-          <li>
-            <p className={classes.p1}>
-              Every day of this action-packed week, login to participate in all
-              events and connect with others! Don't forget to check out the{" "}
-              <strong>Chat</strong> tab to chat with friends!
-            </p>
-          </li>
-        </ol>
-        <h3 className={classes.h3}>
-          Checkout this video tutorial for a walkthrough of our app!
-        </h3>
-        <iframe
-          className={classes.vid}
-          src="https://www.youtube.com/embed/w77zPAtVTuI"
-          frameBorder="0"
-          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-          allowFullscreen
-        />
-        <h3 className={classes.h3}>
-          A few tips for getting started on our platform
-        </h3>
-        <Typography>
-          For any questions about this exciting community platform please refer
-          to the video tutorial above or check out the <strong>FAQ</strong>{" "}
-          page. For any additional information, please email{" "}
-          <strong>info@angelcitysports.org</strong>.
-          <br />
-          <br />
-          Thank you for joining Angel City Sports in this World Premier Virtual
-          Adaptive Sports Event- The 2020 Angel City Games presented by The
-          Hartford.
-        </Typography>
+          Be sure to visit the <strong>FAQs</strong> tab for easy video
+          tutorials, a system walkthrough, and more! For any additional
+          information, please email <strong>info@angelcitysports.org</strong>.
+          </Typography>
 
         <h3 className={classes.h3}>
           The 2020 Angel City Virtual Games Presented by The Harford (Explained)
