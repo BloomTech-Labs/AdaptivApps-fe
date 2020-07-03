@@ -225,7 +225,7 @@ export default function Settings() {
             </Typography>
             {profile?.type === "Individual" ? (
               <>
-                <TableContainer className={classes.table}>
+                <TableContainer tabIndex="0" className={classes.table}>
                   <Table aria-label="account information table" size="small">
                     <TableBody className={classes.tableBody}>
                       <TableRow>
