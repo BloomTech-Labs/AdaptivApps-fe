@@ -81,7 +81,6 @@ export default function NewsfeedPage() {
   if (newsFeedSubsError) return `newsFeedSubsError! ${error.newsFeedSubsError}`;
   !newsFeedSubsLoading && refetchPosts();
 
-  console.log(profile);
   return (
     <div className={classes.root}>
       <div className={classes.bannerSearchNewsfeed}>
@@ -98,6 +97,7 @@ export default function NewsfeedPage() {
               key={post.id}
               user={user}
               refetchPosts={refetchPosts}
+              profile={profile?.profile}
             />
           ))}
           <Typography className={classes.endOfPosts}>

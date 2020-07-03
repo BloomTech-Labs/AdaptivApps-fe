@@ -157,7 +157,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function NewsfeedCard(props) {
   const classes = useStyles();
-  const { post, user, refetchPosts } = props;
+  const { post, user, refetchPosts, profile } = props;
 
   const [commentText, setCommentText] = useState("");
   const [liked, setLiked] = useState(false);
@@ -199,27 +199,35 @@ export default function NewsfeedCard(props) {
     setCommentText("");
   };
 
-  // const toggleLiked = async () => {
-  //   !liked
-  //     ? (await addLike({
-  //         variables: {
-  //           postID: post.id,
-  //           likedBy: user.email,
-  //         },
-  //       })) &&
-  //       setLiked(true) &&
-  //       refetchPosts()
-  //     : (await post?.likes?.map(like => {
-  //         like?.likedBy?.email === user?.email &&
-  //           removeLike({
-  //             variables: {
-  //               id: like.id,
-  //             },
-  //           });
-  //       })) &&
-  //       setLiked(false) &&
-  //       refetchPosts();
-  // };
+  const hasLiked = () => {
+    for (let i = 0; i < post.likes.length; i++) {
+      if (post.likes[i].likedBy.email === user.email) {
+        console.log(post.likes[i].likedBy.id);
+        return post.likes[i].id;
+      }
+    }
+    return false;
+  }
+
+  const toggleLiked = async () => {
+    const likesId = await hasLiked();
+    if (!likesId) {
+      await addLike({
+        variables: {
+          postID: post.id,
+          likedBy: user.email,
+        },
+      })
+    }
+    else {
+      await removeLike({
+        variables: {
+          id: likesId
+        },
+      })
+    }
+    refetchPosts();
+  };
 
   const showComments = () => {
     setDisplayComments(!displayComments);
@@ -245,11 +253,11 @@ export default function NewsfeedCard(props) {
           {post?.postedBy?.profilePicture ? (
             <CustomMessageIcon pictureIcon={post.postedBy.profilePicture} />
           ) : (
-            <AccountCircleIcon
-              fontSize={"large"}
-              className={classes.avatarIcon}
-            />
-          )}
+              <AccountCircleIcon
+                fontSize={"large"}
+                className={classes.avatarIcon}
+              />
+            )}
           <Typography className={classes.postedByName} gutterBottom>
             {post.postedBy.firstName} {post.postedBy.lastName}
           </Typography>
@@ -283,9 +291,9 @@ export default function NewsfeedCard(props) {
       <Divider variant="middle" />
 
       <CardActions className={classes.cardActions}>
-        <Button color="primary" className={classes.button}>
+        <Button color="primary" className={classes.button} onClick={toggleLiked}>
           <ThumbUpAltIcon fontSize={"large"} className={classes.icon} />
-          <span className={classes.cta}>Like</span>
+          <span className={classes.cta}>{hasLiked() ? `${post.likes.length} Likes` : `Like`}</span>
         </Button>
         <Button
           color="primary"
