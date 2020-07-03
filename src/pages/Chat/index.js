@@ -44,7 +44,7 @@ function ChatFeature() {
   const [newRoom, setNewRoom] = useState(false);
 
   // Timeout for automated alerts
-  setTimeout(function() {
+  setTimeout(function () {
     if (alert) {
       setAlertOpen(false);
     } else if (newRoom) {
@@ -55,26 +55,6 @@ function ChatFeature() {
   return (
     <>
       <div className={classes.alertDiv}>
-        <Collapse in={alert}>
-          <Alert
-            severity="success"
-            color="info"
-            action={
-              <IconButton
-                aria-label="close"
-                size="small"
-                onClick={() => {
-                  setAlertOpen(false);
-                }}
-              >
-                <CloseIcon fontSize="large" />
-              </IconButton>
-            }
-          >
-            Successfully sent announcement
-          </Alert>
-        </Collapse>
-
         <Collapse in={newRoom}>
           <Alert
             severity="success"

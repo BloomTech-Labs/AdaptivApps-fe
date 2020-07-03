@@ -196,8 +196,8 @@ export default function EventCard({ event, refetch, user }) {
           className={classes.img}
           src={
             event?.imgUrl === null ||
-            event?.imgUrl === undefined ||
-            event?.imgUrl === ""
+              event?.imgUrl === undefined ||
+              event?.imgUrl === ""
               ? eventImg
               : event?.imgUrl
           }
@@ -235,8 +235,8 @@ export default function EventCard({ event, refetch, user }) {
               width="15rem"
               image={
                 event?.imgUrl === null ||
-                event?.imgUrl === undefined ||
-                event?.imgUrl === ""
+                  event?.imgUrl === undefined ||
+                  event?.imgUrl === ""
                   ? eventImg
                   : event?.imgUrl
               }
@@ -294,14 +294,14 @@ export default function EventCard({ event, refetch, user }) {
           <SimpleModal event={event} registerEvent={registerEvent} />
           {user && user[config.roleUrl].includes("Admin") ? (
             <Box className={classes.editDeleteBtn}>
-              <Button onClick={editEvent}>
+              <Button aria-label="edit this event" onClick={editEvent}>
                 <EditOutlinedIcon
                   className={classes.icon}
                   color="primary"
                   fontSize="large"
                 />
               </Button>
-              <Button onClick={handleOpen}>
+              <Button aria-label="delete this event" onClick={handleOpen}>
                 <DeleteOutlineIcon
                   className={classes.icon}
                   color="primary"

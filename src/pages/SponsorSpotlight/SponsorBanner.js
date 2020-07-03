@@ -52,7 +52,7 @@ export default function SponsorBanner() {
     >
       <div className={classes.banner}>
         <Tooltip title="Check out our sponsors">
-          <button className={classes.btn}>
+          <button aria-label="click here to check out our sponsor page" className={classes.btn}>
             <img src={Sponsor_Photo} className={classes.image} />
             <img src={Sponsors} className={classes.sponsors} />
           </button>

@@ -69,6 +69,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: "2rem",
     marginLeft: "100%",
     border: "none",
+    background: "none",
     "&:hover": {
       cursor: "pointer",
       color: "#2962FF",
@@ -274,9 +275,10 @@ function RecipientModal({
       });
       if (filtered[0] !== result.email) {
         return (
-          <button aria-label="a user in chatroom" className={classes.btn} onClick={() => createNewChatRoom(result)}>
+          <button aria-label={`Create new message with ${result.firstName} ${result.lastName}`} className={classes.btn} onClick={() => createNewChatRoom(result)}>
             <ListItem
               value={`${result.firstName} ${result.lastName}`}
+              aria-label={`${result.firstName} ${result.lastName}`}
               diabled={disableClick}
               onKeyDown={e => handleSearchedChatroomAddition(e)}
               id="newSearchedChatroom"
@@ -293,9 +295,10 @@ function RecipientModal({
     !results.length &&
     availableToChat.map(available => {
       return (
-        <button aria-label="a user in chatroom" className={classes.btn} onClick={() => createNewChatRoom(available)}>
+        <button aria-label={`Create new message with ${available.firstName} ${available.lastName}`} className={classes.btn} onClick={() => createNewChatRoom(available)}>
           <ListItem
             value={`${available.firstName} ${available.lastName}`}
+            aria-label={`${available.firstName} ${available.lastName}`}
             onKeyDown={e => handleChatroomAddition(e)}
             id="newChatroom"
           >
@@ -308,7 +311,13 @@ function RecipientModal({
   return (
     <div>
       <div className={classes.paper}>
-        <CloseIcon className={classes.closeModal} onClick={closeModal} />
+        <button
+          aria-label="Close the search modal"
+          onClick={closeModal}
+          className={classes.closeModal}
+        >
+          <CloseIcon />
+        </button>
         <h2
           id="transition-modal-title"
           className={classes.span}
@@ -322,6 +331,7 @@ function RecipientModal({
               variant="outlined"
               type="text"
               placeholder="Type name here..."
+              autoFocus
               name="message"
               value={searchRecipient}
               onChange={handleChange}
@@ -330,6 +340,7 @@ function RecipientModal({
                   <InputAdornment position="end">
                     <IconButton
                       onClick={searchAvailableRooms}
+                      aria-label="click here once a name has been entered to start searching"
                     >
                       <SearchIcon fontSize="large" />
                     </IconButton>

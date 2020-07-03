@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
       height: "80%",
       justifyContent: "flex-end",
     },
-    
+
   },
   title: {
     fontSize: "2.5rem",
@@ -263,7 +263,7 @@ function InfoBar({ user, setAlertOpen, setNewRoom }) {
             <button
               className={classes.button2}
               onClick={handleOpen}
-              aria-label="New Message Button"
+              aria-label="Click here to create new messages"
             >
               New Message
             </button>
