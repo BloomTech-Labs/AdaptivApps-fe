@@ -3,110 +3,103 @@ import gql from "graphql-tag";
 // Get Newsfeed Posts
 export const GET_NEWSFEED_POSTS = gql`
   query {
-    feedPosts {
+    feedPosts(orderBy: createdAt_DESC) {
       id
       body
       imgUrl
+      createdAt
+      pinnedPost
+      comments {
+        id
+        body
+        postedBy {
+          id
+          userName
+          firstName
+          lastName
+          email
+          profilePicture
+        }
+      }
       postedBy {
         id
         userName
         firstName
         lastName
+        email
+        profilePicture
       }
-      createdAt
-    }
-  }
-`
-
-// Create a Newsfeed Post w/ no image
-export const CREATE_NEWSFEED_POST_NO_IMAGE = gql`
-  mutation createFeedPost($body: String!, $postedBy: String!) {
-    createFeedPost(
-      data: {
-        body: $body
-        postedBy: {
-          connect: {
-            email: $postedBy
-          }}
-      }) {
+      likes {
         id
-        body
-        createdAt
-        postedBy {
+        post {
+          id
+        }
+        likedBy {
           id
           email
+          firstName
+          lastName
+        }
       }
     }
   }
-`
+`;
 
 // Create a Newsfeed Post w/ image
-export const CREATE_NEWSFEED_POST_WITH_IMAGE = gql`
-  mutation createFeedPost($body: String!, $imgUrl: String!, $postedBy: String!) {
+export const CREATE_NEWSFEED_POST = gql`
+  mutation createFeedPost($body: String!, $imgUrl: String, $postedBy: String!) {
     createFeedPost(
       data: {
         body: $body
         imgUrl: $imgUrl
-        postedBy: {
-          connect: {
-            email: $postedBy
-          }}
-      }) {
+        postedBy: { connect: { email: $postedBy } }
+      }
+    ) {
+      id
+      body
+      createdAt
+      pinnedPost
+      postedBy {
         id
-        body
-        createdAt
-        postedBy {
-          id
-          email
+        userName
+        firstName
+        lastName
+        email
+        profilePicture
       }
     }
   }
-`
+`;
 
-// Update Newsfeed Post w/ no image
-export const UPDATE_NEWSFEED_POST_NO_IMAGE = gql`
-  mutation updateFeedPost($body: String!, $id: ID!) {
-    updateFeedPost(
-      data: {
-        body: $body
-        }
-        where: {
-          id: $id
-          }) {
-            id
-            body
-            imgUrl
-            postedBy {
-              id
-              email
-            }
-            updatedAt
-          }
-        }
-`
+// Pin a Newsfeed Post
+export const PIN_NEWSFEED_POST = gql`
+  mutation pinFeedPost($id: ID!, $pinnedPost: Boolean!) {
+    updateFeedPost(data: { pinnedPost: $pinnedPost }, where: { id: $id }) {
+      id
+    }
+  }
+`;
 
-// Update Newsfeed Post w/ image
-export const UPDATE_NEWSFEED_POST_WITH_IMAGE = gql`
-  mutation updateFeedPost($body: String!, $imgUrl: String!, $id: ID!) {
-    updateFeedPost(
-      data: {
-        body: $body
-        imgUrl: $imgUrl
-        }
-        where: {
-          id: $id
-          }) {
-            id
-            body
-            imgUrl
-            postedBy {
-              id
-              email
-            }
-            updatedAt
-          }
-        }
-`
+// Update Newsfeed Post
+export const UPDATE_NEWSFEED_POST = gql`
+  mutation updateFeedPost($body: String!, $imgUrl: String, $id: ID!) {
+    updateFeedPost(data: { body: $body, imgUrl: $imgUrl }, where: { id: $id }) {
+      id
+      body
+      imgUrl
+      pinnedPost
+      postedBy {
+        id
+        userName
+        firstName
+        lastName
+        email
+        profilePicture
+      }
+      updatedAt
+    }
+  }
+`;
 
 // Delete Newsfeed Post
 export const DELETE_NEWSFEED_POST = gql`
@@ -115,25 +108,40 @@ export const DELETE_NEWSFEED_POST = gql`
       id
     }
   }
-`
+`;
 
 // Newsfeed Post Subscription
 export const NEWSFEED_POST_SUBSCRIPTION = gql`
   subscription {
-  feedPost {
-    mutation
-    node {
-      id
-      body
-      imgUrl
-      postedBy {
+    feedPost {
+      mutation
+      node {
         id
-        userName
-        firstName
-        lastName
+        body
+        imgUrl
+        createdAt
+        pinnedPost
+        postedBy {
+          id
+          userName
+          firstName
+          lastName
+          email
+          profilePicture
+        }
+        likes {
+          id
+          post {
+            id
+          }
+          likedBy {
+            id
+            email
+            firstName
+            lastName
+          }
+        }
       }
-      createdAt
     }
   }
-}
-`
+`;

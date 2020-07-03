@@ -329,10 +329,10 @@ function SideNav(props) {
                 <p>Chat</p>
               </NavLink>
             )}
-            {/*<NavLink to="/newsfeed" className={classes.navLink}>
+            <NavLink to="/newsfeed" className={classes.navLink}>
               <HomeIcon className={classes.navIcon} />
               <p>Newsfeed</p>
-            </NavLink>*/}
+            </NavLink>
             <NavLink to="settings" className={classes.navLink}>
               <SettingsIcon className={classes.navIcon} />
               <p>Settings</p>

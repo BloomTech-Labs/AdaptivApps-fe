@@ -1,18 +1,13 @@
 import gql from "graphql-tag";
 
-export const CREATE_NEWSFEED_LIKE = gql `
+export const CREATE_NEWSFEED_LIKE = gql`
   mutation createFeedLike($postID: ID!, $likedBy: String!) {
-    createFeedLike(data: {
-      post: {
-        connect: {
-          id: $postID
-        }}
-      likedBy: {
-        connect: {
-          email: $likedBy
-        }
+    createFeedLike(
+      data: {
+        post: { connect: { id: $postID } }
+        likedBy: { connect: { email: $likedBy } }
       }
-    }) {
+    ) {
       id
       post {
         id
@@ -20,17 +15,17 @@ export const CREATE_NEWSFEED_LIKE = gql `
       likedBy {
         id
         email
+        firstName
+        lastName
       }
     }
   }
-`
+`;
 
-export const DELETE_NEWSFEED_LIKE = gql `
+export const DELETE_NEWSFEED_LIKE = gql`
   mutation deleteFeedLike($id: ID!) {
-    deleteFeedLike(where: {
-      id: $id
-    }) {
+    deleteFeedLike(where: { id: $id }) {
       id
     }
   }
-`
+`;

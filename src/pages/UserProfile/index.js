@@ -263,6 +263,7 @@ export default function UserProfile() {
   const twitterURL = userProfile?.profile?.twitter;
   const facebookURL = userProfile?.profile?.facebook;
   const instagramURL = userProfile?.profile?.instagram;
+  const name = userProfile?.profile?.firstName;
 
   useEffect(() => {
     if (loggedInUser && loggedInUserName === userName) setProfileOwner(true);
@@ -350,7 +351,7 @@ export default function UserProfile() {
                 href={facebookURL}
                 target="_blank"
                 rel="noopener"
-                aria-label="Visit your friend's Facebook profile."
+                aria-label={`Visit ${name}s Facebook profile.`}
               >
                 <img src={FacebookIcon} className={classes.icon} />
               </Link>
@@ -358,7 +359,7 @@ export default function UserProfile() {
                 href={twitterURL}
                 target="_blank"
                 rel="noopener"
-                aria-label="Visit your friend's Twitter profile."
+                aria-label={`Visit ${name}s Twitter profile.`}
               >
                 <img src={TwitterIcon} className={classes.icon} />
               </Link>
@@ -366,7 +367,7 @@ export default function UserProfile() {
                 href={instagramURL}
                 target="_blank"
                 rel="noopener"
-                aria-label="Visit your friend's Twitter profile."
+                aria-label={`Visit ${name}s Instagram profile.`}
               >
                 <img src={InstagramIcon} className={classes.icon} />
               </Link>

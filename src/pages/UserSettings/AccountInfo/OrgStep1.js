@@ -84,7 +84,7 @@ const useStyles = makeStyles(theme => ({
   },
   bioBox: {
     marginTop: "1.6rem",
-    marginBottom: "12.5rem",
+    marginBottom: "14rem",
   },
   btnBox: {
     marginTop: "3rem",
@@ -174,10 +174,13 @@ export default function OrgStep1({ updateOrgProfile }) {
   return (
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
       <Box className={classes.boxSpacing}>
-        <InputLabel required htmlFor="orgName">
+        <InputLabel required for="orgName">
           Organization Name
         </InputLabel>
         <Controller
+          id="orgName"
+          autoComplete="organization name"
+          aria-invalid={errors.orgName ? "true" : "false"}
           as={<TextField />}
           name="orgName"
           type="text"
@@ -187,16 +190,19 @@ export default function OrgStep1({ updateOrgProfile }) {
           rules={{ required: true }}
         />
         {errors.orgName && (
-          <Typography className={classes.error}>
+          <Typography className={classes.error} role="alert">
             organization name is a required field
           </Typography>
         )}
       </Box>
       <Box className={classes.boxSpacing}>
-        <InputLabel required htmlFor="website">
+        <InputLabel required for="website">
           Organization Website
         </InputLabel>
         <Controller
+          id="website"
+          autoComplete="website"
+          aria-invalid={errors.website ? "true" : "false"}
           as={<TextField />}
           name="website"
           type="text"
@@ -206,16 +212,18 @@ export default function OrgStep1({ updateOrgProfile }) {
           rules={{ required: true }}
         />
         {errors.website && (
-          <Typography className={classes.error}>
+          <Typography className={classes.error} role="alert">
             organization website is a required field
           </Typography>
         )}
       </Box>
       <Box className={classes.boxSpacing}>
-        <InputLabel htmlFor="phoneNumber">
+        <InputLabel for="phoneNumber">
           Please enter your phone number
         </InputLabel>
         <Controller
+          id="phoneNumber"
+          autoComplete="phone number"
           as={<TextField />}
           name="phoneNumber"
           type="text"
@@ -226,7 +234,7 @@ export default function OrgStep1({ updateOrgProfile }) {
       </Box>
       {/* <Box className={classes.addressBox}>
         <Box className={classes.address1}>
-          <InputLabel required htmlFor="address1">Address 1</InputLabel>
+          <InputLabel required for="address1">Address 1</InputLabel>
           <Controller
             as={<TextField />}
             name="address1"
@@ -238,7 +246,7 @@ export default function OrgStep1({ updateOrgProfile }) {
            {errors.address1 && <Typography className={classes.error}>address1 is a required field</Typography>}
         </Box>
         <Box className={classes.address2}>
-          <InputLabel htmlFor="address2">Address 2</InputLabel>
+          <InputLabel for="address2">Address 2</InputLabel>
           <Controller
             as={<TextField />}
             name="address2"
@@ -252,7 +260,7 @@ export default function OrgStep1({ updateOrgProfile }) {
 
       {/* <Box className={classes.addressBox}>
         <Box className={classes.firstInput}>
-          <InputLabel required htmlFor="city">City</InputLabel>
+          <InputLabel required for="city">City</InputLabel>
           <Controller
             as={<TextField />}
             name="city"
@@ -265,7 +273,7 @@ export default function OrgStep1({ updateOrgProfile }) {
           {errors.city && <Typography className={classes.error}>city is a required field</Typography>}
         </Box>
         <Box>
-          <InputLabel required htmlFor="state">State</InputLabel>
+          <InputLabel required for="state">State</InputLabel>
           <Controller
             as={<TextField />}
             name="state"
@@ -280,7 +288,7 @@ export default function OrgStep1({ updateOrgProfile }) {
       </Box>
       <Box className={classes.addressBox}>
         <Box className={classes.firstInput}>
-          <InputLabel required htmlFor="postalCode">Postal Code</InputLabel>
+          <InputLabel required for="postalCode">Postal Code</InputLabel>
           <Controller
             as={<TextField />}
             name="postalCode"
@@ -294,11 +302,13 @@ export default function OrgStep1({ updateOrgProfile }) {
        
       </Box> */}
       <Box className={classes.boxSpacing}>
-        <InputLabel htmlFor="twitter">
+        <InputLabel for="twitter">
           Please enter the full url link to your Twitter profile
         </InputLabel>
         <Controller
           as={<TextField />}
+          id="twitter"
+          autoComplete="twitter"
           name="twitter"
           type="text"
           variant="outlined"
@@ -307,11 +317,13 @@ export default function OrgStep1({ updateOrgProfile }) {
         />
       </Box>
       <Box className={classes.boxSpacing}>
-        <InputLabel htmlFor="facebook">
+        <InputLabel for="facebook">
           Please enter the full url link to your Facebook profile
         </InputLabel>
         <Controller
           as={<TextField />}
+          id="facebook"
+          autoComplete="facebook"
           name="facebook"
           type="text"
           variant="outlined"
@@ -320,11 +332,13 @@ export default function OrgStep1({ updateOrgProfile }) {
         />
       </Box>
       <Box className={classes.boxSpacing}>
-        <InputLabel htmlFor="instagram">
+        <InputLabel for="instagram">
           Please enter the full url link to your Instagram profile
         </InputLabel>
         <Controller
           as={<TextField />}
+          id="instagram"
+          autoComplete="instagram"
           name="instagram"
           type="text"
           variant="outlined"
@@ -333,11 +347,13 @@ export default function OrgStep1({ updateOrgProfile }) {
         />
       </Box>
       <Box className={classes.bioBox}>
-        <InputLabel className={classes.inputLabel} htmlFor="bio">
+        <InputLabel className={classes.inputLabel} for="bio">
           Tell us about your organization
         </InputLabel>
         <Controller
           as={<TextField />}
+          id="bio"
+          autoComplete="bio"
           name="bio"
           type="text"
           variant="outlined"
