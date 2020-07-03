@@ -189,6 +189,7 @@ const useStyles = makeStyles(theme => ({
     padding: "none",
     background: "none",
     backgroundColor: "none",
+    border: "none",
   },
   comments: {
     marginLeft: "1.6rem",
