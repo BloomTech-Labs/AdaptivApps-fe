@@ -7,7 +7,11 @@ import {
   GET_NEWSFEED_COMMENTS,
   NEWSFEED_COMMENT_SUBSCRIPTION,
 } from "../queries/FeedComment";
-import { DELETE_NEWSFEED_POST, PIN_NEWSFEED_POST } from "../queries/FeedPost";
+import {
+  DELETE_NEWSFEED_POST,
+  PIN_NEWSFEED_POST,
+  UPDATE_NEWSFEED_POST,
+} from "../queries/FeedPost";
 import {
   CREATE_NEWSFEED_LIKE,
   DELETE_NEWSFEED_LIKE,
@@ -33,6 +37,7 @@ import {
   Button,
   Divider,
   Typography,
+  Icon,
 } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -179,10 +184,7 @@ const useStyles = makeStyles(theme => ({
   },
   editDeleteBtn: {
     display: "flex",
-    flexDirection: "column",
-    position: "absolute",
-    marginTop: "3rem",
-    marginLeft: "-2rem",
+    justifyContent: "flex-end",
   },
   btn: {
     padding: "none",
@@ -199,6 +201,8 @@ export default function NewsfeedCard(props) {
   const [commenting, setCommenting] = useState(false);
   const [displayComments, setDisplayComments] = useState(false);
   const [displayDropdown, setDisplayDropdown] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [postToEdit, setPostToEdit] = useState(post.body);
 
   const { data: comments, loading, error, refetch } = useQuery(
     GET_NEWSFEED_COMMENTS,
@@ -220,6 +224,7 @@ export default function NewsfeedCard(props) {
   const [createComment] = useMutation(CREATE_NEWSFEED_COMMENT);
   const [addLike] = useMutation(CREATE_NEWSFEED_LIKE);
   const [removeLike] = useMutation(DELETE_NEWSFEED_LIKE);
+  const [updatePost] = useMutation(UPDATE_NEWSFEED_POST);
 
   const toggleComment = () => {
     setCommenting(!commenting);
@@ -234,6 +239,16 @@ export default function NewsfeedCard(props) {
       },
     });
     setCommentText("");
+  };
+
+  const editPost = async () => {
+    await updatePost({
+      variables: {
+        id: post.id,
+        body: postToEdit,
+      },
+    });
+    setEditing(false);
   };
 
   const hasLiked = () => {
@@ -322,34 +337,23 @@ export default function NewsfeedCard(props) {
             {post.postedBy.firstName} {post.postedBy.lastName}
           </Typography>
         </div>
-        {user?.email === post?.postedBy?.email ? (
-          <div className={classes.dropdownContainer}>
-            <button
-              type="button"
-              className={classes.header}
-              onClick={() => setDisplayDropdown(!displayDropdown)}
+        {user?.email === post?.postedBy?.email ||
+        (user && user[config.roleUrl].includes("Admin")) ? (
+          <div className={classes.editDeleteBtn}>
+            <Button
+              className={classes.btn}
+              onClick={() => setEditing(!editing)}
             >
-              {displayDropdown ? (
-                <FontAwesomeIcon icon={faAngleUp} className={classes.icons} />
-              ) : (
-                <FontAwesomeIcon icon={faAngleDown} className={classes.icons} />
-              )}
-            </button>
-            {displayDropdown && (
-              <div className={classes.editDeleteBtn}>
-                <Button className={classes.btn}>
-                  <EditOutlinedIcon color="action" fontSize="large" />
-                </Button>
-                <Button onClick={deletePost} className={classes.btn}>
-                  <DeleteOutlineIcon color="action" fontSize="large" />
-                </Button>
-                {user && user[config.roleUrl].includes("Admin") ? (
-                  <Button className={classes.btn} onClick={pinPost}>
-                    <PinDropOutlinedIcon color="action" fontSize="large" />
-                  </Button>
-                ) : null}
-              </div>
-            )}
+              <EditOutlinedIcon color="action" fontSize="large" />
+            </Button>
+            <Button onClick={deletePost} className={classes.btn}>
+              <DeleteOutlineIcon color="action" fontSize="large" />
+            </Button>
+            {user && user[config.roleUrl].includes("Admin") ? (
+              <Button className={classes.btn} onClick={pinPost}>
+                <PinDropOutlinedIcon color="action" fontSize="large" />
+              </Button>
+            ) : null}
           </div>
         ) : null}
       </CardActions>
@@ -363,9 +367,23 @@ export default function NewsfeedCard(props) {
           />
         ) : null}
         <CardContent>
-          <p className={post.imgUrl ? classes.post : classes.soloPost}>
-            {post.body}
-          </p>
+          {editing ? (
+            <TextField
+              type="text"
+              variant="outlined"
+              multiline
+              onKeyPress={e =>
+                e.key === "Enter" && postToEdit !== "" ? editPost() : null
+              }
+              onChange={e => setPostToEdit(e.target.value)}
+              value={postToEdit}
+              placeholder="Edit your post..."
+            />
+          ) : (
+            <p className={post.imgUrl ? classes.post : classes.soloPost}>
+              {post.body}
+            </p>
+          )}
         </CardContent>
       </CardActions>
       <Divider variant="middle" />
@@ -466,14 +484,35 @@ export default function NewsfeedCard(props) {
           {toggleCommentOverflow ? "hide comments" : "show more comments"}
         </Button>
       ) : null}
-
-      {console.log(toggleCommentOverflow)}
     </Card>
   ) : null;
 }
 
-// <Button color="primary" className={classes.button} onClick={addComment}>
-//           <KeyboardReturnIcon fontSize={"large"} className={classes.icon} />
-//           Submit
+// <div className={classes.dropdownContainer}>
+//   <button
+//     type="button"
+//     className={classes.header}
+//     onClick={() => setDisplayDropdown(!displayDropdown)}
+//   >
+//     {displayDropdown ? (
+//       <FontAwesomeIcon icon={faAngleUp} className={classes.icons} />
+//     ) : (
+//       <FontAwesomeIcon icon={faAngleDown} className={classes.icons} />
+//     )}
+//   </button>
+//   {displayDropdown && (
+//     <div className={classes.editDeleteBtn}>
+//       <Button className={classes.btn}>
+//         <EditOutlinedIcon color="action" fontSize="large" />
+//       </Button>
+//       <Button onClick={deletePost} className={classes.btn}>
+//         <DeleteOutlineIcon color="action" fontSize="large" />
+//       </Button>
+//       {user && user[config.roleUrl].includes("Admin") ? (
+//         <Button className={classes.btn} onClick={pinPost}>
+//           <PinDropOutlinedIcon color="action" fontSize="large" />
 //         </Button>
-//<AccountCircleIcon fontSize={"large"} className={classes.icon} />
+//       ) : null}
+//     </div>
+//   )}
+// </div>;
