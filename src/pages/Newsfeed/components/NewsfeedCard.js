@@ -7,7 +7,7 @@ import {
   GET_NEWSFEED_COMMENTS,
   NEWSFEED_COMMENT_SUBSCRIPTION,
 } from "../queries/FeedComment";
-import { DELETE_NEWSFEED_POST } from "../queries/FeedPost";
+import { DELETE_NEWSFEED_POST, PIN_NEWSFEED_POST } from "../queries/FeedPost";
 import {
   CREATE_NEWSFEED_LIKE,
   DELETE_NEWSFEED_LIKE,
@@ -191,7 +191,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function NewsfeedCard(props) {
   const classes = useStyles();
-  const { post, user, refetchPosts, profile } = props;
+  const { post, user, refetchPosts, profile, pinnedPost } = props;
 
   const [commentText, setCommentText] = useState("");
   const [toggleCommentOverflow, setToggleCommentOverflow] = useState(false);
@@ -215,6 +215,7 @@ export default function NewsfeedCard(props) {
   } = useSubscription(NEWSFEED_COMMENT_SUBSCRIPTION);
 
   const [deleteNewsfeedPost] = useMutation(DELETE_NEWSFEED_POST);
+  const [pinFeedPost] = useMutation(PIN_NEWSFEED_POST);
   const [createComment] = useMutation(CREATE_NEWSFEED_COMMENT);
   const [addLike] = useMutation(CREATE_NEWSFEED_LIKE);
   const [removeLike] = useMutation(DELETE_NEWSFEED_LIKE);
@@ -237,7 +238,6 @@ export default function NewsfeedCard(props) {
   const hasLiked = () => {
     for (let i = 0; i < post.likes.length; i++) {
       if (post.likes[i].likedBy.email === user.email) {
-        console.log(post.likes[i].likedBy.id);
         return post.likes[i].id;
       }
     }
@@ -276,87 +276,114 @@ export default function NewsfeedCard(props) {
     });
   };
 
+  const pinPost = async () => {
+    if (!pinnedPost) {
+      await pinFeedPost({
+        variables: {
+          id: post.id,
+          pinnedPost: true
+        }
+      })
+    }
+    else {
+      await pinFeedPost({
+        variables: {
+          id: pinnedPost.id,
+          pinnedPost: false
+        }
+      })
+      await pinFeedPost({
+        variables: {
+          id: post.id,
+          pinnedPost: true
+        }
+      })
+    }
+    refetchPosts();
+  }
+
   if (loading) return <CircularProgress />;
   if (error) return `Error! ${error.message}`;
 
   !commentsLoading && refetch();
 
   return (
-    <Card className={classes.root}>
-      <CardActions className={classes.postHeader}>
-        <div className={classes.postedBy}>
-          {post?.postedBy?.profilePicture ? (
-            <CustomMessageIcon pictureIcon={post.postedBy.profilePicture} />
-          ) : (
-              <AccountCircleIcon
-                fontSize={"large"}
-                className={classes.avatarIcon}
-              />
-            )}
-          <Typography className={classes.postedByName} gutterBottom>
-            {post.postedBy.firstName} {post.postedBy.lastName}
-          </Typography>
-        </div>
-        {user?.email === post?.postedBy?.email ? (
-          <div className={classes.dropdownContainer}>
-            <button type="button" className={classes.header} onClick={() => setDisplayDropdown(!displayDropdown)}>
-              {displayDropdown
-                ? <FontAwesomeIcon icon={faAngleUp} className={classes.icons} />
-                : <FontAwesomeIcon icon={faAngleDown} className={classes.icons} />}
-            </button>
-            {displayDropdown && (
-              <div className={classes.editDeleteBtn}>
-                <Button className={classes.btn}>
-                  <EditOutlinedIcon color="action" fontSize="large" />
-                </Button>
-                <Button onClick={deletePost} className={classes.btn}>
-                  <DeleteOutlineIcon color="action" fontSize="large" />
-                </Button>
-                {user && user[config.roleUrl].includes("Admin") ? (
-                  <Button className={classes.btn}>
-                    <PinDropOutlinedIcon color="action" fontSize="large" />
-                  </Button>
-                ) : null}
-              </div>
-            )}
+    (!pinnedPost || (pinnedPost && pinnedPost.id !== post.id)) ?
+      <Card className={classes.root}>
+        <CardActions className={classes.postHeader}>
+          <div className={classes.postedBy}>
+            {post?.postedBy?.profilePicture ? (
+              <CustomMessageIcon pictureIcon={post.postedBy.profilePicture} />
+            ) : (
+                <AccountCircleIcon
+                  fontSize={"large"}
+                  className={classes.avatarIcon}
+                />
+              )}
+            <Typography className={classes.postedByName} gutterBottom>
+              {post.postedBy.firstName} {post.postedBy.lastName}
+            </Typography>
           </div>
-        ) : null}
-      </CardActions>
-      <CardActions className={classes.postBody}>
-        {post.imgUrl ? (
-          <CardMedia
-            component="img"
-            className={classes.img}
-            alt="description of post image"
-            image={post.imgUrl}
-          />
-        ) : null}
-        <CardContent>
-          <p className={post.imgUrl ? classes.post : classes.soloPost}>
-            {post.body}
-          </p>
-        </CardContent>
-      </CardActions>
-      <Divider variant="middle" />
+          {user?.email === post?.postedBy?.email ? (
+            <div className={classes.dropdownContainer}>
+              <button type="button" className={classes.header} onClick={() => setDisplayDropdown(!displayDropdown)}>
+                {displayDropdown
+                  ? <FontAwesomeIcon icon={faAngleUp} className={classes.icons} />
+                  : <FontAwesomeIcon icon={faAngleDown} className={classes.icons} />}
+              </button>
+              {displayDropdown && (
+                <div className={classes.editDeleteBtn}>
+                  <Button className={classes.btn}>
+                    <EditOutlinedIcon color="action" fontSize="large" />
+                  </Button>
+                  <Button onClick={deletePost} className={classes.btn}>
+                    <DeleteOutlineIcon color="action" fontSize="large" />
+                  </Button>
+                  {user && user[config.roleUrl].includes("Admin") ? (
+                    <Button className={classes.btn} onClick={pinPost} >
+                      <PinDropOutlinedIcon color="action" fontSize="large" />
+                    </Button>
+                  ) : null}
+                </div>
+              )}
+            </div>
+          ) : null}
+        </CardActions>
+        <CardActions className={classes.postBody}>
+          {post.imgUrl ? (
+            <CardMedia
+              component="img"
+              className={classes.img}
+              alt="description of post image"
+              image={post.imgUrl}
+            />
+          ) : null}
+          <CardContent>
+            <p className={post.imgUrl ? classes.post : classes.soloPost}>
+              {post.body}
+            </p>
+          </CardContent>
+        </CardActions>
+        <Divider variant="middle" />
 
-      <CardActions className={classes.cardActions}>
-        <Button color="primary" className={classes.button} onClick={toggleLiked}>
-          <ThumbUpAltIcon fontSize={"large"} className={classes.icon} />
-          <span className={classes.cta}>{hasLiked() ? `${post.likes.length} Likes` : `Like`}</span>
-        </Button>
-        <Button
-          color="primary"
-          className={classes.button}
-          onClick={toggleComment}
-        >
-          <ModeCommentIcon fontSize={"large"} className={classes.icon} />
-          <Typography className={classes.cta}>Comment</Typography>
-        </Button>
-      </CardActions>
+        <CardActions className={classes.cardActions}>
+          <Button color="primary" className={classes.button} onClick={toggleLiked}>
+            <ThumbUpAltIcon fontSize={"large"} className={classes.icon} />
+            <span className={classes.cta}>{hasLiked() ? `${post.likes.length} Likes` : `Like`}</span>
+          </Button>
+          <Button
+            color="primary"
+            className={classes.button}
+            onClick={toggleComment}
+          >
+            <ModeCommentIcon fontSize={"large"} className={classes.icon} />
+            <Typography className={classes.cta}>Comment</Typography>
+          </Button>
+        </CardActions>
 
-      <Divider variant="middle" />
+        <Divider variant="middle" />
 
-      {/* <CardActionArea className={classes.postHeader}>
+        {/* <CardActionArea className={classes.postHeader}>
         <button onClick={showComments}>
           <p>
             {comments && comments.feedComments.length === 0
@@ -369,69 +396,67 @@ export default function NewsfeedCard(props) {
 
       <Divider variant="middle" /> */}
 
-      {/* {commenting ? ( */}
-      <div className={classes.comment}>
-        <TextField
-          size="small"
-          type="text"
-          variant="outlined"
-          //multiline
-          onKeyPress={e =>
-            e.key === "Enter" && commentText !== "" ? addComment() : null
-          }
-          onChange={e => setCommentText(e.target.value)}
-          value={commentText}
-          placeholder="Write a comment..."
-        />
-      </div>
-      {/* ) : null} */}
-
-      <Divider variant="middle" />
-
-      {comments &&
-        comments.feedComments.map((comment, i) => (
-          <div
-            key={comment.id}
-            className={
-              i < 3 && !toggleCommentOverflow
-                ? classes.flex
-                : toggleCommentOverflow
-                  ? classes.showAllComments
-                  : classes.commentOverflow
+        {/* {commenting ? ( */}
+        <div className={classes.comment}>
+          <TextField
+            size="small"
+            type="text"
+            variant="outlined"
+            //multiline
+            onKeyPress={e =>
+              e.key === "Enter" && commentText !== "" ? addComment() : null
             }
-          >
-            {comment?.postedBy?.profilePicture ? (
-              <CustomMessageIcon
-                pictureIcon={comment?.postedBy?.profilePicture}
-              />
-            ) : (
-                <AccountCircleIcon
-                  fontSize={"large"}
-                  className={classes.avatarIcon}
+            onChange={e => setCommentText(e.target.value)}
+            value={commentText}
+            placeholder="Write a comment..."
+          />
+        </div>
+        {/* ) : null} */}
+
+        <Divider variant="middle" />
+
+        {comments &&
+          comments.feedComments.map((comment, i) => (
+            <div
+              key={comment.id}
+              className={
+                i < 3 && !toggleCommentOverflow
+                  ? classes.flex
+                  : toggleCommentOverflow
+                    ? classes.showAllComments
+                    : classes.commentOverflow
+              }
+            >
+              {comment?.postedBy?.profilePicture ? (
+                <CustomMessageIcon
+                  pictureIcon={comment?.postedBy?.profilePicture}
                 />
-              )}
+              ) : (
+                  <AccountCircleIcon
+                    fontSize={"large"}
+                    className={classes.avatarIcon}
+                  />
+                )}
 
-            <div className={classes.commentBox}>
-              <Typography className={classes.commentName}>
-                {comment.postedBy.firstName} {comment.postedBy.lastName}
-              </Typography>
-              <Typography className={classes.commentContent} gutterBottom>
-                {comment.body}
-              </Typography>
+              <div className={classes.commentBox}>
+                <Typography className={classes.commentName}>
+                  {comment.postedBy.firstName} {comment.postedBy.lastName}
+                </Typography>
+                <Typography className={classes.commentContent} gutterBottom>
+                  {comment.body}
+                </Typography>
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
 
-      {comments?.feedComments?.length > 3 ? (
-        <Button
-          onClick={() => setToggleCommentOverflow(!toggleCommentOverflow)}
-        >
-          {toggleCommentOverflow ? "hide comments" : "show more comments"}
-        </Button>
-      ) : null}
-
-      {console.log(toggleCommentOverflow)}
-    </Card>
+        {comments?.feedComments?.length > 3 ? (
+          <Button
+            onClick={() => setToggleCommentOverflow(!toggleCommentOverflow)}
+          >
+            {toggleCommentOverflow ? "hide comments" : "show more comments"}
+          </Button>
+        ) : null}
+      </Card> : null
   );
 }
 

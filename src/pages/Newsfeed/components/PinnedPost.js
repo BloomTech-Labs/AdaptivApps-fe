@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import config from "../../../config/auth_config";
-
+import { useMutation } from "react-apollo";
+import { PIN_NEWSFEED_POST } from "../queries/FeedPost";
 // Component Imports
 import CustomMessageIcon from "../../Chat/components/Messages/CustomMessageIcon";
 
@@ -11,6 +12,10 @@ import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ModeCommentIcon from "@material-ui/icons/ModeComment";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
+import PinDropOutlinedIcon from '@material-ui/icons/PinDropOutlined';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
+
 import {
   makeStyles,
   TextField,
@@ -23,15 +28,6 @@ import {
   Divider,
   Typography,
 } from "@material-ui/core";
-
-const ACS_Icon = require("../../../assets/images/ACS_ICON.png");
-
-const pinnedPost = {
-  imgUrl: "www.google.com",
-  body:
-    "Don't forget to tune in for our Opening Ceremony at noon! Click the zoom link below!!",
-  postedBy: "amm123@test.com",
-};
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -85,7 +81,40 @@ const useStyles = makeStyles(theme => ({
     alignItems: "baseline",
     margin: "3% auto",
   },
-
+  img: {
+    maxWidth: "40%",
+    padding: "0 1.6rem",
+    borderRadius: "5px",
+  },
+  dropdownContainer: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  header: {
+    display: "flex",
+    justifyItems: "flex-end",
+    borderRadius: "3px",
+    background: "none",
+    lineHeight: "30px",
+    width: "100%",
+    fontSize: "2.4rem",
+    border: "none",
+  },
+  icons: {
+    display: "flex",
+    alignSelf: "flex-end",
+    color: "black",
+  },
+  editDeleteBtn: {
+    display: "flex",
+    flexDirection: "column",
+    position: "absolute",
+    marginTop: "3rem",
+    marginLeft: "-2rem",
+  },
+  btn: {
+    padding: "none",
+  }
   // editDeleteBtn: {
   //   width: "20%",
   // },
@@ -97,9 +126,11 @@ const useStyles = makeStyles(theme => ({
 // pin post
 // tooltips/aria labels
 
-export default function PinnedPost({ user }) {
+export default function PinnedPost({ user, pinnedPost, refetchPosts }) {
   const classes = useStyles();
+  const [pinFeedPost] = useMutation(PIN_NEWSFEED_POST);
   const [commenting, setCommenting] = useState(false);
+  const [displayDropdown, setDisplayDropdown] = useState(false);
 
   const editPost = () => {
     //edit post logic
@@ -113,27 +144,50 @@ export default function PinnedPost({ user }) {
     setCommenting(!commenting);
   };
 
+  const pinPost = async () => {
+    await pinFeedPost({
+      variables: {
+        id: pinnedPost.id,
+        pinnedPost: !pinnedPost.pinnedPost
+      }
+    })
+    refetchPosts();
+  }
+
   return (
     <>
-      <Card className={classes.root}>
+      {pinnedPost ? <Card className={classes.root}>
         <CardActionArea className={classes.postHeader}>
           <Typography variant="h3" color="secondary" className={classes.label}>
             Angel City Sports Pinned Post
           </Typography>
           <div className={classes.pinnedBy}>
             <div className={classes.acs}>
-              <CustomMessageIcon pictureIcon={ACS_Icon} />
-              <p>Angel City Sports</p>
+              <CustomMessageIcon pictureIcon={pinnedPost?.postedBy.profilePicture} />
+              <p>{pinnedPost?.postedBy.firstName} {pinnedPost?.postedBy.lastName}</p>
             </div>
-
-            {user && user[config.roleUrl].includes("Admin") ? (
-              <div className={classes.editDeleteBtn}>
-                <Button onClick={editPost}>
-                  <EditOutlinedIcon color="action" fontSize="large" />
-                </Button>
-                <Button onClick={unpinPost}>
-                  <DeleteOutlineIcon color="action" fontSize="large" />
-                </Button>
+            {user?.email === pinnedPost?.postedBy?.email ? (
+              <div className={classes.dropdownContainer}>
+                <button type="button" className={classes.header} onClick={() => setDisplayDropdown(!displayDropdown)}>
+                  {displayDropdown
+                    ? <FontAwesomeIcon icon={faAngleUp} className={classes.icons} />
+                    : <FontAwesomeIcon icon={faAngleDown} className={classes.icons} />}
+                </button>
+                {displayDropdown && (
+                  <div className={classes.editDeleteBtn}>
+                    <Button className={classes.btn}>
+                      <EditOutlinedIcon color="action" fontSize="large" />
+                    </Button>
+                    <Button className={classes.btn}>
+                      <DeleteOutlineIcon color="action" fontSize="large" />
+                    </Button>
+                    {user && user[config.roleUrl].includes("Admin") ? (
+                      <Button className={classes.btn} onClick={pinPost}>
+                        <PinDropOutlinedIcon color="action" fontSize="large" />
+                      </Button>
+                    ) : null}
+                  </div>
+                )}
               </div>
             ) : null}
           </div>
@@ -143,6 +197,14 @@ export default function PinnedPost({ user }) {
             pinnedPost.imgUrl ? classes.postImage : classes.postNoImage
           }
         >
+          {pinnedPost.imgUrl ? (
+            <CardMedia
+              component="img"
+              className={classes.img}
+              alt="description of post image"
+              image={pinnedPost.imgUrl}
+            />
+          ) : null}
           <Typography className={classes.postBody}>
             {pinnedPost.body}
           </Typography>
@@ -182,7 +244,7 @@ export default function PinnedPost({ user }) {
         ) : null}
 
         <Divider variant="middle" />
-      </Card>
+      </Card> : null}
     </>
   );
 }
