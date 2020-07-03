@@ -658,13 +658,13 @@ export default function Settings() {
               profile?.type === null ? classes.nullProfileCta : classes.ctaBox
             }
           >
-            <Typography tabIndex="0">
+            <Typography>
               Help us bring you the best
               </Typography>
-              <Typography tabIndex="0">
+              <Typography>
               Angel City Sports experience--
               </Typography>
-              <Typography tabIndex="0">
+              <Typography>
               Tell us a bit more about yourself!
             </Typography>
           
@@ -677,8 +677,8 @@ export default function Settings() {
             </Button>
           </Box>
         </Box>
-        <p className={classes.emailNotice} tabIndex="0">
-          *Don't forget to check your email with updates from ACS!
+        <p className={classes.emailNotice}>
+          *Don't forget to check your email with updates from Angel City Sports!
         </p>
       </Box>
     </>
