@@ -147,21 +147,28 @@ export default function CreatePost({ user, profile }) {
     }
   };
 
+  const props = {
+    inputProps: {
+      'aria-label': 'Type a message here that will be posted to the community newsfeed. Then hit enter to send.'
+    }
+  }
+
   return (
     <div className={classes.root}>
       <div className={classes.postInput}>
         {profile?.profilePicture ? (
-          <CustomMessageIcon pictureIcon={profile?.profilePicture} />
+          <CustomMessageIcon pictureIcon={profile?.profilePicture} myProfileUsername={profile?.userName} />
         ) : user?.picture ? (
-          <CustomMessageIcon pictureIcon={user?.picture} />
+          <CustomMessageIcon pictureIcon={user?.picture} myProfileUsername={profile?.userName} />
         ) : (
-          <AccountCircleIcon className={classes.icon} />
-        )}
+              <AccountCircleIcon className={classes.icon} />
+            )}
         <TextField
+          {...props}
           size="small"
           type="text"
           variant="outlined"
-          //multiline
+          multiline
           onKeyPress={e =>
             e.key === "Enter" && postInput !== "" ? createPost() : null
           }
@@ -169,7 +176,6 @@ export default function CreatePost({ user, profile }) {
           className={classes.input}
           value={postInput}
           placeholder="Type here to share a post with the community..."
-          aria-label="Type a message here that will be posted to the community newsfeed. Then hit enter to send."
         />
       </div>
       <div className={classes.cta}>
@@ -198,26 +204,26 @@ export default function CreatePost({ user, profile }) {
             />
           </div>
         ) : (
-          <div className={classes.inputField}>
-            <InputLabel required className={classes.inputLabel} htmlFor="image">
-              Post Image
+            <div className={classes.inputField}>
+              <InputLabel required className={classes.inputLabel} htmlFor="image">
+                Post Image
             </InputLabel>
-            <img
-              src={postImage}
-              alt="image for this post"
-              className={classes.img}
-            />
-            <button className={classes.removalBtn}>
+              <img
+                src={postImage}
+                alt="image for this post"
+                className={classes.img}
+              />
               <Tooltip title="Remove Image">
-                <CloseIcon
-                  onClick={() => setPostImage(null)}
-                  aria-label="Remove Image"
-                  fontSize="large"
-                />
+                <button aria-label="remove uploaded image" className={classes.removalBtn}>
+                  <CloseIcon
+                    onClick={() => setPostImage(null)}
+                    aria-label="Remove Image"
+                    fontSize="large"
+                  />
+                </button>
               </Tooltip>
-            </button>
-          </div>
-        )}
+            </div>
+          )}
         {/* {user && user[config.roleUrl].includes("Admin") ? (
           <div className={classes.flexPinnedPost}>
             <Checkbox
