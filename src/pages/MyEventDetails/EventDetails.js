@@ -1,6 +1,8 @@
 // React imports
 import React, { useEffect } from "react";
 import moment from "moment";
+// Google Analytics Imports
+import ReactGA from "react-ga";
 // Component imports
 import ActivityGroup from "./ActivityGroup";
 import eventImg from "../../assets/images/acs_hartford.png";
@@ -135,6 +137,20 @@ const useStyles = makeStyles({
   },
 });
 
+/**
+ * Event - Add custom tracking event.
+ * @param {string} category
+ * @param {string} action
+ * @param {string} label
+ */
+export const trackAttendees = (category, action, label) => {
+  ReactGA.event({
+    category: category,
+    action: action,
+    label: label,
+  });
+};
+
 export default function EventDetails(props) {
   const classes = useStyles();
   const activeEvent = props.event;
@@ -201,7 +217,7 @@ export default function EventDetails(props) {
           DONATE NOW
         </Link>
       </Box>
-    
+
       {activeEvent.type === "Virtual" ? (
         <Box className={classes.virtualBox}>
           {activeEvent.host !== "" ? (
@@ -214,7 +230,14 @@ export default function EventDetails(props) {
             <p>Special Guest Speaker(s): {activeEvent.speakers}</p>
           ) : null}
 
-          <a href={activeEvent.link} rel="noopener noreferrer" target="_blank">
+          <a
+            href={activeEvent.link}
+            rel="noopener noreferrer"
+            target="_blank"
+            onClick={() =>
+              trackAttendees("Event", "Joined Virtual Event", "ATTENDEE_ADDED")
+            }
+          >
             Click Here to Join Us!
           </a>
         </Box>
