@@ -8,6 +8,7 @@ export const GET_NEWSFEED_POSTS = gql`
       body
       imgUrl
       createdAt
+      pinnedPost
       comments {
         id
         body
@@ -57,6 +58,7 @@ export const CREATE_NEWSFEED_POST = gql`
       id
       body
       createdAt
+      pinnedPost
       postedBy {
         id
         userName
@@ -74,7 +76,6 @@ export const PIN_NEWSFEED_POST = gql`
   mutation pinFeedPost($id: ID!, $pinnedPost: Boolean!) {
     updateFeedPost(data: { pinnedPost: $pinnedPost }, where: { id: $id }) {
       id
-      pinnedPost
     }
   }
 `;
@@ -86,6 +87,7 @@ export const UPDATE_NEWSFEED_POST = gql`
       id
       body
       imgUrl
+      pinnedPost
       postedBy {
         id
         userName
@@ -118,6 +120,7 @@ export const NEWSFEED_POST_SUBSCRIPTION = gql`
         body
         imgUrl
         createdAt
+        pinnedPost
         postedBy {
           id
           userName
