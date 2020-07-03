@@ -144,13 +144,13 @@ const useStyles = makeStyles(theme => ({
     fontSize: "2rem",
     color: "#2962FF",
     fontWeight: "bold",
-    margin: "5% auto 3%",
+    margin: "5% auto 3% auto",
     // "&:nth-child(3)": {
     //   margin: "3% auto",
     // },
     [theme.breakpoints.down("sm")]: {
       fontSize: "1.75rem",
-      margin: "3% auto",
+      
     },
     [theme.breakpoints.down("xs")]: {
       fontSize: "1.75rem",
@@ -201,19 +201,26 @@ const useStyles = makeStyles(theme => ({
     },
     [theme.breakpoints.down("sm")]: {
       fontSize: ".25rem",
+      margin: '1.5rem 0 0 3rem'
     },
     [theme.breakpoints.down("xs")]: {
       fontSize: ".25rem",
+      margin: '1.5rem 0 0 5rem'
     },
   },
   hartford: {
-    marginTop: "3%",
+    marginTop: "5%",
     maxWidth: "50%",
+    [theme.breakpoints.down("sm")]: {
+      marginTop: "10%",
+      maxWidth: '85%'
+    },
   },
   adaptiv: {
     maxWidth: "35%",
     [theme.breakpoints.down("sm")]: {
-      margin: "10% auto",
+      margin: "5% auto",
+      maxWidth: '60%'
     },
     [theme.breakpoints.down("xs")]: {
       margin: "10% auto",
