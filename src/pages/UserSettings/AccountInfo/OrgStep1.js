@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "@reach/router";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Apollo/GraphQL imports
@@ -88,7 +89,7 @@ const useStyles = makeStyles(theme => ({
   btnBox: {
     marginTop: "3rem",
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     alignItems: "center",
   },
   error: {
@@ -97,6 +98,13 @@ const useStyles = makeStyles(theme => ({
     fontVariant: "all-small-caps",
     fontWeight: "bold",
     marginTop: "1rem",
+  },
+  a11yLink: {
+    display: "flex",
+    alignSelf: "flex-end",
+    fontSize: "1.4rem",
+    color: "#2962FF",
+    textDecoration: "underline",
   },
 }));
 
@@ -357,6 +365,9 @@ export default function OrgStep1({ updateOrgProfile }) {
       </Box>
       <Typography className={classes.error}>* required field</Typography>
       <Box className={classes.btnBox}>
+        <Link to="/privacy-policy" className={classes.a11yLink}>
+          Privacy Policy
+        </Link>
         <FinishButton
           label="Finish"
           type="submit"

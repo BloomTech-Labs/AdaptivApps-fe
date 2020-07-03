@@ -1,5 +1,6 @@
 // React/Reach Router imports
 import React, { useState, useEffect } from "react";
+import { Link } from "@reach/router";
 import { useNavigate, useParams } from "@reach/router";
 import { useForm, Controller } from "react-hook-form";
 // Apollo/GraphQL imports
@@ -96,6 +97,11 @@ const useStyles = makeStyles(theme => ({
     fontVariant: "all-small-caps",
     fontWeight: "bold",
     marginTop: "1rem",
+  },
+  a11yLink: {
+    fontSize: "1.4rem",
+    color: "#2962FF",
+    textDecoration: "underline",
   },
 }));
 
@@ -232,6 +238,9 @@ export default function AccountTypeForm({ updateProfile }) {
           />
         </Box>
       </form>
+      <Link to="/privacy-policy" className={classes.a11yLink}>
+        Privacy Policy
+      </Link>
     </Box>
   );
 }

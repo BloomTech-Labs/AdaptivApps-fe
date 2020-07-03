@@ -292,7 +292,7 @@ export default function SponsorSpotlight() {
               target="_blank"
               rel="noopener noreferrer"
               tabIndex="0"
-              aria-label="Click to go to Citi's Website"
+              aria-label="Click to go to Citi Bank's Website"
             >
               <img
                 className={classes.img}
@@ -337,7 +337,7 @@ export default function SponsorSpotlight() {
               target="_blank"
               rel="noopener noreferrer"
               tabIndex="0"
-              aria-label="Click to go to MarVista's website"
+              aria-label="Click to go to MarVista Entertainment's website"
             >
               <img
                 className={classes.img}
@@ -354,7 +354,6 @@ export default function SponsorSpotlight() {
           alignItems="center"
           justify="space-evenly"
           className={classes.silver}
-          aria-label="Click to go to Adaptiv Apps' Website"
         >
           <Grid item xs>
             <a
