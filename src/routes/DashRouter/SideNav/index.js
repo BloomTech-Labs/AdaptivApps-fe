@@ -303,7 +303,6 @@ function SideNav(props) {
               <BookmarkIcon className={classes.navIcon} />
               <p>My Events</p>
             </NavLink>
-           
             {/* Profile Validation */}
             {data?.profile?.userName === null ? (
               <Tooltip title="Please complete your profile information to access Chat">
@@ -330,11 +329,11 @@ function SideNav(props) {
                 <p>Chat</p>
               </NavLink>
             )}
-            {/*<NavLink to="/newsfeed" className={classes.navLink}>
+            <NavLink to="/newsfeed" className={classes.navLink}>
               <HomeIcon className={classes.navIcon} />
               <p>Newsfeed</p>
-            </NavLink>*/}
-             <NavLink to="settings" className={classes.navLink}>
+            </NavLink>
+            <NavLink to="settings" className={classes.navLink}>
               <SettingsIcon className={classes.navIcon} />
               <p>Settings</p>
             </NavLink>

@@ -28,6 +28,7 @@ import ManageUsers from "./pages/ManageUsers";
 import Announcement from "./pages/Announcement";
 import FAQ from "./pages/FAQ";
 import Welcome from "./pages/Welcome";
+import NewsfeedPage from "./pages/Newsfeed/components/NewsfeedPage";
 import TermsOfService from "./pages/Legal/TermsOfService";
 import EndUserLicenseAgreement from "./pages/Legal/EULA";
 // import NewsfeedPage from './pages/Newsfeed/components/NewsfeedPage'
@@ -170,7 +171,7 @@ function App() {
               <ManageUsers path="manageUsers" />
               <Announcement path="/announcements" />
               <FAQ path="/faqs" />
-              {/*<NewsfeedPage path="/newsfeed" />*/}
+              <NewsfeedPage path="/newsfeed" />
             </PrivateRoute>
           </Router>
         </div>
