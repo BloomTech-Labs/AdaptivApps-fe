@@ -8,6 +8,7 @@ export const GET_NEWSFEED_POSTS = gql`
       body
       imgUrl
       createdAt
+      pinnedPost
       comments {
         id
         body

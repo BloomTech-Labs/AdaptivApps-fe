@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import config from "../../../config/auth_config";
 // Import graphql
 import { useQuery, useMutation, useSubscription } from "react-apollo";
 import {
@@ -6,7 +7,7 @@ import {
   GET_NEWSFEED_COMMENTS,
   NEWSFEED_COMMENT_SUBSCRIPTION,
 } from "../queries/FeedComment";
-import { DELETE_NEWSFEED_POST } from "../queries/FeedPost";
+import { DELETE_NEWSFEED_POST, PIN_NEWSFEED_POST } from "../queries/FeedPost";
 import {
   CREATE_NEWSFEED_LIKE,
   DELETE_NEWSFEED_LIKE,
@@ -19,6 +20,8 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import PinDropOutlinedIcon from "@material-ui/icons/PinDropOutlined";
+
 import {
   makeStyles,
   TextField,
@@ -32,6 +35,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -153,17 +158,47 @@ const useStyles = makeStyles(theme => ({
   commentOverflow: {
     display: "none",
   },
+  dropdownContainer: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  header: {
+    display: "flex",
+    justifyItems: "flex-end",
+    borderRadius: "3px",
+    background: "none",
+    lineHeight: "30px",
+    width: "100%",
+    fontSize: "2.4rem",
+    border: "none",
+  },
+  icons: {
+    display: "flex",
+    alignSelf: "flex-end",
+    color: "black",
+  },
+  editDeleteBtn: {
+    display: "flex",
+    flexDirection: "column",
+    position: "absolute",
+    marginTop: "3rem",
+    marginLeft: "-2rem",
+  },
+  btn: {
+    padding: "none",
+  },
 }));
 
 export default function NewsfeedCard(props) {
   const classes = useStyles();
-  const { post, user, refetchPosts, profile } = props;
+  const { post, user, refetchPosts, profile, pinnedPost } = props;
 
   const [commentText, setCommentText] = useState("");
   const [liked, setLiked] = useState(false);
   const [toggleCommentOverflow, setToggleCommentOverflow] = useState(false);
   const [commenting, setCommenting] = useState(false);
   const [displayComments, setDisplayComments] = useState(false);
+  const [displayDropdown, setDisplayDropdown] = useState(false);
 
   const { data: comments, loading, error, refetch } = useQuery(
     GET_NEWSFEED_COMMENTS,
@@ -173,6 +208,7 @@ export default function NewsfeedCard(props) {
       },
     }
   );
+
   const {
     data: commentSub,
     loading: commentsLoading,
@@ -180,6 +216,7 @@ export default function NewsfeedCard(props) {
   } = useSubscription(NEWSFEED_COMMENT_SUBSCRIPTION);
 
   const [deleteNewsfeedPost] = useMutation(DELETE_NEWSFEED_POST);
+  const [pinFeedPost] = useMutation(PIN_NEWSFEED_POST);
   const [createComment] = useMutation(CREATE_NEWSFEED_COMMENT);
   const [addLike] = useMutation(CREATE_NEWSFEED_LIKE);
   const [removeLike] = useMutation(DELETE_NEWSFEED_LIKE);
@@ -202,12 +239,11 @@ export default function NewsfeedCard(props) {
   const hasLiked = () => {
     for (let i = 0; i < post.likes.length; i++) {
       if (post.likes[i].likedBy.email === user.email) {
-        console.log(post.likes[i].likedBy.id);
         return post.likes[i].id;
       }
     }
     return false;
-  }
+  };
 
   const toggleLiked = async () => {
     const likesId = await hasLiked();
@@ -217,14 +253,13 @@ export default function NewsfeedCard(props) {
           postID: post.id,
           likedBy: user.email,
         },
-      })
-    }
-    else {
+      });
+    } else {
       await removeLike({
         variables: {
-          id: likesId
+          id: likesId,
         },
-      })
+      });
     }
     refetchPosts();
   };
@@ -241,35 +276,80 @@ export default function NewsfeedCard(props) {
     });
   };
 
+  const pinPost = async () => {
+    if (!pinnedPost) {
+      await pinFeedPost({
+        variables: {
+          id: post.id,
+          pinnedPost: true,
+        },
+      });
+    } else {
+      await pinFeedPost({
+        variables: {
+          id: pinnedPost.id,
+          pinnedPost: false,
+        },
+      });
+      await pinFeedPost({
+        variables: {
+          id: post.id,
+          pinnedPost: true,
+        },
+      });
+    }
+    refetchPosts();
+  };
+
   if (loading) return <CircularProgress />;
   if (error) return `Error! ${error.message}`;
 
   !commentsLoading && refetch();
 
-  return (
+  return !pinnedPost || (pinnedPost && pinnedPost.id !== post.id) ? (
     <Card className={classes.root}>
       <CardActions className={classes.postHeader}>
         <div className={classes.postedBy}>
           {post?.postedBy?.profilePicture ? (
             <CustomMessageIcon pictureIcon={post.postedBy.profilePicture} />
           ) : (
-              <AccountCircleIcon
-                fontSize={"large"}
-                className={classes.avatarIcon}
-              />
-            )}
+            <AccountCircleIcon
+              fontSize={"large"}
+              className={classes.avatarIcon}
+            />
+          )}
           <Typography className={classes.postedByName} gutterBottom>
             {post.postedBy.firstName} {post.postedBy.lastName}
           </Typography>
         </div>
         {user?.email === post?.postedBy?.email ? (
-          <div className={classes.editDeleteBtn}>
-            <Button>
-              <EditOutlinedIcon color="action" fontSize="large" />
-            </Button>
-            <Button onClick={deletePost}>
-              <DeleteOutlineIcon color="action" fontSize="large" />
-            </Button>
+          <div className={classes.dropdownContainer}>
+            <button
+              type="button"
+              className={classes.header}
+              onClick={() => setDisplayDropdown(!displayDropdown)}
+            >
+              {displayDropdown ? (
+                <FontAwesomeIcon icon={faAngleUp} className={classes.icons} />
+              ) : (
+                <FontAwesomeIcon icon={faAngleDown} className={classes.icons} />
+              )}
+            </button>
+            {displayDropdown && (
+              <div className={classes.editDeleteBtn}>
+                <Button className={classes.btn}>
+                  <EditOutlinedIcon color="action" fontSize="large" />
+                </Button>
+                <Button onClick={deletePost} className={classes.btn}>
+                  <DeleteOutlineIcon color="action" fontSize="large" />
+                </Button>
+                {user && user[config.roleUrl].includes("Admin") ? (
+                  <Button className={classes.btn} onClick={pinPost}>
+                    <PinDropOutlinedIcon color="action" fontSize="large" />
+                  </Button>
+                ) : null}
+              </div>
+            )}
           </div>
         ) : null}
       </CardActions>
@@ -291,9 +371,15 @@ export default function NewsfeedCard(props) {
       <Divider variant="middle" />
 
       <CardActions className={classes.cardActions}>
-        <Button color="primary" className={classes.button} onClick={toggleLiked}>
+        <Button
+          color="primary"
+          className={classes.button}
+          onClick={toggleLiked}
+        >
           <ThumbUpAltIcon fontSize={"large"} className={classes.icon} />
-          <span className={classes.cta}>{hasLiked() ? `${post.likes.length} Likes` : `Like`}</span>
+          <span className={classes.cta}>
+            {hasLiked() ? `${post.likes.length} Likes` : `Like`}
+          </span>
         </Button>
         <Button
           color="primary"
@@ -383,7 +469,7 @@ export default function NewsfeedCard(props) {
 
       {console.log(toggleCommentOverflow)}
     </Card>
-  );
+  ) : null;
 }
 
 // <Button color="primary" className={classes.button} onClick={addComment}>

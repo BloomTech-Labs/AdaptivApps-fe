@@ -76,6 +76,20 @@ export default function NewsfeedPage() {
   } = useSubscription(NEWSFEED_POST_SUBSCRIPTION);
   let posts = data?.feedPosts;
 
+  const findPinnedPost = () => {
+    if (posts) {
+      for (let i = 0; i < posts.length; i++) {
+        if (posts[i].pinnedPost) {
+          return posts[i];
+        }
+      }
+      return false;
+    }
+    return false;
+  };
+
+  const pinnedPost = findPinnedPost();
+
   if (loading) return <CircularProgress />;
   if (error) return `Error! ${error.message}`;
   if (newsFeedSubsError) return `newsFeedSubsError! ${error.newsFeedSubsError}`;
@@ -90,7 +104,11 @@ export default function NewsfeedPage() {
         </div>
         <div className={classes.newsfeed}>
           <CreatePost user={user} profile={profile?.profile} />
-          <PinnedPost user={user} />
+          <PinnedPost
+            user={user}
+            pinnedPost={pinnedPost}
+            refetchPosts={refetchPosts}
+          />
           {posts.map((post, index) => (
             <NewsfeedCard
               post={post}
@@ -98,6 +116,7 @@ export default function NewsfeedPage() {
               user={user}
               refetchPosts={refetchPosts}
               profile={profile?.profile}
+              pinnedPost={pinnedPost}
             />
           ))}
           <Typography className={classes.endOfPosts}>
