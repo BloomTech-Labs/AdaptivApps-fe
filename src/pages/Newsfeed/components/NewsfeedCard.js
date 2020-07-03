@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 // Import graphql
-import { useQuery, useMutation } from "react-apollo";
+import { useQuery, useMutation, useSubscription } from "react-apollo";
 import {
   CREATE_NEWSFEED_COMMENT,
   GET_NEWSFEED_COMMENTS,
+  NEWSFEED_COMMENT_SUBSCRIPTION,
 } from "../queries/FeedComment";
 import { DELETE_NEWSFEED_POST } from "../queries/FeedPost";
 import {
@@ -127,12 +128,30 @@ const useStyles = makeStyles(theme => ({
     fontSize: "1rem",
   },
   commentBox: {
+    marginLeft: ".8rem",
+    lineHeight: ".6rem",
     display: "flex",
     flexDirection: "column",
-    alignItems: "center",
   },
   flex: {
+    margin: "2.4rem 0 0 1.6rem",
     display: "flex",
+    alignItems: "stretch",
+  },
+  showAllComments: {
+    margin: "2.4rem 0 0 1.6rem",
+    display: "flex",
+    alignItems: "stretch",
+  },
+  commentName: {
+    fontSize: "1.4rem",
+    fontWeight: "bold",
+  },
+  commentContent: {
+    fontSize: "1.4rem",
+  },
+  commentOverflow: {
+    display: "none",
   },
 }));
 
@@ -141,6 +160,8 @@ export default function NewsfeedCard(props) {
   const { post, user, refetchPosts, profile } = props;
 
   const [commentText, setCommentText] = useState("");
+  const [liked, setLiked] = useState(false);
+  const [toggleCommentOverflow, setToggleCommentOverflow] = useState(false);
   const [commenting, setCommenting] = useState(false);
   const [displayComments, setDisplayComments] = useState(false);
 
@@ -152,6 +173,12 @@ export default function NewsfeedCard(props) {
       },
     }
   );
+  const {
+    data: commentSub,
+    loading: commentsLoading,
+    error: commentSubError,
+  } = useSubscription(NEWSFEED_COMMENT_SUBSCRIPTION);
+
   const [deleteNewsfeedPost] = useMutation(DELETE_NEWSFEED_POST);
   const [createComment] = useMutation(CREATE_NEWSFEED_COMMENT);
   const [addLike] = useMutation(CREATE_NEWSFEED_LIKE);
@@ -170,7 +197,6 @@ export default function NewsfeedCard(props) {
       },
     });
     setCommentText("");
-    refetch();
   };
 
   const hasLiked = () => {
@@ -217,6 +243,8 @@ export default function NewsfeedCard(props) {
 
   if (loading) return <CircularProgress />;
   if (error) return `Error! ${error.message}`;
+
+  !commentsLoading && refetch();
 
   return (
     <Card className={classes.root}>
@@ -312,31 +340,48 @@ export default function NewsfeedCard(props) {
       <Divider variant="middle" />
 
       {comments &&
-        comments.feedComments.map(comment => (
-          <div key={comment.id}>
-            <div className={classes.flex}>
-              {comment?.postedBy?.profilePicture ? (
-                <CustomMessageIcon
-                  pictureIcon={comment?.postedBy?.profilePicture}
+        comments.feedComments.map((comment, i) => (
+          <div
+            key={comment.id}
+            className={
+              i < 3 && !toggleCommentOverflow
+                ? classes.flex
+                : toggleCommentOverflow
+                  ? classes.showAllComments
+                  : classes.commentOverflow
+            }
+          >
+            {comment?.postedBy?.profilePicture ? (
+              <CustomMessageIcon
+                pictureIcon={comment?.postedBy?.profilePicture}
+              />
+            ) : (
+                <AccountCircleIcon
+                  fontSize={"large"}
+                  className={classes.avatarIcon}
                 />
-              ) : (
-                  <AccountCircleIcon
-                    fontSize={"large"}
-                    className={classes.avatarIcon}
-                  />
-                )}
-              <div className={classes.commentBox}>
-                <Typography className={classes.commentName}>
-                  {comment.postedBy.firstName} {comment.postedBy.lastName}
-                </Typography>
-                <Typography className={classes.commentContent} gutterBottom>
-                  {comment.body}
-                </Typography>
-              </div>
+              )}
+
+            <div className={classes.commentBox}>
+              <Typography className={classes.commentName}>
+                {comment.postedBy.firstName} {comment.postedBy.lastName}
+              </Typography>
+              <Typography className={classes.commentContent} gutterBottom>
+                {comment.body}
+              </Typography>
             </div>
-            <Divider variant="middle" />
           </div>
         ))}
+
+      {comments?.feedComments?.length > 3 ? (
+        <Button
+          onClick={() => setToggleCommentOverflow(!toggleCommentOverflow)}
+        >
+          {toggleCommentOverflow ? "hide comments" : "show more comments"}
+        </Button>
+      ) : null}
+
+      {console.log(toggleCommentOverflow)}
     </Card>
   );
 }
