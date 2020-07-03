@@ -3,11 +3,18 @@ import config from "../../../config/auth_config";
 import { useMutation } from "react-apollo";
 // Component Imports
 import CustomMessageIcon from "../../Chat/components/Messages/CustomMessageIcon";
-import { CREATE_NEWSFEED_POST_NO_IMAGE } from "../queries/FeedPost";
+import { CREATE_NEWSFEED_POST } from "../queries/FeedPost";
+//s3 bucket imports
+import S3FileUpload from "react-s3";
 // Styling Imports
-import { makeStyles, TextField, Checkbox, Typography } from "@material-ui/core";
+import {
+  makeStyles, TextField, Checkbox, Typography, InputLabel
+} from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import CropOriginalIcon from "@material-ui/icons/CropOriginal";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -39,51 +46,98 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     paddingBottom: "1rem",
   },
-  flexPhoto: {
-    display: "flex",
-  },
   flexPinnedPost: {
     display: "flex",
     alignItems: "center",
   },
-  image: {
-    fontSize: "1.8rem",
-    color: "#2962FF",
-    marginRight: ".9rem",
-  },
-  text: {
-    color: "#808080",
-    fontSize: "1.4rem",
-  },
   icon: {
     fontSize: "2.75rem",
     marginRight: "1rem",
+  },
+  inputUpload: {
+    display: "none",
+  },
+  inputLabel: {
+    marginBottom: "7px",
+    marginLeft: "5px",
+    "& .MuiInputLabel-asterisk": {
+      fontSize: "1.75rem",
+      color: "red",
+      fontWeight: "bolder",
+    },
+  },
+  inputField: {
+    marginBottom: "10px",
+  },
+  removalBtn: {
+    border: "none",
+    backgroundColor: "none",
+    background: "none",
+  },
+  img: {
+    width: "200px",
+    padding: "0",
+    height: "14rem",
+    objectFit: "cover",
   },
 }));
 
 export default function CreatePost({ user, profile }) {
   const classes = useStyles();
   const [postInput, setPostInput] = useState("");
+  const [postImage, setPostImage] = useState(null);
   const [pinnedPost, setPinnedPost] = useState(false);
 
-  const [createPostNoImage] = useMutation(CREATE_NEWSFEED_POST_NO_IMAGE);
+  const [createFeedPost] = useMutation(CREATE_NEWSFEED_POST);
 
   const handlePinnedPost = e => {
     setPinnedPost(e.target.checked);
   };
 
   const createPost = async () => {
-    await createPostNoImage({
+    await createFeedPost({
       variables: {
         body: postInput,
+        imgUrl: postImage,
         postedBy: profile.email,
       },
     });
     setPostInput("");
+    setPostImage(null);
   };
 
-  console.log(user);
-  console.log(profile);
+  //config options for uploading an event image
+  const postImageConfig = {
+    bucketName: process.env.REACT_APP_AWS_IMAGE_BUCKET_NAME,
+    dirName: `posts/${profile?.email}/post_images`,
+    region: "us-east-1",
+    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY,
+  };
+
+  const uploadPostImage = async e => {
+    if (e.target.files[0]) {
+      await S3FileUpload.uploadFile(e.target.files[0], postImageConfig)
+        .then(async data => {
+          if (data && data?.location) {
+            await setPostImage(data?.location);
+          } else {
+            console.log("loading");
+          }
+        })
+        .catch(async err => console.log(err));
+    }
+    else {
+      console.log("Select an image to upload!")
+    }
+  };
+
+  const handlePictureEnter = e => {
+    if (e.key === "Enter") {
+      var button = document.getElementById("uploadPostPicture");
+      button.click();
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -93,8 +147,8 @@ export default function CreatePost({ user, profile }) {
         ) : user?.picture ? (
           <CustomMessageIcon pictureIcon={user?.picture} />
         ) : (
-          <AccountCircleIcon className={classes.icon} />
-        )}
+              <AccountCircleIcon className={classes.icon} />
+            )}
         <TextField
           size="small"
           type="text"
@@ -111,10 +165,43 @@ export default function CreatePost({ user, profile }) {
         />
       </div>
       <div className={classes.cta}>
-        <div className={classes.flexPhoto}>
-          <CropOriginalIcon className={classes.image} />
-          <Typography className={classes.text}>Add a photo</Typography>
-        </div>
+        {!postImage ?
+          <div>
+            <label className={classes.photoButton} htmlFor="uploadPostPicture">
+              <IconButton
+                size="medium"
+                aria-label="Upload picture for post"
+                component="span"
+                onKeyDown={e => handlePictureEnter(e)}
+              >
+                <CropOriginalIcon color="primary" className={classes.photoIcon} />
+                <Typography>Choose an image to upload!</Typography>
+              </IconButton>
+            </label>
+            <input
+              className={classes.inputUpload}
+              accept="image/*"
+              type="file"
+              onChange={uploadPostImage}
+              id="uploadPostPicture"
+            />
+          </div> :
+          <div className={classes.inputField}>
+            <InputLabel required className={classes.inputLabel} htmlFor="image">
+              Event Image
+            </InputLabel>
+            <img src={postImage} alt="image for this post" className={classes.img} />
+            <button className={classes.removalBtn}>
+              <Tooltip title="Remove Image">
+                <CloseIcon
+                  onClick={() => setPostImage(null)}
+                  aria-label="Remove Image"
+                  fontSize="large"
+                />
+              </Tooltip>
+            </button>
+          </div>
+        }
         {user && user[config.roleUrl].includes("Admin") ? (
           <div className={classes.flexPinnedPost}>
             <Checkbox

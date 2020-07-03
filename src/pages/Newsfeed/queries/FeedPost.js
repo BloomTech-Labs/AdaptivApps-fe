@@ -66,10 +66,10 @@ export const CREATE_NEWSFEED_POST_NO_IMAGE = gql`
 `;
 
 // Create a Newsfeed Post w/ image
-export const CREATE_NEWSFEED_POST_WITH_IMAGE = gql`
+export const CREATE_NEWSFEED_POST = gql`
   mutation createFeedPost(
     $body: String!
-    $imgUrl: String!
+    $imgUrl: String
     $postedBy: String!
   ) {
     createFeedPost(

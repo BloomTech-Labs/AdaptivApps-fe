@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import config from "../../../config/auth_config";
 // Import graphql
 import { useQuery, useMutation, useSubscription } from "react-apollo";
 import {
@@ -19,6 +20,8 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
+import PinDropOutlinedIcon from '@material-ui/icons/PinDropOutlined';
+
 import {
   makeStyles,
   TextField,
@@ -32,6 +35,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -153,6 +158,35 @@ const useStyles = makeStyles(theme => ({
   commentOverflow: {
     display: "none",
   },
+  dropdownContainer: {
+    display: "flex",
+    flexDirection: "column",
+  },
+  header: {
+    display: "flex",
+    justifyItems: "flex-end",
+    borderRadius: "3px",
+    background: "none",
+    lineHeight: "30px",
+    width: "100%",
+    fontSize: "2.4rem",
+    border: "none",
+  },
+  icons: {
+    display: "flex",
+    alignSelf: "flex-end",
+    color: "black",
+  },
+  editDeleteBtn: {
+    display: "flex",
+    flexDirection: "column",
+    position: "absolute",
+    marginTop: "3rem",
+    marginLeft: "-2rem",
+  },
+  btn: {
+    padding: "none",
+  }
 }));
 
 export default function NewsfeedCard(props) {
@@ -160,10 +194,10 @@ export default function NewsfeedCard(props) {
   const { post, user, refetchPosts, profile } = props;
 
   const [commentText, setCommentText] = useState("");
-  const [liked, setLiked] = useState(false);
   const [toggleCommentOverflow, setToggleCommentOverflow] = useState(false);
   const [commenting, setCommenting] = useState(false);
   const [displayComments, setDisplayComments] = useState(false);
+  const [displayDropdown, setDisplayDropdown] = useState(false);
 
   const { data: comments, loading, error, refetch } = useQuery(
     GET_NEWSFEED_COMMENTS,
@@ -173,6 +207,7 @@ export default function NewsfeedCard(props) {
       },
     }
   );
+
   const {
     data: commentSub,
     loading: commentsLoading,
@@ -263,13 +298,27 @@ export default function NewsfeedCard(props) {
           </Typography>
         </div>
         {user?.email === post?.postedBy?.email ? (
-          <div className={classes.editDeleteBtn}>
-            <Button>
-              <EditOutlinedIcon color="action" fontSize="large" />
-            </Button>
-            <Button onClick={deletePost}>
-              <DeleteOutlineIcon color="action" fontSize="large" />
-            </Button>
+          <div className={classes.dropdownContainer}>
+            <button type="button" className={classes.header} onClick={() => setDisplayDropdown(!displayDropdown)}>
+              {displayDropdown
+                ? <FontAwesomeIcon icon={faAngleUp} className={classes.icons} />
+                : <FontAwesomeIcon icon={faAngleDown} className={classes.icons} />}
+            </button>
+            {displayDropdown && (
+              <div className={classes.editDeleteBtn}>
+                <Button className={classes.btn}>
+                  <EditOutlinedIcon color="action" fontSize="large" />
+                </Button>
+                <Button onClick={deletePost} className={classes.btn}>
+                  <DeleteOutlineIcon color="action" fontSize="large" />
+                </Button>
+                {user && user[config.roleUrl].includes("Admin") ? (
+                  <Button className={classes.btn}>
+                    <PinDropOutlinedIcon color="action" fontSize="large" />
+                  </Button>
+                ) : null}
+              </div>
+            )}
           </div>
         ) : null}
       </CardActions>
