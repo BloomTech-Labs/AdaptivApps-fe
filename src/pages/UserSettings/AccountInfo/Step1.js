@@ -515,9 +515,9 @@ export default function Step1({ updateProfile }) {
         <Controller
           as={
             <Select className={classes.typeSelect}>
-              <MenuItem value="">
+              {/* <MenuItem value="">
                 <em className={classes.em}>Please choose one</em>
-              </MenuItem>
+              </MenuItem> */}
               <MenuItem value="Yes">Yes</MenuItem>
               <MenuItem value="No">No</MenuItem>
             </Select>

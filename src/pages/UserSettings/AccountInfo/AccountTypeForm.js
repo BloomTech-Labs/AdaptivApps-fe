@@ -153,7 +153,7 @@ export default function AccountTypeForm({ updateProfile }) {
       {/* <ProgressBar activeStep={0} userEmail={userEmail} /> */}
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.selectContainer}>
-          <InputLabel className={classes.label} required htmlFor="account type">
+          <InputLabel className={classes.label} required htmlFor="accountType">
             Are you registering as an individual or an organization?
           </InputLabel>
           {errors.type && (
@@ -164,10 +164,10 @@ export default function AccountTypeForm({ updateProfile }) {
           <Box className={classes.box}>
             <Controller
               as={
-                <Select className={classes.typeSelect}>
-                  <MenuItem value="">
+                <Select className={classes.typeSelect} aria-label="account types">
+                  {/* <MenuItem value="">
                     <em className={classes.em}>Please choose one</em>
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem value="Individual">
                     I'm registering as an individual
                   </MenuItem>
@@ -195,9 +195,9 @@ export default function AccountTypeForm({ updateProfile }) {
             <Controller
               as={
                 <Select className={classes.typeSelect}>
-                  <MenuItem value="">
+                  {/* <MenuItem value="">
                     <em className={classes.em}>Please choose one</em>
-                  </MenuItem>
+                  </MenuItem> */}
                   <MenuItem value="Athlete">Adaptive Athlete</MenuItem>
                   <MenuItem value="Ally/Volunteer">
                     Ally/Volunteer - I want to participate and will volunteer to

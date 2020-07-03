@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "@reach/router";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Typography, Link } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { useNavigate } from "@reach/router";
 
@@ -150,7 +151,6 @@ const useStyles = makeStyles(theme => ({
     // },
     [theme.breakpoints.down("sm")]: {
       fontSize: "1.75rem",
-      
     },
     [theme.breakpoints.down("xs")]: {
       fontSize: "1.75rem",
@@ -193,19 +193,21 @@ const useStyles = makeStyles(theme => ({
   back: {
     display: "flex",
     alignItems: "center",
-    color: "#2962FF",
+    color: "black",
     margin: "2% 0 0 2%",
-    fontSize: ".25rem",
+    fontSize: "1.8rem",
+    textDecoration: "none",
+
     "&:hover": {
       cursor: "pointer",
     },
     [theme.breakpoints.down("sm")]: {
-      fontSize: ".25rem",
-      margin: '1.5rem 0 0 3rem'
+      fontSize: "1.6rem",
+      margin: "1.5rem 0 0 3rem",
     },
     [theme.breakpoints.down("xs")]: {
-      fontSize: ".25rem",
-      margin: '1.5rem 0 0 5rem'
+      fontSize: "1.6rem",
+      margin: "1.5rem 0 0 5rem",
     },
   },
   hartford: {
@@ -213,14 +215,14 @@ const useStyles = makeStyles(theme => ({
     maxWidth: "50%",
     [theme.breakpoints.down("sm")]: {
       marginTop: "10%",
-      maxWidth: '85%'
+      maxWidth: "85%",
     },
   },
   adaptiv: {
     maxWidth: "35%",
     [theme.breakpoints.down("sm")]: {
       margin: "5% auto",
-      maxWidth: '60%'
+      maxWidth: "60%",
     },
     [theme.breakpoints.down("xs")]: {
       margin: "10% auto",
@@ -233,13 +235,9 @@ export default function SponsorSpotlight() {
   const navigate = useNavigate();
   return (
     <>
-      <Link onClick={() => navigate(`/`)} className={classes.back}>
-        <ArrowBackIosIcon
-          color="primary"
-          aria-label="Back to Welcome Page"
-          fontSize="large"
-        />
-        <Typography>Back to Welcome Page</Typography>
+      <Link to="/" className={classes.back}>
+        <ArrowBackIosIcon color="primary" fontSize="large" />
+        Back to Welcome Page
       </Link>
       <div className={classes.root}>
         <Grid container alignItems="center" className={classes.presented}>
