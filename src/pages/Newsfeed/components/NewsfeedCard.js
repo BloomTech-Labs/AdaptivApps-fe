@@ -71,7 +71,6 @@ const useStyles = makeStyles(theme => ({
   img: {
     margin: "auto",
     maxWidth: "40%",
-    padding: "1.6rem",
     borderRadius: "5px",
   },
   post: {
@@ -188,6 +187,9 @@ const useStyles = makeStyles(theme => ({
   },
   btn: {
     padding: "none",
+  },
+  comments: {
+    marginLeft: "1.6rem",
   },
 }));
 

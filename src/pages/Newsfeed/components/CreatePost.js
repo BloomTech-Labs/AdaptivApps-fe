@@ -87,6 +87,7 @@ const useStyles = makeStyles(theme => ({
     padding: "0",
     height: "14rem",
     objectFit: "cover",
+    borderRadius: "5px",
   },
 }));
 
@@ -199,7 +200,7 @@ export default function CreatePost({ user, profile }) {
         ) : (
           <div className={classes.inputField}>
             <InputLabel required className={classes.inputLabel} htmlFor="image">
-              Event Image
+              Post Image
             </InputLabel>
             <img
               src={postImage}
