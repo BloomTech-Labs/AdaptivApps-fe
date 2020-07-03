@@ -28,6 +28,7 @@ import ManageUsers from "./pages/ManageUsers";
 import Announcement from "./pages/Announcement";
 import FAQ from "./pages/FAQ";
 import Welcome from "./pages/Welcome";
+import TermsOfService from "./pages/Legal/TermsOfService";
 // import NewsfeedPage from './pages/Newsfeed/components/NewsfeedPage'
 
 // Import apollo server
@@ -150,6 +151,7 @@ function App() {
             <PrivacyPolicy path="/privacy-policy" />
             <PrivateRoute path="/" component={DashRouter}>
               <Welcome path="/" />
+              <TermsOfService path="/tos" />
               <Settings path="/settings" />
               <AccountInfo path="updateaccount/:userEmail/*" />
               <UserProfile path="user/:userName" />

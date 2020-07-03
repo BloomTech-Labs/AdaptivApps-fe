@@ -1,5 +1,6 @@
 // React/Reach Router imports
 import React, { useEffect } from "react";
+import { Link } from "@reach/router";
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
 // Apollo/GraphQL imports
@@ -184,6 +185,7 @@ const Welcome = () => {
           and follow <strong>@angelcitysports</strong> on Facebook, Instagram,
           and Twitter.
         </Typography>
+        <Link to="tos">Terms Of Service</Link>
       </div>
     </Box>
   );
