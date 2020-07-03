@@ -374,7 +374,7 @@ export default function UserProfile() {
                 href={instagramURL}
                 target="_blank"
                 rel="noopener"
-                aria-label="Visit your friend's Twitter profile."
+                aria-label="Visit your friend's Instagram profile."
               >
                 <img src={InstagramIcon} className={classes.icon} />
               </Link>

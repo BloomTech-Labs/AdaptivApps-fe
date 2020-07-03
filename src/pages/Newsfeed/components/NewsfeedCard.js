@@ -212,9 +212,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function NewsfeedCard(props) {
+export default function NewsfeedCard({
+  post,
+  user,
+  refetchPosts,
+  profile,
+  pinnedPost,
+}) {
   const classes = useStyles();
-  const { post, user, refetchPosts, profile, pinnedPost } = props;
   const [commentText, setCommentText] = useState("");
   const [toggleCommentOverflow, setToggleCommentOverflow] = useState(false);
   const [commenting, setCommenting] = useState(false);
@@ -335,13 +340,25 @@ export default function NewsfeedCard(props) {
 
   !commentsLoading && refetch();
 
+  const props = {
+    inputProps: {
+      "aria-label": "Type a comment here to this post.",
+    },
+  };
+
   return !pinnedPost || (pinnedPost && pinnedPost.id !== post.id) ? (
     <Card className={classes.root}>
       <CardActions className={classes.postHeader}>
         <div className={classes.postedBy}>
           {post?.postedBy?.profilePicture ? (
-            <button className={classes.btn}>
-              <CustomMessageIcon pictureIcon={post.postedBy.profilePicture} />
+            <button
+              className={classes.btn}
+              aria-label={`visit the profile page of ${post.postedBy.firstName}`}
+            >
+              <CustomMessageIcon
+                pictureIcon={post.postedBy.profilePicture}
+                myProfileUsername={post.postedBy.userName}
+              />
             </button>
           ) : (
             <button className={classes.btn}>
@@ -366,10 +383,15 @@ export default function NewsfeedCard(props) {
             <Button
               className={classes.btn}
               onClick={() => setEditing(!editing)}
+              aria-label="edit this post"
             >
               <EditOutlinedIcon color="action" fontSize="large" />
             </Button>
-            <Button onClick={deletePost} className={classes.btn}>
+            <Button
+              onClick={deletePost}
+              className={classes.btn}
+              aria-label="delete this post"
+            >
               <DeleteOutlineIcon color="action" fontSize="large" />
             </Button>
           </div>
@@ -441,23 +463,10 @@ export default function NewsfeedCard(props) {
       </CardActions>
 
       <Divider variant="middle" />
-
-      {/* <CardActionArea className={classes.postHeader}>
-        <button onClick={showComments}>
-          <p>
-            {comments && comments.feedComments.length === 0
-              ? `No`
-              : `${comments.feedComments.length}`}{" "}
-            comments
-          </p>
-        </button>
-      </CardActionArea>
-
-      <Divider variant="middle" /> */}
-
       {commenting ? (
         <div className={classes.comment}>
           <TextField
+            {...props}
             size="small"
             type="text"
             variant="outlined"
