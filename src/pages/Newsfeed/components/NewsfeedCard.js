@@ -189,14 +189,17 @@ const useStyles = makeStyles(theme => ({
     padding: "none",
   },
   comments: {
-    marginLeft: "1.6rem",
+    margin: "1rem 0 .75rem 1.6rem",
+    textTransform: "none",
+    fontSize: "2rem",
+    color: "#2962FF",
+    fontWeight: "bold",
   },
 }));
 
 export default function NewsfeedCard(props) {
   const classes = useStyles();
   const { post, user, refetchPosts, profile, pinnedPost } = props;
-
   const [commentText, setCommentText] = useState("");
   const [toggleCommentOverflow, setToggleCommentOverflow] = useState(false);
   const [commenting, setCommenting] = useState(false);
@@ -426,22 +429,22 @@ export default function NewsfeedCard(props) {
 
       <Divider variant="middle" /> */}
 
-      {/* {commenting ? ( */}
-      <div className={classes.comment}>
-        <TextField
-          size="small"
-          type="text"
-          variant="outlined"
-          //multiline
-          onKeyPress={e =>
-            e.key === "Enter" && commentText !== "" ? addComment() : null
-          }
-          onChange={e => setCommentText(e.target.value)}
-          value={commentText}
-          placeholder="Write a comment..."
-        />
-      </div>
-      {/* ) : null} */}
+      {commenting ? (
+        <div className={classes.comment}>
+          <TextField
+            size="small"
+            type="text"
+            variant="outlined"
+            //multiline
+            onKeyPress={e =>
+              e.key === "Enter" && commentText !== "" ? addComment() : null
+            }
+            onChange={e => setCommentText(e.target.value)}
+            value={commentText}
+            placeholder="Write a comment..."
+          />
+        </div>
+      ) : null}
 
       {comments &&
         comments.feedComments.map((comment, i) => (
@@ -482,7 +485,7 @@ export default function NewsfeedCard(props) {
           onClick={() => setToggleCommentOverflow(!toggleCommentOverflow)}
           className={classes.comments}
         >
-          {toggleCommentOverflow ? "hide comments" : "show more comments"}
+          {toggleCommentOverflow ? "Hide Comments" : "Show More Comments"}
         </Button>
       ) : null}
     </Card>
