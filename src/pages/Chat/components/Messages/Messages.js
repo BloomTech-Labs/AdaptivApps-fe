@@ -243,14 +243,26 @@ export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat 
                   <div className={classes.messageSubHeader}>
                     {message.sender === user.email ? (
                       <Tooltip title="Edit Message">
-                        <button className={classes.btn}>
-                          <EditOutlinedIcon className={classes.editIcon} onClick={() => { setEditInput(true); setMessageToEdit(message) }} />
+                        <button
+                          aria-label="edit this message"
+                          className={classes.btn}
+                          onClick={() => { setEditInput(true); setMessageToEdit(message) }}
+                        >
+                          <EditOutlinedIcon
+                            className={classes.editIcon}
+                          />
                         </button>
                       </Tooltip>) : null}
                     {message.sender === user.email ? (
                       <Tooltip title="Delete Message">
-                        <button className={classes.btn}>
-                          <DeleteOutlineOutlinedIcon className={classes.deleteIcon} onClick={() => deleteMessage(message)} />
+                        <button
+                          aria-label="edit this message"
+                          className={classes.btn}
+                          onClick={() => deleteMessage(message)}
+                        >
+                          <DeleteOutlineOutlinedIcon
+                            className={classes.deleteIcon}
+                          />
                         </button>
                       </Tooltip>) : null}
                   </div>

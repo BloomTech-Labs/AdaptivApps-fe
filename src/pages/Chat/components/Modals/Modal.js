@@ -277,6 +277,7 @@ function RecipientModal({
           <button aria-label="a user in chatroom" className={classes.btn} onClick={() => createNewChatRoom(result)}>
             <ListItem
               value={`${result.firstName} ${result.lastName}`}
+              aria-label={`${result.firstName} ${result.lastName}`}
               diabled={disableClick}
               onKeyDown={e => handleSearchedChatroomAddition(e)}
               id="newSearchedChatroom"
@@ -296,6 +297,7 @@ function RecipientModal({
         <button aria-label="a user in chatroom" className={classes.btn} onClick={() => createNewChatRoom(available)}>
           <ListItem
             value={`${available.firstName} ${available.lastName}`}
+            aria-label={`${available.firstName} ${available.lastName}`}
             onKeyDown={e => handleChatroomAddition(e)}
             id="newChatroom"
           >
@@ -322,6 +324,7 @@ function RecipientModal({
               variant="outlined"
               type="text"
               placeholder="Type name here..."
+              autoFocus
               name="message"
               value={searchRecipient}
               onChange={handleChange}
