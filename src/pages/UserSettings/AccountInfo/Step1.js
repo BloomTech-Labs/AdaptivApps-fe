@@ -305,11 +305,12 @@ export default function Step1({ updateProfile }) {
                 type="text"
                 variant="outlined"
                 control={control}
+                aria-invalid={errors.firstName ? "true" : "false"}
                 defaultValue=""
                 rules={{ required: true }}
               />
               {errors.firstName && (
-                <Typography className={classes.error} ariaInvalid="true">
+                <Typography className={classes.error} role="alert">
                   first name is a required field
                 </Typography>
               )}
@@ -326,12 +327,13 @@ export default function Step1({ updateProfile }) {
                 type="text"
                 variant="outlined"
                 control={control}
+                aria-invalid={errors.lastName ? "true" : "false"}
                 defaultValue=""
                 rules={{ required: true }}
                 className={classes.secondInput}
               />
               {errors.lastName && (
-                <Typography className={classes.error}>
+                <Typography className={classes.error} role="alert">
                   last name is a required field
                 </Typography>
               )}
@@ -353,19 +355,20 @@ export default function Step1({ updateProfile }) {
                 variant="outlined"
                 type="text"
                 control={control}
+                aria-invalid={errors.userName ? "true" : "false"}
                 defaultValue=""
                 onBlur={validateUsername}
                 rules={{ required: true }}
               />
               {errors.userName && (
-                <Typography className={classes.error}>
+                <Typography className={classes.error} role="alert">
                   username is a required field
                 </Typography>
               )}
 
               {errorState && (
-                <Typography className={classes.error}>
-                  Button is disabled until a unique username is chosen
+                <Typography className={classes.error} role="alert">
+                  Finish button is disabled until a unique username is chosen
                 </Typography>
               )}
             </Box>
@@ -377,6 +380,7 @@ export default function Step1({ updateProfile }) {
                 as={<TextField />}
                 id="phoneNumber"
                 autoComplete="phone number"
+                aria-invalid={errors.phoneNumber ? "true" : "false"}
                 name="phoneNumber"
                 variant="outlined"
                 type="text"
@@ -385,7 +389,7 @@ export default function Step1({ updateProfile }) {
                 rules={{ required: true }}
               />
               {errors.phoneNumber && (
-                <Typography className={classes.error}>
+                <Typography className={classes.error} role="alert">
                   phone number is a required field
                 </Typography>
               )}
@@ -524,7 +528,7 @@ export default function Step1({ updateProfile }) {
           Are you over 18 years old? (minors will not have access to the chat feature)
         </InputLabel>
         {errors.legal && (
-          <Typography className={classes.error}>
+          <Typography className={classes.error} role="alert">
             Please make a selection
           </Typography>
         )}
@@ -541,6 +545,7 @@ export default function Step1({ updateProfile }) {
           id="legal"
           name="legal"
           type="select"
+          aria-invalid={errors.userName ? "true" : "false"}
           variant="outlined"
           control={control}
           defaultValue=""
