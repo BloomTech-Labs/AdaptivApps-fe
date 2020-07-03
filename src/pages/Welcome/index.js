@@ -52,6 +52,9 @@ const useStyles = makeStyles(theme => ({
     color: "rgb(41, 98, 255)",
     fontWeight: "normal",
   },
+  lastParagraph: {
+    marginBottom: ".5rem"
+  },  
 }));
 
 const Welcome = () => {
@@ -162,7 +165,7 @@ const Welcome = () => {
         </Typography>
 
         <h3 className={classes.h3}>About Angel City Sports</h3>
-        <Typography>
+        <Typography className={classes.lastParagraph}>
           Angel City Sports provides year-round free adaptive sports
           opportunities for kids, adults, and veterans with physical
           disabilities or visual impairments. A chapter member of Move United,
