@@ -151,9 +151,9 @@ export default function AccountTypeForm({ updateProfile }) {
   return (
     <Box className={classes.root}>
       {/* <ProgressBar activeStep={0} userEmail={userEmail} /> */}
-      <form tabIndex="0" className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.selectContainer}>
-          <InputLabel className={classes.label} required htmlFor="accountType">
+          <InputLabel className={classes.label} required for="accountType">
             Are you registering as an individual or an organization?
           </InputLabel>
           {errors.type && (
@@ -161,10 +161,10 @@ export default function AccountTypeForm({ updateProfile }) {
               Please make a selection
             </Typography>
           )}
-          <Box className={classes.box}>
+          {/* <Box className={classes.box}> */}
             <Controller
               as={
-                <Select className={classes.typeSelect} ariaLabel="account types">
+                <Select className={classes.typeSelect} aria-label="account type">
                   {/* <MenuItem value="">
                     <em className={classes.em}>Please choose one</em>
                   </MenuItem> */}
@@ -176,13 +176,14 @@ export default function AccountTypeForm({ updateProfile }) {
                   </MenuItem>
                 </Select>
               }
+              id="accountType"
               name="type"
               variant="outlined"
               control={control}
               defaultValue=""
               rules={{ required: true }}
             />
-          </Box>
+          {/* </Box> */}
           <InputLabel required htmlFor="role identity">
             Which role do you best identify with?
           </InputLabel>
@@ -191,7 +192,7 @@ export default function AccountTypeForm({ updateProfile }) {
               Please make a selection
             </Typography>
           )}
-          <Box className={classes.box}>
+          {/* <Box className={classes.box}> */}
             <Controller
               as={
                 <Select className={classes.typeSelect} ariaLabel="role types">
@@ -215,7 +216,7 @@ export default function AccountTypeForm({ updateProfile }) {
               defaultValue=""
               rules={{ required: true }}
             />
-          </Box>
+          {/* </Box> */}
           <Typography className={classes.error}>* required field</Typography>
         </Box>
         <Box className={classes.btnWrapper}>

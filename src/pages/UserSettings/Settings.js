@@ -658,7 +658,7 @@ export default function Settings() {
               profile?.type === null ? classes.nullProfileCta : classes.ctaBox
             }
           >
-            {/* <Typography tabIndex="0">
+            <Typography tabIndex="0">
               Help us bring you the best
               </Typography>
               <Typography tabIndex="0">
@@ -666,11 +666,8 @@ export default function Settings() {
               </Typography>
               <Typography tabIndex="0">
               Tell us a bit more about yourself!
-            </Typography> */}
-            {/* Below paragraph is easier to read with screen reader */}
-            <p tabIndex="0">
-              Help us bring you the best Angel City Sports experience-- Tell us a bit more about yourself!
-            </p>
+            </Typography>
+          
             <Button
               className={classes.ctaBtn}
               aria-label="Click here to update account information."

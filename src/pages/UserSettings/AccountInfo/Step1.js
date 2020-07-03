@@ -252,13 +252,15 @@ export default function Step1({ updateProfile }) {
         userNames.push(user.userName.toLowerCase())
     );
 
-  const validateUsername = () => {
-    const userName = control.getValues().userName.toLowerCase();
-    if (userNames.includes(userName)) {
-      setErrorState(true);
-      alert("That username is already taken. Please choose another one!");
-    } else setErrorState(false);
-  };
+    const validateUsername = () => {
+      const userName =
+        control.getValues().userName !== null &&
+        control.getValues().userName.toLowerCase();
+      if (userNames.includes(userName)) {
+        setErrorState(true);
+        alert("That username is already taken. Please choose another one!");
+      } else setErrorState(false);
+    };
 
   // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
   // const onSave = handleSubmit(async data => {
@@ -291,12 +293,14 @@ export default function Step1({ updateProfile }) {
         <Box className={classes.namePhoneBox}>
           <Box className={classes.doubleInput}>
             <Box className={classes.singleInput}>
-              <InputLabel required htmlFor="firstName">
+              <InputLabel required for="firstName">
                 First Name
               </InputLabel>
               <Controller
                 as={<TextField />}
                 className={classes.firstInput}
+                id="firstName"
+                autoComplete="first name"
                 name="firstName"
                 type="text"
                 variant="outlined"
@@ -305,18 +309,20 @@ export default function Step1({ updateProfile }) {
                 rules={{ required: true }}
               />
               {errors.firstName && (
-                <Typography className={classes.error}>
+                <Typography className={classes.error} ariaInvalid="true">
                   first name is a required field
                 </Typography>
               )}
             </Box>
             <Box className={classes.singleInput}>
-              <InputLabel required htmlFor="lastName">
+              <InputLabel required for="lastName">
                 Last Name
               </InputLabel>
               <Controller
                 as={<TextField />}
+                id="lastName"
                 name="lastName"
+                autocomplete="last name"
                 type="text"
                 variant="outlined"
                 control={control}
@@ -335,12 +341,14 @@ export default function Step1({ updateProfile }) {
         <Box className={classes.namePhoneBox}>
           <Box className={classes.doubleInput}>
             <Box className={classes.singleInput}>
-              <InputLabel required htmlFor="userName">
+              <InputLabel required for="userName">
                 Username
               </InputLabel>
               <Controller
                 as={<TextField />}
                 className={classes.firstInput}
+                id="userName"
+                autoComplete="username"
                 name="userName"
                 variant="outlined"
                 type="text"
@@ -362,11 +370,13 @@ export default function Step1({ updateProfile }) {
               )}
             </Box>
             <Box className={classes.singleInput}>
-              <InputLabel required htmlFor="phoneNumber">
+              <InputLabel required for="phoneNumber">
                 Phone Number
               </InputLabel>
               <Controller
                 as={<TextField />}
+                id="phoneNumber"
+                autoComplete="phone number"
                 name="phoneNumber"
                 variant="outlined"
                 type="text"
@@ -468,11 +478,13 @@ export default function Step1({ updateProfile }) {
           </Box>
         </Box> */}
 
-        <InputLabel htmlFor="twitter">
+        <InputLabel for="twitter">
           Please enter the full url link to your Twitter profile
         </InputLabel>
         <Controller
           as={<TextField />}
+          id="twitter"
+          autoComplete="twitter"
           name="twitter"
           type="text"
           variant="outlined"
@@ -480,11 +492,13 @@ export default function Step1({ updateProfile }) {
           defaultValue=""
         />
 
-        <InputLabel htmlFor="facebook">
+        <InputLabel for="facebook">
           Please enter the full url link to your Facebook profile
         </InputLabel>
         <Controller
           as={<TextField />}
+          id="facebook"
+          autoComplete="facebook"
           name="facebook"
           type="text"
           variant="outlined"
@@ -492,11 +506,13 @@ export default function Step1({ updateProfile }) {
           defaultValue=""
         />
 
-        <InputLabel htmlFor="instagram">
+        <InputLabel for="instagram">
           Please enter the full url link to your Instagram profile
         </InputLabel>
         <Controller
           as={<TextField />}
+          id="instagram"
+          autoComplete="instagram"
           name="instagram"
           type="text"
           variant="outlined"
@@ -504,7 +520,7 @@ export default function Step1({ updateProfile }) {
           defaultValue=""
         />
 
-        <InputLabel required htmlFor="legal">
+        <InputLabel required for="legal">
           Are you over 18 years old? (minors will not have access to the chat feature)
         </InputLabel>
         {errors.legal && (
@@ -522,6 +538,7 @@ export default function Step1({ updateProfile }) {
               <MenuItem value="No">No</MenuItem>
             </Select>
           }
+          id="legal"
           name="legal"
           type="select"
           variant="outlined"
@@ -529,9 +546,10 @@ export default function Step1({ updateProfile }) {
           defaultValue=""
           rules={{ required: true }}
         />
-        <InputLabel htmlFor="bio">Bio</InputLabel>
+        <InputLabel for="bio">Bio</InputLabel>
         <Controller
           as={<TextField />}
+          id="bio"
           name="bio"
           type="text"
           variant="outlined"
