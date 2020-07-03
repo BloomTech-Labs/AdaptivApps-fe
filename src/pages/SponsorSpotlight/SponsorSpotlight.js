@@ -4,6 +4,7 @@ import { Grid, Typography, Link } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { useNavigate } from "@reach/router";
 
+const ACS_Hartford_Logo = require("../../assets/images/acs_hartford2.png");
 const ACS_Logo = require("../../assets/images/01-ACS_Logo.png");
 const Hartford_Logo = require("../../assets/images/02-Hartford.png");
 const Adaptiv_Logo = require("../../assets/images/03-AdaptivApps.png");
@@ -206,7 +207,8 @@ const useStyles = makeStyles(theme => ({
     },
   },
   hartford: {
-    maxWidth: "99%",
+    marginTop: "3%",
+    maxWidth: "50%",
   },
   adaptiv: {
     maxWidth: "35%",
@@ -233,25 +235,8 @@ export default function SponsorSpotlight() {
         <Typography>Back to Welcome Page</Typography>
       </Link>
       <div className={classes.root}>
-        <Grid container className={classes.logo}>
-          <Grid item xs>
-            <a
-              href="http://angelcitysports.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-              tabIndex="0"
-              aria-label="Click to go to Angel City Sports' Website"
-            >
-              <img alt="2020 Angel City Virtual Games Logo" src={ACS_Logo} />
-            </a>
-          </Grid>
-        </Grid>
-
         <Grid container alignItems="center" className={classes.presented}>
           <Grid item xs>
-            <Typography className={classes.header}>
-              Proudly presented by
-            </Typography>
             <a
               href="https://www.thehartford.com/"
               target="_blank"
@@ -261,8 +246,8 @@ export default function SponsorSpotlight() {
             >
               <img
                 className={classes.hartford}
-                alt="The Hartford Logo"
-                src={Hartford_Logo}
+                alt="Angel City Virtual Games and The Hartford Logo"
+                src={ACS_Hartford_Logo}
               />
             </a>
           </Grid>
