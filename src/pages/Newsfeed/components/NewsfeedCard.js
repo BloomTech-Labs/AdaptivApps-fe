@@ -187,6 +187,9 @@ const useStyles = makeStyles(theme => ({
   },
   btn: {
     padding: "none",
+    background: "none",
+    backgroundColor: "none",
+    border: "none",
   },
   comments: {
     margin: "1rem 0 .75rem 1.6rem",
@@ -325,12 +328,16 @@ export default function NewsfeedCard(props) {
       <CardActions className={classes.postHeader}>
         <div className={classes.postedBy}>
           {post?.postedBy?.profilePicture ? (
-            <CustomMessageIcon pictureIcon={post.postedBy.profilePicture} />
+            <button className={classes.btn}>
+              <CustomMessageIcon pictureIcon={post.postedBy.profilePicture} />
+            </button>
           ) : (
-            <AccountCircleIcon
-              fontSize={"large"}
-              className={classes.avatarIcon}
-            />
+            <button className={classes.btn}>
+              <AccountCircleIcon
+                fontSize={"large"}
+                className={classes.avatarIcon}
+              />
+            </button>
           )}
           <Typography className={classes.postedByName} gutterBottom>
             {post.postedBy.firstName} {post.postedBy.lastName}
@@ -459,14 +466,18 @@ export default function NewsfeedCard(props) {
             }
           >
             {comment?.postedBy?.profilePicture ? (
-              <CustomMessageIcon
-                pictureIcon={comment?.postedBy?.profilePicture}
-              />
+              <button className={classes.btn}>
+                <CustomMessageIcon
+                  pictureIcon={comment?.postedBy?.profilePicture}
+                />
+              </button>
             ) : (
-              <AccountCircleIcon
-                fontSize={"large"}
-                className={classes.avatarIcon}
-              />
+              <button className={classes.btn}>
+                <AccountCircleIcon
+                  fontSize={"large"}
+                  className={classes.avatarIcon}
+                />
+              </button>
             )}
 
             <div className={classes.commentBox}>
@@ -491,32 +502,3 @@ export default function NewsfeedCard(props) {
     </Card>
   ) : null;
 }
-
-// <div className={classes.dropdownContainer}>
-//   <button
-//     type="button"
-//     className={classes.header}
-//     onClick={() => setDisplayDropdown(!displayDropdown)}
-//   >
-//     {displayDropdown ? (
-//       <FontAwesomeIcon icon={faAngleUp} className={classes.icons} />
-//     ) : (
-//       <FontAwesomeIcon icon={faAngleDown} className={classes.icons} />
-//     )}
-//   </button>
-//   {displayDropdown && (
-//     <div className={classes.editDeleteBtn}>
-//       <Button className={classes.btn}>
-//         <EditOutlinedIcon color="action" fontSize="large" />
-//       </Button>
-//       <Button onClick={deletePost} className={classes.btn}>
-//         <DeleteOutlineIcon color="action" fontSize="large" />
-//       </Button>
-//       {user && user[config.roleUrl].includes("Admin") ? (
-//         <Button className={classes.btn} onClick={pinPost}>
-//           <PinDropOutlinedIcon color="action" fontSize="large" />
-//         </Button>
-//       ) : null}
-//     </div>
-//   )}
-// </div>;
