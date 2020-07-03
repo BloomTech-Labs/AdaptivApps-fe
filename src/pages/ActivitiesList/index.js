@@ -1,4 +1,6 @@
 import React from "react";
+// Google Analytics Imports
+import ReactGA from "react-ga";
 import { useQuery } from "react-apollo";
 import moment from "moment";
 import ActivityGroup from "./ActivityGroup";
@@ -141,7 +143,7 @@ const useStyles = makeStyles({
   top: {
     display: "flex",
     flexDirection: "row",
-    '@media (max-width: 950px)': {
+    "@media (max-width: 950px)": {
       flexDirection: "column",
     },
   },
@@ -161,6 +163,19 @@ const useStyles = makeStyles({
     },
   },
 });
+/**
+ * Event - Add custom tracking event.
+ * @param {string} category
+ * @param {string} action
+ * @param {string} label
+ */
+export const trackAttendees = (category, action, label) => {
+  ReactGA.event({
+    category: category,
+    action: action,
+    label: label,
+  });
+};
 
 export default function ActivityList() {
   const classes = useStyles();
@@ -173,6 +188,7 @@ export default function ActivityList() {
       fetchPolicy: "no-cache",
     }
   );
+
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
   console.log(activityData);
@@ -249,6 +265,13 @@ export default function ActivityList() {
               href={activityData.event.link}
               rel="noopener noreferrer"
               target="_blank"
+              onClick={() =>
+                trackAttendees(
+                  "Event",
+                  "Joined Virtual Event",
+                  "ATTENDEE_ADDED"
+                )
+              }
             >
               Click Here to Join Us!
             </a>

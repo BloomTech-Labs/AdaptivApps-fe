@@ -102,15 +102,21 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
     setUpdateChat(true);
   };
 
+  const handleEmojiPicker = e => {
+    if (e.key === "Enter") {
+      var button = document.getElementById("openEmojiSelection");
+      button.click();
+    }
+  };
+
   return (
     <div>
       <div className={classes.inputDiv}>
         <div
           className={classes.iconDiv}
-          aria-label="create speech-to-text message"
           onClick={toggleListen}
         >
-          <button className={classes.btn}>
+          <button className={classes.btn} aria-label="create speech-to-text message">
             <MicNoneIcon className={classes.speechIcon} />
           </button>
           {listening && "Go ahead, I'm listening"}
@@ -145,11 +151,12 @@ const EditInput = ({ messageToEdit, setUpdateChat, setEditInput }) => {
         />
         <div className={classes.iconDiv}>
           <Tooltip title="Add an emoji!">
-            <button className={classes.btn}>
+            <button className={classes.btn} aria-label="add an emoji to your message" onClick={() => setToggleEmoji(true)}>
               <MoodIcon
                 className={classes.icons}
-                onClick={() => setToggleEmoji(true)}
                 aria-label="open emoji picker"
+                onKeyDown={e => handleEmojiPicker(e)}
+                id="openEmojiSelection"
               />
             </button>
           </Tooltip>

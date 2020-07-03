@@ -78,7 +78,7 @@ const GlobalSearchBox = () => {
 
   return (
     <div className={classes.wrapper}>
-      <button type="button" className={classes.header} onClick={() => toggleList()}>
+      <button aria-label="click to open a dropdown search list" type="button" className={classes.header} onClick={() => toggleList()}>
         <div className={classes.title}>{title}</div>
         {listOpen
           ? <FontAwesomeIcon icon={faAngleUp} className={classes.icons} />

@@ -156,20 +156,20 @@ export default function MyEventCard({ event, refetch }) {
     const attendeeIdValue = JSON.stringify(attendeeId).replace(/[\[\]"]+/g, "");
     data?.participants && data?.participants?.length === 1
       ? await unregisterFromEventActivity({
-          variables: {
-            attendeeId: attendeeIdValue,
-            email: user?.email,
-            participantId: participantIdValue,
-          },
-        })
+        variables: {
+          attendeeId: attendeeIdValue,
+          email: user?.email,
+          participantId: participantIdValue,
+        },
+      })
       : data && data?.participants === null
-      ? await unregisterFromEvent({
+        ? await unregisterFromEvent({
           variables: {
             attendeeId: attendeeIdValue,
             email: user?.email,
           },
         })
-      : await unregisterFromAll({
+        : await unregisterFromAll({
           variables: {
             attendeeId: attendeeIdValue,
             email: user?.email,
@@ -196,8 +196,8 @@ export default function MyEventCard({ event, refetch }) {
             width="15rem"
             image={
               event?.imgUrl === null ||
-              event?.imgUrl === undefined ||
-              event?.imgUrl === ""
+                event?.imgUrl === undefined ||
+                event?.imgUrl === ""
                 ? eventImg
                 : event?.imgUrl
             }
@@ -243,10 +243,10 @@ export default function MyEventCard({ event, refetch }) {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.btnContainer}>
-        <Button onClick={viewEventDetails} className={classes.btn}>
+        <Button aria-label={`Click to go to event details for ${event.title}`} onClick={viewEventDetails} className={classes.btn}>
           View Details
         </Button>
-        <Button className={classes.btn} onClick={eventUnregister}>
+        <Button aria-label={`Click to unregister ${event.title}`} className={classes.btn} onClick={eventUnregister}>
           Unregister
         </Button>
       </CardActions>

@@ -99,7 +99,7 @@ const useStyles = makeStyles(theme => ({
     border: "none",
     boxShadow: "none",
     backgroundColor: "white",
-    overflow: "scroll",
+    overflowY: "scroll",
     scrollbarColor: "white white",
     "& h3": {
       textAlign: "center",

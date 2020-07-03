@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 // Reach Router imports
-import { Router } from "@reach/router";
+import { Router, createHistory, LocationProvider } from "@reach/router";
 
 // Import route components
 import DashRouter from "./routes/DashRouter";
@@ -48,23 +48,20 @@ import ReactGA from "react-ga";
 // Auth0 imports
 import { useAuth0 } from "./config/react-auth0-spa";
 import "./styles.css";
-import { createBrowserHistory } from "history";
-
-const history = createBrowserHistory();
 
 const trackingId = "UA-171530526-1";
 ReactGA.initialize(trackingId);
-
-// Initialize google analytics page view tracking
-history.listen(location => {
-  ReactGA.set({ page: location.pathname }); // Update the user's current page
-  ReactGA.pageview(location.pathname); // Record a pageview for the given page
-});
+const history = createHistory(window);
 
 function App() {
   const { getIdTokenClaims } = useAuth0();
   const [authToken, setAuthToken] = useState();
 
+  // Initialize google analytics page view tracking
+  history.listen(window => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+    console.log("page=>", window.location.pathname);
+  });
   const request = async operation => {
     const token = await getIdTokenClaims();
     setAuthToken(token.__raw);
@@ -146,32 +143,34 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      <div className="App">
-        <Router history={history}>
-          <Accessibility path="/accessibility" />
-          <PrivacyPolicy path="/privacy-policy" />
-          <PrivateRoute path="/" component={DashRouter}>
-            <Welcome path="/" />
-            <Settings path="/settings" />
-            <AccountInfo path="updateaccount/:userEmail/*" />
-            <UserProfile path="user/:userName" />
-            <EventsCalendar path="calendar" />
-            <ActivityList path="calendar/:eventId" />
-            <MyEvents path="myevents" />
-            <MyEventDetails path="myevents/:eventId" />
-            <CreateEvent path="createEvent" />
-            <EditEvent path="editEvent/:eventId" />
-            <CreateActivity path="createEvent/:eventId" />
-            <EditActivity path="editActivity/:activityId" />
-            <ChatFeature path="chats" />
-            <SponsorSpotlight path="/sponsorspotlight" />
-            <ManageUsers path="manageUsers" />
-            <Announcement path="/announcements" />
-            <FAQ path="/faqs" />
-            <NewsfeedPage path="/newsfeed" />
-          </PrivateRoute>
-        </Router>
-      </div>
+      <LocationProvider history={history}>
+        <div className="App">
+          <Router>
+            <Accessibility path="/accessibility" />
+            <PrivacyPolicy path="/privacy-policy" />
+            <PrivateRoute path="/" component={DashRouter}>
+              <Welcome path="/" />
+              <Settings path="/settings" />
+              <AccountInfo path="updateaccount/:userEmail/*" />
+              <UserProfile path="user/:userName" />
+              <EventsCalendar path="calendar" />
+              <ActivityList path="calendar/:eventId" />
+              <MyEvents path="myevents" />
+              <MyEventDetails path="myevents/:eventId" />
+              <CreateEvent path="createEvent" />
+              <EditEvent path="editEvent/:eventId" />
+              <CreateActivity path="createEvent/:eventId" />
+              <EditActivity path="editActivity/:activityId" />
+              <ChatFeature path="chats" />
+              <SponsorSpotlight path="/sponsorspotlight" />
+              <ManageUsers path="manageUsers" />
+              <Announcement path="/announcements" />
+              <FAQ path="/faqs" />
+              {/*<NewsfeedPage path="/newsfeed" />*/}
+            </PrivateRoute>
+          </Router>
+        </div>
+      </LocationProvider>
     </ApolloProvider>
   );
 }
