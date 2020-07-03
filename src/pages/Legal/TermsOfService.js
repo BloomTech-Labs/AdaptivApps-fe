@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "@reach/router";
 import {
   makeStyles,
   Container,
@@ -28,6 +28,11 @@ const useStyles = makeStyles(theme => ({
       fontSize: "1.4rem",
     },
   },
+  a11yLink: {
+    fontSize: "1.8rem",
+    color: "#2962FF",
+    textDecoration: "underline",
+  },
 }));
 
 export default function TermsOfService() {
@@ -35,6 +40,9 @@ export default function TermsOfService() {
   return (
     <main className={classes.main}>
       <h3>Terms of Service Angel City Sports Effective Date June 30, 2020</h3>{" "}
+      <Link to="/" className={classes.a11yLink}>
+        Back To Welcome Page
+      </Link>
       <h4>1. ACKNOWLEDGEMENT AND ACCEPTANCE OF TERMS</h4>{" "}
       <p>
         The following terms and conditions govern all use of the Angel City

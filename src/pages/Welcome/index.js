@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     "& strong": {
       fontSize: "1.8rem",
     },
-    "& a": {
+    "& acsLink": {
       textDecoration: "none",
       color: "black",
       fontSize: "1.8rem",
@@ -32,6 +32,11 @@ const useStyles = makeStyles(theme => ({
       fontStyle: "italic",
       fontSize: "1.8rem",
     },
+  },
+  a11yLink: {
+    fontSize: "1.8rem",
+    color: "#2962FF",
+    textDecoration: "underline",
   },
   headingBox: {
     margin: "6rem 0 2rem 3rem",
@@ -185,7 +190,11 @@ const Welcome = () => {
           and follow <strong>@angelcitysports</strong> on Facebook, Instagram,
           and Twitter.
         </Typography>
-        <Link to="tos">Terms Of Service</Link>
+        <div>
+          <Link to="tos" className={classes.a11yLink}>
+            Click Here For Terms Of Service
+          </Link>
+        </div>
       </div>
     </Box>
   );
