@@ -34,7 +34,7 @@ const useStyles = makeStyles({
     alignItems: "center",
     marginBottom: "1.6rem",
     marginLeft: "0.3rem",
-    textDecoration: "none"
+    textDecoration: "none",
   },
   loadingSpinner: {
     position: "absolute",
@@ -48,7 +48,7 @@ export default function MyEventDetails() {
   const classes = useStyles();
   // Retrieves ID of current event from parameters
   const { eventId } = useParams();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   // Retrieves logged in user info from Auth0
   const { user } = useAuth0();
   // Retrieves event details of specified event by ID which user is registered to

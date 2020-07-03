@@ -6,9 +6,8 @@ import AdminTagsSearch from "./AdminTagsSearch";
 import EventList from "./EventList";
 import { GET_EVENT_LIST } from "./queries";
 import { useAuth0 } from "../../config/react-auth0-spa";
-import config from "../../config/auth_config";
 import GlobalSearchBox from "../../routes/DashRouter/GlobalSearchBox";
-import SponsorBanner from '../SponsorSpotlight/SponsorBanner'
+import SponsorBanner from "../SponsorSpotlight/SponsorBanner";
 
 const useStyles = makeStyles({
   root: {
@@ -38,7 +37,7 @@ const useStyles = makeStyles({
     zIndex: 100,
     position: "absolute",
     marginLeft: "350px",
-    '@media (max-width: 850px)': {
+    "@media (max-width: 850px)": {
       display: "none",
     },
   },
@@ -46,7 +45,7 @@ const useStyles = makeStyles({
     height: "38px",
     marginLeft: "3rem",
     marginBottom: "25px",
-    '@media (min-width: 850px)': {
+    "@media (min-width: 850px)": {
       display: "none",
     },
   },
@@ -55,7 +54,9 @@ const useStyles = makeStyles({
 export default function EventsCalendar() {
   const { user } = useAuth0();
   const classes = useStyles();
-  const { loading, error, data, refetch } = useQuery(GET_EVENT_LIST, { fetchPolicy: "no-cache" });
+  const { loading, error, data, refetch } = useQuery(GET_EVENT_LIST, {
+    fetchPolicy: "no-cache",
+  });
   const [isSearching, setIsSearching] = useState(false);
 
   // refetches EVENT_LIST without refreshing page
@@ -78,7 +79,7 @@ export default function EventsCalendar() {
           <Box className={classes.headingBox} borderBottom={2}>
             <Typography className={classes.heading} variant="h1" gutterBottom>
               Upcoming Events
-          </Typography>
+            </Typography>
           </Box>
           {/* {user && user[config.roleUrl].includes("Admin") ? ( */}
           <AdminTagsSearch
@@ -91,7 +92,11 @@ export default function EventsCalendar() {
           {/* ) : null} */}
           <Grid className={classes.grid}>
             {!isSearching ? (
-              <EventList currentEvents={currentEvents} refetch={refetch} user={user} />
+              <EventList
+                currentEvents={currentEvents}
+                refetch={refetch}
+                user={user}
+              />
             ) : null}
           </Grid>
         </main>

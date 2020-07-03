@@ -10,8 +10,8 @@ import { useParams } from "@reach/router";
 import S3FileUpload from "react-s3";
 
 // Material-UI and styling imports
-import { Typography, makeStyles, Link } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
+import { makeStyles, Link } from "@material-ui/core";
+// import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import CircularProgress from "@material-ui/core/CircularProgress";

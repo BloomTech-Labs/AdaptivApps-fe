@@ -5,7 +5,7 @@ import { useNavigate } from "@reach/router";
 import Tooltip from "@material-ui/core/Tooltip";
 
 const Sponsors = require("../../assets/images/SponsorsText.png");
-const Sponsor_Thanks = require("../../assets/images/ProfilePhoto.png");
+// const Sponsor_Thanks = require("../../assets/images/ProfilePhoto.png");
 const Sponsor_Photo = require("../../assets/images/ProfilePhoto.png");
 
 const useStyles = makeStyles(theme => ({
@@ -52,7 +52,10 @@ export default function SponsorBanner() {
     >
       <div className={classes.banner}>
         <Tooltip title="Check out our sponsors">
-          <button aria-label="click here to check out our sponsor page" className={classes.btn}>
+          <button
+            aria-label="click here to check out our sponsor page"
+            className={classes.btn}
+          >
             <img src={Sponsor_Photo} className={classes.image} />
             <img src={Sponsors} className={classes.sponsors} />
           </button>

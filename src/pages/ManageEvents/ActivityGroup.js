@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   },
   tab: {
     width: "40%",
-    fontSize: '2.25rem',
+    fontSize: "2.25rem",
   },
   table: {
     margin: "2.5rem 0 0 1.8rem",
@@ -63,7 +63,7 @@ export default function ActivityGroup({ data, refetch }) {
   const startDate = moment(data?.event?.startDate);
   const endDate = moment(data?.event?.endDate);
 
-  const getDatesRangeArray = function (startDate, endDate, interval) {
+  const getDatesRangeArray = function(startDate, endDate, interval) {
     // console.log(startDate, endDate, interval);
     let cfg = { interval: interval || "days" };
     let dateArray = [];
@@ -86,7 +86,7 @@ export default function ActivityGroup({ data, refetch }) {
 
   useEffect(() => {
     setActivityByDates(data?.event?.activities);
-  });
+  }, [data]);
 
   const groupBy = (array, key) => {
     // Return the end result
@@ -103,7 +103,7 @@ export default function ActivityGroup({ data, refetch }) {
     ); // empty object is the initial value for result object
   };
 
-  const activitiesGroupedByDate = groupBy(activityByDates, "date");
+  // const activitiesGroupedByDate = groupBy(activityByDates, "date");
   // console.log(activitiesGroupedByDate);
 
   return (

@@ -3,7 +3,7 @@ import React from "react";
 import ReactGA from "react-ga";
 import { useQuery } from "react-apollo";
 import moment from "moment";
-import ActivityGroup from "./ActivityGroup";
+// import ActivityGroup from "./ActivityGroup";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import eventImg from "../../assets/images/acs_hartford.png";
 import { useParams, Link } from "@reach/router";
@@ -140,28 +140,6 @@ const useStyles = makeStyles({
       textDecoration: "none",
     },
   },
-  top: {
-    display: "flex",
-    flexDirection: "row",
-    "@media (max-width: 950px)": {
-      flexDirection: "column",
-    },
-  },
-  virtualBox: {
-    display: "flex",
-    flexDirection: "column",
-    marginTop: "3rem",
-    "& p": {
-      margin: 0,
-      fontSize: "1.6rem",
-    },
-    "& a": {
-      marginTop: "2rem",
-      color: "#2862ff",
-      fontSize: "1.6rem",
-      textDecoration: "none",
-    },
-  },
 });
 /**
  * Event - Add custom tracking event.
@@ -179,9 +157,9 @@ export const trackAttendees = (category, action, label) => {
 
 export default function ActivityList() {
   const classes = useStyles();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { eventId } = useParams();
-  const { loading, error, data: activityData, refetch } = useQuery(
+  const { loading, error, data: activityData } = useQuery(
     GET_EVENT_ACTIVITIES,
     {
       variables: { id: eventId },

@@ -5,8 +5,8 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { useNavigate } from "@reach/router";
 
 const ACS_Hartford_Logo = require("../../assets/images/acs_hartford2.png");
-const ACS_Logo = require("../../assets/images/01-ACS_Logo.png");
-const Hartford_Logo = require("../../assets/images/02-Hartford.png");
+// const ACS_Logo = require("../../assets/images/01-ACS_Logo.png");
+// const Hartford_Logo = require("../../assets/images/02-Hartford.png");
 const Adaptiv_Logo = require("../../assets/images/03-AdaptivApps.png");
 const Citi_Logo = require("../../assets/images/04-Citi.png");
 const Gold_Logo = require("../..//assets/images/05-GoldMeetsGolden.png");
@@ -150,7 +150,6 @@ const useStyles = makeStyles(theme => ({
     // },
     [theme.breakpoints.down("sm")]: {
       fontSize: "1.75rem",
-
     },
     [theme.breakpoints.down("xs")]: {
       fontSize: "1.75rem",
@@ -201,11 +200,11 @@ const useStyles = makeStyles(theme => ({
     },
     [theme.breakpoints.down("sm")]: {
       fontSize: ".25rem",
-      margin: '1.5rem 0 0 3rem'
+      margin: "1.5rem 0 0 3rem",
     },
     [theme.breakpoints.down("xs")]: {
       fontSize: ".25rem",
-      margin: '1.5rem 0 0 5rem'
+      margin: "1.5rem 0 0 5rem",
     },
   },
   hartford: {
@@ -213,14 +212,14 @@ const useStyles = makeStyles(theme => ({
     maxWidth: "50%",
     [theme.breakpoints.down("sm")]: {
       marginTop: "10%",
-      maxWidth: '85%'
+      maxWidth: "85%",
     },
   },
   adaptiv: {
     maxWidth: "35%",
     [theme.breakpoints.down("sm")]: {
       margin: "5% auto",
-      maxWidth: '60%'
+      maxWidth: "60%",
     },
     [theme.breakpoints.down("xs")]: {
       margin: "10% auto",
