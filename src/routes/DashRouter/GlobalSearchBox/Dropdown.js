@@ -78,6 +78,7 @@ export default function Dropdown(props) {
           tempList !== "" ? tempList.map(item =>
             <NavLink to={`/user/${item.username}`} key={item.id}>
               <button
+                aria-label={`Click to visit ${item.firstName} ${item.lastName}'s profile`}
                 type="button"
                 key={item.id}
                 className={classes.item}
