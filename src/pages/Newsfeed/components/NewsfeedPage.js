@@ -19,11 +19,13 @@ import { makeStyles, Typography, CircularProgress } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
+    width: "100%",
     display: "flex",
-    justifyContent: "space-between",
+    flexDirection: "column",
   },
   bannerSearchNewsfeed: {
-    width: "92rem",
+    margin: "0 auto",
+    width: "70%",
     display: "flex-column",
     [theme.breakpoints.down("sm")]: {
       maxWidth: "100%",
@@ -43,7 +45,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-evenly",
   },
   newsfeed: {
-    width: "80%",
+    width: "100%",
     margin: "auto",
     // display: "flex",
     // flexDirection: "column",
@@ -51,12 +53,7 @@ const useStyles = makeStyles(theme => ({
     // overflow: "scroll",
     // overflow: "scroll",
   },
-  spotlight: {
-    width: "35%",
-    [theme.breakpoints.down("sm")]: {
-      display: "none",
-    },
-  },
+
   endOfPosts: {
     margin: "4% 0",
     textAlign: "center",
@@ -103,8 +100,8 @@ export default function NewsfeedPage() {
 
   return (
     <div className={classes.root}>
+      <SponsorBanner />
       <div className={classes.bannerSearchNewsfeed}>
-        <SponsorBanner />
         <div className={classes.search}>
           <GlobalSearchBox />
         </div>
@@ -129,9 +126,6 @@ export default function NewsfeedPage() {
             You've reached the end!
           </Typography>
         </div>
-      </div>
-      <div className={classes.spotlight}>
-        <SpotlightBar />
       </div>
     </div>
   );
