@@ -143,8 +143,8 @@ function App() {
 
   return (
     <ApolloProvider client={client}>
-      <div className="App">
-        <LocationProvider history={history}>
+      <LocationProvider history={history}>
+        <div className="App">
           <Router>
             <Accessibility path="/accessibility" />
             <PrivacyPolicy path="/privacy-policy" />
@@ -169,8 +169,8 @@ function App() {
               {/*<NewsfeedPage path="/newsfeed" />*/}
             </PrivateRoute>
           </Router>
-        </LocationProvider>
-      </div>
+        </div>
+      </LocationProvider>
     </ApolloProvider>
   );
 }
