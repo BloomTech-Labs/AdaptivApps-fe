@@ -53,16 +53,15 @@ const trackingId = "UA-171530526-1";
 ReactGA.initialize(trackingId);
 const history = createHistory(window);
 
-// Initialize google analytics page view tracking
-history.listen(window => {
-  ReactGA.pageview(window.location.pathname + window.location.search);
-  console.log("page=>", window.location.pathname);
-});
-
 function App() {
   const { getIdTokenClaims } = useAuth0();
   const [authToken, setAuthToken] = useState();
 
+  // Initialize google analytics page view tracking
+  history.listen(window => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+    console.log("page=>", window.location.pathname);
+  });
   const request = async operation => {
     const token = await getIdTokenClaims();
     setAuthToken(token.__raw);
