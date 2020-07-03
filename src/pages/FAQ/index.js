@@ -134,7 +134,7 @@ const FAQ = () => {
               </p>
             </li>
           </ol>
-          <p>
+          {/* <p>
             Check out the video tutorial below to learn everything you need to
             know about this action-packed week!
           </p>
@@ -144,7 +144,7 @@ const FAQ = () => {
             frameBorder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowFullscreen
-          />
+          /> */}
         </div>
         <div className={classes.group}>
           <h3 className={classes.h4}>
