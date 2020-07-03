@@ -40,7 +40,11 @@ import {
 } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faThumbtack } from "@fortawesome/free-solid-svg-icons";
+import {
+  faThumbtack,
+  faThumbsUp,
+  faCommentAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -110,7 +114,7 @@ const useStyles = makeStyles(theme => ({
   },
   cardActions: {
     display: "flex",
-    alignItems: "center",
+    alignItems: "baseline",
     justifyContent: "space-evenly",
   },
   comment: {
@@ -135,7 +139,9 @@ const useStyles = makeStyles(theme => ({
     },
   },
   button: {
-    fontSize: "1rem",
+    fontSize: "3rem",
+    marginRight: "3rem",
+    textTransform: "none",
   },
   commentBox: {
     marginLeft: ".8rem",
@@ -180,6 +186,12 @@ const useStyles = makeStyles(theme => ({
   icons: {
     color: "rgba(0, 0, 0, 0.54)",
     transform: "rotate(40deg)",
+  },
+  thumbupIcon: {
+    marginRight: "1rem",
+  },
+  commentIcon: {
+    marginRight: "1rem",
   },
   editDeleteBtn: {
     display: "flex",
@@ -406,17 +418,24 @@ export default function NewsfeedCard(props) {
           className={classes.button}
           onClick={toggleLiked}
         >
-          <ThumbUpAltIcon fontSize={"large"} className={classes.icon} />
-          <span className={classes.cta}>
-            {hasLiked() ? `${post.likes.length} Likes` : `Like`}
-          </span>
+          <FontAwesomeIcon icon={faThumbsUp} className={classes.thumbupIcon} />
+          <Typography className={classes.cta}>
+            {hasLiked()
+              ? post.likes.length === 1
+                ? "1 Like"
+                : `${post.likes.length} Likes`
+              : `Like`}
+          </Typography>
         </Button>
         <Button
           color="primary"
           className={classes.button}
           onClick={toggleComment}
         >
-          <ModeCommentIcon fontSize={"large"} className={classes.icon} />
+          <FontAwesomeIcon
+            icon={faCommentAlt}
+            className={classes.commentIcon}
+          />
           <Typography className={classes.cta}>Comment</Typography>
         </Button>
       </CardActions>
