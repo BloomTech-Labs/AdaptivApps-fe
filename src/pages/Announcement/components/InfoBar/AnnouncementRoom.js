@@ -29,27 +29,22 @@ const StyledBadge = withStyles(theme => ({
 
 const useStyles = makeStyles(theme => ({
   root: {
-    margin: ".5rem auto",
-    height: "2.5vh",
+    margin: "auto",
     display: "flex",
+    alignItems: 'center',
     whiteSpace: "nowrap",
     overflow: "hidden",
-    [theme.breakpoints.down("sm")]: {
-      maxWidth: "55%",
-      margin: "0 0 0 2%",
-      padding: "0",
+    [theme.breakpoints.down("sm")]: {      
+      margin: "5% 5% 5% 5.5rem",
     },
     [theme.breakpoints.down("xs")]: {
-      maxWidth: "55%",
-      margin: "0 0 0 2%",
-      padding: "0",
+      margin: "5% 5% 5% 5.5rem",
     },
   },
   chatRoomIcon: {
     color: "#2962FF",
     fontSize: "2.7rem",
-    margin: "0 5%",
-    marginBottom: "0.3rem",
+  
     [theme.breakpoints.down("sm")]: {
       marginRight: "2%",
     },
@@ -236,7 +231,7 @@ export default function AnnouncementRoom({
       </Hidden>
       <Hidden only={["md", "lg", "xl"]}>
         <Drawer
-          anchor="bottom"
+          anchor="right"
           open={messageToggle}
           onClose={handleClick}
           variant="temporary"
