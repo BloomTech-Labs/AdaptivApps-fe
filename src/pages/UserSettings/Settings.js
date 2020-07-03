@@ -80,8 +80,12 @@ const useStyles = makeStyles(theme => ({
       width: "90%",
       margin: "8% 0",
     },
+    [theme.breakpoints.down("ix")]: {
+      width: "100%",
+      margin: "8% 0",
+    },
     [theme.breakpoints.down("xs")]: {
-      width: "90%",
+      width: "80%",
       margin: "8% 0",
     },
   },
@@ -113,7 +117,7 @@ const useStyles = makeStyles(theme => ({
       margin: "2rem auto",
     },
     [theme.breakpoints.down("xs")]: {
-      width: "80%",
+      width: "100%",
       margin: "2rem auto",
     },
   },
@@ -190,7 +194,7 @@ export default function Settings() {
   const classes = useStyles();
   const navigate = useNavigate();
   const userEmail = user.email;
-  
+
   // Fetch profile for the user using the email associated with auth0 login
   const { loading, error, data, refetch } = useQuery(PROFILE_INFO, {
     variables: { email: user?.email },
