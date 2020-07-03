@@ -207,6 +207,7 @@ export default function NewsfeedCard(props) {
       variables: {
         id: post.id,
       },
+      skip: !post.id,
     }
   );
 
@@ -333,11 +334,11 @@ export default function NewsfeedCard(props) {
         {user?.email === post?.postedBy?.email ||
         (user && user[config.roleUrl].includes("Admin")) ? (
           <div className={classes.editDeleteBtn}>
-            {user && user[config.roleUrl].includes("Admin") ? (
+            {/* {user && user[config.roleUrl].includes("Admin") ? (
               <Button className={classes.btn} onClick={pinPost}>
                 <FontAwesomeIcon icon={faThumbtack} className={classes.icons} />
               </Button>
-            ) : null}
+            ) : null} */}
             <Button
               className={classes.btn}
               onClick={() => setEditing(!editing)}

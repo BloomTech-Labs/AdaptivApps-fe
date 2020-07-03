@@ -8,7 +8,11 @@ import { CREATE_NEWSFEED_POST } from "../queries/FeedPost";
 import S3FileUpload from "react-s3";
 // Styling Imports
 import {
-  makeStyles, TextField, Checkbox, Typography, InputLabel
+  makeStyles,
+  TextField,
+  Checkbox,
+  Typography,
+  InputLabel,
 } from "@material-ui/core";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import CropOriginalIcon from "@material-ui/icons/CropOriginal";
@@ -52,6 +56,10 @@ const useStyles = makeStyles(theme => ({
   },
   icon: {
     fontSize: "2.75rem",
+    marginRight: "1rem",
+  },
+  photoIcon: {
+    fontSize: "2rem",
     marginRight: "1rem",
   },
   inputUpload: {
@@ -126,9 +134,8 @@ export default function CreatePost({ user, profile }) {
           }
         })
         .catch(async err => console.log(err));
-    }
-    else {
-      console.log("Select an image to upload!")
+    } else {
+      console.log("Select an image to upload!");
     }
   };
 
@@ -147,8 +154,8 @@ export default function CreatePost({ user, profile }) {
         ) : user?.picture ? (
           <CustomMessageIcon pictureIcon={user?.picture} />
         ) : (
-              <AccountCircleIcon className={classes.icon} />
-            )}
+          <AccountCircleIcon className={classes.icon} />
+        )}
         <TextField
           size="small"
           type="text"
@@ -165,7 +172,7 @@ export default function CreatePost({ user, profile }) {
         />
       </div>
       <div className={classes.cta}>
-        {!postImage ?
+        {!postImage ? (
           <div>
             <label className={classes.photoButton} htmlFor="uploadPostPicture">
               <IconButton
@@ -174,7 +181,10 @@ export default function CreatePost({ user, profile }) {
                 component="span"
                 onKeyDown={e => handlePictureEnter(e)}
               >
-                <CropOriginalIcon color="primary" className={classes.photoIcon} />
+                <CropOriginalIcon
+                  color="primary"
+                  className={classes.photoIcon}
+                />
                 <Typography>Choose an image to upload!</Typography>
               </IconButton>
             </label>
@@ -185,12 +195,17 @@ export default function CreatePost({ user, profile }) {
               onChange={uploadPostImage}
               id="uploadPostPicture"
             />
-          </div> :
+          </div>
+        ) : (
           <div className={classes.inputField}>
             <InputLabel required className={classes.inputLabel} htmlFor="image">
               Event Image
             </InputLabel>
-            <img src={postImage} alt="image for this post" className={classes.img} />
+            <img
+              src={postImage}
+              alt="image for this post"
+              className={classes.img}
+            />
             <button className={classes.removalBtn}>
               <Tooltip title="Remove Image">
                 <CloseIcon
@@ -201,8 +216,8 @@ export default function CreatePost({ user, profile }) {
               </Tooltip>
             </button>
           </div>
-        }
-        {user && user[config.roleUrl].includes("Admin") ? (
+        )}
+        {/* {user && user[config.roleUrl].includes("Admin") ? (
           <div className={classes.flexPinnedPost}>
             <Checkbox
               check={pinnedPost}
@@ -215,7 +230,7 @@ export default function CreatePost({ user, profile }) {
             />
             <Typography className={classes.text}>Pin this post?</Typography>
           </div>
-        ) : null}
+        ) : null} */}
       </div>
     </div>
   );

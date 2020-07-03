@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useAuth0 } from "../../../config/react-auth0-spa";
 import { useQuery, useSubscription } from "react-apollo";
+import { GET_MY_PROFILE } from "../queries";
 import {
   GET_NEWSFEED_POSTS,
   NEWSFEED_POST_SUBSCRIPTION,
-  GET_MY_PROFILE,
-} from "../queries";
+} from "../queries/FeedPost.js";
 // Import components
 import CreatePost from "./CreatePost";
 import PinnedPost from "./PinnedPost";
@@ -104,11 +104,11 @@ export default function NewsfeedPage() {
         </div>
         <div className={classes.newsfeed}>
           <CreatePost user={user} profile={profile?.profile} />
-          <PinnedPost
+          {/* <PinnedPost
             user={user}
             pinnedPost={pinnedPost}
             refetchPosts={refetchPosts}
-          />
+          /> */}
           {posts.map((post, index) => (
             <NewsfeedCard
               post={post}
