@@ -33,15 +33,10 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down("sm")]: {
       width: "90%",
       padding: "0",
-      height: "85%",
+      height: "80%",
       justifyContent: "flex-end",
     },
-    [theme.breakpoints.down("xs")]: {
-      width: "95%",
-      padding: "0",
-      height: "85%",
-      justifyContent: "flex-end",
-    },
+    
   },
   title: {
     fontSize: "2.5rem",
@@ -52,12 +47,12 @@ const useStyles = makeStyles(theme => ({
     marginTop: "1%",
     [theme.breakpoints.down("sm")]: {
       alignSelf: "flex-start",
-      margin: "0",
+      margin: "2% 2.5rem",
       padding: "3%",
     },
     [theme.breakpoints.down("xs")]: {
       alignSelf: "flex-start",
-      margin: "0",
+      margin: "2% 4rem",
       padding: "3%",
       fontSize: "1.75rem",
     },
@@ -65,8 +60,7 @@ const useStyles = makeStyles(theme => ({
   messageIcons: {
     maxWidth: "95%",
     display: "flex",
-    margin: "2.5% 0 5% 0",
-    padding: "1%",
+    margin: "2.5% 0 5% 7%",
     alignItems: "center",
     "&:hover": {
       background: "lightgrey",
@@ -123,7 +117,7 @@ const useStyles = makeStyles(theme => ({
     overflow: "hidden",
   },
   chatRoomDiv: {
-    maxHeight: "80vh",
+    maxHeight: "75vh",
     overflowY: "auto",
     overflowX: "hidden",
     overflow: "auto",
