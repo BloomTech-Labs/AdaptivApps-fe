@@ -300,7 +300,10 @@ export default function ChatRoom({
                   overlap="circle"
                 >
                   {chattingIcon ? (
-                    <button className={classes.btn}>
+                    <button
+                      className={classes.btn}
+                      aria-label={`Visit the profile of ${chattingWith}`}
+                    >
                       <CustomPeopleIcon
                         className={classes.chatRoomIcon}
                         chattingIcon={chattingIcon}
@@ -308,7 +311,10 @@ export default function ChatRoom({
                       />
                     </button>
                   ) : (
-                      <button className={classes.btn}>
+                      <button
+                        className={classes.btn}
+                        aria-label={`Visit the profile of ${chattingWith}`}
+                      >
                         <PeopleAltIcon
                           className={classes.chatRoomIcon}
                           aria-label="Visit profile"
@@ -319,7 +325,10 @@ export default function ChatRoom({
                 </StyledBadge>
               </Tooltip>
             ) : chattingIcon ? (
-              <button className={classes.btn}>
+              <button
+                className={classes.btn}
+                aria-label={`Visit the profile of ${chattingWith}`}
+              >
                 <CustomPeopleIcon
                   className={classes.chatRoomIcon}
                   chattingIcon={chattingIcon}
@@ -327,7 +336,10 @@ export default function ChatRoom({
                 />
               </button>
             ) : (
-                  <button className={classes.btn}>
+                  <button
+                    className={classes.btn}
+                    aria-label={`Visit the profile of ${chattingWith}`}
+                  >
                     <PeopleAltIcon
                       className={classes.chatRoomIcon}
                       aria-label="Visit profile"
@@ -338,7 +350,7 @@ export default function ChatRoom({
           </Tooltip>
           <Tooltip title="expand chat message">
             <button
-              aria-label="Expand chat messages"
+              aria-label={`Expand chat messages with ${chattingWith} `}
               className={classes.chatRoomButton}
               onClick={handleClick}
               disabled={disableClick}
@@ -348,7 +360,11 @@ export default function ChatRoom({
             </button>
           </Tooltip>
           <Tooltip title="Remove Chatroom">
-            <button className={classes.removalBtn} onClick={() => removeChatroom()}>
+            <button
+              aria-label={`Delete chat with ${chattingWith}`}
+              className={classes.removalBtn}
+              onClick={() => removeChatroom()}
+            >
               <CloseIcon
                 onKeyDown={e => handleChatroomRemoval(e)}
                 aria-label="Remove Chatroom"
