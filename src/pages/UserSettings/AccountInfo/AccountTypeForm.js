@@ -1,5 +1,6 @@
 // React/Reach Router imports
 import React, { useState, useEffect } from "react";
+import { Link } from "@reach/router";
 import { useNavigate, useParams } from "@reach/router";
 import { useForm, Controller } from "react-hook-form";
 // Apollo/GraphQL imports
@@ -97,6 +98,11 @@ const useStyles = makeStyles(theme => ({
     fontWeight: "bold",
     marginTop: "1rem",
   },
+  a11yLink: {
+    fontSize: "1.4rem",
+    color: "#2962FF",
+    textDecoration: "underline",
+  },
 }));
 
 export default function AccountTypeForm({ updateProfile }) {
@@ -153,67 +159,71 @@ export default function AccountTypeForm({ updateProfile }) {
       {/* <ProgressBar activeStep={0} userEmail={userEmail} /> */}
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.selectContainer}>
-          <InputLabel className={classes.label} required htmlFor="account type">
+          <InputLabel className={classes.label} required id="accountType">
             Are you registering as an individual or an organization?
           </InputLabel>
           {errors.type && (
-            <Typography className={classes.error}>
+            <Typography className={classes.error} role="alert">
               Please make a selection
             </Typography>
           )}
           <Box className={classes.box}>
             <Controller
               as={
-                <Select className={classes.typeSelect}>
-                  <MenuItem value="">
+                <Select className={classes.typeSelect} aria-label="account type">
+                  {/* <MenuItem value="">
                     <em className={classes.em}>Please choose one</em>
-                  </MenuItem>
-                  <MenuItem value="Individual">
+                  </MenuItem> */}
+                  <MenuItem value="Individual" aria-labelledby="accountType">
                     I'm registering as an individual
                   </MenuItem>
-                  <MenuItem value="Organization">
+                  <MenuItem value="Organization" aria-labelledby="accountType">
                     I'm registering as an organization
                   </MenuItem>
                 </Select>
               }
+              id="accountType"
               name="type"
               variant="outlined"
               control={control}
               defaultValue=""
               rules={{ required: true }}
+              aria-invalid={errors.type ? "true" : "false"}
             />
           </Box>
-          <InputLabel required htmlFor="role identity">
+          <InputLabel required id="roleIdentity">
             Which role do you best identify with?
           </InputLabel>
           {errors.roleIdentity && (
-            <Typography className={classes.error}>
+            <Typography className={classes.error} role="alert">
               Please make a selection
             </Typography>
           )}
           <Box className={classes.box}>
             <Controller
               as={
-                <Select className={classes.typeSelect}>
-                  <MenuItem value="">
+                <Select className={classes.typeSelect} aria-label="role types">
+                  {/* <MenuItem value="">
                     <em className={classes.em}>Please choose one</em>
-                  </MenuItem>
-                  <MenuItem value="Athlete">Adaptive Athlete</MenuItem>
-                  <MenuItem value="Ally/Volunteer">
+                  </MenuItem> */}
+                  <MenuItem value="Athlete" aria-labelledby="roleIdentity">Adaptive Athlete</MenuItem>
+                  <MenuItem value="Ally/Volunteer" aria-labelledby="roleIdentity">
                     Ally/Volunteer - I want to participate and will volunteer to
                     help promote.
                   </MenuItem>
-                  <MenuItem value="Donor/Supporter">
+                  <MenuItem value="Donor/Supporter" aria-labelledby="roleIdentity">
                     Donor/Supporter - I want to participate and will donate or
                     help fundraise.
                   </MenuItem>
                 </Select>
               }
+              id="roleIdentity"
               name="roleIdentity"
               variant="outlined"
               control={control}
               defaultValue=""
               rules={{ required: true }}
+              aria-invalid={errors.roleIdentity ? "true" : "false"}
             />
           </Box>
           <Typography className={classes.error}>* required field</Typography>
@@ -228,6 +238,9 @@ export default function AccountTypeForm({ updateProfile }) {
           />
         </Box>
       </form>
+      <Link to="/privacy-policy" className={classes.a11yLink}>
+        Privacy Policy
+      </Link>
     </Box>
   );
 }

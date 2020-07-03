@@ -1,5 +1,6 @@
 // React/Reach Router imports
 import React, { useEffect, useState } from "react";
+import { Link } from "@reach/router";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Apollo/GraphQL imports
@@ -150,7 +151,7 @@ const useStyles = makeStyles(theme => ({
   },
   btnBox: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     marginTop: "1rem",
   },
   error: {
@@ -170,6 +171,13 @@ const useStyles = makeStyles(theme => ({
     color: "red",
     fontVariant: "all-small-caps",
     fontWeight: "bold",
+  },
+  a11yLink: {
+    display: "flex",
+    alignSelf: "flex-end",
+    fontSize: "1.4rem",
+    color: "#2962FF",
+    textDecoration: "underline",
   },
 }));
 
@@ -252,13 +260,15 @@ export default function Step1({ updateProfile }) {
         userNames.push(user.userName.toLowerCase())
     );
 
-  const validateUsername = () => {
-    const userName = control.getValues().userName.toLowerCase();
-    if (userNames.includes(userName)) {
-      setErrorState(true);
-      alert("That username is already taken. Please choose another one!");
-    } else setErrorState(false);
-  };
+    const validateUsername = () => {
+      const userName =
+        control.getValues().userName !== null &&
+        control.getValues().userName.toLowerCase();
+      if (userNames.includes(userName)) {
+        setErrorState(true);
+        alert("That username is already taken. Please choose another one!");
+      } else setErrorState(false);
+    };
 
   // Will update profile and route user back to settings page allowing user to complete profile wizard at a later time
   // const onSave = handleSubmit(async data => {
@@ -291,41 +301,47 @@ export default function Step1({ updateProfile }) {
         <Box className={classes.namePhoneBox}>
           <Box className={classes.doubleInput}>
             <Box className={classes.singleInput}>
-              <InputLabel required htmlFor="firstName">
+              <InputLabel required for="firstName">
                 First Name
               </InputLabel>
               <Controller
                 as={<TextField />}
                 className={classes.firstInput}
+                id="firstName"
+                autoComplete="first name"
                 name="firstName"
                 type="text"
                 variant="outlined"
                 control={control}
+                aria-invalid={errors.firstName ? "true" : "false"}
                 defaultValue=""
                 rules={{ required: true }}
               />
               {errors.firstName && (
-                <Typography className={classes.error}>
+                <Typography className={classes.error} role="alert">
                   first name is a required field
                 </Typography>
               )}
             </Box>
             <Box className={classes.singleInput}>
-              <InputLabel required htmlFor="lastName">
+              <InputLabel required for="lastName">
                 Last Name
               </InputLabel>
               <Controller
                 as={<TextField />}
+                id="lastName"
                 name="lastName"
+                autocomplete="last name"
                 type="text"
                 variant="outlined"
                 control={control}
+                aria-invalid={errors.lastName ? "true" : "false"}
                 defaultValue=""
                 rules={{ required: true }}
                 className={classes.secondInput}
               />
               {errors.lastName && (
-                <Typography className={classes.error}>
+                <Typography className={classes.error} role="alert">
                   last name is a required field
                 </Typography>
               )}
@@ -335,38 +351,44 @@ export default function Step1({ updateProfile }) {
         <Box className={classes.namePhoneBox}>
           <Box className={classes.doubleInput}>
             <Box className={classes.singleInput}>
-              <InputLabel required htmlFor="userName">
+              <InputLabel required for="userName">
                 Username
               </InputLabel>
               <Controller
                 as={<TextField />}
                 className={classes.firstInput}
+                id="userName"
+                autoComplete="username"
                 name="userName"
                 variant="outlined"
                 type="text"
                 control={control}
+                aria-invalid={errors.userName ? "true" : "false"}
                 defaultValue=""
                 onBlur={validateUsername}
                 rules={{ required: true }}
               />
               {errors.userName && (
-                <Typography className={classes.error}>
+                <Typography className={classes.error} role="alert">
                   username is a required field
                 </Typography>
               )}
 
               {errorState && (
-                <Typography className={classes.error}>
-                  Button is disabled until a unique username is chosen
+                <Typography className={classes.error} role="alert">
+                  Finish button is disabled until a unique username is chosen
                 </Typography>
               )}
             </Box>
             <Box className={classes.singleInput}>
-              <InputLabel required htmlFor="phoneNumber">
+              <InputLabel required for="phoneNumber">
                 Phone Number
               </InputLabel>
               <Controller
                 as={<TextField />}
+                id="phoneNumber"
+                autoComplete="phone number"
+                aria-invalid={errors.phoneNumber ? "true" : "false"}
                 name="phoneNumber"
                 variant="outlined"
                 type="text"
@@ -375,7 +397,7 @@ export default function Step1({ updateProfile }) {
                 rules={{ required: true }}
               />
               {errors.phoneNumber && (
-                <Typography className={classes.error}>
+                <Typography className={classes.error} role="alert">
                   phone number is a required field
                 </Typography>
               )}
@@ -468,11 +490,13 @@ export default function Step1({ updateProfile }) {
           </Box>
         </Box> */}
 
-        <InputLabel htmlFor="twitter">
+        <InputLabel for="twitter">
           Please enter the full url link to your Twitter profile
         </InputLabel>
         <Controller
           as={<TextField />}
+          id="twitter"
+          autoComplete="twitter"
           name="twitter"
           type="text"
           variant="outlined"
@@ -480,11 +504,13 @@ export default function Step1({ updateProfile }) {
           defaultValue=""
         />
 
-        <InputLabel htmlFor="facebook">
+        <InputLabel for="facebook">
           Please enter the full url link to your Facebook profile
         </InputLabel>
         <Controller
           as={<TextField />}
+          id="facebook"
+          autoComplete="facebook"
           name="facebook"
           type="text"
           variant="outlined"
@@ -492,11 +518,13 @@ export default function Step1({ updateProfile }) {
           defaultValue=""
         />
 
-        <InputLabel htmlFor="instagram">
+        <InputLabel for="instagram">
           Please enter the full url link to your Instagram profile
         </InputLabel>
         <Controller
           as={<TextField />}
+          id="instagram"
+          autoComplete="instagram"
           name="instagram"
           type="text"
           variant="outlined"
@@ -504,34 +532,37 @@ export default function Step1({ updateProfile }) {
           defaultValue=""
         />
 
-        <InputLabel required htmlFor="legal">
+        <InputLabel required id="legal">
           Are you over 18 years old? (minors will not have access to the chat feature)
         </InputLabel>
         {errors.legal && (
-          <Typography className={classes.error}>
-            Please make a selection
+          <Typography className={classes.error} role="alert">
+            Please answer if you are 18 years old or not
           </Typography>
         )}
         <Controller
           as={
             <Select className={classes.typeSelect}>
-              <MenuItem value="">
+              {/* <MenuItem value="">
                 <em className={classes.em}>Please choose one</em>
-              </MenuItem>
-              <MenuItem value="Yes">Yes</MenuItem>
-              <MenuItem value="No">No</MenuItem>
+              </MenuItem> */}
+              <MenuItem value="Yes" aria-labelledby="legal">Yes</MenuItem>
+              <MenuItem value="No" aria-labelledby="legal">No</MenuItem>
             </Select>
           }
+          id="legal"
           name="legal"
           type="select"
+          aria-invalid={errors.legal ? "true" : "false"}
           variant="outlined"
           control={control}
           defaultValue=""
           rules={{ required: true }}
         />
-        <InputLabel htmlFor="bio">Bio</InputLabel>
+        <InputLabel for="bio">Bio</InputLabel>
         <Controller
           as={<TextField />}
+          id="bio"
           name="bio"
           type="text"
           variant="outlined"
@@ -543,6 +574,9 @@ export default function Step1({ updateProfile }) {
         />
         <Typography className={classes.error}>* required field</Typography>
         <Box className={classes.btnBox}>
+          <Link to="/privacy-policy" className={classes.a11yLink}>
+            Privacy Policy
+          </Link>
           <FinishButton
             type="submit"
             label="Finish"
