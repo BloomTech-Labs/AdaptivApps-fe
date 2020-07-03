@@ -524,12 +524,12 @@ export default function Step1({ updateProfile }) {
           defaultValue=""
         />
 
-        <InputLabel required for="legal">
+        <InputLabel required id="legal">
           Are you over 18 years old? (minors will not have access to the chat feature)
         </InputLabel>
         {errors.legal && (
           <Typography className={classes.error} role="alert">
-            Please make a selection
+            Please answer if you are 18 years old or not
           </Typography>
         )}
         <Controller
@@ -538,14 +538,14 @@ export default function Step1({ updateProfile }) {
               {/* <MenuItem value="">
                 <em className={classes.em}>Please choose one</em>
               </MenuItem> */}
-              <MenuItem value="Yes">Yes</MenuItem>
-              <MenuItem value="No">No</MenuItem>
+              <MenuItem value="Yes" aria-labelledby="legal">Yes</MenuItem>
+              <MenuItem value="No" aria-labelledby="legal">No</MenuItem>
             </Select>
           }
           id="legal"
           name="legal"
           type="select"
-          aria-invalid={errors.userName ? "true" : "false"}
+          aria-invalid={errors.legal ? "true" : "false"}
           variant="outlined"
           control={control}
           defaultValue=""

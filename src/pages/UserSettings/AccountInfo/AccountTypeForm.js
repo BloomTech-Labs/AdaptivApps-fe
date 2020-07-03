@@ -196,7 +196,7 @@ export default function AccountTypeForm({ updateProfile }) {
           <Box className={classes.box}>
             <Controller
               as={
-                <Select className={classes.typeSelect} ariaLabel="role types">
+                <Select className={classes.typeSelect} aria-label="role types">
                   {/* <MenuItem value="">
                     <em className={classes.em}>Please choose one</em>
                   </MenuItem> */}
