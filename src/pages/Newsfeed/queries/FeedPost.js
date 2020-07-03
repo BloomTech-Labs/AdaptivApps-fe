@@ -46,11 +46,7 @@ export const GET_NEWSFEED_POSTS = gql`
 
 // Create a Newsfeed Post w/ image
 export const CREATE_NEWSFEED_POST = gql`
-  mutation createFeedPost(
-    $body: String!
-    $imgUrl: String
-    $postedBy: String!
-  ) {
+  mutation createFeedPost($body: String!, $imgUrl: String, $postedBy: String!) {
     createFeedPost(
       data: {
         body: $body
@@ -76,14 +72,9 @@ export const CREATE_NEWSFEED_POST = gql`
 // Pin a Newsfeed Post
 export const PIN_NEWSFEED_POST = gql`
   mutation pinFeedPost($id: ID!, $pinnedPost: Boolean!) {
-    updateFeedPost(
-      data: {
-        pinnedPost: $pinnedPost
-      }
-      where: { 
-        id: $id 
-    }) {
+    updateFeedPost(data: { pinnedPost: $pinnedPost }, where: { id: $id }) {
       id
+      pinnedPost
     }
   }
 `;

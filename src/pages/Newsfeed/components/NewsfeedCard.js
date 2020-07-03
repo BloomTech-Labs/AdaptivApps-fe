@@ -25,7 +25,6 @@ import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import PinDropOutlinedIcon from "@material-ui/icons/PinDropOutlined";
-
 import {
   makeStyles,
   TextField,
@@ -41,7 +40,7 @@ import {
 } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import { faThumbtack } from "@fortawesome/free-solid-svg-icons";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -64,13 +63,15 @@ const useStyles = makeStyles(theme => ({
   },
   postBody: {
     display: "flex",
+    flexDirection: "column",
     //flexWrap: "wrap",
     height: "50%",
     alignItems: "flex-start",
   },
   img: {
+    margin: "auto",
     maxWidth: "40%",
-    padding: "0 1.6rem",
+    padding: "1.6rem",
     borderRadius: "5px",
   },
   post: {
@@ -178,9 +179,8 @@ const useStyles = makeStyles(theme => ({
     border: "none",
   },
   icons: {
-    display: "flex",
-    alignSelf: "flex-end",
-    color: "black",
+    color: "rgba(0, 0, 0, 0.54)",
+    transform: "rotate(40deg)",
   },
   editDeleteBtn: {
     display: "flex",
@@ -196,11 +196,8 @@ export default function NewsfeedCard(props) {
   const { post, user, refetchPosts, profile, pinnedPost } = props;
 
   const [commentText, setCommentText] = useState("");
-  const [liked, setLiked] = useState(false);
   const [toggleCommentOverflow, setToggleCommentOverflow] = useState(false);
   const [commenting, setCommenting] = useState(false);
-  const [displayComments, setDisplayComments] = useState(false);
-  const [displayDropdown, setDisplayDropdown] = useState(false);
   const [editing, setEditing] = useState(false);
   const [postToEdit, setPostToEdit] = useState(post.body);
 
@@ -279,10 +276,6 @@ export default function NewsfeedCard(props) {
     refetchPosts();
   };
 
-  const showComments = () => {
-    setDisplayComments(!displayComments);
-  };
-
   const deletePost = async () => {
     await deleteNewsfeedPost({
       variables: {
@@ -340,6 +333,11 @@ export default function NewsfeedCard(props) {
         {user?.email === post?.postedBy?.email ||
         (user && user[config.roleUrl].includes("Admin")) ? (
           <div className={classes.editDeleteBtn}>
+            {user && user[config.roleUrl].includes("Admin") ? (
+              <Button className={classes.btn} onClick={pinPost}>
+                <FontAwesomeIcon icon={faThumbtack} className={classes.icons} />
+              </Button>
+            ) : null}
             <Button
               className={classes.btn}
               onClick={() => setEditing(!editing)}
@@ -349,11 +347,6 @@ export default function NewsfeedCard(props) {
             <Button onClick={deletePost} className={classes.btn}>
               <DeleteOutlineIcon color="action" fontSize="large" />
             </Button>
-            {user && user[config.roleUrl].includes("Admin") ? (
-              <Button className={classes.btn} onClick={pinPost}>
-                <PinDropOutlinedIcon color="action" fontSize="large" />
-              </Button>
-            ) : null}
           </div>
         ) : null}
       </CardActions>
@@ -368,17 +361,23 @@ export default function NewsfeedCard(props) {
         ) : null}
         <CardContent>
           {editing ? (
-            <TextField
-              type="text"
-              variant="outlined"
-              multiline
-              onKeyPress={e =>
-                e.key === "Enter" && postToEdit !== "" ? editPost() : null
-              }
-              onChange={e => setPostToEdit(e.target.value)}
-              value={postToEdit}
-              placeholder="Edit your post..."
-            />
+            <>
+              <Typography variant="subtitle">
+                Once you've updated your post, hit Enter to send
+              </Typography>
+              <TextField
+                type="text"
+                variant="outlined"
+                multiline
+                onKeyPress={e =>
+                  e.key === "Enter" && postToEdit !== "" ? editPost() : null
+                }
+                onChange={e => setPostToEdit(e.target.value)}
+                value={postToEdit}
+                placeholder="Edit your post..."
+                aria-label="Edit your post, then hit enter to send"
+              />
+            </>
           ) : (
             <p className={post.imgUrl ? classes.post : classes.soloPost}>
               {post.body}
@@ -441,8 +440,6 @@ export default function NewsfeedCard(props) {
       </div>
       {/* ) : null} */}
 
-      <Divider variant="middle" />
-
       {comments &&
         comments.feedComments.map((comment, i) => (
           <div
@@ -480,6 +477,7 @@ export default function NewsfeedCard(props) {
       {comments?.feedComments?.length > 3 ? (
         <Button
           onClick={() => setToggleCommentOverflow(!toggleCommentOverflow)}
+          className={classes.comments}
         >
           {toggleCommentOverflow ? "hide comments" : "show more comments"}
         </Button>

@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import config from "../../../config/auth_config";
-import { useMutation } from "react-apollo";
-import { PIN_NEWSFEED_POST } from "../queries/FeedPost";
+import { useMutation, useQuery, useSubscription } from "react-apollo";
+import {
+  PIN_NEWSFEED_POST,
+  UPDATE_NEWSFEED_POST,
+  DELETE_NEWSFEED_POST,
+} from "../queries/FeedPost";
+import {
+  CREATE_NEWSFEED_COMMENT,
+  GET_NEWSFEED_COMMENTS,
+  NEWSFEED_COMMENT_SUBSCRIPTION,
+} from "../queries/FeedComment";
 // Component Imports
 import CustomMessageIcon from "../../Chat/components/Messages/CustomMessageIcon";
 
@@ -12,9 +21,9 @@ import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ModeCommentIcon from "@material-ui/icons/ModeComment";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
-import PinDropOutlinedIcon from '@material-ui/icons/PinDropOutlined';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleUp, faAngleDown } from "@fortawesome/free-solid-svg-icons";
+import PinDropOutlinedIcon from "@material-ui/icons/PinDropOutlined";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbtack } from "@fortawesome/free-solid-svg-icons";
 
 import {
   makeStyles,
@@ -29,12 +38,25 @@ import {
   Typography,
 } from "@material-ui/core";
 
+const ACS_Icon = require("../../../assets/images/ACS_ICON.png");
+
 const useStyles = makeStyles(theme => ({
   root: {
     margin: "auto",
     width: "64.8rem",
     backgroundColor: "#F5F5F5",
     paddingBottom: "1rem",
+    "& .MuiCardContent-root": {
+      width: "100%",
+      padding: "0",
+    },
+    "& .MuiTextField-root": {
+      width: "61.6rem",
+      backgroundColor: "white",
+    },
+    "& .MuiInputBase-input": {
+      fontSize: "1.4rem",
+    },
   },
   paper: {
     "&:hover": {
@@ -59,8 +81,10 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
   },
   postBody: {
+    textAlign: "left",
     fontSize: "3rem",
     fontWeight: "bold",
+    padding: "0 1.6rem 7rem",
   },
   cardActions: {
     display: "flex",
@@ -101,20 +125,45 @@ const useStyles = makeStyles(theme => ({
     border: "none",
   },
   icons: {
-    display: "flex",
-    alignSelf: "flex-end",
-    color: "black",
+    color: "rgba(0, 0, 0, 0.54)",
   },
   editDeleteBtn: {
     display: "flex",
-    flexDirection: "column",
-    position: "absolute",
-    marginTop: "3rem",
-    marginLeft: "-2rem",
+    justifyContent: "flex-end",
   },
   btn: {
     padding: "none",
-  }
+  },
+  commentBox: {
+    marginLeft: ".8rem",
+    lineHeight: ".6rem",
+    display: "flex",
+    flexDirection: "column",
+  },
+  flex: {
+    margin: "2.4rem 0 0 1.6rem",
+    display: "flex",
+    alignItems: "stretch",
+  },
+  showAllComments: {
+    margin: "2.4rem 0 0 1.6rem",
+    display: "flex",
+    alignItems: "stretch",
+  },
+  commentName: {
+    fontSize: "1.4rem",
+    fontWeight: "bold",
+  },
+  commentContent: {
+    fontSize: "1.4rem",
+  },
+  commentOverflow: {
+    display: "none",
+  },
+  avatarIcon: {
+    fontSize: "2.75rem",
+    margin: "0 .8rem 0 1.2rem",
+  },
   // editDeleteBtn: {
   //   width: "20%",
   // },
@@ -128,17 +177,32 @@ const useStyles = makeStyles(theme => ({
 
 export default function PinnedPost({ user, pinnedPost, refetchPosts }) {
   const classes = useStyles();
-  const [pinFeedPost] = useMutation(PIN_NEWSFEED_POST);
   const [commenting, setCommenting] = useState(false);
+  const [commentText, setCommentText] = useState("");
+  const [toggleCommentOverflow, setToggleCommentOverflow] = useState(false);
   const [displayDropdown, setDisplayDropdown] = useState(false);
+  const [postToEdit, setPostToEdit] = useState(pinnedPost?.body);
+  const [editing, setEditing] = useState(false);
 
-  const editPost = () => {
-    //edit post logic
-  };
+  const { data: comments, loading, error, refetch } = useQuery(
+    GET_NEWSFEED_COMMENTS,
+    {
+      variables: {
+        id: pinnedPost.id,
+      },
+    }
+  );
 
-  const unpinPost = () => {
-    // unpin post logic
-  };
+  const {
+    data: commentSub,
+    loading: commentsLoading,
+    error: commentSubError,
+  } = useSubscription(NEWSFEED_COMMENT_SUBSCRIPTION);
+
+  const [pinFeedPost] = useMutation(PIN_NEWSFEED_POST);
+  const [updatePost] = useMutation(UPDATE_NEWSFEED_POST);
+  const [createComment] = useMutation(CREATE_NEWSFEED_COMMENT);
+  const [deletePinnedPost] = useMutation(DELETE_NEWSFEED_POST);
 
   const toggleComment = () => {
     setCommenting(!commenting);
@@ -148,194 +212,217 @@ export default function PinnedPost({ user, pinnedPost, refetchPosts }) {
     await pinFeedPost({
       variables: {
         id: pinnedPost.id,
-        pinnedPost: !pinnedPost.pinnedPost
-      }
-    })
+        pinnedPost: false,
+      },
+    });
     refetchPosts();
-  }
+  };
+
+  const editPinnedPost = async () => {
+    await updatePost({
+      variables: {
+        id: pinnedPost.id,
+        body: postToEdit,
+      },
+    });
+    setEditing(false);
+  };
+
+  const deletePost = async () => {
+    await deletePinnedPost({
+      variables: {
+        id: pinnedPost.id,
+      },
+    });
+  };
+
+  const addComment = async () => {
+    await createComment({
+      variables: {
+        body: commentText,
+        email: user.email,
+        id: pinnedPost.id,
+      },
+    });
+    setCommentText("");
+  };
+
+  !commentsLoading && refetch();
 
   return (
     <>
-      {pinnedPost ? <Card className={classes.root}>
-        <CardActionArea className={classes.postHeader}>
-          <Typography variant="h3" color="secondary" className={classes.label}>
-            Angel City Sports Pinned Post
-          </Typography>
-          <div className={classes.pinnedBy}>
-            <div className={classes.acs}>
-              <CustomMessageIcon pictureIcon={pinnedPost?.postedBy.profilePicture} />
-              <p>{pinnedPost?.postedBy.firstName} {pinnedPost?.postedBy.lastName}</p>
-            </div>
-            {user?.email === pinnedPost?.postedBy?.email ? (
-              <div className={classes.dropdownContainer}>
-                <button type="button" className={classes.header} onClick={() => setDisplayDropdown(!displayDropdown)}>
-                  {displayDropdown
-                    ? <FontAwesomeIcon icon={faAngleUp} className={classes.icons} />
-                    : <FontAwesomeIcon icon={faAngleDown} className={classes.icons} />}
-                </button>
-                {displayDropdown && (
-                  <div className={classes.editDeleteBtn}>
-                    <Button className={classes.btn}>
-                      <EditOutlinedIcon color="action" fontSize="large" />
-                    </Button>
-                    <Button className={classes.btn}>
-                      <DeleteOutlineIcon color="action" fontSize="large" />
-                    </Button>
-                    {user && user[config.roleUrl].includes("Admin") ? (
-                      <Button className={classes.btn} onClick={pinPost}>
-                        <PinDropOutlinedIcon color="action" fontSize="large" />
-                      </Button>
-                    ) : null}
-                  </div>
-                )}
+      {pinnedPost ? (
+        <Card className={classes.root}>
+          <CardActionArea className={classes.postHeader}>
+            <Typography
+              variant="h3"
+              color="secondary"
+              className={classes.label}
+            >
+              Angel City Sports Pinned Post
+            </Typography>
+            <div className={classes.pinnedBy}>
+              <div className={classes.acs}>
+                <CustomMessageIcon pictureIcon={ACS_Icon} />
+                <p>Angel City Sports</p>
               </div>
-            ) : null}
-          </div>
-        </CardActionArea>
-        <CardContent
-          className={
-            pinnedPost.imgUrl ? classes.postImage : classes.postNoImage
-          }
-        >
-          {pinnedPost.imgUrl ? (
-            <CardMedia
-              component="img"
-              className={classes.img}
-              alt="description of post image"
-              image={pinnedPost.imgUrl}
-            />
-          ) : null}
-          <Typography className={classes.postBody}>
-            {pinnedPost.body}
-          </Typography>
-        </CardContent>
-        <Divider variant="middle" />
-
-        <CardActions className={classes.cardActions}>
-          <Button color="primary" className={classes.button}>
-            <ThumbUpAltIcon fontSize={"large"} className={classes.icon} />
-            <span className={classes.cta}>Like</span>
-          </Button>
-          <Button
-            color="primary"
-            className={classes.button}
-            onClick={toggleComment}
+              {user && user[config.roleUrl].includes("Admin") ? (
+                <div className={classes.editDeleteBtn}>
+                  <Button className={classes.btn} onClick={pinPost}>
+                    <FontAwesomeIcon
+                      icon={faThumbtack}
+                      className={classes.icons}
+                    />
+                  </Button>
+                  <Button
+                    className={classes.btn}
+                    onClick={() => setEditing(!editing)}
+                  >
+                    <EditOutlinedIcon color="action" fontSize="large" />
+                  </Button>
+                  <Button onClick={deletePost} className={classes.btn}>
+                    <DeleteOutlineIcon color="action" fontSize="large" />
+                  </Button>
+                </div>
+              ) : null}
+            </div>
+          </CardActionArea>
+          <CardContent
+            className={
+              pinnedPost.imgUrl ? classes.postImage : classes.postNoImage
+            }
           >
-            <ModeCommentIcon fontSize={"large"} className={classes.icon} />
-            <Typography className={classes.cta}>Comment</Typography>
-          </Button>
-        </CardActions>
+            {pinnedPost.imgUrl ? (
+              <CardMedia
+                component="img"
+                className={classes.img}
+                alt="description of post image"
+                image={pinnedPost.imgUrl}
+              />
+            ) : null}
+            {editing ? (
+              <>
+                <Typography variant="subtitle">
+                  Once you've updated your post, hit Enter to send
+                </Typography>
+                <TextField
+                  type="text"
+                  variant="outlined"
+                  multiline
+                  onKeyPress={e =>
+                    e.key === "Enter" && postToEdit !== ""
+                      ? editPinnedPost()
+                      : null
+                  }
+                  onChange={e => setPostToEdit(e.target.value)}
+                  value={postToEdit}
+                  placeholder="Edit your post..."
+                  aria-label="Edit your post, then hit enter to send"
+                />
+              </>
+            ) : (
+              <Typography className={classes.postBody}>
+                {pinnedPost.body}
+              </Typography>
+            )}
+          </CardContent>
+          <Divider variant="middle" />
 
-        {commenting ? (
+          <CardActions className={classes.cardActions}>
+            <Button color="primary" className={classes.button}>
+              <ThumbUpAltIcon fontSize={"large"} className={classes.icon} />
+              <span className={classes.cta}>Like</span>
+            </Button>
+            <Button
+              color="primary"
+              className={classes.button}
+              onClick={toggleComment}
+            >
+              <ModeCommentIcon fontSize={"large"} className={classes.icon} />
+              <Typography className={classes.cta}>Comment</Typography>
+            </Button>
+          </CardActions>
+
+          <Divider variant="middle" />
+
           <div className={classes.comment}>
-            <AccountCircleIcon fontSize={"large"} className={classes.icon} />
             <TextField
               size="small"
+              type="text"
               variant="outlined"
-              multiline
-              className={classes.input}
+              //multiline
+              onKeyPress={e =>
+                e.key === "Enter" && commentText !== "" ? addComment() : null
+              }
+              onChange={e => setCommentText(e.target.value)}
+              value={commentText}
               placeholder="Write a comment..."
             />
-            <Button color="primary" className={classes.button}>
-              <KeyboardReturnIcon fontSize={"large"} className={classes.icon} />
-              Submit
-            </Button>
           </div>
-        ) : null}
+          {/* ) : null} */}
 
-        <Divider variant="middle" />
-      </Card> : null}
+          {comments &&
+            comments.feedComments.map((comment, i) => (
+              <div
+                key={comment.id}
+                className={
+                  i < 3 && !toggleCommentOverflow
+                    ? classes.flex
+                    : toggleCommentOverflow
+                    ? classes.showAllComments
+                    : classes.commentOverflow
+                }
+              >
+                {comment?.postedBy?.profilePicture ? (
+                  <CustomMessageIcon
+                    pictureIcon={comment?.postedBy?.profilePicture}
+                  />
+                ) : (
+                  <AccountCircleIcon
+                    fontSize={"large"}
+                    className={classes.avatarIcon}
+                  />
+                )}
+
+                <div className={classes.commentBox}>
+                  <Typography className={classes.commentName}>
+                    {comment.postedBy.firstName} {comment.postedBy.lastName}
+                  </Typography>
+                  <Typography className={classes.commentContent} gutterBottom>
+                    {comment.body}
+                  </Typography>
+                </div>
+              </div>
+            ))}
+
+          {comments?.feedComments?.length > 3 ? (
+            <Button
+              onClick={() => setToggleCommentOverflow(!toggleCommentOverflow)}
+            >
+              {toggleCommentOverflow ? "hide comments" : "show more comments"}
+            </Button>
+          ) : null}
+        </Card>
+      ) : null}
     </>
   );
 }
-
-// <Card className={classes.root}>
-//   {post.imgUrl ? (
-//     <div>
-//       <CardActionArea className={classes.postHeader}>
-//         <AccountCircleIcon fontSize={"large"} className={classes.icon} />
-//         <Typography gutterBottom>
-//           {post.postedBy.firstName} {post.postedBy.lastName}
-//         </Typography>
-//       </CardActionArea>
-//       <CardActionArea className={classes.postBody}>
-//         <CardMedia
-//           component="img"
-//           className={classes.img}
-//           alt="description of post image"
-//           image={post.imgUrl}
-//         />
-//         <CardContent className={classes.post}>
-//           <p>{post.body}</p>
-//         </CardContent>
-//       </CardActionArea>
-//     </div>
-//   ) : (
-//     <div>
-//       <CardActionArea className={classes.postHeader}>
-//         <AccountCircleIcon fontSize={"large"} className={classes.icon} />
-//         <Typography gutterBottom>
-//           {post.postedBy.firstName} {post.postedBy.lastName}
-//         </Typography>
-//       </CardActionArea>
-//       <CardContent className={classes.soloPost}>
-//         <p>{post.body}</p>
-//       </CardContent>
-//     </div>
-//   )}
-
-// <Divider variant="middle" />
-
-// <CardActions className={classes.cardActions}>
-//   <Button color="primary" className={classes.button}>
-//     <ThumbUpAltIcon fontSize={"large"} className={classes.icon} />
-//     Like
-//   </Button>
-//   <Button color="primary" className={classes.button} onClick={toggleComment}>
-//     <ModeCommentIcon fontSize={"large"} className={classes.icon} />
-//     Comment
-//   </Button>
-// </CardActions>
-
-// <Divider variant="middle" />
-
-//   <CardActionArea className={classes.postHeader}>
-//     <button onClick={showComments}>
-//       <p>
-//         {comments && comments.feedComments.length === 0
-//           ? `No`
-//           : `${comments.feedComments.length}`}{" "}
-//         comments
-//       </p>
-//     </button>
-//   </CardActionArea>
-
-//   <Divider variant="middle" />
-
-//   {commenting ? (
-//     <div className={classes.comment}>
-//       <AccountCircleIcon fontSize={"large"} className={classes.icon} />
-//       <TextField
-//         size="small"
-//         variant="outlined"
-//         multiline
-//         className={classes.input}
-//         placeholder="Write a comment..."
+// {commenting ? (
+//   <div className={classes.comment}>
+//     <AccountCircleIcon fontSize={"large"} className={classes.icon} />
+//     <TextField
+//       size="small"
+//       variant="outlined"
+//       multiline
+//       className={classes.input}
+//       placeholder="Write a comment..."
+//     />
+//     <Button color="primary" className={classes.button}>
+//       <KeyboardReturnIcon
+//         fontSize={"large"}
+//         className={classes.icon}
 //       />
-//       <Button color="primary" className={classes.button}>
-//         <KeyboardReturnIcon fontSize={"large"} className={classes.icon} />
-//         Submit
-//       </Button>
-//     </div>
-//   ) : null}
-
-//   <Divider variant="middle" />
-
-//   {comments && displayComments
-//     ? comments.feedComments.map(comment => (
-//         <div key={comment.id}>
-//           <p>{`${comment.postedBy.firstName} says: ${comment.body}`}</p>
-//         </div>
-//       ))
-//     : null}
-// </Card>;
+//       Submit
+//     </Button>
+//   </div>
+// ) : null}
