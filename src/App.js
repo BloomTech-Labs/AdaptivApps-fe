@@ -50,7 +50,7 @@ import ReactGA from "react-ga";
 import { useAuth0 } from "./config/react-auth0-spa";
 import "./styles.css";
 
-const trackingId = process.env.REACT_APP_ANALYTICS;
+const trackingId = "UA-171530526-1";
 (function initializeReactGA() {
   ReactGA.initialize(trackingId);
   ReactGA.pageview("/");
