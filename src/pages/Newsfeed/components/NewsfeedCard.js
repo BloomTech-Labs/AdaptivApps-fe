@@ -64,6 +64,12 @@ const useStyles = makeStyles(theme => ({
     "& .MuiInputBase-input": {
       fontSize: "1.4rem",
     },
+    [theme.breakpoints.down("sm")]: {
+      width: "70%",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "80%",
+    },
   },
   postBody: {
     display: "flex",

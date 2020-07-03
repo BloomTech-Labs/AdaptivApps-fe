@@ -25,6 +25,9 @@ const useStyles = makeStyles(theme => ({
   bannerSearchNewsfeed: {
     width: "92rem",
     display: "flex-column",
+    [theme.breakpoints.down("sm")]: {
+      maxWidth: "100%",
+    },
   },
   search: {
     zIndex: 100,
@@ -40,7 +43,7 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-evenly",
   },
   newsfeed: {
-    width: "100%",
+    width: "80%",
     margin: "auto",
     // display: "flex",
     // flexDirection: "column",
@@ -50,6 +53,9 @@ const useStyles = makeStyles(theme => ({
   },
   spotlight: {
     width: "35%",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
   endOfPosts: {
     margin: "4% 0",

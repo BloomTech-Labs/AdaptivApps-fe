@@ -30,6 +30,12 @@ const useStyles = makeStyles(theme => ({
     "& .MuiTextField-root": {
       backgroundColor: "white",
     },
+    [theme.breakpoints.down("sm")]: {
+      width: "70%",
+    },
+    [theme.breakpoints.down("xs")]: {
+      width: "80%",
+    },
   },
   postInput: {
     display: "flex",
@@ -149,20 +155,27 @@ export default function CreatePost({ user, profile }) {
 
   const props = {
     inputProps: {
-      'aria-label': 'Type a message here that will be posted to the community newsfeed. Then hit enter to send.'
-    }
-  }
+      "aria-label":
+        "Type a message here that will be posted to the community newsfeed. Then hit enter to send.",
+    },
+  };
 
   return (
     <div className={classes.root}>
       <div className={classes.postInput}>
         {profile?.profilePicture ? (
-          <CustomMessageIcon pictureIcon={profile?.profilePicture} myProfileUsername={profile?.userName} />
+          <CustomMessageIcon
+            pictureIcon={profile?.profilePicture}
+            myProfileUsername={profile?.userName}
+          />
         ) : user?.picture ? (
-          <CustomMessageIcon pictureIcon={user?.picture} myProfileUsername={profile?.userName} />
+          <CustomMessageIcon
+            pictureIcon={user?.picture}
+            myProfileUsername={profile?.userName}
+          />
         ) : (
-              <AccountCircleIcon className={classes.icon} />
-            )}
+          <AccountCircleIcon className={classes.icon} />
+        )}
         <TextField
           {...props}
           size="small"
@@ -204,26 +217,29 @@ export default function CreatePost({ user, profile }) {
             />
           </div>
         ) : (
-            <div className={classes.inputField}>
-              <InputLabel required className={classes.inputLabel} htmlFor="image">
-                Post Image
+          <div className={classes.inputField}>
+            <InputLabel required className={classes.inputLabel} htmlFor="image">
+              Post Image
             </InputLabel>
-              <img
-                src={postImage}
-                alt="image for this post"
-                className={classes.img}
-              />
-              <Tooltip title="Remove Image">
-                <button aria-label="remove uploaded image" className={classes.removalBtn}>
-                  <CloseIcon
-                    onClick={() => setPostImage(null)}
-                    aria-label="Remove Image"
-                    fontSize="large"
-                  />
-                </button>
-              </Tooltip>
-            </div>
-          )}
+            <img
+              src={postImage}
+              alt="image for this post"
+              className={classes.img}
+            />
+            <Tooltip title="Remove Image">
+              <button
+                aria-label="remove uploaded image"
+                className={classes.removalBtn}
+              >
+                <CloseIcon
+                  onClick={() => setPostImage(null)}
+                  aria-label="Remove Image"
+                  fontSize="large"
+                />
+              </button>
+            </Tooltip>
+          </div>
+        )}
         {/* {user && user[config.roleUrl].includes("Admin") ? (
           <div className={classes.flexPinnedPost}>
             <Checkbox
