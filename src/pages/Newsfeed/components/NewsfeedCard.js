@@ -187,6 +187,9 @@ const useStyles = makeStyles(theme => ({
   },
   btn: {
     padding: "none",
+    background: "none",
+    backgroundColor: "none",
+    border: "none",
   },
   comments: {
     marginLeft: "1.6rem",
@@ -322,36 +325,40 @@ export default function NewsfeedCard(props) {
       <CardActions className={classes.postHeader}>
         <div className={classes.postedBy}>
           {post?.postedBy?.profilePicture ? (
-            <CustomMessageIcon pictureIcon={post.postedBy.profilePicture} />
+            <button className={classes.btn}>
+              <CustomMessageIcon pictureIcon={post.postedBy.profilePicture} />
+            </button>
           ) : (
-            <AccountCircleIcon
-              fontSize={"large"}
-              className={classes.avatarIcon}
-            />
-          )}
+              <button className={classes.btn}>
+                <AccountCircleIcon
+                  fontSize={"large"}
+                  className={classes.avatarIcon}
+                />
+              </button>
+            )}
           <Typography className={classes.postedByName} gutterBottom>
             {post.postedBy.firstName} {post.postedBy.lastName}
           </Typography>
         </div>
         {user?.email === post?.postedBy?.email ||
-        (user && user[config.roleUrl].includes("Admin")) ? (
-          <div className={classes.editDeleteBtn}>
-            {/* {user && user[config.roleUrl].includes("Admin") ? (
+          (user && user[config.roleUrl].includes("Admin")) ? (
+            <div className={classes.editDeleteBtn}>
+              {/* {user && user[config.roleUrl].includes("Admin") ? (
               <Button className={classes.btn} onClick={pinPost}>
                 <FontAwesomeIcon icon={faThumbtack} className={classes.icons} />
               </Button>
             ) : null} */}
-            <Button
-              className={classes.btn}
-              onClick={() => setEditing(!editing)}
-            >
-              <EditOutlinedIcon color="action" fontSize="large" />
-            </Button>
-            <Button onClick={deletePost} className={classes.btn}>
-              <DeleteOutlineIcon color="action" fontSize="large" />
-            </Button>
-          </div>
-        ) : null}
+              <Button
+                className={classes.btn}
+                onClick={() => setEditing(!editing)}
+              >
+                <EditOutlinedIcon color="action" fontSize="large" />
+              </Button>
+              <Button onClick={deletePost} className={classes.btn}>
+                <DeleteOutlineIcon color="action" fontSize="large" />
+              </Button>
+            </div>
+          ) : null}
       </CardActions>
       <CardActions className={classes.postBody}>
         {post.imgUrl ? (
@@ -382,10 +389,10 @@ export default function NewsfeedCard(props) {
               />
             </>
           ) : (
-            <p className={post.imgUrl ? classes.post : classes.soloPost}>
-              {post.body}
-            </p>
-          )}
+              <p className={post.imgUrl ? classes.post : classes.soloPost}>
+                {post.body}
+              </p>
+            )}
         </CardContent>
       </CardActions>
       <Divider variant="middle" />
@@ -413,20 +420,6 @@ export default function NewsfeedCard(props) {
 
       <Divider variant="middle" />
 
-      {/* <CardActionArea className={classes.postHeader}>
-        <button onClick={showComments}>
-          <p>
-            {comments && comments.feedComments.length === 0
-              ? `No`
-              : `${comments.feedComments.length}`}{" "}
-            comments
-          </p>
-        </button>
-      </CardActionArea>
-
-      <Divider variant="middle" /> */}
-
-      {/* {commenting ? ( */}
       <div className={classes.comment}>
         <TextField
           size="small"
@@ -441,7 +434,6 @@ export default function NewsfeedCard(props) {
           placeholder="Write a comment..."
         />
       </div>
-      {/* ) : null} */}
 
       {comments &&
         comments.feedComments.map((comment, i) => (
@@ -451,20 +443,24 @@ export default function NewsfeedCard(props) {
               i < 3 && !toggleCommentOverflow
                 ? classes.flex
                 : toggleCommentOverflow
-                ? classes.showAllComments
-                : classes.commentOverflow
+                  ? classes.showAllComments
+                  : classes.commentOverflow
             }
           >
             {comment?.postedBy?.profilePicture ? (
-              <CustomMessageIcon
-                pictureIcon={comment?.postedBy?.profilePicture}
-              />
+              <button className={classes.btn}>
+                <CustomMessageIcon
+                  pictureIcon={comment?.postedBy?.profilePicture}
+                />
+              </button>
             ) : (
-              <AccountCircleIcon
-                fontSize={"large"}
-                className={classes.avatarIcon}
-              />
-            )}
+                <button className={classes.btn}>
+                  <AccountCircleIcon
+                    fontSize={"large"}
+                    className={classes.avatarIcon}
+                  />
+                </button>
+              )}
 
             <div className={classes.commentBox}>
               <Typography className={classes.commentName}>
@@ -488,32 +484,3 @@ export default function NewsfeedCard(props) {
     </Card>
   ) : null;
 }
-
-// <div className={classes.dropdownContainer}>
-//   <button
-//     type="button"
-//     className={classes.header}
-//     onClick={() => setDisplayDropdown(!displayDropdown)}
-//   >
-//     {displayDropdown ? (
-//       <FontAwesomeIcon icon={faAngleUp} className={classes.icons} />
-//     ) : (
-//       <FontAwesomeIcon icon={faAngleDown} className={classes.icons} />
-//     )}
-//   </button>
-//   {displayDropdown && (
-//     <div className={classes.editDeleteBtn}>
-//       <Button className={classes.btn}>
-//         <EditOutlinedIcon color="action" fontSize="large" />
-//       </Button>
-//       <Button onClick={deletePost} className={classes.btn}>
-//         <DeleteOutlineIcon color="action" fontSize="large" />
-//       </Button>
-//       {user && user[config.roleUrl].includes("Admin") ? (
-//         <Button className={classes.btn} onClick={pinPost}>
-//           <PinDropOutlinedIcon color="action" fontSize="large" />
-//         </Button>
-//       ) : null}
-//     </div>
-//   )}
-// </div>;
