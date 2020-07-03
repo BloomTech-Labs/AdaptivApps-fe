@@ -151,7 +151,7 @@ export default function AccountTypeForm({ updateProfile }) {
   return (
     <Box className={classes.root}>
       {/* <ProgressBar activeStep={0} userEmail={userEmail} /> */}
-      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+      <form tabIndex="0" className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <Box className={classes.selectContainer}>
           <InputLabel className={classes.label} required htmlFor="accountType">
             Are you registering as an individual or an organization?
@@ -164,7 +164,7 @@ export default function AccountTypeForm({ updateProfile }) {
           <Box className={classes.box}>
             <Controller
               as={
-                <Select className={classes.typeSelect} aria-label="account types">
+                <Select className={classes.typeSelect} ariaLabel="account types">
                   {/* <MenuItem value="">
                     <em className={classes.em}>Please choose one</em>
                   </MenuItem> */}
@@ -194,7 +194,7 @@ export default function AccountTypeForm({ updateProfile }) {
           <Box className={classes.box}>
             <Controller
               as={
-                <Select className={classes.typeSelect}>
+                <Select className={classes.typeSelect} ariaLabel="role types">
                   {/* <MenuItem value="">
                     <em className={classes.em}>Please choose one</em>
                   </MenuItem> */}
