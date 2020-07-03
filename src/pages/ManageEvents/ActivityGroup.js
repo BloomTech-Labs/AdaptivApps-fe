@@ -64,17 +64,10 @@ export default function ActivityGroup({ data, refetch }) {
   const endDate = moment(data?.event?.endDate);
 
   const getDatesRangeArray = function(startDate, endDate, interval) {
-    // console.log(startDate, endDate, interval);
     let cfg = { interval: interval || "days" };
     let dateArray = [];
     let currentDate = moment(startDate);
-    // console.log(
-    //   "-->",
-    //   currentDate._i,
-    //   "<=",
-    //   endDate._i,
-    //   currentDate <= endDate
-    // );
+
     while (currentDate <= endDate) {
       dateArray.push(currentDate.format("ddd MM/DD/YY"));
       currentDate = currentDate.add(1, cfg.interval);
@@ -104,7 +97,6 @@ export default function ActivityGroup({ data, refetch }) {
   };
 
   // const activitiesGroupedByDate = groupBy(activityByDates, "date");
-  // console.log(activitiesGroupedByDate);
 
   return (
     <div className={classes.root}>

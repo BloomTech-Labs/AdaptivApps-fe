@@ -44,7 +44,7 @@ const useStyles = makeStyles(theme => ({
     "& span": {
       alignItems: "center",
     },
-    fontSize: "2.5rem"
+    fontSize: "2.5rem",
   },
   trow: {
     marginLeft: "3rem",
@@ -69,20 +69,11 @@ export default function ActivityGroup({ activityData, refetch }) {
   const startDate = moment(activityData?.event?.startDate);
   const endDate = moment(activityData?.event?.endDate);
 
-  const getDatesRangeArray = function (startDate, endDate, interval) {
-    // console.log(startDate, endDate, interval);
-
+  const getDatesRangeArray = function(startDate, endDate, interval) {
     let cfg = { interval: interval || "days" };
     let dateArray = [];
     let currentDate = moment(startDate);
 
-    // console.log(
-    //   "-->",
-    //   currentDate._i,
-    //   "<=",
-    //   endDate._i,
-    //   currentDate <= endDate
-    // );
     while (currentDate <= endDate) {
       dateArray.push(currentDate.format("ddd MM/DD/YY"));
       currentDate = currentDate.add(1, cfg.interval);
@@ -118,8 +109,8 @@ export default function ActivityGroup({ activityData, refetch }) {
             {activityData.event.type === "Virtual" ? (
               <th>Link</th>
             ) : (
-                <th>Location</th>
-              )}
+              <th>Location</th>
+            )}
 
             <th>Time</th>
           </tr>

@@ -62,7 +62,6 @@ function App() {
   // Initialize google analytics page view tracking
   history.listen(window => {
     ReactGA.pageview(window.location.pathname + window.location.search);
-    console.log("page=>", window.location.pathname);
   });
   const request = async operation => {
     const token = await getIdTokenClaims();

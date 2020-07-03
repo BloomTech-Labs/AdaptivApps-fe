@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // Material-UI components
-import { Modal, Button, Box, Paper, Typography, makeStyles } from '@material-ui/core';
+import { Modal, Button, Box, Paper, makeStyles } from "@material-ui/core";
 
 function getModalStyle() {
   const top = 50;
@@ -15,8 +15,8 @@ function getModalStyle() {
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    position: 'absolute',
-    minHeight: 320, 
+    position: "absolute",
+    minHeight: 320,
     minWidth: 320,
     maxWidth: 400,
     maxHeight: 568,
@@ -28,14 +28,14 @@ const useStyles = makeStyles(theme => ({
   },
   btnBox: {
     paddingLeft: "1.4rem",
-    marginTop: "0.8rem"
+    marginTop: "0.8rem",
   },
   deleteBtn: {
     width: 96,
     height: 48,
     margin: theme.spacing(1),
     background: "#2962FF",
-    
+
     fontWeight: 500,
     color: "white",
     "& .MuiButton-label": {
@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
       background: "white",
       color: "#2962FF",
     },
-    textTransform: "capitalize"
+    textTransform: "capitalize",
   },
   closeBtn: {
     width: 96,
@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
       color: "white",
       background: "#2962FF",
     },
-    textTransform: "capitalize"
+    textTransform: "capitalize",
   },
 }));
 
@@ -72,11 +72,9 @@ export default function DeleteModal(props) {
   const classes = useStyles();
 
   return (
-    <Modal
-      open={props.open}
-    >
+    <Modal open={props.open}>
       <Paper style={modalStyle} className={classes.paper}>
-         {props.body}
+        {props.body}
         <Box className={classes.btnBox}>
           <Button className={classes.deleteBtn} onClick={props.onClick}>
             Delete

@@ -207,7 +207,6 @@ function SideNav(props) {
       email: user?.email,
     },
   });
-  //console.log(data && data.profile.legal);
 
   const { data: subData } = useSubscription(PROFILE_SUBSCRIPTION);
 
@@ -303,7 +302,7 @@ function SideNav(props) {
               <BookmarkIcon className={classes.navIcon} />
               <p>My Events</p>
             </NavLink>
-           
+
             {/* Profile Validation */}
             {data?.profile?.userName === null ? (
               <Tooltip title="Please complete your profile information to access Chat">
@@ -334,7 +333,7 @@ function SideNav(props) {
               <HomeIcon className={classes.navIcon} />
               <p>Newsfeed</p>
             </NavLink>*/}
-             <NavLink to="settings" className={classes.navLink}>
+            <NavLink to="settings" className={classes.navLink}>
               <SettingsIcon className={classes.navIcon} />
               <p>Settings</p>
             </NavLink>

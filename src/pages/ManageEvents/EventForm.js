@@ -38,13 +38,13 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     width: "60%",
-    '@media (max-width: 1200px)': {
+    "@media (max-width: 1200px)": {
       width: "70%",
     },
-    '@media (max-width: 1000px)': {
+    "@media (max-width: 1000px)": {
       width: "70%",
     },
-    '@media (max-width: 800px)': {
+    "@media (max-width: 800px)": {
       width: "90%",
     },
   },
@@ -92,7 +92,7 @@ const useStyles = makeStyles(theme => ({
   },
   removalBtn: {
     border: "none",
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   img: {
     width: "380px",
@@ -254,14 +254,9 @@ export default function EventForm({
           if (data && data?.location) {
             await setEventImage(data?.location);
             await setDisableButton(false);
-          } else {
-            console.log("loading");
           }
         })
         .catch(async err => console.log(err));
-    }
-    else {
-      console.log("Select an image to upload!")
     }
   };
 
@@ -298,7 +293,7 @@ export default function EventForm({
           className={classes.inputField}
           rules={{ required: true }}
         />
-        {!eventImage ?
+        {!eventImage ? (
           <div>
             <label className={classes.photoButton} htmlFor="uploadEventPicture">
               <IconButton
@@ -318,12 +313,17 @@ export default function EventForm({
               onChange={uploadEventImage}
               id="uploadEventPicture"
             />
-          </div> :
+          </div>
+        ) : (
           <div className={classes.inputField}>
             <InputLabel required className={classes.inputLabel} htmlFor="image">
               Event Image
             </InputLabel>
-            <img src={eventImage} alt="image for this event" className={classes.img} />
+            <img
+              src={eventImage}
+              alt="image for this event"
+              className={classes.img}
+            />
             <button className={classes.removalBtn}>
               <Tooltip title="Remove Image">
                 <CloseIcon
@@ -334,7 +334,7 @@ export default function EventForm({
               </Tooltip>
             </button>
           </div>
-        }
+        )}
         <InputLabel required className={classes.inputLabel} htmlFor="type">
           Event Type
         </InputLabel>
@@ -523,7 +523,7 @@ export default function EventForm({
         <InputLabel className={classes.inputLabel} htmlFor="link">
           Is there a zoom link?
         </InputLabel>
-       
+
         <Controller
           as={<TextField />}
           type="text"

@@ -7,7 +7,7 @@ import moment from "moment";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import eventImg from "../../assets/images/acs_hartford.png";
 import { useParams, Link } from "@reach/router";
-import { useNavigate } from "@reach/router";
+// import { useNavigate } from "@reach/router";
 import { GET_EVENT_ACTIVITIES } from "./queries/getActivities";
 
 import { makeStyles, Box, Typography } from "@material-ui/core";
@@ -169,7 +169,7 @@ export default function ActivityList() {
 
   if (loading) return <CircularProgress className={classes.loadingSpinner} />;
   if (error) return `Error! ${error.message}`;
-  console.log(activityData);
+
   return (
     <main className={classes.root}>
       <Box className={classes.headingBox} borderBottom={2}>
