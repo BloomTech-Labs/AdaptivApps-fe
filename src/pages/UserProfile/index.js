@@ -166,10 +166,10 @@ const useStyles = makeStyles(theme => ({
     maxWidth: "80rem",
     "& p": {
       marginLeft: "1rem",
-      fontSize: "1.2rem",
+      fontSize: "1.6rem",
     },
     "& h1": {
-      fontSize: "1.4rem",
+      fontSize: "1.8rem",
     },
     [theme.breakpoints.down("sm")]: {
       width: "95%",
