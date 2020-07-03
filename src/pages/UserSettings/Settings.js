@@ -230,7 +230,7 @@ export default function Settings() {
                     <TableBody className={classes.tableBody}>
                       <TableRow>
                         <div className={classes.mobileFlex}>
-                          <TableCell component="th" scope="row">
+                          <TableCell component="th" scope="row" tabIndex="0">
                             <Typography
                               style={{
                                 fontWeight: "bold",
@@ -242,7 +242,7 @@ export default function Settings() {
                             </Typography>
                           </TableCell>
                           <TableCell align="left">
-                            <Typography>
+                            <Typography tabIndex="0">
                               {profile?.firstName} {profile?.lastName}
                             </Typography>
                           </TableCell>
@@ -250,7 +250,7 @@ export default function Settings() {
                       </TableRow>
                       <TableRow>
                         <div className={classes.mobileFlex}>
-                          <TableCell component="th" scope="row">
+                          <TableCell component="th" scope="row" tabIndex="0">
                             <Typography
                               style={{
                                 fontWeight: "bold",
@@ -262,13 +262,15 @@ export default function Settings() {
                             </Typography>
                           </TableCell>
                           <TableCell align="left">
-                            <Typography>{profile?.userName}</Typography>
+                            <Typography tabIndex="0">
+                              {profile?.userName}
+                            </Typography>
                           </TableCell>
                         </div>
                       </TableRow>
                       <TableRow>
                         <div className={classes.mobileFlex}>
-                          <TableCell component="th" scope="row">
+                          <TableCell component="th" scope="row" tabIndex="0">
                             <Typography
                               style={{
                                 fontWeight: "bold",
@@ -276,17 +278,19 @@ export default function Settings() {
                                 height: "15px",
                               }}
                             >
-                              Phone
+                              Phone Number
                             </Typography>
                           </TableCell>
                           <TableCell align="left">
-                            <Typography>{profile?.phoneNumber}</Typography>
+                            <Typography tabIndex="0">
+                              {profile?.phoneNumber}
+                            </Typography>
                           </TableCell>
                         </div>
                       </TableRow>
                       <TableRow>
                         <div className={classes.mobileFlex}>
-                          <TableCell component="th" scope="row">
+                          <TableCell component="th" scope="row" tabIndex="0">
                             <Typography
                               style={{
                                 fontWeight: "bold",
@@ -298,7 +302,9 @@ export default function Settings() {
                             </Typography>
                           </TableCell>
                           <TableCell align="left">
-                            <Typography>{profile?.email}</Typography>
+                            <Typography tabIndex="0">
+                              {profile?.email}
+                            </Typography>
                           </TableCell>
                         </div>
                       </TableRow>
@@ -536,11 +542,15 @@ export default function Settings() {
             ) : profile?.type === "Organization" ? (
               <>
                 <TableContainer className={classes.table}>
-                  <Table aria-label="account information table" size="small">
+                  <Table
+                    aria-label="account information table"
+                    size="small"
+                    tabIndex="0"
+                  >
                     <TableBody className={classes.tableBody}>
                       <TableRow>
                         <div className={classes.mobileFlex}>
-                          <TableCell component="th" scope="row">
+                          <TableCell component="th" scope="row" tabIndex="0">
                             <Typography
                               style={{
                                 fontWeight: "bold",
@@ -552,7 +562,7 @@ export default function Settings() {
                             </Typography>
                           </TableCell>
                           <TableCell align="left">
-                            <Typography>
+                            <Typography tabIndex="0">
                               {profile?.extProfile?.orgName}
                             </Typography>
                           </TableCell>
@@ -560,7 +570,7 @@ export default function Settings() {
                       </TableRow>
                       <TableRow>
                         <div className={classes.mobileFlex}>
-                          <TableCell component="th" scope="row">
+                          <TableCell component="th" scope="row" tabIndex="0">
                             <Typography
                               style={{
                                 fontWeight: "bold",
@@ -572,7 +582,7 @@ export default function Settings() {
                             </Typography>
                           </TableCell>
                           <TableCell align="left">
-                            <Typography>
+                            <Typography tabIndex="0">
                               {profile?.extProfile?.website}
                             </Typography>
                           </TableCell>
@@ -580,7 +590,7 @@ export default function Settings() {
                       </TableRow>
                       <TableRow>
                         <div className={classes.mobileFlex}>
-                          <TableCell component="th" scope="row">
+                          <TableCell component="th" scope="row" tabIndex="0">
                             <Typography
                               style={{
                                 fontWeight: "bold",
@@ -588,17 +598,19 @@ export default function Settings() {
                                 height: "15px",
                               }}
                             >
-                              Phone
+                              Phone Number
                             </Typography>
                           </TableCell>
                           <TableCell align="left">
-                            <Typography>{profile?.phoneNumber}</Typography>
+                            <Typography tabIndex="0">
+                              {profile?.phoneNumber}
+                            </Typography>
                           </TableCell>
                         </div>
                       </TableRow>
                       <TableRow>
                         <div className={classes.mobileFlex}>
-                          <TableCell component="th" scope="row">
+                          <TableCell component="th" scope="row" tabIndex="0">
                             <Typography
                               style={{
                                 fontWeight: "bold",
@@ -610,7 +622,9 @@ export default function Settings() {
                             </Typography>
                           </TableCell>
                           <TableCell align="left">
-                            <Typography>{profile?.email}</Typography>
+                            <Typography tabIndex="0">
+                              {profile?.email}
+                            </Typography>
                           </TableCell>
                         </div>
                       </TableRow>
@@ -639,13 +653,24 @@ export default function Settings() {
             ) : null}
           </Box>
           <Box
+           
             className={
               profile?.type === null ? classes.nullProfileCta : classes.ctaBox
             }
           >
-            <Typography>Help us bring you the best</Typography>
-            <Typography>Angel City Sports experience--</Typography>
-            <Typography>Tell us a bit more about yourself!</Typography>
+            {/* <Typography tabIndex="0">
+              Help us bring you the best
+              </Typography>
+              <Typography tabIndex="0">
+              Angel City Sports experience--
+              </Typography>
+              <Typography tabIndex="0">
+              Tell us a bit more about yourself!
+            </Typography> */}
+            {/* Below paragraph is easier to read with screen reader */}
+            <p tabIndex="0">
+              Help us bring you the best Angel City Sports experience-- Tell us a bit more about yourself!
+            </p>
             <Button
               className={classes.ctaBtn}
               aria-label="Click here to update account information."
@@ -655,7 +680,7 @@ export default function Settings() {
             </Button>
           </Box>
         </Box>
-        <p className={classes.emailNotice}>
+        <p className={classes.emailNotice} tabIndex="0">
           *Don't forget to check your email with updates from ACS!
         </p>
       </Box>
