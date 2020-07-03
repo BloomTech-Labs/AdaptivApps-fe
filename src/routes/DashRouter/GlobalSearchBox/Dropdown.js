@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import NavLink from '../SideNav/NavLink';
+import React, { useState, useEffect } from "react";
+import NavLink from "../SideNav/NavLink";
 // Import stylings
 import { makeStyles } from "@material-ui/core";
 
@@ -9,7 +9,7 @@ const useStyles = makeStyles({
     height: "40px",
     padding: "0 10px",
     border: "1px solid rgb(223, 223, 223)",
-    fontSize: "1.6rem"
+    fontSize: "1.6rem",
   },
   item: {
     display: "inline-block",
@@ -21,50 +21,54 @@ const useStyles = makeStyles({
     whiteSpace: "nowrap",
     textOverflow: "ellipsis",
     cursor: "pointer",
-    '&:hover': {
+    "&:hover": {
       backgroundColor: "#FFCC01",
-      color: "white"
-    }
+      color: "white",
+    },
   },
   empty: {
-    backgroundColor: "orange"
+    backgroundColor: "orange",
   },
   searchResults: {
     maxHeight: "250px",
-    overflow: "scroll"
+    overflow: "scroll",
   },
 });
 
 export default function Dropdown(props) {
   const classes = useStyles();
-  const { profilesData, setTitle, keyword, setKeyword, toggleList } = props;
+  const { profilesData, setTitle, keyword, setKeyword } = props;
   const [tempList, setTempList] = useState(profilesData);
   const [isSearching, setIsSearching] = useState(false);
 
   const handleChange = e => {
     setKeyword(e.target.value.toLowerCase());
-  }
+  };
 
   const handleSelect = item => {
     setTitle(item.firstName);
-  }
+  };
 
   useEffect(() => {
-    const results = profilesData?.filter(profile =>
-      profile?.name.toLowerCase().includes(keyword)
-    ).sort((a, b) => {
-      if (a.name < b.name) { return -1; }
-      if (a.name > b.name) { return 1; }
-      return 0;
-    })
-    setTempList(keyword.length > 0 ? results : "")
+    const results = profilesData
+      ?.filter(profile => profile?.name.toLowerCase().includes(keyword))
+      .sort((a, b) => {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      });
+    setTempList(keyword.length > 0 ? results : "");
     if (keyword.length > 0) {
       setIsSearching(true);
     }
     if (keyword.length < 1) {
       setIsSearching(false);
     }
-  }, [profilesData, keyword, setKeyword])
+  }, [profilesData, keyword, setKeyword]);
 
   return (
     <div>
@@ -74,25 +78,25 @@ export default function Dropdown(props) {
         onChange={handleChange}
       />
       <div className={classes.searchResults}>
-        {
-          tempList !== "" ? tempList.map(item =>
-            <NavLink to={`/user/${item.username}`} key={item.id}>
-              <button
-                aria-label={`Click to visit ${item.name}'s profile`}
-                type="button"
-                key={item.id}
-                className={classes.item}
-                onClick={() => handleSelect(item)}
-              >
-                {item.name}
-              </button>
-            </NavLink>
-          ) : null
-        }
-        {
-          tempList.length < 1 && isSearching ? <div className={`${classes.item} ${classes.empty}`}>No results</div> : null
-        }
+        {tempList !== ""
+          ? tempList.map(item => (
+              <NavLink to={`/user/${item.username}`} key={item.id}>
+                <button
+                  aria-label={`Click to visit ${item.name}'s profile`}
+                  type="button"
+                  key={item.id}
+                  className={classes.item}
+                  onClick={() => handleSelect(item)}
+                >
+                  {item.name}
+                </button>
+              </NavLink>
+            ))
+          : null}
+        {tempList.length < 1 && isSearching ? (
+          <div className={`${classes.item} ${classes.empty}`}>No results</div>
+        ) : null}
       </div>
-    </div >
-  )
+    </div>
+  );
 }

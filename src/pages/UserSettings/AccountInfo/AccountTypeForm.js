@@ -8,7 +8,7 @@ import { useQuery } from "react-apollo";
 import { PROFILE_TYPE } from "../queries";
 // Component imports
 import NextButton from "../../../theme/SmallFormButton";
-import ProgressBar from "../../../theme/ProgressBar";
+// import ProgressBar from "../../../theme/ProgressBar";
 // Material-UI imports
 import {
   makeStyles,

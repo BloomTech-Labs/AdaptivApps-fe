@@ -6,8 +6,8 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { useNavigate } from "@reach/router";
 
 const ACS_Hartford_Logo = require("../../assets/images/acs_hartford2.png");
-const ACS_Logo = require("../../assets/images/01-ACS_Logo.png");
-const Hartford_Logo = require("../../assets/images/02-Hartford.png");
+// const ACS_Logo = require("../../assets/images/01-ACS_Logo.png");
+// const Hartford_Logo = require("../../assets/images/02-Hartford.png");
 const Adaptiv_Logo = require("../../assets/images/03-AdaptivApps.png");
 const Citi_Logo = require("../../assets/images/04-Citi.png");
 const Gold_Logo = require("../..//assets/images/05-GoldMeetsGolden.png");
