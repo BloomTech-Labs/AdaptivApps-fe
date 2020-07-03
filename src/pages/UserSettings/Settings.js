@@ -4,10 +4,8 @@ import { useNavigate } from "@reach/router";
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
 // Apollo/GraphQL imports
-import { useQuery, useMutation } from "react-apollo";
-
-// import ProfileForm from "./ProfileForm";
-import { ADD_USER_PROFILE, PROFILE_INFO } from "./queries";
+import { useQuery } from "react-apollo";
+import { PROFILE_INFO } from "./queries";
 
 // Material-UI imports
 import {
@@ -82,8 +80,12 @@ const useStyles = makeStyles(theme => ({
       width: "90%",
       margin: "8% 0",
     },
+    [theme.breakpoints.down("ix")]: {
+      width: "100%",
+      margin: "8% 0",
+    },
     [theme.breakpoints.down("xs")]: {
-      width: "90%",
+      width: "80%",
       margin: "8% 0",
     },
   },
@@ -110,15 +112,11 @@ const useStyles = makeStyles(theme => ({
       background: "white",
       color: "#2962FF",
     },
-    [theme.breakpoints.down("lg")]: {
-      width: "80%",
-      margin: "2rem auto",
-    },
-    [theme.breakpoints.down("md")]: {
-      width: "100%",
-      margin: "2rem auto",
-    },
     [theme.breakpoints.down("sm")]: {
+      width: "28rem",
+      margin: "2rem auto",
+    },
+    [theme.breakpoints.down("xs")]: {
       width: "100%",
       margin: "2rem auto",
     },
@@ -186,6 +184,9 @@ const useStyles = makeStyles(theme => ({
       paddingLeft: "0",
     },
   },
+  emailNotice: {
+    fontSize: "1.2rem",
+  },
 }));
 
 export default function Settings() {
@@ -193,7 +194,6 @@ export default function Settings() {
   const classes = useStyles();
   const navigate = useNavigate();
   const userEmail = user.email;
-  const [createProfile] = useMutation(ADD_USER_PROFILE);
 
   // Fetch profile for the user using the email associated with auth0 login
   const { loading, error, data, refetch } = useQuery(PROFILE_INFO, {
@@ -201,27 +201,6 @@ export default function Settings() {
   });
 
   const profile = data?.profile;
-
-  // Extract the profile from returning data of useQuery
-  useEffect(() => {
-    if (error) {
-      return <p>Error</p>;
-    }
-    // If user does not have a profile in backend, create one for them
-    if (!loading && !profile?.id) {
-      newProfile();
-    }
-    if (profile) {
-      refetch();
-    }
-    // eslint-disable-next-line
-  }, [profile]);
-
-  // Function that creates a profile for given email
-  const newProfile = async () => {
-    await createProfile({ variables: { email: user.email } });
-    refetch();
-  };
 
   return (
     <>
@@ -676,6 +655,9 @@ export default function Settings() {
             </Button>
           </Box>
         </Box>
+        <p className={classes.emailNotice}>
+          *Don't forget to check your email with updates from ACS!
+        </p>
       </Box>
     </>
   );

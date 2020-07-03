@@ -56,11 +56,18 @@ const useStyles = makeStyles(theme => ({
   chatRoomButton: {
     fontSize: "1.6rem",
     border: "none",
+    marginLeft: '5%',
     "&:hover": {
       cursor: "pointer",
       color: "#2962FF",
     },
     background: "none",
+    [theme.breakpoints.down("sm")]: {
+      margin: '0'
+    },
+    [theme.breakpoints.down("xs")]: {
+      margin: '0'
+    },
   },
   closeModal: {
     fontSize: "3rem",

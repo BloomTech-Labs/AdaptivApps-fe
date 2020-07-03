@@ -4,14 +4,14 @@ import { Link } from "@material-ui/core";
 import { useNavigate } from "@reach/router";
 import Tooltip from "@material-ui/core/Tooltip";
 
-const Sponsors = require("../../assets/images/Sponsors.png");
+const Sponsors = require("../../assets/images/SponsorsText.png");
 const Sponsor_Thanks = require("../../assets/images/ProfilePhoto.png");
 const Sponsor_Photo = require("../../assets/images/ProfilePhoto.png");
 
 const useStyles = makeStyles(theme => ({
   banner: {
     backgroundColor: "#232c63",
-    padding: "1%",
+    padding: ".5%",
   },
   image: {
     maxWidth: "80%",
@@ -46,7 +46,10 @@ export default function SponsorBanner() {
   const navigate = useNavigate();
 
   return (
-    <Link onClick={() => navigate(`/sponsorspotlight`)}>
+    <Link
+      onClick={() => navigate(`/sponsorspotlight`)}
+      aria-label="Click to go to our sponsor spotlight page"
+    >
       <div className={classes.banner}>
         <Tooltip title="Check out our sponsors">
           <button className={classes.btn}>

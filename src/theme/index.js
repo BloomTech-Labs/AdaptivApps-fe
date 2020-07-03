@@ -9,6 +9,7 @@ const xl = 1920;
 const lg = 1280;
 const md = 960;
 const sm = 600;
+const ix = 376;
 const xs = 350;
 
 const theme = createMuiTheme({
@@ -16,7 +17,7 @@ const theme = createMuiTheme({
     primary: { main: primary },
     secondary: { main: secondary },
   },
- 
+
   typography: {
     // fontSize: 10,
     h1: { fontSize: "3rem", fontWeight: 400 },
@@ -40,6 +41,7 @@ const theme = createMuiTheme({
       md,
       sm,
       xs,
+      ix,
     },
   },
 });

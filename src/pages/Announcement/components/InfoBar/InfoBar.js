@@ -49,13 +49,14 @@ const useStyles = makeStyles(theme => ({
     marginTop: "1%",
     [theme.breakpoints.down("sm")]: {
       alignSelf: "flex-start",
-      margin: "0",
-      padding: "3%",
+      
+      margin: "2% 5rem",
+      
     },
     [theme.breakpoints.down("xs")]: {
       alignSelf: "flex-start",
-      margin: "0",
-      padding: "3%",
+      marginLeft: "5.5rem",
+      marginBottom: "0%",
     },
   },
   messageIcons: {

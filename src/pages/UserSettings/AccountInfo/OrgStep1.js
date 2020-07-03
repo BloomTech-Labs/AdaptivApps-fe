@@ -161,7 +161,7 @@ export default function OrgStep1({ updateOrgProfile }) {
     });
 
     // alert("Successfully updated organization account information!");
-    await navigate(`/`);
+    await navigate(`/settings`);
   };
   return (
     <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
@@ -345,7 +345,7 @@ export default function OrgStep1({ updateOrgProfile }) {
           label="Finish"
           type="submit"
           onClick={handleSubmit}
-          ariaLabel="Click here to finish updating your organization information."
+          ariaLabel="Click here to finish updating your organization information and go back to account settings."
         />
       </Box>
     </form>

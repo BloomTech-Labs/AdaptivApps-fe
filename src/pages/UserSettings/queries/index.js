@@ -126,6 +126,7 @@ export const PROFILE_INFO = gql`
       userName
       phoneNumber
       state
+      legal
       city
       extProfile {
         id

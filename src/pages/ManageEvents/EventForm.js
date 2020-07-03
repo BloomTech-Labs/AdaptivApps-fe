@@ -403,7 +403,7 @@ export default function EventForm({
         <Controller
           as={<TextField />}
           type="text"
-          placeholder="host"
+          placeholder="Host"
           name="host"
           variant="outlined"
           control={control}
@@ -430,7 +430,7 @@ export default function EventForm({
         <Controller
           as={<TextField />}
           type="text"
-          placeholder="speakers"
+          placeholder="Speaker 1, Speaker 2, Speaker 3"
           name="speakers"
           variant="outlined"
           control={control}
@@ -523,10 +523,11 @@ export default function EventForm({
         <InputLabel className={classes.inputLabel} htmlFor="link">
           Is there a zoom link?
         </InputLabel>
+       
         <Controller
           as={<TextField />}
           type="text"
-          placeholder="link"
+          placeholder="https://www.zoom.com"
           name="link"
           variant="outlined"
           control={control}
@@ -544,7 +545,7 @@ export default function EventForm({
         <Controller
           as={<TextField />}
           type="text"
-          placeholder="sponsors"
+          placeholder="Sponsor 1, Sponsor 2, Sponsor 3"
           name="sponsors"
           variant="outlined"
           control={control}
