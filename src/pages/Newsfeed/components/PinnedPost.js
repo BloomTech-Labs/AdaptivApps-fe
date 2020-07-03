@@ -188,8 +188,9 @@ export default function PinnedPost({ user, pinnedPost, refetchPosts }) {
     GET_NEWSFEED_COMMENTS,
     {
       variables: {
-        id: pinnedPost.id,
+        id: pinnedPost.id && pinnedPost.id,
       },
+      skip: !pinnedPost,
     }
   );
 
@@ -361,39 +362,38 @@ export default function PinnedPost({ user, pinnedPost, refetchPosts }) {
           </div>
           {/* ) : null} */}
 
-          {comments &&
-            comments.feedComments.map((comment, i) => (
-              <div
-                key={comment.id}
-                className={
-                  i < 3 && !toggleCommentOverflow
-                    ? classes.flex
-                    : toggleCommentOverflow
-                    ? classes.showAllComments
-                    : classes.commentOverflow
-                }
-              >
-                {comment?.postedBy?.profilePicture ? (
-                  <CustomMessageIcon
-                    pictureIcon={comment?.postedBy?.profilePicture}
-                  />
-                ) : (
-                  <AccountCircleIcon
-                    fontSize={"large"}
-                    className={classes.avatarIcon}
-                  />
-                )}
+          {comments?.feedComments.map((comment, i) => (
+            <div
+              key={comment.id}
+              className={
+                i < 3 && !toggleCommentOverflow
+                  ? classes.flex
+                  : toggleCommentOverflow
+                  ? classes.showAllComments
+                  : classes.commentOverflow
+              }
+            >
+              {comment?.postedBy?.profilePicture ? (
+                <CustomMessageIcon
+                  pictureIcon={comment?.postedBy?.profilePicture}
+                />
+              ) : (
+                <AccountCircleIcon
+                  fontSize={"large"}
+                  className={classes.avatarIcon}
+                />
+              )}
 
-                <div className={classes.commentBox}>
-                  <Typography className={classes.commentName}>
-                    {comment.postedBy.firstName} {comment.postedBy.lastName}
-                  </Typography>
-                  <Typography className={classes.commentContent} gutterBottom>
-                    {comment.body}
-                  </Typography>
-                </div>
+              <div className={classes.commentBox}>
+                <Typography className={classes.commentName}>
+                  {comment.postedBy.firstName} {comment.postedBy.lastName}
+                </Typography>
+                <Typography className={classes.commentContent} gutterBottom>
+                  {comment.body}
+                </Typography>
               </div>
-            ))}
+            </div>
+          ))}
 
           {comments?.feedComments?.length > 3 ? (
             <Button
