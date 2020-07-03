@@ -165,6 +165,11 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "none",
     background: "none",
     border: "none",
+  },
+  btn: {
+    backgroundColor: "none",
+    background: "none",
+    border: "none",
   }
 }));
 
@@ -187,6 +192,7 @@ export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat 
   const profilePics = chatRoom.participants.map(participant => {
     return {
       userName: participant.userName,
+      firstName: participant.firstName,
       email: participant.email,
       profilePicture: participant.profilePicture,
     }
@@ -196,6 +202,7 @@ export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat 
   const otherProfilePic = profilePics[0].email === user.email ? profilePics[1].profilePicture : profilePics[0].profilePicture;
   const myProfileUsername = profilePics[0].email === user.email ? profilePics[0].userName : profilePics[1].userName;
   const otherProfileUsername = profilePics[0].email === user.email ? profilePics[1].userName : profilePics[0].userName;
+  const otherProfileName = profilePics[0].email === user.email ? profilePics[1].firstName : profilePics[0].firstName;
   // Sets up an auto-scroll to last message when new message received, or when a message is updated/deleted
   const messagesEndRef = useRef(null);
 
@@ -222,18 +229,38 @@ export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat 
               {message.sender === user.email ? (
                 myProfilePic ?
                   <Tooltip title="Visit profile page">
-                    <CustomMessageIcon pictureIcon={myProfilePic} myProfileUsername={myProfileUsername} />
+                    <button
+                      aria-label="go to my profile page"
+                      className={classes.btn}
+                    >
+                      <CustomMessageIcon pictureIcon={myProfilePic} myProfileUsername={myProfileUsername} />
+                    </button>
                   </Tooltip> :
                   <Tooltip title="Visit profile page">
-                    <PersonIcon className={classes.messageIcon} onClick={() => navigate(`/user/${myProfileUsername}`)} />
+                    <button
+                      aria-label="go to my profile page"
+                      className={classes.btn}
+                    >
+                      <PersonIcon className={classes.messageIcon} onClick={() => navigate(`/user/${myProfileUsername}`)} />
+                    </button>
                   </Tooltip>
               ) : (
                   otherProfilePic ?
                     <Tooltip title="Visit profile page">
-                      <CustomMessageIcon pictureIcon={otherProfilePic} otherProfileUsername={otherProfileUsername} />
+                      <button
+                        aria-label={`go to the profile page of ${otherProfileName}`}
+                        className={classes.btn}
+                      >
+                        <CustomMessageIcon pictureIcon={otherProfilePic} otherProfileUsername={otherProfileUsername} />
+                      </button>
                     </Tooltip> :
                     <Tooltip title="Visit profile page">
-                      <PersonIcon className={classes.messageIcon} onClick={() => navigate(`/user/${otherProfileUsername}`)} />
+                      <button
+                        aria-label={`go to the profile page of ${otherProfileName}`}
+                        className={classes.btn}
+                      >
+                        <PersonIcon className={classes.messageIcon} onClick={() => navigate(`/user/${otherProfileUsername}`)} />
+                      </button>
                     </Tooltip>
                 )}
               <div className={message.sender !== user.email ?
@@ -243,14 +270,26 @@ export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat 
                   <div className={classes.messageSubHeader}>
                     {message.sender === user.email ? (
                       <Tooltip title="Edit Message">
-                        <button className={classes.btn}>
-                          <EditOutlinedIcon className={classes.editIcon} onClick={() => { setEditInput(true); setMessageToEdit(message) }} />
+                        <button
+                          aria-label="edit this message"
+                          className={classes.btn}
+                          onClick={() => { setEditInput(true); setMessageToEdit(message) }}
+                        >
+                          <EditOutlinedIcon
+                            className={classes.editIcon}
+                          />
                         </button>
                       </Tooltip>) : null}
                     {message.sender === user.email ? (
                       <Tooltip title="Delete Message">
-                        <button className={classes.btn}>
-                          <DeleteOutlineOutlinedIcon className={classes.deleteIcon} onClick={() => deleteMessage(message)} />
+                        <button
+                          aria-label="edit this message"
+                          className={classes.btn}
+                          onClick={() => deleteMessage(message)}
+                        >
+                          <DeleteOutlineOutlinedIcon
+                            className={classes.deleteIcon}
+                          />
                         </button>
                       </Tooltip>) : null}
                   </div>
