@@ -1,6 +1,5 @@
 // Import dependencies
 import React, { useState } from "react";
-import { HashRouter } from "react-router-dom";
 
 // Reach Router imports
 import { Router } from "@reach/router";
@@ -49,12 +48,18 @@ import ReactGA from "react-ga";
 // Auth0 imports
 import { useAuth0 } from "./config/react-auth0-spa";
 import "./styles.css";
+import { createBrowserHistory } from "history";
+
+const history = createBrowserHistory();
 
 const trackingId = "UA-171530526-1";
-(function initializeReactGA() {
-  ReactGA.initialize(trackingId);
-  ReactGA.pageview("/");
-})();
+ReactGA.initialize(trackingId);
+
+// Initialize google analytics page view tracking
+history.listen(location => {
+  ReactGA.set({ page: location.pathname }); // Update the user's current page
+  ReactGA.pageview(location.pathname); // Record a pageview for the given page
+});
 
 function App() {
   const { getIdTokenClaims } = useAuth0();
@@ -142,7 +147,7 @@ function App() {
   return (
     <ApolloProvider client={client}>
       <div className="App">
-        <Router history={HashRouter}>
+        <Router history={history}>
           <Accessibility path="/accessibility" />
           <PrivacyPolicy path="/privacy-policy" />
           <PrivateRoute path="/" component={DashRouter}>
