@@ -1,5 +1,6 @@
 // React/Reach Router imports
 import React, { useEffect, useState } from "react";
+import { Link } from "@reach/router";
 import { useForm, Controller } from "react-hook-form";
 import { useParams, useNavigate } from "@reach/router";
 // Apollo/GraphQL imports
@@ -150,7 +151,7 @@ const useStyles = makeStyles(theme => ({
   },
   btnBox: {
     display: "flex",
-    justifyContent: "flex-end",
+    justifyContent: "space-between",
     marginTop: "1rem",
   },
   error: {
@@ -170,6 +171,13 @@ const useStyles = makeStyles(theme => ({
     color: "red",
     fontVariant: "all-small-caps",
     fontWeight: "bold",
+  },
+  a11yLink: {
+    display: "flex",
+    alignSelf: "flex-end",
+    fontSize: "1.4rem",
+    color: "#2962FF",
+    textDecoration: "underline",
   },
 }));
 
@@ -505,7 +513,8 @@ export default function Step1({ updateProfile }) {
         />
 
         <InputLabel required htmlFor="legal">
-          Are you over 18 years old? (minors will not have access to the chat feature)
+          Are you over 18 years old? (minors will not have access to the chat
+          feature)
         </InputLabel>
         {errors.legal && (
           <Typography className={classes.error}>
@@ -543,6 +552,9 @@ export default function Step1({ updateProfile }) {
         />
         <Typography className={classes.error}>* required field</Typography>
         <Box className={classes.btnBox}>
+          <Link to="/privacy-policy" className={classes.a11yLink}>
+            Privacy Policy
+          </Link>
           <FinishButton
             type="submit"
             label="Finish"

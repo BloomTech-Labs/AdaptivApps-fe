@@ -182,10 +182,11 @@ export default function TermsOfService() {
       <p>
         Your and your child’s or person to whom you are a guardian’s privacy is
         important to us. We designed our general Privacy Policy, located at
-        __________________ to make important disclosure about how we collect and
-        use you, your child’s and person to whom you have guardianship’s
-        Personal Information. We encourage you to read our Privacy Policy and to
-        use these policies to help you make informed decisions.
+        https://app.angelcityalliance.org/privacy-policy to make important
+        disclosure about how we collect and use you, your child’s and person to
+        whom you have guardianship’s Personal Information. We encourage you to
+        read our Privacy Policy and to use these policies to help you make
+        informed decisions.
       </p>{" "}
       <h4>7. THIRD PARTY WEBSITES</h4>
       <p>
