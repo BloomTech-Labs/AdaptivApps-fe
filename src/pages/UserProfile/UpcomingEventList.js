@@ -115,7 +115,7 @@ export default function UpcomingEventList({ userName }) {
           {upcomingEvents.map(event => (
             <div key={event.id} className={classes.eventCard}>
               <NavLink
-                aria-label="navigate to event details page"
+                aria-label={`navigate to event details page for ${event.title}`}
                 to={`/myevents/${event.id}`}
                 key={event.id}
                 className={classes.navLink}

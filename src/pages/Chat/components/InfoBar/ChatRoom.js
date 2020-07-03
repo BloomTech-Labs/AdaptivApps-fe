@@ -415,11 +415,15 @@ export default function ChatRoom({
                 {senderName?.from?.lastName}
               </h1>
               <Tooltip title="Close Chatroom">
-                <CloseIcon
-                  className={classes.closeModal}
-                  onClick={closeDrawer}
+                <button
                   aria-label="Close Chatroom"
-                />
+                  className={classes.btn}
+                >
+                  <CloseIcon
+                    className={classes.closeModal}
+                    onClick={closeDrawer}
+                  />
+                </button>
               </Tooltip>
             </div>
             <Messages
