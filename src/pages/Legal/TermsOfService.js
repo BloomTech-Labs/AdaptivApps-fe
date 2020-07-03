@@ -1,12 +1,6 @@
 import React from "react";
 import { Link } from "@reach/router";
-import {
-  makeStyles,
-  Container,
-  Box,
-  Button,
-  Typography,
-} from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -20,9 +14,11 @@ const useStyles = makeStyles(theme => ({
     },
     "& h4": {
       fontSize: "1.6rem",
+      marginBottom: "0",
     },
     "& p": {
       fontSize: "1.4rem",
+      marginTop: "0",
     },
     "& ol, ul, li": {
       fontSize: "1.4rem",
@@ -366,7 +362,7 @@ export default function TermsOfService() {
         SERVICE.
       </p>{" "}
       <h4>14. MISCELLANEOUS</h4>{" "}
-      <ol>
+      <ol type="a">
         <li>
           Entire Agreement. This TERMS OF SERVICE constitute the entire
           agreement between you, your child, or the person to whom you are a

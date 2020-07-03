@@ -190,11 +190,13 @@ const Welcome = () => {
           and follow <strong>@angelcitysports</strong> on Facebook, Instagram,
           and Twitter.
         </Typography>
-        <div>
-          <Link to="tos" className={classes.a11yLink}>
-            Click Here For Terms Of Service
-          </Link>
-        </div>
+        <Link to="tos" className={classes.a11yLink}>
+          Terms Of Service
+        </Link>
+        <br />
+        <Link to="eula" className={classes.a11yLink}>
+          End User License Agreement
+        </Link>
       </div>
     </Box>
   );
