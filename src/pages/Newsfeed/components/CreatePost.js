@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
       width: "70%",
     },
     [theme.breakpoints.down("xs")]: {
-      width: "80%",
+      width: "95%",
     },
   },
   postInput: {
