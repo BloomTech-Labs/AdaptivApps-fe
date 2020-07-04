@@ -261,7 +261,7 @@ export default function SponsorSpotlight() {
           <Grid item xs>
             <Typography className={classes.header}>Hosted by</Typography>
             <a
-              href="http://www.adaptivapps.org/"
+              href="https://adaptivapps.org/"
               target="_blank"
               rel="noopener noreferrer"
               tabIndex="0"
@@ -739,19 +739,19 @@ export default function SponsorSpotlight() {
             </a>
           </Grid>
           <Grid item xs>
-            <a
+            {/* <a
               href="http://www.momoproductionrentals.com/"
               target="_blank"
               rel="noopener noreferrer"
               tabIndex="0"
               aria-label="Click to go to Momo Prodution & Event Rental's Website"
-            >
+            > */}
               <img
                 className={classes.img}
                 alt="Momo Production & Event Rentals Logo"
                 src={Momo_Logo}
               />
-            </a>
+            {/* </a> */}
           </Grid>
           <Grid item xs>
             <a
