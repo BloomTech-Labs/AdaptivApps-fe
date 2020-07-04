@@ -25,6 +25,7 @@ import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import PinDropOutlinedIcon from "@material-ui/icons/PinDropOutlined";
+import SendIcon from "@material-ui/icons/Send";
 import {
   makeStyles,
   TextField,
@@ -36,6 +37,7 @@ import {
   Button,
   Divider,
   Typography,
+  Tooltip,
   Icon,
 } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -216,6 +218,14 @@ const useStyles = makeStyles(theme => ({
     color: "#2962FF",
     fontWeight: "bold",
   },
+  submitIcon: {
+    color: "#2962FF",
+    fontSize: "2rem",
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
+  
 }));
 
 export default function NewsfeedCard({
@@ -429,6 +439,17 @@ export default function NewsfeedCard({
                 value={postToEdit}
                 placeholder="Edit your post..."
                 aria-label="Edit your post, then hit enter to send"
+                InputProps={{
+                  endAdornment: (
+                    <Button position="end" aria-label="edit post" onClick={postToEdit !== "" && editPost}>
+                      <Tooltip title="Edit Post">
+                        <SendIcon
+                          className={classes.submitIcon} 
+                        />
+                      </Tooltip>
+                    </Button>
+                  ),
+                }}
               />
             </>
           ) : (
@@ -483,6 +504,17 @@ export default function NewsfeedCard({
             onChange={e => setCommentText(e.target.value)}
             value={commentText}
             placeholder="Write a comment..."
+            InputProps={{
+              endAdornment: (
+                <Button position="end" aria-label="create comment" onClick={commentText !== "" && addComment}>
+                  <Tooltip title="Create Comment">
+                    <SendIcon
+                      className={classes.submitIcon} 
+                    />
+                  </Tooltip>
+                </Button>
+              ),
+            }}
           />
         </div>
       ) : null}
