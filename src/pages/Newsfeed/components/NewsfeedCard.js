@@ -218,13 +218,14 @@ const useStyles = makeStyles(theme => ({
     color: "#2962FF",
     fontWeight: "bold",
   },
-  editPostIcon: {
+  submitIcon: {
     color: "#2962FF",
     fontSize: "2rem",
     "&:hover": {
       cursor: "pointer",
     },
   },
+  
 }));
 
 export default function NewsfeedCard({
@@ -443,7 +444,7 @@ export default function NewsfeedCard({
                     <Button position="end" aria-label="edit post" onClick={postToEdit !== "" && editPost}>
                       <Tooltip title="Edit Post">
                         <SendIcon
-                          className={classes.editPostIcon} 
+                          className={classes.submitIcon} 
                         />
                       </Tooltip>
                     </Button>
@@ -503,6 +504,17 @@ export default function NewsfeedCard({
             onChange={e => setCommentText(e.target.value)}
             value={commentText}
             placeholder="Write a comment..."
+            InputProps={{
+              endAdornment: (
+                <Button position="end" aria-label="create comment" onClick={commentText !== "" && addComment}>
+                  <Tooltip title="Create Comment">
+                    <SendIcon
+                      className={classes.submitIcon} 
+                    />
+                  </Tooltip>
+                </Button>
+              ),
+            }}
           />
         </div>
       ) : null}
