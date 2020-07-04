@@ -1,179 +1,177 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import Input from "../Input/Input";
-import EditInput from '../Input/EditInput';
-import CustomMessageIcon from './CustomMessageIcon';
+import EditInput from "../Input/EditInput";
+import CustomMessageIcon from "./CustomMessageIcon";
 import { useNavigate } from "@reach/router";
-import { useMutation } from 'react-apollo';
-import { DELETE_CHAT } from '../../queries/Chats';
+import { useMutation } from "react-apollo";
+import { DELETE_CHAT } from "../../queries/Chats";
 
 // Styling imports
-import PersonIcon from '@material-ui/icons/Person';
-import Tooltip from '@material-ui/core/Tooltip';
-import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
-import DeleteOutlineOutlinedIcon from '@material-ui/icons/DeleteOutlineOutlined';
-import {
-  makeStyles
-} from "@material-ui/core";
+import PersonIcon from "@material-ui/icons/Person";
+import Tooltip from "@material-ui/core/Tooltip";
+import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
+import DeleteOutlineOutlinedIcon from "@material-ui/icons/DeleteOutlineOutlined";
+import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     flexDirection: "column",
     border: "none",
-    maxWidth: '95%',
+    maxWidth: "95%",
   },
   messageText: {
     marginTop: "0",
     padding: "0 2%",
-    fontSize: '1.5rem'
+    fontSize: "1.5rem",
   },
   messageHeader: {
-    marginBottom: '4%',
-    padding: '1%',
-    display: 'flex',
-    justifyContent: 'space-between'
+    marginBottom: "4%",
+    padding: "1%",
+    display: "flex",
+    justifyContent: "space-between",
   },
   messageSubHeader: {
     display: "flex",
   },
   sender: {
-    fontSize: '1.25rem',
-    fontWeight: 'bold'
+    fontSize: "1.25rem",
+    fontWeight: "bold",
   },
   messageBox: {
-    display: 'flex',
-    alignItems: 'center',
-    marginTop: '1.5%',
+    display: "flex",
+    alignItems: "center",
+    marginTop: "1.5%",
   },
   messageBoxRight: {
-    display: 'flex',
-    alignItems: 'center',
-    alignSelf: 'flex-end',
-    flexDirection: 'row-reverse',
-    marginTop: '1.5%',
+    display: "flex",
+    alignItems: "center",
+    alignSelf: "flex-end",
+    flexDirection: "row-reverse",
+    marginTop: "1.5%",
   },
   messageSender: {
-    backgroundColor: 'rgba(196, 196, 196, 0.25)',
-    padding: '1% 2%',
-    fontSize: '1.5rem',
-    width: '50%',
-    borderRadius: '8px'
+    backgroundColor: "rgba(196, 196, 196, 0.25)",
+    padding: "1% 2%",
+    fontSize: "1.5rem",
+    width: "50%",
+    borderRadius: "8px",
   },
   userMessage: {
-    backgroundColor: 'rgba(41, 98, 255, 0.11)',
-    padding: '1% 2%',
-    fontSize: '1.5rem',
-    width: '50%',
-    borderRadius: '8px'
+    backgroundColor: "rgba(41, 98, 255, 0.11)",
+    padding: "1% 2%",
+    fontSize: "1.5rem",
+    width: "50%",
+    borderRadius: "8px",
   },
   messageIcon: {
     color: "#2962FF",
     fontSize: "3rem",
     margin: "0 3%",
-    border: '1px solid #2962FF',
-    borderRadius: '50px'
+    border: "1px solid #2962FF",
+    borderRadius: "50px",
   },
   deleteMessageIcon: {
     color: "#2962FF",
     fontSize: "3rem",
     margin: "0 3%",
-    border: '1px solid #2962FF',
-    borderRadius: '50px',
-    '&:hover': {
-      cursor: 'pointer',
-      color: 'red'
-    }
+    border: "1px solid #2962FF",
+    borderRadius: "50px",
+    "&:hover": {
+      cursor: "pointer",
+      color: "red",
+    },
   },
   inputDiv: {
-    width: '100%',
-    height: '7.5vh',
-    marginTop: '2%',
-    position: 'absolute',
-    bottom: "0"
+    width: "100%",
+    height: "7.5vh",
+    marginTop: "2%",
+    position: "absolute",
+    bottom: "0",
   },
   messageDiv: {
-    maxHeight: '80vh',
-    overflowY: 'auto',
-    overflowX: 'hidden'
+    maxHeight: "80vh",
+    overflowY: "auto",
+    overflowX: "hidden",
   },
   header: {
-    fontSize: '2rem',
-    marginLeft: '4%'
+    fontSize: "2rem",
+    marginLeft: "4%",
   },
   editIcon: {
-    '&:hover': {
-      cursor: 'pointer',
-      color: '#2962FF'
-    }
+    "&:hover": {
+      cursor: "pointer",
+      color: "#2962FF",
+    },
   },
   deleteIcon: {
-    '&:hover': {
-      cursor: 'pointer',
-      color: '#2962FF'
+    "&:hover": {
+      cursor: "pointer",
+      color: "#2962FF",
     },
     marginLeft: "3px",
   },
   paper: {
-    display: 'flex',
-    flexWrap: 'nowrap',
-    flexDirection: 'column',
-    backgroundColor: 'whitesmoke',
-    position: 'absolute',
-    top: '25%',
-    left: '40%',
-    width: '25%',
-    borderRadius: '5px',
-    border: '2px solid #000',
+    display: "flex",
+    flexWrap: "nowrap",
+    flexDirection: "column",
+    backgroundColor: "whitesmoke",
+    position: "absolute",
+    top: "25%",
+    left: "40%",
+    width: "25%",
+    borderRadius: "5px",
+    border: "2px solid #000",
     boxShadow: theme.shadows[5],
-    padding: '1%',
-    fontSize: '2.5rem',
-    fontWeight: 'bold',
-    justifyContent: 'center',
-    alignItems: 'center',
-    '&:focus': {
-      outline: 'none'
-    }
+    padding: "1%",
+    fontSize: "2.5rem",
+    fontWeight: "bold",
+    justifyContent: "center",
+    alignItems: "center",
+    "&:focus": {
+      outline: "none",
+    },
   },
   span: {
-    fontSize: '2rem',
-    color: '#2962FF',
-    textAlign: 'center',
-    fontWeight: 'normal',
-    marginTop: '0%'
+    fontSize: "2rem",
+    color: "#2962FF",
+    textAlign: "center",
+    fontWeight: "normal",
+    marginTop: "0%",
   },
   cancelChatDelete: {
     fontSize: "2rem",
-    marginLeft: '95%',
+    marginLeft: "95%",
     border: "none",
-    '&:hover': {
+    "&:hover": {
       cursor: "pointer",
-      color: "#2962FF"
+      color: "#2962FF",
     },
-    '&:focus': {
-      outline: "none"
-    }
+    "&:focus": {
+      outline: "none",
+    },
   },
   deleteChat: {
-    fontSize: '4rem',
-    color: 'green',
-    margin: '2% 0%',
-    '&:hover': {
-      cursor: 'pointer'
-    }
+    fontSize: "4rem",
+    color: "green",
+    margin: "2% 0%",
+    "&:hover": {
+      cursor: "pointer",
+    },
   },
   btn: {
     backgroundColor: "none",
     background: "none",
     border: "none",
   },
-  btn: {
-    backgroundColor: "none",
-    background: "none",
-    border: "none",
-  }
 }));
 
-export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat }) {
+export default function Messages({
+  user,
+  chatRoom,
+  setUpdateChat,
+  setDeleteChat,
+}) {
   const classes = useStyles();
   const navigate = useNavigate();
   const [deleteChat] = useMutation(DELETE_CHAT);
@@ -186,36 +184,52 @@ export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat 
       createdAt: chat.createdAt,
       firstName: chat.from.firstName,
       lastName: chat.from.lastName,
-      sender: chat.from.email
-    }
-  })
+      sender: chat.from.email,
+    };
+  });
   const profilePics = chatRoom.participants.map(participant => {
     return {
       userName: participant.userName,
       firstName: participant.firstName,
       email: participant.email,
       profilePicture: participant.profilePicture,
-    }
-  })
+    };
+  });
 
-  const myProfilePic = profilePics[0].email === user.email ? profilePics[0].profilePicture : profilePics[1].profilePicture;
-  const otherProfilePic = profilePics[0].email === user.email ? profilePics[1].profilePicture : profilePics[0].profilePicture;
-  const myProfileUsername = profilePics[0].email === user.email ? profilePics[0].userName : profilePics[1].userName;
-  const otherProfileUsername = profilePics[0].email === user.email ? profilePics[1].userName : profilePics[0].userName;
-  const otherProfileName = profilePics[0].email === user.email ? profilePics[1].firstName : profilePics[0].firstName;
+  const myProfilePic =
+    profilePics[0].email === user.email
+      ? profilePics[0].profilePicture
+      : profilePics[1].profilePicture;
+  const otherProfilePic =
+    profilePics[0].email === user.email
+      ? profilePics[1].profilePicture
+      : profilePics[0].profilePicture;
+  const myProfileUsername =
+    profilePics[0].email === user.email
+      ? profilePics[0].userName
+      : profilePics[1].userName;
+  const otherProfileUsername =
+    profilePics[0].email === user.email
+      ? profilePics[1].userName
+      : profilePics[0].userName;
+  const otherProfileName =
+    profilePics[0].email === user.email
+      ? profilePics[1].firstName
+      : profilePics[0].firstName;
   // Sets up an auto-scroll to last message when new message received, or when a message is updated/deleted
   const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
-    messagesEndRef.current && messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    messagesEndRef.current &&
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
-    scrollToBottom()
+    scrollToBottom();
   }, [messages]);
 
   // Delete a message
-  const deleteMessage = async (message) => {
+  const deleteMessage = async message => {
     await deleteChat({ variables: { id: message.id } });
     setDeleteChat(true);
   };
@@ -223,63 +237,97 @@ export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat 
   return (
     <div className={classes.root}>
       <div className={classes.messageDiv}>
-        {messages?.map((message) => (
+        {messages?.map(message => (
           <>
-            <div key={message.id} className={message.sender !== user.email ? classes.messageBox : classes.messageBoxRight}>
+            <div
+              key={message.id}
+              className={
+                message.sender !== user.email
+                  ? classes.messageBox
+                  : classes.messageBoxRight
+              }
+            >
               {message.sender === user.email ? (
-                myProfilePic ?
+                myProfilePic ? (
                   <Tooltip title="Visit profile page">
                     <button
                       aria-label="go to my profile page"
                       className={classes.btn}
                     >
-                      <CustomMessageIcon pictureIcon={myProfilePic} myProfileUsername={myProfileUsername} />
-                    </button>
-                  </Tooltip> :
-                  <Tooltip title="Visit profile page">
-                    <button
-                      aria-label="go to my profile page"
-                      className={classes.btn}
-                    >
-                      <PersonIcon className={classes.messageIcon} onClick={() => navigate(`/user/${myProfileUsername}`)} />
+                      <CustomMessageIcon
+                        pictureIcon={myProfilePic}
+                        myProfileUsername={myProfileUsername}
+                      />
                     </button>
                   </Tooltip>
+                ) : (
+                  <Tooltip title="Visit profile page">
+                    <button
+                      aria-label="go to my profile page"
+                      className={classes.btn}
+                    >
+                      <PersonIcon
+                        className={classes.messageIcon}
+                        onClick={() => navigate(`/user/${myProfileUsername}`)}
+                      />
+                    </button>
+                  </Tooltip>
+                )
+              ) : otherProfilePic ? (
+                <Tooltip title="Visit profile page">
+                  <button
+                    aria-label={`go to the profile page of ${otherProfileName}`}
+                    className={classes.btn}
+                  >
+                    <CustomMessageIcon
+                      pictureIcon={otherProfilePic}
+                      otherProfileUsername={otherProfileUsername}
+                    />
+                  </button>
+                </Tooltip>
               ) : (
-                  otherProfilePic ?
-                    <Tooltip title="Visit profile page">
-                      <button
-                        aria-label={`go to the profile page of ${otherProfileName}`}
-                        className={classes.btn}
-                      >
-                        <CustomMessageIcon pictureIcon={otherProfilePic} otherProfileUsername={otherProfileUsername} />
-                      </button>
-                    </Tooltip> :
-                    <Tooltip title="Visit profile page">
-                      <button
-                        aria-label={`go to the profile page of ${otherProfileName}`}
-                        className={classes.btn}
-                      >
-                        <PersonIcon className={classes.messageIcon} onClick={() => navigate(`/user/${otherProfileUsername}`)} />
-                      </button>
-                    </Tooltip>
-                )}
-              <div className={message.sender !== user.email ?
-                classes.messageSender : classes.userMessage}>
+                <Tooltip title="Visit profile page">
+                  <button
+                    aria-label={`go to the profile page of ${otherProfileName}`}
+                    className={classes.btn}
+                  >
+                    <PersonIcon
+                      className={classes.messageIcon}
+                      onClick={() => navigate(`/user/${otherProfileUsername}`)}
+                    />
+                  </button>
+                </Tooltip>
+              )}
+              <div
+                className={
+                  message.sender !== user.email
+                    ? classes.messageSender
+                    : classes.userMessage
+                }
+              >
                 <div className={classes.messageHeader}>
-                  {message.sender === user.email ? <span className={classes.sender}>Me</span> : <span className={classes.sender}>{message.firstName} {message.lastName}</span>}
+                  {message.sender === user.email ? (
+                    <span className={classes.sender}>Me</span>
+                  ) : (
+                    <span className={classes.sender}>
+                      {message.firstName} {message.lastName}
+                    </span>
+                  )}
                   <div className={classes.messageSubHeader}>
                     {message.sender === user.email ? (
                       <Tooltip title="Edit Message">
                         <button
                           aria-label="edit this message"
                           className={classes.btn}
-                          onClick={() => { setEditInput(true); setMessageToEdit(message) }}
+                          onClick={() => {
+                            setEditInput(true);
+                            setMessageToEdit(message);
+                          }}
                         >
-                          <EditOutlinedIcon
-                            className={classes.editIcon}
-                          />
+                          <EditOutlinedIcon className={classes.editIcon} />
                         </button>
-                      </Tooltip>) : null}
+                      </Tooltip>
+                    ) : null}
                     {message.sender === user.email ? (
                       <Tooltip title="Delete Message">
                         <button
@@ -291,7 +339,8 @@ export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat 
                             className={classes.deleteIcon}
                           />
                         </button>
-                      </Tooltip>) : null}
+                      </Tooltip>
+                    ) : null}
                   </div>
                 </div>
                 <p className={classes.messageText}>{message.message}</p>
@@ -303,11 +352,16 @@ export default function Messages({ user, chatRoom, setUpdateChat, setDeleteChat 
       </div>
       <div className={classes.inputDiv}>
         {editInput ? (
-          <EditInput chatRoom={chatRoom} messageToEdit={messageToEdit} setUpdateChat={setUpdateChat} setEditInput={setEditInput} />
+          <EditInput
+            chatRoom={chatRoom}
+            messageToEdit={messageToEdit}
+            setUpdateChat={setUpdateChat}
+            setEditInput={setEditInput}
+          />
         ) : (
-            <Input messages={messages} chatRoom={chatRoom} user={user} />
-          )}
+          <Input messages={messages} chatRoom={chatRoom} user={user} />
+        )}
       </div>
     </div>
-  )
-};
+  );
+}

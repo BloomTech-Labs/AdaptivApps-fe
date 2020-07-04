@@ -2,7 +2,7 @@
 import React from "react";
 import { Router } from "@reach/router";
 // Auth0 imports
-import { useAuth0 } from "../../../config/react-auth0-spa";
+// import { useAuth0 } from "../../../config/react-auth0-spa";
 // Apollo/GraphQL imports
 import { useMutation } from "react-apollo";
 import { UPDATE_TYPE_ROLE } from "../queries";
@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function AccountInfo() {
   const classes = useStyles();
-  const { user } = useAuth0();
+  // const { user } = useAuth0();
   const [UpdateTypeRole] = useMutation(UPDATE_TYPE_ROLE);
   const [UpdateProfile] = useMutation(UPDATE_USER_PROFILE);
   const [UpdateOrgProfile] = useMutation(UPDATE_ORG_PROFILE);

@@ -1,32 +1,27 @@
 // React imports
 import React from "react";
 // Material-UI imports
-import {
-  makeStyles,
-  MobileStepper,
-  Box,
-  Typography,
-} from "@material-ui/core";
-import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
+import { makeStyles, MobileStepper, Box, Typography } from "@material-ui/core";
+// import { KeyboardArrowLeft, KeyboardArrowRight } from "@material-ui/icons";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     padding: 0,
     flexDirection: "column",
-    width: '100%',
+    width: "100%",
     "& .MuiPaper-root": {
       background: "#FFFFFF",
     },
-    marginBottom: '1rem',
+    marginBottom: "1rem",
     [theme.breakpoints.down("sm")]: {
-      width: '90%',
-      margin: 'auto',
-      margin: '1rem auto 3rem auto'
+      width: "90%",
+      margin: "auto",
+      margin: "1rem auto 3rem auto",
     },
     [theme.breakpoints.down("xs")]: {
-      width: '90%',
-      margin: '1rem auto 3rem auto'
+      width: "90%",
+      margin: "1rem auto 3rem auto",
     },
   },
   stepper: {
@@ -47,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
   },
   actionBox: {
-    width: '100%',
+    width: "100%",
     display: "flex",
     justifyContent: "flex-end",
     "& p": {

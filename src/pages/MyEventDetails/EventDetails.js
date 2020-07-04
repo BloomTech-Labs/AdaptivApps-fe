@@ -4,7 +4,7 @@ import moment from "moment";
 // Google Analytics Imports
 import ReactGA from "react-ga";
 // Component imports
-import ActivityGroup from "./ActivityGroup";
+// import ActivityGroup from "./ActivityGroup";
 import eventImg from "../../assets/images/acs_hartford.png";
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";

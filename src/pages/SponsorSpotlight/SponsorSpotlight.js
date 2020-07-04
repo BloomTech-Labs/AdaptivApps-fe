@@ -6,8 +6,8 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { useNavigate } from "@reach/router";
 
 const ACS_Hartford_Logo = require("../../assets/images/acs_hartford2.png");
-const ACS_Logo = require("../../assets/images/01-ACS_Logo.png");
-const Hartford_Logo = require("../../assets/images/02-Hartford.png");
+// const ACS_Logo = require("../../assets/images/01-ACS_Logo.png");
+// const Hartford_Logo = require("../../assets/images/02-Hartford.png");
 const Adaptiv_Logo = require("../../assets/images/03-AdaptivApps.png");
 const Citi_Logo = require("../../assets/images/04-Citi.png");
 const Gold_Logo = require("../..//assets/images/05-GoldMeetsGolden.png");
@@ -261,7 +261,7 @@ export default function SponsorSpotlight() {
           <Grid item xs>
             <Typography className={classes.header}>Hosted by</Typography>
             <a
-              href="http://www.adaptivapps.org/"
+              href="https://adaptivapps.org/"
               target="_blank"
               rel="noopener noreferrer"
               tabIndex="0"
@@ -739,19 +739,19 @@ export default function SponsorSpotlight() {
             </a>
           </Grid>
           <Grid item xs>
-            <a
+            {/* <a
               href="http://www.momoproductionrentals.com/"
               target="_blank"
               rel="noopener noreferrer"
               tabIndex="0"
               aria-label="Click to go to Momo Prodution & Event Rental's Website"
-            >
+            > */}
               <img
                 className={classes.img}
                 alt="Momo Production & Event Rentals Logo"
                 src={Momo_Logo}
               />
-            </a>
+            {/* </a> */}
           </Grid>
           <Grid item xs>
             <a

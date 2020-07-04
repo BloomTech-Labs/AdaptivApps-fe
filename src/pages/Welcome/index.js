@@ -187,6 +187,7 @@ const Welcome = () => {
             className={classes.acsLink}
             href="https://www.angelcitysports.org"
             target="_blank"
+            rel="noopener noreferrer"
           >
             <strong>angelcitysports.org</strong>
           </a>{" "}

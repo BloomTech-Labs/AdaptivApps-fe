@@ -10,7 +10,7 @@ import S3FileUpload from "react-s3";
 import {
   makeStyles,
   TextField,
-  Checkbox,
+  Button,
   Typography,
   InputLabel,
 } from "@material-ui/core";
@@ -19,6 +19,7 @@ import CropOriginalIcon from "@material-ui/icons/CropOriginal";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Tooltip from "@material-ui/core/Tooltip";
+import SendIcon from "@material-ui/icons/Send";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -95,6 +96,13 @@ const useStyles = makeStyles(theme => ({
     objectFit: "cover",
     borderRadius: "5px",
   },
+  createPostIcon: {
+    color: "#2962FF",
+    fontSize: "2rem",
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
 }));
 
 export default function CreatePost({ user, profile }) {
@@ -162,35 +170,6 @@ export default function CreatePost({ user, profile }) {
 
   return (
     <div className={classes.root}>
-      <div className={classes.postInput}>
-        {profile?.profilePicture ? (
-          <CustomMessageIcon
-            pictureIcon={profile?.profilePicture}
-            myProfileUsername={profile?.userName}
-          />
-        ) : user?.picture ? (
-          <CustomMessageIcon
-            pictureIcon={user?.picture}
-            myProfileUsername={profile?.userName}
-          />
-        ) : (
-          <AccountCircleIcon className={classes.icon} />
-        )}
-        <TextField
-          {...props}
-          size="small"
-          type="text"
-          variant="outlined"
-          multiline
-          onKeyPress={e =>
-            e.key === "Enter" && postInput !== "" ? createPost() : null
-          }
-          onChange={e => setPostInput(e.target.value)}
-          className={classes.input}
-          value={postInput}
-          placeholder="Type here to share a post with the community..."
-        />
-      </div>
       <div className={classes.cta}>
         {!postImage ? (
           <div>
@@ -254,6 +233,46 @@ export default function CreatePost({ user, profile }) {
             <Typography className={classes.text}>Pin this post?</Typography>
           </div>
         ) : null} */}
+      </div>
+      <div className={classes.postInput}>
+        {profile?.profilePicture ? (
+          <CustomMessageIcon
+            pictureIcon={profile?.profilePicture}
+            myProfileUsername={profile?.userName}
+          />
+        ) : user?.picture ? (
+          <CustomMessageIcon
+            pictureIcon={user?.picture}
+            myProfileUsername={profile?.userName}
+          />
+        ) : (
+          <AccountCircleIcon className={classes.icon} />
+        )}
+        <TextField
+          {...props}
+          size="small"
+          type="text"
+          variant="outlined"
+          multiline
+          onKeyPress={e =>
+            e.key === "Enter" && postInput !== "" ? createPost() : null
+          }
+          onChange={e => setPostInput(e.target.value)}
+          className={classes.input}
+          value={postInput}
+          placeholder="Type here to share a post with the community..."
+          InputProps={{
+            endAdornment: (
+              <Button position="end" aria-label="create post" onClick={postInput !== "" && createPost}>
+                <Tooltip title="Create Post">
+                  <SendIcon
+                    className={classes.createPostIcon} 
+                  />
+                </Tooltip>
+              </Button>
+            ),
+          }}
+        />
       </div>
     </div>
   );

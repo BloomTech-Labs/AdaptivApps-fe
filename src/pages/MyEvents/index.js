@@ -56,7 +56,7 @@ const useStyles = makeStyles({
     zIndex: 100,
     position: "absolute",
     marginLeft: "350px",
-    '@media (max-width: 850px)': {
+    "@media (max-width: 850px)": {
       display: "none",
     },
   },
@@ -64,20 +64,19 @@ const useStyles = makeStyles({
     height: "38px",
     marginLeft: "3rem",
     marginBottom: "25px",
-    '@media (min-width: 850px)': {
+    "@media (min-width: 850px)": {
       display: "none",
     },
   },
   redirLink: {
     textDecoration: "none",
-  }
+  },
 });
 
 export default function MyEvents() {
   const classes = useStyles();
   // Retrieves logged in user info
   const { user } = useAuth0();
-  const navigate = useNavigate();
   // Retrieves all events a user is registered to
   const { error, loading, data, refetch } = useQuery(GET_USER_EVENTS, {
     variables: { email: user.email },
@@ -113,23 +112,27 @@ export default function MyEvents() {
               <EventList data={data} refetch={refetch} />
             </Grid>
           ) : (
-              <>
-                <Typography className={classes.noActiv}>
-                  You haven't registered for any events yet!
+            <>
+              <Typography className={classes.noActiv}>
+                You haven't registered for any events yet!
               </Typography>
-                <Box className={classes.inlineNotice}>
-                  <Link to="/calendar" aria-label="check out the event calendar page" className={classes.redirLink}>
-                    <Typography className={classes.noActivBlue}>
-                      Check out the Events Calendar
-                    </Typography>
-                  </Link>
-                  <Typography>
-                    , register for an event, then see all of your registered
-                    events here!
+              <Box className={classes.inlineNotice}>
+                <Link
+                  to="/calendar"
+                  aria-label="check out the event calendar page"
+                  className={classes.redirLink}
+                >
+                  <Typography className={classes.noActivBlue}>
+                    Check out the Events Calendar
+                  </Typography>
+                </Link>
+                <Typography>
+                  , register for an event, then see all of your registered
+                  events here!
                 </Typography>
-                </Box>
-              </>
-            )}
+              </Box>
+            </>
+          )}
         </main>
       </div>
     </>

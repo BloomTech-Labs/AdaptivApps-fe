@@ -49,7 +49,7 @@ const useStyles = makeStyles({
 export default function Activity({ activity, activityData, value, refetch }) {
   const classes = useStyles();
   // const momentStartDate = moment(activity?.startTime).getHours();
-  // console.log("moment start date", momentStartDate);
+
   return (
     <>
       {value === activity?.date ? (

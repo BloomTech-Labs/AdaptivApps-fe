@@ -10,8 +10,8 @@ import { useParams } from "@reach/router";
 import S3FileUpload from "react-s3";
 
 // Material-UI and styling imports
-import { Typography, makeStyles, Link } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
+import { makeStyles, Link } from "@material-ui/core";
+// import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import PhotoCamera from "@material-ui/icons/PhotoCamera";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -222,15 +222,10 @@ export default function UserProfile() {
   };
 
   const uploadProfilePicture = async e => {
-    // console.log(e.target.files[0]);
     await S3FileUpload.uploadFile(e.target.files[0], profilePictureConfig)
       .then(async data => {
-        console.log(data);
         if (data && data?.location) {
           await setProfilePicture(data && data?.location);
-          console.log(data?.location);
-        } else {
-          console.log("loading");
         }
       })
       .catch(async err => {
@@ -239,14 +234,11 @@ export default function UserProfile() {
   };
 
   const uploadProfileBanner = async e => {
-    // console.log(e.target.files[0]);
     e.preventDefault();
     await S3FileUpload.uploadFile(e.target.files[0], profileBannerConfig)
       .then(async data => {
         if (data && data?.location) {
           await setProfileBanner(data && data?.location);
-        } else {
-          console.log("loading");
         }
       })
       .catch(async err => {
@@ -276,7 +268,7 @@ export default function UserProfile() {
   useEffect(() => {
     if (loggedInUser && loggedInUserName === userName) setProfileOwner(true);
   }, [userProfile, profilePicture, profileBanner, profileOwner]);
-  // console.log("Profile Owner", profileOwner);
+
   if (loading) return <CircularProgress />;
   if (error) return `Error! ${error.message}`;
 
