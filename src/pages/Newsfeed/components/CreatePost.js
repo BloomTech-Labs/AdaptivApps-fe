@@ -11,7 +11,6 @@ import {
   makeStyles,
   TextField,
   Button,
-  InputAdornment,
   Typography,
   InputLabel,
 } from "@material-ui/core";

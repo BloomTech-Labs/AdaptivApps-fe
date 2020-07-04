@@ -25,6 +25,7 @@ import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import PinDropOutlinedIcon from "@material-ui/icons/PinDropOutlined";
+import SendIcon from "@material-ui/icons/Send";
 import {
   makeStyles,
   TextField,
@@ -36,6 +37,7 @@ import {
   Button,
   Divider,
   Typography,
+  Tooltip,
   Icon,
 } from "@material-ui/core";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -215,6 +217,13 @@ const useStyles = makeStyles(theme => ({
     fontSize: "2rem",
     color: "#2962FF",
     fontWeight: "bold",
+  },
+  editPostIcon: {
+    color: "#2962FF",
+    fontSize: "2rem",
+    "&:hover": {
+      cursor: "pointer",
+    },
   },
 }));
 
@@ -429,6 +438,17 @@ export default function NewsfeedCard({
                 value={postToEdit}
                 placeholder="Edit your post..."
                 aria-label="Edit your post, then hit enter to send"
+                InputProps={{
+                  endAdornment: (
+                    <Button position="end" aria-label="edit post" onClick={postToEdit !== "" && editPost}>
+                      <Tooltip title="Edit Post">
+                        <SendIcon
+                          className={classes.editPostIcon} 
+                        />
+                      </Tooltip>
+                    </Button>
+                  ),
+                }}
               />
             </>
           ) : (
