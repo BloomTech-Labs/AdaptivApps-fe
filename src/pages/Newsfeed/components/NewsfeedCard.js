@@ -6,6 +6,7 @@ import {
   CREATE_NEWSFEED_COMMENT,
   GET_NEWSFEED_COMMENTS,
   NEWSFEED_COMMENT_SUBSCRIPTION,
+  DELETE_COMMENT,
 } from "../queries/FeedComment";
 import {
   DELETE_NEWSFEED_POST,
@@ -68,7 +69,7 @@ const useStyles = makeStyles(theme => ({
       width: "70%",
     },
     [theme.breakpoints.down("xs")]: {
-      width: "80%",
+      width: "95%",
     },
   },
   postBody: {
@@ -150,10 +151,11 @@ const useStyles = makeStyles(theme => ({
     textTransform: "none",
   },
   commentBox: {
+    width: "100%",
     marginLeft: ".8rem",
     lineHeight: ".6rem",
     display: "flex",
-    flexDirection: "column",
+    justifyContent: "space-between",
   },
   flex: {
     margin: "2.4rem 0 0 1.6rem",
@@ -209,6 +211,13 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "none",
     border: "none",
   },
+  deleteBtn: {
+    padding: "none",
+    background: "none",
+    backgroundColor: "none",
+    border: "none",
+    fontSize: "1rem",
+  },
   comments: {
     margin: "1rem 0 .75rem 1.6rem",
     textTransform: "none",
@@ -238,7 +247,6 @@ export default function NewsfeedCard({
       variables: {
         id: post.id,
       },
-      skip: !post.id,
     }
   );
 
@@ -254,10 +262,13 @@ export default function NewsfeedCard({
   const [addLike] = useMutation(CREATE_NEWSFEED_LIKE);
   const [removeLike] = useMutation(DELETE_NEWSFEED_LIKE);
   const [updatePost] = useMutation(UPDATE_NEWSFEED_POST);
+  const [deleteComment] = useMutation(DELETE_COMMENT);
 
   const toggleComment = () => {
     setCommenting(!commenting);
   };
+
+  console.log("comments", comments);
 
   const addComment = async () => {
     await createComment({
@@ -279,6 +290,15 @@ export default function NewsfeedCard({
     });
     setEditing(false);
   };
+
+  // const deleteFeedComment = async comment => {
+  //   await deleteComment({
+  //     variables: {
+  //       id: comment.id,
+  //     },
+  //   });
+  //   refetch();
+  // };
 
   const hasLiked = () => {
     for (let i = 0; i < post.likes.length; i++) {
@@ -515,12 +535,31 @@ export default function NewsfeedCard({
             )}
 
             <div className={classes.commentBox}>
-              <Typography className={classes.commentName}>
-                {comment.postedBy.firstName} {comment.postedBy.lastName}
-              </Typography>
-              <Typography className={classes.commentContent} gutterBottom>
-                {comment.body}
-              </Typography>
+              <div>
+                <Typography className={classes.commentName}>
+                  {comment?.postedBy?.firstName} {comment?.postedBy?.lastName}
+                </Typography>
+                <Typography className={classes.commentContent} gutterBottom>
+                  {comment?.body}
+                </Typography>
+              </div>
+              {/* {user?.email === comment.postedBy.email ? ( */}
+              <div>
+                <Button
+                  onClick={async () => {
+                    await deleteComment({
+                      variables: {
+                        id: comment.id,
+                      },
+                    });
+                  }}
+                  className={classes.deleteBtn}
+                  aria-label="delete this comment"
+                >
+                  <DeleteOutlineIcon color="action" fontSize="large" />
+                </Button>
+              </div>
+              {/* ) : null} */}
             </div>
           </div>
         ))}

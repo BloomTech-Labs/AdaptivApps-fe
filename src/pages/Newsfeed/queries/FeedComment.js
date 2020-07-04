@@ -75,6 +75,13 @@ export const DELETE_COMMENT = gql`
   mutation deleteFeedComment($id: ID!) {
     deleteFeedComment(where: { id: $id }) {
       id
+      postedBy {
+        userName
+        firstName
+        lastName
+        email
+        profilePicture
+      }
     }
   }
 `;
