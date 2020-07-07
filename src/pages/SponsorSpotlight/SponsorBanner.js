@@ -7,6 +7,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 const Sponsors = require("../../assets/images/SponsorsText.png");
 // const Sponsor_Thanks = require("../../assets/images/ProfilePhoto.png");
 const Sponsor_Photo = require("../../assets/images/ProfilePhoto.png");
+const Sponsors_Text = require("../../assets/images/Sponsors.png");
 
 const useStyles = makeStyles(theme => ({
   banner: {
@@ -20,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   sponsors: {
-    maxWidth: "50%",
+    maxWidth: "80%",
     //marginRight: "15%",
     minHeight: "45px",
     minWidth: "300px",
@@ -57,7 +58,7 @@ export default function SponsorBanner() {
             className={classes.btn}
           >
             <img src={Sponsor_Photo} className={classes.image} />
-            <img src={Sponsors} className={classes.sponsors} />
+            <img src={Sponsors_Text} className={classes.sponsors} />
           </button>
         </Tooltip>
       </div>
