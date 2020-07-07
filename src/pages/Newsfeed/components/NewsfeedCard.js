@@ -48,6 +48,7 @@ import {
   faThumbsUp,
   faCommentAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp as farFaThumbsUp } from "@fortawesome/free-regular-svg-icons";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -237,6 +238,14 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       cursor: "pointer",
     },
+  },
+  likesCommentsBox: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+  },
+  likesComments: {
+    fontSize: "1.5rem",
   },
 }));
 
@@ -484,22 +493,51 @@ export default function NewsfeedCard({
           )}
         </CardContent>
       </CardActions>
+      <CardContent className={classes.likesCommentsBox}>
+        <p className={classes.likesComments}>
+          {post.likes.length === 1
+            ? "1 Like"
+            : post.likes.length > 1
+            ? `${post.likes.length} Likes`
+            : null}
+          {/* {hasLiked()
+              ? post.likes.length === 1
+                ? "1 Like"
+                : `${post.likes.length} Likes`
+              : `Like`} */}
+        </p>
+        <p className={classes.likesComments}>
+          {comments.feedComments.length === 1
+            ? "1 Comment"
+            : comments.feedComments.length > 1
+            ? `${comments.feedComments.length} Comments`
+            : null}
+        </p>
+      </CardContent>
       <Divider variant="middle" />
-
       <CardActions className={classes.cardActions}>
         <Button
           color="primary"
           className={classes.button}
           onClick={toggleLiked}
         >
-          <FontAwesomeIcon icon={faThumbsUp} className={classes.thumbupIcon} />
-          <Typography className={classes.cta}>
-            {hasLiked()
-              ? post.likes.length === 1
-                ? "1 Like"
-                : `${post.likes.length} Likes`
-              : `Like`}
-          </Typography>
+          {hasLiked() ? (
+            <>
+              <FontAwesomeIcon
+                icon={faThumbsUp}
+                className={classes.thumbupIcon}
+              />
+              <Typography className={classes.cta}>Liked</Typography>
+            </>
+          ) : (
+            <>
+              <FontAwesomeIcon
+                icon={farFaThumbsUp}
+                className={classes.thumbupIcon}
+              />
+              <Typography className={classes.cta}>Like</Typography>
+            </>
+          )}
         </Button>
         <Button
           color="primary"
