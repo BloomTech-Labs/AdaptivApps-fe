@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+// Moment import
+import moment from "moment";
 import config from "../../../config/auth_config";
 // Import graphql
 import { useQuery, useMutation, useSubscription } from "react-apollo";
@@ -30,6 +32,7 @@ import SendIcon from "@material-ui/icons/Send";
 import {
   makeStyles,
   TextField,
+  Box,
   Card,
   CardActionArea,
   CardActions,
@@ -108,10 +111,6 @@ const useStyles = makeStyles(theme => ({
   postedBy: {
     display: "flex",
     alignItems: "center",
-    fontSize: "1.4rem",
-  },
-  postedByName: {
-    marginTop: ".5rem",
     fontSize: "1.4rem",
   },
   icon: {
@@ -234,7 +233,15 @@ const useStyles = makeStyles(theme => ({
       cursor: "pointer",
     },
   },
-  
+  postInfoBox: {
+    display: "flex",
+    flexDirection: "column",
+    "& p": {
+      marginTop: "0rem",
+      marginBottom: "0rem",
+      fontSize: "1.4rem",
+    },
+  },
 }));
 
 export default function NewsfeedCard({
@@ -258,6 +265,13 @@ export default function NewsfeedCard({
         id: post.id,
       },
     }
+  );
+
+  console.log(
+    "Post inside NewsfeedCard.js",
+    moment(post.createdAt)
+      .startOf("hour")
+      .fromNow()
   );
 
   const {
@@ -404,9 +418,16 @@ export default function NewsfeedCard({
               />
             </button>
           )}
-          <Typography className={classes.postedByName} gutterBottom>
-            {post.postedBy.firstName} {post.postedBy.lastName}
-          </Typography>
+          <Box className={classes.postInfoBox}>
+            <Typography gutterBottom>
+              {post.postedBy.firstName} {post.postedBy.lastName}
+            </Typography>
+            <Typography>
+              {moment(post.createdAt)
+                .startOf("hour")
+                .fromNow()}
+            </Typography>
+          </Box>
         </div>
         {user?.email === post?.postedBy?.email ||
         (user && user[config.roleUrl].includes("Admin")) ? (
@@ -461,11 +482,13 @@ export default function NewsfeedCard({
                 aria-label="Edit your post, then hit enter to send"
                 InputProps={{
                   endAdornment: (
-                    <Button position="end" aria-label="edit post" onClick={postToEdit !== "" && editPost}>
+                    <Button
+                      position="end"
+                      aria-label="edit post"
+                      onClick={postToEdit !== "" && editPost}
+                    >
                       <Tooltip title="Edit Post">
-                        <SendIcon
-                          className={classes.submitIcon} 
-                        />
+                        <SendIcon className={classes.submitIcon} />
                       </Tooltip>
                     </Button>
                   ),
@@ -526,11 +549,13 @@ export default function NewsfeedCard({
             placeholder="Write a comment..."
             InputProps={{
               endAdornment: (
-                <Button position="end" aria-label="create comment" onClick={commentText !== "" && addComment}>
+                <Button
+                  position="end"
+                  aria-label="create comment"
+                  onClick={commentText !== "" && addComment}
+                >
                   <Tooltip title="Create Comment">
-                    <SendIcon
-                      className={classes.submitIcon} 
-                    />
+                    <SendIcon className={classes.submitIcon} />
                   </Tooltip>
                 </Button>
               ),
