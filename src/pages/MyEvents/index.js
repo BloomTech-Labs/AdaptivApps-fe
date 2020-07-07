@@ -54,11 +54,9 @@ const useStyles = makeStyles({
   },
   search: {
     zIndex: 100,
-    position: "absolute",
-    marginLeft: "350px",
-    "@media (max-width: 850px)": {
-      display: "none",
-    },
+    display: "flex",
+    justifyContent: "center",
+    margin: "2.4rem 0 -2.4rem 0",
   },
   search2: {
     height: "38px",
@@ -112,27 +110,27 @@ export default function MyEvents() {
               <EventList data={data} refetch={refetch} />
             </Grid>
           ) : (
-            <>
-              <Typography className={classes.noActiv}>
-                You haven't registered for any events yet!
+              <>
+                <Typography className={classes.noActiv}>
+                  You haven't registered for any events yet!
               </Typography>
-              <Box className={classes.inlineNotice}>
-                <Link
-                  to="/calendar"
-                  aria-label="check out the event calendar page"
-                  className={classes.redirLink}
-                >
-                  <Typography className={classes.noActivBlue}>
-                    Check out the Events Calendar
+                <Box className={classes.inlineNotice}>
+                  <Link
+                    to="/calendar"
+                    aria-label="check out the event calendar page"
+                    className={classes.redirLink}
+                  >
+                    <Typography className={classes.noActivBlue}>
+                      Check out the Events Calendar
                   </Typography>
-                </Link>
-                <Typography>
-                  , register for an event, then see all of your registered
-                  events here!
+                  </Link>
+                  <Typography>
+                    , register for an event, then see all of your registered
+                    events here!
                 </Typography>
-              </Box>
-            </>
-          )}
+                </Box>
+              </>
+            )}
         </main>
       </div>
     </>
