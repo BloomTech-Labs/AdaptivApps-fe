@@ -5,6 +5,10 @@
 html {
   width: 100vw;
   overflow-x: hidden;
+  background: white;
+}
+.router {
+  background-color: white;
 }
 
 .MuiAlert-standardInfo .MuiAlert-icon {

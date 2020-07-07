@@ -147,7 +147,7 @@ function App() {
     <ApolloProvider client={client}>
       <LocationProvider history={history}>
         <div className="App">
-          <Router>
+          <Router className="router">
             <Accessibility path="/accessibility" />
             <PrivacyPolicy path="/privacy-policy" />
             <PrivateRoute path="/" component={DashRouter}>

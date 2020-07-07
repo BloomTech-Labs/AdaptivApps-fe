@@ -22,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     maxWidth: "100%",
     height: "100%",
     [theme.breakpoints.down("sm")]: {
-      backgroundColor: "white",
+      backgroundColor: "#000000",
     },
   },
   box: {
@@ -46,24 +46,34 @@ const useStyles = makeStyles(theme => ({
     // },
   },
   typography: {
-    top: "10rem",
+    fontFamily: "Raleway, sans-serif",
+    // top: "10rem",
     zIndex: "1",
-    maxWidth: "85%",
+    width: "85%",
     color: "#FFFFFF",
     position: "absolute",
+    margin: "0 auto",
     padding: 0,
+    textAlign: "center",
     [theme.breakpoints.up("lg")]: {
-      fontSize: "7.2rem",
+      width: "95%",
+      fontSize: "5.8rem",
     },
     [theme.breakpoints.down("md")]: {
-      fontSize: "5.2rem",
+      fontSize: "4.4rem",
     },
     [theme.breakpoints.down("sm")]: {
       marginTop: "2rem",
-      position: "inherit",
+      position: "absolute",
       fontSize: "2.5rem",
       textAlign: "center",
-      color: "#000000",
+      color: "white",
+      width: "90%",
+    },
+    [theme.breakpoints.down("xs")]: {
+      marginTop: "2rem",
+      fontSize: "1.8rem",
+      width: "100%",
     },
   },
   contentContainer: {
@@ -73,6 +83,7 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     height: "100%",
     width: "100vw",
+    background: "white",
     padding: "0",
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column",
@@ -223,7 +234,8 @@ const LandingPage = () => {
       <Container className={classes.container}>
         <div className={classes.box}>
           <Typography className={classes.typography}>
-            Your home for Angel City Sports events and more!
+            Your home for 2020 Angel City Virtual Games presented by The
+            Hartford and more!
           </Typography>
           <img
             className={classes.bannerImg}

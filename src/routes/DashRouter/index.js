@@ -12,7 +12,7 @@ const useStyles = makeStyles({
     maxWidth: "100vw",
     display: "flex",
     padding: "0",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "red",
     minHeight: "100vh",
   },
   box: {
