@@ -11,6 +11,7 @@ import {
 import { Link } from "@reach/router";
 import { useAuth0 } from "../../config/react-auth0-spa";
 import landingImage from "../../assets/images/landingImage.jpeg";
+import landingImage2 from "../../assets/images/landingImage2.jpg";
 import { FaFacebookSquare, FaGoogle } from "react-icons/fa";
 import { IconContext } from "react-icons";
 
@@ -19,7 +20,10 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "#000000",
     padding: "0",
     maxWidth: "100%",
-    height: "60vh",
+    height: "100%",
+    [theme.breakpoints.down("sm")]: {
+      backgroundColor: "white",
+    },
   },
   box: {
     display: "flex",
@@ -28,15 +32,22 @@ const useStyles = makeStyles(theme => ({
     alignItems: "center",
     width: "100%",
     height: "100%",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column-reverse",
+      marginTop: "8rem",
+    },
   },
   bannerImg: {
     opacity: "0.5",
     width: "100%",
-    height: "60vh",
-    objectFit: "cover",
+    height: "100%",
+    objectFit: "contain",
+    // [theme.breakpoints.down("sm")]: {
+    //   height: "40vh",
+    // },
   },
   typography: {
-    top: "20rem",
+    top: "10rem",
     zIndex: "1",
     maxWidth: "85%",
     color: "#FFFFFF",
@@ -49,9 +60,11 @@ const useStyles = makeStyles(theme => ({
       fontSize: "5.2rem",
     },
     [theme.breakpoints.down("sm")]: {
-      top: "17rem",
-      fontSize: "3rem",
+      marginTop: "2rem",
+      position: "inherit",
+      fontSize: "2.5rem",
       textAlign: "center",
+      color: "#000000",
     },
   },
   contentContainer: {
@@ -215,7 +228,7 @@ const LandingPage = () => {
           </Typography>
           <img
             className={classes.bannerImg}
-            src={landingImage}
+            src={landingImage2}
             alt="Angel City Sports"
           />
         </div>
