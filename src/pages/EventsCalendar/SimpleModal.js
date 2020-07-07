@@ -150,7 +150,13 @@ export default function SimpleModal({ event, registerEvent }) {
         </Typography>
         <Typography className={classes.date}>
           {event.startTime &&
-            moment(event?.startTime, "HH:mm").format("h:mm A")}
+            !event.endTime &&
+            event.startTime !== event.endTime &&
+            `${moment(event.startTime, "HH:mm").format("h:mm A")} PST`}
+          {event.startTime &&
+            event.endTime &&
+            event.endTime === event.startTime &&
+            `${moment(event.startTime, "HH:mm").format("h:mm A")} PST`}
           {event.startTime &&
             event.endTime &&
             event.endTime !== event.startTime &&

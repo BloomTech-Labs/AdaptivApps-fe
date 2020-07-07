@@ -240,7 +240,13 @@ export default function SearchEventCard({ event, refetch }) {
                 {moment(event.startDate).format("MM/DD/YYYY")}{" "}
                 <span className={classes.cardDate}>
                   {event.startTime &&
-                    moment(event?.startTime, "HH:mm").format("h:mm A")}
+                    !event.endTime &&
+                    event.startTime !== event.endTime &&
+                    `${moment(event.startTime, "HH:mm").format("h:mm A")} PST`}
+                  {event.startTime &&
+                    event.endTime &&
+                    event.endTime === event.startTime &&
+                    `${moment(event.startTime, "HH:mm").format("h:mm A")} PST`}
                   {event.startTime &&
                     event.endTime &&
                     event.endTime !== event.startTime &&
