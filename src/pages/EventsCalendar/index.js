@@ -35,11 +35,9 @@ const useStyles = makeStyles({
   },
   search: {
     zIndex: 100,
-    position: "absolute",
-    marginLeft: "350px",
-    "@media (max-width: 850px)": {
-      display: "none",
-    },
+    display: "flex",
+    justifyContent: "center",
+    margin: "2.4rem 0 -2.4rem 0",
   },
   search2: {
     height: "38px",
