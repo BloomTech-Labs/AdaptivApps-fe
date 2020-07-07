@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // Moment import
 import moment from "moment";
 import config from "../../../config/auth_config";
+import { useNavigate } from "@reach/router";
 // Import graphql
 import { useQuery, useMutation, useSubscription } from "react-apollo";
 import {
@@ -286,6 +287,7 @@ export default function NewsfeedCard({
   const [commenting, setCommenting] = useState(false);
   const [editing, setEditing] = useState(false);
   const [postToEdit, setPostToEdit] = useState(post.body);
+  const navigate = useNavigate();
 
   const { data: comments, loading, error, refetch } = useQuery(
     GET_NEWSFEED_COMMENTS,
@@ -313,8 +315,6 @@ export default function NewsfeedCard({
   const toggleComment = () => {
     setCommenting(!commenting);
   };
-
-  console.log("comments", comments);
 
   const addComment = async () => {
     await createComment({
@@ -433,13 +433,17 @@ export default function NewsfeedCard({
               />
             </button>
           ) : (
-            <button className={classes.btn}>
-              <AccountCircleIcon
-                fontSize={"large"}
-                className={classes.avatarIcon}
-              />
-            </button>
-          )}
+              <button
+                className={classes.btn}
+                aria-label={`visit the profile page of ${post.postedBy.firstName}`}
+                onClick={() => navigate(`/user/${post.postedBy.userName}`)}
+              >
+                <AccountCircleIcon
+                  fontSize={"large"}
+                  className={classes.avatarIcon}
+                />
+              </button>
+            )}
           <Box className={classes.postInfoBox}>
             <Typography gutterBottom>
               {post.postedBy.firstName} {post.postedBy.lastName}
@@ -452,29 +456,29 @@ export default function NewsfeedCard({
           </Box>
         </div>
         {user?.email === post?.postedBy?.email ||
-        (user && user[config.roleUrl].includes("Admin")) ? (
-          <div className={classes.editDeleteBtn}>
-            {/* {user && user[config.roleUrl].includes("Admin") ? (
+          (user && user[config.roleUrl].includes("Admin")) ? (
+            <div className={classes.editDeleteBtn}>
+              {/* {user && user[config.roleUrl].includes("Admin") ? (
               <Button className={classes.btn} onClick={pinPost}>
                 <FontAwesomeIcon icon={faThumbtack} className={classes.icons} />
               </Button>
             ) : null} */}
-            <Button
-              className={classes.btn}
-              onClick={() => setEditing(!editing)}
-              aria-label="edit this post"
-            >
-              <EditOutlinedIcon color="action" fontSize="large" />
-            </Button>
-            <Button
-              onClick={deletePost}
-              className={classes.btn}
-              aria-label="delete this post"
-            >
-              <DeleteOutlineIcon color="action" fontSize="large" />
-            </Button>
-          </div>
-        ) : null}
+              <Button
+                className={classes.btn}
+                onClick={() => setEditing(!editing)}
+                aria-label="edit this post"
+              >
+                <EditOutlinedIcon color="action" fontSize="large" />
+              </Button>
+              <Button
+                onClick={deletePost}
+                className={classes.btn}
+                aria-label="delete this post"
+              >
+                <DeleteOutlineIcon color="action" fontSize="large" />
+              </Button>
+            </div>
+          ) : null}
       </CardActions>
       <CardActions className={classes.postBody}>
         {post.imgUrl ? (
@@ -518,10 +522,10 @@ export default function NewsfeedCard({
               />
             </>
           ) : (
-            <p className={post.imgUrl ? classes.post : classes.soloPost}>
-              {post.body}
-            </p>
-          )}
+              <p className={post.imgUrl ? classes.post : classes.soloPost}>
+                {post.body}
+              </p>
+            )}
         </CardContent>
       </CardActions>
       <CardContent className={classes.likesCommentsBox}>
@@ -529,8 +533,8 @@ export default function NewsfeedCard({
           {post.likes.length === 1
             ? "1 Like"
             : post.likes.length > 1
-            ? `${post.likes.length} Likes`
-            : null}
+              ? `${post.likes.length} Likes`
+              : null}
           {/* {hasLiked()
               ? post.likes.length === 1
                 ? "1 Like"
@@ -541,8 +545,8 @@ export default function NewsfeedCard({
           {comments.feedComments.length === 1
             ? "1 Comment"
             : comments.feedComments.length > 1
-            ? `${comments.feedComments.length} Comments`
-            : null}
+              ? `${comments.feedComments.length} Comments`
+              : null}
         </p>
       </CardContent>
       <Divider variant="middle" />
@@ -561,14 +565,14 @@ export default function NewsfeedCard({
               <Typography className={classes.cta}>Liked</Typography>
             </>
           ) : (
-            <>
-              <FontAwesomeIcon
-                icon={farFaThumbsUp}
-                className={classes.thumbupIcon}
-              />
-              <Typography className={classes.cta}>Like</Typography>
-            </>
-          )}
+              <>
+                <FontAwesomeIcon
+                  icon={farFaThumbsUp}
+                  className={classes.thumbupIcon}
+                />
+                <Typography className={classes.cta}>Like</Typography>
+              </>
+            )}
         </Button>
         <Button
           color="primary"
@@ -623,24 +627,29 @@ export default function NewsfeedCard({
               i < 3 && !toggleCommentOverflow
                 ? classes.flex
                 : toggleCommentOverflow
-                ? classes.showAllComments
-                : classes.commentOverflow
+                  ? classes.showAllComments
+                  : classes.commentOverflow
             }
           >
             {comment?.postedBy?.profilePicture ? (
               <button className={classes.btn}>
                 <CustomMessageIcon
-                  pictureIcon={comment?.postedBy?.profilePicture}
+                  pictureIcon={comment.postedBy.profilePicture}
+                  myProfileUsername={comment.postedBy.userName}
                 />
               </button>
             ) : (
-              <button className={classes.btn}>
-                <AccountCircleIcon
-                  fontSize={"large"}
-                  className={classes.avatarIcon}
-                />
-              </button>
-            )}
+                <button
+                  className={classes.btn}
+                  aria-label={`visit the profile page of ${comment.postedBy.firstName}`}
+                  onClick={() => navigate(`/user/${comment.postedBy.userName}`)}
+                >
+                  <AccountCircleIcon
+                    fontSize={"large"}
+                    className={classes.avatarIcon}
+                  />
+                </button>
+              )}
 
             <div className={classes.commentBox}>
               <div>

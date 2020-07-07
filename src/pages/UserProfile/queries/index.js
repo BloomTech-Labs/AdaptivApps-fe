@@ -91,3 +91,64 @@ export const GET_UPCOMING_EVENTS = gql`
     }
   }
 `;
+
+export const GET_USER_POSTS = gql`
+  query getUserPosts($userName: String!) {
+    feedPosts(
+      where: { postedBy: { userName: $userName } }
+      orderBy: createdAt_ASC
+    ) {
+      id
+      body
+      imgUrl
+      createdAt
+      pinnedPost
+      comments {
+        id
+        body
+        postedBy {
+          id
+          userName
+          firstName
+          lastName
+          email
+          profilePicture
+        }
+      }
+      postedBy {
+        id
+        userName
+        firstName
+        lastName
+        email
+        profilePicture
+      }
+      likes {
+        id
+        post {
+          id
+        }
+        likedBy {
+          id
+          email
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`;
+
+// Get user profile to display profile pic
+export const GET_MY_PROFILE = gql`
+  query getMyProfile($email: String!) {
+    profile(where: { email: $email }) {
+      id
+      firstName
+      lastName
+      userName
+      email
+      profilePicture
+    }
+  }
+`;
