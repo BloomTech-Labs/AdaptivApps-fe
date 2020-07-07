@@ -8,11 +8,16 @@ export const GET_NEWSFEED_COMMENTS = gql`
       body
       postedBy {
         id
+        type
         userName
         firstName
         lastName
         email
         profilePicture
+        extProfile{
+          id
+          orgName
+        }
       }
       createdAt
       updatedAt
