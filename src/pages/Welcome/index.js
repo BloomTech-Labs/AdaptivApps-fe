@@ -112,7 +112,7 @@ const Welcome = () => {
           <br />
           <br />
           We are so excited for what’s ahead! Thank you so much for registering
-          for the 2020 Angel City Games presented by The Hartford…this summer is
+          for the 2020 Angel City Virtual Games presented by The Hartford…this summer is
           going to be a blast!
           <br />
           <br />
