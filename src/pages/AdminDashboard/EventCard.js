@@ -36,7 +36,9 @@ const useStyles = makeStyles(theme => ({
 
 export default function EventCard(event) {
   const classes = useStyles();
-  const formattedDate = moment(event?.startDate).format("dddd, MMMM Do YYYY");
+  const formattedDate = moment(event?.event?.startDate).format(
+    "dddd, MMMM Do YYYY"
+  );
   const formattedTime = moment(event?.event?.startTime, "HH:mm").format(
     "h:mm A"
   );
