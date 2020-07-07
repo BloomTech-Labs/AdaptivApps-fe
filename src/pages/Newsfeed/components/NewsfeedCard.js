@@ -52,6 +52,7 @@ import {
   faThumbsUp,
   faCommentAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp as farFaThumbsUp } from "@fortawesome/free-regular-svg-icons";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -87,14 +88,18 @@ const useStyles = makeStyles(theme => ({
   },
   img: {
     margin: "auto",
-    maxWidth: "40%",
+    maxWidth: "80%",
     borderRadius: "5px",
+    objectFit: "contain",
   },
   post: {
-    fontSize: "2.5rem",
+    fontSize: "2.75rem",
     fontWeight: "bold",
-    margin: "0",
+    margin: "3rem 0 0 0",
     paddingRight: "1.6rem",
+    [theme.breakpoints.down("xs")]: {
+      marginTop: "2rem",
+    },
   },
   soloPost: {
     textAlign: "left",
@@ -257,7 +262,15 @@ const useStyles = makeStyles(theme => ({
   commentTime: {
     fontSize: "1.4rem",
     color: "gray"
-  }
+  },
+  likesCommentsBox: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+  },
+  likesComments: {
+    fontSize: "1.5rem",
+  },
 }));
 
 export default function NewsfeedCard({
@@ -511,22 +524,51 @@ export default function NewsfeedCard({
           )}
         </CardContent>
       </CardActions>
+      <CardContent className={classes.likesCommentsBox}>
+        <p className={classes.likesComments}>
+          {post.likes.length === 1
+            ? "1 Like"
+            : post.likes.length > 1
+            ? `${post.likes.length} Likes`
+            : null}
+          {/* {hasLiked()
+              ? post.likes.length === 1
+                ? "1 Like"
+                : `${post.likes.length} Likes`
+              : `Like`} */}
+        </p>
+        <p className={classes.likesComments}>
+          {comments.feedComments.length === 1
+            ? "1 Comment"
+            : comments.feedComments.length > 1
+            ? `${comments.feedComments.length} Comments`
+            : null}
+        </p>
+      </CardContent>
       <Divider variant="middle" />
-
       <CardActions className={classes.cardActions}>
         <Button
           color="primary"
           className={classes.button}
           onClick={toggleLiked}
         >
-          <FontAwesomeIcon icon={faThumbsUp} className={classes.thumbupIcon} />
-          <Typography className={classes.cta}>
-            {hasLiked()
-              ? post.likes.length === 1
-                ? "1 Like"
-                : `${post.likes.length} Likes`
-              : `Like`}
-          </Typography>
+          {hasLiked() ? (
+            <>
+              <FontAwesomeIcon
+                icon={faThumbsUp}
+                className={classes.thumbupIcon}
+              />
+              <Typography className={classes.cta}>Liked</Typography>
+            </>
+          ) : (
+            <>
+              <FontAwesomeIcon
+                icon={farFaThumbsUp}
+                className={classes.thumbupIcon}
+              />
+              <Typography className={classes.cta}>Like</Typography>
+            </>
+          )}
         </Button>
         <Button
           color="primary"
@@ -617,23 +659,25 @@ export default function NewsfeedCard({
                   {comment?.body}
                 </Typography>
               </div>
-              {/* {user?.email === comment.postedBy.email ? ( */}
-              <div>
-                <Button
-                  onClick={async () => {
-                    await deleteComment({
-                      variables: {
-                        id: comment.id,
-                      },
-                    });
-                  }}
-                  className={classes.deleteBtn}
-                  aria-label="delete this comment"
-                >
-                  <DeleteOutlineIcon color="action" fontSize="large" />
-                </Button>
-              </div>
-              {/* ) : null} */}
+              {user?.email === comment?.postedBy?.email ? (
+                <div>
+                  <Button
+                    onClick={async () => {
+                      await deleteComment({
+                        variables: {
+                          id: comment.id,
+                        },
+                      });
+                    }}
+                    className={classes.deleteBtn}
+                    aria-label="delete this comment"
+                  >
+                    <Tooltip title="Delete this comment">
+                      <DeleteOutlineIcon color="action" fontSize="large" />
+                    </Tooltip>
+                  </Button>
+                </div>
+              ) : null}
             </div>
           </div>
         ))}

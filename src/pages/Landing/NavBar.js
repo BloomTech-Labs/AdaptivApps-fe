@@ -41,6 +41,7 @@ const useStyles = makeStyles(theme => ({
       fontWeight: 500,
     },
     [theme.breakpoints.down("sm")]: {
+      display: "none",
       width: "60%",
       marginTop: "1.5rem",
       margin: "0 auto",

@@ -135,8 +135,8 @@ export default function SimpleModal({ event, registerEvent }) {
           className={classes.img}
           src={
             event?.imgUrl === null ||
-              event?.imgUrl === undefined ||
-              event?.imgUrl === ""
+            event?.imgUrl === undefined ||
+            event?.imgUrl === ""
               ? eventImg
               : event?.imgUrl
           }
@@ -149,10 +149,22 @@ export default function SimpleModal({ event, registerEvent }) {
           {moment(event.endDate).format("MM/DD/YYYY")}
         </Typography>
         <Typography className={classes.date}>
-          {event.startTime && moment(event.startTime, "HH:mm").format("h:mm A")}
-          {event.endTime && " - "}
-          {event.endTime && moment(event.endTime, "HH:mm").format("h:mm A")}
-          {event.endTime && "  PST"}
+          {event.startTime &&
+            !event.endTime &&
+            event.startTime !== event.endTime &&
+            `${moment(event.startTime, "HH:mm").format("h:mm A")} PST`}
+          {event.startTime &&
+            event.endTime &&
+            event.endTime === event.startTime &&
+            `${moment(event.startTime, "HH:mm").format("h:mm A")} PST`}
+          {event.startTime &&
+            event.endTime &&
+            event.endTime !== event.startTime &&
+            " - "}
+          {!event.startTime && event.endTime && "Ends at "}
+          {event.endTime &&
+            event.endTime !== event.startTime &&
+            `${moment(event.endTime, "HH:mm").format("h:mm A")} PST`}
         </Typography>
         <Typography className={classes.title} id="simple-modal-title">
           {event.title}
@@ -165,10 +177,18 @@ export default function SimpleModal({ event, registerEvent }) {
       <Box className={classes.modalBottom}>
         <p className={classes.modalP}>Add to "My Events?"</p>
         <Box>
-          <Button aria-label={`Sign up for ${event.title}`} className={classes.modalBtn1} onClick={registerEvent}>
+          <Button
+            aria-label={`Sign up for ${event.title}`}
+            className={classes.modalBtn1}
+            onClick={registerEvent}
+          >
             Add
           </Button>
-          <Button aria-label={`close this modal`} className={classes.modalBtn2} onClick={handleClose}>
+          <Button
+            aria-label={`close this modal`}
+            className={classes.modalBtn2}
+            onClick={handleClose}
+          >
             Close
           </Button>
         </Box>

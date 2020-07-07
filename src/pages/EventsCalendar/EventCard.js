@@ -196,8 +196,8 @@ export default function EventCard({ event, refetch, user }) {
           className={classes.img}
           src={
             event?.imgUrl === null ||
-              event?.imgUrl === undefined ||
-              event?.imgUrl === ""
+            event?.imgUrl === undefined ||
+            event?.imgUrl === ""
               ? eventImg
               : event?.imgUrl
           }
@@ -235,8 +235,8 @@ export default function EventCard({ event, refetch, user }) {
               width="15rem"
               image={
                 event?.imgUrl === null ||
-                  event?.imgUrl === undefined ||
-                  event?.imgUrl === ""
+                event?.imgUrl === undefined ||
+                event?.imgUrl === ""
                   ? eventImg
                   : event?.imgUrl
               }
@@ -255,22 +255,24 @@ export default function EventCard({ event, refetch, user }) {
                 <span className={classes.cardDate}>
                   {moment(event.startDate).format("MM/DD/YYYY")}{" "}
                 </span>
-                {event.startTime && event.endTime ? (
-                  <span className={classes.cardDate}>
-                    {moment(event.startTime, "HH:mm").format("h:mm A")}
-                    {" - "}
-                    {moment(event.endTime, "HH:mm").format("h:mm A")}
-                  </span>
-                ) : event.startTime && !event.endTime ? (
-                  <span className={classes.cardDate}>
-                    {moment(event.startTime, "HH:mm").format("h:mm A")} PST
-                  </span>
-                ) : event.endTime && !event.startTime ? (
-                  <span className={classes.cardDate}>
-                    Ends at {moment(event.endTime, "HH:mm").format("h:mm A")}{" "}
-                    PST
-                  </span>
-                ) : null}
+                <span className={classes.cardDate}>
+                  {event.startTime &&
+                    !event.endTime &&
+                    event.startTime !== event.endTime &&
+                    `${moment(event.startTime, "HH:mm").format("h:mm A")} PST`}
+                  {event.startTime &&
+                    event.endTime &&
+                    event.endTime === event.startTime &&
+                    `${moment(event.startTime, "HH:mm").format("h:mm A")} PST`}
+                  {event.startTime &&
+                    event.endTime &&
+                    event.endTime !== event.startTime &&
+                    " - "}
+                  {!event.startTime && event.endTime && "Ends at "}
+                  {event.endTime &&
+                    event.endTime !== event.startTime &&
+                    `${moment(event.endTime, "HH:mm").format("h:mm A")} PST`}
+                </span>
               </Typography>
               <Typography
                 className={classes.cardTitle}
