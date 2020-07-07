@@ -72,6 +72,7 @@ export default function NewsfeedPage() {
   const { data, loading, error, refetch: refetchPosts } = useQuery(
     GET_NEWSFEED_POSTS
   );
+
   const {
     data: newsFeedSubsData,
     loading: newsFeedSubsLoading,
@@ -115,7 +116,7 @@ export default function NewsfeedPage() {
           {posts.map((post, index) => (
             <NewsfeedCard
               post={post}
-              key={post.id}
+              key={index}
               user={user}
               refetchPosts={refetchPosts}
               profile={profile?.profile}
