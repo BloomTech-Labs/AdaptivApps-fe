@@ -24,7 +24,7 @@ export const GET_USERS = gql`
         virtualRide
         virtualRidePlatforms
         xBoxGamePass
-        videoGameFamiliarity
+        # videoGameFamiliarity
       }
     }
   }
