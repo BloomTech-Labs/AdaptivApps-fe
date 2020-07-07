@@ -746,16 +746,16 @@ export default function SponsorSpotlight() {
               tabIndex="0"
               aria-label="Click to go to Momo Prodution & Event Rental's Website"
             > */}
-              <img
-                className={classes.img}
-                alt="Momo Production & Event Rentals Logo"
-                src={Momo_Logo}
-              />
+            <img
+              className={classes.img}
+              alt="Momo Production & Event Rentals Logo"
+              src={Momo_Logo}
+            />
             {/* </a> */}
           </Grid>
           <Grid item xs>
             <a
-              href="http://www.momoproductionrentals.com/"
+              href="http://www.sixb.com"
               target="_blank"
               rel="noopener noreferrer"
               tabIndex="0"
