@@ -241,6 +241,7 @@ export default function EventCard({ event, refetch, user }) {
                   : event?.imgUrl
               }
               title="Angel City Event"
+              onClick={() => navigate(`/calendar/${event.id}`)}
             />
           </Box>
           <Box className={classes.contentWrapper}>

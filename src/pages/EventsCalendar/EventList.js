@@ -63,8 +63,8 @@ export default function EventList({ currentEvents, refetch, user }) {
     <>
       {allDates.length > 0 ?
         <div>
-          {allDates.map(date => (
-            <div className={classes.eventGroup}>
+          {allDates.map((date, idx) => (
+            <div className={classes.eventGroup} key={idx}>
               <Typography variant="h1">{moment(date).format("dddd, MMMM Do YYYY").split(", ")[0]}</Typography>
               <Typography variant="h3">{moment(date).format("dddd, MMMM Do YYYY").split(", ")[1]}</Typography>
               <div className={classes.eventCard}>

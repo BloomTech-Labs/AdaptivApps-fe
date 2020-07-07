@@ -170,7 +170,7 @@ function App() {
               <ManageUsers path="manageUsers" />
               <Announcement path="/announcements" />
               <FAQ path="/faqs" />
-              <NewsfeedPage path="/newsfeed" />
+              <NewsfeedPage path="/community" />
             </PrivateRoute>
           </Router>
         </div>
