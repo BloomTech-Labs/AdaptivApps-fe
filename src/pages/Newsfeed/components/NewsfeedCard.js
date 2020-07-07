@@ -234,7 +234,6 @@ const useStyles = makeStyles(theme => ({
       cursor: "pointer",
     },
   },
-  
 }));
 
 export default function NewsfeedCard({
@@ -461,11 +460,13 @@ export default function NewsfeedCard({
                 aria-label="Edit your post, then hit enter to send"
                 InputProps={{
                   endAdornment: (
-                    <Button position="end" aria-label="edit post" onClick={postToEdit !== "" && editPost}>
+                    <Button
+                      position="end"
+                      aria-label="edit post"
+                      onClick={postToEdit !== "" && editPost}
+                    >
                       <Tooltip title="Edit Post">
-                        <SendIcon
-                          className={classes.submitIcon} 
-                        />
+                        <SendIcon className={classes.submitIcon} />
                       </Tooltip>
                     </Button>
                   ),
@@ -526,11 +527,13 @@ export default function NewsfeedCard({
             placeholder="Write a comment..."
             InputProps={{
               endAdornment: (
-                <Button position="end" aria-label="create comment" onClick={commentText !== "" && addComment}>
+                <Button
+                  position="end"
+                  aria-label="create comment"
+                  onClick={commentText !== "" && addComment}
+                >
                   <Tooltip title="Create Comment">
-                    <SendIcon
-                      className={classes.submitIcon} 
-                    />
+                    <SendIcon className={classes.submitIcon} />
                   </Tooltip>
                 </Button>
               ),
@@ -575,23 +578,25 @@ export default function NewsfeedCard({
                   {comment?.body}
                 </Typography>
               </div>
-              {/* {user?.email === comment.postedBy.email ? ( */}
-              <div>
-                <Button
-                  onClick={async () => {
-                    await deleteComment({
-                      variables: {
-                        id: comment.id,
-                      },
-                    });
-                  }}
-                  className={classes.deleteBtn}
-                  aria-label="delete this comment"
-                >
-                  <DeleteOutlineIcon color="action" fontSize="large" />
-                </Button>
-              </div>
-              {/* ) : null} */}
+              {user?.email === comment?.postedBy?.email ? (
+                <div>
+                  <Button
+                    onClick={async () => {
+                      await deleteComment({
+                        variables: {
+                          id: comment.id,
+                        },
+                      });
+                    }}
+                    className={classes.deleteBtn}
+                    aria-label="delete this comment"
+                  >
+                    <Tooltip title="Delete this comment">
+                      <DeleteOutlineIcon color="action" fontSize="large" />
+                    </Tooltip>
+                  </Button>
+                </div>
+              ) : null}
             </div>
           </div>
         ))}
