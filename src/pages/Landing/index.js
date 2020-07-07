@@ -34,7 +34,6 @@ const useStyles = makeStyles(theme => ({
     height: "100%",
     [theme.breakpoints.down("sm")]: {
       flexDirection: "column-reverse",
-      marginTop: "8rem",
     },
   },
   bannerImg: {
