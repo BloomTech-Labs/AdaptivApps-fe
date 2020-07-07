@@ -8,7 +8,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     flexWrap: "wrap",
-    marginLeft: "3rem",
+    margin: "3rem",
+    paddingBottom: "3rem",
+    borderBottom: "2px solid #D3D3D3",
   },
 }));
 

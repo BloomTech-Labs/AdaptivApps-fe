@@ -57,6 +57,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "rgb(41, 98, 255)",
     color: "white",
   },
+  tabs: {
+    marginTop: "5rem",
+  },
 }));
 
 const ManageUsers = () => {
@@ -85,7 +88,12 @@ const ManageUsers = () => {
             </Typography>
           </Box>
           <EventList />
-          <Tabs indicatorColor="primary" textColor="black" centered>
+          <Tabs
+            indicatorColor="primary"
+            textColor="black"
+            centered
+            className={classes.tabs}
+          >
             {displayFilter ? (
               <Tab
                 label="Filter Users"

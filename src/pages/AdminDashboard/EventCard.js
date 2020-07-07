@@ -53,9 +53,8 @@ export default function EventCard(event) {
             <img src={event?.event?.imgUrl} className={classes.img} />
           </div>
         </Link>
-        <p>
-          {formattedDate} @ {formattedTime}
-        </p>
+        <p>{formattedDate}</p>
+        <p>{formattedTime}</p>
         <p>Population: {event.event.attendees?.length}</p>
       </div>
     </>
