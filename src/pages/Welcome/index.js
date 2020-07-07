@@ -55,6 +55,11 @@ const useStyles = makeStyles(theme => ({
   lastParagraph: {
     marginBottom: ".5rem"
   },  
+  linkBox: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginTop: "2.5rem"
+  },
 }));
 
 const Welcome = () => {
@@ -112,7 +117,7 @@ const Welcome = () => {
           <br />
           <br />
           We are so excited for what’s ahead! Thank you so much for registering
-          for the 2020 Angel City Games presented by The Hartford…this summer is
+          for the 2020 Angel City Virtual Games presented by The Hartford…this summer is
           going to be a blast!
           <br />
           <br />
@@ -194,13 +199,19 @@ const Welcome = () => {
           and follow <strong>@angelcitysports</strong> on Facebook, Instagram,
           and Twitter.
         </Typography>
+        <Box className={classes.linkBox}>
+
         <Link to="tos" className={classes.a11yLink}>
           Terms Of Service
         </Link>
-        <br />
+       
         <Link to="eula" className={classes.a11yLink}>
           End User License Agreement
         </Link>
+        <Link to="accessibility" className={classes.a11yLink}>
+          Accessibility Statement
+        </Link>
+        </Box>
       </div>
     </Box>
   );
