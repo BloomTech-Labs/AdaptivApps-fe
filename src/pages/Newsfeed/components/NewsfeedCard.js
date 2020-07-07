@@ -83,14 +83,18 @@ const useStyles = makeStyles(theme => ({
   },
   img: {
     margin: "auto",
-    maxWidth: "40%",
+    maxWidth: "80%",
     borderRadius: "5px",
+    objectFit: "contain",
   },
   post: {
-    fontSize: "2.5rem",
+    fontSize: "2.75rem",
     fontWeight: "bold",
-    margin: "0",
+    margin: "3rem 0 0 0",
     paddingRight: "1.6rem",
+    [theme.breakpoints.down("xs")]: {
+      marginTop: "2rem",
+    },
   },
   soloPost: {
     textAlign: "left",
@@ -234,7 +238,6 @@ const useStyles = makeStyles(theme => ({
       cursor: "pointer",
     },
   },
-  
 }));
 
 export default function NewsfeedCard({
@@ -461,11 +464,13 @@ export default function NewsfeedCard({
                 aria-label="Edit your post, then hit enter to send"
                 InputProps={{
                   endAdornment: (
-                    <Button position="end" aria-label="edit post" onClick={postToEdit !== "" && editPost}>
+                    <Button
+                      position="end"
+                      aria-label="edit post"
+                      onClick={postToEdit !== "" && editPost}
+                    >
                       <Tooltip title="Edit Post">
-                        <SendIcon
-                          className={classes.submitIcon} 
-                        />
+                        <SendIcon className={classes.submitIcon} />
                       </Tooltip>
                     </Button>
                   ),
@@ -526,11 +531,13 @@ export default function NewsfeedCard({
             placeholder="Write a comment..."
             InputProps={{
               endAdornment: (
-                <Button position="end" aria-label="create comment" onClick={commentText !== "" && addComment}>
+                <Button
+                  position="end"
+                  aria-label="create comment"
+                  onClick={commentText !== "" && addComment}
+                >
                   <Tooltip title="Create Comment">
-                    <SendIcon
-                      className={classes.submitIcon} 
-                    />
+                    <SendIcon className={classes.submitIcon} />
                   </Tooltip>
                 </Button>
               ),
@@ -575,23 +582,25 @@ export default function NewsfeedCard({
                   {comment?.body}
                 </Typography>
               </div>
-              {/* {user?.email === comment.postedBy.email ? ( */}
-              <div>
-                <Button
-                  onClick={async () => {
-                    await deleteComment({
-                      variables: {
-                        id: comment.id,
-                      },
-                    });
-                  }}
-                  className={classes.deleteBtn}
-                  aria-label="delete this comment"
-                >
-                  <DeleteOutlineIcon color="action" fontSize="large" />
-                </Button>
-              </div>
-              {/* ) : null} */}
+              {user?.email === comment?.postedBy?.email ? (
+                <div>
+                  <Button
+                    onClick={async () => {
+                      await deleteComment({
+                        variables: {
+                          id: comment.id,
+                        },
+                      });
+                    }}
+                    className={classes.deleteBtn}
+                    aria-label="delete this comment"
+                  >
+                    <Tooltip title="Delete this comment">
+                      <DeleteOutlineIcon color="action" fontSize="large" />
+                    </Tooltip>
+                  </Button>
+                </div>
+              ) : null}
             </div>
           </div>
         ))}

@@ -20,8 +20,9 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import SendIcon from "@material-ui/icons/Send";
 import MoodIcon from "@material-ui/icons/Mood";
 import MicNoneIcon from "@material-ui/icons/MicNone";
+import HearingIcon from "@material-ui/icons/Hearing";
 import Modal from "@material-ui/core/Modal";
-import { makeStyles, TextField } from "@material-ui/core";
+import { makeStyles, TextField, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(theme => ({
   inputDiv: {
@@ -57,6 +58,13 @@ const useStyles = makeStyles(theme => ({
       cursor: "pointer",
     },
   },
+  micOnIcon: {
+    color: "green",
+    fontSize: "3.5rem",
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
   sendMessageIcon: {
     color: "#2962FF",
     fontSize: "3rem",
@@ -74,6 +82,13 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "none",
     background: "none",
     border: "none",
+  },
+  micOnText: {
+    fontSize: "1rem",
+    color: "green",
+  },
+  micOffText: {
+    fontSize: "1rem",
   },
 }));
 
@@ -156,14 +171,32 @@ const Input = ({ chatRoom, user, messages }) => {
   return (
     <div>
       <div className={classes.inputDiv}>
-        <div
-          className={classes.iconDiv}
-          onClick={toggleListen}
-        >
-          <button aria-label="create speech-to-text message" className={classes.btn}>
-            <MicNoneIcon className={classes.speechIcon} />
-          </button>
-          {listening && "Go ahead, I'm listening"}
+        <div className={classes.iconDiv} onClick={toggleListen}>
+          {listening ? (
+            <Tooltip title="Stop Recording Message">
+              <button
+                aria-label="stop recording speech-to-text message"
+                className={classes.btn}
+              >
+                <Typography className={classes.micOnText}>
+                  Click to End Listening
+                </Typography>
+                <HearingIcon className={classes.micOnIcon} />
+              </button>
+            </Tooltip>
+          ) : (
+            <Tooltip title="Start Recording Message">
+              <button
+                aria-label="begin recording speech-to-text message"
+                className={classes.btn}
+              >
+                <Typography className={classes.micOffText}>
+                  Click to Begin Listening
+                </Typography>
+                <MicNoneIcon className={classes.speechIcon} />
+              </button>
+            </Tooltip>
+          )}
         </div>
         <TextField
           className={classes.messageBox}
@@ -196,7 +229,11 @@ const Input = ({ chatRoom, user, messages }) => {
         />
         <div className={classes.iconDiv}>
           <Tooltip title="Add an emoji!">
-            <button className={classes.btn} aria-label="add an emoji to your message" onClick={() => setToggleEmoji(true)}>
+            <button
+              className={classes.btn}
+              aria-label="add an emoji to your message"
+              onClick={() => setToggleEmoji(true)}
+            >
               <MoodIcon
                 className={classes.icons}
                 aria-label="open emoji picker"
