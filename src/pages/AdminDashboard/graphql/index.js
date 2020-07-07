@@ -35,12 +35,14 @@ export const GET_EVENTS_ATTENDEES = gql`
     events {
       id
       title
+      imgUrl
       startDate
+      startTime
       endDate
       location
       attendees {
         id
-        eventProfile{
+        eventProfile {
           id
           userName
           firstName

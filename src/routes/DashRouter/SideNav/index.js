@@ -319,16 +319,16 @@ function SideNav(props) {
                 </div>
               </Tooltip>
             ) : (
-                  <NavLink to="/chats" className={classes.navLink}>
-                    <StyledBadge
-                      overlap="circle"
-                      badgeContent={roomNotifications?.length}
-                    >
-                      <ForumOutlinedIcon className={classes.navIcon} />
-                    </StyledBadge>
-                    <p>Chat</p>
-                  </NavLink>
-                )}
+              <NavLink to="/chats" className={classes.navLink}>
+                <StyledBadge
+                  overlap="circle"
+                  badgeContent={roomNotifications?.length}
+                >
+                  <ForumOutlinedIcon className={classes.navIcon} />
+                </StyledBadge>
+                <p>Chat</p>
+              </NavLink>
+            )}
             <NavLink to="/community" className={classes.navLink}>
               <HomeIcon className={classes.navIcon} />
               <p>Community Wall</p>
@@ -347,9 +347,9 @@ function SideNav(props) {
                   <HomeIcon className={classes.navIcon} />
                   <p>Manage Events</p>
                 </NavLink>
-                <NavLink to="manageUsers" className={classes.navLink}>
+                <NavLink to="adminDashboard" className={classes.navLink}>
                   <GroupIcon className={classes.navIcon} />
-                  <p>Manage Users</p>
+                  <p>Admin Dashboard</p>
                 </NavLink>
               </>
             ) : null}
