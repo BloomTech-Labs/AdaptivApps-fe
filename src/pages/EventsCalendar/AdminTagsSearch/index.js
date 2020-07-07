@@ -15,7 +15,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 const useStyles = makeStyles({
   wrapper: {
     position: "relative",
-    width: "250px",
+    width: "300px",
     userSelect: "none",
     margin: "0 0 1rem 3rem",
   },
@@ -113,7 +113,7 @@ const AdminTagsSearch = props => {
           onClick={() => toggleList()}
         >
           {!isSearching ? (
-            <div className={classes.title}>Select Tags</div>
+            <div className={classes.title}>Search Events by Tags</div>
           ) : (
               <div className={classes.title}>{numSelected} Tags Selected</div>
             )}

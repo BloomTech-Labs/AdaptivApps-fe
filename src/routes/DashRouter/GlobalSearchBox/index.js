@@ -12,7 +12,7 @@ import { makeStyles } from "@material-ui/core";
 const useStyles = makeStyles({
   wrapper: {
     position: "relative",
-    width: "250px",
+    width: "300px",
     userSelect: "none",
   },
   header: {
@@ -78,15 +78,7 @@ const GlobalSearchBox = () => {
 
   return (
     <div className={classes.wrapper}>
-      <button aria-label="click to open a dropdown search list" type="button" className={classes.header} onClick={() => toggleList()}>
-        <div className={classes.title}>{title}</div>
-        {listOpen
-          ? <FontAwesomeIcon icon={faAngleUp} className={classes.icons} />
-          : <FontAwesomeIcon icon={faAngleDown} className={classes.icons} />}
-      </button>
-      {listOpen && (
-        <DropDown profilesData={searchData} setTitle={setTitle} keyword={keyword} setKeyword={setKeyword} toggleList={toggleList} />
-      )}
+      <DropDown profilesData={searchData} setTitle={setTitle} keyword={keyword} setKeyword={setKeyword} toggleList={toggleList} />
     </div>
   )
 }

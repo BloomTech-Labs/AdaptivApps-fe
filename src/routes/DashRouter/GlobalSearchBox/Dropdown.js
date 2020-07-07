@@ -31,7 +31,7 @@ const useStyles = makeStyles({
   },
   searchResults: {
     maxHeight: "250px",
-    overflow: "scroll",
+    overflow: "auto",
   },
 });
 
@@ -74,24 +74,24 @@ export default function Dropdown(props) {
     <div>
       <input
         className={classes.search}
-        placeholder="Enter first and last name here..."
+        placeholder="Enter user first and last name here..."
         onChange={handleChange}
       />
       <div className={classes.searchResults}>
         {tempList !== ""
           ? tempList.map(item => (
-              <NavLink to={`/user/${item.username}`} key={item.id}>
-                <button
-                  aria-label={`Click to visit ${item.name}'s profile`}
-                  type="button"
-                  key={item.id}
-                  className={classes.item}
-                  onClick={() => handleSelect(item)}
-                >
-                  {item.name}
-                </button>
-              </NavLink>
-            ))
+            <NavLink to={`/user/${item.username}`} key={item.id}>
+              <button
+                aria-label={`Click to visit ${item.name}'s profile`}
+                type="button"
+                key={item.id}
+                className={classes.item}
+                onClick={() => handleSelect(item)}
+              >
+                {item.name}
+              </button>
+            </NavLink>
+          ))
           : null}
         {tempList.length < 1 && isSearching ? (
           <div className={`${classes.item} ${classes.empty}`}>No results</div>
