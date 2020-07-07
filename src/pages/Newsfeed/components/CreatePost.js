@@ -93,7 +93,7 @@ const useStyles = makeStyles(theme => ({
     width: "200px",
     padding: "0",
     height: "14rem",
-    objectFit: "cover",
+    objectFit: "contain",
     borderRadius: "5px",
   },
   createPostIcon: {
@@ -263,11 +263,13 @@ export default function CreatePost({ user, profile }) {
           placeholder="Type here to share a post with the community..."
           InputProps={{
             endAdornment: (
-              <Button position="end" aria-label="create post" onClick={postInput !== "" && createPost}>
+              <Button
+                position="end"
+                aria-label="create post"
+                onClick={postInput !== "" && createPost}
+              >
                 <Tooltip title="Create Post">
-                  <SendIcon
-                    className={classes.createPostIcon} 
-                  />
+                  <SendIcon className={classes.createPostIcon} />
                 </Tooltip>
               </Button>
             ),

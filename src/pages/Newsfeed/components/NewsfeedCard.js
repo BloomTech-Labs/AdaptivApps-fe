@@ -83,14 +83,18 @@ const useStyles = makeStyles(theme => ({
   },
   img: {
     margin: "auto",
-    maxWidth: "40%",
+    maxWidth: "80%",
     borderRadius: "5px",
+    objectFit: "contain",
   },
   post: {
-    fontSize: "2.5rem",
+    fontSize: "2.75rem",
     fontWeight: "bold",
-    margin: "0",
+    margin: "3rem 0 0 0",
     paddingRight: "1.6rem",
+    [theme.breakpoints.down("xs")]: {
+      marginTop: "2rem",
+    },
   },
   soloPost: {
     textAlign: "left",
