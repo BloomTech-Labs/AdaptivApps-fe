@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
-
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";
-
 //Reach Router imports
 import { useParams } from "@reach/router";
-
 //s3 bucket imports
 import S3FileUpload from "react-s3";
-
 // Material-UI and styling imports
 import { makeStyles, Link } from "@material-ui/core";
 // import Button from "@material-ui/core/Button";
@@ -20,6 +16,7 @@ import { GET_USER_PROFILE, GET_LOGGED_IN_USER } from "./queries";
 import ProfilePic from "./ProfilePic";
 import ProfileBanner from "./ProfileBanner";
 import UpcomingEventList from "./UpcomingEventList";
+import UserFeedposts from "./UserFeedposts";
 
 const FacebookIcon = require("../../assets/images/facebook.png");
 const TwitterIcon = require("../../assets/images/twitter.png");
@@ -53,8 +50,12 @@ const useStyles = makeStyles(theme => ({
   },
   profileWrapper: {
     width: "100%",
+    display: "flex",
+    flexDirection: "column",
   },
-  topProfileWrapper: { maxHeight: "25rem" },
+  topProfileWrapper: {
+    maxHeight: "25rem"
+  },
   bannerWrapper: {
     width: "100%",
     height: "18rem",
@@ -62,7 +63,6 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "flex-end",
     alignItems: "flex-end",
     alignContent: "flex-end",
-
     "& label": {
       padding: "0 2rem 1rem 0",
       position: "absolute",
@@ -105,8 +105,36 @@ const useStyles = makeStyles(theme => ({
       textAlign: "center",
     },
     [theme.breakpoints.down("sm")]: {
+      // margin: "0 auto",
+      // width: "80%",
+      display: "none",
+    },
+  },
+  eventsContainerResponsive: {
+    display: "none",
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      marginTop: "2rem",
+      flexDirection: "column",
+      maxHeight: "100vh",
+      width: "32rem",
+      border: "none",
+      boxShadow: "none",
+      backgroundColor: "white",
+      overflowY: "scroll",
+      scrollbarColor: "white white",
+      "& h3": {
+        textAlign: "center",
+      },
       margin: "0 auto",
       width: "80%",
+    },
+  },
+  postsContainer: {
+    display: "flex",
+    flexDirection: "column",
+    "& h3": {
+      textAlign: "center",
     },
   },
   basicInfo: {
@@ -157,11 +185,11 @@ const useStyles = makeStyles(theme => ({
   },
   middleProfileWrapper: {
     marginTop: "2rem",
-    height: "580px",
+    height: "300px",
   },
   bioWrapper: {
     margin: "0 auto",
-    height: "60%",
+    height: "50%",
     width: "75%",
     maxWidth: "80rem",
     "& p": {
@@ -409,6 +437,16 @@ export default function UserProfile() {
               </div>
             ) : null} */}
           </div>
+          {userProfile?.profile?.type === "Individual" ? (
+            <div className={classes.eventsContainerResponsive}>
+              <UpcomingEventList userName={userName} />
+            </div>
+          ) : null}
+          {userProfile?.profile?.type === "Individual" ? (
+            <div className={classes.postsContainer}>
+              <UserFeedposts user={user} userName={userName} />
+            </div>
+          ) : null}
         </div>
         {userProfile?.profile?.type === "Individual" ? (
           <div className={classes.eventsContainer}>

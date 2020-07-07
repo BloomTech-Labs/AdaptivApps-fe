@@ -24,7 +24,7 @@ import Accessibility from "./pages/Landing/Legal/Accessibility";
 import PrivacyPolicy from "./pages/Landing/Legal/PrivacyPolicy";
 import ChatFeature from "./pages/Chat/index";
 import SponsorSpotlight from "./pages/SponsorSpotlight/SponsorSpotlight";
-import ManageUsers from "./pages/ManageUsers";
+import AdminDashboard from "./pages/AdminDashboard";
 import Announcement from "./pages/Announcement";
 import FAQ from "./pages/FAQ";
 import Welcome from "./pages/Welcome";
@@ -167,7 +167,7 @@ function App() {
               <EditActivity path="editActivity/:activityId" />
               <ChatFeature path="chats" />
               <SponsorSpotlight path="/sponsorspotlight" />
-              <ManageUsers path="manageUsers" />
+              <AdminDashboard path="/adminDashboard" />
               <Announcement path="/announcements" />
               <FAQ path="/faqs" />
               <NewsfeedPage path="/community" />

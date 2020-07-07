@@ -116,7 +116,7 @@ export default function NewsfeedPage() {
           {posts.map((post, index) => (
             <NewsfeedCard
               post={post}
-              key={post.id}
+              key={index}
               user={user}
               refetchPosts={refetchPosts}
               profile={profile?.profile}
