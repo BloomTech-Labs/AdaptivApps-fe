@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+// Moment import
+import moment from "moment";
 import config from "../../../config/auth_config";
 // Import graphql
 import { useQuery, useMutation, useSubscription } from "react-apollo";
@@ -21,6 +23,7 @@ import CustomMessageIcon from "../../Chat/components/Messages/CustomMessageIcon"
 // Style Imports
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ModeCommentIcon from "@material-ui/icons/ModeComment";
+import CircleIcon from "@material-ui/icons/FiberManualRecord";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import KeyboardReturnIcon from "@material-ui/icons/KeyboardReturn";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
@@ -30,6 +33,7 @@ import SendIcon from "@material-ui/icons/Send";
 import {
   makeStyles,
   TextField,
+  Box,
   Card,
   CardActionArea,
   CardActions,
@@ -113,10 +117,6 @@ const useStyles = makeStyles(theme => ({
   postedBy: {
     display: "flex",
     alignItems: "center",
-    fontSize: "1.4rem",
-  },
-  postedByName: {
-    marginTop: ".5rem",
     fontSize: "1.4rem",
   },
   icon: {
@@ -238,6 +238,30 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       cursor: "pointer",
     },
+  },
+  postInfoBox: {
+    display: "flex",
+    flexDirection: "column",
+    "& p": {
+      marginTop: "0rem",
+      marginBottom: "0rem",
+      fontSize: "1.4rem",
+    },
+  },
+  nameTimeBox: {
+    display: "flex",
+    alignItems: "center"
+
+  },
+  circleIcon: {
+    color: "gray",
+    fontSize: ".5rem",
+    marginLeft: ".4rem",
+    marginRight: ".4rem"
+  },
+  commentTime: {
+    fontSize: "1.4rem",
+    color: "gray"
   },
   likesCommentsBox: {
     display: "flex",
@@ -416,9 +440,16 @@ export default function NewsfeedCard({
               />
             </button>
           )}
-          <Typography className={classes.postedByName} gutterBottom>
-            {post.postedBy.firstName} {post.postedBy.lastName}
-          </Typography>
+          <Box className={classes.postInfoBox}>
+            <Typography gutterBottom>
+              {post.postedBy.firstName} {post.postedBy.lastName}
+            </Typography>
+            <Typography>
+              {moment(post.createdAt)
+                .startOf("hour")
+                .fromNow()}
+            </Typography>
+          </Box>
         </div>
         {user?.email === post?.postedBy?.email ||
         (user && user[config.roleUrl].includes("Admin")) ? (
@@ -613,9 +644,17 @@ export default function NewsfeedCard({
 
             <div className={classes.commentBox}>
               <div>
-                <Typography className={classes.commentName}>
-                  {comment?.postedBy?.firstName} {comment?.postedBy?.lastName}
-                </Typography>
+                <Box className={classes.nameTimeBox}>
+                  <Typography className={classes.commentName}>
+                    {comment?.postedBy?.firstName} {comment?.postedBy?.lastName}
+                  </Typography>
+                  <CircleIcon className={classes.circleIcon} />
+                  <Typography className={classes.commentTime}>
+                    {moment(comment.createdAt)
+                      .startOf("hour")
+                      .fromNow()}
+                  </Typography>
+                </Box>
                 <Typography className={classes.commentContent} gutterBottom>
                   {comment?.body}
                 </Typography>

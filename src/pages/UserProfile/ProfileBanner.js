@@ -6,7 +6,7 @@ import { useQuery, useMutation } from "react-apollo";
 //Reach Router imports
 // import { useParams } from "@reach/router";
 
-import BannerDefault from "../../assets/images/acs_games_2020.png";
+import BannerDefault from "../../assets/images/DefaultBannerPhoto.png";
 
 // Auth0 imports
 import { useAuth0 } from "../../config/react-auth0-spa";

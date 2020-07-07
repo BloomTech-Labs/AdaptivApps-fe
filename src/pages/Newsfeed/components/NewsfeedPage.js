@@ -72,6 +72,7 @@ export default function NewsfeedPage() {
   const { data, loading, error, refetch: refetchPosts } = useQuery(
     GET_NEWSFEED_POSTS
   );
+
   const {
     data: newsFeedSubsData,
     loading: newsFeedSubsLoading,
