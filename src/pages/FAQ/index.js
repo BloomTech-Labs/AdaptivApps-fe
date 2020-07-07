@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
       textDecoration: "none",
       color: "black",
       fontSize: "1.8rem",
+      fontWeight: "bold"
     },
   },
   headingBox: {
@@ -151,7 +152,7 @@ const FAQ = () => {
             Do I have to register for each activity separately?
           </h3>
           <p>
-            Once you've completed registration for the 2020 Angel City Virtual
+            Once you've completed <a href="https://www.angelcitygames.org/Virtual/Event-Details/Registration">registration</a> for the 2020 Angel City Virtual
             Games presented by the Hartford you are set to attend any and all
             activities throughout all 3 weeks. If you would like for the events
             you are interested to be displayed in the <strong>My Events</strong>{" "}
