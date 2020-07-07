@@ -10,7 +10,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(theme => ({
   root: {
-    margin: "4rem auto 0 auto",
+    margin: "4rem auto 4rem auto",
   },
   title: {
     fontSize: "2.4rem",
