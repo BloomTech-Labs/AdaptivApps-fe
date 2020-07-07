@@ -250,18 +250,17 @@ const useStyles = makeStyles(theme => ({
   },
   nameTimeBox: {
     display: "flex",
-    alignItems: "center"
-
+    alignItems: "center",
   },
   circleIcon: {
     color: "gray",
     fontSize: ".5rem",
     marginLeft: ".4rem",
-    marginRight: ".4rem"
+    marginRight: ".4rem",
   },
   commentTime: {
     fontSize: "1.4rem",
-    color: "gray"
+    color: "gray",
   },
   likesCommentsBox: {
     display: "flex",
@@ -313,9 +312,7 @@ export default function NewsfeedCard({
   const toggleComment = () => {
     setCommenting(!commenting);
   };
-
   console.log("comments", comments);
-
   const addComment = async () => {
     await createComment({
       variables: {
@@ -645,9 +642,17 @@ export default function NewsfeedCard({
             <div className={classes.commentBox}>
               <div>
                 <Box className={classes.nameTimeBox}>
-                  <Typography className={classes.commentName}>
-                    {comment?.postedBy?.firstName} {comment?.postedBy?.lastName}
-                  </Typography>
+                  {comment?.postedBy?.type === "Individual" ? (
+                    <Typography className={classes.commentName}>
+                      {comment?.postedBy?.firstName}{" "}
+                      {comment?.postedBy?.lastName}
+                    </Typography>
+                  ) : (
+                    <Typography className={classes.commentName}>
+                      {comment?.postedBy?.extProfile?.orgName}
+                    </Typography>
+                  )}
+
                   <CircleIcon className={classes.circleIcon} />
                   <Typography className={classes.commentTime}>
                     {moment(comment.createdAt)
