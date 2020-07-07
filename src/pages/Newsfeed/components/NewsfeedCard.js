@@ -155,7 +155,8 @@ const useStyles = makeStyles(theme => ({
   },
   button: {
     fontSize: "3rem",
-    marginRight: "3rem",
+    paddingRight: "0rem",
+    // marginRight: "3rem",
     textTransform: "none",
   },
   commentBox: {
@@ -251,18 +252,17 @@ const useStyles = makeStyles(theme => ({
   },
   nameTimeBox: {
     display: "flex",
-    alignItems: "center"
-
+    alignItems: "center",
   },
   circleIcon: {
     color: "gray",
     fontSize: ".5rem",
     marginLeft: ".4rem",
-    marginRight: ".4rem"
+    marginRight: ".4rem",
   },
   commentTime: {
     fontSize: "1.4rem",
-    color: "gray"
+    color: "gray",
   },
   likesCommentsBox: {
     display: "flex",
@@ -272,6 +272,14 @@ const useStyles = makeStyles(theme => ({
   likesComments: {
     fontSize: "1.5rem",
   },
+  likeBox: {
+    display: "flex",
+    alignItems: "center"
+  },
+ commentsBox: {
+   display: "flex",
+   alignItems: "center"
+ }
 }));
 
 export default function NewsfeedCard({
@@ -315,7 +323,6 @@ export default function NewsfeedCard({
   const toggleComment = () => {
     setCommenting(!commenting);
   };
-
   const addComment = async () => {
     await createComment({
       variables: {
@@ -528,7 +535,7 @@ export default function NewsfeedCard({
             )}
         </CardContent>
       </CardActions>
-      <CardContent className={classes.likesCommentsBox}>
+      {/* <CardContent className={classes.likesCommentsBox}>
         <p className={classes.likesComments}>
           {post.likes.length === 1
             ? "1 Like"
@@ -540,7 +547,7 @@ export default function NewsfeedCard({
                 ? "1 Like"
                 : `${post.likes.length} Likes`
               : `Like`} */}
-        </p>
+        {/* </p>
         <p className={classes.likesComments}>
           {comments.feedComments.length === 1
             ? "1 Comment"
@@ -548,23 +555,24 @@ export default function NewsfeedCard({
               ? `${comments.feedComments.length} Comments`
               : null}
         </p>
-      </CardContent>
+      </CardContent> */} 
       <Divider variant="middle" />
       <CardActions className={classes.cardActions}>
-        <Button
-          color="primary"
-          className={classes.button}
-          onClick={toggleLiked}
-        >
-          {hasLiked() ? (
-            <>
-              <FontAwesomeIcon
-                icon={faThumbsUp}
-                className={classes.thumbupIcon}
-              />
-              <Typography className={classes.cta}>Liked</Typography>
-            </>
-          ) : (
+        <Box className={classes.likeBox}>
+          <Button
+            color="primary"
+            className={classes.button}
+            onClick={toggleLiked}
+          >
+            {hasLiked() ? (
+              <>
+                <FontAwesomeIcon
+                  icon={faThumbsUp}
+                  className={classes.thumbupIcon}
+                />
+                <Typography className={classes.cta}>Liked</Typography>
+              </>
+            ) : (
               <>
                 <FontAwesomeIcon
                   icon={farFaThumbsUp}
@@ -573,7 +581,18 @@ export default function NewsfeedCard({
                 <Typography className={classes.cta}>Like</Typography>
               </>
             )}
-        </Button>
+          </Button>
+          <CircleIcon className={classes.circleIcon} />
+          <p className={classes.likesComments}>
+            {post.likes.length === 0
+              ? "0"
+              : post.likes.length > 0
+              ? `${post.likes.length}`
+              : null}
+          </p>
+        </Box>
+        <Box className={classes.commentsBox}>
+
         <Button
           color="primary"
           className={classes.button}
@@ -585,6 +604,15 @@ export default function NewsfeedCard({
           />
           <Typography className={classes.cta}>Comment</Typography>
         </Button>
+        <CircleIcon className={classes.circleIcon}/>
+        <p className={classes.likesComments}>
+          {comments.feedComments.length === 0
+            ? "0"
+            : comments.feedComments.length > 0
+            ? `${comments.feedComments.length}`
+            : null}
+        </p>
+        </Box>
       </CardActions>
 
       <Divider variant="middle" />
@@ -654,9 +682,17 @@ export default function NewsfeedCard({
             <div className={classes.commentBox}>
               <div>
                 <Box className={classes.nameTimeBox}>
-                  <Typography className={classes.commentName}>
-                    {comment?.postedBy?.firstName} {comment?.postedBy?.lastName}
-                  </Typography>
+                  {comment?.postedBy?.type === "Individual" ? (
+                    <Typography className={classes.commentName}>
+                      {comment?.postedBy?.firstName}{" "}
+                      {comment?.postedBy?.lastName}
+                    </Typography>
+                  ) : (
+                    <Typography className={classes.commentName}>
+                      {comment?.postedBy?.extProfile?.orgName}
+                    </Typography>
+                  )}
+
                   <CircleIcon className={classes.circleIcon} />
                   <Typography className={classes.commentTime}>
                     {moment(comment.createdAt)
